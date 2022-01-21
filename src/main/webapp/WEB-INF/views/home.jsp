@@ -11,3 +11,4 @@
 		<P>The time on the server is ${serverTime}.</P>
 	</body>
 </html>
+<jsp:include page="common/footer.jsp"/>
