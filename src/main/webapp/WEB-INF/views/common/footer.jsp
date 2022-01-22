@@ -19,7 +19,7 @@
 		<div class="area-2">
 			<div class="detail-info">
 				<ul>
-					<li>(주)뜨또</li>
+					<li><strong>(주)뜨또</strong></li>
 					<li>서울특별시 중구 남대문로 120 대일빌딩 2층</li>
 					<li>대표 : 우혜진</li>
 				</ul>

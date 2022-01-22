@@ -24,12 +24,14 @@ footer .area-1 > img {
 }
 
 footer .list {line-height: 80px;}
-footer .list > ul {display: flex; }
+footer .list > ul {display: flex;}
 
 footer .list > ul > li {
 	margin-left: 100px;
 	font-size: 15px;
 }
+
+footer .list > ul > li:last-child {margin-right: 5px;}
 
 footer .area-2 {margin-top: 10px;}
 
@@ -67,7 +69,13 @@ footer .sns > ul {
 }
 
 footer #facebook {color: #435A92;}
-footer #insta {color: #D92A74;}
+
+footer #insta {
+	background: linear-gradient(to left bottom, #8539B5, #FE1C1E, #FDA742);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
 footer #youtube {color: #FF0000;}
 
 footer .announce > span {
