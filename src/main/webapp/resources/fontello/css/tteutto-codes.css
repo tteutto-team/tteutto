@@ -1,4 +1,5 @@
 
+.icon-search:before { content: '\e800'; } /* '' */
 .icon-instagram:before { content: '\f05d'; } /* '' */
 .icon-youtube:before { content: '\f16a'; } /* '' */
 .icon-facebook:before { content: '\f301'; } /* '' */

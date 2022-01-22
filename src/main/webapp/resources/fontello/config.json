@@ -23,6 +23,12 @@
       "css": "youtube",
       "code": 61802,
       "src": "fontawesome"
+    },
+    {
+      "uid": "221947bea81f49a11b863c686a7bd235",
+      "css": "search",
+      "code": 59392,
+      "src": "websymbols"
     }
   ]
 }
