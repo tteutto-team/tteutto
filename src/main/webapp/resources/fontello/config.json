@@ -47,6 +47,24 @@
       "css": "open",
       "code": 59397,
       "src": "entypo"
+    },
+    {
+      "uid": "474656633f79ea2f1dad59ff63f6bf07",
+      "css": "star",
+      "code": 59393,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "c0a07aca383ff2a164a4d691fa46e35c",
+      "css": "left",
+      "code": 59395,
+      "src": "elusive"
+    },
+    {
+      "uid": "dc4a03854ef986d64565143bea4241aa",
+      "css": "right",
+      "code": 59396,
+      "src": "elusive"
     }
   ]
 }
