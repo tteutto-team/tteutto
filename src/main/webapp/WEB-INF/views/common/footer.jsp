@@ -4,14 +4,14 @@
 
 <footer>
 	<div class="content">
-		<div class="area-1">
+		<div class="area-1 prevent-dragging">
 			<img src="${contextPath}/resources/images/common/TTEUTTO ver.1.png" alt="뜨또 로고 이미지">
 			<div class="list">
 				<ul>
-					<li><a href="#">공지사항</a></li>
-					<li><a href="#">FAQ</a></li>
-					<li><a href="#">이용약관</a></li>
-					<li><a href="#">개인정보 처리방침</a></li>
+					<li><a href="#" target="_blank">공지사항</a></li>
+					<li><a href="#" target="_blank">FAQ</a></li>
+					<li><a href="#" target="_blank">이용약관</a></li>
+					<li><a href="#" target="_blank">개인정보 처리방침</a></li>
 				</ul>
 			</div>
 		</div>

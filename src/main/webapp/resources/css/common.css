@@ -1,4 +1,47 @@
+::selection {background-color: #FFDF3E;}
 
+.prevent-dragging {
+  -ms-user-select: none; 
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* -------------------------------------------------- */
+
+header {
+	display: flex;
+	border-bottom: 1px solid #E0E0E0;
+	width: 100%;
+	height: 100px;
+	line-height: 95px;
+}
+
+header .logo > a > img {
+	width: auto;
+	height: 100px;
+}
+
+header .search {margin-left: 35px;}
+
+header .search > form > input {
+	margin-top: 32px;
+	padding-left: 25px;
+	border-radius: 30px;
+	border: none;
+	width: 500px;
+	height: 50px;
+	background-color: #FFF9D8;
+	font-size: 18px;
+}
+
+header .search > form > input:focus {
+	outline: 3px solid #FFDF3E;
+	background-color: transparent;
+}
+
+/* -------------------------------------------------- */
 
 footer {
 	margin-top: 40px;

@@ -28,7 +28,21 @@
 		<link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 		<link rel="stylesheet" href="${contextPath}/resources/fontello/css/tteutto.css">
 	</head>
+	
 	<body>
-
+		<header>
+			<div class="logo">
+				<a href="#">
+				<img src="${contextPath}/resources/images/common/TTEUTTO ver.2.png" alt="뜨또 로고 이미지">
+			</a></div>
+			
+			<div class="search">
+				<form action="#" method="get">
+					<input type="text" placeholder="듣고 싶은 클래스를 찾아보세요." name="search">
+				</form>
+			</div>
+			
+			<div></div>
+		</header>
 	</body>
 </html>
