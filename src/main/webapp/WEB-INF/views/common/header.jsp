@@ -56,16 +56,16 @@
 					<ul class="login">
 						<li><a href="#">강사 신청하기</a></li>
 						
-						<li><a href="#">
+						<li><a href="${contextPath}/my/favorite">
 							<i class="icon-heart"></i>
 						</a></li>
 						
 						<li><a href="#">
-							<i class="icon-chat"></i>
+							<i class="icon-chat" id="chat"></i>
 						</a></li>
 						
 						<li class="profile">
-							<img src="${contextPath}/resources/images/profile/temp.png">
+							<img src="${contextPath}/resources/images/profile/temp.png" alt="프로필 이미지">
 							<a href="#"><i class="icon-open"></i>
 						</a></li>
 					</ul>
