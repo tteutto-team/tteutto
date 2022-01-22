@@ -25,6 +25,8 @@
 		<meta name="msapplication-TileImage" content="${contextPath}/resources/images/favicon/ms-icon-144x144.png">
 		<meta name="theme-color" content="#ffffff">
 		<title>뜨또 | 뜨겁게 또 시작해보자! 전국의 모든 오프라인 클래스, 뜨또에서 찾아보세요.</title>
+		<link rel="stylesheet" href="${contextPath}/resources/css/common.css">
+		<link rel="stylesheet" href="${contextPath}/resources/fontello/css/tteutto.css">
 	</head>
 	<body>
 
