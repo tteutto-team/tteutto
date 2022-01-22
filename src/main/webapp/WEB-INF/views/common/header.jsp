@@ -45,10 +45,29 @@
 					</div>
 				</div>
 				
-				<div class="login">
-					<ul>
+				<div class="prevent-dragging">
+					<!-- 미로그인 시 노출되는 메뉴
+					<ul class="logout">
 						<li><a href="#">강사 신청하기</a></li>
 						<li><a href="#">로그인</a></li>
+					</ul>
+					 -->
+
+					<ul class="login">
+						<li><a href="#">강사 신청하기</a></li>
+						
+						<li><a href="#">
+							<i class="icon-heart"></i>
+						</a></li>
+						
+						<li><a href="#">
+							<i class="icon-chat"></i>
+						</a></li>
+						
+						<li class="profile">
+							<img src="${contextPath}/resources/images/profile/temp.png">
+							<a href="#"><i class="icon-open"></i>
+						</a></li>
 					</ul>
 				</div>
 			</div>

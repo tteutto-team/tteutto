@@ -10,7 +10,7 @@
 }
 
 /* home.jsp 테스트용 */
-.test {
+.home .test {
 	margin: auto;
 	width: 1200px;
 }
@@ -59,10 +59,29 @@ header .search > form > input:focus {
 	background-color: transparent;
 }
 
-header .login > ul > li {
+header .logout > li {
 	margin-left: 80px;
 	padding-top: 10px;
 	font-size: 15px;
+}
+
+header .login > li {
+	margin-left: 25px;
+    padding-top: 10px;
+    font-size: 15px;
+}
+
+header .profile {
+	display: table;
+	padding-top: 9px !important;
+}
+
+header .profile > * {vertical-align: middle;}
+
+header .profile > img {
+	border-radius: 50%;
+	width: 30px;
+	height: auto;
 }
 
 header ul {
@@ -101,9 +120,9 @@ footer .area-1 > img {
 	width: 200px;
 	height: auto;
 }
-
-footer .list {line-height: 80px;}
-footer .list > ul {display: flex;}
+  
+footer .list {line-height: 80px; max-height: 80px; }
+footer .list > ul {display: flex; padding-top: 8px; }
 
 footer .list > ul > li {
 	margin-left: 100px;

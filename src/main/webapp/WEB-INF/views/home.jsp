@@ -6,7 +6,7 @@
 	<head>
 		<title>Home</title>
 	</head>
-	<body>
+	<body class="home">
 		<div class="test">
 			<h1>Hello world!</h1>
 			<P>The time on the server is ${serverTime}.</P>
