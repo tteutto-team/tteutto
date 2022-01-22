@@ -15,11 +15,22 @@
 
 .search #line-up {margin-right: 16px;}
 
-.search .yes {display: flex;}
-.search .yes > ul {display: flex;}
+.search .no > .announce > .title {text-align: center;}
+
+.search .no > .announce > span {
+	display: block;
+	text-align: center;
+}
+
+.search .announce {margin-bottom: 100px;}
+
+.search .list {display: flex;}
+.search .list > ul {width: 1200px;}
 
 .search .item {
+    float: left;
 	margin: 15px;
+	margin-bottom: 30px;
 	width: 270px;
     height: 415px;
 }

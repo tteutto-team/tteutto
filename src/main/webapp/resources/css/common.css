@@ -9,8 +9,7 @@
   user-select: none;
 }
 
-/* home.jsp 테스트용 */
-.home .test {
+.test {
 	margin: auto;
 	width: 1200px;
 }
