@@ -9,7 +9,7 @@
 	</head>
 	<body class="home">
 		<div class="test">
-			<h1>Hello world!</h1>
+			<h1>Hello world! 바보!</h1>
 			<P>The time on the server is ${serverTime}.</P>
 		</div>
 	</body>
