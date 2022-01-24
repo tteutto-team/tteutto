@@ -11,7 +11,7 @@
 					<li><a href="#" target="_blank">공지사항</a></li>
 					<li><a href="#" target="_blank">FAQ</a></li>
 					<li><a href="#" target="_blank">이용약관</a></li>
-					<li><a href="#" target="_blank">개인정보 처리방침</a></li>
+					<li><a href="#" target="_blank"><strong>개인정보 처리방침</strong></a></li>
 				</ul>
 			</div>
 		</div>
