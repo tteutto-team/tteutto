@@ -8,9 +8,9 @@
 		<title>Home</title>
 	</head>
 	<body class="home">
-		<div class="test">
-
-		</div>
+        <main>
+            
+        </main>
 	</body>
 </html>
 <jsp:include page="common/footer.jsp"/>

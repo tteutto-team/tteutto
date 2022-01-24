@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MainContoller {
 
-	@RequestMapping("/main/search")
+	// 클래스 검색 목록
+	@RequestMapping("/main/searchList")
 	public String searchList() {
-		return "main/search";
+		return "main/searchList";
 	}
 }

@@ -1,8 +1,22 @@
+* {box-sizing: border-box;}
+
 body {font-family: 'IBM Plex Sans KR', sans-serif;}
 
 main {
     margin: auto;
     width: 1200px;
+}
+
+* ul {
+	display: flex;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+* a {
+	text-decoration: none;
+	color: black;
 }
 
 ::selection {background-color: #FFDF3E;}
@@ -90,18 +104,6 @@ header .profile > img {
 	height: auto;
 }
 
-header ul {
-	display: flex;
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-}
-
-header a {
-	text-decoration: none;
-	color: black;
-}
-
 /* ----- footer --------------------------------------------- */
 
 footer {
@@ -109,7 +111,7 @@ footer {
 	padding: 20px 0;
 	border-top: 1px solid #E0E0E0;
 	width: 100%;
-	height: 200px;
+	height: 230px;
 	background-color: white;
 }
 
@@ -198,14 +200,19 @@ footer .announce > span {
 	line-height: 10px;
 }
 
-footer ul {
-	display: flex;
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
+/* ----- 이용약관 --------------------------------------------- */
+
+.terms .header {
+    padding-bottom: 40px;
+    border-bottom: 2px solid #bebebe;
+    color: #BF5846;
+    font-size: 35px;
+	text-align: center;
 }
 
-footer a {
-	text-decoration: none;
-	color: black;
+.terms .view {
+	padding: 45px 0 0 30px;
+    line-height: 2;
 }
+
+.terms .content {margin-bottom: 60px;}
