@@ -7,6 +7,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- favicon -->
 		<link rel="apple-touch-icon" sizes="57x57" href="${contextPath}/resources/images/favicon/apple-icon-57x57.png">
 		<link rel="apple-touch-icon" sizes="60x60" href="${contextPath}/resources/images/favicon/apple-icon-60x60.png">
 		<link rel="apple-touch-icon" sizes="72x72" href="${contextPath}/resources/images/favicon/apple-icon-72x72.png">
@@ -26,7 +27,11 @@
 		<meta name="theme-color" content="#ffffff">
 		<title>뜨또 | 뜨겁게 또 시작해보자! 전국의 모든 오프라인 클래스, 뜨또에서 찾아보세요.</title>
 		<link rel="stylesheet" href="${contextPath}/resources/css/common.css">
-		<link rel="stylesheet" href="${contextPath}/resources/fontello/css/tteutto.css">
+		<link rel="stylesheet" href="${contextPath}/resources/fontello/css/tteutto.css"> <!-- fontello -->
+		<!-- font -->
+	    <link rel="preconnect" href="https://fonts.googleapis.com">
+	    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 	</head>
 	
 	<body>
@@ -38,6 +43,7 @@
 						<img src="${contextPath}/resources/images/common/TTEUTTO ver.2.png" alt="뜨또 로고 이미지">
 					</a></div>
 					
+					<!-- 클래스 검색 -->
 					<div class="search">
 						<form action="#" method="get">
 							<input type="text" placeholder="듣고 싶은 클래스를 찾아보세요." name="search">
@@ -56,15 +62,19 @@
 					<ul class="login">
 						<li><a href="#">강사 신청하기</a></li>
 						
+						<!-- 찜한 클래스 -->
 						<li><a href="${contextPath}/my/favorite">
 							<i class="icon-heart"></i>
 						</a></li>
 						
+						<!-- 1:1 채팅 / 쪽지 -->
 						<li><a href="#">
 							<i class="icon-chat" id="chat"></i>
 						</a></li>
 						
+						<!-- 프로필 -->
 						<li class="profile">
+							<!-- 프로필이미지 -->
 							<img src="${contextPath}/resources/images/profile/temp.png" alt="프로필 이미지">
 							<a href="#"><i class="icon-open"></i>
 						</a></li>

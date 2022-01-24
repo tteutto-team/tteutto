@@ -1,30 +1,119 @@
 .search .title {
 	margin-bottom: 0;
-    padding: 30px 40px 20px;
+    padding: 0 40px 20px;
 	font-size: 40px;
+	font-weight: 500;
 }
 
-.search .select {text-align: right;}
+/* ----- 옵션 선택 --------------------------------------------- */
 
-.search .box {
-	margin: 10px 7px;
-	width: 150px;
-    height: 40px;
-    font-size: 15px;
+.search button {font-family: 'IBM Plex Sans KR', sans-serif;}
+
+.cont-select {
+  position: relative;
+  width: 180px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.search #line-up {margin-right: 16px;}
+.btn-select {
+  width: 100%;
+  padding: 13px 30px 13px 14px;
+  font-size: 15px;
+  line-height: 14px;
+  background-color: #fff;
+  border: 1px solid #C4C4C4;
+  box-sizing: border-box;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  background: url("../images/common/more_icon.png") center right 14px no-repeat;
+  /* 말줄임 */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 
-.search .yes {display: flex;}
-.search .yes > ul {display: flex;}
+.btn-select:hover,
+.btn-select:focus {
+  border: 1px solid #e6c317;
+  outline: 3px solid #FFDF3E;
+}
+
+.list-member {
+  background: white;
+  list-style-type: none;
+  display: none;
+  position: absolute;
+  width: 100%;
+  top: 49px;
+  left: 0;
+  border: 1px solid #C4C4C4;
+  box-sizing: border-box;
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.btn-select.on {
+  background: url("../images/common/close_icon.png") center right 14px no-repeat;
+}
+
+.btn-select.on+.list-member {
+  display: block;
+}
+
+.list-member li {
+  left:0;
+  height: 40px;
+  padding: 5px 8px;
+  box-sizing: border-box;
+}
+
+.list-member li button {
+  width: 100%;
+  padding: 7px 10px;
+  border: none;
+  background-color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  /* 말줄임 */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.list-member li button:hover,
+.list-member li button:focus {
+  background-color: #FFDF3E;
+}
+
+/* ----- 클래스 카드 --------------------------------------------- */
+
+.search .no > .announce > .title {text-align: center;}
+
+.search .no > .announce > span {
+	display: block;
+	text-align: center;
+}
+
+.search .announce {margin-bottom: 100px;}
+
+/* .search .list {display: flex;}
+.search .list > ul {width: 1200px;}
 
 .search .item {
+    float: left;
 	margin: 15px;
+	margin-bottom: 30px;
 	width: 270px;
     height: 415px;
 }
 
 .search .image {overflow: hidden;}
+
 .search .image:hover img {
 	transform:scale(1.1);
 	transition: transform .5s;
@@ -85,7 +174,7 @@
 .search .price {
 	font-size: 27px;
     font-weight: bold;
-}
+} */
 
 .search ul {
     padding: 0;
@@ -98,22 +187,25 @@
 	color: black;
 }
 
-/* -------------------------------------------------- */
+/* ----- 페이지네이션 --------------------------------------------- */
 
-.pagination {
-	text-align: center;
-    margin-top: 40px;
-    font-size: 20px;
+.page-number {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
 }
 
-.pagination .arrow:hover {color: #FFDF3E;}
-
-.pagination .num {
-	display: inline-block;
-	width: 30px;
+.page-ul {
+    display: flex;
 }
 
-.pagination > span {
-	color: #FFDF3E;
-	font-weight: bold;
+.page-ul > li {
+    text-align: center;
+    line-height: 28px;
+    width: 30px;
+    height: 30px;
+}
+
+.page-ul > li > a {
+    display: block;
 }
