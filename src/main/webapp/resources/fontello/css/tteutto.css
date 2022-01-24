@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'tteutto';
-  src: url('../font/tteutto.eot?24520302');
-  src: url('../font/tteutto.eot?24520302#iefix') format('embedded-opentype'),
-       url('../font/tteutto.woff2?24520302') format('woff2'),
-       url('../font/tteutto.woff?24520302') format('woff'),
-       url('../font/tteutto.ttf?24520302') format('truetype'),
-       url('../font/tteutto.svg?24520302#tteutto') format('svg');
+  src: url('../font/tteutto.eot?61101158');
+  src: url('../font/tteutto.eot?61101158#iefix') format('embedded-opentype'),
+       url('../font/tteutto.woff2?61101158') format('woff2'),
+       url('../font/tteutto.woff?61101158') format('woff'),
+       url('../font/tteutto.ttf?61101158') format('truetype'),
+       url('../font/tteutto.svg?61101158#tteutto') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'tteutto';
-    src: url('../font/tteutto.svg?24520302#tteutto') format('svg');
+    src: url('../font/tteutto.svg?61101158#tteutto') format('svg');
   }
 }
 */
@@ -55,10 +55,7 @@
 }
 
 .icon-search:before { content: '\e800'; } /* '' */
-.icon-star:before { content: '\e801'; } /* '' */
 .icon-heart:before { content: '\e802'; } /* '' */
-.icon-left:before { content: '\e803'; } /* '' */
-.icon-right:before { content: '\e804'; } /* '' */
 .icon-open:before { content: '\e805'; } /* '' */
 .icon-chat:before { content: '\f03d'; } /* '' */
 .icon-instagram:before { content: '\f05d'; } /* '' */

@@ -1,3 +1,10 @@
+body {font-family: 'IBM Plex Sans KR', sans-serif;}
+
+main {
+    margin: auto;
+    width: 1200px;
+}
+
 ::selection {background-color: #FFDF3E;}
 
 /* 드래그 방지 */
@@ -9,16 +16,13 @@
   user-select: none;
 }
 
-.test {
-	margin: auto;
-	width: 1200px;
-}
-
-/* -------------------------------------------------- */
+/* ----- header --------------------------------------------- */
 
 header {
+	margin-bottom: 80px;
 	border-bottom: 1px solid #E0E0E0;
 	width: 100%;
+	background-color: white;
 	line-height: 95px;
 }
 
@@ -32,7 +36,7 @@ header .content {
 
 header .main {
 	display: flex;
-	width: 820px;
+	width: 750px;
 }
 
 header .logo > a > img {
@@ -40,16 +44,17 @@ header .logo > a > img {
 	height: 100px;
 }
 
-header .search {margin-left: 35px;}
+header .search {margin-left: 15px;}
 
 header .search > form > input {
 	margin-top: 32px;
 	padding-left: 25px;
 	border-radius: 30px;
 	border: none;
-	width: 500px;
+	width: 530px;
 	height: 50px;
 	background-color: #FFF9D8;
+	font-family: 'IBM Plex Sans KR', sans-serif;
 	font-size: 18px;
 }
 
@@ -65,7 +70,7 @@ header .logout > li {
 }
 
 header .login > li {
-	margin-left: 25px;
+	margin-left: 30px;
     padding-top: 10px;
     font-size: 15px;
 }
@@ -97,7 +102,7 @@ header a {
 	color: black;
 }
 
-/* -------------------------------------------------- */
+/* ----- footer --------------------------------------------- */
 
 footer {
 	margin-top: 80px;
@@ -105,6 +110,7 @@ footer {
 	border-top: 1px solid #E0E0E0;
 	width: 100%;
 	height: 200px;
+	background-color: white;
 }
 
 footer .content {
@@ -122,8 +128,15 @@ footer .area-1 > img {
 	height: auto;
 }
   
-footer .list {line-height: 80px; max-height: 80px; }
-footer .list > ul {display: flex; padding-top: 8px; }
+footer .list {
+	max-height: 80px;
+	line-height: 80px;
+}
+
+footer .list > ul {
+	display: flex;
+	padding-top: 8px;
+}
 
 footer .list > ul > li {
 	margin-left: 100px;
@@ -180,7 +193,7 @@ footer #youtube {color: #FF0000;}
 footer .announce > span {
 	display: inline-block;
 	margin-top: 10px;
-    margin-left: 80px;
+    margin-left: 90px;
 	font-size: 14px;
 	line-height: 10px;
 }
