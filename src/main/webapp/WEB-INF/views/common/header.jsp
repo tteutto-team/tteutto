@@ -46,7 +46,10 @@
 					<!-- 클래스 검색 -->
 					<div class="search">
 						<form action="${contextPath}/main/searchList?${param.search}" method="get">
-							<input type="text" placeholder="듣고 싶은 클래스를 찾아보세요." name="search">
+							<div class="search-icon">
+								<input type="text" placeholder="듣고 싶은 클래스를 찾아보세요." name="search">
+								<i class="icon-search"></i>
+							</div>
 						</form>
 					</div>
 				</div>

@@ -60,22 +60,36 @@ header .logo > a > img {
 
 header .search {margin-left: 15px;}
 
-header .search > form > input {
+header .search-icon {position: relative;}
+
+header .search-icon > i {
+	position: absolute;
+    left: 480px;
+    top: 10px;
+    color: #6C6C6C;
+    font-size: 25px;
+}
+
+header .search-icon > input {
 	margin-top: 32px;
 	padding-left: 25px;
 	border-radius: 30px;
 	border: none;
 	width: 530px;
 	height: 50px;
-	background-color: #FFF9D8;
+	background-color: #F0F0F0;
 	font-family: 'IBM Plex Sans KR', sans-serif;
 	font-size: 18px;
 }
 
-header .search > form > input:focus {
+header .search-icon > input:focus {
 	outline: 3px solid #FFDF3E;
 	background-color: transparent;
 }
+
+header .search-icon > input:focus i {
+	color: #FFDF3E;
+}   
 
 header .logout > li {
 	margin-left: 80px;
