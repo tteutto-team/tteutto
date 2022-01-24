@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
 integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" 
         crossorigin="anonymous"/>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
 
 <main>
 	<div class="searchList">
@@ -24,7 +23,7 @@ integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg
 		 
 		<!-- 검색 결과가 있을 때의 화면 -->
 		<div class="yes">
-			<h1 class="title"><span>'캔들'</span>에 대한 클래스 검색 결과</h1> <!-- 검색 키워드 -->
+			<h1 class="title"><span>'${param.search}'</span>에 대한 클래스 검색 결과</h1> <!-- 검색 키워드 -->
 			
 			<div class="select">
 				<!-- 옵션 선택 -->
@@ -108,6 +107,7 @@ integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg
 
 <jsp:include page="../common/footer.jsp"/>
 
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
 <script>
 /* 옵션 선택 */
 const btn = document.querySelectorAll('.btn-select');

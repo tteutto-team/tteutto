@@ -45,7 +45,7 @@
 					
 					<!-- 클래스 검색 -->
 					<div class="search">
-						<form action="#" method="get">
+						<form action="${contextPath}/main/searchList?${param.search}" method="get">
 							<input type="text" placeholder="듣고 싶은 클래스를 찾아보세요." name="search">
 						</form>
 					</div>
@@ -69,7 +69,10 @@
 						
 						<!-- 1:1 채팅 / 쪽지 -->
 						<li><a href="#">
-							<i class="icon-chat" id="chat"></i>
+							<i class="icon-chat" id="chat">
+								<!-- 알림 표시 -->
+								<span class="alert">2</span>
+							</i>
 						</a></li>
 						
 						<!-- 프로필 -->
