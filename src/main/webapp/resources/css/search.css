@@ -56,13 +56,9 @@
   z-index: 1;
 }
 
-.btn-select.on {
-  background: url("../images/common/close_icon.png") center right 14px no-repeat;
-}
+.btn-select.on {background: url("../images/common/close_icon.png") center right 14px no-repeat;}
 
-.btn-select.on+.list-member {
-  display: block;
-}
+.btn-select.on+.list-member {display: block;}
 
 .list-member li {
   left:0;
@@ -85,10 +81,7 @@
   overflow: hidden;
 }
 
-.list-member li button:hover,
-.list-member li button:focus {
-  background-color: #FFDF3E;
-}
+.list-member li button:hover, .list-member li button:focus {background-color: #FFDF3E;}
 
 /* ----- 클래스 카드 --------------------------------------------- */
 
@@ -101,80 +94,193 @@
 
 .search .announce {margin-bottom: 100px;}
 
-/* .search .list {display: flex;}
-.search .list > ul {width: 1200px;}
-
-.search .item {
-    float: left;
-	margin: 15px;
-	margin-bottom: 30px;
-	width: 270px;
-    height: 415px;
+.location-class, .hot-class, .new-class {
+    width: 100%;
+    height: 500px;
+    margin-top: 100px;
 }
 
-.search .image {overflow: hidden;}
+.location-class {margin-top: 70px;}
 
-.search .image:hover img {
-	transform:scale(1.1);
-	transition: transform .5s;
-	filter: opacity(0.7);
+.location-class-top, .hot-class-top {
+    height: 40px;
+    border-bottom: 1px solid #ccc;
 }
 
-.search .image > img {
-	border-radius: 2%;
-	width: 100%;
-    height: 240px;
+.location-class-bottom {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.location-class-bottom, .hot-class-bottom, .new-class-bottom {margin-top: 20px;}
+
+.location-class a, .hot-class a, .new-class a {
+    display: inline-block;
+    height: 20px;
+    font-size: 17px;
+}
+
+.fi-rr-angle-small-right:before {margin: 15px;}
+
+.locatio {float: right;}
+.location p {display: inline-block;}
+
+.class {
+	float: left;
+    width: 252px;
+    height: 422px;
+    border: 1px solid gainsboro;
+    box-shadow: 3px 2px 5px 2px #0000001a;
+    border-radius: 5px;
+    position: relative;
+    margin: 0 9px;
+}
+
+.class img {
+    width: 252px;
+    height: 252px;
+    position: relative;
     object-fit: cover;
     transform:scale(1.0);        
-    transition: transform .5s; 
+    transition: transform .5s;
 }
 
-.search .detail {
-	width: 100%;
-	height: 170px;
+.detail-info {
+    padding: 13px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
-.search .area-1 {
-	display: flex;
-    justify-content: space-between;
-    padding: 15px 0;
+.category-name {font-size: 12px;}
+
+.grade {margin-top: 8px;}
+
+.grade > span {margin-right: 10px;}
+
+.detail-info-bottom {
+    position: absolute;
+    width: 224px;
+    bottom: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
 }
 
-.search .teacher > * {vertical-align: middle;}
+.detail-info-bottom > * {vertical-align: middle;}
 
-.search .teacher > img {
+.detail-info-bottom > img {
 	border-radius: 50%;
 	width: 26px;
 	height: auto;
 }
 
-.search .area-2 {
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 27px;
+.teacher-name {font-size: 15px;}
+
+.class-price {
+    font-size: 15px;
+    float: right;
+    padding-top: 1px; /* 추가 */
 }
 
-.search .area-3 {
-	display: flex;
-    justify-content: space-between;
-    padding: 15px 0;
+/* 이미지 확대 */
+.class {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transition: all 0.3s ease-in-out; /* 부드러운 모션을 위해 추가*/
 }
 
-.search .rating {
-	padding-top: 10px;
-    max-height: 36px;
+.class .image {overflow: hidden;}
+
+.class .image:hover img {
+	transform:scale(1.1);
+	transition: transform .5s;
+	filter: opacity(0.7);
 }
 
-.search .star {
-	float: left;
-	font-size: 18px;
-    color: #FFDF3E;
+/* 찜하기 */
+.btn_like {
+	position: relative;
+  	margin: 100px auto;
+  	display: block;
+  	width: 44px;
+  	height: 44px;
+  	border: 1px solid #e8e8e8;
+  	border-radius: 44px; 
+  	font-family: notokr-bold,sans-serif;
+  	font-size: 14px;
+  	line-height: 16px;
+  	background-color: #fff;
+  	color: #DD5D54;
+  	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.03);
+  	transition: border .2s ease-out,box-shadow .1s ease-out,background-color .4s ease-out;
+  	cursor: pointer;
+  	position: absolute;
+  	top: 10px;
+  	margin: 0;
+  	right: 10px;
 }
 
-.search .price {
-	font-size: 27px;
-    font-weight: bold;
-} */
+.btn_like:hover {
+	border: 1px solid rgba(228,89,89,0.3);
+	background-color: rgba(228,89,89,0.02);
+	box-shadow: 0 2px 4px 0 rgba(228,89,89,0.2);
+}
+
+.btn_unlike .img_emoti {background-position: -30px -120px;}
+
+.img_emoti {
+    display: inline-block;
+    overflow: hidden;
+    font-size: 0;
+    line-height: 0;
+    background: url(https://mk.kakaocdn.net/dn/emoticon/static/images/webstore/img_emoti.png?v=20180410) no-repeat;
+    text-indent: -9999px;
+    vertical-align: top;
+    width: 20px;
+    height: 17px;
+    margin-top: 1px;
+    background-position: 0px -120px;
+    text-indent: 0;
+}
+
+.btn_like .ani_heart_m {margin: -63px 0 0 -63px;}
+
+.ani_heart_m {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 125px;
+    height: 125px;
+    margin: -63px 0 0 -63px;
+    pointer-events: none;
+}
+
+.ani_heart_m.hi {
+    background-image: url(https://mk.kakaocdn.net/dn/emoticon/static/images/webstore/retina/zzim_on_m.png);
+    -webkit-background-size: 9000px 125px;
+    background-size: 9000px 125px;
+    animation: on_m 1.06s steps(72);
+}
+
+.ani_heart_m.bye {
+    background-image: url(https://mk.kakaocdn.net/dn/emoticon/static/images/webstore/retina/zzim_off_m.png);
+    -webkit-background-size: 8250px 125px;
+    background-size: 8250px 125px;
+    animation: off_m 1.06s steps(66);
+}
+
+@keyframes on_m {
+  from { background-position: 0 }
+  to { background-position: -9000px }
+}
+
+@keyframes off_m {
+  from { background-position: 0 }
+  to { background-position: -8250px }
+}
 
 .search ul {
     padding: 0;
