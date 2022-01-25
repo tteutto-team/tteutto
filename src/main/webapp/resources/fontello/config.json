@@ -44,8 +44,14 @@
     },
     {
       "uid": "8704cd847a47b64265b8bb110c8b4d62",
-      "css": "open",
+      "css": "open-1",
       "code": 59397,
+      "src": "entypo"
+    },
+    {
+      "uid": "9c7ff134960bb5a82404e4aeaab366d9",
+      "css": "open",
+      "code": 59393,
       "src": "entypo"
     }
   ]

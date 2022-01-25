@@ -144,15 +144,50 @@ header ul {display: flex;}
 /* ----- header -> modal --------------------------------------------- */
 
 header .modal {
-	width: 200px;
+	display: none;
     position: absolute;
-    z-index: 500;
-    border-radius: 10px;
-    box-shadow: rgb(41 42 43 / 20%) 0px 8px 10px 0px;
     top: 82px;
     right: -10px;
-    padding: 20px;
-    background-color: #FFDF3E;
+    z-index: 500;
+    padding: 15px;
+    border-radius: 10px;
+	width: 200px;
+    background-color: white;
+    box-shadow: rgb(41 42 43 / 20%) 0px 8px 10px 0px;
+    color: #343434;
+    line-height: 20px;
+}
+
+header .modal-1 {
+	display: flex;
+	padding-bottom: 10px;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+header .modal-1 > img {
+	display: flex;
+	margin-right: 10px;
+	border-radius: 50%;
+	width: 45px;
+	height: 45px;    
+}
+
+header .user, .modal-2 {
+	display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+	width: 100%;
+}
+
+header .user-name {font-size: 16px;}
+
+header .my-page {font-size: 13px;}
+header .my-page > a {color: #BF5846;}
+
+header .modal-2 {
+	margin-top: 10px;
+    font-size: 14px;
+    line-height: 25px;
 }
 
 /* ----- footer --------------------------------------------- */
@@ -252,20 +287,3 @@ footer .announce > span {
 }
 
 footer ul {display: flex;}
-
-/* ----- 이용약관 --------------------------------------------- */
-
-.terms .header {
-    padding-bottom: 40px;
-    border-bottom: 2px solid #bebebe;
-    color: #BF5846;
-    font-size: 35px;
-	text-align: center;
-}
-
-.terms .view {
-	padding: 45px 0 0 30px;
-    line-height: 2;
-}
-
-.terms .content {margin-bottom: 60px;}
