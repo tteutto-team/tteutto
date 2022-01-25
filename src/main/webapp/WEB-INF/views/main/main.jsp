@@ -16,13 +16,16 @@
         <div class="carousel-inner">
             
             <div class="carousel-item active">
-                <img src="http://t1.daumcdn.net/liveboard/ppss/be972e1205464e36ac43503116f4c866.jpg">
+                <img src="${contextPath}/resources/images/main/main_1.jpg">
             </div>
             <div class="carousel-item">
-                <img src="https://t4.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/A1Z/image/BzA7pRREkwFU2Fjfaz3QN1l5q74.jpg">
+                <img src="${contextPath}/resources/images/main/main_2.jpg">
             </div>
             <div class="carousel-item">
-                <img src="https://mblogthumb-phinf.pstatic.net/MjAxNzAzMjJfNDQg/MDAxNDkwMTQ0ODUwNTQy.5xrsZNepXZQe7XTdHDYKb0D1OzMaiwxOgZP99PVc7LYg.bw8lmMZf-0FWSZv3qoEenhAZHhWRnBM-YpCOa4U1dvgg.PNG.labanalog/%EB%8B%A8%EC%83%89%EB%B0%B0%EA%B2%BD%ED%99%94%EB%A9%B4%EC%B4%88%EB%A1%9D1.png?type=w800">
+                <img src="${contextPath}/resources/images/main/main_3.jpg">
+            </div>
+            <div class="carousel-item">
+                <img src="${contextPath}/resources/images/main/main_4.jpg">
             </div>
         </div>
 
@@ -89,8 +92,8 @@
 
             <div class="class">
                 <div class="image">
-                    <p class="location-p">서울 강남</p>
                     <img src="${contextPath}/resources/images/class/temp.jpg">
+                    <p class="location-p">서울 강남</p>
                 </div>
                 <button type="button" class="btn_like">
                     <span class="img_emoti">좋아요</span>

@@ -1,15 +1,8 @@
-/* 
-@font-face {
-    font-family: 'IBMPlexSansKR-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-} */
 
 *:not(body, html, .carosel) {
-    /* border: 1px solid blue; */
     box-sizing: border-box;
 }
+
 body{
     margin: auto;
     font-family: 'IBM Plex Sans KR', sans-serif;
@@ -21,7 +14,7 @@ body{
 }
 
 main{
-    width: 1080px;
+    width: 1200px;
     margin: auto;
 }
 
@@ -34,6 +27,7 @@ main a{
 .carousel-item > img{
     width: 100%;
     height: 455px;
+    object-fit: cover; 
 }
 
 /* 카테고리 */
@@ -107,9 +101,10 @@ tbody a {
     border-bottom: 1px solid #ccc;
 }
 
-.location-class-bottom{
+.location-class-bottom, .hot-class-bottom, .new-class-bottom{
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .location-class-bottom, .hot-class-bottom, .new-class-bottom{
@@ -136,8 +131,8 @@ tbody a {
 
 .class{
     float: left;
-    width: 252px;
-    height: 422px;
+    width: 274px;
+    height: 445px;
     border: 1px solid gainsboro;
     box-shadow: 3px 2px 5px 2px #0000001a;
     border-radius: 5px;
@@ -146,12 +141,14 @@ tbody a {
 }
 
 .class  img{
-    width: 252px;
-    height: 252px;
+    width: 272px;
+    height: 272px;
     position: relative;
     object-fit: cover;
     transform:scale(1.0);        
     transition: transform .5s;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 
 }
 
@@ -319,3 +316,13 @@ tbody a {
     from { background-position: 0 }
     to { background-position: -8250px }
   }
+  
+  
+ /* 부트스트랩 css 수정 */
+ ul{
+ 	margin : 0px;
+ }
+ 
+ footer{
+ 	font-family: 'IBM Plex Sans KR', sans-serif;
+ }
