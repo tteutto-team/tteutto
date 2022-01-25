@@ -8,7 +8,6 @@ main {
 }
 
 * ul {
-	display: flex;
     padding: 0;
     margin: 0;
     list-style-type: none;
@@ -103,7 +102,10 @@ header .login > li {
     font-size: 15px;
 }
 
-header #chat {position: relative;}
+header #chat {
+	position: relative;
+	margin-right: 40px;
+}
 
 header #chat > .alert {
 	position: absolute;
@@ -122,13 +124,33 @@ header #chat > .alert {
 
 header .profile {
 	display: table;
+	position: relative;
 	padding-top: 9px !important;
 }
 
+header .my-profile {position: relative;}
+
 header .my-profile > img {
+	position: absolute;
+    top: 24px;
+    left: -40px;
 	border-radius: 50%;
 	width: 40px;
 	height: auto;
+}
+
+/* ----- header -> modal --------------------------------------------- */
+
+header .modal {
+	width: 200px;
+    position: absolute;
+    z-index: 500;
+    border-radius: 10px;
+    box-shadow: rgb(41 42 43 / 20%) 0px 8px 10px 0px;
+    top: 82px;
+    right: -10px;
+    padding: 20px;
+    background-color: #FFDF3E;
 }
 
 /* ----- footer --------------------------------------------- */

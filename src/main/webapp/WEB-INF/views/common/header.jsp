@@ -81,26 +81,33 @@
 						<!-- 프로필 -->
 						<li class="profile">
 							<div class="my-profile">
-								<!-- 프로필이미지 -->
+								<!-- 프로필 이미지 -->
 								<img src="${contextPath}/resources/images/profile/temp.png" alt="프로필 이미지">
 								<i class="icon-open"></i>
 							</div>
 							
 							<div class="modal">
-								<div>
-									<div>
-										<!-- 회원 프로필 이미지 -->
+								<div class="modal-1" style="border: 1px solid red;">
+									<div class="modal-1-1" style="border: 1px solid green;">
+										<!-- 프로필 이미지 -->
+										<%-- <img src="${contextPath}/resources/images/profile/temp.png" alt="프로필 이미지"> --%>
 									</div>
 									
-									<div>
+									<div class="modal-1-2" style="border: 1px solid aqua;">
 										<!-- 회원명 -->
+										<div><span>도니</span></div>
+										
 										<!-- 마이페이지 이동 링크 -->
+										<div><a href="#">내 프로필 ></a></div>
 									</div>
 								</div>
 								
-								<div>
+								<div class="modal-3" style="border: 1px solid blue;">
 									<!-- 내 클래스 --> <!-- 내 마음대로 바꿔도 상관 없음 -->
+									<div></div>
+									
 									<!-- 로그아웃 -->
+									<div>로그아웃</div>
 								</div>
 							</div>
 						</li>
