@@ -87,27 +87,27 @@
 							</div>
 							
 							<div class="modal">
-								<div class="modal-1" style="border: 1px solid red;">
-									<div class="modal-1-1" style="border: 1px solid green;">
-										<!-- 프로필 이미지 -->
-										<%-- <img src="${contextPath}/resources/images/profile/temp.png" alt="프로필 이미지"> --%>
-									</div>
+								<div class="modal-1">
+									<!-- 프로필 이미지 -->
+									<img src="${contextPath}/resources/images/profile/temp.png" alt="프로필 이미지">
 									
-									<div class="modal-1-2" style="border: 1px solid aqua;">
+									<div class="user">
 										<!-- 회원명 -->
-										<div><span>도니</span></div>
+										<div class="user-name">
+											<span>도니</span>
+										</div>
 										
-										<!-- 마이페이지 이동 링크 -->
-										<div><a href="#">내 프로필 ></a></div>
+										<!-- 회원 프로필 페이지로 이동 -->
+										<div class="my-page"><a href="#">내 프로필 ></a></div>
 									</div>
 								</div>
 								
-								<div class="modal-3" style="border: 1px solid blue;">
-									<!-- 내 클래스 --> <!-- 내 마음대로 바꿔도 상관 없음 -->
-									<div></div>
+								<div class="modal-2">
+									<!-- 내 클래스 조회 페이지로 이동 -->
+									<div><a href="#">내 클래스 관리</a></div>
 									
-									<!-- 로그아웃 -->
-									<div>로그아웃</div>
+									<!-- 로그아웃 후 Main 페이지로 이동 -->
+									<div><a href="#">로그아웃</a></div>
 								</div>
 							</div>
 						</li>
