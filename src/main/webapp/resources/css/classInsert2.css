@@ -1,0 +1,394 @@
+@font-face {
+    font-family: 'IBMPlexSansKR-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+*:not(body, html){
+    /*border: 1px solid rgb(185, 185, 185);*/
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    font-family: 'IBMPlexSansKR-Regular';
+}
+
+.fixWidth{
+    width: 1080px;
+    margin: auto;
+}
+
+.redText{
+    color: red;
+}
+
+/*영역 분할*/
+.line1{
+    display: inline-block;
+    width: 200px;
+    margin-right: 20px;
+}
+
+.line2{
+    display: inline-block;
+}
+
+.bottomLine{
+    border-bottom: 1px solid #ccc;
+}
+
+/*div 라잌 테이블*/
+.fixWidth > div:nth-child(1){height: 80px;}
+.fixWidth > div:first-child > h1{line-height: 100px;}
+
+.fixWidth > div:nth-child(2){
+    text-align: right;
+    line-height: 80px;
+    height: 60px;
+}
+
+.fixWidth > div:nth-child(3){height: 565px;}
+.fixWidth > div:nth-child(4){height: 495px;}
+.fixWidth > div:nth-child(5){height: 100%;}
+.fixWidth > div:nth-child(6){height: 100px;}
+.fixWidth > div:nth-child(7){height: 100%;}
+.fixWidth > div:nth-child(8){height: 240px;}
+
+.h4-height{padding-top: 15px;}
+.div-height{padding-top: 21.280px;}
+
+/*textarea 디자인*/
+.textarea-style{
+    width: 750px; 
+    height: 200px; 
+    margin-right: 20px;
+    border-color: darkgray;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'IBMPlexSansKR-Regular';
+    padding-left: 5px;
+    resize: none;
+}
+
+.textarea-style:focus{
+    outline: 2px solid #FFDF3E;
+    border: none
+}
+
+
+/*select 디자인*/
+.select-style{
+    width: 250px; 
+    height: 40px; 
+    margin-right: 20px;
+    border-color: darkgray;
+    border-radius: 10px;
+    font-family: 'IBMPlexSansKR-Regular';
+    padding-left: 5px;
+}
+
+.select-style:focus{
+    outline: 2px solid #FFDF3E;
+    border: none
+}
+
+/*input 디자인*/
+.input-style{
+    width: 250px; 
+    height: 40px; 
+    border: solid;
+    border-color: darkgray;
+    border-width: 1px thin;
+    border-radius: 10px;
+    font-family: 'IBMPlexSansKR-Regular';
+    padding:0px 0px 0px 10px;
+    font-size: 14px;
+}
+
+.largeSize{
+    width: 300px;
+}
+
+.input-style:focus{
+    outline: 2px solid #FFDF3E;
+    border: none
+}
+
+/*수업소개영역*/
+#c-introduce > div, #c-target > div, #c-ptn > div, #c-price > div{
+    float: left;
+}
+
+.tip{
+    margin-top: 21.280px;
+    margin-bottom: 21.280px;
+    border-radius: 20px;
+    background-color: lightgray;
+}
+
+.tip > div{
+    margin-left: 20px;
+}
+
+.tip-text{
+    line-height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    color: crimson;
+}
+
+.tip-content{
+    color: rgb(68, 68, 68);
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+#tip-area1{
+    height: 300px;
+    width: 750px;
+}
+
+#tip-area2{
+    height: 230px;
+    width: 750px;
+}
+
+/*수업기간*/
+#schedule-text , #test-schedule-text{
+    height: 200px;
+    overflow-y: auto;
+    border: 1px dotted #ccc;
+    border-radius: 10px;
+}
+
+#c-schedule > div:first-child{
+    width: 200px;
+    margin-right: 20px;
+}
+
+#c-schedule > div{
+    float: left;
+}
+
+#mdp-demo, #schedule-val{
+    margin: 21.290px;
+}
+
+#schedule-btn{
+    width: 120px;
+    height: 35px;
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: #FFDF3E;
+    margin-bottom: 10px;
+}
+
+/*------------------test-----------------------*/
+#schedule-btn2{
+    width: 120px;
+    height: 35px;
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: #FFDF3E;
+    margin-bottom: 10px;
+}
+
+#test-oneday-schedule{
+    margin: 21.290px;
+}
+
+#test-oneday-schedule > div:nth-child(2){
+    color: rgb(124, 124, 124);
+    margin-bottom: 5px;
+}
+
+#test-table{
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.plus-time{
+    margin-left: 10px;
+    width: 25px;
+    height: 25px;
+    background-color: #3a3424;
+    color: white;
+    font-weight: bold;
+    border-style: outset;
+}
+
+.plus-time:active{
+    border-style: inset;
+}
+/*-----------------------------------------*/
+
+#schedule-val > div:nth-child(2){
+    color: rgb(124, 124, 124);
+    margin-bottom: 5px;
+}
+
+#schedule-table{
+    padding: 10px;
+}
+
+
+.time-td{
+    width: 100px;
+    height: 30px;
+}
+
+.time-td2{
+    font-weight: bold;
+    width: 50px;
+    height: 30px;
+}
+
+.time-td3{
+    width: 80px;
+    height: 30px;
+    font-weight: bold;
+}
+
+.time-td4{
+    width: 30px;
+}
+
+.time-box{
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+    border: none;
+    outline: 1px solid rgb(116, 116, 116);
+    border-radius: 10px;
+}
+
+/*수업장소*/
+#c-location{
+    clear: both;
+    border-top: 1px solid #ccc;
+}
+
+#c-location > div > input{
+    margin-right: 10px;
+}
+
+#c-location > div > button{
+    font-family: 'IBMPlexSansKR-Regular';
+    font-weight: bold;
+    font-size: 14px;
+    width: 80px;
+    height: 40px;
+    border: none;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    background-color: #FFDF3E;
+}
+
+/*가격시간횟수*/
+#c-ptn > div:nth-child(2) > div:first-child, #c-ptn > div:last-child > div:first-child{
+    margin-top: 21.280px;
+}
+
+#c-ptn > div:nth-child(2) div, #c-ptn > div:last-child div{
+    margin: 10px;
+}
+
+#c-ptn > div:nth-child(2), #c-ptn > div:last-child{
+    margin-bottom: 21.280px;
+}
+
+/* 총수업가격영역 */
+#c-price{
+    clear: both;
+    border-top: 1px solid #ccc;
+}
+
+#price-area{
+    height: 120px;
+    width: 750px;
+    border: 1px solid darkgrey;
+}
+
+#price{
+    float: left;
+    padding: 10px 0px;
+    font-size: 16px;
+    color: dimgray;
+}
+
+#price-area > div:last-child{
+    padding: 30px 20px;
+    height: 100%;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+}
+
+
+
+/********/
+.img-btn{
+    font-family: 'IBMPlexSansKR-Regular';
+    font-weight: bold;
+    font-size: 14px;
+    width: 150px;
+    height: 40px;
+    border: none;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+#img-plus-btn{
+    background-color: #FFDF3E;
+}
+
+.btn-click { box-shadow: 3px 2px 5px 2px #0000001a;
+    text-align: center;
+}
+
+.btn-click:active { 
+    box-shadow: 2px 1px 4px 2px #0000001a;   position: relative; top:2px;
+}
+
+#img-text{
+    margin-top: 15px;
+    color: rgb(68, 68, 68);
+}
+
+
+
+/*다음버튼영역*/
+#next-btn{
+    clear: both;
+    display: flex;
+    justify-content: center;
+}
+
+#next-btn button{
+    font-family: 'IBMPlexSansKR-Regular';
+    font-weight: bold;
+    font-size: 16px;
+    width: 220px;
+    height: 50px;
+    margin: 40px 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+
+#schedule-text::-webkit-scrollbar{
+    width: 5px;
+    background: none;
+}
+#schedule-text::-webkit-scrollbar-thumb{
+    background-color: #ddd;
+}
