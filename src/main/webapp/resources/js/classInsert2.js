@@ -193,7 +193,7 @@ const date = new Date();
             $("#schedule-td2").html(dateOrder2);
             
             for(i= 0; i<dateVal.length; i++){
-                let dates = dateVal[i].substring(3, 5);
+                let dates = dateVal[i].substring(0, 5);
                 let days = week2[i]
                 if(i != dateVal.length - 1){
                     scheduleDay += dates + "(" + days + "), ";
