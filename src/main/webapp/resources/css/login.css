@@ -1,0 +1,156 @@
+body, html{
+    margin: 0;
+    padding: 0;
+}
+
+body *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+ol,ul,li,a{
+    list-style: none;
+    text-decoration: none;
+    color: black;
+}
+
+.container{
+    min-width: 1080px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main{
+    width: 500px;
+}
+
+
+form > input{
+    width: 100%;
+    height: 60px;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    outline-color: #FFDF3E;
+}
+
+#save-div{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: #989696;
+    -ms-user-select: none; 
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#saveEmail{
+    display: none;
+}
+
+
+label[for=saveEmail]{
+    height: 20px;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    cursor: pointer;
+}
+
+label[for=saveEmail] > span{
+    width: 20px;
+    height: 100%;
+    text-align: center;
+    display: inline-block;
+    border: 1px solid #ddd;
+}
+
+.fas.fa-check{
+    display: none;
+    color: white;
+    font-size: 13px;
+}
+
+/* 체크 커스터마이징 */
+#saveEmail:checked + label i{
+    display: inline;
+    transition: 0.3s;
+}
+
+#saveEmail:not(:checked) + label i{
+    transition: 0.3s;
+}
+
+#saveEmail:checked + label span{
+    background-color: #FFDF3E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+#saveEmail:not(:checked) + label span{
+    transition: 0.3s;
+}
+
+#save-div > input{
+    margin-right: 5px;
+}
+
+#pw-signup{
+    display: flex;
+    justify-content: end;
+}
+#pw-signup > a{
+    color: #989696;
+    margin: 0 5px;
+}
+
+form > button{
+    width: 100%;
+    height: 60px;
+    background-color: #FFDF3E;
+    margin: 10px 0;
+    border: 0;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form > button:hover{
+    background-color: #e6c317;
+
+}
+
+.sns{
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+}
+.sns > div{
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
+}
+
+.sns img{
+    height: 30px;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.sns span{
+    flex-grow: 1;
+    line-height: 28px;
+}
