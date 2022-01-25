@@ -1,0 +1,427 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;  
+}
+
+ul, li, a{
+    list-style: none;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+#container{
+    min-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 푸터 넣기 전 확인용*/
+    margin-bottom: 30px;
+}
+
+main{
+    width: 1200px;
+    margin-top: 50px;
+    display: flex;
+}
+/* 왼쪽 */
+
+.left{
+    border-radius: 10px;
+    width: 260px;
+    margin-right: 14px;
+    background-color: white;
+    box-shadow: 0px 0px 3px 3px #ddd;
+}
+
+.box {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.box > img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #FFDF3E;
+}
+.name{
+    height: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+.introduce{
+    height: 30px;
+    text-align: center;
+}
+
+.list{
+    margin-top: 80px;
+    font-weight: 600;
+}
+
+.list > div{
+    height: 50px;
+    line-height: 48px;
+    padding-left: 30px;
+}
+
+.selected{
+    border-radius: 4px;
+    border: 2px solid rgb(255, 223, 62);
+    border-left: 15px solid rgb(255, 223, 62);
+}
+
+
+/* 학생 프로필 */
+#signUp{
+    flex-grow: 1;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px 3px #ddd;
+    background-color: white;
+}
+
+#signUp > #profile_header{
+    padding: 30px 25px 20px 25px;
+    border-bottom: 1px solid #ddd;
+    color: #A16E50;
+    font-size: 21px;
+    font-weight: bolder;
+}
+
+#signUp> #profile_header > span {
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.profile_btn{
+    float: right;
+    background-color: #FFDF3E;
+    width: 100px;
+    margin-right: 20px;
+    color: #111;
+    text-align: center;
+    height: 30px;
+    line-height: 28px;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+.btn_shadow{
+    box-shadow: 3px 2px 5px 2px #0000001a;
+}
+
+.btn_shadow:active{
+    position: relative; top:2px;
+}
+
+.profile_btn:first-child{
+    margin-right: 0;
+}
+
+.profile_content{
+    color: #111;
+    font-weight: 400;
+}
+
+
+.profile_area{
+    padding: 40px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile_area:first-child{
+    padding-bottom: 20px;
+    padding-top: 0;
+}
+
+
+.profile_area::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.profile_img{
+    width: 130px;
+    height: 130px;
+    margin: 10px auto;
+    background-size: cover;
+    background-position : center;
+    border-radius: 50%;
+    overflow: visible;
+    cursor: pointer;
+}
+
+.camera{
+    margin-left: 96px;
+    margin-top: 96px;
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: top;
+}
+
+#picture{
+    width: 30px;
+    height: 30px;
+    margin-top: -30px;
+    margin-left: 96px;
+    opacity: 0;
+    display: block;
+}
+
+.label_title{
+    padding: 0 20px;
+    width: 20%;
+    float: left;
+    font-size: 17px;
+    font-weight: 700;
+    color: #333;
+}
+
+.label_content{
+    float: left;
+    width: 80%;
+    font-size: 14px;
+    color: #888;
+}
+
+.label_content > a{
+    padding: 11px 18px;
+    background-color: #FFDF3E;
+    text-align: center;
+    width: 120px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+.label_content > textarea{
+    height: 250px;
+    width: 90%;
+    border: 1px solid #ddd;
+    outline: none;
+    resize: none;
+    padding: 20px 15px;
+    border-radius: 5px;
+    line-height: 1.7;
+}
+
+.label_content > textarea::-webkit-scrollbar{
+    width: 5px;
+    background: none;
+}
+.label_content > textarea::-webkit-scrollbar-thumb{
+    background-color: #ddd;
+}
+.record_area{
+    position: relative;
+}
+
+.profile_input{
+    width: 90%;
+    height: 50px;
+    padding: 15px 0 15px 15px;
+    border-radius: 5px;
+    border : 1px solid #ddd;
+    color: #333;
+}
+
+.upload_area{
+    width: 120px;
+    height: 75px;
+    margin: 10px 0;
+    overflow: hidden; 
+}
+.upload_img{
+    position: relative;
+    width: 120px;
+    height: 75px;
+    overflow: hidden;
+    
+}
+
+.upload_img img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile_file{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+.record_add{
+    display: block;
+    width: 90%;
+    margin-top: 20px;
+    float: none;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 48px;
+    font-size: 17px;
+    color: #333;
+    background-color: #f6f6f6;
+    cursor: pointer;
+}
+
+.record_add:hover{
+    background-color: #FFDF3E;
+}
+
+#input_sns{
+    color: #333;
+    font-size: 15px;
+}
+#input_sns > p{
+    font-weight: bold;
+    margin: 20px 0 15px 0;
+}
+.sns_area{
+    position: relative;
+    margin-bottom: 10px;
+    width: 90%;
+    height: 50px;
+}
+.sns_area:last-child{
+    margin-bottom: 0;
+}
+
+.instagram_area::before{
+    background: url(https://front-img.taling.me/Content/app3/img/bg/bg-instagram-grey-24px@2x.png) no-repeat center/100% 100%;
+}
+
+.blog_area::before{
+    background: url(https://front-img.taling.me/Content/app3/img/bg/bg-blog-grey-24px@2x.png) no-repeat center/100% 100%
+}
+
+.youtube_area::before{
+    background: url(https://front-img.taling.me/Content/app3/img/bg/bg-youtube-grey-24px@2x.png) no-repeat center/100% 100%
+}
+.sns_area[class*="sns"]::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
+.sns_area[class*="sns"] .sns_link {
+    padding-left: 47px;
+}
+
+.sns_link{
+    width: 100%;
+    height: 50px;
+    padding: 15px 0 15px 15px;
+    border-radius: 5px;
+    border : 1px solid #ddd;
+    color: #333;
+    
+}
+
+
+/* 강사 등록 */
+
+#register{
+    width: 100%
+}
+#register > #register_header{
+    
+    font-size: 23px;
+    border-bottom: 1px solid #ddd;
+    font-weight: 500;
+}
+
+#register> #register_header > p:first-child{
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+
+#register> #register_header > p:last-child{
+    padding: 15px 0;
+    font-size: 15px;
+    text-align: right;
+}
+
+#register> #register_header > p > span {
+    color: red;
+}
+
+#nickname{
+    width: 90%;
+    height: 50px;
+    padding: 15px 0 15px 15px;
+    border-radius: 5px;
+    border : 1px solid #ddd;
+    color: #333;
+}
+
+#register_btn_area{
+    text-align: center;
+    margin-top: 50px;
+}
+
+#register_btn{
+    background-color: #FFDF3E;
+    width: 250px;
+    text-align: center;
+    height: 50px;
+    font-size: 20px;
+    line-height: 28px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    letter-spacing: 10px;
+    font-weight: bold;
+}
+
+.register_area{
+    padding: 40px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.register_area::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+.register_img{
+    width: 100px;
+    height: 100px;
+    margin: 20px 10px 0 10px;
+    float: left;
+    background-size: cover;
+    background-position : center;
+    border-radius: 50%;
+    overflow: visible;
+}
+
+#register_img_cover{
+    width: 130px;
+    height: 130px;
+    margin-left: 0;
+    margin-top: 0;
+    cursor: pointer;
+}
+
+.label_content > p{
+    clear: both;
+}
