@@ -362,7 +362,7 @@ $("#num-time-one").on("input", function(){
     $("#pt2").html("x " + $(this).val());
 })
 
-$("#time-price-one, #num-time-one").on("focus", function(){
+$("#time-price-one, #num-time-one").on("input", function(){
     $("#sumPrice").html("");
     let sum = $("#time-price-one").val() * $("#num-time-one").val();
     let per = Math.floor(sum * 0.2);
