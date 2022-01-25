@@ -12,4 +12,22 @@ public class NoticeController {
 	public String terms() {
 		return "notice/terms";
 	}
+	
+	// 공지사항 FAQ 페이지
+	@RequestMapping("faq")
+	public String faq() {
+		return "notice/faq";
+	}
+	
+	// 공지사항 목록 페이지
+	@RequestMapping("noticeList")
+	public String notice_list() {
+		return "notice/noticeList";
+	}
+	
+	// 공지사항 상세페이지
+	@RequestMapping("noticeView")
+	public String view() {
+		return "notice/noticeView";
+	}
 }
