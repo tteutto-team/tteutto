@@ -29,7 +29,7 @@ main{
 }
 
 
-form > input{
+.login form > input{
     width: 100%;
     height: 60px;
     margin: 10px 0;
@@ -40,7 +40,7 @@ form > input{
     outline-color: #FFDF3E;
 }
 
-#save-div{
+.login #save-div{
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -52,12 +52,12 @@ form > input{
     user-select: none;
 }
 
-#saveEmail{
+.login #saveEmail{
     display: none;
 }
 
 
-label[for=saveEmail]{
+.login label[for=saveEmail]{
     height: 20px;
     width: 150px;
     display: flex;
@@ -66,7 +66,7 @@ label[for=saveEmail]{
     cursor: pointer;
 }
 
-label[for=saveEmail] > span{
+.login label[for=saveEmail] > span{
     width: 20px;
     height: 100%;
     text-align: center;
@@ -74,23 +74,23 @@ label[for=saveEmail] > span{
     border: 1px solid #ddd;
 }
 
-.fas.fa-check{
+.login .fas.fa-check{
     display: none;
     color: white;
     font-size: 13px;
 }
 
 /* 체크 커스터마이징 */
-#saveEmail:checked + label i{
+.login #saveEmail:checked + label i{
     display: inline;
     transition: 0.3s;
 }
 
-#saveEmail:not(:checked) + label i{
+.login #saveEmail:not(:checked) + label i{
     transition: 0.3s;
 }
 
-#saveEmail:checked + label span{
+.login #saveEmail:checked + label span{
     background-color: #FFDF3E;
     display: flex;
     align-items: center;
@@ -98,24 +98,24 @@ label[for=saveEmail] > span{
     transition: 0.3s;
 }
 
-#saveEmail:not(:checked) + label span{
+.login #saveEmail:not(:checked) + label span{
     transition: 0.3s;
 }
 
-#save-div > input{
+.login #save-div > input{
     margin-right: 5px;
 }
 
-#pw-signup{
+.login #pw-signup{
     display: flex;
     justify-content: end;
 }
-#pw-signup > a{
+.login #pw-signup > a{
     color: #989696;
     margin: 0 5px;
 }
 
-form > button{
+.login form > button{
     width: 100%;
     height: 60px;
     background-color: #FFDF3E;
@@ -125,12 +125,12 @@ form > button{
     font-size: 16px;
 }
 
-form > button:hover{
+.login form > button:hover{
     background-color: #e6c317;
 
 }
 
-.sns{
+.login .sns{
     height: 60px;
     display: flex;
     justify-content: center;
@@ -138,19 +138,19 @@ form > button:hover{
     margin: 20px 0;
     border: 1px solid #ddd;
 }
-.sns > div{
+.login .sns > div{
     display: flex;
     justify-content: space-around;
     width: 200px;
 }
 
-.sns img{
+.login .sns img{
     height: 30px;
     margin-right: 20px;
     border-radius: 5px;
 }
 
-.sns span{
+.login .sns span{
     flex-grow: 1;
     line-height: 28px;
 }

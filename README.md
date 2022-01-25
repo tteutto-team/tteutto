@@ -20,8 +20,11 @@ Main
 
 -----------------------------------------------------------------------
 
-공지사항
+공지사항 목록
  * http://localhost:8080/tteutto/notice/noticeList
+ 
+공지사항 내용
+ * http://localhost:8080/tteutto/notice/noticeView
 
 FAQ
  * http://localhost:8080/tteutto/notice/faq
