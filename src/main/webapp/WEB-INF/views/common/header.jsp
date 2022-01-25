@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
 
@@ -39,9 +40,8 @@
 			<div class="content">
 				<div class="main">
 					<div class="logo prevent-dragging">
-						<a href="#">
-						<img src="${contextPath}/resources/images/common/TTEUTTO ver.2.png" alt="뜨또 로고 이미지">
-					</a></div>
+						<a href="${contextPath}"><img src="${contextPath}/resources/images/common/TTEUTTO ver.2.png" alt="뜨또 로고 이미지"></a>
+					</div>
 					
 					<!-- 클래스 검색 -->
 					<div class="search">
@@ -80,13 +80,13 @@
 						
 						<!-- 프로필 -->
 						<li class="profile">
-							<div class="my-profile">
+							<div class="my-profile" id="my-profile">
 								<!-- 프로필 이미지 -->
 								<img src="${contextPath}/resources/images/profile/temp.png" alt="프로필 이미지">
-								<i class="icon-open"></i>
+								<i class="icon-open" id="icon"></i>
 							</div>
 							
-							<div class="modal">
+							<div class="profile-modal" id="profile-modal">
 								<div class="modal-1">
 									<!-- 프로필 이미지 -->
 									<img src="${contextPath}/resources/images/profile/temp.png" alt="프로필 이미지">
@@ -115,5 +115,23 @@
 				</div>
 			</div>
 		</header>
+		
+		<script>
+			const myProfile = document.querySelector("#my-profile");
+			const profileModal = document.querySelector("#profile-modal");
+			const icon = document.querySelector("#icon");
+		
+			myProfile.addEventListener("click", function() {
+				if (profileModal.style.display != "block") {
+					profileModal.style.display = "block";
+					icon.classList.remove("icon-open");
+					icon.classList.add("icon-close");
+				} else {
+					profileModal.style.display = "none";
+					icon.classList.remove("icon-close");
+					icon.classList.add("icon-open");
+				}
+			})
+		</script>
 	</body>
 </html>

@@ -144,6 +144,7 @@
     border-radius: 5px;
     position: relative;
     margin: 0 12px 40px;
+    cursor: pointer;  
 }
 
 .class img {
@@ -159,10 +160,11 @@
    position: absolute;
    padding: 2px 4px;
    display: block;
-   top: 8px;
+   top: 15px;
    left: 14px;
    font-size: 14px;
    background-color: #FFDF3E;
+   margin-top: 0;
 }
 
 .detail-info {

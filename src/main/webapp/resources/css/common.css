@@ -1,6 +1,10 @@
 * {box-sizing: border-box;}
 
-body {font-family: 'IBM Plex Sans KR', sans-serif;}
+
+body {
+	font-family: 'IBM Plex Sans KR', sans-serif;
+	margin: 0;
+}
 
 main {
     margin: auto;
@@ -13,7 +17,7 @@ main {
     list-style-type: none;
 }
 
-* a {
+a, header a, footer a {
 	text-decoration: none;
 	color: black;
 }
@@ -120,12 +124,15 @@ header #chat > .alert {
     font-size: 12px;
     text-align: center;
     line-height: 17.5px;
+    padding: 0;
+    border: 0;
 }
 
 header .profile {
 	display: table;
 	position: relative;
 	padding-top: 9px !important;
+	cursor: pointer;
 }
 
 header .my-profile {position: relative;}
@@ -143,7 +150,7 @@ header ul {display: flex;}
 
 /* ----- header -> modal --------------------------------------------- */
 
-header .modal {
+header .profile-modal {
 	display: none;
     position: absolute;
     top: 82px;
@@ -158,13 +165,13 @@ header .modal {
     line-height: 20px;
 }
 
-header .modal-1 {
+header .profile-modal .modal-1 {
 	display: flex;
 	padding-bottom: 10px;
     border-bottom: 1px solid #E0E0E0;
 }
 
-header .modal-1 > img {
+header .profile-modal .modal-1 > img {
 	display: flex;
 	margin-right: 10px;
 	border-radius: 50%;
@@ -172,19 +179,19 @@ header .modal-1 > img {
 	height: 45px;    
 }
 
-header .user, .modal-2 {
+header .profile-modal .user, .profile-modal .modal-2 {
 	display: flex;
     justify-content: space-around;
     flex-direction: column;
 	width: 100%;
 }
+  
+header .profile-modal .user-name {font-size: 16px;}
 
-header .user-name {font-size: 16px;}
+header .profile-modal .my-page {font-size: 13px;}
+header .profile-modal .my-page > a {color: #BF5846;}
 
-header .my-page {font-size: 13px;}
-header .my-page > a {color: #BF5846;}
-
-header .modal-2 {
+header .profile-modal .modal-2 {
 	margin-top: 10px;
     font-size: 14px;
     line-height: 25px;
