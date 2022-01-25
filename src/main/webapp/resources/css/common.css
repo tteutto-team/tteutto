@@ -125,9 +125,7 @@ header .profile {
 	padding-top: 9px !important;
 }
 
-header .profile > * {vertical-align: middle;}
-
-header .profile > img {
+header .my-profile > img {
 	border-radius: 50%;
 	width: 40px;
 	height: auto;

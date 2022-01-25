@@ -155,6 +155,16 @@
     transition: transform .5s;
 }
 
+.location-p{
+   position: absolute;
+   padding: 2px 4px;
+   display: block;
+   top: 8px;
+   left: 14px;
+   font-size: 14px;
+   background-color: #FFDF3E;
+}
+
 .detail-info {
     padding: 13px;
     padding-top: 5px;

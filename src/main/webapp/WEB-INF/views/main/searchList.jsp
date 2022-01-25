@@ -55,6 +55,8 @@ integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg
 						<div class="image">
 							<!-- 클래스 이미지 -->
 							<img src="${contextPath}/resources/images/class/temp.jpg">
+							<!-- 수업 등록 지역 -->
+							<p class="location-p">서울 강남구</p>
 						</div>
 						
 						<!-- 클래스 찜하기 버튼 -->
