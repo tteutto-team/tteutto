@@ -80,10 +80,30 @@
 						
 						<!-- 프로필 -->
 						<li class="profile">
-							<!-- 프로필이미지 -->
-							<img src="${contextPath}/resources/images/profile/temp.png" alt="프로필 이미지">
-							<a href="#"><i class="icon-open"></i>
-						</a></li>
+							<div class="my-profile">
+								<!-- 프로필이미지 -->
+								<img src="${contextPath}/resources/images/profile/temp.png" alt="프로필 이미지">
+								<i class="icon-open"></i>
+							</div>
+							
+							<div class="modal">
+								<div>
+									<div>
+										<!-- 회원 프로필 이미지 -->
+									</div>
+									
+									<div>
+										<!-- 회원명 -->
+										<!-- 마이페이지 이동 링크 -->
+									</div>
+								</div>
+								
+								<div>
+									<!-- 내 클래스 --> <!-- 내 마음대로 바꿔도 상관 없음 -->
+									<!-- 로그아웃 -->
+								</div>
+							</div>
+						</li>
 					</ul>
 				</div>
 			</div>
