@@ -65,6 +65,27 @@ body{
 .fixWidth > div:nth-child(7){height: 250px;}
 .fixWidth > div:nth-child(8){height: 580px;}
 
+.fixWidth > div:nth-child(9){height: 565px;}
+.fixWidth > div:nth-child(10){height: 495px;}
+
+/*textarea 디자인*/
+.textarea-style{
+    width: 750px; 
+    height: 200px; 
+    margin-right: 20px;
+    border-color: darkgray;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'IBMPlexSansKR-Regular';
+    padding-left: 5px;
+    resize: none;
+}
+
+.textarea-style:focus{
+    outline: 2px solid #FFDF3E;
+    border: none
+}
+
 /*select 디자인*/
 .select-style{
     width: 250px; 
@@ -165,6 +186,47 @@ input[type='radio']:checked {
 #tip-area > div:last-child{
     color: rgb(68, 68, 68);
     margin-top: 5px;
+}
+
+
+/*수업소개영역*/
+#c-introduce > div, #c-target > div, #c-ptn > div, #c-price > div{
+    float: left;
+}
+
+.tip{
+    margin-top: 21.280px;
+    margin-bottom: 21.280px;
+    border-radius: 20px;
+    background-color: lightgray;
+}
+
+.tip > div{
+    margin-left: 20px;
+}
+
+.tip-text{
+    line-height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    color: crimson;
+}
+
+.tip-content{
+    color: rgb(68, 68, 68);
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+#tip-area1{
+    height: 300px;
+    width: 750px;
+}
+
+#tip-area2{
+    height: 230px;
+    width: 750px;
 }
 
 /*커버이미지영역*/

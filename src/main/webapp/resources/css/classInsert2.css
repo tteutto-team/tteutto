@@ -50,33 +50,13 @@ body{
     height: 60px;
 }
 
-.fixWidth > div:nth-child(3){height: 565px;}
-.fixWidth > div:nth-child(4){height: 495px;}
+.fixWidth > div:nth-child(3){height: 100%;}
+.fixWidth > div:nth-child(4){height: 100px;}
 .fixWidth > div:nth-child(5){height: 100%;}
-.fixWidth > div:nth-child(6){height: 100px;}
-.fixWidth > div:nth-child(7){height: 100%;}
-.fixWidth > div:nth-child(8){height: 240px;}
+.fixWidth > div:nth-child(6){height: 240px;}
 
 .h4-height{padding-top: 15px;}
 .div-height{padding-top: 21.280px;}
-
-/*textarea 디자인*/
-.textarea-style{
-    width: 750px; 
-    height: 200px; 
-    margin-right: 20px;
-    border-color: darkgray;
-    border-radius: 10px;
-    font-size: 14px;
-    font-family: 'IBMPlexSansKR-Regular';
-    padding-left: 5px;
-    resize: none;
-}
-
-.textarea-style:focus{
-    outline: 2px solid #FFDF3E;
-    border: none
-}
 
 
 /*select 디자인*/

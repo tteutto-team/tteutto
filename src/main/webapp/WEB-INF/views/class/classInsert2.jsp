@@ -9,59 +9,15 @@
         <div class="fixWidth">
             <div class="bottomLine"><h1>클래스 등록</h1></div>
             <div class="bottomLine"><span class="redText">*</span> 필수</div>
-            <div id="c-introduce" class="bottomLine">
-                <div class="line1">
-                    <div><h4>수업소개 <span class="redText">*</span></h4></div>
-                    <div style="color: rgb(124, 124, 124);">공백포함 300자 이상 권장</div>
-                </div>
-                <div>
-                    <div class="tip" id="tip-area1">
-                        <div class="tip-text">TIP</div>
-                        <div class="tip-content">
-                            * 수업의 목표와 수업 진행 방식에 대해 설명해주세요.<br>
-                            * 수업을 진행하는 동안 얻을 수 있는 결과물 혹은 수업 후 기대할 수 있는 발전에 대해 소개해주세요.<br>
-                            * 다른 학원, 수업과는 다른 강사님만의 장점에 대해서 설명해주세요.<br>
-                            * 해당 수업에 대한 자신 어필도 가능합니다.<br>
-                            * 해당 수업에서 배울 내용에서 대해 설명해주세요. (커리큘럼 가능)
-                        </div>
-                        <div class="tip-text">주의</div>
-                        <div class="tip-content">
-                            * 일부 이모티콘은 인식이 되지 않아, 정성스럽게 작성해주신 내용이 날아갈 수 있습니다.<br>
-                            * 강조를 해야 할 내용이 있는 경우 되도록이면 일반 특수문자를 사용해주세요.
-                        </div>
-                    </div>
-                    <textarea class="textarea-style"></textarea>
-                </div>
-            </div>
-            <div id="c-target" class="bottomLine">
-                <div class="line1">
-                    <div><h4>수업대상 <span class="redText">*</span></h4></div>
-                    <div style="color: rgb(124, 124, 124);">공백포함 200자 이상 권장</div>
-                </div>
-                <div>
-                    <div class="tip" id="tip-area2">
-                        <div class="tip-text">TIP</div>
-                        <div class="tip-content">
-                            * 수업을 추천하는 대상은 누구일까요? <br>
-                            * 예시 : 인턴/입사를 앞두고 엑셀이 걱정되는 분 / 토익 00점 이상의 기초적인 의사소통만 가능하신 분
-                        </div>
-                        <div class="tip-text">주의</div>
-                        <div class="tip-content">
-                            * 일부 이모티콘은 인식이 되지 않아, 정성스럽게 작성해주신 내용이 날아갈 수 있습니다.<br>
-                            * 강조를 해야 할 내용이 있는 경우 되도록이면 일반 특수문자를 사용해주세요.
-                        </div>
-                    </div>
-                    <textarea class="textarea-style"></textarea>
-                </div>
-            </div>
+            
             
             <div>
                 <div id="c-schedule">
                     <div><h4>수업기간 <span class="redText">*</span></h4></div>
                     <div id="mdp-box">
                         <div id="mdp-demo"></div>
-                        <button id="testtest">원데이테스트용</button>
-                        <button id="testtest1">다회차테스트용</button>
+                        <button id="testtest" style="display: none;">원데이테스트용</button>
+                        <button id="testtest1" style="display: none;">다회차테스트용</button>
                     </div>
                     <div id="schedule-val">
                         <div><button id="schedule-btn" class="btn-click">날짜 불러오기</button></div>
@@ -222,8 +178,8 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-    <script src="js/jquery-ui.multidatespicker.js"></script>
-    <script src="js/classInsert2.js"></script>
+    <script src="${contextPath}/resources/js/jquery-ui.multidatespicker.js"></script>
+    <script src="${contextPath}/resources/js/classInsert2.js"></script>
     
 </body>
 </html>
