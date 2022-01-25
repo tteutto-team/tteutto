@@ -10,7 +10,7 @@
 
 
 <div class="container">
-    <main>
+    <main class="login">
         <h1>로그인</h1>
 
         <form action="#" method="POST">

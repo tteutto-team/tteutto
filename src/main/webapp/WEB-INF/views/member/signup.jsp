@@ -10,7 +10,7 @@
 
 
 <div class="container">
-	<main>
+	<main class="signup">
 		<h1>회원가입</h1>
 
 		<form action="#" method="POST">

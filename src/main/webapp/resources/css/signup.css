@@ -41,29 +41,29 @@ main{
 }
 
 /* form태그 안에 div */
-form > div{
+.signup form > div{
     margin: 15px 0;
     height: 85px;
 }
 
 /* 유효성 검사 텍스트 */
-form > div > span{
+.signup form > div > span{
     font-size: 12px;
     color: red;
 }
 
-#pw1, #pw2, #name{
+.signup #pw1, #pw2, #name{
     width: 100%;
     height: 35px;
     padding: 10px;
 }
 
-#email-div{
+.signup #email-div{
     display: flex;
 }
 
 /* 이메일 인증 버튼 */
-#email-div > button{
+.signup #email-div > button{
     width: 100px;
     height: 35px;
     margin-left: 15px;
@@ -72,33 +72,33 @@ form > div > span{
     border-radius: 5px;
     cursor: pointer;
 }
-#email-div > button:hover{
+.signup #email-div > button:hover{
     background-color: #e6c317;
 }
 
-#email{
+.signup #email{
     flex-grow: 1;
     padding-left: 10px;
 }
 
 
-#birth-gender{
+.signup #birth-gender{
     display: flex;
 
 }
 
-#birth{
+.signup #birth{
     flex-grow: 1;
     padding: 10px;
 }
 
-#birth{
+.signup #birth{
     height: 35px;
 }
 
 
 /* 성별 체크 */
-.gender{
+.signup .gender{
     display: inline-block;
     text-align: center;
     line-height: 33px;
@@ -110,36 +110,36 @@ form > div > span{
     cursor: pointer;
 }
 
-input[name=gender]{
+.signup input[name=gender]{
     display: none;
 }
 
-input[name=gender] + label:hover{
+.signup input[name=gender] + label:hover{
     background-color: #e6c317;
 }
 
-input[name=gender]:checked + label{
+.signup input[name=gender]:checked + label{
     background-color: #FFDF3E;
 }
 
-#phone-div{
+.signup #phone-div{
     display: flex;
 
 }
 
-#phone1, #phone2, #phone3 {
+.signup #phone1, #phone2, #phone3 {
     flex-grow: 1;
     height: 35px;
     margin-left: 30px;
     padding-left: 10px;
 }
 
-#phone1{
+.signup #phone1{
     margin: 0;
 }
 
 /* 회원가입 버튼 */
-#signup-btn{
+.signup #signup-btn{
     background-color: #FFDF3E;
     width: 100%;
     height: 45px;
@@ -148,15 +148,15 @@ input[name=gender]:checked + label{
     font-size: 18px;
 }
 
-#signup-btn:hover{
+.signup #signup-btn:hover{
     background-color: #e6c317;
 }
 
-p > span{
+.signup p > span{
     color: rgb(41, 90, 221);
 }
 
-p{
+.signup p{
     color: #989696;
     margin: 20px 0;
     padding-bottom: 20px;
@@ -165,7 +165,7 @@ p{
 
 
 
-.sns{
+.signup .sns{
     height: 60px;
     display: flex;
     justify-content: center;
@@ -173,25 +173,25 @@ p{
     margin: 20px 0;
     border: 1px solid #ddd;
 }
-.sns > div{
+.signup .sns > div{
     display: flex;
     justify-content: space-around;
     width: 200px;
 }
 
-.sns img{
+.signup .sns img{
     height: 30px;
     margin-right: 20px;
     border-radius: 5px;
 }
 
-.sns span{
+.signup .sns span{
     flex-grow: 1;
     line-height: 28px;
 }
 
 
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
+.signup input[type="number"]::-webkit-outer-spin-button,
+.signup input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
