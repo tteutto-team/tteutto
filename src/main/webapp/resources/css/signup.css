@@ -1,0 +1,197 @@
+body, html{
+    margin: 0;
+    padding: 0;
+}
+
+body *{
+    box-sizing: border-box;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+ol,ul,li,a{
+    list-style: none;
+    text-decoration: none;
+    color: black;
+}
+
+/* 각 레이블 텍스트 (이메일, 비밀번호, ...) */
+label[for=email], label[for=pw1], label[for=pw2], label[for=name], label[for=birth], label[for=phone1]{
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* input, select */
+input, select{
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline-color: #FFDF3E;
+}
+
+.container{
+    min-width: 1080px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main{
+    width: 500px;
+}
+
+/* form태그 안에 div */
+form > div{
+    margin: 15px 0;
+    height: 85px;
+}
+
+/* 유효성 검사 텍스트 */
+form > div > span{
+    font-size: 12px;
+    color: red;
+}
+
+#pw1, #pw2, #name{
+    width: 100%;
+    height: 35px;
+    padding: 10px;
+}
+
+#email-div{
+    display: flex;
+}
+
+/* 이메일 인증 버튼 */
+#email-div > button{
+    width: 100px;
+    height: 35px;
+    margin-left: 15px;
+    background-color: #FFDF3E;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#email-div > button:hover{
+    background-color: #e6c317;
+}
+
+#email{
+    flex-grow: 1;
+    padding-left: 10px;
+}
+
+
+#birth-gender{
+    display: flex;
+
+}
+
+#birth{
+    flex-grow: 1;
+    padding: 10px;
+}
+
+#birth{
+    height: 35px;
+}
+
+
+/* 성별 체크 */
+.gender{
+    display: inline-block;
+    text-align: center;
+    line-height: 33px;
+    width: 35px;
+    height: 35px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+input[name=gender]{
+    display: none;
+}
+
+input[name=gender] + label:hover{
+    background-color: #e6c317;
+}
+
+input[name=gender]:checked + label{
+    background-color: #FFDF3E;
+}
+
+#phone-div{
+    display: flex;
+
+}
+
+#phone1, #phone2, #phone3 {
+    flex-grow: 1;
+    height: 35px;
+    margin-left: 30px;
+    padding-left: 10px;
+}
+
+#phone1{
+    margin: 0;
+}
+
+/* 회원가입 버튼 */
+#signup-btn{
+    background-color: #FFDF3E;
+    width: 100%;
+    height: 45px;
+    border: 0;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+#signup-btn:hover{
+    background-color: #e6c317;
+}
+
+p > span{
+    color: rgb(41, 90, 221);
+}
+
+p{
+    color: #989696;
+    margin: 20px 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+
+
+.sns{
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+}
+.sns > div{
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
+}
+
+.sns img{
+    height: 30px;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.sns span{
+    flex-grow: 1;
+    line-height: 28px;
+}
+
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
