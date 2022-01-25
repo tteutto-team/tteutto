@@ -86,11 +86,11 @@
 								<i class="icon-open"></i>
 							</div>
 							
-							<div class="modal">
+							<%-- <div class="modal">
 								<div class="modal-1" style="border: 1px solid red;">
 									<div class="modal-1-1" style="border: 1px solid green;">
 										<!-- 프로필 이미지 -->
-										<%-- <img src="${contextPath}/resources/images/profile/temp.png" alt="프로필 이미지"> --%>
+										<img src="${contextPath}/resources/images/profile/temp.png" alt="프로필 이미지">
 									</div>
 									
 									<div class="modal-1-2" style="border: 1px solid aqua;">
@@ -109,7 +109,7 @@
 									<!-- 로그아웃 -->
 									<div>로그아웃</div>
 								</div>
-							</div>
+							</div> --%>
 						</li>
 					</ul>
 				</div>

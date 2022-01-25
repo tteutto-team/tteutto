@@ -139,6 +139,8 @@ header .my-profile > img {
 	height: auto;
 }
 
+header ul {display: flex;}
+
 /* ----- header -> modal --------------------------------------------- */
 
 header .modal {
@@ -248,6 +250,8 @@ footer .announce > span {
 	font-size: 14px;
 	line-height: 10px;
 }
+
+footer ul {display: flex;}
 
 /* ----- 이용약관 --------------------------------------------- */
 
