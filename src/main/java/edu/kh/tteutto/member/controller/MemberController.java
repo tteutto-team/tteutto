@@ -19,4 +19,16 @@ public class MemberController {
 	public String login() {
 		return "member/login";
 	}
+	
+	// 학생 프로필 페이지 이동
+	@RequestMapping(value="studentProfile")
+	public String studentProfile() {
+		return "member/studentProfile";
+	}
+	
+	// 강사 프로필 페이지 이동
+	@RequestMapping(value="teacherProfile")
+	public String teacherProfile() {
+		return "member/teacherProfile";
+	}
 }
