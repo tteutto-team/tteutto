@@ -15,14 +15,14 @@
 
 .searchList button {font-family: 'IBM Plex Sans KR', sans-serif;}
 
-.cont-select {
+.searchList .cont-select {
   position: relative;
   width: 180px;
   margin: 0 10px;
   margin-bottom: 20px;
 }
 
-.btn-select {
+.searchList .btn-select {
   width: 100%;
   padding: 13px 30px 13px 14px;
   font-size: 15px;
@@ -40,13 +40,13 @@
   overflow: hidden;
 }
 
-.btn-select:hover,
-.btn-select:focus {
+.searchList .btn-select:hover,
+.searchList .btn-select:focus {
   border: 1px solid #e6c317;
   outline: 3px solid #FFDF3E;
 }
 
-.list-member {
+.searchList .list-member {
   background: white;
   list-style-type: none;
   display: none;
@@ -61,18 +61,18 @@
   z-index: 1;
 }
 
-.btn-select.on {background: url("../images/common/close_icon.png") center right 14px no-repeat;}
+.searchList .btn-select.on {background: url("../images/common/close_icon.png") center right 14px no-repeat;}
 
-.btn-select.on+.list-member {display: block;}
+.searchList .btn-select.on+.list-member {display: block;}
 
-.list-member li {
+.searchList .list-member li {
   left:0;
   height: 40px;
   padding: 5px 8px;
   box-sizing: border-box;
 }
 
-.list-member li button {
+.searchList .list-member li button {
   width: 100%;
   padding: 7px 10px;
   border: none;
@@ -86,7 +86,7 @@
   overflow: hidden;
 }
 
-.list-member li button:hover, .list-member li button:focus {background-color: #FFDF3E;}
+.searchList .list-member li button:hover, .list-member li button:focus {background-color: #FFDF3E;}
 
 /* ----- 클래스 카드 --------------------------------------------- */
 
@@ -101,42 +101,41 @@
 
 .searchList .yes > .title > span {color: #BF5846;}
 
-.location-class, .hot-class, .new-class {
+.searchList .location-class, .hot-class, .new-class {
     width: 100%;
     min-height: 500px;
     margin-top: 80px;
 }
 
-.location-class {margin-top: 70px;}
+.searchList .location-class {margin-top: 70px;}
 
-.location-class-top, .hot-class-top {
+.searchList .location-class-top, .hot-class-top {
     height: 40px;
     border-bottom: 1px solid #ccc;
 }
 
-.location-class-bottom {
+.searchList .location-class-bottom {
     display: flex;
     flex-wrap: wrap;
 }
 
-.location-class-bottom, .hot-class-bottom, .new-class-bottom {
+.searchList .location-class-bottom, .hot-class-bottom, .new-class-bottom {
 	display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-}
+}  
 
-.location-class a, .hot-class a, .new-class a {
+.searchList .location-class a, .hot-class a, .new-class a {
     display: inline-block;
     height: 20px;
     font-size: 17px;
 }
 
-.fi-rr-angle-small-right:before {margin: 15px;}
+.searchList .fi-rr-angle-small-right:before {margin: 15px;}
 
-.location {float: right;}
-.location p {display: inline-block;}
+.searchList .location {float: right;}
+.searchList .location p {display: inline-block;}
 
-.class {
+.searchList .class {
     display: inline-block;
     width: 274px;
     height: 445px;
@@ -148,12 +147,12 @@
     cursor: pointer;  
 }
 
-.class .image {
+.searchList .class .image {
 	width: 272px;
 	height: 272px;
 }
 
-.class img {
+.searchList .class img {
     width: 272px;
     height: 272px;
     position: relative;
@@ -164,7 +163,7 @@
     border-top-right-radius: 5px;
 }
 
-.location-p{
+.searchList .location-p{
    position: absolute;
    padding: 2px 4px;
    display: block;
@@ -175,24 +174,24 @@
    margin-top: 0;
 }
 
-.detail-info {
+.searchList .detail-info {
     padding: 13px;
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
-.category-name {font-size: 12px;}
+.searchList .category-name {font-size: 12px;}
 
-.class-name {
+.searchList .class-name {
 	margin-top: 5px;
 	font-weight: 500;
 }
 
-.grade {margin-top: 8px;}
+.searchList .grade {margin-top: 8px;}
 
-.grade > span {margin-right: 10px;}
+.searchList .grade > span {margin-right: 10px;}
 
-.detail-info-bottom {
+.searchList .detail-info-bottom {
     position: absolute;
     width: 247px; /* 변경 */
     bottom: 10px;
@@ -200,24 +199,24 @@
     padding-top: 10px;
 }
 
-.detail-info-bottom > * {vertical-align: middle;}
+.searchList .detail-info-bottom > * {vertical-align: middle;}
 
-.detail-info-bottom > img {
+.searchList .detail-info-bottom > img {
 	border-radius: 50%;
 	width: 26px;
 	height: auto;
 }
 
-.teacher-name {font-size: 15px;}
+.searchList .teacher-name {font-size: 15px;}
 
-.class-price {
+.searchList .class-price {
     font-size: 15px;
     float: right;
     padding-top: 1px; /* 추가 */
 }
 
 /* 이미지 확대 */
-.class {
+.searchList .class {
     transform: scale(1);
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -226,16 +225,16 @@
     transition: all 0.3s ease-in-out; /* 부드러운 모션을 위해 추가*/
 }
 
-.class .image {overflow: hidden;}
+.searchList .class .image {overflow: hidden;}
 
-.class .image:hover img {
+.searchList .class .image:hover img {
 	transform:scale(1.1);
 	transition: transform .5s;
 	filter: opacity(0.7);
 }
 
 /* 찜하기 */
-.btn_like {
+.searchList .btn_like {
 	position: relative;
   	margin: 100px auto;
   	display: block;
@@ -257,15 +256,15 @@
   	right: 10px;
 }
 
-.btn_like:hover {
+.searchList .btn_like:hover {
 	border: 1px solid rgba(228,89,89,0.3);
 	background-color: rgba(228,89,89,0.02);
 	box-shadow: 0 2px 4px 0 rgba(228,89,89,0.2);
 }
 
-.btn_unlike .img_emoti {background-position: -30px -120px;}
+.searchList .btn_unlike .img_emoti {background-position: -30px -120px;}
 
-.img_emoti {
+.searchList .img_emoti {
     display: inline-block;
     overflow: hidden;
     font-size: 0;
@@ -280,9 +279,9 @@
     text-indent: 0;
 }
 
-.btn_like .ani_heart_m {margin: -63px 0 0 -63px;}
+.searchList .btn_like .ani_heart_m {margin: -63px 0 0 -63px;}
 
-.ani_heart_m {
+.searchList .ani_heart_m {
     display: block;
     position: absolute;
     top: 50%;
@@ -293,14 +292,14 @@
     pointer-events: none;
 }
 
-.ani_heart_m.hi {
+.searchList .ani_heart_m.hi {
     background-image: url(https://mk.kakaocdn.net/dn/emoticon/static/images/webstore/retina/zzim_on_m.png);
     -webkit-background-size: 9000px 125px;
     background-size: 9000px 125px;
     animation: on_m 1.06s steps(72);
 }
 
-.ani_heart_m.bye {
+.searchList .ani_heart_m.bye {
     background-image: url(https://mk.kakaocdn.net/dn/emoticon/static/images/webstore/retina/zzim_off_m.png);
     -webkit-background-size: 8250px 125px;
     background-size: 8250px 125px;
@@ -315,27 +314,4 @@
 @keyframes off_m {
   from { background-position: 0 }
   to { background-position: -8250px }
-}
-
-/* ----- 페이지네이션 --------------------------------------------- */
-
-.page-number {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-}
-
-.page-ul {
-    display: flex;
-}
-
-.page-ul > li {
-    text-align: center;
-    line-height: 28px;
-    width: 30px;
-    height: 30px;
-}
-
-.page-ul > li > a {
-    display: block;
 }
