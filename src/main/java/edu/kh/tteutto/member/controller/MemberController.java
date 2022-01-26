@@ -25,4 +25,17 @@ public class MemberController {
 	public String findPw() {
 		return "member/findPw";
 	}
+	
+	// 학생 프로필 페이지 이동
+	@RequestMapping(value="studentProfile", method=RequestMethod.GET)
+	public String studentProfile() {
+		return "member/studentProfile";
+	}
+	
+	// 강사 프로필 페이지 이동
+	@RequestMapping(value="teacherProfile", method=RequestMethod.GET)
+	public String teacherProfile() {
+		return "member/teacherProfile";
+	}
+	
 }
