@@ -31,7 +31,7 @@ Main
 강사 프로필
  * http://localhost:8080/tteutto/member/teacherProfile
  
-클래스 목록
+클래스 목록 (강사)
  * http://localhost:8080/tteutto/teacher/classList
  
 클래스 학생 목록 (교육 예정)
