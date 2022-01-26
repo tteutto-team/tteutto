@@ -2,7 +2,7 @@
 -----------
 
 ```
-Main
+메인 페이지
  * http://localhost:8080/tteutto/        
 
 -----------------------------------------------------------------------
@@ -25,6 +25,12 @@ Main
 
 학생 프로필
  * http://localhost:8080/tteutto/member/studentProfile
+
+클래스 목록 (학생)
+ * http://localhost:8080/tteutto/member/studentClassList
+
+내 후기 조회
+ * http://localhost:8080/tteutto/member/studentCommentList
 
 -----------------------------------------------------------------------
 
