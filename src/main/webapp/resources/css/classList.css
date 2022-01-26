@@ -120,8 +120,9 @@
 }
 
 .location-class-bottom, .hot-class-bottom, .new-class-bottom {
-	margin-top: 20px;
-    padding: 0 45px;
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .location-class a, .hot-class a, .new-class a {
@@ -137,8 +138,8 @@
 
 .class {
     display: inline-block;
-    width: 252px;
-    height: 422px;
+    width: 274px;
+    height: 445px;
     border: 1px solid gainsboro;
     box-shadow: 3px 2px 5px 2px #0000001a;
     border-radius: 5px;
@@ -147,13 +148,20 @@
     cursor: pointer;  
 }
 
+.class .image {
+	width: 272px;
+	height: 272px;
+}
+
 .class img {
-    width: 252px;
-    height: 252px;
+    width: 272px;
+    height: 272px;
     position: relative;
     object-fit: cover;
     transform:scale(1.0);        
     transition: transform .5s;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .location-p{
@@ -175,13 +183,18 @@
 
 .category-name {font-size: 12px;}
 
+.class-name {
+	margin-top: 5px;
+	font-weight: 500;
+}
+
 .grade {margin-top: 8px;}
 
 .grade > span {margin-right: 10px;}
 
 .detail-info-bottom {
     position: absolute;
-    width: 224px;
+    width: 247px; /* 변경 */
     bottom: 10px;
     border-top: 1px solid #ccc;
     padding-top: 10px;
