@@ -114,6 +114,9 @@ main{
     color: #989696;
     margin: 0 5px;
 }
+.login #pw-signup > a:hover{
+    color: #575757;
+}
 
 .login form > button{
     width: 100%;
@@ -137,6 +140,10 @@ main{
     align-items: center;
     margin: 20px 0;
     border: 1px solid #ddd;
+}
+
+.login .sns:hover{
+    background-color: rgb(245, 245, 245);
 }
 .login .sns > div{
     display: flex;
