@@ -63,7 +63,7 @@
 					 -->
 
 					<ul class="login">
-						<li><a href="#">강사 신청하기</a></li>
+						<li><a href="${contextPath}/member/teacherRegister">강사 신청하기</a></li>
 						
 						<!-- 찜한 클래스 -->
 						<li><a href="${contextPath}/my/favorite">
@@ -134,7 +134,7 @@
 					icon.classList.remove("icon-close");
 					icon.classList.add("icon-open");
 				}  
-			})
+			});
 			
 			/* 모달창이 열려있을 때 헤더 프로필 이미지 + icon, 모달창 외 나머지 클릭 시 모달창 닫기 */
 			window.addEventListener("click", function(e) {
@@ -160,7 +160,7 @@
 					icon.classList.remove("icon-close");
 					icon.classList.add("icon-open");
 				}
-			})
+			});
 		</script>
 	</body>
 </html>

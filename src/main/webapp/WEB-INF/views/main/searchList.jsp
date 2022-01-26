@@ -118,16 +118,45 @@ crossorigin="anonymous"/>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
 <script>
-/* 옵션 선택 */
 const btn = document.querySelectorAll('.btn-select');
 const list = document.querySelectorAll('.list-member');
 
+/* 옵션 버튼 클릭 시 드롭다운 열고 닫기 */
 for (let i = 0; i < btn.length; i++) {
 	btn[i].addEventListener('click', () => {
-	    btn[i].classList.toggle('on');
+		
+		if (btn[i].classList.contains('on')) { // 열린 상태
+		    btn[i].classList.remove('on');
+			
+		} else { // 닫힌 상태
+			for (b of btn)
+				b.classList.remove("on");
+
+		    btn[i].classList.add('on');
+		}
 	});
 }
 
+/* 옵션 버튼 + 옵션 리스트 외 나머지 클릭 시 드롭다운 닫기 */
+window.addEventListener("click", function(e) {
+	let flag = true;
+
+	const nodeList = document.querySelectorAll(".btn-select, .list-member, .list-member > li");
+
+	for (node of nodeList) {
+		if (e.target == node) {
+			flag = false;
+			break;
+		}
+	} 
+
+	if (flag) {
+		for (b of btn)
+			b.classList.remove("on");
+	}
+});
+
+/* 옵션 리스트 클릭 시 버튼 텍스트 변경 및 드롭다운 닫기 */
 for (let j = 0; j < list.length; j++) {
 	list[j].addEventListener('click', (event) => {
 	    if (event.target.nodeName === "BUTTON") {
