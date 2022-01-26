@@ -26,6 +26,18 @@ public class MemberController {
 		return "member/findPw";
 	}
 	
+	// 학생 마이페이지 클래스 목록 이동
+	@RequestMapping(value="studentClassList", method=RequestMethod.GET)
+	public String studentClassList() {
+		return "member/studentClassList";
+	}
+	
+	// 학생 마이페이지 후기 목록 이동
+	@RequestMapping(value="studentCommentList", method=RequestMethod.GET)
+	public String studentCommentList() {
+		return "member/studentCommentList";
+	}
+	
 	// 학생 프로필 페이지 이동
 	@RequestMapping(value="studentProfile", method=RequestMethod.GET)
 	public String studentProfile() {
