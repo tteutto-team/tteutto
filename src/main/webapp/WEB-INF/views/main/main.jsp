@@ -57,7 +57,7 @@
             <span class="detail">
                 주변 클래스 추천<i class="fi-rr-angle-small-right"></i>
             </span>
-            <span class="location">
+            <span class="location modal-open-btn" style="cursor: pointer;">
                 <i class=" fi-rr-marker"></i> <p>서울 종로구</p>
             </span>
         </div>
@@ -398,8 +398,35 @@
     </div>
 
 </main>
+
+	<!-- 위치 모달 -->
+        <div id="modal" class="location-setting modal">
+            <div class="modal-content">
+                <form action="#" method="post">
+                    <div class="modal-title">
+                        <h2>위치 설정</h2>
+                    </div>
+    
+                    <div class="modal-location">
+                        <p>'서울 종로구'</p>
+                    </div>
+                    
+                    <div style="border: 1px solid #ccc; height: 300px;">Map API</div>
+
+                    <input type="hidden">
+
+                    <div id="modal-btn">
+                        <button>설정</button>
+                        <button type="button" id="modal-close-btn" class="modal-close-btn">취소</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-layer"></div>
+        </div>
+        
 <jsp:include page="../common/footer.jsp"/>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <!-- 부트스트랩 케러셀 -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -418,4 +445,28 @@
             $(this).children('span:eq(1)').addClass('hi');
         }
     });
+    
+    /* 위치 모달 */
+    // 모달 열기
+	    $(".modal-open-btn").click(function () {
+	        
+	    	// 위치
+	        if($(this).hasClass("location")){
+	            $(".location-setting").fadeIn(100);
+	            $(".location-setting").css("display", "flex");
+	        }
+	    });
+	
+	    // 모달 닫기 버튼
+	    $(".modal-close-btn").click(function () {
+	        $(".modal").fadeOut(100);
+	    });
+	
+	    // 모달 밖에 클릭시 모달 닫기
+	    $(".modal").click(function (e) {
+	        if($(e.target).hasClass('modal-layer')) {
+	            $(".modal").fadeOut(100);
+	        }
+	
+	    });
 </script>
