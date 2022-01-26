@@ -60,6 +60,7 @@ main a{
 
 .category a:hover{
     background-color: rgb(255, 223, 62);
+    font-weight: bold;
 }
 
 .category a:active{
@@ -85,6 +86,14 @@ tbody a {
 .detail{
     font-size: 20px;
     font-weight: bold;
+}
+.detail:hover{
+	background-color: rgb(255, 223, 62);
+	cursor: pointer;
+}
+
+.detail > i{
+	margin-left: 15px;
 }
 .location-class, .hot-class, .new-class{
     width: 100%;
@@ -117,13 +126,15 @@ tbody a {
     font-size: 17px;
 }
 
-.fi-rr-angle-small-right:before {
-    margin: 15px;
-}
-
 .location{
     float: right;
 }
+
+.location:hover{
+	font-weight: bold;
+}
+
+
 
 .location p{
     display: inline-block;
@@ -138,6 +149,7 @@ tbody a {
     border-radius: 5px;
     position: relative;
     margin: 0 9px;
+    cursor: pointer;
 }
 
 .class  img{
@@ -195,15 +207,10 @@ tbody a {
     -o-transform: scale(1);
     transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
 }
-/* .class:hover {
-    transform: scale(1.1);
-    -webkit-transform: scale(1.1);
-    -moz-transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    -o-transform: scale(1.1);
-} */
+
 .class .image {overflow: hidden;}
-.class .image:hover img {
+
+.class:hover img {
     transform:scale(1.1);
     transition: transform .5s;
     filter: opacity(0.7);

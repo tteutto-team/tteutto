@@ -7,6 +7,8 @@
 <!-- 부트스트랩 - 케러셀 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 <!-- 아이콘 -->
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 <link href="${contextPath}/resources/icon/css/uicons-regular-rounded.css" rel="stylesheet">
 <link rel="stylesheet" href="${contextPath}/resources/css/main.css"/>
 
@@ -55,7 +57,7 @@
     <div class="location-class">
         <div class="location-class-top">
             <span class="detail">
-                주변 클래스 추천<i class="fi-rr-angle-small-right"></i>
+                주변 클래스 추천<i class="fas fa-angle-right"></i>
             </span>
             <span class="location modal-open-btn" style="cursor: pointer;">
                 <i class=" fi-rr-marker"></i> <p>서울 종로구</p>
@@ -67,7 +69,6 @@
             <div class="class">
                 <div class="image">
                     <img src="${contextPath}/resources/images/class/temp.jpg">
-                    <!-- 추가 -->
                     <p class="location-p">서울 강남</p>
                 </div>
                 <button type="button" class="btn_like">
@@ -173,7 +174,7 @@
     <div class="hot-class">
         <div class="hot-class-top">
             <span class="detail">
-                인기 클래스 추천<i class="fi-rr-angle-small-right"></i>
+                인기 클래스 추천<i class="fas fa-angle-right"></i>
             </span>
         </div>
 
@@ -287,7 +288,7 @@
     <div class="new-class">
         <div class="new-class-top">
             <span class="detail">
-                신규 클래스 추천<i class="fi-rr-angle-small-right"></i>
+                신규 클래스 추천<i class="fas fa-angle-right"></i>
             </span>
         </div>
 

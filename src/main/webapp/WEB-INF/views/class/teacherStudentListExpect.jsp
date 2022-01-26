@@ -26,7 +26,7 @@
 
             <div class="right">
             	<div class="right-top">
-	                <p><span>'000'</span>의 학생 목록 <span id="class-status">(교육 예정)</span></p>
+	                <p><span>'클래스1'</span> 학생 목록 <span id="class-status">(교육 예정)</span></p>
             	</div>
 
                 <div class="table">
