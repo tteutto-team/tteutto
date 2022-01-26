@@ -4,20 +4,22 @@
 
 <jsp:include page="../common/header.jsp"/>
 
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 <link rel="stylesheet" href="${contextPath}/resources/css/teacherClassList.css"/>
 
 <div class="container">
         <main>
             <div class="left">
                 <div class="box">
-                    <img src="images/KakaoTalk_20220112_153307445.png">
+                    <img src="${contextPath}/resources/images/profile/temp.png">
                 </div>
                 <div class="name">홍길동</div>
                 <div class="introduce">안녕하세요. 만나서 반갑습니다.</div>
 
                 <div class="list">
                     <div onclick="location.href='#'">강사 프로필</div>
-                    <div class="selected" onclick="location.href='teacherClassList.html'">클래스 목록</div>
+                    <div class="selected" onclick="location.href='${contextPath}/teacher/classList'">클래스 목록</div>
                 </div>
             </div>
 
@@ -210,22 +212,13 @@
                                 <td>40000</td>
                             </tr>
 
-                            <tr style="background-color: whitesmoke; font-weight: bold;">
-                                <td>교육기간</td>
-                                <td colspan="2">21/04/02 ~ 21/04/02</td>
-                            </tr>
-
-                            <tr style="background-color: whitesmoke; font-weight: bold;">
-                                <td>총 정산 금액</td>
-                                <td colspan="2">100,000</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
                 
                 <div>
-                    <p>교육 기간: 21/04/02 ~ 21/04/02</p>
-                    <p>총 정산 금액: 100,000</p>
+                    <p><span style="font-weight:bold; margin-right: 12px;">교육 기간: </span> 21/04/02 ~ 21/04/02</p>
+                    <p><span style="font-weight:bold; margin-right: 12px;">총 정산 금액: </span> 100,000</p>
                 </div>
                 
                 <div id="modal-btn">
@@ -272,7 +265,7 @@
     </div>
     
     <jsp:include page="../common/footer.jsp"/>
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+	<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     
 	<script>
 	
@@ -287,6 +280,7 @@
 	        }
 	
 	        if($(this).hasClass("delete")){
+	        	console.log("삭제");
 	            $(".delete-request").fadeIn(100);
 	            $(".delete-request").css("display", "flex");
 	        }

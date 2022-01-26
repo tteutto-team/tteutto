@@ -4,27 +4,31 @@
 
 <jsp:include page="../common/header.jsp"/>
 
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 <link rel="stylesheet" href="${contextPath}/resources/css/teacherClassList.css"/>
 
 <div class="container">
         <main>
             <div class="left">
                 <div class="box">
-                    <img src="images/KakaoTalk_20220112_153307445.png">
+                    <img src="${contextPath}/resources/images/profile/temp.png">
                 </div>
                 <div class="name">홍길동</div>
                 <div class="introduce">안녕하세요. 만나서 반갑습니다.</div>
 
                 <div class="list">
                     <div onclick="location.href='#'">강사 프로필</div>
-                    <div class="selected" onclick="location.href='teacherClassList.html'">클래스 목록</div>
+                    <div class="selected" onclick="location.href='${contextPath}/teacher/classList'">클래스 목록</div>
                 </div>
-                <button onclick="location.href='teacherClassList.html'">목록으로</button>
+                <button onclick="location.href='${contextPath}/teacher/classList'">목록으로</button>
             </div>
 
             <div class="right">
-                <p><span>'000'</span>의 학생 목록 <span id="class-status">(교육 중)</span></p>
-
+	            <div class="right-top">
+	                <p><span>'000'</span>의 학생 목록 <span id="class-status">(교육 중)</span></p>
+				</div>
+				
                 <div class="table">
                     <div class="row">
                         <div class="column">번호</div>
@@ -178,7 +182,7 @@
     </div>
 
 	<jsp:include page="../common/footer.jsp"/>
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+	<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 	
 	<script>
 
