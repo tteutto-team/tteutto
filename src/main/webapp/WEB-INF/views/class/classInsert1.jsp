@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="http://openlayers.org/en/latest/css/ol.css" type="text/css">
 	
     <section id="classInsert">
+    	<form action="${contextPath}" method="get">
         <div class="fixWidth">
             <div class="bottomLine"><h1>클래스 등록</h1></div>
             <div class="bottomLine"><span class="redText">*</span> 필수</div>
@@ -13,14 +14,14 @@
                 <div class="line1 h4-height"><h4>수업등록지역 <span class="redText">*</span></h4></div>
                 <div class="line2">
                     <!-- 브이월드 행정구역도를 이용한 셀렉트 박스 구현... 공간정보를 기반으로 하고 있어서 국가공간정보포털보다 느림 -->
-                    <form id="nsdiSearchForm" action="#" class="form_data" onsubmit="return false;search();">
+                    <!-- <form id="nsdiSearchForm" action="#" class="form_data" onsubmit="return false;search();"> -->
                         <select id="sido_code" class="select-style btn-select" required>
                             <option class="list-member">선택</option>
                         </select>
                         <select id="sigoon_code" class="select-style btn-select" required>
                             <option class="list-member">선택</option>
                         </select>
-                    </form>
+                    <!-- </form> -->
                 </div>        
             </div>
             <div class="bottomLine">
@@ -56,7 +57,9 @@
                 <div class="div-height">
                     <input type="radio" id="solo-class" name="classtype" value="one" required> 1:1 수업
                     <input type="radio" id="group-class" name="classtype" value="multi" required> 그룹수업<br><br>
-                    <div id="group-input" style="display: none;"><input type="number" class="input-style"> &nbsp명~&nbsp <input type="number" class="input-style" required></div>
+                    <div id="group-input" style="display: none;">
+                    	<input type="number" class="input-style"> &nbsp명~&nbsp <input type="number" class="input-style">
+                   	</div>
                     <p style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
                     ex) 일대일 수업을 원하는 경우, 채팅으로 문의 주세요.
                     </p>
@@ -90,8 +93,8 @@
                     <div id="img-select" class="div-height">
                         <div id="img-insert"><img src="images/회사악그림.jpg"></div>
                         <div>
-                            <div><button id="img-plus-btn" class="img-btn btn-click"> + 이미지 추가</button></div>
-                            <div><button id="img-del-btn" class="img-btn btn-click"> - 이미지 삭제</button></div>
+                            <div><button type="button" id="img-plus-btn" class="img-btn btn-click"> + 이미지 추가</button></div>
+                            <div><button type="button" id="img-del-btn" class="img-btn btn-click"> - 이미지 삭제</button></div>
                             <div id="img-text">
                                 - <span class="redText">10MB 이하</span>의 jpg, jpeg, png 파일<br>
                                 - 840x540 픽셀<br><br>
@@ -164,12 +167,11 @@
                 </div>
             </div>
             <div id="next-btn">
-                <button class="btn-click" style="background-color: #3a3424; color: white;">임시저장</button>
-                <button class="btn-click" style="background-color: #FFDF3E;">승인요청</button>
+                <button type="submit" class="btn-click" style="background-color: #3a3424; color: white;">임시저장</button>
+                <button type="submit" class="btn-click" style="background-color: #FFDF3E;">승인요청</button>
             </div>
         </div>
-        
-
+        </form>
     </section>
 	
 	<jsp:include page="../common/footer.jsp"/>
