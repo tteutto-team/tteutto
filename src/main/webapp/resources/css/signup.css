@@ -173,6 +173,11 @@ main{
     margin: 20px 0;
     border: 1px solid #ddd;
 }
+
+.signup .sns:hover{
+    background-color: rgb(245, 245, 245);
+}
+
 .signup .sns > div{
     display: flex;
     justify-content: space-around;

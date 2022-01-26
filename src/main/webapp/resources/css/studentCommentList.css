@@ -42,6 +42,7 @@ main{
 }
 
 .title > p{
+	margin: 0;
     color: #A16E50;
     font-weight: 500;
     font-size: 21px;
