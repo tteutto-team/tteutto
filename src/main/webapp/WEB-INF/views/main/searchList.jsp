@@ -3,6 +3,7 @@
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
 
 <jsp:include page="../common/header.jsp"/>
+
 <link rel="stylesheet" href="${contextPath}/resources/css/classList.css"/>
 <!-- icon -->
 <link href="${contextPath}/resources/icon/css/uicons-regular-rounded.css" rel="stylesheet">
@@ -26,8 +27,8 @@ crossorigin="anonymous"/>
 		<div class="yes">
 			<h1 class="title"><span>'${param.search}'</span>에 대한 클래스 검색 결과</h1> <!-- 검색 키워드 -->
 			
+			<!-- 옵션 선택 -->
 			<div class="select">
-				<!-- 옵션 선택 -->
 	            <article class="cont-select">
 	                <button class="btn-select">클래스 종류</button>
 	                <ul class="list-member">
