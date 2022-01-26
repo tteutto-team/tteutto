@@ -69,7 +69,11 @@ integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg
 						<div class="detail-info">
 							<span class="category-name">공예</span> <!-- 카테고리명 -->
 							<div class="class-name">[🏆BEST] 이봄의 타로 클래스 ❥ 고민으로 잠 못드는 당신을 위해</div> <!-- 클래스명 -->
-							<div class="grade"><i class="fi-rr-heart"></i><span>120</span></div> <!--  -->
+							<div class="grade">
+	                            <i class="fi-rr-star"></i> <span>95%</span> <!-- 평점 -->
+	                            <i class="fi-rr-heart"></i> <span>120</span> <!-- 찜 개수 -->
+                        	</div>
+
 							
 							<div class="detail-info-bottom">
 								<img src="${contextPath}/resources/images/teacher/temp.jpg"> <!-- 강사 프로필 이미지 -->

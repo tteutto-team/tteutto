@@ -20,6 +20,14 @@ Main
 
 -----------------------------------------------------------------------
 
+클래스 등록 1
+ * http://localhost:8080/tteutto/class/classInsert1
+
+클래스 등록 2
+ * http://localhost:8080/tteutto/class/classInsert2
+
+-----------------------------------------------------------------------
+
 공지사항 목록
  * http://localhost:8080/tteutto/notice/noticeList
  
