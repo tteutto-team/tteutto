@@ -74,8 +74,6 @@ main {
 	flex-grow: 1;
 	border: 1px solid #ddd;
 	border-radius: 10px;
-	box-shadow: 0px 0px 3px 3px #ddd;
-	background-color: white;
 }
 
 #signUp>#profile_header {
