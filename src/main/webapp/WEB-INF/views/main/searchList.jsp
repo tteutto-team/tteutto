@@ -5,6 +5,7 @@
 <jsp:include page="../common/header.jsp"/>
 <link rel="stylesheet" href="${contextPath}/resources/css/classList.css"/>
 <!-- icon -->
+<link href="${contextPath}/resources/icon/css/uicons-regular-rounded.css" rel="stylesheet">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
 integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" 
 crossorigin="anonymous"/>

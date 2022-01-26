@@ -134,9 +134,22 @@
 				}  
 			})
 			   
-/* 			window.addEventListener("click", function(e) {
+			window.addEventListener("click", function(e) {
 
-				if(profileModal.style.display == "block"){
+				const nodeList = document.querySelectorAll("#profile-modal  *");
+				const arr = Array.from(nodeList);
+				arr.push(profileModal);
+				arr.push(icon);
+				arr.push(document.querySelector("#my-profile > img"));
+
+				let flag = true;  
+				for(el of arr){  
+					if(e.target == el){
+						flag = false;
+					}     
+				}
+  
+				if(flag && profileModal.style.display == "block"){
 
 					profileModal.style.display = "none";
 					icon.classList.remove("icon-close");
@@ -144,7 +157,7 @@
 				}
 				
  
-			}) */
+			})
 		</script>
 	</body>
 </html>
