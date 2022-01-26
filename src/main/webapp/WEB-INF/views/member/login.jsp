@@ -29,7 +29,7 @@
         </form>
 
         <div id="pw-signup">
-            <a href="#">비밀번호 찾기</a>
+            <a href="findPw">비밀번호 찾기</a>
             |
             <a href="signup">회원가입</a>
         </div>

@@ -19,4 +19,10 @@ public class MemberController {
 	public String login() {
 		return "member/login";
 	}
+	
+	// 비밀번호 찾기 페이지 이동
+	@RequestMapping(value="findPw", method=RequestMethod.GET)
+	public String findPw() {
+		return "member/findPw";
+	}
 }
