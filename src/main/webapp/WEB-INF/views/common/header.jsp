@@ -121,7 +121,9 @@
 			const profileModal = document.querySelector("#profile-modal");
 			const icon = document.querySelector("#icon");
 		
+			/* 헤더 프로필 이미지 + icon 클릭 시 모달창 열고 닫기 */
 			myProfile.addEventListener("click", function() {
+				
 				if (profileModal.style.display != "block") {
 					profileModal.style.display = "block";
 					icon.classList.remove("icon-open");
@@ -133,30 +135,31 @@
 					icon.classList.add("icon-open");
 				}  
 			})
-			   
+			
+			/* 모달창이 열려있을 때 헤더 프로필 이미지 + icon, 모달창 외 나머지 클릭 시 모달창 닫기 */
 			window.addEventListener("click", function(e) {
 
-				const nodeList = document.querySelectorAll("#profile-modal  *");
+				const nodeList = document.querySelectorAll("#profile-modal *");
 				const arr = Array.from(nodeList);
 				arr.push(profileModal);
+				
 				arr.push(icon);
 				arr.push(document.querySelector("#my-profile > img"));
 
 				let flag = true;  
-				for(el of arr){  
-					if(e.target == el){
+				for (el of arr) {
+					if (e.target == el) {
 						flag = false;
-					}     
+						break;
+					}
 				}
   
-				if(flag && profileModal.style.display == "block"){
+				if(flag && profileModal.style.display == "block") {
 
 					profileModal.style.display = "none";
 					icon.classList.remove("icon-close");
 					icon.classList.add("icon-open");
 				}
-				
- 
 			})
 		</script>
 	</body>

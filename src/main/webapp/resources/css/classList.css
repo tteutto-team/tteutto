@@ -193,7 +193,7 @@
 
 .searchList .detail-info-bottom {
     position: absolute;
-    width: 247px; /* 변경 */
+    width: 247px;
     bottom: 10px;
     border-top: 1px solid #ccc;
     padding-top: 10px;
@@ -212,7 +212,7 @@
 .searchList .class-price {
     font-size: 15px;
     float: right;
-    padding-top: 1px; /* 추가 */
+    padding-top: 1px;
 }
 
 /* 이미지 확대 */
@@ -227,7 +227,7 @@
 
 .searchList .class .image {overflow: hidden;}
 
-.searchList .class .image:hover img {
+.searchList .class:hover img {
 	transform:scale(1.1);
 	transition: transform .5s;
 	filter: opacity(0.7);
