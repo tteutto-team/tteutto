@@ -18,7 +18,7 @@
                 <div class="introduce">안녕하세요. 만나서 반갑습니다.</div>
 
                 <div class="list">
-                    <div onclick="location.href='#'">강사 프로필</div>
+                    <div onclick="location.href='${contextPath}/member/teacherProfile'">강사 프로필</div>
                     <div class="selected" onclick="location.href='${contextPath}/teacher/classList'">클래스 목록</div>
                 </div>
                 <button onclick="location.href='${contextPath}/teacher/classList'">목록으로</button>
