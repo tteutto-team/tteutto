@@ -10,12 +10,12 @@
     /*border: 1px solid rgb(185, 185, 185);*/
     box-sizing: border-box;
 }
-
+/* 
 body{
     margin: 0;
     font-family: 'IBMPlexSansKR-Regular';
 }
-
+ */
 .fixWidth{
     width: 1200px;
     margin: auto;
@@ -260,8 +260,7 @@ body{
     margin-right: 10px;
 }
 
-#c-location > div > button{
-    font-family: 'IBMPlexSansKR-Regular';
+#locationBtn{
     font-weight: bold;
     font-size: 14px;
     width: 80px;
@@ -347,10 +346,15 @@ body{
 
 
 /*다음버튼영역*/
-#next-btn{
+/* #next-btn{
     clear: both;
     display: flex;
     justify-content: center;
+} */
+
+#next-btn{
+    clear: both;
+    text-align: center;
 }
 
 #next-btn button{

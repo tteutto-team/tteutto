@@ -11,14 +11,14 @@
     box-sizing: border-box;
 }
 
-body *{
+/* body *{
     font-family: 'IBMPlexSansKR-Regular';
 }
 
 body{
     margin: 0;
     
-}
+} */
 
 .fixWidth{
     width: 1200px;

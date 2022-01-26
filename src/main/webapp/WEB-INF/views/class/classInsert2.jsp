@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="${contextPath}/resources/css/jquery-ui.multidatespicker.css">
 	
     <section id="classInsert2">
+    	<form action="${contextPath}" name="form" id="form" method="post">
         <div class="fixWidth">
             <div class="bottomLine"><h1>클래스 등록</h1></div>
             <div class="bottomLine"><span class="redText">*</span> 필수</div>
@@ -40,7 +41,7 @@
                         </div>
                     </div>
                     <div id="test-oneday-schedule" style="display: none;">
-                        <div><button id="schedule-btn2" class="btn-click">날짜 불러오기</button></div>
+                        <div><input type="button" id="schedule-btn" class="btn-click" value="날짜 불러오기"></input></div>
                         <div>* 수업 날짜를 선택 후 불러온뒤 가능한 수업시간을 선택해주세요.</div>
                         <div id="test-schedule-text" style="display: none;">
                             <table id="test-table">
@@ -119,9 +120,11 @@
             <div id="c-location" class="bottomLine">
                 <div class="line1 h4-height"><h4>수업장소 주소 <span class="redText">*</span></h4></div> 
                 <div class="line2">
-                    <input type="text" class="input-style" placeholder="서울시 구로구 구로동 100">
-                    <input type="text" class="input-style" placeholder="스터디카페 비버통 2층">
-                    <button class="btn-click">주소검색</button>
+                	<!-- <form name="form" id="form" method="post"> -->
+                    	<input type="text" id="roadAddrPart1"  name="roadAddrPart1" class="input-style" placeholder="서울시 구로구 구로동 100">
+                    	<input type="text" id="addrDetail"  name="addrDetail" class="input-style" placeholder="스터디카페 비버통 2층">
+                    	<input id="locationBtn" type="button" class="btn-click" onClick="goPopup();" value="주소검색"/>
+                    <!-- </form> -->
                 </div>
             </div>
 
@@ -147,7 +150,7 @@
 
             <div id="c-price" class="bottomLine">
                 <div class="line1">
-                    <div><h4>총 수업가격</h4></div>
+                    <div><h4>수업가격</h4></div>
                 </div>
                 <div>
                     <div id="price-area" class="tip">
@@ -167,11 +170,11 @@
             </div>
             
             <div id="next-btn">
-                <button class="btn-click" style="background-color: #3a3424; color: white;">미리보기</button>
-                <button class="btn-click" style="background-color: #3a3424; color: white;">임시저장</button>
-                <button class="btn-click" style="background-color: #FFDF3E;">최종 승인요청</button>
+                <button type="button" class="btn-click" style="background-color: #3a3424; color: white;">임시저장</button>
+                <button type="submit" class="btn-click" style="background-color: #FFDF3E;">등록</button>
             </div>
         </div>
+        </form>
     </section>
 
 	<jsp:include page="../common/footer.jsp"/>
