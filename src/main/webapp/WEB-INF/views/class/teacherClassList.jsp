@@ -25,7 +25,7 @@
 
             <div class="right">
                 <div class="right-top">
-                    <p><span>'000'</span>님의 클래스 목록</p>
+                    <p><span>'홍길동'</span>님의 클래스 목록</p>
                     <button class="new-class modal-open-btn" id="new-class">새 클래스 열기</button>
                 </div>
 
