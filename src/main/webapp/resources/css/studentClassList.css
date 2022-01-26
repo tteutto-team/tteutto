@@ -1,0 +1,280 @@
+body, html{
+    margin: 0;
+    padding: 0;
+}
+
+body *{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+ol,ul,li,a{
+    list-style: none;
+    text-decoration: none;
+    color: black;
+}
+
+.container{
+    min-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main{
+    width: 1200px;
+    display: flex;
+}
+
+
+
+
+/* 오른쪽 */
+.right{
+    flex: 1 0 0;
+    border-radius: 10px;
+    border: 2px solid #ededed;
+    background-color: white;
+}
+
+
+/* 제목 부분 */
+.title{
+    display: flex;
+    padding: 30px 25px 20px 25px;
+    border-bottom: 1px solid #ddd;
+}
+
+.title > p{
+	margin: 0;
+    color: #A16E50;
+    font-weight: 500;
+    font-size: 21px;
+    font-weight: bolder;
+}
+
+.title > p > span{
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+/* 테이블 부분 */
+.table{
+    margin: 10px;
+    min-height: 600px;
+}
+
+/* 테이블 전체 폰트 크기 */
+.table * {
+    font-size: 12px;
+}
+
+/* 테이블 한 줄 */
+.row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-bottom: 0;
+}
+
+/* 테이블 첫번째 줄 */
+.row:nth-of-type(1){
+    border-bottom: 2px solid #ddd;
+}
+
+.table-column{
+    font-size: 15px;
+    font-weight: 800;
+}
+
+/* 테이블에서 마지막 줄 */
+.table > div:nth-last-child(2){
+    border-bottom: 1px solid #ddd;
+}
+
+/* 테이블 한 칸 */
+.column{
+    flex: 1 1 0;
+    text-align: center;
+    padding: 15px 0;
+}
+
+/* 테이블에서 2번 째 칸 길이 자르기 */
+.column:nth-of-type(2){
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 테이블 첫번째 칸, 마지막 칸 너비 조정 */
+.column:nth-of-type(1), .column:last-of-type{
+    flex: 0.5;
+}
+
+/* 테이블 마지막 칸 커서 포인터 */
+.slide{
+    cursor: pointer;
+}
+
+/* 슬라이드 div */
+.invisible{
+    display: none;
+    height: 50px;
+    width: 100%;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+/* 마지막 슬라이드 div */
+.table > div:nth-last-child(1){
+    border-top: 0;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 슬라이드 버튼 div */
+.invisible-btn{
+    display: flex;
+    height: 100%;
+    justify-content: end;
+    align-items: center;
+    margin-right: 50px;
+}
+
+/* 버튼 */
+.invisible-btn > button{
+    /* margin-left: 10px;
+    padding: 3px;
+    border-radius: 5px;
+    background-color: #FFDF3E;
+    border: 1px solid #ddd;
+    cursor: pointer; */
+    width: 56px;
+    height: 30px;
+    margin-left: 10px;
+    padding: 3px;
+    border-radius: 5px;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+    border: 1px solid rgba(70, 70, 70, 0.788);
+    background: none;
+}
+.invisible-btn > button:hover{
+    border-color: #e4e5ed;
+    background-color: #FFDF3E;
+}
+
+
+/* 모달창 */
+#report-modal, #review-modal {
+    display: none;
+    position:absolute;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height:100%;
+    z-index:1;
+}
+
+/* 모달창 주요 내용 div */
+.modal-content {
+    width:500px;
+    padding:20px;
+    background:#fff;
+    border:2px solid #666;
+    border-radius: 10px;
+}
+
+/* 모달창 뒷 배경 */
+.modal-layer {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0, 0, 0, 0.5);
+    z-index:-1;
+}   
+
+/* 모달창 제목 */
+.modal-title{
+    display: flex;
+    justify-content: center;
+}
+
+/* 모달창 클래스명 */
+.modal-classname{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* 모달창 textarea */
+.modal-textarea{
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+    outline-color: #FFDF3E;
+}
+
+/* 모달창 버튼 div */
+.modal-btn{
+    display: flex;
+    justify-content: center;
+}
+
+/* 모달창 버튼 */
+.modal-btn > button{
+    height: 30px;
+    margin: 10px;
+    border-radius: 5px;
+    flex: 1 1 0;
+    border: 0;
+    cursor: pointer;
+}
+
+/* 모달창 닫기 버튼 */
+.modal-close-btn{
+    background-color: #ddd;
+}
+
+.modal-close-btn:hover{
+    background-color: rgb(185, 185, 185);
+}
+
+/* 모달창 submit 버튼 */
+.modal-btn > button:nth-of-type(1){
+    background-color: #FFDF3E;
+}
+
+.modal-btn > button:nth-of-type(1):hover{
+    background-color: #e6c317;
+}
+
+
+/* 페이지네이션 */
+.page-number{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.page-ul{
+    display: flex;
+}
+
+.page-ul > li{
+    text-align: center;
+    line-height: 28px;
+    width: 30px;
+    height: 30px;
+}
+
+.page-ul > li > a{
+    display: block;
+}
