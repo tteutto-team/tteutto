@@ -126,12 +126,25 @@
 					profileModal.style.display = "block";
 					icon.classList.remove("icon-open");
 					icon.classList.add("icon-close");
+					
 				} else {
 					profileModal.style.display = "none";
 					icon.classList.remove("icon-close");
 					icon.classList.add("icon-open");
-				}
+				}  
 			})
+			   
+/* 			window.addEventListener("click", function(e) {
+
+				if(profileModal.style.display == "block"){
+
+					profileModal.style.display = "none";
+					icon.classList.remove("icon-close");
+					icon.classList.add("icon-open");
+				}
+				
+ 
+			}) */
 		</script>
 	</body>
 </html>
