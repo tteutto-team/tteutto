@@ -50,4 +50,9 @@ public class MemberController {
 		return "member/teacherProfile";
 	}
 	
+	// 강사 신청 페이지 이동
+	@RequestMapping(value="teacherRegister", method=RequestMethod.GET)
+	public String teacherRegister() {
+		return "member/teacherRegister";
+	}
 }
