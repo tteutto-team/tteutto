@@ -21,7 +21,7 @@
                         <button id="testtest1" style="display: none;">다회차테스트용</button>
                     </div>
                     <div id="schedule-val">
-                        <div><button id="schedule-btn" class="btn-click">날짜 불러오기</button></div>
+                        <div><input type="button" id="schedule-btn" class="btn-click" value="날짜 불러오기"></input></div>
                         <div>* 회차별 수업 날짜를 선택하여 일정을 불러온 뒤 수업시간을 선택해주세요.</div>
                         <div id="schedule-text" style="display: none;">
                             <table id="schedule-table">
