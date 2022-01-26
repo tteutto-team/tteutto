@@ -1,6 +1,5 @@
 * {box-sizing: border-box;}
 
-
 body {
 	font-family: 'IBM Plex Sans KR', sans-serif;
 	margin: 0;
@@ -18,6 +17,34 @@ main {
 }
 
 a, header a, footer a {
+	text-decoration: none;
+	color: black;
+}
+
+/* ----- 페이지네이션 ----- */
+
+.page-number {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.page-ul {
+    display: flex;
+}
+
+.page-ul > li {
+    text-align: center;
+    line-height: 28px;
+    width: 30px;
+    height: 30px;
+}
+
+.page-ul > li > a {
+    display: block;
+}
+
+a:hover, header a:hover, footer a:hover {
 	text-decoration: none;
 	color: black;
 }
@@ -190,6 +217,7 @@ header .profile-modal .user-name {font-size: 16px;}
 
 header .profile-modal .my-page {font-size: 13px;}
 header .profile-modal .my-page > a {color: #BF5846;}
+header .profile-modal .my-page > a:hover {text-decoration: underline;}
 
 header .profile-modal .modal-2 {
 	margin-top: 10px;
