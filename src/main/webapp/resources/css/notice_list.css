@@ -1,14 +1,3 @@
-
-*{
-    box-sizing: border-box;
-
-}
-
-ul, li, a{
-    list-style: none;
-    color: black;
-}
-
 #container{
     min-width: 1200px;
     display: flex;
