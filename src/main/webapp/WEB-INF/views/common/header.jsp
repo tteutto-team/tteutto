@@ -58,12 +58,12 @@
 					<!-- 미로그인 시 노출되는 메뉴
 					<ul class="logout">
 						<li><a href="#">강사 신청하기</a></li>
-						<li><a href="#">로그인</a></li>
+						<li><a href="${contextPath}/member/login">로그인</a></li>
 					</ul>
 					 -->
 
 					<ul class="login">
-						<li><a href="#">강사 신청하기</a></li>
+						<li><a href="${contextPath}/member/teacherRegister">강사 신청하기</a></li>
 						
 						<!-- 찜한 클래스 -->
 						<li><a href="${contextPath}/my/favorite">
@@ -98,13 +98,13 @@
 										</div>
 										
 										<!-- 회원 프로필 페이지로 이동 -->
-										<div class="my-page"><a href="#">내 프로필 ></a></div>
+										<div class="my-page"><a href="${contextPath}/member/studentProfile">내 프로필 ></a></div>
 									</div>
 								</div>
 								
 								<div class="modal-2">
 									<!-- 내 클래스 조회 페이지로 이동 -->
-									<div><a href="#">내 클래스 관리</a></div>
+									<div><a href="${contextPath}/teacher/classList" target="_blank">내 클래스 관리</a></div>
 									
 									<!-- 로그아웃 후 Main 페이지로 이동 -->
 									<div><a href="#">로그아웃</a></div>
@@ -134,7 +134,7 @@
 					icon.classList.remove("icon-close");
 					icon.classList.add("icon-open");
 				}  
-			})
+			});
 			
 			/* 모달창이 열려있을 때 헤더 프로필 이미지 + icon, 모달창 외 나머지 클릭 시 모달창 닫기 */
 			window.addEventListener("click", function(e) {
@@ -160,7 +160,7 @@
 					icon.classList.remove("icon-close");
 					icon.classList.add("icon-open");
 				}
-			})
+			});
 		</script>
 	</body>
 </html>

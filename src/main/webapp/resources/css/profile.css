@@ -1,16 +1,19 @@
+button, input, textarea{
+	font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
 #container {
 	min-width: 1200px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* 푸터 넣기 전 확인용*/
-	margin-bottom: 30px;
 }
 
 main {
 	width: 1200px;
 	display: flex;
 }
+
 /* 왼쪽 */
 .left {
 	border-radius: 10px;
@@ -74,8 +77,6 @@ main {
 	flex-grow: 1;
 	border: 1px solid #ddd;
 	border-radius: 10px;
-	box-shadow: 0px 0px 3px 3px #ddd;
-	background-color: white;
 }
 
 #signUp>#profile_header {
@@ -93,16 +94,17 @@ main {
 
 .profile_btn {
 	float: right;
-	background-color: #FFDF3E;
-	width: 100px;
-	margin-right: 20px;
-	color: #111;
-	text-align: center;
-	height: 30px;
-	line-height: 28px;
-	border-radius: 5px;
-	cursor: pointer;
-	font-size: 14px;
+    background-color: #FFDF3E;
+    width: 100px;
+    margin-right: 20px;
+    color: #111;
+    text-align: center;
+    height: 33px;
+    line-height: 31px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: normal;
 }
 
 .btn_shadow {
@@ -351,6 +353,9 @@ main {
 	font-weight: 500;
 }
 
+#register>#register_header>p{
+	margin: 0;
+}
 #register>#register_header>p:first-child {
 	border-bottom: 1px solid #ddd;
 	padding-bottom: 15px;

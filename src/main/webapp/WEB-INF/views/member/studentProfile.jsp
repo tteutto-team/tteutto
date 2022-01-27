@@ -11,7 +11,7 @@
                 <img src="images/KakaoTalk_20220112_153307445.png">
             </div>
             <div class="name">홍길동</div>
-        
+        	<div class="introduce"></div>
             <div class="list">
                 <div class="selected">학생 프로필</div>
                 <div>클래스 목록</div>
