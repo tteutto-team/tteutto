@@ -12,7 +12,7 @@
     <div class="introduce">안녕하세요. 만나서 반갑습니다.</div>
 
     <div class="list">
-        <div onclick="">학생 프로필</div>
+        <div onclick="location.href='studentProfile'">학생 프로필</div>
         <div onclick="location.href='studentClassList'">클래스 목록</div>
         <div onclick="location.href='studentCommentList'">후기 목록</div>
         <div onclick="location.href='studentWishList'">찜한 클래스</div>

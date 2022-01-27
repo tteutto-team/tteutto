@@ -1,22 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.servletContext.contextPath}" />
 <jsp:include page="../common/header.jsp"/>
 <link rel="stylesheet" href="${contextPath}/resources/css/profile.css"/>
-    
+<link rel="stylesheet" href="${contextPath}/resources/css/studentWishList.css" />
     
 <div id="container">
     <main>
-        <div class="left">
-            <div class="box">
-                <img src="images/KakaoTalk_20220112_153307445.png">
-            </div>
-            <div class="name">홍길동</div>
-        	<div class="introduce"></div>
-            <div class="list">
-                <div class="selected">학생 프로필</div>
-                <div>클래스 목록</div>
-            </div>
-        </div>
+        <jsp:include page="../common/studentMypageSidebar.jsp"></jsp:include>
+        
         <form id ="signUp">
             <div id="profile_header">
                 <span>김사과</span>님의 학생 프로필
@@ -47,10 +40,6 @@
                     <div class="label_content">김케이</div>
                 </div>
                 <div class="profile_area">
-                    <div class="label_title">성별</div>
-                    <div class="label_content">남</div>
-                </div>
-                <div class="profile_area">
                     <div class="label_title">생년월일</div>
                     <div class="label_content">000111</div>
                 </div>
@@ -60,3 +49,8 @@
     </main>
 </div>
 <jsp:include page="../common/footer.jsp"/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+	$(".left > .list > div:nth-of-type(1)").addClass("selected");
+</script>
