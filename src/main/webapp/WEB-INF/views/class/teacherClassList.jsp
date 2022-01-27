@@ -30,15 +30,6 @@
                 </div>
 
                 <div class="table">
-                    <!-- <div class="row">
-                        <div class="column table-colunm">번호</div>
-                        <div class="column table-colunm">클래스명</div>
-                        <div class="column table-colunm">클래스 상태</div>
-                        <div class="column table-colunm">수강 기간</div>
-                        <div class="column table-colunm">학생 관리</div>
-                        <div class="column table-colunm">삭제 여부</div>
-                        <div class="column table-colunm">정산</div>
-                    </div> -->
                     <div class="row">
                         <div class="column table-colunm">번호</div>
                         <div class="column table-colunm">클래스명</div>
@@ -52,28 +43,34 @@
                             <i class="fas fa-angle-down"></i>
                         </div>
                     </div>
+                    
                     <div class="invisible-a">
-                        <div class="invisible-btn">
+                        <div class="invisible-div-row"  onclick="location.href=''${contextPath}/##'">
+	                        <div class="column">회차</div>
+	                        <div class="column">상태</div>
+	                        <div class="column">기간</div>
+	                        <div class="column">학생 관리</div>
+	                        <div class="column">삭제 예부</div>
+	                        <div class="column">정산</div>
+                        </div>
+                        <div class="invisible-div">
 	                        <div class="column">1</div>
-	                        <div class="column">클래스명1</div>
 	                        <div class="column">교육 예정</div>
 	                        <div class="column">22/03/01 ~ 22/04/01</div>
 	                        <div class="column"><button class="modal-open-btn" onclick="location.href = 'studentListOngoing.html';">관리</button></div>
 	                        <div class="column">삭제 요청됨</div>
 	                        <div class="column">정산 예정</div>
                         </div>
-                        <div class="invisible-btn">
-	                        <div class="column">1</div>
-	                        <div class="column">클래스명1</div>
+                        <div class="invisible-div">
+	                        <div class="column">2</div>
 	                        <div class="column">교육 예정</div>
 	                        <div class="column">22/03/01 ~ 22/04/01</div>
 	                        <div class="column"><button class="modal-open-btn" onclick="location.href = 'studentListOngoing.html';">관리</button></div>
 	                        <div class="column">삭제 요청됨</div>
 	                        <div class="column">정산 예정</div>
                         </div>
-                        <div class="invisible-btn">
-	                        <div class="column">1</div>
-	                        <div class="column">클래스명1</div>
+                        <div class="invisible-div">
+	                        <div class="column">3</div>
 	                        <div class="column">교육 예정</div>
 	                        <div class="column">22/03/01 ~ 22/04/01</div>
 	                        <div class="column"><button class="modal-open-btn" onclick="location.href = 'studentListOngoing.html';">관리</button></div>
@@ -90,6 +87,33 @@
                         </div>
                     </div>
                     
+                    <div class="invisible-a">
+                        <div class="invisible-div-row" >
+	                        <div class="column">회차</div>
+	                        <div class="column">상태</div>
+	                        <div class="column">기간</div>
+	                        <div class="column">학생 관리</div>
+	                        <div class="column">삭제 예부</div>
+	                        <div class="column">정산</div>
+                        </div>
+                        <div class="invisible-div">
+	                        <div class="column">1</div>
+	                        <div class="column">교육 예정</div>
+	                        <div class="column">22/03/01 ~ 22/04/01</div>
+	                        <div class="column"><button class="modal-open-btn" onclick="location.href = 'studentListExpect.html';">관리</button></div>
+	                        <div class="column"><button class="modal-open-btn delete">삭제 요청</button></div>
+	                        <div class="column">정산 예정</div>
+	                   	</div>
+                        <div class="invisible-div">
+	                        <div class="column">2</div>
+	                        <div class="column">교육 예정</div>
+	                        <div class="column">22/03/01 ~ 22/04/01</div>
+	                        <div class="column"><button class="modal-open-btn" onclick="location.href = 'studentListExpect.html';">관리</button></div>
+	                        <div class="column"><button class="modal-open-btn delete">삭제 요청</button></div>
+	                        <div class="column">정산 예정</div>
+	                   	</div>
+                    </div>    
+                    
                     <div class="row">
                         <div class="column">3</div>
                         <div class="column">클래스3</div>
@@ -98,6 +122,197 @@
                         </div>
                     </div>
                     
+                    <div class="invisible-a">
+                        <div class="invisible-div-row" >
+	                        <div class="column">회차</div>
+	                        <div class="column">상태</div>
+	                        <div class="column">기간</div>
+	                        <div class="column">학생 관리</div>
+	                        <div class="column">삭제 예부</div>
+	                        <div class="column">정산</div>
+                        </div>
+                        
+                        <div class="invisible-div">
+	                        <div class="column">1</div>
+	                        <div class="column">교육중</div>
+	                        <div class="column">22/03/01 ~ 22/04/01</div>
+	                        <div class="column"><button class="modal-open-btn">관리</button></div>
+	                        <div class="column"><button class="modal-open-btn delete">삭제 요청</button></div>
+	                        <div class="column"><button class="modal-open-btn calculation">신청</button></div>
+	                    </div>
+                    </div>    
+                    <div class="invisible-a">
+                        <div class="invisible-div-row" >
+	                        <div class="column">회차</div>
+	                        <div class="column">상태</div>
+	                        <div class="column">기간</div>
+	                        <div class="column">학생 관리</div>
+	                        <div class="column">삭제 예부</div>
+	                        <div class="column">정산</div>
+                        </div>
+                        
+                        <div class="invisible-div">
+	                        <div class="column">1</div>
+	                        <div class="column">교육중</div>
+	                        <div class="column">22/03/01 ~ 22/04/01</div>
+	                        <div class="column"><button class="modal-open-btn">관리</button></div>
+	                        <div class="column"><button class="modal-open-btn delete">삭제 요청</button></div>
+	                        <div class="column"><button class="modal-open-btn calculation">신청</button></div>
+	                    </div>
+                    </div>    
+                    <div class="invisible-a">
+                        <div class="invisible-div-row" >
+	                        <div class="column">회차</div>
+	                        <div class="column">상태</div>
+	                        <div class="column">기간</div>
+	                        <div class="column">학생 관리</div>
+	                        <div class="column">삭제 예부</div>
+	                        <div class="column">정산</div>
+                        </div>
+                        
+                        <div class="invisible-div">
+	                        <div class="column">1</div>
+	                        <div class="column">교육중</div>
+	                        <div class="column">22/03/01 ~ 22/04/01</div>
+	                        <div class="column"><button class="modal-open-btn">관리</button></div>
+	                        <div class="column"><button class="modal-open-btn delete">삭제 요청</button></div>
+	                        <div class="column"><button class="modal-open-btn calculation">신청</button></div>
+	                    </div>
+                    </div>    
+                    <div class="invisible-a">
+                        <div class="invisible-div-row" >
+	                        <div class="column">회차</div>
+	                        <div class="column">상태</div>
+	                        <div class="column">기간</div>
+	                        <div class="column">학생 관리</div>
+	                        <div class="column">삭제 예부</div>
+	                        <div class="column">정산</div>
+                        </div>
+                        
+                        <div class="invisible-div">
+	                        <div class="column">1</div>
+	                        <div class="column">교육중</div>
+	                        <div class="column">22/03/01 ~ 22/04/01</div>
+	                        <div class="column"><button class="modal-open-btn">관리</button></div>
+	                        <div class="column"><button class="modal-open-btn delete">삭제 요청</button></div>
+	                        <div class="column"><button class="modal-open-btn calculation">신청</button></div>
+	                    </div>
+                    </div>    
+                    <div class="invisible-a">
+                        <div class="invisible-div-row" >
+	                        <div class="column">회차</div>
+	                        <div class="column">상태</div>
+	                        <div class="column">기간</div>
+	                        <div class="column">학생 관리</div>
+	                        <div class="column">삭제 예부</div>
+	                        <div class="column">정산</div>
+                        </div>
+                        
+                        <div class="invisible-div">
+	                        <div class="column">1</div>
+	                        <div class="column">교육중</div>
+	                        <div class="column">22/03/01 ~ 22/04/01</div>
+	                        <div class="column"><button class="modal-open-btn">관리</button></div>
+	                        <div class="column"><button class="modal-open-btn delete">삭제 요청</button></div>
+	                        <div class="column"><button class="modal-open-btn calculation">신청</button></div>
+	                    </div>
+                    </div>    
+                    <div class="invisible-a">
+                        <div class="invisible-div-row" >
+	                        <div class="column">회차</div>
+	                        <div class="column">상태</div>
+	                        <div class="column">기간</div>
+	                        <div class="column">학생 관리</div>
+	                        <div class="column">삭제 예부</div>
+	                        <div class="column">정산</div>
+                        </div>
+                        
+                        <div class="invisible-div">
+	                        <div class="column">1</div>
+	                        <div class="column">교육중</div>
+	                        <div class="column">22/03/01 ~ 22/04/01</div>
+	                        <div class="column"><button class="modal-open-btn">관리</button></div>
+	                        <div class="column"><button class="modal-open-btn delete">삭제 요청</button></div>
+	                        <div class="column"><button class="modal-open-btn calculation">신청</button></div>
+	                    </div>
+                    </div>    
+                    <div class="invisible-a">
+                        <div class="invisible-div-row" >
+	                        <div class="column">회차</div>
+	                        <div class="column">상태</div>
+	                        <div class="column">기간</div>
+	                        <div class="column">학생 관리</div>
+	                        <div class="column">삭제 예부</div>
+	                        <div class="column">정산</div>
+                        </div>
+                        
+                        <div class="invisible-div">
+	                        <div class="column">1</div>
+	                        <div class="column">교육중</div>
+	                        <div class="column">22/03/01 ~ 22/04/01</div>
+	                        <div class="column"><button class="modal-open-btn">관리</button></div>
+	                        <div class="column"><button class="modal-open-btn delete">삭제 요청</button></div>
+	                        <div class="column"><button class="modal-open-btn calculation">신청</button></div>
+	                    </div>
+                    </div>    
+                    <div class="invisible-a">
+                        <div class="invisible-div-row" >
+	                        <div class="column">회차</div>
+	                        <div class="column">상태</div>
+	                        <div class="column">기간</div>
+	                        <div class="column">학생 관리</div>
+	                        <div class="column">삭제 예부</div>
+	                        <div class="column">정산</div>
+                        </div>
+                        
+                        <div class="invisible-div">
+	                        <div class="column">1</div>
+	                        <div class="column">교육중</div>
+	                        <div class="column">22/03/01 ~ 22/04/01</div>
+	                        <div class="column"><button class="modal-open-btn">관리</button></div>
+	                        <div class="column"><button class="modal-open-btn delete">삭제 요청</button></div>
+	                        <div class="column"><button class="modal-open-btn calculation">신청</button></div>
+	                    </div>
+                    </div>    
+                    <div class="invisible-a">
+                        <div class="invisible-div-row" >
+	                        <div class="column">회차</div>
+	                        <div class="column">상태</div>
+	                        <div class="column">기간</div>
+	                        <div class="column">학생 관리</div>
+	                        <div class="column">삭제 예부</div>
+	                        <div class="column">정산</div>
+                        </div>
+                        
+                        <div class="invisible-div">
+	                        <div class="column">1</div>
+	                        <div class="column">교육중</div>
+	                        <div class="column">22/03/01 ~ 22/04/01</div>
+	                        <div class="column"><button class="modal-open-btn">관리</button></div>
+	                        <div class="column"><button class="modal-open-btn delete">삭제 요청</button></div>
+	                        <div class="column"><button class="modal-open-btn calculation">신청</button></div>
+	                    </div>
+                    </div>    
+                    <div class="invisible-a">
+                        <div class="invisible-div-row" >
+	                        <div class="column">회차</div>
+	                        <div class="column">상태</div>
+	                        <div class="column">기간</div>
+	                        <div class="column">학생 관리</div>
+	                        <div class="column">삭제 예부</div>
+	                        <div class="column">정산</div>
+                        </div>
+                        
+                        <div class="invisible-div">
+	                        <div class="column">1</div>
+	                        <div class="column">교육중</div>
+	                        <div class="column">22/03/01 ~ 22/04/01</div>
+	                        <div class="column"><button class="modal-open-btn">관리</button></div>
+	                        <div class="column"><button class="modal-open-btn delete">삭제 요청</button></div>
+	                        <div class="column"><button class="modal-open-btn calculation">신청</button></div>
+	                    </div>
+                    </div>    
+                    
                     <div class="row">
                         <div class="column">4</div>
                         <div class="column">클래스4</div>
@@ -105,62 +320,33 @@
                             <i class="fas fa-angle-down"></i>
                         </div>
                     </div>
-					
-			
-
-
-
-                    <!-- <div class="row">
-                        <div class="column">1</div>
-                        <div class="column">클래스명1</div>
-                        <div class="column">교육 예정</div>
-                        <div class="column">22/03/01 ~ 22/04/01</div>
-                        <div class="column"><button class="modal-open-btn" onclick="location.href = 'studentListOngoing.html';">관리</button></div>
-                        <div class="column">삭제 요청됨</div>
-                        <div class="column">정산 예정</div>
-                    </div>
-
-                    <div class="row">
-                        <div class="column">2</div>
-                        <div class="column">클래스명2</div>
-                        <div class="column">교육 예정</div>
-                        <div class="column">22/03/01 ~ 22/04/01</div>
-                        <div class="column"><button class="modal-open-btn" onclick="location.href = 'studentListExpect.html';">관리</button></div>
-                        <div class="column"><button class="modal-open-btn delete">삭제 요청</button></div>
-                        <div class="column">정산 예정</div>
-                    </div>
-
-                    <div class="row">
-                        <div class="column">3</div>
-                        <div class="column">클래스명3</div>
-                        <div class="column">교육중</div>
-                        <div class="column">22/03/01 ~ 22/04/01</div>
-                        <div class="column"><button class="modal-open-btn">관리</button></div>
-                        <div class="column"><button class="modal-open-btn delete">삭제 요청</button></div>
-                        <div class="column"><button class="modal-open-btn calculation">신청</button></div>
-                    </div>
-
-                    <div class="row">
-                        <div class="column">4</div>
-                        <div class="column">클래스명4</div>
-                        <div class="column">교육중</div>
-                        <div class="column">22/03/01 ~ 22/04/01</div>
-                        <div class="column"><button class="modal-open-btn">관리</button></div>
-                        <div class="column"><button class="modal-open-btn delete">삭제 요청</button></div>
-                        <div class="column">요청됨</div>
-                    </div>
-
-                    <div class="row">
-                        <div class="column">5</div>
-                        <div class="column">클래스명5</div>
-                        <div class="column">교육 완료</div>
-                        <div class="column">22/03/01 ~ 22/04/01</div>
-                        <div class="column"><button class="modal-open-btn">관리</button></div>
-                        <div class="column"></div>
-                        <div class="column"><button class="modal-open-btn receipt">영수증</button></div>
-                    </div>
                     
-                     -->
+                    <div class="invisible-a">
+                        <div class="invisible-div-row" >
+	                        <div class="column">회차</div>
+	                        <div class="column">상태</div>
+	                        <div class="column">기간</div>
+	                        <div class="column">학생 관리</div>
+	                        <div class="column">삭제 예부</div>
+	                        <div class="column">정산</div>
+                        </div>
+                        <div class="invisible-div">
+	                        <div class="column">1</div>
+	                        <div class="column">교육중</div>
+	                        <div class="column">22/03/01 ~ 22/04/01</div>
+	                        <div class="column"><button class="modal-open-btn">관리</button></div>
+	                        <div class="column"><button class="modal-open-btn delete">삭제 요청</button></div>
+	                        <div class="column">요청됨</div>
+	                    </div>
+	                    <div class="invisible-div">
+	                        <div class="column">2</div>
+	                        <div class="column">교육 완료</div>
+	                        <div class="column">22/03/01 ~ 22/04/01</div>
+	                        <div class="column"><button class="modal-open-btn">관리</button></div>
+	                        <div class="column"></div>
+	                        <div class="column"><button class="modal-open-btn receipt">영수증</button></div>
+	                    </div>
+                    </div>
                     
                     
                 </div>
@@ -311,8 +497,8 @@
                     </div>
                     
                     <div id="modal-btn">
-                        <button id="new" style="height: 50px;">클래스 새로 만들기</button>
-                        <button type="button" id="existing" style="height: 50px;">기존 클래스 이어 열기</button>
+                        <button id="new" style="height: 50px;" onclick="location.href='${contextPath}/class/classInsert1'">클래스 새로 만들기</button>
+                        <button type="button" id="existing" style="height: 50px;" onclick="location.href='${contextPath}/class/classInsert2'">기존 클래스 이어 열기</button>
                     </div>
 
                     <!-- 옵션 선택 -->
@@ -344,8 +530,6 @@
 	
 	    // 모달 열기
 	    $(".modal-open-btn").click(function () {
-	        /* $("#modal").fadeIn(100);
-	        $("#modal").css("display", "flex"); */
 	
 	        if($(this).hasClass("receipt")){
 	            $(".receipt-request").fadeIn(100);
@@ -380,17 +564,26 @@
 	
 	    // 슬라이드
 	    $(".slide").on("click", function () {
-	        if ($(this).parent().next().css("display") == "none") {
-	            $(".invisible").slideUp(100);
-	            $(".slide").html('<i class="fas fa-angle-down"></i>');
-	            $(this).parent().next().slideDown(100);
-	            $(this).html('<i class="fas fa-angle-up"></i>');
+
+	    	console.log($(this).parent().next());
+	    	
+	        if ($(this).parent().next().hasClass("invisible-a")){
+	        	
+	        	if($(this).parent().next().css("display") == "none") {
+		            $(".invisible-a").slideUp(100);	// 모든 슬라이드를 다 올리고
+		            $(".slide").html('<i class="fas fa-angle-down"></i>');	// 모든 슬라이드 아이콘을 바꾸고
+		            $(this).parent().next().slideDown(100);	// 숨겨진 슬라이드를 내린다.
+		            $(this).html('<i class="fas fa-angle-up"></i>');	// 내린 슬라이드의 아이콘을 바꾼다
+				
+	        	} else {	// 펼쳐져 있는 경우
+	            	$(this).parent().next().slideUp(100);	// 버튼을 누른 슬라이드를 닫고
+	            	$(this).html('<i class="fas fa-angle-down"></i>');	// 아이콘을 바꾼다.
+	        	} 
 	
-	        } else {
-	            $(this).parent().next().slideUp(100);
-	            $(this).html('<i class="fas fa-angle-down"></i>');
-	
-	        }
+        	} else{
+        		console.log("안가짐")
+        	}
+	        
 	    });
 	
 	    /* 기존 강좌 이어열기 클릭시 */
