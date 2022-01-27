@@ -7,9 +7,9 @@
 	<main>
 		<form id="register">
 			<div id="register_header">
-				<p>강사 신청</p>
-				<p><span>*</span> 필수</p>
-			</div>
+                    <div>강사 신청</div>
+                    <div><span>* </span>필수</div> 
+            </div>
 			<div class="register_content">
 				<div class="register_area">
 					<div class="label_title">프로필사진</div>
