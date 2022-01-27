@@ -39,11 +39,11 @@
                 </div>
                 <div class="profile_area">
                     <div class="label_title">전화번호</div>
-                    <div class="label_content">010-1234-5678</div>
+                    <div class="label_content"><input type="text" class="profile_input" placeholder="010-1234-5678"></div>
                 </div>
                 <div class="profile_area">
                     <div class="label_title">이름</div>
-                    <div class="label_content">김케이</div>
+                    <div class="label_content"><input type="text" class="profile_input" placeholder="김케이"></div>
                 </div>
                 <div class="profile_area">
                     <div class="label_title">생년월일</div>
