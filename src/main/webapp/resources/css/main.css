@@ -164,6 +164,11 @@ tbody a {
 
 }
 
+.class .image {
+    width: 272px;
+    height: 272px;
+}
+
 .detail-info{
     padding: 13px;
     padding-top: 5px;
@@ -184,7 +189,7 @@ tbody a {
 
 .detail-info-bottom{
     position: absolute;
-    width: 224px;
+    width: 247px;
     bottom: 10px;
     border-top: 1px solid #ccc;
     padding-top: 10px;
@@ -210,11 +215,11 @@ tbody a {
 
 .class .image {overflow: hidden;}
 
-.class:hover img {
-    transform:scale(1.1);
-    transition: transform .5s;
-    filter: opacity(0.7);
- }
+.class:hover .image > img {
+   transform:scale(1.1);
+   transition: transform .5s;
+   filter: opacity(0.7);
+}
 
 /* 강사 이미지 */
 .detail-info-bottom > * {vertical-align: middle;}
