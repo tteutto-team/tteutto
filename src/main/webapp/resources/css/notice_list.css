@@ -9,6 +9,10 @@ main{
     width: 1200px;
 }
 
+h3, h2{
+	font-weight:600;
+}
+
 #container_header{
     font-size : 28px;
 }
