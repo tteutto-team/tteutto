@@ -13,14 +13,13 @@
             <div class="introduce">안녕하세요. 만나서 반갑습니다.</div>
 
             <div class="list">
-                <div class="selected">강사 프로필</div>
-                <div>클래스 목록</div>
+                <div class="selected" onclick="location.href='${contextPath}/member/teacherProfile'">강사 프로필</div>
+                <div onclick="location.href='${contextPath}/teacher/classList'">클래스 목록</div>
             </div>
         </div>
         <form id ="signUp">
             <div id="profile_header">
                 <span>김사과</span>님의 강사 프로필
-                <div id="secession" class="profile_btn btn_shadow">탈퇴하기</div>
                 <div id="save" class="profile_btn btn_shadow">저장하기</div>
             </div>
             <div class="profile_content">
@@ -40,15 +39,11 @@
                 </div>
                 <div class="profile_area">
                     <div class="label_title">전화번호</div>
-                    <div class="label_content">010-1234-5678</div>
+                    <div class="label_content"><input type="text" class="profile_input" placeholder="010-1234-5678"></div>
                 </div>
                 <div class="profile_area">
                     <div class="label_title">이름</div>
-                    <div class="label_content">김케이</div>
-                </div>
-                <div class="profile_area">
-                    <div class="label_title">성별</div>
-                    <div class="label_content">남</div>
+                    <div class="label_content"><input type="text" class="profile_input" placeholder="김케이"></div>
                 </div>
                 <div class="profile_area">
                     <div class="label_title">생년월일</div>

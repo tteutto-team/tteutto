@@ -1,6 +1,9 @@
 button, input, textarea{
 	font-family: 'IBM Plex Sans KR', sans-serif;
 }
+input, textarea{
+	outline-color: #FFDF3E;
+}
 
 #container {
 	min-width: 1200px;
@@ -46,7 +49,7 @@ main {
 .name {
 	height: 30px;
 	font-size: 20px;
-	font-weight: bold;
+	font-weight: 500;
 	text-align: center;
 }
 
@@ -59,11 +62,11 @@ main {
 	margin-top: 80px;
 	font-weight: 600;
 }
-
-.left .list>div {
+.left .list > div {
 	height: 50px;
 	line-height: 48px;
 	padding-left: 30px;
+	cursor: pointer;
 }
 
 .selected {
@@ -82,14 +85,14 @@ main {
 #signUp>#profile_header {
 	padding: 30px 25px 20px 25px;
 	border-bottom: 1px solid #ddd;
-	color: #A16E50;
-	font-size: 21px;
-	font-weight: bolder;
+	color: #BF5846;
+	font-size: 23px;
+	font-weight: 500;
 }
 
 #signUp>#profile_header>span {
-	font-size: 25px;
-	font-weight: bolder;
+	font-size: 28px;
+	font-weight: 500;
 }
 
 .profile_btn {
@@ -128,6 +131,10 @@ main {
 .profile_area {
 	padding: 40px 0;
 	border-bottom: 1px solid #ddd;
+}
+
+.profile_area:last-child{
+    border-bottom: none;
 }
 
 .profile_area:first-child {
@@ -170,11 +177,11 @@ main {
 }
 
 .label_title {
-	padding: 0 20px;
+	padding: 0 40px;
 	width: 20%;
 	float: left;
 	font-size: 17px;
-	font-weight: 700;
+	font-weight: 500;
 	color: #333;
 }
 
@@ -198,7 +205,6 @@ main {
 	height: 250px;
 	width: 90%;
 	border: 1px solid #ddd;
-	outline: none;
 	resize: none;
 	padding: 20px 15px;
 	border-radius: 5px;
@@ -284,7 +290,7 @@ main {
 }
 
 #input_sns>p {
-	font-weight: bold;
+	font-weight: 500;
 	margin: 20px 0 15px 0;
 }
 
@@ -396,7 +402,7 @@ main {
 	cursor: pointer;
 	border: none;
 	letter-spacing: 10px;
-	font-weight: bold;
+	font-weight: 500;
 }
 
 .register_area {

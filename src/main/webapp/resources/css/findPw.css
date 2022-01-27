@@ -18,7 +18,7 @@ ol,ul,li,a{
 
 .container{
     min-width: 1080px;
-    min-height: 100vh;
+    min-height: 700px;
     display: flex;
     justify-content: center;
     align-items: center;
