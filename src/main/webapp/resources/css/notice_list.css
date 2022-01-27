@@ -10,13 +10,13 @@ main{
 }
 
 #container_header{
-    padding-bottom: 30px;
+    font-size : 28px;
 }
 
 /* 공지사항 목록페이지 */
 
 #container_header > h1{
-    font-size: 40px;
+    font-size: 28px;
     margin-top : 0;
 }
 
@@ -40,7 +40,7 @@ main{
     text-align: center;
     font-size: 35px;
     color: #BF5846;
-    padding: 25px 0 70px 0 ;
+    padding-bottom: 70px;
     border-bottom: 2px solid #bebebe;
 }
 
@@ -66,7 +66,7 @@ main{
     display: inline-block;
     width: 100%;
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 500;
     line-height: 68px;
 }
 
@@ -97,8 +97,8 @@ main{
     border-bottom: 5px solid #FFDF3E;
     float: left;
     margin-right: 80px;
-    font-weight: bold;
-    font-size: 30px;
+    font-weight: 500;
+    font-size: 25px;
     cursor: pointer;
     padding: 0 15px 5px 15px;
 }
@@ -106,8 +106,8 @@ main{
 .tab_on{
     float: left;
     margin-right: 80px;
-    font-weight: bold;
-    font-size: 30px;
+    font-weight: 500;
+    font-size: 25px;
     padding-bottom: 5px;
 }
 
@@ -128,12 +128,11 @@ main{
     margin-left: -30px;
     line-height: 3.5;
     font-size: 17px;
-    font-weight: 700;
 }
 
 .faq_title_no{
     color : #FFDF3E;
-    font-weight: bold;
+    font-weight: 500;
     font-size: 20px;
 
 }
