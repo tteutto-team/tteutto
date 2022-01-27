@@ -160,6 +160,16 @@
                         <p>'클래스명1' - 강사명</p>
                     </div>
                     
+                    <div class="score">
+                        평점 : 
+                        <!-- <i class="fas fa-star"></i> -->
+                        <i class="far fa-star"><span>1</span></i>
+                        <i class="far fa-star"><span>2</span></i> 
+                        <i class="far fa-star"><span>3</span></i>
+                        <i class="far fa-star"><span>4</span></i>
+                        <i class="far fa-star"><span>5</span></i>
+                    </div>
+                    
                     <textarea name="" class="modal-textarea" placeholder="후기를 작성해주세요."></textarea>
 
                     <input type="hidden">
@@ -231,6 +241,13 @@
             $(this).html('<i class="fas fa-angle-down"></i>');
 
         }
+    });
+    
+    $(document).on("click", ".score > i", function(){
+    	$(".score > i").removeClass();
+    	$(this).nextAll("i").addClass("far fa-star");
+    	$(this).addClass("fas fa-star");
+    	$(this).prevAll("i").addClass("fas fa-star");
     });
 
 </script>
