@@ -15,6 +15,6 @@
         <div onclick="">학생 프로필</div>
         <div onclick="location.href='studentClassList'">클래스 목록</div>
         <div onclick="location.href='studentCommentList'">후기 목록</div>
-        <div onclick="location.href='studentWishList'">찜 목록</div>
+        <div onclick="location.href='studentWishList'">찜한 클래스</div>
     </div>
 </div>
