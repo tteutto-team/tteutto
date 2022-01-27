@@ -98,13 +98,13 @@
 										</div>
 										
 										<!-- 회원 프로필 페이지로 이동 -->
-										<div class="my-page"><a href="${contextPath}/member/studentProfile">내 프로필 ></a></div>
+										<div class="my-page"><a href="${contextPath}/member/studentProfile">학생 프로필 ></a></div>
 									</div>
 								</div>
 								
 								<div class="modal-2">
 									<!-- 내 클래스 조회 페이지로 이동 -->
-									<div><a href="${contextPath}/teacher/classList" target="_blank">내 클래스 관리</a></div>
+									<div><a href="${contextPath}/teacher/classList" target="_blank">강사 페이지 열기</a></div>
 									
 									<!-- 로그아웃 후 Main 페이지로 이동 -->
 									<div><a href="#">로그아웃</a></div>
