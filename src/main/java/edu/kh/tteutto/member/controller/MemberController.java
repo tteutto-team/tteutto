@@ -38,6 +38,12 @@ public class MemberController {
 		return "member/studentCommentList";
 	}
 	
+	// 학생 마이페이지 후기 목록 이동
+	@RequestMapping(value="studentWishList", method=RequestMethod.GET)
+	public String studentWishList() {
+		return "member/studentWishList";
+	}
+	
 	// 학생 프로필 페이지 이동
 	@RequestMapping(value="studentProfile", method=RequestMethod.GET)
 	public String studentProfile() {

@@ -1,0 +1,408 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+body, html{
+    margin: 0;
+    padding: 0;
+}
+
+body *{
+    box-sizing: border-box;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    /* border: 1px solid black; */
+}
+
+ol,ul,li,a{
+    list-style: none;
+    text-decoration: none;
+    color: black;
+}
+
+.container{
+    min-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main{
+    width: 1200px;
+    display: flex;
+}
+
+/* 오른쪽 */
+.right{
+    flex: 1 0 0;
+    border-radius: 10px;
+    border: 2px solid #ededed;
+    background-color: white;
+}
+
+
+/* 제목 부분 */
+.title{
+    display: flex;
+    padding: 30px 25px 20px 25px;
+    border-bottom: 1px solid #ddd;
+}
+
+.title > p{
+	margin: 0;
+    color: #A16E50;
+    font-weight: 500;
+    font-size: 21px;
+    font-weight: bolder;
+}
+
+.title > p > span{
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+/* 찜목록 */
+.list-wrap{
+    margin: 10px;
+    min-height: 600px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* 찜목록 1개 div */
+.fav-wrap{
+    width: 30%;
+    height: 280px;
+    margin: 10px 13px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 3px 3px #ddd;
+}
+
+/* 썸네일 이미지 부분 div */
+.img-wrap{
+    border: 1px solid #ddd;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 170px;
+}
+
+/* 썸네일 이미지 */
+.img-wrap > img {
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* 지역 이름, 하트아이콘 div */
+.img-wrap > div{
+    width: 100%;
+    position: absolute;
+    top: 0;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 하트 아이콘 */
+.fas.fa-heart{
+    font-size: 25px;
+    color: red;
+    cursor: pointer;
+}
+
+/* 지역 이름 */
+.img-wrap > div > span{
+    background-color: #FFDF3E;
+}
+
+
+/* 카테고리, 강사이름 div */
+.category-teacher{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+
+/* 카테고리 span */
+.category-teacher > span:nth-of-type(1){
+    font-size: 13px;
+    color: #989696;
+}
+
+
+/* 점수, 가격 div */
+.score-price{
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+
+/* 점수 span */
+.score-price > span:nth-of-type(1){
+    color: #FFDF3E;
+}
+
+
+/* 페이지네이션 */
+.page-number{
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.page-ul{
+    display: flex;
+}
+
+.page-ul > li{
+    text-align: center;
+    line-height: 28px;
+    width: 30px;
+    height: 30px;
+}
+
+.page-ul > li > a{
+    display: block;
+}
+
+
+
+
+
+
+.detail{
+    font-size: 20px;
+    font-weight: bold;
+}
+.location-class, .hot-class, .new-class{
+    width: 100%;
+    height: 500px;
+    margin-top: 100px;
+}
+
+.location-class{
+    margin-top: 70px;
+}
+
+.location-class-top, .hot-class-top, .new-class-top{
+    height: 40px;
+    border-bottom: 1px solid #ccc;
+}
+
+.location-class-bottom{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.location-class-bottom, .hot-class-bottom, .new-class-bottom{
+    margin-top: 20px;
+}
+
+.location-class a, .hot-class a, .new-class a{
+    display: inline-block;
+    height: 20px;
+    font-size: 17px;
+}
+
+.fi-rr-angle-small-right:before {
+    margin: 15px;
+}
+
+.location{
+    float: right;
+}
+
+.location p{
+    display: inline-block;
+}
+
+.class{
+    width: 274px;
+    height: 445px;
+    border: 1px solid gainsboro;
+    box-shadow: 3px 2px 5px 2px #0000001a;
+    border-radius: 5px;
+    position: relative;
+    margin: 10px 0px;
+}
+
+.class:nth-of-type(3n+2){
+    margin: 10px 40px;
+}
+
+.class img{
+    width: 272px;
+    height: 272px;
+    position: relative;
+    object-fit: cover;
+    transform: scale(1.0);
+    transition: transform .5s;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+/* 위치 p태그 */
+.location-p{
+    position: absolute;
+    padding: 2px 4px;
+    display: block;
+    top: 8px;
+    left: 14px;
+    font-size: 14px;
+    background-color: rgb(255, 223, 62);
+ }
+
+.detail-info{
+    padding: 13px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.category-name{
+    font-size: 12px;
+}
+
+.grade{
+    margin: 8px 0;
+}
+
+.grade > span{
+    margin-right: 10px;
+}
+
+.detail-info-bottom{
+    bottom: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.detail-info-bottom > * {
+    vertical-align: middle;
+}
+
+.detail-info-bottom > img {
+    border-radius: 50%;
+    width: 26px;
+    height: auto;
+}
+.teacher-name{
+    font-size: 15px;
+}
+.class-price{
+    font-size: 15px;
+    float: right;
+}
+
+/* 이미지 확대 */
+.class {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
+}
+.class .image {
+    overflow: hidden;
+    height: 272px;
+}
+.class .image:hover img {
+    transform:scale(1.1);
+    transition: transform .5s;
+    filter: opacity(0.7);
+ }
+.class-name {
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+/* 찜하기 */
+.btn_like {
+    position: relative;
+    margin: 100px auto;
+    display: block;
+    width: 44px;
+    height: 44px;
+    border: 1px solid #e8e8e8;
+    border-radius: 44px;
+    font-family: notokr-bold,sans-serif;
+    font-size: 14px;
+    line-height: 16px;
+    background-color: #fff;
+    color: #DD5D54;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.03);
+    transition: border .2s ease-out,box-shadow .1s ease-out,background-color .4s ease-out;
+    cursor: pointer;
+
+    position: absolute;
+    top: 10px;
+    margin: 0;
+    right: 10px;
+  }
+  
+  .btn_like:hover {
+    border: 1px solid rgba(228,89,89,0.3);
+    background-color: rgba(228,89,89,0.02);
+    box-shadow: 0 2px 4px 0 rgba(228,89,89,0.2);
+  }
+  
+  .btn_unlike .img_emoti {
+      background-position: -30px -120px;
+  }
+  
+  .img_emoti {
+      display: inline-block;
+      overflow: hidden;
+      font-size: 0;
+      line-height: 0;
+      background: url(https://mk.kakaocdn.net/dn/emoticon/static/images/webstore/img_emoti.png?v=20180410) no-repeat;
+      text-indent: -9999px;
+      vertical-align: top;
+      width: 20px;
+      height: 17px;
+      margin-top: 1px;
+      background-position: 0px -120px;
+      text-indent: 0;
+  }
+  
+  .btn_like .ani_heart_m {
+      margin: -63px 0 0 -63px;
+  }
+  
+  .ani_heart_m {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 125px;
+      height: 125px;
+      margin: -63px 0 0 -63px;
+      pointer-events: none;
+  }
+  
+  .ani_heart_m.hi {
+      background-image: url(https://mk.kakaocdn.net/dn/emoticon/static/images/webstore/retina/zzim_on_m.png);
+      -webkit-background-size: 9000px 125px;
+      background-size: 9000px 125px;
+      animation: on_m 1.06s steps(72);
+  }
+  
+  .ani_heart_m.bye {
+      background-image: url(https://mk.kakaocdn.net/dn/emoticon/static/images/webstore/retina/zzim_off_m.png);
+      -webkit-background-size: 8250px 125px;
+      background-size: 8250px 125px;
+      animation: off_m 1.06s steps(66);
+  }
+  
+  @keyframes on_m {
+    from { background-position: 0 }
+    to { background-position: -9000px }
+  }
+  
+  @keyframes off_m {
+    from { background-position: 0 }
+    to { background-position: -8250px }
+  }
