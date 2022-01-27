@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="table">
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="column table-colunm">번호</div>
                         <div class="column table-colunm">클래스명</div>
                         <div class="column table-colunm">클래스 상태</div>
@@ -38,9 +38,79 @@
                         <div class="column table-colunm">학생 관리</div>
                         <div class="column table-colunm">삭제 여부</div>
                         <div class="column table-colunm">정산</div>
+                    </div> -->
+                    <div class="row">
+                        <div class="column table-colunm">번호</div>
+                        <div class="column table-colunm">클래스명</div>
+                        <div class="column table-colunm"></div>
                     </div>
 
                     <div class="row">
+                        <div class="column">1</div>
+                        <div class="column">클래스1</div>
+                        <div class="column slide">
+                            <i class="fas fa-angle-down"></i>
+                        </div>
+                    </div>
+                    <div class="invisible-a">
+                        <div class="invisible-btn">
+	                        <div class="column">1</div>
+	                        <div class="column">클래스명1</div>
+	                        <div class="column">교육 예정</div>
+	                        <div class="column">22/03/01 ~ 22/04/01</div>
+	                        <div class="column"><button class="modal-open-btn" onclick="location.href = 'studentListOngoing.html';">관리</button></div>
+	                        <div class="column">삭제 요청됨</div>
+	                        <div class="column">정산 예정</div>
+                        </div>
+                        <div class="invisible-btn">
+	                        <div class="column">1</div>
+	                        <div class="column">클래스명1</div>
+	                        <div class="column">교육 예정</div>
+	                        <div class="column">22/03/01 ~ 22/04/01</div>
+	                        <div class="column"><button class="modal-open-btn" onclick="location.href = 'studentListOngoing.html';">관리</button></div>
+	                        <div class="column">삭제 요청됨</div>
+	                        <div class="column">정산 예정</div>
+                        </div>
+                        <div class="invisible-btn">
+	                        <div class="column">1</div>
+	                        <div class="column">클래스명1</div>
+	                        <div class="column">교육 예정</div>
+	                        <div class="column">22/03/01 ~ 22/04/01</div>
+	                        <div class="column"><button class="modal-open-btn" onclick="location.href = 'studentListOngoing.html';">관리</button></div>
+	                        <div class="column">삭제 요청됨</div>
+	                        <div class="column">정산 예정</div>
+                        </div>
+                    </div>
+					
+					<div class="row">
+                        <div class="column">2</div>
+                        <div class="column">클래스2</div>
+                        <div class="column slide">
+                            <i class="fas fa-angle-down"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="column">3</div>
+                        <div class="column">클래스3</div>
+                        <div class="column slide">
+                            <i class="fas fa-angle-down"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="column">4</div>
+                        <div class="column">클래스4</div>
+                        <div class="column slide">
+                            <i class="fas fa-angle-down"></i>
+                        </div>
+                    </div>
+					
+			
+
+
+
+                    <!-- <div class="row">
                         <div class="column">1</div>
                         <div class="column">클래스명1</div>
                         <div class="column">교육 예정</div>
@@ -89,6 +159,9 @@
                         <div class="column"></div>
                         <div class="column"><button class="modal-open-btn receipt">영수증</button></div>
                     </div>
+                    
+                     -->
+                    
                     
                 </div>
                 <div class="page-number">

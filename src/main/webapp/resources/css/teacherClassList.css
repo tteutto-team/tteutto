@@ -507,3 +507,13 @@ background-color: #FFDF3E;
   .list-member li button:focus {
     background-color: #FFDF3E;
   }
+  
+  
+  /* 임시 테스트 */
+.invisible-a {
+    display: none;
+    width: 100%;
+    border-top: 1px solid #ddd;
+}
+  
+  
