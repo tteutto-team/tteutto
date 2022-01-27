@@ -73,7 +73,7 @@ main{
     cursor: pointer;
 }
 .signup #email-div > button:hover{
-    background-color: #e6c317;
+    background-color: #f5d11c;
 }
 
 .signup #email{
@@ -115,7 +115,7 @@ main{
 }
 
 .signup input[name=gender] + label:hover{
-    background-color: #e6c317;
+    background-color: #f5d11c;
 }
 
 .signup input[name=gender]:checked + label{
@@ -149,7 +149,7 @@ main{
 }
 
 .signup #signup-btn:hover{
-    background-color: #e6c317;
+    background-color: #f5d11c;
 }
 
 .signup p > span{

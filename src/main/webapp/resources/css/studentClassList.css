@@ -46,14 +46,14 @@ main{
 
 .title > p{
 	margin: 0;
-    color: #A16E50;
+    color: #BF5846;
     font-weight: 500;
-    font-size: 21px;
+    font-size: 28px;
     font-weight: bolder;
 }
 
 .title > p > span{
-    font-size: 25px;
+    font-size: 30px;
     font-weight: bolder;
 }
 
@@ -84,7 +84,7 @@ main{
 
 .table-column{
     font-size: 15px;
-    font-weight: 800;
+    font-weight: 600;
 }
 
 /* 테이블에서 마지막 줄 */
