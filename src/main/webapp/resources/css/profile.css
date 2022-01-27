@@ -353,30 +353,23 @@ main {
 	width: 100%
 }
 
-#register>#register_header {
-	font-size: 23px;
-	border-bottom: 1px solid #ddd;
-	font-weight: 500;
+#register > #register_header{
+    border-bottom: 1px solid #ddd;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
 }
-
-#register>#register_header>p{
-	margin: 0;
+#register > #register_header > div{
+    font-size: 28px;
+    font-weight: 500;
 }
-#register>#register_header>p:first-child {
-	border-bottom: 1px solid #ddd;
-	padding-bottom: 15px;
+#register > #register_header > div:last-child{
+    font-size: 17px;
+    line-height: 4;
 }
-
-#register>#register_header>p:last-child {
-	padding: 15px 0;
-	font-size: 15px;
-	text-align: right;
+#register > #register_header > div > span{
+    color: red;
 }
-
-#register>#register_header>p>span {
-	color: red;
-}
-
 #nickname {
 	width: 90%;
 	height: 50px;
