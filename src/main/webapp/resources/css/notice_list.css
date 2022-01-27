@@ -13,15 +13,13 @@ h3, h2{
 	font-weight:600;
 }
 
-#container_header{
-    font-size : 28px;
-}
 
 /* 공지사항 목록페이지 */
 
 #container_header > h1{
     font-size: 28px;
     margin-top : 0;
+    font-weight : 500;
 }
 
 #notice_list{
@@ -29,13 +27,16 @@ h3, h2{
 }
 
 .notice_list_item{
-    width: 100%;
-    border-bottom: 2px solid #bebebe;
+    width: 98%;
+    margin-left : 2%;
+    border-bottom: 1px solid #bebebe;
     padding: 25px 0;
 }
-
+.notice_list_item:last-child{
+	border-bottom: none;
+}
 .notice_list_link{
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 500;
 }
 
@@ -91,14 +92,14 @@ h3, h2{
 
 /* 자주 하는 질문*/
 .select_tab{
-    padding: 10px 0 30px 0;
+    padding: 30px 0;
     overflow: hidden;
     cursor: pointer;
 }
 
 .tab{
-    color: #FFDF3E;
-    border-bottom: 5px solid #FFDF3E;
+    color: #BF5846;
+    border-bottom: 5px solid #BF5846;
     float: left;
     margin-right: 80px;
     font-weight: 500;
@@ -132,10 +133,11 @@ h3, h2{
     margin-left: -30px;
     line-height: 3.5;
     font-size: 17px;
+    font-weight : 500;
 }
 
 .faq_title_no{
-    color : #FFDF3E;
+    color : #BF5846;
     font-weight: 500;
     font-size: 20px;
 
