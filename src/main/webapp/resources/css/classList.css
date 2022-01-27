@@ -165,9 +165,9 @@
 
 .searchList .location-p{
    position: absolute;
-   padding: 5px 7px;
+   padding: 5px 7px; /* 수정 */
    display: block;
-   top: 18px;
+   top: 18px; /* 수정 */
    left: 14px;
    font-size: 14px;
    background-color: #FFDF3E;
