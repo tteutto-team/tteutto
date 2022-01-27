@@ -186,5 +186,16 @@
 <script>
 	$(".left > .list > div:nth-of-type(4)").addClass("selected");
 	
-
+    $('.btn_like').click(function(){
+        if($(this).hasClass('btn_unlike')){
+            $(this).removeClass('btn_unlike');
+            $(this).children('span:eq(1)').removeClass('hi');
+            $(this).children('span:eq(1)').addClass('bye');
+        }
+        else{
+            $(this).addClass('btn_unlike');
+            $(this).children('span:eq(1)').removeClass('bye');
+            $(this).children('span:eq(1)').addClass('hi');
+        }
+    });
 </script>
