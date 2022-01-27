@@ -222,6 +222,21 @@ main{
     outline-color: #FFDF3E;
 }
 
+/* 별점 */
+.score{
+    margin-bottom: 10px;
+}
+
+/* 별점 아이콘 */
+.score > i{
+    color: #FFDF3E;
+    cursor: pointer;
+}
+
+.score > i > span {
+	display: none;
+}
+
 /* 모달창 버튼 div */
 .modal-btn{
     display: flex;

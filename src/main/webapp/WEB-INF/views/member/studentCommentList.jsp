@@ -22,7 +22,7 @@
                 <div class="table">
                     <div class="row">
                         <div class="column table-column">번호</div>
-                        <div class="column table-column">클래스명</div>
+                        <div class="column table-column">클래스명 - 회차</div>
                         <div class="column table-column">강사명</div>
                         <div class="column table-column">평점</div>
                         <div class="column table-column">후기 내용</div>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="invisible">
                         <div class="invisible-btn">
-                            <button class="report-modal-btn"><i class="far fa-edit"></i> 수정</button>
+                            <button class="review-modal-btn"><i class="far fa-edit"></i> 수정</button>
                             <button><i class="far fa-trash-alt"></i> 삭제</button>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
             </div>
         </main>
 
-        <div id="report-modal">
+        <div id="review-modal">
             <div class="modal-content">
                 <form action="#" method="post">
                     <div class="modal-title">
@@ -96,11 +96,13 @@
                     </div>
 
                     <div class="score">
-                        평점 : <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                        <i class="far fa-star"></i> 
+                        평점 : 
+                        <!-- <i class="fas fa-star"></i> -->
+                        <i class="far fa-star"><span>1</span></i>
+                        <i class="far fa-star"><span>2</span></i> 
+                        <i class="far fa-star"><span>3</span></i>
+                        <i class="far fa-star"><span>4</span></i>
+                        <i class="far fa-star"><span>5</span></i>
                     </div>
                     
                     <textarea name="" class="modal-comment" placeholder="댓글 수정">댓글 내용</textarea>
@@ -128,20 +130,20 @@
 	
 	
     // 모달 열기
-    $(".report-modal-btn").click(function () {
-        $("#report-modal").fadeIn(100);
-        $("#report-modal").css("display", "flex");
+    $(".review-modal-btn").click(function () {
+        $("#review-modal").fadeIn(100);
+        $("#review-modal").css("display", "flex");
     });
 
     // 모달 닫기 버튼
     $(".modal-close-btn").click(function () {
-        $("#report-modal").fadeOut(100);
+        $("#review-modal").fadeOut(100);
     });
 
     // 모달 밖에 클릭시 모달 닫기
-    $("#report-modal").click(function (e) {
+    $("#review-modal").click(function (e) {
         if($(e.target).hasClass('modal-layer')) {
-            $("#report-modal").fadeOut(100);
+            $("#review-modal").fadeOut(100);
         }
 
     });
@@ -159,6 +161,13 @@
             $(this).html('<i class="fas fa-angle-down"></i>');
 
         }
+    });
+    
+    $(document).on("click", ".score > i", function(){
+    	$(".score > i").removeClass();
+    	$(this).nextAll("i").addClass("far fa-star");
+    	$(this).addClass("fas fa-star");
+    	$(this).prevAll("i").addClass("fas fa-star");
     });
 
 </script>

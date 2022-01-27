@@ -170,7 +170,7 @@ main{
 }
 
 /* 모달창 */
-#report-modal {
+#review-modal {
     display: none;
     position:absolute;
     justify-content: center;
@@ -233,6 +233,11 @@ main{
 /* 별점 아이콘 */
 .score > i{
     color: #FFDF3E;
+    cursor: pointer;
+}
+
+.score > i > span {
+	display: none;
 }
 
 /* 모달창 버튼 div */
