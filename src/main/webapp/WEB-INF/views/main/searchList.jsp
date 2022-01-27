@@ -34,7 +34,7 @@ crossorigin="anonymous"/>
 	                <ul class="list-member">
 	                    <li><button type="button">전체 클래스</button></li>
 	                    <li><button type="button">원데이 클래스</button></li>
-	                    <li><button type="button">다회차 클래스</button></li>
+	                    <li><button type="button">정규 클래스</button></li>
 	                </ul>
 	            </article>
 	            
