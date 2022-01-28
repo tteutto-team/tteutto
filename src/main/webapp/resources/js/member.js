@@ -80,11 +80,13 @@ document.getElementById("email").addEventListener("input", function() {
 });
 
 // 비밀번호 유효성 검사
+// 문자, 숫자, 특수문자 각 최소 1개, 8~16자리
 document.getElementById("pw1").addEventListener("input", function(){
 
     const inputPw = this.value; // 입력 받은 이메일
 
-    const regExp = /^[a-zA-Z\d\!\@\#\-\_]{6,20}$/; // 정규식
+    const regExp = /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,16}$/
+
 
     const checkPw1 = document.getElementById("checkPw1"); // 출력용
 
