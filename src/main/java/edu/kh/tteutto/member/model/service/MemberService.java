@@ -25,7 +25,7 @@ public interface MemberService {
 	 * @param member
 	 * @return result
 	 */
-	int signup(Member member);
+	int signUp(Member member);
 	
 	/** 강사 정보 조회
 	 * @param memberNo 

@@ -35,16 +35,16 @@
 
 			<div>
 				<label for="name">이름</label> <br> <input type="text" id="name"
-					name="memberName"> <br> <span id="checkName"></span>
+					name="memberNm"> <br> <span id="checkName"></span>
 			</div>
 
 			<div>
 				<label for="birth">생년월일</label> <br>
 				<div id="birth-gender">
-					<input type="number" name="birth" id="birth" placeholder="예시) 960319"> 
-					<input id="male" type="radio" name="gender" value="m"> 
+					<input type="number" name="MemberBirth" id="birth" placeholder="예시) 960319"> 
+					<input id="male" type="radio" name="MemberGender" value="M"> 
 					<label class="gender" for="male">남</label> 
-					<input id="female" type="radio" name="gender" value="f"> 
+					<input id="female" type="radio" name="MemberGender" value="F"> 
 					<label class="gender" for="female">여</label> <br>
 				</div>
 

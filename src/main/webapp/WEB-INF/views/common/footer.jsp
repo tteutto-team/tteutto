@@ -63,6 +63,13 @@
 		</div>
 	</div>
 </footer>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<!-- sweetealert : 경고창 api -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <c:if test="${ !empty requestScope.message }">
 	<script>
 		$(function(){ // ready() 함수로 페이지 로딩 완료 후 alert 출력
@@ -75,4 +82,14 @@
 	
 	<%-- message 1회 출력 후 session에서 제거 --%>
 	<c:remove var="message" scope="session"/>
+</c:if>
+<%-- requestScope에 "title"이라는 키값이 존재하는 경우 --%>
+<c:if test="${!empty requestScope.title }">
+	<script>
+		swal({
+			title : "${title}",
+			text : "${text}",
+			icon : "${icon}"
+		});
+	</script>
 </c:if>

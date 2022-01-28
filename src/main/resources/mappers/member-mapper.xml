@@ -63,6 +63,14 @@
 		AND MEMBER_ST != 2
 	</select>
 	
+	<!-- 회원가입 -->
+	<insert id="signUp" parameterType="Member">
+		INSERT INTO MEMBER VALUES(SEQ_MEMBER_NO.NEXTVAL, DEFAULT,  DEFAULT, 
+		#{memberEmail}, #{memberPw}, #{memberNm}, 
+		#{memberBirth}, #{memberGender}, #{memberPno}, 
+		null, SYSDATE, DEFAULT, DEFAULT)
+	</insert>
+	
 	<!-- 강사 정보 조회 -->
 	<select id="selectTeacherProfile" resultMap="teacher_rm">
 		SELECT * FROM TEACHER
@@ -73,7 +81,7 @@
 	<!-- 강사 이력 조회 -->
 	<select id="selectTeacherCareer" resultMap="career_rm">
 		SELECT * FROM CAREER
-		WHERE MEMBER_NO = #{memberNo}
+		WHERE MEMBER_NO = #{memberNo},
 		ORDER BY CAREER_NO
 	</select>
 </mapper>

@@ -30,7 +30,7 @@ function validate() {
 
 	const input1 = document.createElement("input");
 	input1.setAttribute("type", "hidden");
-	input1.setAttribute("name", "memberPhone");
+	input1.setAttribute("name", "memberPno");
 	input1.value = phone[0].value + "-" + phone[1].value + "-" + phone[2].value;
 	document.signUpForm.append(input1)
 	console.log(input1);
@@ -168,8 +168,8 @@ $("#birth").on("input", function(){
 });
 
 // 성별 유효성 검사
-$('input[name=gender]').on("change", function(){
-	const checkGender = $('input[name="gender"]:checked').val();
+$('input[name=MemberGender]').on("change", function(){
+	const checkGender = $('input[name="MemberGender"]:checked').val();
 	if(checkGender.length > 0){
 		signUpCheckObj.gender = true;
 		

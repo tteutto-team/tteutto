@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.member.model.service.MemberService;
@@ -21,105 +22,119 @@ import edu.kh.tteutto.member.model.vo.Career;
 import edu.kh.tteutto.member.model.vo.Member;
 
 @Controller
-@SessionAttributes({"loginMember"})	
+@SessionAttributes({ "loginMember" })
 
-@RequestMapping(value="/member/*")
+@RequestMapping(value = "/member/*")
 public class MemberController {
-	
+
 	@Autowired
 	private MemberService service;
-	
+
 	// 회원가입 페이지 이동
-	@RequestMapping(value="signup", method=RequestMethod.GET)
+	@RequestMapping(value = "signup", method = RequestMethod.GET)
 	public String signUp() {
 		return "member/signup";
 	}
-	
+
 	// 이메일 중복 검사
 	@RequestMapping("emailDupCheck")
 	@ResponseBody
 	public int emailDupCheck(String inputEmail) {
 		return service.emailDupCheck(inputEmail);
 	}
-	
+
 	// 회원가입
-	@RequestMapping(value="signup", method=RequestMethod.POST)
-	public String signup(Member member) {
+	@RequestMapping(value = "signup", method = RequestMethod.POST)
+	public String signUp(Member member, RedirectAttributes ra) {
 		
-		int result = service.signup(member);
-		
-		return null;
+		int result = service.signUp(member);
+
+		String title;
+		String text;
+		String icon;
+
+		if (result > 0) { // 성공
+			title = "회원 가입 성공";
+			text = member.getMemberNm() + "님의 회원 가입을 환영합니다.";
+			icon = "success"; // success, error, info, warning
+		} else { // 실패
+			title = "회원 가입 실패";
+			text = "관리자에 문의해주세요";
+			icon = "error"; // success, error, info, warning
+		}
+
+		ra.addFlashAttribute("title", title);
+		ra.addFlashAttribute("text", text);
+		ra.addFlashAttribute("icon", icon);
+
+		return "redirect:/";
 	}
-	
+
 	// 로그인 페이지 이동
-	@RequestMapping(value="login", method=RequestMethod.GET)
+	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String login() {
 		return "member/login";
 	}
-	
+
 	// 로그인
-	@RequestMapping(value="login", method=RequestMethod.POST)
-	public String login2(Member member,
-			HttpServletRequest req,
-			HttpServletResponse resp) {
-		
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public String login2(Member member, HttpServletRequest req, HttpServletResponse resp) {
+
 		Member loginMember = service.login(member);
 		return null;
 	}
-	
-	
+
 	// 비밀번호 찾기 페이지 이동
-	@RequestMapping(value="findPw", method=RequestMethod.GET)
+	@RequestMapping(value = "findPw", method = RequestMethod.GET)
 	public String findPw() {
 		return "member/findPw";
 	}
-	
+
 	// 학생 마이페이지 클래스 목록 이동
-	@RequestMapping(value="studentClassList", method=RequestMethod.GET)
+	@RequestMapping(value = "studentClassList", method = RequestMethod.GET)
 	public String studentClassList() {
 		return "member/studentClassList";
 	}
-	
+
 	// 학생 마이페이지 후기 목록 이동
-	@RequestMapping(value="studentCommentList", method=RequestMethod.GET)
+	@RequestMapping(value = "studentCommentList", method = RequestMethod.GET)
 	public String studentCommentList() {
 		return "member/studentCommentList";
 	}
-	
+
 	// 학생 마이페이지 후기 목록 이동
-	@RequestMapping(value="studentWishList", method=RequestMethod.GET)
+	@RequestMapping(value = "studentWishList", method = RequestMethod.GET)
 	public String studentWishList() {
 		return "member/studentWishList";
 	}
-	
+
 	// 학생 프로필 페이지 이동
-	@RequestMapping(value="studentProfile", method=RequestMethod.GET)
+	@RequestMapping(value = "studentProfile", method = RequestMethod.GET)
 	public String studentProfile() {
 		return "member/studentProfile";
 	}
-	
+
 	// 강사 프로필 페이지 이동
-	@RequestMapping(value="teacherProfile", method=RequestMethod.GET)
+	@RequestMapping(value = "teacherProfile", method = RequestMethod.GET)
 	public String teacherProfile(Model model, HttpSession session) {
-		
+
 //		int memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
 		int memberNo = 3;
-		
+
 		Teacher teacher = service.selectTeacherProfile(memberNo);
 		List<Career> careerList = service.selectTeacherCareer(memberNo);
-		
+
 		System.out.println("careerList: " + careerList);
-		
+
 		model.addAttribute("careerList", careerList);
 		model.addAttribute("teacher", teacher);
-			
+
 		return "member/teacherProfile";
-		
-		
+
 	}
-	
+
 	// 강사 신청 페이지 이동
-	@RequestMapping(value="teacherRegister", method=RequestMethod.GET)
+	@RequestMapping(value = "teacherRegister", method = RequestMethod.GET)
 	public String teacherRegister() {
 		return "member/teacherRegister";
 	}

@@ -48,6 +48,15 @@ public class MemberDAO {
 		return sqlSession.selectList("memberMapper.selectTeacherCareer", memberNo);
 	}
 
+	/** 회원가입
+	 * @param member
+	 * @return result
+	 */
+	public int signUp(Member member) {
+		
+		return sqlSession.insert("memberMapper.signUp", member);
+	}
+
 
 	
 
