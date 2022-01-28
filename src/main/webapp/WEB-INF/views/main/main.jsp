@@ -66,7 +66,7 @@
 
         <div class="location-class-bottom">
 
-            <div class="class">
+            <div class="class" onclick="location.href='/tteutto/class/classDetail'">
                 <div class="image">
                     <img src="${contextPath}/resources/images/class/temp.jpg">
                     <p class="location-p">서울 강남</p>
