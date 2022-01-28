@@ -28,6 +28,7 @@
                 <th>클래스명-회차</th>
                 <th>강사명</th>
                 <th>기간</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -36,49 +37,41 @@
 </body>
 
 <script>
-    $(document).ready( function () {
-        $('#table_id').DataTable({
-            ajax: {
-            	url: "classList", 
-            	data: function (d) {
-                	console.log(d);
-            	},
-            	dataSrc: '',
-            	dataType: "json"
-        	},
-            columns: [
-                { data: "id"},
-                { data: "name"},
-                { data: "name2"},
-                { data: "gender"},
-            ],
-            columnDefs: [{
-                "targets": 4,
-                "data": null,
-                "render": function(data, type, row){
-                    console.log(data.id);
-                        return '<button onclick="confirm('+data.id+')">승인</button><button onclick="confirm('+data.id+')">거절</button>';
-                    },
-                "orderable": false
-                }],
-        });
-    } );
     
-  /*   $.ajax({
+  $.ajax({
     	url: "classList",
     	type: "GET",
     	dataType : "JSON",
     	success: function(data){
+    		console.log(data);
     		$('#table_id').DataTable({
     			data: data,
     			columns: [
-    				{ data: "id"},
-                    { data: "name"},
-                    { data: "name2"},
-                    { data: "gender"}
+    				{ data: "memberNo"},
+                    { data: "memberEmail"},
+                    { data: "memberNm"},
+                    { data: "memberPw"}
+    			],
+    			columnDefs: [
+    				{
+                    "targets": 4,
+                    "data": null,
+                    "render": function(data, type, row){
+                            return '<button onclick="confirm('+data.memberNo+')">승인</button><button onclick="confirm('+data.memberNo+')">거절</button>';
+                        },
+                    "orderable": false
+                    },
+                    {
+                        "targets": 1,
+                        "data": null,
+                        "render": function(data, type, row){
+                                return '<a href="#">' + data + '</a>';
+                            },
+                        "orderable": false
+                        }
     			]
     		})
     	}
-    }) */
+    })
 </script>
 </html>
