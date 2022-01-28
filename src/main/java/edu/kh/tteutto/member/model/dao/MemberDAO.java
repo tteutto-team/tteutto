@@ -18,9 +18,7 @@ public class MemberDAO {
 	 */
 	public Member login(String memberEmail) {
 		
-		Member loginMember = sqlSession.selectOne("memberMapper.login", memberEmail);
-		
-		return loginMember;
+		return sqlSession.selectOne("memberMapper.login", memberEmail);
 	}
 
 }
