@@ -6,23 +6,26 @@
     <link rel="stylesheet" href="${contextPath}/resources/css/jquery-ui.multidatespicker.css">
 	
     <section id="classInsert2">
-    	<form action="${contextPath}" name="form" id="form" method="post">
+    	<form action="${contextPath}" id="name" name="name" method="post">
         <div class="fixWidth">
-            <div class="bottomLine"><h1>클래스 등록</h1></div>
-            <div class="bottomLine"><span class="redText">*</span> 필수</div>
-            
+        <div id="register_header">
+            <div>스케쥴 등록</div>
+            <div><span class="redText">* </span>필수</div> 
+        </div>
+
+        <div> 코딩 오지게 잘하는 비법 <span id="ep-count">(1회차)</span> </div>    
             
             <div>
                 <div id="c-schedule">
                     <div><h4>수업기간 <span class="redText">*</span></h4></div>
                     <div id="mdp-box">
                         <div id="mdp-demo"></div>
-                        <button id="testtest" style="display: none;">원데이테스트용</button>
-                        <button id="testtest1" style="display: none;">다회차테스트용</button>
+                        <button id="testtest" >원데이테스트용</button>
+                        <button id="testtest1" >다회차테스트용</button>
                     </div>
                     <div id="schedule-val">
                         <div><input type="button" id="schedule-btn" class="btn-click" value="날짜 불러오기"></input></div>
-                        <div>* 회차별 수업 날짜를 선택하여 일정을 불러온 뒤 수업시간을 선택해주세요.</div>
+                        <div>* 일자별 수업 날짜를 선택하여 일정을 불러온 뒤 수업시간을 선택해주세요.</div>
                         <div id="schedule-text" style="display: none;">
                             <table id="schedule-table">
                                 <thead>
@@ -41,7 +44,7 @@
                         </div>
                     </div>
                     <div id="test-oneday-schedule" style="display: none;">
-                        <div><input type="button" id="schedule-btn" class="btn-click" value="날짜 불러오기"></input></div>
+                        <div><button type="button" id="schedule-btn2" class="btn-click">날짜 불러오기</button></div>
                         <div>* 수업 날짜를 선택 후 불러온뒤 가능한 수업시간을 선택해주세요.</div>
                         <div id="test-schedule-text" style="display: none;">
                             <table id="test-table">
@@ -57,57 +60,10 @@
                                     <tr>
                                         <td class="time-td3">개강기간</td>
                                         <td id="schedule-td1" class="time-td">00/00/0000</td>
-                                        <td>~&nbsp</td>
+                                        <td class="time-td4">~&nbsp</td>
                                         <td id="schedule-td2" class="time-td">00/00/0000</td>
                                     </tr>
-                                    <tr>
-                                        <td class="time-td3">수업날짜</td>
-                                        <td colspan="5" id="schedule-day" style="white-space: pre-line; width: 266px;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="time-td2">수업시간</td>
-                                        <td class="time-td">
-                                            <select id="startTime1" class="time-box">
-                                                <option>08:00</option>
-                                                <option>09:00</option>
-                                                <option>10:00</option>
-                                                <option>11:00</option>
-                                                <option>12:00</option>
-                                                <option>13:00</option>
-                                                <option>14:00</option>
-                                                <option>15:00</option>
-                                                <option>16:00</option>
-                                                <option>17:00</option>
-                                                <option>18:00</option>
-                                                <option>19:00</option>
-                                                <option>20:00</option>
-                                                <option>21:00</option>
-                                                <option>22:00</option>
-                                                <option>23:00</option>
-                                                <option>24:00</option>
-                                            </select></td>
-                                        <td>&nbsp~&nbsp</td>
-                                        <td class="time-td">
-                                            <select id="endTime1" class="time-box">
-                                                <option>08:00</option>
-                                                <option>09:00</option>
-                                                <option>10:00</option>
-                                                <option>11:00</option>
-                                                <option>12:00</option>
-                                                <option>13:00</option>
-                                                <option>14:00</option>
-                                                <option>15:00</option>
-                                                <option>16:00</option>
-                                                <option>17:00</option>
-                                                <option>18:00</option>
-                                                <option>19:00</option>
-                                                <option>20:00</option>
-                                                <option>21:00</option>
-                                                <option>22:00</option>
-                                                <option>23:00</option>
-                                                <option>24:00</option>
-                                            </select></td>
-                                        <td><button id="plus-time" class="plus-time">+</button></td>
+                                    
                                     </tr>
                                 </tbody>
                             </table>
@@ -120,11 +76,9 @@
             <div id="c-location" class="bottomLine">
                 <div class="line1 h4-height"><h4>수업장소 주소 <span class="redText">*</span></h4></div> 
                 <div class="line2">
-                	<!-- <form name="form" id="form" method="post"> -->
-                    	<input type="text" id="roadAddrPart1"  name="roadAddrPart1" class="input-style" placeholder="서울시 구로구 구로동 100">
-                    	<input type="text" id="addrDetail"  name="addrDetail" class="input-style" placeholder="스터디카페 비버통 2층">
-                    	<input id="locationBtn" type="button" class="btn-click" onClick="goPopup();" value="주소검색"/>
-                    <!-- </form> -->
+                    <input type="text" class="input-style" placeholder="서울시 구로구 구로동 100">
+                    <input type="text" class="input-style" placeholder="스터디카페 비버통 2층">
+                    <button class="btn-click">주소검색</button>
                 </div>
             </div>
 
@@ -150,7 +104,7 @@
 
             <div id="c-price" class="bottomLine">
                 <div class="line1">
-                    <div><h4>수업가격</h4></div>
+                    <div><h4>총 수업가격</h4></div>
                 </div>
                 <div>
                     <div id="price-area" class="tip">
@@ -171,7 +125,7 @@
             
             <div id="next-btn">
                 <button type="button" class="btn-click" style="background-color: #3a3424; color: white;">임시저장</button>
-                <button type="submit" class="btn-click" style="background-color: #FFDF3E;">등록</button>
+                <button type="submit" class="btn-click" style="background-color: #FFDF3E;">승인 요청</button>
             </div>
         </div>
         </form>

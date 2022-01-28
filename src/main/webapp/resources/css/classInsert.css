@@ -11,17 +11,17 @@
     box-sizing: border-box;
 }
 
-/* body *{
+body *{
     font-family: 'IBMPlexSansKR-Regular';
 }
 
 body{
     margin: 0;
     
-} */
+}
 
 .fixWidth{
-    width: 1200px;
+    width: 1080px;
     margin: auto;
 }
 
@@ -33,7 +33,7 @@ body{
 .line1{
     display: inline-block;
     width: 200px;
-    margin-right: 20px;
+    margin: 0 auto;
 }
 
 .line2{
@@ -41,32 +41,27 @@ body{
 }
 
 .bottomLine{
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ddd;
 }
 
 /*div 라잌 테이블*/
-.fixWidth > div:nth-child(1){height: 80px;}
+/*.fixWidth > div:nth-child(1){height: 80px;}
 .fixWidth > div:first-child > h1{line-height: 100px;}
-
-.fixWidth > div:nth-child(2){
-    text-align: right;
-    line-height: 80px;
-    height: 60px;
-}
-
+*/
+.fixWidth > div:nth-child(2){height: 100px;}
 .fixWidth > div:nth-child(3){height: 100px;}
 .fixWidth > div:nth-child(4){height: 100px;}
 .fixWidth > div:nth-child(5){height: 100px;}
 
-.h4-height{padding-top: 15px;}
+.h4-height{padding-top: 40px;}
 .div-height{padding-top: 21.280px;}
 
 .fixWidth > div:nth-child(6){height: 200px;}
 .fixWidth > div:nth-child(7){height: 250px;}
 .fixWidth > div:nth-child(8){height: 580px;}
 
-.fixWidth > div:nth-child(9){height: 565px;}
-.fixWidth > div:nth-child(10){height: 495px;}
+/* .fixWidth > div:nth-child(9){height: 800px;} */
+
 
 /*textarea 디자인*/
 .textarea-style{
@@ -100,6 +95,12 @@ body{
 .select-style:focus{
     outline: 2px solid #FFDF3E;
     border: none
+}
+
+select {
+    -webkit-appearance:none; /* 크롬 화살표 없애기 */
+    -moz-appearance:none; /* 파이어폭스 화살표 없애기 */
+    appearance:none /* 화살표 없애기 */
 }
 
 
@@ -136,6 +137,12 @@ input[type='radio'] {
 }
 input[type='radio']:checked {
   background-color: #FFDF3E;
+}
+
+/*수업난이도*/
+#c-level > div{
+    display: inline-block;
+    margin-right: 20px;
 }
 
 /*수업형태영역*/
@@ -220,7 +227,7 @@ input[type='radio']:checked {
 
 
 #tip-area1{
-    height: 300px;
+    height: 320px;
     width: 750px;
 }
 
@@ -301,6 +308,7 @@ input[type='radio']:checked {
 #next-btn{
     clear: both;
     text-align: center;
+    border-top: 1px solid #ddd;
 }
 
 #next-btn button{
@@ -313,4 +321,48 @@ input[type='radio']:checked {
     border: none;
     border-radius: 5px;
 }
+
+
+#register_header{
+    border-bottom: 1px solid #ddd;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+}
+#register_header > div{
+    font-size: 28px;
+    font-weight: 500;
+}
+#register_header > div:last-child{
+    font-size: 17px;
+    line-height: 4;
+}
+
+h4{
+    font-weight: 600;
+    font-size: 17px;
+    margin: 0px;
+}
+
+.explan{
+    margin-top: 10px;
+    line-height: 25px;
+}
+
+#group-input{
+    margin-top: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+    
+    
 

@@ -53,29 +53,29 @@ const date = new Date();
 
                 dateOrder = dateVal[i].substring(6, 10) + "/" + dateVal[i].substring(0, 5);
 
-                $('#schedule-table > tbody:last').append('<tr><td class="time-td2">'+num+'회차</td><td class="time-td">'+dateOrder+'</td class="time-td4"><td>'+week2[i]+'</td><td class="time-td"><select id="startTime'+num+'" class="time-box"></select></td><td> ~ </td><td class="time-td"><select id="endTime'+num+'" class="time-box"></select></td></tr>');
-                $("select#startTime" + num).append("<option>08:00</option>");
-                $("select#startTime" + num).append("<option>09:00</option>");
-                $("select#startTime" + num).append("<option>10:00</option>");
-                $("select#startTime" + num).append("<option>11:00</option>");
-                $("select#startTime" + num).append("<option>12:00</option>");
-                $("select#startTime" + num).append("<option>13:00</option>");
-                $("select#startTime" + num).append("<option>14:00</option>");
-                $("select#startTime" + num).append("<option>15:00</option>");
-                $("select#startTime" + num).append("<option>16:00</option>");
-                $("select#startTime" + num).append("<option>17:00</option>");
-                $("select#startTime" + num).append("<option>18:00</option>");
-                $("select#startTime" + num).append("<option>19:00</option>");
-                $("select#startTime" + num).append("<option>20:00</option>");
-                $("select#startTime" + num).append("<option>21:00</option>");
-                $("select#startTime" + num).append("<option>22:00</option>");
-                $("select#startTime" + num).append("<option>23:00</option>");
-                $("select#startTime" + num).append("<option>24:00</option>");
+                $('#schedule-table > tbody:last').append('<tr><td class="time-td2">'+num+'일차</td><td class="time-td">'+dateOrder+'</td class="time-td4"><td>'+week2[i]+'</td><td class="time-td"><select id="startTime'+num+'" class="time-box"></select></td><td> ~ </td><td class="time-td"><select id="endTime'+num+'" class="time-box"></select></td></tr>');
                 
-                $("select#endTime" + num).append("<option>08:00</option>");
-                $("select#endTime" + num).append("<option>09:00</option>");
-                $("select#endTime" + num).append("<option>10:00</option>");
-                $("select#endTime" + num).append("<option>11:00</option>");
+                $("select#startTime" + num).append("<option value='9'>09:00</option>");
+                $("select#startTime" + num).append("<option value='10'>10:00</option>");
+                $("select#startTime" + num).append("<option value='11'>11:00</option>");
+                $("select#startTime" + num).append("<option value='12'>12:00</option>");
+                $("select#startTime" + num).append("<option value='13'>13:00</option>");
+                $("select#startTime" + num).append("<option value='14'>14:00</option>");
+                $("select#startTime" + num).append("<option value='15'>15:00</option>");
+                $("select#startTime" + num).append("<option value='16'>16:00</option>");
+                $("select#startTime" + num).append("<option value='17'>17:00</option>");
+                $("select#startTime" + num).append("<option value='18'>18:00</option>");
+                $("select#startTime" + num).append("<option value='19'>19:00</option>");
+                $("select#startTime" + num).append("<option value='20'>20:00</option>");
+                $("select#startTime" + num).append("<option value='21'>21:00</option>");
+                $("select#startTime" + num).append("<option value='22'>22:00</option>");
+                $("select#startTime" + num).append("<option value='23'>23:00</option>");
+                
+                
+                
+                $("select#endTime" + num).append("<option value='9'>09:00</option>");
+                $("select#endTime" + num).append("<option value='10'>10:00</option>");
+                $("select#endTime" + num).append("<option value='11'>11:00</option>");
                 $("select#endTime" + num).append("<option>12:00</option>");
                 $("select#endTime" + num).append("<option>13:00</option>");
                 $("select#endTime" + num).append("<option>14:00</option>");
@@ -88,9 +88,29 @@ const date = new Date();
                 $("select#endTime" + num).append("<option>21:00</option>");
                 $("select#endTime" + num).append("<option>22:00</option>");
                 $("select#endTime" + num).append("<option>23:00</option>");
-                $("select#endTime" + num).append("<option>24:00</option>");
+
+                
+                // 옵션 최소시간 알아서 맞추기
+                $("select#startTime" + num).on("change", function(){
+                    // console.log(this.parentNode.nextSibling.nextSibling.firstChild);
+                    let et = this.parentNode.nextSibling.nextSibling.firstChild;
+                    $(et).children('option').remove();
+
+                    for(i=this.value; i<24; i++){
+                        if(i == 9){
+                            $(et).append('<option>09:00</option>');
+                        }else{
+                            i = Number(i)+1;
+                            $(et).append('<option>'+i+':00</option>');
+                        }
+                        
+                    }
+
+                })
+
                 num++;
             }
+
 
 
             $("#schedule-text").hide();
@@ -122,57 +142,6 @@ const date = new Date();
 
         })
 
-        /*
-        $("#schedule-btn2").on("click", function(){
-            let dateVal = $("#mdp-demo").multiDatesPicker('getDates');
-
-            let num = 1;
-            $("#test-table > tbody").html("");
-            $('#test-table > tbody:last').append('<tr><td class="time-td3">개강기간</td><td class="time-td">'+dateVal[0]+'</td><td>~&nbsp</td><td class="time-td">'+dateVal[dateVal.length -1]+'</td></tr>');
-            $('#test-table > tbody:last').append('<tr><td class="time-td2">수업시간</td><td class="time-td"><select id="startTime'+num+'" class="time-box"></select></td><td>&nbsp~&nbsp</td><td class="time-td"><select id="endTime'+num+'" class="time-box"></select></td><td><button class="plus-time">+</button></td></tr>');
-
-            $("select#startTime" + num).append("<option>08:00</option>");
-            $("select#startTime" + num).append("<option>09:00</option>");
-            $("select#startTime" + num).append("<option>10:00</option>");
-            $("select#startTime" + num).append("<option>11:00</option>");
-            $("select#startTime" + num).append("<option>12:00</option>");
-            $("select#startTime" + num).append("<option>13:00</option>");
-            $("select#startTime" + num).append("<option>14:00</option>");
-            $("select#startTime" + num).append("<option>15:00</option>");
-            $("select#startTime" + num).append("<option>16:00</option>");
-            $("select#startTime" + num).append("<option>17:00</option>");
-            $("select#startTime" + num).append("<option>18:00</option>");
-            $("select#startTime" + num).append("<option>19:00</option>");
-            $("select#startTime" + num).append("<option>20:00</option>");
-            $("select#startTime" + num).append("<option>21:00</option>");
-            $("select#startTime" + num).append("<option>22:00</option>");
-            $("select#startTime" + num).append("<option>23:00</option>");
-            $("select#startTime" + num).append("<option>24:00</option>");
-            
-            $("select#endTime" + num).append("<option>08:00</option>");
-            $("select#endTime" + num).append("<option>09:00</option>");
-            $("select#endTime" + num).append("<option>10:00</option>");
-            $("select#endTime" + num).append("<option>11:00</option>");
-            $("select#endTime" + num).append("<option>12:00</option>");
-            $("select#endTime" + num).append("<option>13:00</option>");
-            $("select#endTime" + num).append("<option>14:00</option>");
-            $("select#endTime" + num).append("<option>15:00</option>");
-            $("select#endTime" + num).append("<option>16:00</option>");
-            $("select#endTime" + num).append("<option>17:00</option>");
-            $("select#endTime" + num).append("<option>18:00</option>");
-            $("select#endTime" + num).append("<option>19:00</option>");
-            $("select#endTime" + num).append("<option>20:00</option>");
-            $("select#endTime" + num).append("<option>21:00</option>");
-            $("select#endTime" + num).append("<option>22:00</option>");
-            $("select#endTime" + num).append("<option>23:00</option>");
-            $("select#endTime" + num).append("<option>24:00</option>");
-        
-
-            $("#test-schedule-text").hide();
-            $("#test-schedule-text").slideDown(400);
-
-        })
-        */
 
         $("#schedule-btn2").on("click", function(){
             let dateVal = $("#mdp-demo").multiDatesPicker('getDates');
@@ -185,13 +154,203 @@ const date = new Date();
 
             for(i=0; i<dateVal.length; i++){
                 week2[i]= week[new Date(dateVal[i]).getDay()]
+            
             }
-
-            let scheduleDay = "";
+            
+            /* let scheduleDay = ""; */
 
             $("#schedule-td1").html(dateOrder);
             $("#schedule-td2").html(dateOrder2);
             
+            
+
+            let num = 1;
+            $("#test-table > tbody").html("");
+            $('#test-table > tbody:last').append('<tr><td class="time-td3">개강기간</td><td class="time-td">'+dateOrder+'</td><td class="time-td4">&nbsp;~</td><td class="time-td">'+dateOrder2+'</td></tr>');
+
+
+
+            for(i= 0; i<dateVal.length; i++){
+
+                dateOrder = dateVal[i].substring(6, 10) + "/" + dateVal[i].substring(0, 5);
+                
+                if(num == 1){
+                    $('#test-table > tbody:last').append('<tr><td class="time-td2">수업일자</td><td class="time-td">'+dateOrder+'</td class="time-td4"><td>'+week2[i]+'</td><td class="time-td"><select id="startTime'+num+'" class="time-box"></select></td><td> ~ </td><td class="time-td"><select id="endTime'+num+'" class="time-box"></select></td><td><button id="plus-time'+num+'" class="plus-time">+</button></td></tr>');
+                }else{
+                    $('#test-table > tbody:last').append('<tr><td class="time-td2"></td><td class="time-td">'+dateOrder+'</td class="time-td4"><td>'+week2[i]+'</td><td class="time-td"><select id="startTime'+num+'" class="time-box"></select></td><td> ~ </td><td class="time-td"><select id="endTime'+num+'" class="time-box"></select></td><td><button id="plus-time'+num+'" class="plus-time">+</button></td></tr>');
+                }
+
+                
+                
+                $("select#startTime" + num).append("<option value='9'>09:00</option>");
+                $("select#startTime" + num).append("<option value='10'>10:00</option>");
+                $("select#startTime" + num).append("<option value='11'>11:00</option>");
+                $("select#startTime" + num).append("<option value='12'>12:00</option>");
+                $("select#startTime" + num).append("<option value='13'>13:00</option>");
+                $("select#startTime" + num).append("<option value='14'>14:00</option>");
+                $("select#startTime" + num).append("<option value='15'>15:00</option>");
+                $("select#startTime" + num).append("<option value='16'>16:00</option>");
+                $("select#startTime" + num).append("<option value='17'>17:00</option>");
+                $("select#startTime" + num).append("<option value='18'>18:00</option>");
+                $("select#startTime" + num).append("<option value='19'>19:00</option>");
+                $("select#startTime" + num).append("<option value='20'>20:00</option>");
+                $("select#startTime" + num).append("<option value='21'>21:00</option>");
+                $("select#startTime" + num).append("<option value='22'>22:00</option>");
+                $("select#startTime" + num).append("<option value='23'>23:00</option>");
+                
+                
+                
+                $("select#endTime" + num).append("<option>09:00</option>");
+                $("select#endTime" + num).append("<option>10:00</option>");
+                $("select#endTime" + num).append("<option>11:00</option>");
+                $("select#endTime" + num).append("<option>12:00</option>");
+                $("select#endTime" + num).append("<option>13:00</option>");
+                $("select#endTime" + num).append("<option>14:00</option>");
+                $("select#endTime" + num).append("<option>15:00</option>");
+                $("select#endTime" + num).append("<option>16:00</option>");
+                $("select#endTime" + num).append("<option>17:00</option>");
+                $("select#endTime" + num).append("<option>18:00</option>");
+                $("select#endTime" + num).append("<option>19:00</option>");
+                $("select#endTime" + num).append("<option>20:00</option>");
+                $("select#endTime" + num).append("<option>21:00</option>");
+                $("select#endTime" + num).append("<option>22:00</option>");
+                $("select#endTime" + num).append("<option>23:00</option>");
+                
+                
+
+                // 옵션 최소시간 알아서 맞추기
+                $("select#startTime" + num).on("change", function(){
+                    //console.log(this.parentNode.nextSibling.nextSibling.firstChild);
+                    let et = this.parentNode.nextSibling.nextSibling.firstChild;
+                    $(et).children('option').remove();
+
+                    for(i=this.value; i<24; i++){
+                        if(i == 9){
+                            $(et).append('<option>09:00</option>');
+                        }else{
+                            i = Number(i)+1;
+                            $(et).append('<option>'+i+':00</option>');
+                        }
+                        
+                    }
+
+                })
+
+                        
+                let plusNo = 1;
+                $("#plus-time" + num).on("click", function(e){
+                    const tr = $("<tr>");
+                    const td = $("<td>");
+                    const td2 = $("<td>");
+                    const td3 = $("<td>");
+                    const td4 = $("<td>");
+                    const td5 = $("<td>");
+                    const td6 = $("<td>");
+                    const td7 = $("<td>");
+                    /*
+                    td2.addClass("time-td"); 
+                    td4.addClass("time-td"); 
+                    */
+                    const select1 = $("<select>");
+                    const select2 = $("<select>");
+
+                    select1.attr("id", "addStartTime" + plusNo);
+                    select2.attr("id", "addEndTime" + plusNo);
+
+                    select1.addClass("time-box");
+                    select1.append("<option value='09'>09:00</option>");
+                    select1.append("<option value='10'>10:00</option>");
+                    select1.append("<option value='11'>11:00</option>");
+                    select1.append("<option value='12'>12:00</option>");
+                    select1.append("<option value='13'>13:00</option>");
+                    select1.append("<option value='14'>14:00</option>");
+                    select1.append("<option value='15'>15:00</option>");
+                    select1.append("<option value='16'>16:00</option>");
+                    select1.append("<option value='17'>17:00</option>");
+                    select1.append("<option value='18'>18:00</option>");
+                    select1.append("<option value='19'>19:00</option>");
+                    select1.append("<option value='20'>20:00</option>");
+                    select1.append("<option value='21'>21:00</option>");
+                    select1.append("<option value='22'>22:00</option>");
+                    select1.append("<option value='23'>23:00</option>");
+                    
+                    
+                    select2.addClass("time-box");
+                    select2.append("<option>09:00</option>");
+                    select2.append("<option>10:00</option>");
+                    select2.append("<option>11:00</option>");
+                    select2.append("<option>12:00</option>");
+                    select2.append("<option>13:00</option>");
+                    select2.append("<option>14:00</option>");
+                    select2.append("<option>15:00</option>");
+                    select2.append("<option>16:00</option>");
+                    select2.append("<option>17:00</option>");
+                    select2.append("<option>18:00</option>");
+                    select2.append("<option>19:00</option>");
+                    select2.append("<option>20:00</option>");
+                    select2.append("<option>21:00</option>");
+                    select2.append("<option>22:00</option>");
+                    select2.append("<option>23:00</option>");
+                    
+
+
+                    td4.append(select1);
+                    td5.html("~");
+                    td6.append(select2);
+
+                    const minus = $("<button>");
+                    minus.html("-");
+                    minus.addClass("plus-time");
+                    minus.addClass("minus-time");
+                    minus.attr("id", "minus" + plusNo);
+                    //minus.setAttribute("onclick", "remove(event);");
+                    //minus.addEventListener("click", remove);
+                    // minus.attr("onclick", "removeCols();");
+                    td7.append(minus);
+
+                    tr.append(td);
+                    tr.append(td2);
+                    tr.append(td3);
+                    tr.append(td4);
+                    tr.append(td5);
+                    tr.append(td6);
+                    tr.append(td7);
+                    //$('#test-table > tbody:last').append(tr);
+                    //console.log(plusNo);
+                    //e.target.parentNode.nextSibling.append(tr);
+                    $('#test-table > tbody:first').append(tr);
+
+                    $(minus).on("click",function(e){
+                        e.target.parentNode.parentNode.remove();
+                    })
+
+                    plusNo = plusNo + 1;
+                })
+
+
+                 // 추가 시간 옵션 최소시간 알아서 맞추기
+                $("select#addStartTime" + num).on("change", function(){
+                    //console.log(this.parentNode.nextSibling.nextSibling.firstChild);
+                    let et = this.parentNode.nextSibling.nextSibling.firstChild;
+                    $(et).children('option').remove();
+
+                    for(i=this.value; i<24; i++){
+                        if(i == 9){
+                            $(et).append('<option>09:00</option>');
+                        }else{
+                            i = Number(i)+1;
+                            $(et).append('<option>'+i+':00</option>');
+                        }
+                        
+                    }
+
+                })
+
+
+                num++;
+
+            }
+            /* 
             for(i= 0; i<dateVal.length; i++){
                 let dates = dateVal[i].substring(0, 5);
                 let days = week2[i]
@@ -200,14 +359,18 @@ const date = new Date();
                 }else{
                     scheduleDay += dates + "(" + days + ")";
                 }
-            }
+            } */
 
-            $("#schedule-day").html(scheduleDay);
+            /*$("#schedule-day").html(scheduleDay);*/
+
+
+
 
             $("#test-schedule-text").hide();
             $("#test-schedule-text").slideDown(400);
         })
 
+        /*
         let plusNo = 1;
         $("#plus-time").on("click", function(){
             const tr = $("<tr>");
@@ -226,7 +389,6 @@ const date = new Date();
             select2.attr("id", "endTime" + plusNo);
 
             select1.addClass("time-box");
-            select1.append("<option>08:00</option>");
             select1.append("<option>09:00</option>");
             select1.append("<option>10:00</option>");
             select1.append("<option>11:00</option>");
@@ -242,10 +404,9 @@ const date = new Date();
             select1.append("<option>21:00</option>");
             select1.append("<option>22:00</option>");
             select1.append("<option>23:00</option>");
-            select1.append("<option>24:00</option>");
+            
             
             select2.addClass("time-box");
-            select2.append("<option>08:00</option>");
             select2.append("<option>09:00</option>");
             select2.append("<option>10:00</option>");
             select2.append("<option>11:00</option>");
@@ -261,7 +422,7 @@ const date = new Date();
             select2.append("<option>21:00</option>");
             select2.append("<option>22:00</option>");
             select2.append("<option>23:00</option>");
-            select2.append("<option>24:00</option>");
+            
 
 
             td2.append(select1);
@@ -292,6 +453,7 @@ const date = new Date();
 
             plusNo = plusNo + 1;
         })
+        */
 
         /*
         function removeCols(){
@@ -362,7 +524,7 @@ $("#num-time-one").on("input", function(){
     $("#pt2").html("x " + $(this).val());
 })
 
-$("#time-price-one, #num-time-one").on("input", function(){
+$("#time-price-one, #num-time-one").on("focus", function(){
     $("#sumPrice").html("");
     let sum = $("#time-price-one").val() * $("#num-time-one").val();
     let per = Math.floor(sum * 0.2);
@@ -387,6 +549,9 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAdd
 		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
 		document.form.roadAddrPart1.value = roadAddrPart1;
 		document.form.addrDetail.value = addrDetail;
+		document.form.emdNm.value = emdNm;
+		document.form.liNm.value = liNm;
+		document.form.rn.value = rn;
 }
 
 
