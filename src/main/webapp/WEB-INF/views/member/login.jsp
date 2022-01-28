@@ -13,7 +13,7 @@
     <main class="login">
         <h1>로그인</h1>
 
-        <form action="#" method="POST">
+        <form action="${contextPath}/member/login" method="POST">
             <input type="email" id="memberEmail" name="memberEmail" placeholder="이메일"> <br>
             <input type="password" id="memberPw" name="memberPw" placeholder="비밀번호"> <br>
 
@@ -59,3 +59,5 @@
 </div>
 
 <jsp:include page="../common/footer.jsp"/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="${contextPath}/resources/js/member.js"></script>

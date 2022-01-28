@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+
+	<resultMap type="Member" id="member_rm">
+		<id property="memberNo" column="MEMBER_NO" />
+		
+		<result property="memberGrade" column="MEMBER_GRADE" />
+		<result property="memberSt" column="MEMBER_ST" />
+		<result property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="memberPw" column="MEMBER_PW" />
+		<result property="memberNm" column="MEMBER_NM" />
+		<result property="memberBirth" column="MEMBER_BIRTH" />
+		<result property="memberGender" column="MEMBER_GENDER" />
+		<result property="memberPno" column="MEMBER_PNO" />
+		<result property="memberImg" column="MEMBER_IMG" />
+		<result property="memberRegDt" column="MEMBER_REG_DT" />
+		<result property="memberSecDt" column="MEMBER_SEC_DT" />
+		<result property="teacherEnroll" column="TEACHER_ENROLL" />
+	</resultMap>
+	
+	<!-- 로그인 -->
+	<select id="login" resultMap="member_rm">
+		SELECT * FROM MEMBER
+		WHERE MEMBER_EMAIL = #{memberEmail}
+		AND MEMBER_ST = 0
+	</select>
+</mapper>

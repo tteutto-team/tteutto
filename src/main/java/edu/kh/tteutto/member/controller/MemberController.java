@@ -1,12 +1,23 @@
 package edu.kh.tteutto.member.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import edu.kh.tteutto.member.model.service.MemberService;
+import edu.kh.tteutto.member.model.vo.Member;
 
 @Controller
 @RequestMapping(value="/member/*")
 public class MemberController {
+	
+	@Autowired
+	private MemberService service;
 	
 	// 회원가입 페이지 이동
 	@RequestMapping(value="signup", method=RequestMethod.GET)
@@ -18,6 +29,19 @@ public class MemberController {
 	@RequestMapping(value="login", method=RequestMethod.GET)
 	public String login() {
 		return "member/login";
+	}
+	
+	// 로그인
+	@RequestMapping(value="login", method=RequestMethod.POST)
+	public String login2(Member member,
+			@RequestParam(value="save", required=false) String save, HttpServletRequest req,
+			HttpServletResponse resp) {
+		
+		System.out.println(member.getMemberEmail());
+		System.out.println(member.getMemberPw());
+		
+		Member loginMember = service.login(member);
+		return null;
 	}
 	
 	// 비밀번호 찾기 페이지 이동
