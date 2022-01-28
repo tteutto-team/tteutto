@@ -150,6 +150,7 @@ tbody a {
     position: relative;
     margin: 0 9px;
     cursor: pointer;
+    overflow: hidden;
 }
 
 .class  img{
@@ -159,8 +160,6 @@ tbody a {
     object-fit: cover;
     transform:scale(1.0);        
     transition: transform .5s;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
 
 }
 
