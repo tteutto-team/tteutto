@@ -2,6 +2,7 @@ package edu.kh.tteutto.member.controller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
@@ -78,12 +80,39 @@ public class MemberController {
 
 	// 로그인
 	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String login2(Member member, HttpServletRequest req, HttpServletResponse resp) {
+	public String login(Member member, Model model, RedirectAttributes ra,
+			@RequestParam(value="save", required=false) String save, 
+			HttpServletRequest req, HttpServletResponse resp) {
 
 		Member loginMember = service.login(member);
-		return null;
+		
+		if(loginMember != null) {
+			model.addAttribute("loginMember", loginMember);
+			
+			Cookie cookie = new Cookie("saveId", loginMember.getMemberEmail());
+			
+			if(save != null) {
+				cookie.setMaxAge(60 * 60 * 24 * 30);
+			}else {
+				cookie.setMaxAge(0);
+			}
+			cookie.setPath(req.getContextPath());
+			resp.addCookie(cookie);
+		}else {
+			ra.addFlashAttribute("message", "아이디 또는 비밀번호를 확인해주세요.");
+			
+		}
+		return "redirect:/";
 	}
 
+	// 로그아웃
+	@RequestMapping("logout")
+	public String logout(SessionStatus status) {
+		status.setComplete();
+		
+		return "redirect:/";
+	}
+	
 	// 비밀번호 찾기 페이지 이동
 	@RequestMapping(value = "findPw", method = RequestMethod.GET)
 	public String findPw() {
