@@ -49,13 +49,12 @@ main{
 	margin: 0;
     color: #BF5846;
     font-weight: 500;
-    font-size: 28px;
-    font-weight: bolder;
+    font-size: 23px;
 }
 
 .title > p > span{
     font-size: 30px;
-    font-weight: bolder;
+    font-weight: 500;
 }
 
 /* 찜목록 */
@@ -249,6 +248,7 @@ main{
     left: 14px;
     font-size: 14px;
     background-color: rgb(255, 223, 62);
+    border-radius: 5px;
  }
 
 .detail-info{
