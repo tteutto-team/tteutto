@@ -119,8 +119,8 @@ main .list > div{
 .right-top{
     display: flex;
     justify-content: space-between;
-    padding: 15px 25px 10px 25px;
     border-bottom: 1px solid #ddd;
+    padding: 30px 25px 20px 25px;
 }
 
 #new-class{
@@ -132,7 +132,6 @@ main .list > div{
     height: 43px;
     font-size: 13px;
     box-shadow: 3px 2px 5px 2px #0000001a;
-    top: 15px;
     position: relative;
 }
 
@@ -141,18 +140,19 @@ main .list > div{
 }
 
 .right > p{
-    /* padding: 15px 25px 20px 25px; */
     padding: 15px 25px 10px 25px;
     border-bottom: 1px solid #ddd;
     color: #BF5846;
     font-size: 23px;
     font-weight: 500;
+    margin:0;
 }
 
 .right p{
     color: #BF5846;
     font-weight: 500;
     font-size: 23px;
+    margin:0;
 }
 
 .right > p > span, .right p > span{
@@ -330,6 +330,7 @@ background-color: #FFDF3E;
     border: 0;
     cursor: pointer;
     border-radius: 3px;
+    font-size: 13px;
 }
 #modal-close-btn{
     background-color: #ddd;
