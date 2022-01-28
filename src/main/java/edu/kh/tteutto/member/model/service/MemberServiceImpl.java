@@ -26,11 +26,16 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Member login(Member member) {
 		
-		//String encPw = encoder.encode(member.getMemberPw());
-		//System.out.println(encPw);
+		String encPw = encoder.encode(member.getMemberPw());
 		Member loginMember = dao.login(member.getMemberEmail());
 		
-		return null;
+		if(loginMember != null && encoder.matches(member.getMemberPw(), loginMember.getMemberPw())) {
+			
+			loginMember.setMemberPw(null);
+		}else {
+			loginMember = null;
+		}
+		return loginMember;
 	}
 	
 	// 이메일 중복 검사
