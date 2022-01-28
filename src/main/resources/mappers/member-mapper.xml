@@ -18,11 +18,62 @@
 		<result property="memberSecDt" column="MEMBER_SEC_DT" />
 		<result property="teacherEnroll" column="TEACHER_ENROLL" />
 	</resultMap>
+
+	<resultMap type="Teacher" id="teacher_rm">
+		<id property="memberNo" column="MEMBER_NO" />
+		
+		<result property="memberGrade" column="MEMBER_GRADE" />
+		<result property="memberSt" column="MEMBER_ST" />
+		<result property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="memberPw" column="MEMBER_PW" />
+		<result property="memberNm" column="MEMBER_NM" />
+		<result property="memberBirth" column="MEMBER_BIRTH" />
+		<result property="memberGender" column="MEMBER_GENDER" />
+		<result property="memberPno" column="MEMBER_PNO" />
+		<result property="memberImg" column="MEMBER_IMG" />
+		<result property="memberRegDt" column="MEMBER_REG_DT" />
+		<result property="memberSecDt" column="MEMBER_SEC_DT" />
+		<result property="teacherEnroll" column="TEACHER_ENROLL" />
+		
+		<result property="teacherImg" column="TEACHER_IMG" />
+		<result property="teacherIntro" column="TEACHER_INTRO" />
+		<result property="teacherReqDt" column="TEACHER_REQ_DT" />
+		<result property="teacherStatus" column="TEACHER_STATUS" />
+	</resultMap>
+	
+	<resultMap type="Career" id="career_rm">
+		<id property="memberNo" column="MEMBER_NO"/>
+		<result property="careerNo" column="CAREER_NO"/>
+		<result property="careerContent" column="CAREER_CONTENT"/>
+		<result property="careerImg" column="CAREER_IMG"/>
+	</resultMap>
 	
 	<!-- 로그인 -->
 	<select id="login" resultMap="member_rm">
 		SELECT * FROM MEMBER
 		WHERE MEMBER_EMAIL = #{memberEmail}
 		AND MEMBER_ST = 0
+	</select>
+	
+	<!-- 이메일 중복 검사 -->
+	<select id="emailDupCheck" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_EMAIL = #{inputEmail}
+		AND MEMBER_ST != 2
+	</select>
+	
+	<!-- 강사 정보 조회 -->
+	<select id="selectTeacherProfile" resultMap="teacher_rm">
+		SELECT * FROM TEACHER
+		JOIN MEMBER USING (MEMBER_NO)
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 강사 이력 조회 -->
+	<select id="selectTeacherCareer" resultMap="career_rm">
+		SELECT * FROM CAREER
+		WHERE MEMBER_NO = #{memberNo}
+		ORDER BY CAREER_NO
 	</select>
 </mapper>

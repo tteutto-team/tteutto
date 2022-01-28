@@ -1,16 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../common/header.jsp"/>
 <link rel="stylesheet" href="${contextPath}/resources/css/profile.css"/>
-    
 <div id="container">
     <main>
         <div class="left">
             <div class="box">
-                <img src="images/KakaoTalk_20220112_153307445.png">
+                <img src="${contextPath}/${teacher.teacherImg}">
             </div>
-            <div class="name">홍길동</div>
-            <div class="introduce">안녕하세요. 만나서 반갑습니다.</div>
+            <div class="name">${teacher.memberNm}</div>
+            <div class="introduce">${teacher.teacherIntro}</div>
 
             <div class="list">
                 <div class="selected" onclick="location.href='${contextPath}/member/teacherProfile'">강사 프로필</div>
@@ -19,7 +18,7 @@
         </div>
         <form id ="signUp">
             <div id="profile_header">
-                <span>김사과</span>님의 강사 프로필
+                <span>${teacher.memberNm}</span>님의 강사 프로필
                 <div id="save" class="profile_btn btn_shadow">저장하기</div>
             </div>
             <div class="profile_content">
@@ -31,7 +30,7 @@
                 </div>
                 <div class="profile_area">
                     <div class="label_title">ID</div>
-                    <div class="label_content">user01@naver.com</div>
+                    <div class="label_content">${teacher.memberEmail}</div>
                 </div>
                 <div class="profile_area">
                     <div class="label_title">비밀번호</div>
@@ -39,43 +38,38 @@
                 </div>
                 <div class="profile_area">
                     <div class="label_title">전화번호</div>
-                    <div class="label_content"><input type="text" class="profile_input" placeholder="010-1234-5678"></div>
+                    <div class="label_content"><input type="text" class="profile_input" value="${teacher.memberPno}"></div>
                 </div>
                 <div class="profile_area">
                     <div class="label_title">이름</div>
-                    <div class="label_content"><input type="text" class="profile_input" placeholder="김케이"></div>
+                    <div class="label_content">${teacher.memberNm}</div>
                 </div>
                 <div class="profile_area">
                     <div class="label_title">생년월일</div>
-                    <div class="label_content">000111</div>
+                    <div class="label_content">${teacher.memberBirth}</div>
                 </div>
                 <div class="profile_area">
                     <div class="label_title">강사소개</div>
                     <div class="label_content">
-                        <textarea placeholder="-경력&#13;&#10;-재능 및 경험담" maxlength="1000"></textarea>
+                        <textarea placeholder="-경력&#13;&#10;-재능 및 경험담"  maxlength="1000">${teacher.teacherIntro}</textarea>
                     </div>
                 </div>
                 <div class="profile_area">
                     <div class="label_title">이력(권장사항)</div>
                     <div class="label_content">
-                        <div id="record_area">
-                            <input type="text" class="profile_input" placeholder="재능과 관련된 이력을 입력해 주세요.">
-                            <div class="upload_area">
-                                <div class="upload_img">
-                                    <img class="preview" src="https://front-img.taling.me/Content/app3/img/bg/bg-add-img-grey-115px@2x.png">
-                                    <input type="file" class="profile_file">
-                                </div>
-                            </div>
-                        </div>
-                        <div id="record_area">
-                            <input type="text" class="profile_input" placeholder="재능과 관련된 이력을 입력해 주세요.">
-                            <div class="upload_area">
-                                <div class="upload_img">
-                                    <img class="preview" src="https://front-img.taling.me/Content/app3/img/bg/bg-add-img-grey-115px@2x.png">
-                                    <input type="file" class="profile_file">
-                                </div>
-                            </div>
-                        </div>
+                    
+                       	<c:forEach items="${careerList}" var="career">
+	                        <div id="record_area">
+	                            <input type="text" class="profile_input" value="${career.careerContent}">
+	                            <div class="upload_area">
+	                                <div class="upload_img">
+	                                    <img class="preview" src="${contextPath}${career.careerImg}">
+	                                    <input type="file" class="profile_file">
+	                                </div>
+	                            </div>
+                        	</div>
+                        </c:forEach>
+                        
                         <button type="button" class="record_add">+ 이력 추가</button>
 
                         <div id="input_sns">
@@ -98,4 +92,6 @@
         </form>
     </main>
 </div>
+
+<link rel="stylesheet" href="${contextPath}/resources/js/teacherProfile.js"/>
 <jsp:include page="../common/footer.jsp"/>

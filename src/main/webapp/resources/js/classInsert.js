@@ -11,10 +11,28 @@ $.support.cors = true;
                         let html = "<option>선택</option>";
         
                         data.response.result.featureCollection.features.forEach(function(f){
-                            console.log(f.properties)
+                            //console.log(f.properties.ctp_kor_nm);
                             let 행정구역코드 = f.properties.ctprvn_cd;
                             let 행정구역명 = f.properties.ctp_kor_nm;
                             
+                            if(행정구역명 == "충청북도"){
+                                행정구역명 = "충북";
+                            }else if(행정구역명 == "충청남도"){
+                                행정구역명 = "충남";
+                            }else if(행정구역명 == "경상남도"){
+                                행정구역명 = "경남";
+                            }else if(행정구역명 == "경상북도"){
+                                행정구역명 = "경북";
+                            }else if(행정구역명 == "전라남도"){
+                                행정구역명 = "전남";
+                            }else if(행정구역명 == "전라북도"){
+                                행정구역명 = "전북";
+                            }else{
+                                행정구역명 = 행정구역명.substring(0,2);
+                            }
+                            
+
+
                             html +=`<option value="${행정구역코드}">${행정구역명}</option>`
                             
                         })
@@ -39,7 +57,6 @@ $.support.cors = true;
                             let html = "<option>선택</option>";
         
                             data.response.result.featureCollection.features.forEach(function(f){
-                                console.log(f.properties)
                                 let 행정구역코드 = f.properties.sig_cd;
                                 let 행정구역명 = f.properties.sig_kor_nm;
                                 
@@ -104,51 +121,68 @@ $("#ct1").on("change", function(){
     $("select#ct1 option[value='base']").remove();
     $("select#ct2 option").remove();
 
-    if(c == "공예"){
-        $("select#ct2").append("<option>캔들,디퓨저,방향제</option>");
-        $("select#ct2").append("<option>실크스크린, 염색</option>");
-        $("select#ct2").append("<option>발향,룸스프레이</option>");
-        $("select#ct2").append("<option>자수,재봉,펠트</option>");
-        $("select#ct2").append("<option>뜨개, 마크라메</option>");
-        $("select#ct2").append("<option>가죽</option>");
-        $("select#ct2").append("<option>금속,악세서리</option>");
-        $("select#ct2").append("<option>네온사인,와이어</option>");
-        $("select#ct2").append("<option>유리</option>");
-        $("select#ct2").append("<option>목공</option>");
-        $("select#ct2").append("<option>도자기</option>");
-        $("select#ct2").append("<option>기타</option>");
+    if(c == "공예/디자인"){
+        $("select#ct2").append("<option>조향,캔들,비누</option>");
+        $("select#ct2").append("<option>가죽,목공,도예</option>");
+        $("select#ct2").append("<option>플라워</option>");
+        $("select#ct2").append("<option>캘리그라피</option>");
+        $("select#ct2").append("<option>디지털드로잉</option>");
+        $("select#ct2").append("<option>취미미술</option>");
     }else if(c == "요리"){
-        $("select#ct2").append("<option>떡,앙금케익</option>");
-        $("select#ct2").append("<option>베이킹</option>");
+        $("select#ct2").append("<option>베이킹,디저트</option>");
         $("select#ct2").append("<option>커피,차,음료</option>");
-        $("select#ct2").append("<option>초콜릿,캔디</option>");
-        $("select#ct2").append("<option>한식,양식,중식,퓨전</option>");
-        $("select#ct2").append("<option>기타</option>");
-    }else if(c == "미술"){
-        $("select#ct2").append("<option>민화,동양화</option>");
-        $("select#ct2").append("<option>수채화,서양화</option>");
-        $("select#ct2").append("<option>팝아트,아크릴,인물화</option>");
-        $("select#ct2").append("<option>캘라그라피,서예</option>");
-        $("select#ct2").append("<option>드로잉,일러스트</option>");
-        $("select#ct2").append("<option>기타</option>");
-    }else if(c == "플라워"){
-        $("select#ct2").append("<option>테라리움,가드닝</option>");
-        $("select#ct2").append("<option>하바리움</option>");
-        $("select#ct2").append("<option>프리저브드,드라이플라워</option>");
-        $("select#ct2").append("<option>리스,화환</option>");
-        $("select#ct2").append("<option>꽃다발,바구니,박스</option>");
-        $("select#ct2").append("<option>기타</option>");
-    }else if(c == "뷰티"){
-        $("select#ct2").append("<option>천연화장품</option>");        
-        $("select#ct2").append("<option>비누</option>");        
-        $("select#ct2").append("<option>향수</option>");        
-        $("select#ct2").append("<option>기타</option>");        
-    }else if(c == "체험 및 기타"){
-        $("select#ct2").append("<option>기타</option>");      
+        $("select#ct2").append("<option>건강,다이어트식</option>");
+        $("select#ct2").append("<option>세계요리</option>");
+    }else if(c == "뷰티/헬스"){
+        $("select#ct2").append("<option>메이크업</option>");
+        $("select#ct2").append("<option>퍼스널컬러</option>");
+        $("select#ct2").append("<option>패션</option>");
+        $("select#ct2").append("<option>PT,GX</option>");
+    }else if(c == "사진/영상"){
+        $("select#ct2").append("<option>사진</option>");
+        $("select#ct2").append("<option>영상</option>");
+    }else if(c == "커리어"){
+        $("select#ct2").append("<option>개발</option>");        
+        $("select#ct2").append("<option>언어,외국어</option>");        
+        $("select#ct2").append("<option>주식투자</option>");        
+        $("select#ct2").append("<option>자격증</option>");        
+    }else if(c == "음악"){
+        $("select#ct2").append("<option>보컬</option>");      
+        $("select#ct2").append("<option>악기</option>");      
+        $("select#ct2").append("<option>작곡,디제잉</option>");      
+        $("select#ct2").append("<option>댄스</option>");      
     }else{
-
+        $("select#ct2").append("<option>기타</option>");      
     }
 
 })
 
+
+// 썸머노트
+$(document).ready(function() {
+    $('#summernote').summernote({ // summernote를 사용하기 위한 선언
+        height: 400,
+        width: 750,      
+    });
+});
+
+
+// 제목 글자수
+$("#titleArea").on("input", function(){
+    // 현재 작성된 글자 수를 변수에 저장
+    let count = $(this).val().length;
+    // 넘으면 빨간색
+    if( count >= 50 ){
+        $("#titleText-count").css("color", "red");
+        $(this).val( $(this).val().substr(0,50) );
+        count = 50;
+    }
+    // 아니면 검정색
+    else{
+        $("#titleText-count").css("color", "black");
+    }
+
+    // 글자 수를 출력하는 span
+    $("#titleText-count").text( count ); 
+});
 

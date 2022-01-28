@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
-	
+
 	<!-- SqlSessionTemplate 생성 시 적용될 설정 작성 부분 -->
 	<settings>
 		<!-- insert 또는 update에 사용되는 값 중 null이 있을 경우에 대한 설정
@@ -17,12 +17,15 @@
 	<!-- mapper에서 사용되는 VO를 간단히 부르기 위한 별치 지정 -->
 	<typeAliases>
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Member" alias="Member" />
+		<typeAlias type="edu.kh.tteutto.member.model.vo.Career" alias="Career" />
+		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.Teacher" alias="Teacher" />
 	</typeAliases>
 	
 	<!-- mapper 파일(SQL 작성되는파일) 위치 등록 부분 -->
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml" />
 		<mapper resource="/mappers/admin-mapper.xml" />
+		<mapper resource="/mappers/teacher-mapper.xml" />
 	</mappers>
 			
 	

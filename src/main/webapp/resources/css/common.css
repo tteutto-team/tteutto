@@ -324,3 +324,5 @@ footer .announce > span {
 }
 
 footer ul {display: flex;}
+
+footer strong {font-weight: 500;}  

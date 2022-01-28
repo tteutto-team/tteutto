@@ -1,18 +1,28 @@
 package edu.kh.tteutto.member.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.member.model.service.MemberService;
+import edu.kh.tteutto.member.model.vo.Career;
 import edu.kh.tteutto.member.model.vo.Member;
 
 @Controller
+@SessionAttributes({"loginMember"})	
+
 @RequestMapping(value="/member/*")
 public class MemberController {
 	
@@ -25,7 +35,23 @@ public class MemberController {
 		return "member/signup";
 	}
 	
-	// 회원가입 페이지 이동
+	// 이메일 중복 검사
+	@RequestMapping("emailDupCheck")
+	@ResponseBody
+	public int emailDupCheck(String inputEmail) {
+		return service.emailDupCheck(inputEmail);
+	}
+	
+	// 회원가입
+	@RequestMapping(value="signup", method=RequestMethod.POST)
+	public String signup(Member member) {
+		
+		int result = service.signup(member);
+		
+		return null;
+	}
+	
+	// 로그인 페이지 이동
 	@RequestMapping(value="login", method=RequestMethod.GET)
 	public String login() {
 		return "member/login";
@@ -34,15 +60,13 @@ public class MemberController {
 	// 로그인
 	@RequestMapping(value="login", method=RequestMethod.POST)
 	public String login2(Member member,
-			@RequestParam(value="save", required=false) String save, HttpServletRequest req,
+			HttpServletRequest req,
 			HttpServletResponse resp) {
-		
-		System.out.println(member.getMemberEmail());
-		System.out.println(member.getMemberPw());
 		
 		Member loginMember = service.login(member);
 		return null;
 	}
+	
 	
 	// 비밀번호 찾기 페이지 이동
 	@RequestMapping(value="findPw", method=RequestMethod.GET)
@@ -76,8 +100,22 @@ public class MemberController {
 	
 	// 강사 프로필 페이지 이동
 	@RequestMapping(value="teacherProfile", method=RequestMethod.GET)
-	public String teacherProfile() {
+	public String teacherProfile(Model model, HttpSession session) {
+		
+//		int memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
+		int memberNo = 3;
+		
+		Teacher teacher = service.selectTeacherProfile(memberNo);
+		List<Career> careerList = service.selectTeacherCareer(memberNo);
+		
+		System.out.println("careerList: " + careerList);
+		
+		model.addAttribute("careerList", careerList);
+		model.addAttribute("teacher", teacher);
+			
 		return "member/teacherProfile";
+		
+		
 	}
 	
 	// 강사 신청 페이지 이동

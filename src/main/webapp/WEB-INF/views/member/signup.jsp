@@ -13,47 +13,42 @@
 	<main class="signup">
 		<h1>회원가입</h1>
 
-		<form action="#" method="POST">
+		<form action="signup" method="POST" name="signUpForm" onsubmit="return validate();">
 			<div>
 				<label for="email">이메일</label> <br>
 				<div id="email-div">
 					<input type="email" id="email" name="memberEmail">
 					<button>인증하기</button>
 				</div>
-				<span id="checkEmail"><i class="fas fa-exclamation-triangle"></i>
-					유효하지 않는 E-mail입니다.</span>
+				<span id="checkEmail"></span>
 			</div>
 
 			<div>
 				<label for="pw1">비밀번호</label> <br> <input type="password"
-					id="pw1" name="memberPw"> <br> <span id="checkPw1"><i
-					class="fas fa-exclamation-triangle"></i> 유효하지 않는 비밀번호입니다.</span>
+					id="pw1" name="memberPw"> <br> <span id="checkPw1"></span>
 			</div>
 
 			<div>
 				<label for="pw2">비밀번호 확인</label> <br> <input type="password"
-					id="pw2"> <br> <span id="checkPw2"><i
-					class="fas fa-exclamation-triangle"></i> 비밀번호가 일치하지 않습니다.</span>
+					id="pw2"> <br> <span id="checkPw2"></span>
 			</div>
 
 			<div>
 				<label for="name">이름</label> <br> <input type="text" id="name"
-					name="memberName"> <br> <span id="checkName"><i
-					class="fas fa-exclamation-triangle"></i> 형식에 맞지 않는 이름입니다.</span>
+					name="memberName"> <br> <span id="checkName"></span>
 			</div>
 
 			<div>
 				<label for="birth">생년월일</label> <br>
 				<div id="birth-gender">
-					<input type="number" id="birth"> <input id="male"
-						type="radio" name="gender" value="male"> <label
-						class="gender" for="male">남</label> <input id="female"
-						type="radio" name="gender" value="female"> <label
-						class="gender" for="female">여</label> <br>
+					<input type="number" name="birth" id="birth" placeholder="예시) 960319"> 
+					<input id="male" type="radio" name="gender" value="m"> 
+					<label class="gender" for="male">남</label> 
+					<input id="female" type="radio" name="gender" value="f"> 
+					<label class="gender" for="female">여</label> <br>
 				</div>
 
-				<span id="checkBirth"><i class="fas fa-exclamation-triangle"></i>
-					형식에 맞지 않는 생년월일입니다.</span>
+				<span id="checkBirth"></span>
 			</div>
 
 			<div>
@@ -65,16 +60,15 @@
 						<option>016</option>
 						<option>017</option>
 						<option>019</option>
-					</select> <input id="phone2" type="number" name="phone"> <input
-						id="phone3" type="number" name="phone">
+					</select> <input id="phone2" class="phone" type="number" name="phone"> <input
+						id="phone3" type="number" class="phone" name="phone">
 				</div>
 
-				<span id="checkPhone"><i class="fas fa-exclamation-triangle"></i>
-					형식에 맞지 않는 전화번호입니다.</span>
+				<span id="checkPhone"></span>
 
 			</div>
-
-			<button id="signup-btn">동의하고 회원가입</button>
+ 			<button id="signup-btn">동의하고 회원가입</button> 
+			<!--  <button type="button" onclick="validate()" id="signup-btn">동의하고 회원가입</button> -->
 		</form>
 
 		<p>
@@ -105,3 +99,5 @@
 </div>
 
 <jsp:include page="../common/footer.jsp"/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="${contextPath}/resources/js/member.js"></script>
