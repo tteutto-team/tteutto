@@ -497,8 +497,8 @@
                     </div>
                     
                     <div id="modal-btn">
-                        <button id="new" style="height: 50px;" onclick="location.href='${contextPath}/class/classInsert1'">클래스 새로 만들기</button>
-                        <button type="button" id="existing" style="height: 50px;" onclick="location.href='${contextPath}/class/classInsert2'">기존 클래스 이어 열기</button>
+                        <button id="new" style="height: 50px;" onclick="location.href='${contextPath}/register/class'">클래스 새로 만들기</button>
+                        <button type="button" id="existing" style="height: 50px;">기존 클래스 이어 열기</button>
                     </div>
 
                     <!-- 옵션 선택 -->
@@ -585,6 +585,7 @@
         	}
 	        
 	    });
+	    
 	
 	    /* 기존 강좌 이어열기 클릭시 */
 	    $("#existing").on("click", function(){
@@ -594,8 +595,17 @@
 	        else{
 	            $(".class-list").css("display","none");
 	        }
-	    })
+	    });
+	    
+	    
+	    /* 기존 강좌 이어열기 - 열기 클릭시 */
+	    $(".existing-class-select").on("click", function(){
+	    	if($(".btn-select").text() != "강의 목록"){
+	    		location.href="${contextPath}/register/schedule";
+	    	}
+	    });
 	
+	    
 	    /* select-option */
 	    const btn = document.querySelector('.btn-select');
 	    const list = document.querySelector('.list-member');
