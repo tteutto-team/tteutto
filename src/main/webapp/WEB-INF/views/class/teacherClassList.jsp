@@ -343,7 +343,7 @@
 	                        <div class="column">교육 완료</div>
 	                        <div class="column">22/03/01 ~ 22/04/01</div>
 	                        <div class="column"><button class="modal-open-btn">관리</button></div>
-	                        <div class="column"></div>
+	                        <div class="column">-</div>
 	                        <div class="column"><button class="modal-open-btn receipt">영수증</button></div>
 	                    </div>
                     </div>
