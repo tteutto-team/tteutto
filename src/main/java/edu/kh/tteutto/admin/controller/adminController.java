@@ -33,29 +33,23 @@ public class adminController {
 	
 	
 	// 클래스 회차별 목록 조회
-	@RequestMapping(value="classList", method=RequestMethod.GET)
+	@RequestMapping(value="classEpisodeList", method=RequestMethod.GET)
 	@ResponseBody
-	public List<Admin> classList() {
+	public List<Admin> classEpisodeList() {
 		
-		List<Admin> data = service.selectList();
-		
-		/*
-		 * Map<String, Object> data = new HashMap<String, Object>();
-		 * 
-		 * data.put("data", memberList);
-		 */
+		List<Admin> data = service.classEpisodeList();
 		
 		return data;
 	}
 	
 	
 	// 클래스 회차별 신청 승인
-	@RequestMapping(value="agree", method=RequestMethod.GET)
+	@RequestMapping(value="episodeAgree", method=RequestMethod.GET)
 	@ResponseBody
-	public int agree(int classNo) {
+	public int episodeAgree(int classNo, int memberNo, String className) {
 		
 		
-		int result = service.agree(classNo);
+		int result = service.episodeAgree(classNo, memberNo, className);
 		
 		
 		return result;
