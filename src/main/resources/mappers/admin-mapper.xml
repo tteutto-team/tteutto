@@ -2,25 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="adminMapper">
 
-	<resultMap type="Member" id="member_rm">
-		<id property="memberNo" column="MEMBER_NO" />
+	<resultMap type="Admin" id="admin_rm">
+		<id property="classNo" column="CLASS_NO" />
 		
-		<result property="memberGrade" column="MEMBER_GRADE" />
-		<result property="memberSt" column="MEMBER_ST" />
-		<result property="memberEmail" column="MEMBER_EMAIL" />
-		<result property="memberPw" column="MEMBER_PW" />
-		<result property="memberNm" column="MEMBER_NM" />
-		<result property="memberBirth" column="MEMBER_BIRTH" />
-		<result property="memberGender" column="MEMBER_GENDER" />
-		<result property="memberPno" column="MEMBER_PNO" />
-		<result property="memberImg" column="MEMBER_IMG" />
-		<result property="memberRegDt" column="MEMBER_REG_DT" />
-		<result property="memberSecDt" column="MEMBER_SEC_DT" />
-		<result property="teacherEnroll" column="TEACHER_ENROLL" />
+		<result property="className" column="CLASS_NM" />
+		<result property="classRequestDate" column="CLASS_REQ_DT" />
+		<result property="episodeCount" column="EP_COUNT" />
+		<result property="memberName" column="MEMBER_NM" />
 	</resultMap>
 	
-	<select id="selectList" resultMap="member_rm">
-		SELECT * FROM MEMBER
+	<select id="selectList" resultMap="admin_rm">
+		SELECT CLASS_NO, CLASS_NM, CLASS_REQ_DT, EP_COUNT, MEMBER_NM FROM CLASS
+		JOIN EPISODE USING(CLASS_NO)
+		JOIN TEACHER USING(MEMBER_NO)
+		JOIN MEMBER USING(MEMBER_NO)
+		WHERE EP_ST = 0
 	</select>
+	
+	<update id="agree">
+		UPDATE EPISODE SET EP_ST = 2
+		WHERE CLASS_NO = #{classNo}
+	</update>
 	
 </mapper>
