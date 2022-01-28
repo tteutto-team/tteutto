@@ -51,34 +51,25 @@
                 <div class="profile_area">
                     <div class="label_title">강사소개</div>
                     <div class="label_content">
-                        <textarea placeholder="-경력&#13;&#10;-재능 및 경험담" value="${teacher.teacherIntro}" maxlength="1000"></textarea>
+                        <textarea placeholder="-경력&#13;&#10;-재능 및 경험담"  maxlength="1000">${teacher.teacherIntro}</textarea>
                     </div>
                 </div>
                 <div class="profile_area">
                     <div class="label_title">이력(권장사항)</div>
                     <div class="label_content">
                     
-                       	<c:forEach items="${career}" var="career">
+                       	<c:forEach items="${careerList}" var="career">
 	                        <div id="record_area">
-	                            <input type="text" class="profile_input" value="${career}">
+	                            <input type="text" class="profile_input" value="${career.careerContent}">
 	                            <div class="upload_area">
 	                                <div class="upload_img">
-	                                    <img class="preview" src="https://front-img.taling.me/Content/app3/img/bg/bg-add-img-grey-115px@2x.png">
+	                                    <img class="preview" src="${contextPath}${career.careerImg}">
 	                                    <input type="file" class="profile_file">
 	                                </div>
 	                            </div>
                         	</div>
                         </c:forEach>
                         
-                        <div id="record_area">
-                            <input type="text" class="profile_input" placeholder="재능과 관련된 이력을 입력해 주세요.">
-                            <div class="upload_area">
-                                <div class="upload_img">
-                                    <img class="preview" src="https://front-img.taling.me/Content/app3/img/bg/bg-add-img-grey-115px@2x.png">
-                                    <input type="file" class="profile_file">
-                                </div>
-                            </div>
-                        </div>
                         <button type="button" class="record_add">+ 이력 추가</button>
 
                         <div id="input_sns">
@@ -101,4 +92,6 @@
         </form>
     </main>
 </div>
+
+<link rel="stylesheet" href="${contextPath}/resources/js/teacherProfile.js"/>
 <jsp:include page="../common/footer.jsp"/>

@@ -88,9 +88,11 @@ public class MemberController {
 		int memberNo = 3;
 		
 		Teacher teacher = service.selectTeacherProfile(memberNo);
-		List<Career> career = service.selectTeacherCareer(memberNo);
+		List<Career> careerList = service.selectTeacherCareer(memberNo);
 		
-		model.addAttribute("career", career);
+		System.out.println("careerList: " + careerList);
+		
+		model.addAttribute("careerList", careerList);
 		model.addAttribute("teacher", teacher);
 			
 		return "member/teacherProfile";
