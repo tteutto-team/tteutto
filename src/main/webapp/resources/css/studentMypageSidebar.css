@@ -8,7 +8,7 @@
     border: 2px solid #ededed;
     position: -webkit-sticky;
     position: sticky;
-    top: 10px;
+    top: 0px;
 }
 
 .box {
@@ -28,7 +28,7 @@
 .name{
     height: 30px;
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 500;
     text-align: center;
 }
 .introduce{
