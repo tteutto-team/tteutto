@@ -70,6 +70,16 @@
                         	</div>
                         </c:forEach>
                         
+                        <div id="record_area">
+                            <input type="text" class="profile_input" placeholder="재능과 관련된 이력을 입력해 주세요.">
+                            <div class="upload_area">
+                                <div class="upload_img">
+                                    <img class="preview" src="https://front-img.taling.me/Content/app3/img/bg/bg-add-img-grey-115px@2x.png">
+                                    <input type="file" class="profile_file">
+                                </div>
+                                <div class="close_record">닫기</div>
+                            </div>
+                        </div>
                         <button type="button" class="record_add">+ 이력 추가</button>
 
                         <div id="input_sns">
@@ -91,7 +101,9 @@
            
         </form>
     </main>
+    
 </div>
 
-<link rel="stylesheet" href="${contextPath}/resources/js/teacherProfile.js"/>
 <jsp:include page="../common/footer.jsp"/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+<script src="${contextPath}/resources/js/teacherProfile.js"></script>
