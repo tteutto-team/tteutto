@@ -66,7 +66,7 @@
 						<li><a href="${contextPath}/member/teacherRegister">강사 신청하기</a></li>
 						
 						<!-- 찜한 클래스 -->
-						<li><a href="${contextPath}/my/favorite">
+						<li><a href="${contextPath}/member/studentWishList">
 							<i class="icon-heart"></i>
 						</a></li>
 						

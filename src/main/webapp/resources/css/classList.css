@@ -144,7 +144,8 @@
     border-radius: 5px;
     position: relative;
     margin: 0 12px 40px;
-    cursor: pointer;  
+    cursor: pointer;
+    overflow: hidden;
 }
 
 .searchList .class .image {
@@ -159,8 +160,6 @@
     object-fit: cover;
     transform:scale(1.0);        
     transition: transform .5s;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
 }
 
 .searchList .location-p{
