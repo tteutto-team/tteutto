@@ -18,11 +18,11 @@
                 margin : 0;
             }
             
-            body *{ 
+            .classContent *{ 
                 box-sizing: revert;
             }   
             
-            ul{
+            .classContent ul{
                 margin: 16px 0;
                 padding-left: 40px;
                 list-style-type: disc;

@@ -704,6 +704,7 @@
         
     </div>
     
+<jsp:include page="../common/footer.jsp"/>
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- 차트 라이브러리 js -->
