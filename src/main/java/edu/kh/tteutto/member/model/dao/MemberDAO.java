@@ -21,7 +21,6 @@ public class MemberDAO {
 	 * @return loginMember
 	 */
 	public Member login(String memberEmail) {
-		
 		return sqlSession.selectOne("memberMapper.login", memberEmail);
 	}
 	
@@ -30,7 +29,6 @@ public class MemberDAO {
 	 * @return teacher
 	 */
 	public Teacher selectTeacherProfile(int memberNo) {
-		
 		return sqlSession.selectOne("memberMapper.selectTeacherProfile", memberNo);
 	}
 
