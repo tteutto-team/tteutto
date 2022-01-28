@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.member.model.dao.MemberDAO;
@@ -17,8 +18,9 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberDAO dao;
 	
-	// @Autowired
-	// private BCryptPasswordEncoder encoder;
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
 
 	// 로그인
 	@Override
@@ -31,6 +33,19 @@ public class MemberServiceImpl implements MemberService{
 		return null;
 	}
 	
+	// 이메일 중복 검사
+	@Override
+	public int emailDupCheck(String inputEmail) {
+		return dao.emailDupCheck(inputEmail);
+	}
+	
+	// 회원가입
+	@Transactional()
+	@Override
+	public int signup(Member member) {
+		return 0;
+	}
+
 	// 강사 정보 조회
 	@Override
 	public Teacher selectTeacherProfile(int memberNo) {

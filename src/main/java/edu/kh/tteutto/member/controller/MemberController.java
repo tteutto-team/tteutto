@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
@@ -34,7 +35,23 @@ public class MemberController {
 		return "member/signup";
 	}
 	
-	// 회원가입 페이지 이동
+	// 이메일 중복 검사
+	@RequestMapping("emailDupCheck")
+	@ResponseBody
+	public int emailDupCheck(String inputEmail) {
+		return service.emailDupCheck(inputEmail);
+	}
+	
+	// 회원가입
+	@RequestMapping(value="signup", method=RequestMethod.POST)
+	public String signup(Member member) {
+		
+		int result = service.signup(member);
+		
+		return null;
+	}
+	
+	// 로그인 페이지 이동
 	@RequestMapping(value="login", method=RequestMethod.GET)
 	public String login() {
 		return "member/login";
@@ -49,6 +66,7 @@ public class MemberController {
 		Member loginMember = service.login(member);
 		return null;
 	}
+	
 	
 	// 비밀번호 찾기 페이지 이동
 	@RequestMapping(value="findPw", method=RequestMethod.GET)
