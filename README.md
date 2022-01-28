@@ -55,10 +55,10 @@
 -----------------------------------------------------------------------
 
 클래스 등록 1
- * http://localhost:8080/tteutto/class/classInsert1
+ * http://localhost:8080/tteutto/register/class
 
 클래스 등록 2
- * http://localhost:8080/tteutto/class/classInsert2
+ * http://localhost:8080/tteutto/register/schedule
 
 -----------------------------------------------------------------------
 
