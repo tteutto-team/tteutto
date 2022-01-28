@@ -110,15 +110,15 @@ main{
     cursor: pointer;
 }
 
-.signup input[name=gender]{
+.signup input[name=MemberGender]{
     display: none;
 }
 
-.signup input[name=gender] + label:hover{
+.signup input[name=MemberGender] + label:hover{
     background-color: #f5d11c;
 }
 
-.signup input[name=gender]:checked + label{
+.signup input[name=MemberGender]:checked + label{
     background-color: #FFDF3E;
 }
 

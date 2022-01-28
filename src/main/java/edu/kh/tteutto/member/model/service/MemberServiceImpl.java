@@ -42,8 +42,13 @@ public class MemberServiceImpl implements MemberService{
 	// 회원가입
 	@Transactional()
 	@Override
-	public int signup(Member member) {
-		return 0;
+	public int signUp(Member member) {
+		
+		String encPw = encoder.encode(member.getMemberPw());
+		
+		member.setMemberPw(encPw);
+		
+		return dao.signUp(member);
 	}
 
 	// 강사 정보 조회
