@@ -24,6 +24,14 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.login", memberEmail);
 	}
 	
+	/** 이메일 중복 검사
+	 * @param inputEmail
+	 * @return result
+	 */
+	public int emailDupCheck(String inputEmail) {
+		return sqlSession.selectOne("memberMapper.emailDupCheck", inputEmail);
+	}
+	
 	/** 강사 정보 조회
 	 * @param memberNo
 	 * @return teacher
@@ -39,7 +47,7 @@ public class MemberDAO {
 	public List<Career> selectTeacherCareer(int memberNo) {
 		return sqlSession.selectList("memberMapper.selectTeacherCareer", memberNo);
 	}
-	
+
 
 	
 

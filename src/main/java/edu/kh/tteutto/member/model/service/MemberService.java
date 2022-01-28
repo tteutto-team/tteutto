@@ -14,6 +14,19 @@ public interface MemberService {
 	 */
 	Member login(Member member);
 
+	
+	/** 이메일 중복 검사
+	 * @param inputEmail
+	 * @return result
+	 */
+	int emailDupCheck(String inputEmail);
+
+	/** 회원가입
+	 * @param member
+	 * @return result
+	 */
+	int signup(Member member);
+	
 	/** 강사 정보 조회
 	 * @param memberNo 
 	 * @param memberNo
@@ -26,6 +39,9 @@ public interface MemberService {
 	 * @return career
 	 */
 	List<Career> selectTeacherCareer(int memberNo);
+
+
+
 
 	
 }
