@@ -43,7 +43,7 @@
   
   function createTable(){
 	  $.ajax({
-	    	url: "classList",
+	    	url: "classEpisodeList",
 	    	type: "GET",
 	    	dataType : "JSON",
 	    	success: function(data){
@@ -62,7 +62,7 @@
 	                    "data": null,
 	                    "render": function(data, type, row){
 	                    	console.log(data);
-	                            return '<button onclick="agree('+data.classNo+')">승인</button><button onclick="deny('+data.classNo+')">거절</button>';
+	                            return '<button onclick="agree('+data.classNo+', '+data.memberNo+', \''+ data.className + '-' + data.episodeCount +'\')">승인</button><button onclick="deny('+data.classNo+')">거절</button>';
 	                        },
 	                    "orderable": false
 	                    },
@@ -80,12 +80,16 @@
 	    })
   }
     
-    function agree(classNo){
+    function agree(classNo, memberNo, className){
 	  if(confirm("클래스 회차 등록을 승인하겠습니까?")){
 		  $.ajax({
-			  url: "agree",
+			  url: "episodeAgree",
 			  dataType: "json",
-			  data: {"classNo": classNo},
+			  data: {
+				  "classNo": classNo, 
+				  "memberNo": memberNo,
+				  "className": className
+				},
 			  success: function(result){
 				  if(result > 0){
 					  alert("승인 완료");

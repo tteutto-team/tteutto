@@ -10,9 +10,9 @@ public class Admin {
 
 	// 클래스 회차 테이블
 	private int episodeCount; // 클래스 회차
-	
-	
+
 	// 회원
+	private int memberNo; // 회원 번호
 	private String memberName; // 강사명
 	// ************ 필드 **************
 
@@ -28,7 +28,6 @@ public class Admin {
 	public void setClassNo(int classNo) {
 		this.classNo = classNo;
 	}
-
 
 	public String getClassName() {
 		return className;
@@ -53,7 +52,6 @@ public class Admin {
 	public void setEpisodeCount(int episodeCount) {
 		this.episodeCount = episodeCount;
 	}
-	
 
 	public String getMemberName() {
 		return memberName;
@@ -63,11 +61,18 @@ public class Admin {
 		this.memberName = memberName;
 	}
 
+	public int getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+
 	@Override
 	public String toString() {
 		return "Admin [classNo=" + classNo + ", className=" + className + ", classRequestDate=" + classRequestDate
-				+ ", episodeCount=" + episodeCount + ", memberName=" + memberName + "]";
+				+ ", episodeCount=" + episodeCount + ", memberNo=" + memberNo + ", memberName=" + memberName + "]";
 	}
-
 
 }
