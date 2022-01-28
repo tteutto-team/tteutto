@@ -230,7 +230,7 @@ main {
 	background-color: #ddd;
 }
 
-.record_area {
+#record_area {
 	position: relative;
 }
 
@@ -247,14 +247,14 @@ main {
 	width: 120px;
 	height: 75px;
 	margin: 10px 0;
-	overflow: hidden;
+	/* overflow: hidden; */
 }
 
 .upload_img {
 	position: relative;
 	width: 120px;
 	height: 75px;
-	overflow: hidden;
+	/* overflow: hidden; */
 }
 
 .upload_img img {
@@ -441,3 +441,14 @@ main {
 .label_content>p {
 	clear: both;
 }
+
+
+.close_record{
+	position: absolute;
+    top: 91px;
+    right: 100px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 5px 8px;
+}
+
