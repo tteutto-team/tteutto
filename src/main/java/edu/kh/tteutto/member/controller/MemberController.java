@@ -34,11 +34,8 @@ public class MemberController {
 	// 로그인
 	@RequestMapping(value="login", method=RequestMethod.POST)
 	public String login2(Member member,
-			@RequestParam(value="save", required=false) String save, HttpServletRequest req,
+			HttpServletRequest req,
 			HttpServletResponse resp) {
-		
-		System.out.println(member.getMemberEmail());
-		System.out.println(member.getMemberPw());
 		
 		Member loginMember = service.login(member);
 		return null;

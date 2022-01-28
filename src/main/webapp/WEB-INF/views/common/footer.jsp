@@ -63,3 +63,16 @@
 		</div>
 	</div>
 </footer>
+<c:if test="${ !empty requestScope.message }">
+	<script>
+		$(function(){ // ready() 함수로 페이지 로딩 완료 후 alert 출력
+			alert("${message}");
+		})
+			// EL 작성 시 scope를 지정하지 않으면
+			// page -> request -> session -> application 순서로 검색하여
+			// 일치하는 속성이 있으면 출력
+	</script>
+	
+	<%-- message 1회 출력 후 session에서 제거 --%>
+	<c:remove var="message" scope="session"/>
+</c:if>
