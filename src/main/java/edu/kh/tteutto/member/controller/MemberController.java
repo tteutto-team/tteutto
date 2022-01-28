@@ -1,18 +1,27 @@
 package edu.kh.tteutto.member.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.member.model.service.MemberService;
+import edu.kh.tteutto.member.model.vo.Career;
 import edu.kh.tteutto.member.model.vo.Member;
 
 @Controller
+@SessionAttributes({"loginMember"})	
+
 @RequestMapping(value="/member/*")
 public class MemberController {
 	
@@ -73,8 +82,20 @@ public class MemberController {
 	
 	// 강사 프로필 페이지 이동
 	@RequestMapping(value="teacherProfile", method=RequestMethod.GET)
-	public String teacherProfile() {
+	public String teacherProfile(Model model, HttpSession session) {
+		
+//		int memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
+		int memberNo = 3;
+		
+		Teacher teacher = service.selectTeacherProfile(memberNo);
+		List<Career> career = service.selectTeacherCareer(memberNo);
+		
+		model.addAttribute("career", career);
+		model.addAttribute("teacher", teacher);
+			
 		return "member/teacherProfile";
+		
+		
 	}
 	
 	// 강사 신청 페이지 이동
