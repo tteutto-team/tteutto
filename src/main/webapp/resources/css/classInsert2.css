@@ -10,14 +10,14 @@
     /*border: 1px solid rgb(185, 185, 185);*/
     box-sizing: border-box;
 }
-/* 
+
 body{
     margin: 0;
     font-family: 'IBMPlexSansKR-Regular';
 }
- */
+
 .fixWidth{
-    width: 1200px;
+    width: 1080px;
     margin: auto;
 }
 
@@ -45,9 +45,11 @@ body{
 .fixWidth > div:first-child > h1{line-height: 100px;}
 
 .fixWidth > div:nth-child(2){
-    text-align: right;
-    line-height: 80px;
     height: 60px;
+    border-bottom: 1px solid #ddd;
+    line-height: 60px;
+    font-size: 17px;
+    font-weight: 600;
 }
 
 .fixWidth > div:nth-child(3){height: 100%;}
@@ -73,6 +75,13 @@ body{
 .select-style:focus{
     outline: 2px solid #FFDF3E;
     border: none
+}
+
+select {
+    padding-left: 5px;
+    -webkit-appearance:none; /* 크롬 화살표 없애기 */
+    -moz-appearance:none; /* 파이어폭스 화살표 없애기 */
+    appearance:none /* 화살표 없애기 */
 }
 
 /*input 디자인*/
@@ -167,6 +176,7 @@ body{
     border-radius: 5px;
     background-color: #FFDF3E;
     margin-bottom: 10px;
+    font-family: 'IBMPlexSansKR-Regular';
 }
 
 /*------------------test-----------------------*/
@@ -260,7 +270,8 @@ body{
     margin-right: 10px;
 }
 
-#locationBtn{
+#c-location > div > button{
+    font-family: 'IBMPlexSansKR-Regular';
     font-weight: bold;
     font-size: 14px;
     width: 80px;
@@ -346,15 +357,10 @@ body{
 
 
 /*다음버튼영역*/
-/* #next-btn{
+#next-btn{
     clear: both;
     display: flex;
     justify-content: center;
-} */
-
-#next-btn{
-    clear: both;
-    text-align: center;
 }
 
 #next-btn button{
@@ -375,4 +381,24 @@ body{
 }
 #schedule-text::-webkit-scrollbar-thumb{
     background-color: #ddd;
+}
+
+
+#register_header{
+    border-bottom: 1px solid #ddd;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+}
+#register_header > div{
+    font-size: 28px;
+    font-weight: 500;
+}
+#register_header > div:last-child{
+    font-size: 17px;
+    line-height: 4;
+}
+
+h4{
+    font-weight: 600;
 }

@@ -1,19 +1,21 @@
-package edu.kh.tteutto.classRoom.model.dao;
+package edu.kh.tteutto.member.model.dao;
+
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.kh.tteutto.member.model.vo.Member;
+
 @Repository
-public class TeacherDAO {
+public class AdminDAO {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
-	public int test() {
-		
-		int result = sqlSession.insert("teacherMapper.test");
-		return result;
+
+	public List<Member> selectList() {
+		return sqlSession.selectList("adminMapper.selectList");
 	}
-	
+
 }
