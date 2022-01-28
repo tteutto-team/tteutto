@@ -32,6 +32,9 @@
 내 후기 조회
  * http://localhost:8080/tteutto/member/studentCommentList
  
+찜한 클래스
+ * http://localhost:8080/tteutto/member/studentWishList
+ 
 강사 신청
  * http://localhost:8080/tteutto/member/teacherRegister
 
