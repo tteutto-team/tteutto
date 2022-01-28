@@ -55,68 +55,68 @@
 				</div>
 				
 				<div class="prevent-dragging">
-					<%-- <c:choose> --%>
-						<!-- 미로그인 시 노출되는 메뉴 -->
-						<%-- <c:when test="${empty sessionScope.loginMember}"> --%>
+					<c:choose>
+						<%-- 미로그인 시 노출되는 메뉴 --%>
+						<c:when test="${empty sessionScope.loginMember}">
 							<ul class="logout">
-								<!-- 강사 신청 페이지로 이동 -->
+								<%-- 강사 신청 페이지로 이동 --%>
 								<li><a href="${contextPath}/member/teacherRegister">강사 신청하기</a></li>
 								
-								<!-- 로그인 페이지로 이동 -->
+								<%-- 로그인 페이지로 이동 --%>
 								<li><a href="${contextPath}/member/login">로그인</a></li>
 							</ul>
-						<%-- </c:when> --%>
+						</c:when>
 						
-						<!-- 로그인 시 노출되는 메뉴 -->
-						<%-- <c:otherwise> --%>
-							<ul class="login" style="display: none;">
-								<!-- 강사 신청 페이지로 이동 -->
+						<%-- 로그인 시 노출되는 메뉴 --%>
+						<c:otherwise>
+							<ul class="login">
+								<%-- 강사 신청 페이지로 이동 --%>
 								<li><a href="${contextPath}/member/teacherRegister">강사 신청하기</a></li>
 								
-								<!-- 찜한 클래스 페이지로 이동-->
+								<%-- 찜한 클래스 페이지로 이동--%>
 								<li><a href="${contextPath}/member/studentWishList"><i class="icon-heart"></i></a></li>
 								
-								<!-- 1:1 채팅 / 쪽지 팝업창 열기 -->
+								<%-- 1:1 채팅 / 쪽지 팝업창 열기 --%>
 								<li><a href="#"><i class="icon-chat" id="chat">
-									<!-- 알림 표시 -->
+									<%-- 알림 표시 --%>
 									<span class="alert">2</span>
 								</i></a></li>
 								
-								<!-- 프로필 모달창 열기 -->
+								<%-- 프로필 모달창 열기 --%>
 								<li class="profile">
 									<div class="my-profile" id="my-profile">
-										<!-- 프로필 이미지 -->
+										<%-- 프로필 이미지 --%>
 										<img src="${contextPath}/resources/images/profile/temp.png" alt="프로필 이미지">
 										<i class="icon-open" id="icon"></i>
 									</div>
 									
-									<!-- 프로필 모달 -->
+									<%-- 프로필 모달 --%>
 									<div class="profile-modal" id="profile-modal">
 										<div class="modal-1">
-											<!-- 프로필 이미지 -->
+											<%-- 프로필 이미지 --%>
 											<img src="${contextPath}/resources/images/profile/temp.png" alt="프로필 이미지">
 											
 											<div class="user">
-												<!-- 회원명 -->
-												<div class="user-name"><span>도니</span></div>
+												<%-- 회원명 --%>
+												<div class="user-name"><span>${sessionScope.loginMember.memberNm}</span></div>
 												
-												<!-- 회원 프로필 페이지로 이동 -->
-												<div class="my-page"><a href="${contextPath}/member/studentProfile">학생 프로필 ></a></div>
+												<%-- 회원 프로필 페이지로 이동 --%>
+												<div class="my-page"><a href="${contextPath}/member/studentProfile">학생 프로필</a></div>
 											</div>
 										</div>
 										
 										<div class="modal-2">
-											<!-- 내 클래스 조회 페이지로 이동 -->
+											<%-- 내 클래스 조회 페이지로 이동 --%>
 											<div><a href="${contextPath}/teacher/classList" target="_blank">강사 페이지 열기</a></div>
 											
-											<!-- 로그아웃 후 Main 페이지로 이동 -->
-											<div><a href="#">로그아웃</a></div>
+											<%-- 로그아웃 후 Main 페이지로 이동 --%>
+											<div><a href="${contextPath}/member/logout">로그아웃</a></div>
 										</div>
 									</div>
 								</li>
 							</ul>
-						<%-- </c:otherwise> --%>
-					<%-- </c:choose> --%>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</header>

@@ -14,12 +14,16 @@
         <h1>로그인</h1>
 
         <form action="${contextPath}/member/login" method="POST">
-            <input type="email" id="memberEmail" name="memberEmail" placeholder="이메일"> <br>
+            <input type="email" id="memberEmail" name="memberEmail" placeholder="이메일" value="${cookie.saveId.value}"> <br>
             <input type="password" id="memberPw" name="memberPw" placeholder="비밀번호"> <br>
 
             <div id="save-div">
-                <input id="saveEmail" type="checkbox" name="save">
+           		<c:if test="${!empty cookie.saveId.value }">
+               		<c:set var="chk" value="checked"/>
+               	</c:if>
+                <input id="saveEmail" type="checkbox" name="save" ${chk}>
                 <label for="saveEmail">
+                	
                     <span><i class="fas fa-check"></i></span>
                     이메일 기억하기
                 </label>
