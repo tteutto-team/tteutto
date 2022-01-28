@@ -97,23 +97,27 @@ main {
 }
 
 #signUp>#profile_header>span {
-	font-size: 28px;
+	font-size: 30px;
 	font-weight: 500;
 }
 
 .profile_btn {
 	float: right;
     background-color: #FFDF3E;
-    width: 100px;
+    width: 150px;
     margin-right: 20px;
     color: #111;
     text-align: center;
-    height: 33px;
-    line-height: 31px;
+    height: 43px;
+    line-height: 40px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: normal;
+}
+
+.profile_btn:first-of-type{
+	margin-right: 0;
 }
 
 .btn_shadow {
@@ -194,7 +198,7 @@ main {
 .label_content {
 	float: left;
 	width: 80%;
-	font-size: 14px;
+	font-size: 13px;
 	color: #888;
 }
 
