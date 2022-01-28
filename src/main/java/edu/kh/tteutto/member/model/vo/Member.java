@@ -2,7 +2,7 @@ package edu.kh.tteutto.member.model.vo;
 
 public class Member {
 	
-	private int memberNO;
+	private int memberNo;
 	private int memberGrade;
 	private int memberSt;
 	private String memberEmail;
@@ -18,12 +18,12 @@ public class Member {
 	
 	public Member() {}
 
-	public int getMemberNO() {
-		return memberNO;
+	public int getMemberNo() {
+		return memberNo;
 	}
 
-	public void setMemberNO(int memberNO) {
-		this.memberNO = memberNO;
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 
 	public int getMemberGrade() {
@@ -124,12 +124,13 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [memberNO=" + memberNO + ", memberGrade=" + memberGrade + ", memberSt=" + memberSt
+		return "Member [memberNo=" + memberNo + ", memberGrade=" + memberGrade + ", memberSt=" + memberSt
 				+ ", memberEmail=" + memberEmail + ", memberPw=" + memberPw + ", memberNm=" + memberNm
 				+ ", memberBirth=" + memberBirth + ", memberGender=" + memberGender + ", memberPno=" + memberPno
 				+ ", memberImg=" + memberImg + ", memberRegDt=" + memberRegDt + ", memberSecDt=" + memberSecDt
 				+ ", teacherEnroll=" + teacherEnroll + "]";
 	}
+
 	
 	
 }
