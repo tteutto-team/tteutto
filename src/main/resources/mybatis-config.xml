@@ -17,7 +17,6 @@
 	<!-- mapper에서 사용되는 VO를 간단히 부르기 위한 별치 지정 -->
 	<typeAliases>
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Member" alias="Member" />
-		
 	</typeAliases>
 	
 	<!-- mapper 파일(SQL 작성되는파일) 위치 등록 부분 -->

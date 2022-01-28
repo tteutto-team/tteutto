@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper  namespace="memberMapper">
+<mapper namespace="memberMapper">
 
-	<resultMap type="edu.kh.tteutto.member.model.vo.Member" id="member_rm">
+	<resultMap type="Member" id="member_rm">
 		<id property="memberNo" column="MEMBER_NO" />
 		
 		<result property="memberGrade" column="MEMBER_GRADE" />
@@ -20,7 +20,7 @@
 	</resultMap>
 	
 	<!-- 로그인 -->
-	<select id="login" parameterType="String" resultMap="member_rm">
+	<select id="login" resultMap="member_rm">
 		SELECT * FROM MEMBER
 		WHERE MEMBER_EMAIL = #{memberEmail}
 		AND MEMBER_ST = 0
