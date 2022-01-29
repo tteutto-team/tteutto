@@ -24,7 +24,6 @@
 
         <div>
             <input type="email" id="email" name="memberEmail"> <br>
-            <span id="checkEmail"><i class="fas fa-exclamation-triangle"></i> 존재하지 않는 E-mail입니다.</span>
         </div>
 
         
@@ -34,3 +33,5 @@
 </div>
 
 <jsp:include page="../common/footer.jsp"/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="${contextPath}/resources/js/pwChange.js"></script>
