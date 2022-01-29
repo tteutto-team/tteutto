@@ -58,11 +58,6 @@ public class MemberController {
 	@ResponseBody
 	public String sendMailTest(String inputEmail) {
 
-		String subject = "test 메일";
-		String content = "안녕";
-		String from = "sseungjoon0319@gmail.com";
-		String to = inputEmail;
-
 		// 인증 번호 생성기
 		String temp = "";
 		Random rnd = new Random();
@@ -83,7 +78,14 @@ public class MemberController {
 				break;
 			}
 		}
-		content = temp;
+		
+		String subject = "뜨또 회원가입 인증 이메일 입니다.";
+		String content = "홈페이지를 방문해주셔서 감사합니다." + "<br><br>" +
+				"인증 번호는 " + "<span style='color : #BF5846; font-size: 18px;'>"+temp +"</span>"+ " 입니다." +
+				"<br><br>" +
+				"해당 인증번호를 인증번호 입력칸에 입력해 주세요.";
+		String from = "sseungjoon0319@gmail.com";
+		String to = inputEmail;
 		try {
 			MimeMessage mail = mailSender.createMimeMessage();
 			MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
@@ -94,10 +96,10 @@ public class MemberController {
 			 * MimeMessageHelper(mail,"UTF-8");
 			 */
 
-			mailHelper.setFrom(from);
+			// mailHelper.setFrom(from);
 			// 빈에 아이디 설정한 것은 단순히 smtp 인증을 받기 위해 사용 따라서 보내는이(setFrom())반드시 필요
 			// 보내는이와 메일주소를 수신하는이가 볼때 모두 표기 되게 원하신다면 아래의 코드를 사용하시면 됩니다.
-			// mailHelper.setFrom("보내는이 이름 <보내는이 아이디@도메인주소>");
+			mailHelper.setFrom("뜨또 <sseungjoon0319@gmail.com>");
 			mailHelper.setTo(to);
 			mailHelper.setSubject(subject);
 			mailHelper.setText(content, true);
