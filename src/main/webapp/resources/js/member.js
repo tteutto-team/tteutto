@@ -19,6 +19,7 @@ function validate() {
 				case "pw2": message = "비밀번호가 일치하지 않습니다."; break;
 				case "name": message = "이름이 유효하지 않습니다."; break;
 				case "birth": message = "생일이 유효하지 않습니다."; break;
+				case "gender": message = "성별을 선택해 선택해 주세요."; break;
 				case "phone3": message = "전화번호가 유효하지 않습니다."; break;
 			}
 			alert(message);
