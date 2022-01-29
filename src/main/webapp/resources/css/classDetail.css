@@ -13,7 +13,7 @@
             body{
                 /* font-family : 'Lato', 'Noto Sans KR' ; */
                 font-family: 'IBM Plex Sans KR', sans-serif;
-                letter-spacing: -.4px;
+                /*letter-spacing: -.4px;  */
                 /* line-height: 28px; */
                 margin : 0;
             }
@@ -24,7 +24,6 @@
             
             .classContent ul{
                 margin: 16px 0;
-                padding-left: 40px;
                 list-style-type: disc;
           	}
     
@@ -76,7 +75,7 @@
     
             .classContent {
                 width: 1200px;
-                padding: 0 16px;
+                padding: 0;
                 margin: 0 auto;
                 position: relative;
                 
@@ -978,6 +977,7 @@
                 height: 40px;
                 padding: 5px 8px;
                 box-sizing: border-box;
+                list-style: none;
             }
             
             .list-date li button {
@@ -1013,6 +1013,10 @@
                 font-size: 20px;
                 font-weight: 500;
                 margin-top: 84px;
+            }
+            
+            .recommend-title ul{
+               padding-left: 47px;
             }
     
     
