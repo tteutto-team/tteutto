@@ -1,6 +1,7 @@
 package edu.kh.tteutto.member.controller;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
@@ -38,7 +39,7 @@ public class MemberController {
 
 	@Autowired
 	private JavaMailSender mailSender;
-	
+
 	// 회원가입 페이지 이동
 	@RequestMapping(value = "signup", method = RequestMethod.GET)
 	public String signUp() {
@@ -55,48 +56,69 @@ public class MemberController {
 	// 이메일 인증 번호
 	@RequestMapping("sendMail")
 	@ResponseBody
-    public int sendMailTest(String inputEmail){
-        
-        String subject = "test 메일";
-        String content = "안녕";
-        String from = "sseungjoon0319@gmail.com";
-        String to = inputEmail;
-        
-        try {
-            MimeMessage mail = mailSender.createMimeMessage();
-            MimeMessageHelper mailHelper = new MimeMessageHelper(mail,true,"UTF-8");
-            // true는 멀티파트 메세지를 사용하겠다는 의미
-            
-            /*
-             * 단순한 텍스트 메세지만 사용시엔 아래의 코드도 사용 가능 
-             * MimeMessageHelper mailHelper = new MimeMessageHelper(mail,"UTF-8");
-             */
-            
-            mailHelper.setFrom(from);
-            // 빈에 아이디 설정한 것은 단순히 smtp 인증을 받기 위해 사용 따라서 보내는이(setFrom())반드시 필요
-            // 보내는이와 메일주소를 수신하는이가 볼때 모두 표기 되게 원하신다면 아래의 코드를 사용하시면 됩니다.
-            //mailHelper.setFrom("보내는이 이름 <보내는이 아이디@도메인주소>");
-            mailHelper.setTo(to);
-            mailHelper.setSubject(subject);
-            mailHelper.setText(content, true);
-            // true는 html을 사용하겠다는 의미입니다.
-            
-            /*
-             * 단순한 텍스트만 사용하신다면 다음의 코드를 사용하셔도 됩니다. mailHelper.setText(content);
-             */
-            
-            mailSender.send(mail);
-            
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
+	public String sendMailTest(String inputEmail) {
+
+		String subject = "test 메일";
+		String content = "안녕";
+		String from = "sseungjoon0319@gmail.com";
+		String to = inputEmail;
+
+		// 인증 번호 생성기
+		String temp = "";
+		Random rnd = new Random();
+		for (int i = 0; i < 8; i++) {
+			int rIndex = rnd.nextInt(3);
+			switch (rIndex) {
+			case 0:
+				// a-z
+				temp += (char) ((int) (rnd.nextInt(26)) + 97);
+				break;
+			case 1:
+				// A-Z
+				temp += (char) ((int) (rnd.nextInt(26)) + 65);
+				break;
+			case 2:
+				// 0-9
+				temp += (rnd.nextInt(10));
+				break;
+			}
+		}
+		content = temp;
+		try {
+			MimeMessage mail = mailSender.createMimeMessage();
+			MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
+			// true는 멀티파트 메세지를 사용하겠다는 의미
+
+			/*
+			 * 단순한 텍스트 메세지만 사용시엔 아래의 코드도 사용 가능 MimeMessageHelper mailHelper = new
+			 * MimeMessageHelper(mail,"UTF-8");
+			 */
+
+			mailHelper.setFrom(from);
+			// 빈에 아이디 설정한 것은 단순히 smtp 인증을 받기 위해 사용 따라서 보내는이(setFrom())반드시 필요
+			// 보내는이와 메일주소를 수신하는이가 볼때 모두 표기 되게 원하신다면 아래의 코드를 사용하시면 됩니다.
+			// mailHelper.setFrom("보내는이 이름 <보내는이 아이디@도메인주소>");
+			mailHelper.setTo(to);
+			mailHelper.setSubject(subject);
+			mailHelper.setText(content, true);
+			// true는 html을 사용하겠다는 의미입니다.
+
+			/*
+			 * 단순한 텍스트만 사용하신다면 다음의 코드를 사용하셔도 됩니다. mailHelper.setText(content);
+			 */
+
+			mailSender.send(mail);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return temp;
+	}
 
 	// 회원가입
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
 	public String signUp(Member member, RedirectAttributes ra) {
-		
+
 		int result = service.signUp(member);
 
 		String title;
@@ -129,26 +151,26 @@ public class MemberController {
 	// 로그인
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String login(Member member, Model model, RedirectAttributes ra,
-			@RequestParam(value="save", required=false) String save, 
-			HttpServletRequest req, HttpServletResponse resp) {
+			@RequestParam(value = "save", required = false) String save, HttpServletRequest req,
+			HttpServletResponse resp) {
 
 		Member loginMember = service.login(member);
-		
-		if(loginMember != null) {
+
+		if (loginMember != null) {
 			model.addAttribute("loginMember", loginMember);
-			
+
 			Cookie cookie = new Cookie("saveId", loginMember.getMemberEmail());
-			
-			if(save != null) {
+
+			if (save != null) {
 				cookie.setMaxAge(60 * 60 * 24 * 30);
-			}else {
+			} else {
 				cookie.setMaxAge(0);
 			}
 			cookie.setPath(req.getContextPath());
 			resp.addCookie(cookie);
-		}else {
+		} else {
 			ra.addFlashAttribute("message", "아이디 또는 비밀번호를 확인해주세요.");
-			
+
 		}
 		return "redirect:/";
 	}
@@ -157,10 +179,10 @@ public class MemberController {
 	@RequestMapping("logout")
 	public String logout(SessionStatus status) {
 		status.setComplete();
-		
+
 		return "redirect:/";
 	}
-	
+
 	// 비밀번호 찾기 페이지 이동
 	@RequestMapping(value = "findPw", method = RequestMethod.GET)
 	public String findPw() {

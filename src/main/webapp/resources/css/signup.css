@@ -15,7 +15,7 @@ ol,ul,li,a{
 }
 
 /* 각 레이블 텍스트 (이메일, 비밀번호, ...) */
-label[for=email], label[for=pw1], label[for=pw2], label[for=name], label[for=birth], label[for=phone1]{
+label[for=email], label[for=certify], label[for=pw1], label[for=pw2], label[for=name], label[for=birth], label[for=phone1]{
     display: inline-block;
     margin-bottom: 10px;
     font-size: 16px;
@@ -52,7 +52,7 @@ main{
     color: red;
 }
 
-.signup #pw1, #pw2, #name{
+.signup #pw1, #pw2, #name, #certify{
     width: 100%;
     height: 35px;
     padding: 10px;
@@ -81,10 +81,6 @@ main{
     padding-left: 10px;
 }
 
-.signup #certify{
-    flex-grow: 1;
-    padding-left: 10px;
-}
 
 
 .signup #birth-gender{
