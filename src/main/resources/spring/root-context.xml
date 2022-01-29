@@ -64,28 +64,40 @@
 	</bean>
 
 	<!-- @Transactional 어노테이션을 스캔해서 인식하는 역할 -->
-	<tx:annotation-driven/>
+	<tx:annotation-driven />
 
 	<!-- 파일 업로드를 위한 MultipartResolver 구현체 Bean 등록 -->
-	<!-- 
-		multipart/form-data 요청 시
-		input type="file" 요소의 파라미터를 자동으로 인식하여 MultipartFile 객체로 반환하고
-		나머지 파라미터는 기존처럼 사용 가능하게 만드는 역할.
-	 -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="104857600"/>
-		<property name="maxUploadSizePerFile" value="104857600"/>
-		<property name="maxInMemorySize" value="104857600"/>
+	<!-- multipart/form-data 요청 시 input type="file" 요소의 파라미터를 자동으로 인식하여 MultipartFile 
+		객체로 반환하고 나머지 파라미터는 기존처럼 사용 가능하게 만드는 역할. -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="104857600" />
+		<property name="maxUploadSizePerFile" value="104857600" />
+		<property name="maxInMemorySize" value="104857600" />
 	</bean>
-	<!-- 
-		maxUploadSize : 한 요청당 허용되는 최대 용량(byte 단위), 무제한은 -1(기본값)
-		
-		maxUploadSizePerFile : 한 파일당 허용되는 최대 용량(byte 단위), 무제한은 -1(기본값)
-		
-		maxInMemorySize : 디스크에 저장하지 않고 메모리에 유지하도록 허용하는 최대 용량(byte 단위)
-						  지정된 용량을 초과할 경우 자동으로 파일이 저장된다.
-						  기본값 10240byte(10KB)
-		
-		104857600byte == 100MB
-	 -->
+	<!-- maxUploadSize : 한 요청당 허용되는 최대 용량(byte 단위), 무제한은 -1(기본값) maxUploadSizePerFile 
+		: 한 파일당 허용되는 최대 용량(byte 단위), 무제한은 -1(기본값) maxInMemorySize : 디스크에 저장하지 않고 
+		메모리에 유지하도록 허용하는 최대 용량(byte 단위) 지정된 용량을 초과할 경우 자동으로 파일이 저장된다. 기본값 10240byte(10KB) 
+		104857600byte == 100MB -->
+
+	<!-- gmail설정 -->
+	<bean id="mailSender2" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="sseungjoon0319@gmail.com" /> <!-- 자신의 이메일 아이디 -->
+		<property name="password" value="joon8867!" /> <!-- 자신의 비밀번호 -->
+		<!-- 보안연결 TLS과 관련된 설정 -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.debug">true</prop>
+                <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+                <prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+			</props>
+		</property>
+	</bean>
+
+
 </beans>

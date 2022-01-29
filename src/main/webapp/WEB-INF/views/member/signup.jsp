@@ -14,11 +14,11 @@
 		<h1>회원가입</h1>
 
 		<form action="signup" method="POST" name="signUpForm" onsubmit="return validate();">
-			<div>
+			<div class="first">
 				<label for="email">이메일</label> <br>
 				<div id="email-div">
 					<input type="email" id="email" name="memberEmail">
-					<button>인증하기</button>
+					<button type="button" id="check_btn">인증하기</button>
 				</div>
 				<span id="checkEmail"></span>
 			</div>
