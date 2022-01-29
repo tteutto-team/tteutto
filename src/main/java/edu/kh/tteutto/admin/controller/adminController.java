@@ -54,4 +54,17 @@ public class adminController {
 		
 		return result;
 	}
+	
+	// 클래스 회차별 신청 거절
+	@RequestMapping(value="episodeDeny", method=RequestMethod.GET)
+	@ResponseBody
+	public int episodeDeny(int classNo) {
+		
+		
+		int result = service.episodeDeny(classNo);
+		
+		
+		return result;
+	}
+	
 }

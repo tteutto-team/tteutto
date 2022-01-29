@@ -7,7 +7,9 @@
 		
 		<result property="className" column="CLASS_NM" />
 		<result property="classRequestDate" column="CLASS_REQ_DT" />
+		
 		<result property="episodeCount" column="EP_COUNT" />
+		
 		<result property="memberName" column="MEMBER_NM" />
 		<result property="memberNo" column="MEMBER_NO" />
 	</resultMap>
@@ -29,8 +31,19 @@
 		WHERE CLASS_NO = #{classNo}
 	</update>
 	
-	<insert id="sendNote">
-		INSERT INTO NOTE VALUES(SEQ_NOTE_NO.NEXTVAL, #{className}||'회차 신청이 승인되었습니다', DEFAULT, #{memberNo})
+	<!-- 회차별 신청 승인 쪽지 보내기 -->
+	<insert id="episodeAgreeSendNote">
+		INSERT INTO NOTE VALUES(SEQ_NOTE_NO.NEXTVAL, #{noteContent}||'회차 신청이 승인되었습니다', DEFAULT, #{memberNo})
 	</insert>
 	
+	<!-- 회차별 신청 거절 -->
+	<update id="episodeDeny">
+		UPDATE EPISODE SET EP_ST = 3
+		WHERE CLASS_NO = #{classNo}
+	</update>
+	
+	<!-- 회차별 신청 거절 쪽지 보내기 -->
+	<insert id="episodeDenySendNote">
+		INSERT INTO NOTE VALUES(SEQ_NOTE_NO.NEXTVAL, #{noteContent}||'으로 신청이 거절되었습니다', DEFAULT, #{memberNo})
+	</insert>
 </mapper>

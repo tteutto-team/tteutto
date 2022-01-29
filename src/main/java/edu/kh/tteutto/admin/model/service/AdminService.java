@@ -20,4 +20,10 @@ public interface AdminService {
 	 */
 	int episodeAgree(int classNo, int memberNo, String className);
 
+	/** 회차별 신청 거절
+	 * @param classNo
+	 * @return result
+	 */
+	int episodeDeny(int classNo);
+
 }

@@ -32,17 +32,16 @@ public class AdminServiceImpl implements AdminService{
 		
 		int result = dao.episodeAgree(classNo);
 		
-		if(result > 0) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			
-			map.put("memberNo", memberNo);
-			map.put("className", className);
-			
-			result = dao.sendNote(map);
-		}
 		
 		return result;
 	}
+
+	// 회차별 신청 거절
+	@Override
+	public int episodeDeny(int classNo) {
+		return dao.episodeDeny(classNo);
+	}
+	
 	
 	
 	

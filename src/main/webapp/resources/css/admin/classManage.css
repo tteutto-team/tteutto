@@ -1,0 +1,86 @@
+#table_id_wrapper {
+	width: 1000px;
+}
+
+#table_id th {
+	border: 1px solid #ddd;
+}
+
+/* 모달창 */
+#modal1 {
+    display: none;
+    position:absolute;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height:100%;
+    z-index:1;
+}
+
+/* 모달창 주요 내용 div */
+.modal-content {
+    width:500px;
+    padding:20px;
+    background:#fff;
+    border:2px solid #666;
+    border-radius: 10px;
+}
+
+/* 모달창 뒷 배경 */
+.modal-layer {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0, 0, 0, 0.5);
+    z-index:-1;
+}   
+
+/* 모달창 제목 */
+.modal-title{
+    display: flex;
+    justify-content: center;
+}
+
+/* 모달창 클래스명 */
+.modal-classname{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* 모달창 버튼 div */
+.modal-btn{
+    display: flex;
+    justify-content: center;
+}
+
+/* 모달창 버튼 */
+.modal-btn > button{
+    height: 30px;
+    margin: 10px;
+    border-radius: 5px;
+    flex: 1 1 0;
+    border: 0;
+    cursor: pointer;
+}
+
+/* 모달창 닫기 버튼 */
+.modal-close-btn{
+    background-color: #ddd;
+}
+
+.modal-close-btn:hover{
+    background-color: rgb(185, 185, 185);
+}
+
+/* 모달창 submit 버튼 */
+.modal-btn > button:nth-of-type(1){
+    background-color: #FFDF3E;
+}
+
+.modal-btn > button:nth-of-type(1):hover{
+    background-color: #e6c317;
+}
