@@ -1,0 +1,67 @@
+html, body{
+	margin: 0;
+	padding: 0;
+}
+
+body *{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: 'IBM Plex Sans KR', sans-serif;
+	
+}
+
+a, ol, ul{
+	text-decoration: none;
+	color: black;
+}
+
+
+#left{
+	position: fixed;
+	width: 210px;
+	height: 100%;
+	background-color: #2F4858;
+	border-right: 1px solid #989696;
+}
+#left *{
+	color: #e8e6e6;
+	
+}
+
+.logo{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50px;
+}
+
+.logo > img{
+	width: 30px;
+	height: 30px;
+	margin-right: 10px;
+}
+
+.admin-list{
+	border-top: 1px solid #989696;
+	border-bottom: 1px solid #989696;
+}
+.far.fa-circle{
+	margin-right: 5px;
+}
+
+.admin-list a {
+	display: flex;
+    align-items: center;
+	padding: 10px;
+}
+
+.admin-list a:hover{
+	background-color: #FFDF3E;
+	color: black !important;
+}
+
+.admin-list a:hover > i{
+	color: black !important;
+	
+}
