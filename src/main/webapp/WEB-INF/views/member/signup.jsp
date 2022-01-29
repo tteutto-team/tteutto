@@ -24,8 +24,9 @@
 			</div>
 
 			<div>
-				<label for="pw1">비밀번호</label> <br> <input type="password"
-					id="pw1" name="memberPw"> <br> <span id="checkPw1"></span>
+				<label for="pw1">비밀번호</label> <br> 
+				<input type="password" id="pw1" name="memberPw"> 
+				<br> <span id="checkPw1"></span>
 			</div>
 
 			<div>

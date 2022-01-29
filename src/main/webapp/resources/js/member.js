@@ -1,5 +1,6 @@
 const signUpCheckObj = {
 	"email" : false,
+	"certify" : false,
 	"pw1" : false,
 	"pw2" : false,
 	"name" : false,
@@ -12,9 +13,9 @@ function validate() {
 	for (key in signUpCheckObj) {
 		if (!signUpCheckObj[key]) {
 			let message;
-			console.log(key);
 			switch (key) {
 				case "email": message = "이메일이 유효하지 않습니다."; break;
+				case "certify": message = "인증번호가 일치하지 않습니다."; break;
 				case "pw1": message = "비밀번호가 유효하지 않습니다."; break;
 				case "pw2": message = "비밀번호가 일치하지 않습니다."; break;
 				case "name": message = "이름이 유효하지 않습니다."; break;
@@ -219,15 +220,13 @@ $(".phone").on("input", function(){
 let clickCount = 0;
 $("#check_btn").on("click", function(){
 	const inputEmail = $("#email").val();
+	$("#email").attr("readonly",true);
 	// console.log(inputEmail);
 	// console.log(clickCount);
 	if(clickCount == 0 && signUpCheckObj.email == true){
 		let html = "<div>";
-		html +=	"<label for='email'>이메일 인증번호</label> <br>";
-		html +=	"<div id='email-div'>";
-		html +=	"<input type='number' id='certify' name='certify' placeholder='인증번호를 입력하세요.'>";
-		html += "<button type='button' id='certify_btn'>확인하기</button>";
-		html +=	"</div>";
+		html +=	"<label for='certify'>이메일 인증번호</label> <br>";
+		html +=	"<input type='text' id='certify' name='certify' placeholder='인증번호를 입력하세요.'>";
 		html +=	"<span id='checkCertify'></span>";
 		html +=	"</div>";
 		$(html).insertAfter(".first");
@@ -237,8 +236,21 @@ $("#check_btn").on("click", function(){
 			type : "GET",
 			data : {"inputEmail": inputEmail},
 			success : function(result){
-				if(result == 0){
-					console.log("성공");
+				console.log(result);
+				if(result.length != ""){
+					$("#certify").on("input", function(){
+						const inputCertify = $("#certify").val();
+						if(inputCertify.trim().length == 0){
+							$("#checkCertify").text("");
+							signUpCheckObj.certify = false;
+						}else if(inputCertify == result){
+							$("#checkCertify").text("인증번호가 일치합니다.").css("color", "green");
+							signUpCheckObj.certify = true;
+						}else{
+							$("#checkCertify").html("<i class='fas fa-exclamation-triangle'></i> 인증번호가 일치하지 않습니다.").css("color", "red");
+							signUpCheckObj.certify = false;
+						}
+					});
 				}
 			},
 			error : function(request, status, error){
