@@ -1,14 +1,12 @@
 package edu.kh.tteutto.admin.model.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.tteutto.admin.model.vo.Admin;
-import edu.kh.tteutto.member.model.vo.Member;
 
 @Repository
 public class AdminDAO {
@@ -34,12 +32,12 @@ public class AdminDAO {
 	}
 
 
-	/** 회차별 신청 승인 쪽지 보내기
-	 * @param map
+	/** 회차별 신청 거절
+	 * @param classNo
 	 * @return result
 	 */
-	public int sendNote(Map<String, Object> map) {
-		return sqlSession.insert("adminMapper.sendNote", map);
+	public int episodeDeny(int classNo) {
+		return sqlSession.update("adminMapper.episodeDeny", classNo);
 	}
 
 }
