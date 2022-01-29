@@ -1,7 +1,14 @@
 package edu.kh.tteutto.member.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
@@ -56,10 +63,11 @@ public class MemberController {
 	// 이메일 인증 번호
 	@RequestMapping("sendMail")
 	@ResponseBody
-	public String sendMailTest(String inputEmail) {
+	public void sendMailTest(String inputEmail) {
+
+		String temp = "";
 
 		// 인증 번호 생성기
-		String temp = "";
 		Random rnd = new Random();
 		for (int i = 0; i < 8; i++) {
 			int rIndex = rnd.nextInt(3);
@@ -78,43 +86,74 @@ public class MemberController {
 				break;
 			}
 		}
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("inputEmail", inputEmail);
+		map.put("temp", temp);
+
+		int result2 = service.emailDupCheck2(inputEmail);
+		int result = 0;
 		
-		String subject = "뜨또 회원가입 인증 이메일 입니다.";
-		String content = "뜨또 홈페이지를 방문해주셔서 감사합니다." + "<br><br>" +
-				"인증 번호는 " + "<span style='color : #BF5846; font-size: 18px;'>"+temp +"</span>"+ " 입니다." +
-				"<br><br>" +
-				"해당 인증번호를 인증번호 입력칸에 입력해 주세요.";
-		String from = "sseungjoon0319@gmail.com";
-		String to = inputEmail;
-		try {
-			MimeMessage mail = mailSender.createMimeMessage();
-			MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
-			// true는 멀티파트 메세지를 사용하겠다는 의미
-
-			/*
-			 * 단순한 텍스트 메세지만 사용시엔 아래의 코드도 사용 가능 MimeMessageHelper mailHelper = new
-			 * MimeMessageHelper(mail,"UTF-8");
-			 */
-
-			// mailHelper.setFrom(from);
-			// 빈에 아이디 설정한 것은 단순히 smtp 인증을 받기 위해 사용 따라서 보내는이(setFrom())반드시 필요
-			// 보내는이와 메일주소를 수신하는이가 볼때 모두 표기 되게 원하신다면 아래의 코드를 사용하시면 됩니다.
-			mailHelper.setFrom("뜨또 <sseungjoon0319@gmail.com>");
-			mailHelper.setTo(to);
-			mailHelper.setSubject(subject);
-			mailHelper.setText(content, true);
-			// true는 html을 사용하겠다는 의미입니다.
-
-			/*
-			 * 단순한 텍스트만 사용하신다면 다음의 코드를 사용하셔도 됩니다. mailHelper.setText(content);
-			 */
-
-			mailSender.send(mail);
-
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (result2 == 0) {
+			result = service.sendMailTest(map);
+		}else {
+			result =service.updateMailTest(map);
 		}
-		return temp;
+		if (result == 1) {
+			String subject = "뜨또 회원가입 인증 이메일 입니다.";
+			String content = "뜨또 홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 "
+					+ "<span style='color : #BF5846; font-size: 18px;'>" + temp + "</span>" + " 입니다." + "<br><br>"
+					+ "해당 인증번호를 인증번호 입력칸에 입력해 주세요.";
+			String from = "sseungjoon0319@gmail.com";
+			String to = inputEmail;
+			try {
+				MimeMessage mail = mailSender.createMimeMessage();
+				MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
+				// true는 멀티파트 메세지를 사용하겠다는 의미
+
+				/*
+				 * 단순한 텍스트 메세지만 사용시엔 아래의 코드도 사용 가능 MimeMessageHelper mailHelper = new
+				 * MimeMessageHelper(mail,"UTF-8");
+				 */
+
+				// mailHelper.setFrom(from);
+				// 빈에 아이디 설정한 것은 단순히 smtp 인증을 받기 위해 사용 따라서 보내는이(setFrom())반드시 필요
+				// 보내는이와 메일주소를 수신하는이가 볼때 모두 표기 되게 원하신다면 아래의 코드를 사용하시면 됩니다.
+				mailHelper.setFrom("뜨또 <sseungjoon0319@gmail.com>");
+				mailHelper.setTo(to);
+				mailHelper.setSubject(subject);
+				mailHelper.setText(content, true);
+				// true는 html을 사용하겠다는 의미입니다.
+
+				/*
+				 * 단순한 텍스트만 사용하신다면 다음의 코드를 사용하셔도 됩니다. mailHelper.setText(content);
+				 */
+
+				mailSender.send(mail);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		
+
+	}
+	
+	// 이메일 인증번호 확인
+	@ResponseBody
+	@RequestMapping("checkCert")
+	public int checkCert(String inputCertify, String inputEmail) {
+		
+		System.out.println(inputCertify + " / " +inputEmail);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("inputEmail", inputEmail);
+		map.put("inputCertify", inputCertify);
+		
+		int result = service.checkCert(map);
+		
+		return result;
 	}
 
 	// 회원가입
@@ -189,14 +228,6 @@ public class MemberController {
 	@RequestMapping(value = "findPw", method = RequestMethod.GET)
 	public String findPw() {
 		return "member/findPw";
-	}
-	
-	// 비밀번호 찾기 이메일 링크 전송
-	@RequestMapping("sendEmail")
-	@ResponseBody
-	public String sendEmail() {
-		
-		return null;
 	}
 
 	// 학생 마이페이지 클래스 목록 이동
