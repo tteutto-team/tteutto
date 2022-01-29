@@ -216,3 +216,40 @@ $(".phone").on("input", function(){
     }
 });
 
+let clickCount = 0;
+$("#check_btn").on("click", function(){
+	const inputEmail = $("#email").val();
+	// console.log(inputEmail);
+	// console.log(clickCount);
+	if(clickCount == 0 && signUpCheckObj.email == true){
+		let html = "<div>";
+		html +=	"<label for='email'>이메일 인증번호</label> <br>";
+		html +=	"<div id='email-div'>";
+		html +=	"<input type='number' id='certify' name='certify' placeholder='인증번호를 입력하세요.'>";
+		html += "<button type='button' id='certify_btn'>확인하기</button>";
+		html +=	"</div>";
+		html +=	"<span id='checkCertify'></span>";
+		html +=	"</div>";
+		$(html).insertAfter(".first");
+		clickCount = clickCount + 1;
+		$.ajax({
+			url : "sendMail",
+			type : "GET",
+			data : {"inputEmail": inputEmail},
+			success : function(result){
+				if(result == 0){
+					console.log("성공");
+				}
+			},
+			error : function(request, status, error){
+                if( request.status == 404 ){
+                    console.log("ajax 요청 주소가 올바르지 않습니다.");
+                } else if( request.status == 500){
+                    console.log("서버 내부 에러 발생");
+                }
+            },
+            complete : function(){}
+		});
+	}
+	
+});

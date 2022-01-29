@@ -81,6 +81,11 @@ main{
     padding-left: 10px;
 }
 
+.signup #certify{
+    flex-grow: 1;
+    padding-left: 10px;
+}
+
 
 .signup #birth-gender{
     display: flex;
