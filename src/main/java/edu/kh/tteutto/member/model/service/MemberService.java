@@ -1,6 +1,7 @@
 package edu.kh.tteutto.member.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.member.model.vo.Career;
@@ -39,6 +40,33 @@ public interface MemberService {
 	 * @return career
 	 */
 	List<Career> selectTeacherCareer(int memberNo);
+
+
+	/** 회원 인증테이블에 이메일 중복 확인
+	 * @param inputEmail
+	 * @return result
+	 */
+	int emailDupCheck2(String inputEmail);
+
+	/** 회원가입 이메일 인증번호 저장
+	 * @param map
+	 * @return result
+	 */
+	int sendMailTest(Map<String, String> map);
+
+	/** 회원가입 이메일 인증번호 수정
+	 * @param map
+	 * @return
+	 */
+	int updateMailTest(Map<String, String> map);
+
+	/** 이메일 인증 확인
+	 * @param map
+	 * @return result
+	 */
+	int checkCert(Map<String, String> map);
+
+
 
 
 

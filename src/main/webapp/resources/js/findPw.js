@@ -1,5 +1,5 @@
 $("#sendEmail").on("click", function(){
-	const inputEmail = $(this).val();
+	const inputEmail = $("#email").val();
 	$.ajax({
 		url : "emailDupCheck",
 		type : "GET",

@@ -49,6 +49,11 @@
 		<result property="careerImg" column="CAREER_IMG"/>
 	</resultMap>
 	
+	<resultMap type="Certified" id="certified_rm">
+		<id property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="certCd" column="CERT_CD" />
+		<result property="certEndDt" column="CERT_END_DT" />
+	</resultMap>
 	<!-- 로그인 -->
 	<select id="login" resultMap="member_rm">
 		SELECT * FROM MEMBER
@@ -69,8 +74,35 @@
 		INSERT INTO MEMBER VALUES(SEQ_MEMBER_NO.NEXTVAL, DEFAULT,  DEFAULT, 
 		#{memberEmail}, #{memberPw}, #{memberNm}, 
 		#{memberBirth}, #{memberGender}, #{memberPno}, 
-		null, SYSDATE, DEFAULT, DEFAULT, #{memberKey})
+		null, SYSDATE, DEFAULT, DEFAULT)
 	</insert>
+	
+	<!-- 회원 인증테이블에 이메일 중복 확인 -->
+	<select id="emailDupCheck2"  resultType="_int">
+		SELECT COUNT(*)
+		FROM CERTIFIED
+		WHERE MEMBER_EMAIL = #{inputEmail}
+	</select>
+	
+	<!-- 회원가입 이메일 인증번호 저장 -->
+	<insert id="sendMailTest">
+		INSERT INTO CERTIFIED VALUES(#{inputEmail}, #{temp}, DEFAULT)
+	</insert>
+	
+	<!-- 회원가입 이메일 인증번호 수정 -->
+	<update id="updateMailTest">
+		UPDATE CERTIFIED SET
+		CERT_CD = #{temp}
+		WHERE MEMBER_EMAIL = #{inputEmail}
+	</update>
+	
+	<!-- 이메일 인증 확인 -->
+	<select id="checkCert" resultType="_int">
+		SELECT COUNT(*)
+		FROM CERTIFIED
+		WHERE MEMBER_EMAIL = #{inputEmail}
+		AND CERT_CD = #{inputCertify}
+	</select>
 	
 	<!-- 강사 정보 조회 -->
 	<select id="selectTeacherProfile" resultMap="teacher_rm">
