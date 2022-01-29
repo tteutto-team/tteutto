@@ -226,7 +226,7 @@ $("#check_btn").on("click", function(){
 	if(clickCount == 0 && signUpCheckObj.email == true){
 		let html = "<div>";
 		html +=	"<label for='certify'>이메일 인증번호</label> <br>";
-		html +=	"<input type='text' id='certify' name='certify' placeholder='인증번호를 입력하세요.'>";
+		html +=	"<input type='text' id='certify' name='memberKey' placeholder='인증번호를 입력하세요.'>";
 		html +=	"<span id='checkCertify'></span>";
 		html +=	"</div>";
 		$(html).insertAfter(".first");

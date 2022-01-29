@@ -80,7 +80,7 @@ public class MemberController {
 		}
 		
 		String subject = "뜨또 회원가입 인증 이메일 입니다.";
-		String content = "홈페이지를 방문해주셔서 감사합니다." + "<br><br>" +
+		String content = "뜨또 홈페이지를 방문해주셔서 감사합니다." + "<br><br>" +
 				"인증 번호는 " + "<span style='color : #BF5846; font-size: 18px;'>"+temp +"</span>"+ " 입니다." +
 				"<br><br>" +
 				"해당 인증번호를 인증번호 입력칸에 입력해 주세요.";
@@ -189,6 +189,14 @@ public class MemberController {
 	@RequestMapping(value = "findPw", method = RequestMethod.GET)
 	public String findPw() {
 		return "member/findPw";
+	}
+	
+	// 비밀번호 찾기 이메일 링크 전송
+	@RequestMapping("sendEmail")
+	@ResponseBody
+	public String sendEmail() {
+		
+		return null;
 	}
 
 	// 학생 마이페이지 클래스 목록 이동

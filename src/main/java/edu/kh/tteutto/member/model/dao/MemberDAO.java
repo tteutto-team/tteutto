@@ -53,7 +53,7 @@ public class MemberDAO {
 	 * @return result
 	 */
 	public int signUp(Member member) {
-		
+		System.out.println(member);
 		return sqlSession.insert("memberMapper.signUp", member);
 	}
 

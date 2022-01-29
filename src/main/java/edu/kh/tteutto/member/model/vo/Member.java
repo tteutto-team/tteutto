@@ -15,6 +15,7 @@ public class Member {
 	private String memberRegDt;
 	private String memberSecDt;
 	private String teacherEnroll;
+	private String memberKey;
 	
 	public Member() {}
 
@@ -122,15 +123,24 @@ public class Member {
 		this.teacherEnroll = teacherEnroll;
 	}
 
+	public String getMemberKey() {
+		return memberKey;
+	}
+
+	public void setMemberKey(String memberKey) {
+		this.memberKey = memberKey;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [memberNo=" + memberNo + ", memberGrade=" + memberGrade + ", memberSt=" + memberSt
 				+ ", memberEmail=" + memberEmail + ", memberPw=" + memberPw + ", memberNm=" + memberNm
 				+ ", memberBirth=" + memberBirth + ", memberGender=" + memberGender + ", memberPno=" + memberPno
 				+ ", memberImg=" + memberImg + ", memberRegDt=" + memberRegDt + ", memberSecDt=" + memberSecDt
-				+ ", teacherEnroll=" + teacherEnroll + "]";
+				+ ", teacherEnroll=" + teacherEnroll + ", memberKey=" + memberKey + "]";
 	}
 
+	
 	
 	
 }
