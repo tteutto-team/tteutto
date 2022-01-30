@@ -98,6 +98,10 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.changePw", member);
 	}
 
+	public int updateCert(Certified certified) {
+		return sqlSession.update("memberMapper.updateCert", certified);
+	}
+
 
 
 

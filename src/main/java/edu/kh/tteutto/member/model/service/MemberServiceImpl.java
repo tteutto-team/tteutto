@@ -98,6 +98,11 @@ public class MemberServiceImpl implements MemberService{
 		member.setMemberPw(encPw);
 		return dao.changePw(member);
 	}
+	
+	@Override
+	public int updateCert(Certified certified) {
+		return dao.updateCert(certified);
+	}
 
 	// 강사 정보 조회
 	@Override

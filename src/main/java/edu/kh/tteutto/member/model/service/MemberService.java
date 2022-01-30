@@ -80,6 +80,13 @@ public interface MemberService {
 	int changePw(Member member);
 
 
+	/** 인증번호 지우기
+	 * @param certified
+	 * @return result
+	 */
+	int updateCert(Certified certified);
+
+
 
 
 

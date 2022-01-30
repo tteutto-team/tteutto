@@ -347,6 +347,28 @@ public class MemberController {
 		String icon = "";
 		String path = "";
 		
+		String temp = "";
+		// 인증 번호 생성기
+		Random rnd = new Random();
+		for (int i = 0; i < 8; i++) {
+			int rIndex = rnd.nextInt(3);
+			switch (rIndex) {
+			case 0:
+				// a-z
+				temp += (char) ((int) (rnd.nextInt(26)) + 97);
+				break;
+			case 1:
+				// A-Z
+				temp += (char) ((int) (rnd.nextInt(26)) + 65);
+				break;
+			case 2:
+				// 0-9
+				temp += (rnd.nextInt(10));
+				break;
+			}
+		}
+
+		
 		if(result == 1) {
 			int result2 = service.changePw(member);
 			
@@ -355,6 +377,9 @@ public class MemberController {
 				text = "다시 로그인 해주세요.";
 				icon = "success"; 
 				path = "redirect:/member/login";
+				
+				certified.setCertCd(temp);
+				int result3 = service.updateCert(certified);
 				
 			} else { // 실패
 				title = "비밀번호 변경 실패";
