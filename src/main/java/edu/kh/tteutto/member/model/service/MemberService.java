@@ -3,10 +3,13 @@ package edu.kh.tteutto.member.model.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.member.model.vo.Career;
 import edu.kh.tteutto.member.model.vo.Certified;
 import edu.kh.tteutto.member.model.vo.Member;
+import edu.kh.tteutto.member.model.vo.Sns;
 
 public interface MemberService {
 
@@ -41,7 +44,12 @@ public interface MemberService {
 	 * @return career
 	 */
 	List<Career> selectTeacherCareer(int memberNo);
-
+	
+	/** 강사 sns 조회
+	 * @param memberNo
+	 * @return snsList
+	 */
+	List<Sns> selectTeacherSns(int memberNo);
 
 	/** 회원 인증테이블에 이메일 중복 확인
 	 * @param inputEmail
@@ -87,6 +95,18 @@ public interface MemberService {
 	int updateCert(Certified certified);
 
 
+	/** 강사 프로필 수정
+	 * @param teacher
+	 * @param phone
+	 * @param snsList
+	 * @param profileInput
+	 * @param images
+	 * @return result
+	 */
+	int teacherProfileUpdate(Teacher teacher, String phone, List<Sns> snsList, List<String> profileInput,
+			List<MultipartFile> images);
+
+	
 
 
 

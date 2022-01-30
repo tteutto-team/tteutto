@@ -1,9 +1,11 @@
 package edu.kh.tteutto.member.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -29,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -37,6 +40,7 @@ import edu.kh.tteutto.member.model.service.MemberService;
 import edu.kh.tteutto.member.model.vo.Career;
 import edu.kh.tteutto.member.model.vo.Certified;
 import edu.kh.tteutto.member.model.vo.Member;
+import edu.kh.tteutto.member.model.vo.Sns;
 
 @Controller
 @SessionAttributes({ "loginMember" })
@@ -468,19 +472,103 @@ public class MemberController {
 
 		Teacher teacher = service.selectTeacherProfile(memberNo);
 		List<Career> careerList = service.selectTeacherCareer(memberNo);
-
-		System.out.println("careerList: " + careerList);
-
+		List<Sns> snsList = service.selectTeacherSns(memberNo);
+		
+		List<Integer> snsDivList = new ArrayList<Integer>();
+		snsDivList.add(1);
+		snsDivList.add(2);
+		snsDivList.add(3);
+		
+		for(int i=0; i < snsList.size(); i++) {
+			
+			if(snsList.get(i).getSnsDiv() == (Integer)1) {
+				snsDivList.remove(snsDivList.indexOf(1));
+			}
+			
+			if(snsList.get(i).getSnsDiv() == (Integer)2) {
+				snsDivList.remove(snsDivList.indexOf(2));
+			}
+			
+			if(snsList.get(i).getSnsDiv() == (Integer)3) {
+				snsDivList.remove(snsDivList.indexOf(3));
+			}
+		}
+		
+		model.addAttribute("snsDivList", snsDivList);
+		model.addAttribute("snsList", snsList);
 		model.addAttribute("careerList", careerList);
 		model.addAttribute("teacher", teacher);
 
 		return "member/teacherProfile";
-
 	}
-
+	
+	// 강사 프로필 업데이트
+	@RequestMapping(value = "teacherProfileUpdate", method = RequestMethod.POST)
+	public String teacherProfileUpdate(/* @ModelAttribute("loginMember") Member loginMember, */
+										String phone, String introduce, @RequestParam(value = "profileInput") List<String> profileInput,
+										String instagram, String blog, String youtube, HttpSession session,
+										@RequestParam(value="profileImg", required=false) List<MultipartFile> images/*업로드 파일*/,
+										RedirectAttributes ra) {
+		
+		List<Sns> snsList = new ArrayList<Sns>();
+		
+		if(instagram != null) {
+			Sns sns = new Sns();
+			sns.setSnsLink(instagram);
+			sns.setSnsDiv(1);
+			snsList.add(sns);
+		}
+		if(blog != null) {
+			Sns sns = new Sns();
+			sns.setSnsLink(blog);
+			sns.setSnsDiv(2);
+			snsList.add(sns);
+		}
+		if(youtube != null) {
+			Sns sns = new Sns();
+			sns.setSnsLink(youtube);
+			sns.setSnsDiv(3);
+			snsList.add(sns);
+		}
+		
+		Teacher teacher = new Teacher();
+		teacher.setMemberNo(3);
+		teacher.setTeacherIntro(introduce);
+		
+		
+		// 이력에 대한 설명이 작성되지 않았을 경우
+		for(int i = 0; i < profileInput.size(); i++) {
+			if(profileInput.get(i).equals("")) {
+				profileInput.remove(i);
+				images.remove(i);
+			}
+		}
+		
+		
+		// 1) 웹 접근 경로(webPath), 서버 저장 경로(serverPath)
+		String webPath = "/resources/images/teacher/profile/"; // (DB에 저장되는 경로)
+		String serverPath = session.getServletContext().getRealPath(webPath);
+		
+//		int result = service.teacherProfileUpdate(teacher, phone, snsList, profileInput, images, serverPath);
+		
+		
+		
+		
+		
+		return "redirect:teacherProfile";
+	}
+	
+	
+	
+	
+	
+	
 	// 강사 신청 페이지 이동
 	@RequestMapping(value = "teacherRegister", method = RequestMethod.GET)
 	public String teacherRegister() {
 		return "member/teacherRegister";
 	}
+	
+	
+	
 }
