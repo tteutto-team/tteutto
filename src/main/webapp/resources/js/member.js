@@ -40,8 +40,7 @@ function validate() {
 
 
 // 이메일 유효성 검사
-// document.getElementById("email").addEventListener("input", function() {
-$("#email").change(function(){
+document.getElementById("email").addEventListener("input", function() {
 	
 	const inputEmail = this.value;
 	const regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
