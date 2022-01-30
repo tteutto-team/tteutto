@@ -247,7 +247,7 @@ $("#check_btn").on("click", function(){
 						$("#email").attr("readonly",false);
 						clickCount = 0;
 					}
-				}, 15000);			
+				}, 300000);			
 				$("#numCh_btn").on("click", function(){
 					const inputCertify = $("#certify").val();
 					console.log(inputCertify);
