@@ -3,7 +3,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/admin/classManage.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/admin/teacherManage.css">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     
 <jsp:include page="adminSidebar.jsp"></jsp:include>
@@ -16,9 +16,8 @@
 	        <thead>
 	            <tr>
 	                <th>번호</th>
-	                <th>클래스명</th>
 	                <th>강사명</th>
-	                <th>신청날짜</th>
+	                <th>신청일자</th>
 	                <th></th>
 	            </tr>
 	        </thead>
@@ -34,4 +33,4 @@
 	let noteSock = new SockJS("<c:url value='/note' />");
  
 </script>
-<script src="${contextPath}/resources/js/admin/classManage.js"></script>
+<script src="${contextPath}/resources/js/admin/teacherManage.js"></script>

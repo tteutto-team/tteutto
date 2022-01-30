@@ -33,13 +33,13 @@ a, ol, ul{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 50px;
+	flex-direction: column;
+	height: 100px;
 }
 
 .logo > img{
-	width: 30px;
-	height: 30px;
-	margin-right: 10px;
+	width: 130px;
+	height: 50px;
 }
 
 .admin-list{

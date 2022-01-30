@@ -4,7 +4,7 @@ $(function () {
 
 function createTable() {
 	$.ajax({
-		url: "classList",
+		url: "teacherList",
 		type: "GET",
 		dataType: "JSON",
 		success: function (data) {
@@ -12,17 +12,16 @@ function createTable() {
 			$('#table_id').DataTable({
 				data: data,
 				columns: [
-					{ data: "classNo" },
+					{ data: "memberNo" },
 					{ data: null },
-					{ data: "memberName" },
-					{ data: "classRequestDate" }
+					{ data: "teacherRequestDate" }
 				],
 				columnDefs: [
 					{
-						"targets": 4,
+						"targets": 3,
 						"data": null,
 						"render": function (data, type, row) {
-							return '<button onclick="agree(' + data.classNo + ', ' + data.memberNo + ', \'' + data.className + '\')">승인</button><button onclick="deny(' + data.classNo + ', ' + data.memberNo + ', \'' + data.className + '\')">거절</button>';
+							return '<button onclick="agree(' + data.memberNo + ', \'' + data.memberName +'\')">승인</button><button onclick="deny(' + data.memberNo + ', \'' + data.memberName +'\')">거절</button>';
 						},
 						"orderable": false
 					},
@@ -30,7 +29,7 @@ function createTable() {
 						"targets": 1,
 						"data": null,
 						"render": function (data, type, row) {
-							return '<a href="#">' + data.className + '</a>';
+							return '<a href="#">' + data.memberName + '</a>';
 						},
 						"orderable": false
 					}
@@ -40,7 +39,7 @@ function createTable() {
 	})
 }
 
-function agree(classNo, memberNo, className) {
+function agree(memberNo, memberName) {
 	Swal.fire({
 		title: '승인 하시겠습니까?',
 		icon: 'warning',
@@ -52,18 +51,16 @@ function agree(classNo, memberNo, className) {
 	}).then((result) => {
 		if (result.value) {
 			$.ajax({
-				url: "classAgree",
+				url: "teacherAgree",
 				dataType: "json",
 				data: {
-					"classNo": classNo,
 					"memberNo": memberNo,
-					"className": className,
 				},
 				success: function (result) {
 					if (result > 0) {
 
 						const obj = {}
-						obj.noteContent = "'" + className + "' 신청이 승인되었습니다.";
+						obj.noteContent = "'" + memberName + "'님 강사 신청이 승인되었습니다.";
 						obj.memberNo = memberNo;
 						obj.flag = 0;
 
@@ -88,14 +85,14 @@ function agree(classNo, memberNo, className) {
 }
 
 // 거절 쪽지 보내기
-function deny(classNo, memberNo, className) {
+function deny(memberNo, memberName) {
 	Swal.fire({
 		title: '거절 하시겠습니까?',
 		input: "select",
 		inputOptions: {
 			'설명 부족': '설명 부족',
-			'부적절한내용': '부적절한내용',
-			'가격 부적합': '가격 부적합'
+			'이력서 미첨부': '이력서 미첨부',
+			'자격 미달': '자격 미달'
 		},
 		icon: 'warning',
 		showCancelButton: true,
@@ -108,16 +105,16 @@ function deny(classNo, memberNo, className) {
 
 		if (result.value) {
 			$.ajax({
-				url: "classDeny",
+				url: "teacherDeny",
 				dataType: "json",
 				data: {
-					"classNo": classNo,
+					"memberNo": memberNo,
 				},
 				success: function (result) {
 					if (result > 0) {
 
 						const obj = {}
-						obj.noteContent = "'" + className + "' " + message + "로/으로 신청 거절되었습니다.";
+						obj.noteContent = "'" + memberName + "'님 " + message + "로/으로 강사 신청이 거절되었습니다.";
 						obj.memberNo = memberNo;
 						obj.flag = 1;
 

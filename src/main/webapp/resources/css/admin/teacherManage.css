@@ -38,19 +38,19 @@ body{
 	width: 100%;
 }
 
-thead tr > th:nth-of-type(5){
+thead tr > th:nth-of-type(4){
 	width: 90px;
 }
 
 /* 버튼 디자인  */
-tbody tr > td:nth-of-type(5){
+tbody tr > td:nth-of-type(4){
 	display: flex;
 	justify-content: center;
 	margin: 0;
 	width: 90px;
 }
 
-tbody tr > td:nth-of-type(5) > button{
+tbody tr > td:nth-of-type(4) > button{
 	margin: 0 5px;
 	width: 40px;
 }
