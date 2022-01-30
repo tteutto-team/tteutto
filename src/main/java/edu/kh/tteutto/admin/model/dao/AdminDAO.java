@@ -92,4 +92,14 @@ public class AdminDAO {
 		return sqlSession.update("adminMapper.teacherDeny", memberNo);
 	}
 
+	
+	/** 강사 정보 조회
+	 * @param memberNo
+	 * @return teacher
+	 */
+	public AdminTeacher selectTeacher(int memberNo) {
+		return sqlSession.selectOne("adminMapper.selectTeacher", memberNo);
+	}
+
+
 }

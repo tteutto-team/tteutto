@@ -1,5 +1,7 @@
 package edu.kh.tteutto.admin.model.vo;
 
+import java.util.List;
+
 public class AdminTeacher {
 	// 강사 테이블
 	private int memberNo;
@@ -8,6 +10,9 @@ public class AdminTeacher {
 	private String teacherIntro;
 	private String teacherRequestDate;
 	private int teacherStatus;
+
+	private List<AdminTeacherCareer> careerList;
+	private List<AdminTeacherSNS> snsList;
 
 	public AdminTeacher() {
 	}
@@ -60,11 +65,27 @@ public class AdminTeacher {
 		this.teacherStatus = teacherStatus;
 	}
 
+	public List<AdminTeacherCareer> getCareerList() {
+		return careerList;
+	}
+
+	public void setCareerList(List<AdminTeacherCareer> careerList) {
+		this.careerList = careerList;
+	}
+
+	public List<AdminTeacherSNS> getSnsList() {
+		return snsList;
+	}
+
+	public void setSnsList(List<AdminTeacherSNS> snsList) {
+		this.snsList = snsList;
+	}
+
 	@Override
 	public String toString() {
 		return "AdminTeacher [memberNo=" + memberNo + ", memberName=" + memberName + ", teacherImg=" + teacherImg
 				+ ", teacherIntro=" + teacherIntro + ", teacherRequestDate=" + teacherRequestDate + ", teacherStatus="
-				+ teacherStatus + "]";
+				+ teacherStatus + ", careerList=" + careerList + ", snsList=" + snsList + "]";
 	}
 
 }
