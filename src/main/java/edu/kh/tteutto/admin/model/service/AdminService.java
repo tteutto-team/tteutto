@@ -4,6 +4,7 @@ import java.util.List;
 
 import edu.kh.tteutto.admin.model.vo.Admin;
 import edu.kh.tteutto.admin.model.vo.AdminTeacher;
+import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.member.model.vo.Member;
 
 public interface AdminService {
@@ -58,5 +59,12 @@ public interface AdminService {
 	 * @return result
 	 */
 	int teacherDeny(int memberNo);
+
+	/** 강사 정보 조회
+	 * @param memberNo
+	 * @return teacher
+	 */
+	AdminTeacher selectTeacher(int memberNo);
+
 
 }

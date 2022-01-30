@@ -18,6 +18,9 @@
 	<typeAliases>
 		<typeAlias type="edu.kh.tteutto.admin.model.vo.Admin" alias="Admin" />
 		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminTeacher" alias="AdminTeacher" />
+		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminTeacherCareer" alias="AdminTeacherCareer" />
+		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminTeacherSNS" alias="AdminTeacherSNS" />
+		
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Member" alias="Member" />
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Career" alias="Career" />
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Certified" alias="Certified" />

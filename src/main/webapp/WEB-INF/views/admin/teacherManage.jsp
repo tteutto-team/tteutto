@@ -11,7 +11,7 @@
 
 <div id="right">
 	<div>
-		<h2>클래스 신청 관리</h2>
+		<h2>강사 신청 관리</h2>
 	    <table id="table_id" class="display">
 	        <thead>
 	            <tr>

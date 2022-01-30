@@ -7,6 +7,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -149,5 +151,17 @@ public class adminController {
 		
 		
 		return result;
+	}
+	
+	// 강사 상세 조회
+	@RequestMapping(value="teacher/{memberNo}", method=RequestMethod.GET)
+	public String teacher(@PathVariable(value="memberNo", required = false) int memberNo,
+							Model model) {
+		
+		AdminTeacher teacher = service.selectTeacher(memberNo);
+		
+		model.addAttribute("teacher", teacher);
+		
+		return "admin/teacher";
 	}
 }

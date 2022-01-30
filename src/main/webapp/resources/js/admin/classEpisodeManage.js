@@ -32,7 +32,6 @@ function createTable() {
 						"render": function (data, type, row) {
 							return '<a href="#">' + data.className + '-' + data.episodeCount + '회차</a>';
 						},
-						"orderable": false
 					}
 				]
 			})

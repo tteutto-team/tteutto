@@ -78,6 +78,14 @@ public class AdminServiceImpl implements AdminService{
 		return dao.teacherDeny(memberNo);
 	}
 	
+	// 강사 정보 조회
+	@Override
+	public AdminTeacher selectTeacher(int memberNo) {
+		return dao.selectTeacher(memberNo);
+	}
+
+	
+	
 	
 	
 	
