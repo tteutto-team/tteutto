@@ -70,6 +70,10 @@
 <!-- sweetealert : 경고창 api -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+<!-- 네이버 api -->
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+
+
 <c:if test="${ !empty requestScope.message }">
 	<script>
 		$(function(){ // ready() 함수로 페이지 로딩 완료 후 alert 출력

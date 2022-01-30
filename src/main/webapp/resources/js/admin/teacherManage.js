@@ -29,9 +29,8 @@ function createTable() {
 						"targets": 1,
 						"data": null,
 						"render": function (data, type, row) {
-							return '<a href="#">' + data.memberName + '</a>';
+							return '<a href="teacher/'+ data.memberNo +'">' + data.memberName + '</a>';
 						},
-						"orderable": false
 					}
 				]
 			})

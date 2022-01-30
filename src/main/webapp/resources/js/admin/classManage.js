@@ -32,7 +32,6 @@ function createTable() {
 						"render": function (data, type, row) {
 							return '<a href="#">' + data.className + '</a>';
 						},
-						"orderable": false
 					}
 				]
 			})
