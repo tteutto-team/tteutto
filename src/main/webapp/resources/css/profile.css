@@ -450,5 +450,9 @@ main {
     border: 1px solid #ccc;
     border-radius: 3px;
     padding: 5px 8px;
+	cursor: pointer;
 }
 
+.close_record:hover{
+	background-color: #ccc;
+}
