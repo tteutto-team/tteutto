@@ -6,11 +6,13 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.member.model.vo.Career;
 import edu.kh.tteutto.member.model.vo.Certified;
 import edu.kh.tteutto.member.model.vo.Member;
+import edu.kh.tteutto.member.model.vo.Sns;
 
 @Repository
 public class MemberDAO {
@@ -50,6 +52,14 @@ public class MemberDAO {
 		return sqlSession.selectList("memberMapper.selectTeacherCareer", memberNo);
 	}
 
+	/** 강사 sns 조회
+	 * @param memberNo
+	 * @return snsList
+	 */
+	public List<Sns> selectTeacherSns(int memberNo) {
+		return sqlSession.selectList("memberMapper.selectTeacherSns", memberNo);
+	}
+	
 	/** 회원가입
 	 * @param member
 	 * @return result
@@ -100,6 +110,39 @@ public class MemberDAO {
 
 	public int updateCert(Certified certified) {
 		return sqlSession.update("memberMapper.updateCert", certified);
+	}
+
+
+	/** 강사 정보 수정 - 전화번호
+	 * @param map1
+	 * @return result1
+	 */
+	public int teacherPhoneUpdate(Map<String, Object> map1) {
+		return sqlSession.update("memberMapper.teacherPhoneUpdate", map1);
+	}
+
+	/** 강사 정보 수정 - 강사 소개
+	 * @param teacher
+	 * @return result2
+	 */
+	public int teacherIntroduceUpdate(Teacher teacher) {
+		return sqlSession.update("memberMapper.teacherIntroduceUpdate", teacher);
+	}
+
+	/** 강사 정보 수정 - sns 삭제
+	 * @param memberNo
+	 * @return result3
+	 */
+	public int teacherSnsDelete(int memberNo) {
+		return sqlSession.delete("memberMapper.teacherSnsDelete", memberNo);
+	}
+
+	/** 강사 정보 수정 - sns 삽입
+	 * @param sns
+	 * @return result4
+	 */
+	public int teacherSnsInsert(Sns sns) {
+		return sqlSession.insert("memberMapper.teacherSnsInsert", sns);
 	}
 
 

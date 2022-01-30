@@ -49,6 +49,13 @@
 		<result property="careerImg" column="CAREER_IMG"/>
 	</resultMap>
 	
+	<resultMap type="Sns" id="sns_rm">
+		<id property="snsNo" column="SNS_NO"/>
+		<result property="snsLink" column="SNS_LINK"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="snsDiv" column="SNS_DIV"/>
+	</resultMap>
+	
 	<resultMap type="Certified" id="certified_rm">
 		<id property="memberEmail" column="MEMBER_EMAIL" />
 		<result property="certCd" column="CERT_CD" />
@@ -136,7 +143,40 @@
 	<!-- 강사 이력 조회 -->
 	<select id="selectTeacherCareer" resultMap="career_rm">
 		SELECT * FROM CAREER
-		WHERE MEMBER_NO = #{memberNo},
+		WHERE MEMBER_NO = #{memberNo}
 		ORDER BY CAREER_NO
 	</select>
+	
+	<!-- 강사 sns 조회 -->
+	<select id="selectTeacherSns" resultMap="sns_rm">
+		SELECT * FROM SNS
+		WHERE MEMBER_NO = #{memberNo}
+		ORDER BY SNS_NO
+	</select>
+	
+	<!-- 강사 전화번호 수정 -->
+	<update id="teacherPhoneUpdate" parameterType="map">
+		UPDATE MEMBER SET MEMBER_PNO = #{phone}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 강사 전화번호 수정 -->
+	<update id="teacherIntroduceUpdate" parameterType="Teacher">
+		UPDATE TEACHER SET TEACHER_INTRO = #{teacherIntro}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 강사 sns 삭제 -->
+	<update id="teacherSnsUpdate">
+		DELETE FROM SNS 
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 강사 sns 삽입 -->
+	<update id="teacherSnsInsert">
+		INSERT INTO SNS VALUES(SEQ_SNS_NO.NEXTVAL, #{snsLink}, #{memberNo}, #{snsDiv})
+	</update>
+	
+	
+	
 </mapper>
