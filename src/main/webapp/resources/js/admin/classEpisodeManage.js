@@ -4,7 +4,7 @@ $(function () {
 
 function createTable() {
 	$.ajax({
-		url: "classList",
+		url: "classEpisodeList",
 		type: "GET",
 		dataType: "JSON",
 		success: function (data) {
@@ -22,7 +22,7 @@ function createTable() {
 						"targets": 4,
 						"data": null,
 						"render": function (data, type, row) {
-							return '<button onclick="agree(' + data.classNo + ', ' + data.memberNo + ', \'' + data.className + '\')">승인</button><button onclick="deny(' + data.classNo + ', ' + data.memberNo + ', \'' + data.className + '\')">거절</button>';
+							return '<button onclick="agree(' + data.classNo + ', ' + data.memberNo + ', \'' + data.className + '-' + data.episodeCount + '\')">승인</button><button onclick="deny(' + data.classNo + ', ' + data.memberNo + ', \'' + data.className + '-' + data.episodeCount + '\')">거절</button>';
 						},
 						"orderable": false
 					},
@@ -30,7 +30,7 @@ function createTable() {
 						"targets": 1,
 						"data": null,
 						"render": function (data, type, row) {
-							return '<a href="#">' + data.className + '</a>';
+							return '<a href="#">' + data.className + '-' + data.episodeCount + '회차</a>';
 						},
 						"orderable": false
 					}
@@ -52,7 +52,7 @@ function agree(classNo, memberNo, className) {
 	}).then((result) => {
 		if (result.value) {
 			$.ajax({
-				url: "classAgree",
+				url: "episodeAgree",
 				dataType: "json",
 				data: {
 					"classNo": classNo,
@@ -63,7 +63,7 @@ function agree(classNo, memberNo, className) {
 					if (result > 0) {
 
 						const obj = {}
-						obj.noteContent = "'" + className + "' 신청이 승인되었습니다.";
+						obj.noteContent = "'" + className + "회차' 신청이 승인되었습니다.";
 						obj.memberNo = memberNo;
 						obj.flag = 0;
 
@@ -108,7 +108,7 @@ function deny(classNo, memberNo, className) {
 
 		if (result.value) {
 			$.ajax({
-				url: "classDeny",
+				url: "episodeDeny",
 				dataType: "json",
 				data: {
 					"classNo": classNo,
@@ -117,7 +117,7 @@ function deny(classNo, memberNo, className) {
 					if (result > 0) {
 
 						const obj = {}
-						obj.noteContent = "'" + className + "' " + message + "로/으로 신청 거절되었습니다.";
+						obj.noteContent = "'" + className + "회차' " + message + "로/으로 신청 거절되었습니다.";
 						obj.memberNo = memberNo;
 						obj.flag = 1;
 

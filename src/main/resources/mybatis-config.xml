@@ -17,6 +17,7 @@
 	<!-- mapper에서 사용되는 VO를 간단히 부르기 위한 별치 지정 -->
 	<typeAliases>
 		<typeAlias type="edu.kh.tteutto.admin.model.vo.Admin" alias="Admin" />
+		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminTeacher" alias="AdminTeacher" />
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Member" alias="Member" />
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Career" alias="Career" />
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Certified" alias="Certified" />

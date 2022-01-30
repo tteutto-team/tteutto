@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 
 import edu.kh.tteutto.admin.model.service.AdminService;
 import edu.kh.tteutto.admin.model.vo.Admin;
+import edu.kh.tteutto.admin.model.vo.AdminTeacher;
 import edu.kh.tteutto.member.model.vo.Member;
 
 @Controller
@@ -25,14 +26,14 @@ public class adminController {
 	@Autowired
 	private AdminService service;
 	
-	// 회원가입 페이지 이동
-	@RequestMapping(value="classManage", method=RequestMethod.GET)
-	public String classManage() {
-		return "admin/classManage";
+	// 회차별 신청 관리 이동
+	@RequestMapping(value="classEpisodeManage", method=RequestMethod.GET)
+	public String classEpisodeManage() {
+		return "admin/classEpisodeManage";
 	}
 	
 	
-	// 클래스 회차별 목록 조회
+	// 회차별 목록 조회
 	@RequestMapping(value="classEpisodeList", method=RequestMethod.GET)
 	@ResponseBody
 	public List<Admin> classEpisodeList() {
@@ -43,19 +44,19 @@ public class adminController {
 	}
 	
 	
-	// 클래스 회차별 신청 승인
+	// 회차별 신청 승인
 	@RequestMapping(value="episodeAgree", method=RequestMethod.GET)
 	@ResponseBody
-	public int episodeAgree(int classNo, int memberNo, String className) {
+	public int episodeAgree(int classNo) {
 		
 		
-		int result = service.episodeAgree(classNo, memberNo, className);
+		int result = service.episodeAgree(classNo);
 		
 		
 		return result;
 	}
 	
-	// 클래스 회차별 신청 거절
+	// 회차별 신청 거절
 	@RequestMapping(value="episodeDeny", method=RequestMethod.GET)
 	@ResponseBody
 	public int episodeDeny(int classNo) {
@@ -67,4 +68,86 @@ public class adminController {
 		return result;
 	}
 	
+	
+	
+	// 클래스 신청 관리 이동
+	@RequestMapping(value="classManage", method=RequestMethod.GET)
+	public String classManage() {
+		return "admin/classManage";
+	}
+	
+	
+	// 클래스 목록 조회
+	@RequestMapping(value="classList", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Admin> classList() {
+		
+		List<Admin> data = service.classList();
+		
+		return data;
+	}
+	
+	// 클래스 신청 승인
+	@RequestMapping(value="classAgree", method=RequestMethod.GET)
+	@ResponseBody
+	public int classAgree(int classNo) {
+		
+		
+		int result = service.classAgree(classNo);
+		
+		
+		return result;
+	}
+	
+	// 클래스 신청 거절
+	@RequestMapping(value="classDeny", method=RequestMethod.GET)
+	@ResponseBody
+	public int classDeny(int classNo) {
+		
+		
+		int result = service.classDeny(classNo);
+		
+		
+		return result;
+	}
+	
+	// 회차별 신청 관리 이동
+	@RequestMapping(value="teacherManage", method=RequestMethod.GET)
+	public String teacherManage() {
+		return "admin/teacherManage";
+	}
+	
+	// 강사 목록 조회
+	@RequestMapping(value="teacherList", method=RequestMethod.GET)
+	@ResponseBody
+	public List<AdminTeacher> teacherList(){
+		
+		List<AdminTeacher> data = service.teacherList();
+		
+		return data;
+	}
+	
+	// 클래스 신청 승인
+	@RequestMapping(value="teacherAgree", method=RequestMethod.GET)
+	@ResponseBody
+	public int teacherAgree(int memberNo) {
+		
+		
+		int result = service.teacherAgree(memberNo);
+		
+		
+		return result;
+	}
+	
+	// 클래스 신청 승인
+	@RequestMapping(value="teacherDeny", method=RequestMethod.GET)
+	@ResponseBody
+	public int teacherDeny(int memberNo) {
+		
+		
+		int result = service.teacherDeny(memberNo);
+		
+		
+		return result;
+	}
 }
