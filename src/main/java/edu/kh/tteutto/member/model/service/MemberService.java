@@ -5,6 +5,7 @@ import java.util.Map;
 
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.member.model.vo.Career;
+import edu.kh.tteutto.member.model.vo.Certified;
 import edu.kh.tteutto.member.model.vo.Member;
 
 public interface MemberService {
@@ -65,6 +66,18 @@ public interface MemberService {
 	 * @return result
 	 */
 	int checkCert(Map<String, String> map);
+
+	/** 비밀번호 변경전 확인
+	 * @param certified
+	 * @return result
+	 */
+	int changeConfirm(Certified certified);
+
+	/** 비밀번호 변경
+	 * @param member
+	 * @return result
+	 */
+	int changePw(Member member);
 
 
 

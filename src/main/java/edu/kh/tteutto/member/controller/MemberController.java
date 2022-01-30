@@ -233,10 +233,12 @@ public class MemberController {
 	// 비밀번호 찾기 링크 보내기
 	@RequestMapping("sendEmail")
 	@ResponseBody
-	public void sendEmail(String inputEmail) {
+	public String sendEmail(String inputEmail, RedirectAttributes ra) {
 		
 		String temp = "";
-
+		String text = "";
+		String icon = "";
+		
 		// 인증 번호 생성기
 		Random rnd = new Random();
 		for (int i = 0; i < 8; i++) {
@@ -263,8 +265,12 @@ public class MemberController {
 
 		
 		int result =service.updateMailTest(map);
-		String url = "http://localhost:8090/tteutto/member/changePw?memberEmail=" +inputEmail+"&certCd="+ temp;
+		String url = "http://localhost:8080/tteutto/member/changePw?memberEmail=" +inputEmail+"&certCd="+ temp;
 		if (result == 1) {
+			
+			text = "이메일 링크 전송 성공";
+			icon = "success";
+			
 			String subject = "뜨또 비밀번호 찾기 입니다.";
 			String content = 
 				"<div style='width: 500px; border: 1px solid #ddd; border-radius: 5px; padding: 30px;\'>" +
@@ -314,7 +320,15 @@ public class MemberController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else {
+			text = "이메일을 확인해주세요.";
+			icon = "error";
 		}
+		
+		ra.addFlashAttribute("text", text);
+		ra.addFlashAttribute("icon", icon);
+
+		return "redirect:/";
 	}
 	
 	// 비밀번호 변경
@@ -323,12 +337,44 @@ public class MemberController {
 		return "member/changePw";
 	}
 	
-	@RequestMapping(value="chagnePw", method=RequestMethod.POST)
-	public int changePw(Member member, Certified certified) {
+	// 비밀번호 변경
+	@RequestMapping(value="changePw", method=RequestMethod.POST)
+	public String changePw(Member member, Certified certified, RedirectAttributes ra) {
+		
+		int result = service.changeConfirm(certified);
+		String title = "";
+		String text = "";
+		String icon = "";
+		String path = "";
+		
+		if(result == 1) {
+			int result2 = service.changePw(member);
+			
+			if(result2 == 1) { // 성공
+				title = "비밀번호 변경 성공";
+				text = "다시 로그인 해주세요.";
+				icon = "success"; 
+				path = "redirect:/member/login";
+				
+			} else { // 실패
+				title = "비밀번호 변경 실패";
+				text = "관리자에 문의해주세요";
+				icon = "error";
+				path = "redirect:/";
+			}
+		
+		}else {
+			title = "비밀번호 변경 실패";
+			text = "관리자에 문의해주세요";
+			icon = "error";
+			path = "redirect:/";
+		}
 		
 		
+		ra.addFlashAttribute("title", title);
+		ra.addFlashAttribute("icon", icon);
 		
-		return 0;
+		return path;
 	}
 	
 	

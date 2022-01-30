@@ -104,6 +104,21 @@
 		AND CERT_CD = #{inputCertify}
 	</select>
 	
+	<!-- 비밀번호 변경전 확인 -->
+	<select id="changeConfirm" resultType="_int">
+		SELECT COUNT(*)
+		FROM CERTIFIED
+		WHERE MEMBER_EMAIL = #{memberEmail}
+		AND CERT_CD = #{certCd}
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="changePw">
+		UPDATE MEMBER SET
+		MEMBER_PW = #{memberPw}
+		WHERE MEMBER_EMAIL = #{memberEmail}
+	</update>
+	
 	<!-- 강사 정보 조회 -->
 	<select id="selectTeacherProfile" resultMap="teacher_rm">
 		SELECT * FROM TEACHER

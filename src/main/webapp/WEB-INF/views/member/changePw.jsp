@@ -11,14 +11,14 @@
     <main>
         <h1>비밀번호 변경</h1>
 		<form action="changePw" method="POST" name="changePwForm" onsubmit="return validate();">
-			<input type="hidden" value="${param.memberEmail}">
-			<input type="hidden" value="${param.certCd}">
+			<input type="hidden" name="memberEmail" value="${param.memberEmail}">
+			<input type="hidden" name="certCd" value="${param.certCd}">
 	        <div>
 	            <label for="pw1">새 비밀번호</label>
 	        </div>
 	        <div>
 	            <input type="password" id="pw1" name="memberPw"> <br>
-	            <span id="checkPw1"><i class="fas fa-exclamation-triangle"></i> 유효하지 않는 비밀번호입니다.</span>
+	            <span id="checkPw1"></span>
 	        </div>
 	
 	        <div>
@@ -26,7 +26,7 @@
 	        </div>
 	        <div>
 	            <input type="password" id="pw2"> <br>
-	            <span id="checkPw2"><i class="fas fa-exclamation-triangle"></i> 비밀번호가 일치하지 않습니다.</span>
+	            <span id="checkPw2"></span>
 	        </div>
 	        <button id="changePw">비밀번호 변경하기</button>
         </form>
