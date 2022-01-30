@@ -119,6 +119,13 @@
 		WHERE MEMBER_EMAIL = #{memberEmail}
 	</update>
 	
+	<!-- 인증번호 삭제 -->
+	<update id="updateCert">
+		UPDATE CERTIFIED SET
+		CERT_CD = #{certCd}
+		WHERE MEMBER_EMAIL = #{memberEmail}
+	</update>
+	
 	<!-- 강사 정보 조회 -->
 	<select id="selectTeacherProfile" resultMap="teacher_rm">
 		SELECT * FROM TEACHER
