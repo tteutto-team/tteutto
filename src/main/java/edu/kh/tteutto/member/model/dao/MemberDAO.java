@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.member.model.vo.Career;
+import edu.kh.tteutto.member.model.vo.Certified;
 import edu.kh.tteutto.member.model.vo.Member;
 
 @Repository
@@ -87,6 +88,14 @@ public class MemberDAO {
 	 */
 	public int checkCert(Map<String, String> map) {
 		return sqlSession.selectOne("memberMapper.checkCert", map);
+	}
+
+	public int changeConfirm(Certified certified) {
+		return sqlSession.selectOne("memberMapper.changeConfirm", certified);
+	}
+
+	public int changePw(Member member) {
+		return sqlSession.update("memberMapper.changePw", member);
 	}
 
 

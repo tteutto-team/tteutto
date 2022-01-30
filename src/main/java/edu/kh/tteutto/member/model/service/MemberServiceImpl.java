@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.member.model.dao.MemberDAO;
 import edu.kh.tteutto.member.model.vo.Career;
+import edu.kh.tteutto.member.model.vo.Certified;
 import edu.kh.tteutto.member.model.vo.Member;
 
 @Service
@@ -82,8 +83,21 @@ public class MemberServiceImpl implements MemberService{
 		return dao.signUp(member);
 	}
 
-	
-	
+	// 비밀번호 변경전 확인
+	@Override
+	public int changeConfirm(Certified certified) {
+		return dao.changeConfirm(certified);
+	}
+
+	// 비밀번호 변경
+	@Override
+	public int changePw(Member member) {
+		
+		String encPw = encoder.encode(member.getMemberPw());
+		
+		member.setMemberPw(encPw);
+		return dao.changePw(member);
+	}
 
 	// 강사 정보 조회
 	@Override
