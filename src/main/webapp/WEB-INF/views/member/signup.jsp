@@ -17,7 +17,7 @@
 			<div class="first">
 				<label for="email">이메일</label> <br>
 				<div id="email-div">
-					<input type="email" id="email" name="memberEmail">
+					<input type="email" id="email" name="memberEmail" value="${inputEmail}">
 					<button type="button" id="check_btn">인증하기</button>
 				</div>
 				<span id="checkEmail"></span>
