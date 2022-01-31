@@ -64,6 +64,11 @@ $(".modal").click(function (e) {
 
 $("#payCheckBox").on("click",function(){
 
+  if($('#payCheckBox').is(":checked") == true){
+        console.log('체크 된 상태');
+  
+    }
+
   if($('#payCheckBox').is(":checked") == false){
     console.log('체크 안 된 상태');
     
@@ -342,7 +347,15 @@ AOS.init();
           },
       }
   });
+  
+  
 
+  // 실시간톡 버튼
+  function liveTalk(){
+    var url="../chat/chatRoom";
+    var option="width=482, height=700, top=200"
+    window.open(url, "_blank", option);
+}
 
 
 

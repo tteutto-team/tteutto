@@ -698,6 +698,11 @@
             
         </div>
         
+        <div class="btnLiveChat">
+            <button type="button" style="bottom: 20px;" onclick="liveTalk();">
+                실시간 톡
+            </button>
+        </div>
         
     </div>
     
