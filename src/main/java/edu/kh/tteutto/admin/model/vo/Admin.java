@@ -14,6 +14,7 @@ public class Admin {
 	// 회원
 	private int memberNo; // 회원 번호
 	private String memberName; // 강사명
+	
 	// ************ 필드 **************
 
 	// 생성자

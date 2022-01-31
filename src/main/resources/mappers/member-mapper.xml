@@ -49,6 +49,18 @@
 		<result property="careerImg" column="CAREER_IMG"/>
 	</resultMap>
 	
+	<resultMap type="Sns" id="sns_rm">
+		<id property="snsNo" column="SNS_NO"/>
+		<result property="snsLink" column="SNS_LINK"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="snsDiv" column="SNS_DIV"/>
+	</resultMap>
+	
+	<resultMap type="Certified" id="certified_rm">
+		<id property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="certCd" column="CERT_CD" />
+		<result property="certEndDt" column="CERT_END_DT" />
+	</resultMap>
 	<!-- 로그인 -->
 	<select id="login" resultMap="member_rm">
 		SELECT * FROM MEMBER
@@ -69,8 +81,57 @@
 		INSERT INTO MEMBER VALUES(SEQ_MEMBER_NO.NEXTVAL, DEFAULT,  DEFAULT, 
 		#{memberEmail}, #{memberPw}, #{memberNm}, 
 		#{memberBirth}, #{memberGender}, #{memberPno}, 
-		null, SYSDATE, DEFAULT, DEFAULT, #{memberKey})
+		null, SYSDATE, DEFAULT, DEFAULT)
 	</insert>
+	
+	<!-- 회원 인증테이블에 이메일 중복 확인 -->
+	<select id="emailDupCheck2"  resultType="_int">
+		SELECT COUNT(*)
+		FROM CERTIFIED
+		WHERE MEMBER_EMAIL = #{inputEmail}
+	</select>
+	
+	<!-- 회원가입 이메일 인증번호 저장 -->
+	<insert id="sendMailTest">
+		INSERT INTO CERTIFIED VALUES(#{inputEmail}, #{temp}, DEFAULT)
+	</insert>
+	
+	<!-- 회원가입 이메일 인증번호 수정 -->
+	<update id="updateMailTest">
+		UPDATE CERTIFIED SET
+		CERT_CD = #{temp}
+		WHERE MEMBER_EMAIL = #{inputEmail}
+	</update>
+	
+	<!-- 이메일 인증 확인 -->
+	<select id="checkCert" resultType="_int">
+		SELECT COUNT(*)
+		FROM CERTIFIED
+		WHERE MEMBER_EMAIL = #{inputEmail}
+		AND CERT_CD = #{inputCertify}
+	</select>
+	
+	<!-- 비밀번호 변경전 확인 -->
+	<select id="changeConfirm" resultType="_int">
+		SELECT COUNT(*)
+		FROM CERTIFIED
+		WHERE MEMBER_EMAIL = #{memberEmail}
+		AND CERT_CD = #{certCd}
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="changePw">
+		UPDATE MEMBER SET
+		MEMBER_PW = #{memberPw}
+		WHERE MEMBER_EMAIL = #{memberEmail}
+	</update>
+	
+	<!-- 인증번호 삭제 -->
+	<update id="updateCert">
+		UPDATE CERTIFIED SET
+		CERT_CD = #{certCd}
+		WHERE MEMBER_EMAIL = #{memberEmail}
+	</update>
 	
 	<!-- 강사 정보 조회 -->
 	<select id="selectTeacherProfile" resultMap="teacher_rm">
@@ -82,7 +143,40 @@
 	<!-- 강사 이력 조회 -->
 	<select id="selectTeacherCareer" resultMap="career_rm">
 		SELECT * FROM CAREER
-		WHERE MEMBER_NO = #{memberNo},
+		WHERE MEMBER_NO = #{memberNo}
 		ORDER BY CAREER_NO
 	</select>
+	
+	<!-- 강사 sns 조회 -->
+	<select id="selectTeacherSns" resultMap="sns_rm">
+		SELECT * FROM SNS
+		WHERE MEMBER_NO = #{memberNo}
+		ORDER BY SNS_NO
+	</select>
+	
+	<!-- 강사 전화번호 수정 -->
+	<update id="teacherPhoneUpdate" parameterType="map">
+		UPDATE MEMBER SET MEMBER_PNO = #{phone}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 강사 전화번호 수정 -->
+	<update id="teacherIntroduceUpdate" parameterType="Teacher">
+		UPDATE TEACHER SET TEACHER_INTRO = #{teacherIntro}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 강사 sns 삭제 -->
+	<update id="teacherSnsUpdate">
+		DELETE FROM SNS 
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 강사 sns 삽입 -->
+	<update id="teacherSnsInsert">
+		INSERT INTO SNS VALUES(SEQ_SNS_NO.NEXTVAL, #{snsLink}, #{memberNo}, #{snsDiv})
+	</update>
+	
+	
+	
 </mapper>

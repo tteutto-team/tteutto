@@ -350,12 +350,9 @@
                 </div>
                 <div data-aos="fade-up"> 
                     <p class="subTitle" id="classAddress">서울특별시 강남구 강남구 테헤란로14길 6</p>
-                    <!-- 네이버 지도 길찾기 ( 127.1082124 == 경도, 37.402056 == 위도, 서울역 콰야 드로잉 == 도착명 이름 )-->
-                    <a href="http://map.naver.com/index.nhn?slng=&slat=&stext=&elng=127.1082124&elat=37.402056&etext=서울역 콰야 드로잉&menu=route&pathType=1">
-                        <button type="button" class="searchAddress">길찾기 ></button>
-                    </a>
+                    <button type="button" onclick="window.open(loadSearch())" class="searchAddress">길찾기 ></button>
                 </div>
-                <div id="place_map" data-aos="fade-up"> 지도 들어갈 부분 </div>
+                <div id="place_map" data-aos="fade-up"><div id="map" style="width:100%;height:100%;"></div></div>
                 
             </div>
 
@@ -721,5 +718,8 @@
     <script src="${contextPath}/resources/js/billboard.js"></script>
     
     
-    
     <script src="${contextPath}/resources/js/classDetail.js"></script>
+	
+	<!-- 지도 API/JS -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c2fadae20e5509a211c93e833342aa29&libraries=services,clusterer,drawing"></script>
+    <script src="${contextPath}/resources/js/map.js"></script>

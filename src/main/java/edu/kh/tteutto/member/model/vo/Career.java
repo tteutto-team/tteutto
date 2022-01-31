@@ -8,6 +8,10 @@ public class Career {
 	private String careerContent;
 	private String careerImg;
 	
+	public Career() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public int getMemberNo() {
 		return memberNo;
 	}

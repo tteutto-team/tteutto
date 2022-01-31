@@ -41,11 +41,10 @@ function validate() {
 
 // 이메일 유효성 검사
 document.getElementById("email").addEventListener("input", function() {
-
+	
 	const inputEmail = this.value;
 	const regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
 	const checkEmail = document.getElementById("checkEmail");
-
 	if(inputEmail.length == 0){
         checkEmail.innerText = "";
         signUpCheckObj.email = false;
@@ -220,13 +219,19 @@ $(".phone").on("input", function(){
 let clickCount = 0;
 $("#check_btn").on("click", function(){
 	const inputEmail = $("#email").val();
-	$("#email").attr("readonly",true);
+	var time = 15;
+	var min = "";
+	var sec = "";
 	// console.log(inputEmail);
 	// console.log(clickCount);
 	if(clickCount == 0 && signUpCheckObj.email == true){
-		let html = "<div>";
-		html +=	"<label for='certify'>이메일 인증번호</label> <br>";
-		html +=	"<input type='text' id='certify' name='memberKey' placeholder='인증번호를 입력하세요.'>";
+		$("#email").attr("readonly",true);
+		let html = "<div class='certify_area'>";
+		html +=	"<label for='certify'>이메일 인증번호</label> <span id='demo'></span> <br>";
+		html += "<div id='email-div'>";
+		html +=	"<input type='text' id='certify' name='memberCertify' placeholder='인증번호를 입력하세요.'>";
+		html += "<button type='button' id='numCh_btn'>확인하기</button>"
+		html += "</div>";
 		html +=	"<span id='checkCertify'></span>";
 		html +=	"</div>";
 		$(html).insertAfter(".first");
@@ -235,23 +240,54 @@ $("#check_btn").on("click", function(){
 			url : "sendMail",
 			type : "GET",
 			data : {"inputEmail": inputEmail},
-			success : function(result){
-				console.log(result);
-				if(result.length != ""){
-					$("#certify").on("input", function(){
-						const inputCertify = $("#certify").val();
-						if(inputCertify.trim().length == 0){
-							$("#checkCertify").text("");
-							signUpCheckObj.certify = false;
-						}else if(inputCertify == result){
-							$("#checkCertify").text("인증번호가 일치합니다.").css("color", "green");
-							signUpCheckObj.certify = true;
-						}else{
-							$("#checkCertify").html("<i class='fas fa-exclamation-triangle'></i> 인증번호가 일치하지 않습니다.").css("color", "red");
-							signUpCheckObj.certify = false;
-						}
-					});
-				}
+			success : function(){
+				var x = setInterval(function(){
+					min = parseInt(time/60);
+					sec = time%60;
+					document.getElementById("demo").innerHTML = min + "분" + sec +"초";
+					time--;
+					if(time < 0){
+						clearInterval(x);
+					}
+				},1000);
+				setTimeout(function(){
+					if(signUpCheckObj.certify != true){
+						$(".certify_area").remove();
+						$("#email").attr("readonly",false);
+						clickCount = 0;
+						time = 15;
+					}
+				}, 15000);			
+				$("#numCh_btn").on("click", function(){
+					const inputCertify = $("#certify").val();
+					console.log(inputCertify);
+					console.log(inputEmail);
+					$.ajax({
+						url : "checkCert",
+						type : "GET",
+						data : {"inputCertify" : inputCertify,
+								"inputEmail": inputEmail},
+						success : function(result){
+							if(result != 0){
+								$("#checkCertify").text("인증번호가 일치합니다.").css("color", "green");
+								$("#certify").attr("readonly",true);
+    							signUpCheckObj.certify = true;
+							}else{
+								$("#checkCertify").html("<i class='fas fa-exclamation-triangle'></i> 인증번호가 일치하지 않습니다.").css("color", "red");
+								signUpCheckObj.certify = false;
+							}
+						},
+						error : function(request, status, error){
+			                if( request.status == 404 ){
+			                    console.log("ajax 요청 주소가 올바르지 않습니다.");
+			                } else if( request.status == 500){
+			                    console.log("서버 내부 에러 발생");
+			                }
+			            },
+			            complete : function(){}
+					})
+					
+				})
 			},
 			error : function(request, status, error){
                 if( request.status == 404 ){
