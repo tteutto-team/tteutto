@@ -2,8 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="teacherMapper">
 	
+	<resultMap type="Episode" id="episode_rm">
+		<id property="epNo" column="EP_NO" />
+		<result property="epPrice" column="EP_PRICE" />
+		<result property="ClassNo" column="CLASS_NO" />
+		<result property="epSt" column="EP_ST" />
+		<result property="epCount" column="EP_COUNT" />
+		<result property="epPlace" column="EP_PLACE" />
+		<result property="classNm" column="CLASS_NM" />
+	</resultMap>
+	
 	<insert id="test">
 		insert into member values(SEQ_MEMBER_NO.NEXTVAL, 0, 0, 'test02@test.com', 'test02', '테스트이', SYSDATE, 'M', '010-2222-2222', NULL, DEFAULT, DEFAULT, 'Y')
 	</insert>
 	
+	<select id="classLocation" resultMap="episode_rm">
+		SELECT CLASS_NM, EP_PLACE FROM EPISODE
+		JOIN CLASS USING(CLASS_NO)
+	</select>
 </mapper>

@@ -26,13 +26,31 @@ $("#sendEmail").on("click", function(){
 		type : "GET",
 		data : {"inputEmail" : inputEmail},
 		success : function(result){
+						console.log(result);
 			if(result == 1){
 				$.ajax({
 					url : "sendEmail",
 					type : "POST",
 					data : {"inputEmail" : inputEmail},
-					
-				})
+					success : function(result){
+						if(result == 1){
+							swal({
+								title : "이메일 링크 전송 성공",
+								text : "이메일을 확인해 주세요.",
+								icon : "success"
+							}).then(function(){
+								window.location.href = "../"
+							});
+							
+						}else{
+							swal({
+								title : "비밀번호 찾기 문제 발생",
+								text : "관리자에게 문의해주세요.",
+								icon : "error"
+							});
+						}
+					}
+				});
 			}else{
 				swal({
 					text : "이메일을 다시 확인해 주세요.",
