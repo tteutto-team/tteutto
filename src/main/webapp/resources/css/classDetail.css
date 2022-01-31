@@ -1487,3 +1487,30 @@
                 color: rgb(92, 92, 92);
                 cursor: pointer;
             }
+            
+            
+            /* 실시간 톡 */
+            .btnLiveChat{
+                display: flex;
+                -webkit-box-pack: end;
+                justify-content: flex-end;
+            }
+
+
+
+            .btnLiveChat button{
+                position: fixed;
+                z-index: 2;
+                width: 109px;
+                height: 52px;
+                padding-left: 42px;
+                border-radius: 26px;
+                text-align: left;
+                letter-spacing: -0.35px;
+                line-height: 52px;
+                box-shadow: 0 2px 6px 0 rgb(17 17 17 / 14%);
+                background: url("../images/chat/livetalk_icon3.png") #fff no-repeat 17px center/18px;
+                transition: all 0.3s ease-in;
+                border: none;
+                cursor: pointer;
+            }
