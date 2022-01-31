@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.tteutto.admin.model.dao.AdminDAO;
 import edu.kh.tteutto.admin.model.vo.Admin;
+import edu.kh.tteutto.admin.model.vo.AdminReport;
 import edu.kh.tteutto.admin.model.vo.AdminTeacher;
 import edu.kh.tteutto.member.model.vo.Member;
 
@@ -83,6 +84,34 @@ public class AdminServiceImpl implements AdminService{
 	public AdminTeacher selectTeacher(int memberNo) {
 		return dao.selectTeacher(memberNo);
 	}
+
+	// 학생 신고 목록 조회
+	@Override
+	public List<AdminReport> studentReportList() {
+		return dao.studentReportList();
+	}
+
+	// 학생 신고 신청 승인/거절
+	@Override
+	@Transactional
+	public int reportAgreeDeny(AdminReport adminReport) {
+		
+		int result = dao.reportAgreeDeny(adminReport);
+		
+		if(adminReport.getReportStatus() == 2) { // 승인되었을 때 count 증가
+			adminReport.setReportCount(adminReport.getReportCount() + 1);
+			
+			if(adminReport.getReportCount() >= 3) {
+				result = dao.memberBan(adminReport);
+				
+			}
+		}
+		
+		
+		return result;
+	}
+	
+	
 
 	
 	

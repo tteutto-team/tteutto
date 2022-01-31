@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 
 import edu.kh.tteutto.admin.model.service.AdminService;
 import edu.kh.tteutto.admin.model.vo.Admin;
+import edu.kh.tteutto.admin.model.vo.AdminReport;
 import edu.kh.tteutto.admin.model.vo.AdminTeacher;
 import edu.kh.tteutto.member.model.vo.Member;
 
@@ -163,5 +164,32 @@ public class adminController {
 		model.addAttribute("teacher", teacher);
 		
 		return "admin/teacher";
+	}
+	
+	// 학생 신고 관리 이동
+	@RequestMapping(value="studentReportManage", method=RequestMethod.GET)
+	public String studentReportManage() {
+		return "admin/studentReportManage";
+	}
+	
+	// 강사 목록 조회
+	@RequestMapping(value="studentReportList", method=RequestMethod.GET)
+	@ResponseBody
+	public List<AdminReport> studentReportList(){
+		
+		List<AdminReport> data = service.studentReportList();
+		
+		return data;
+	}
+	
+	// 학생 신고 신청 승인/거절
+	@RequestMapping(value="reportAgreeDeny", method=RequestMethod.GET)
+	@ResponseBody
+	public int reportAgreeDeny(AdminReport adminReport) {
+		
+		int result = service.reportAgreeDeny(adminReport);
+		
+		
+		return result;
 	}
 }

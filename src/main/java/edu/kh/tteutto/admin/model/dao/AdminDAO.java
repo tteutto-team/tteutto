@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.tteutto.admin.model.vo.Admin;
+import edu.kh.tteutto.admin.model.vo.AdminReport;
 import edu.kh.tteutto.admin.model.vo.AdminTeacher;
 
 @Repository
@@ -99,6 +100,32 @@ public class AdminDAO {
 	 */
 	public AdminTeacher selectTeacher(int memberNo) {
 		return sqlSession.selectOne("adminMapper.selectTeacher", memberNo);
+	}
+
+
+	/** 학생 신고 목록 조회
+	 * @return data
+	 */
+	public List<AdminReport> studentReportList() {
+		return sqlSession.selectList("adminMapper.studentReportList");
+	}
+
+
+	/** 학생 신고 신청 승인/거절
+	 * @param adminReport
+	 * @return result
+	 */
+	public int reportAgreeDeny(AdminReport adminReport) {
+		return sqlSession.update("adminMapper.reportAgreeDeny", adminReport);
+	}
+
+
+	/** 계정 정지
+	 * @param adminReport
+	 * @return result
+	 */
+	public int memberBan(AdminReport adminReport) {
+		return sqlSession.update("adminMapper.memberBan", adminReport);
 	}
 
 

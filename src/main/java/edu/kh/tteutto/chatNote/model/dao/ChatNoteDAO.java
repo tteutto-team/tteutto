@@ -13,16 +13,12 @@ public class ChatNoteDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	/** 회차별 신청 승인 쪽지 보내기
+	/** 쪽지 보내기
 	 * @param cm
 	 * @return result
 	 */
-	public int episodeAgreeSendNote(ChatNote cm) {
-		return sqlSession.insert("adminMapper.episodeAgreeSendNote", cm);
-	}
-
-	public int episodeDenySendNote(ChatNote cm) {
-		return sqlSession.insert("adminMapper.episodeDenySendNote", cm);
+	public int sendNote(ChatNote cm) {
+		return sqlSession.insert("adminMapper.sendNote", cm);
 	}
 	
 }

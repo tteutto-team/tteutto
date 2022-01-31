@@ -4,28 +4,24 @@ $(function () {
 
 function createTable() {
 	$.ajax({
-		url: "teacherList",
+		url: "studentReportList",
 		type: "GET",
 		dataType: "JSON",
 		success: function (data) {
 			console.log(data);
 			$('#table_id').DataTable({
 				data: data,
-				order: [[2, "asc"]],
+				order: [[3, "asc"]],
 				columns: [
-					{ data: "memberNo" },
+					{ data: "reportNo" },
+					{ data: "reportName"},
+					{ data: "reportTarget" },
+					{ data: "reportRequestDate"},
+					{ data: "reportCount"},
 					{
 						data: null,
 						render: function (data, type, row) {
-							return '<a href="teacher/' + data.memberNo + '">' + data.memberName + '</a>';
-						}
-					},
-					{ data: "teacherRequestDate" },
-					{
-						data: null,
-						render: function (data, type, row) {
-							return '<button onclick="agree(' + data.memberNo + ', \'' + data.memberName + '\')">승인</button>'
-							+ '<button onclick="deny(' + data.memberNo + ', \'' + data.memberName + '\')">거절</button>';
+							return '<button onclick="agree(' + data.reportNo + ', \'' + data.reportContent + '\', ' + data.reportTargetNo + ', ' + data.reportCount + ')">신고 내용</button>';
 						},
 						orderable: false
 					}
@@ -35,39 +31,68 @@ function createTable() {
 	})
 }
 
-function agree(memberNo, memberName) {
+function agree(reportNo,  reportContent, reportTargetNo, reportCount) {
 	Swal.fire({
-		title: '승인 하시겠습니까?',
+		title: '신고 내용',
+		text: reportContent,
 		icon: 'warning',
 		showCancelButton: true,
+		showDenyButton: true,
 		confirmButtonColor: '#3085d6',
 		cancelButtonColor: '#d33',
-		confirmButtonText: '승인 쪽지 보내기',
+		confirmButtonText: '신고 승인',
+		denyButtonText: '신고 거절',
 		cancelButtonText: '취소'
 	}).then((result) => {
-		if (result.value) {
+		if (result.value != undefined) {
+
+			let reportStatus;
+
+			if(result.value){
+				reportStatus = 2;
+				
+			}else{
+				reportStatus = 3;
+			}
+
 			$.ajax({
-				url: "teacherAgree",
+				url: "reportAgreeDeny",
 				dataType: "json",
 				data: {
-					"memberNo": memberNo,
+					"reportNo": reportNo,
+					"reportTargetNo": reportTargetNo,
+					"reportCount": reportCount,
+					"reportStatus": reportStatus
 				},
 				success: function (result) {
+					console.log(result);
 					if (result > 0) {
 
-						const obj = {}
-						obj.noteContent = "'" + memberName + "'님 강사 신청이 승인되었습니다.";
-						obj.memberNo = memberNo;
-						obj.flag = 0;
+						if(reportStatus == 2){
+							const obj = {}
+							obj.noteContent = "회원님의 누적 신고횟수는 '" + (reportCount+1) + "'회 입니다.";
+							obj.memberNo = reportTargetNo;
+							obj.flag = 0;
+	
+							noteSock.send(JSON.stringify(obj));
+	
+							Swal.fire({
+								title: '신고 승인 완료',
+								icon: 'success',
+								confirmButtonColor: '#3085d6',
+								confirmButtonText: '확인',
+							})
 
-						noteSock.send(JSON.stringify(obj));
+						}else{
 
-						Swal.fire({
-							title: '신청 승인 완료',
-							icon: 'success',
-							confirmButtonColor: '#3085d6',
-							confirmButtonText: '확인',
-						})
+							Swal.fire({
+								title: '신고 승인 거절',
+								icon: 'success',
+								confirmButtonColor: '#3085d6',
+								confirmButtonText: '확인',
+							})
+
+						}
 
 						$('#table_id').DataTable().destroy();
 						createTable();
@@ -112,7 +137,7 @@ function deny(memberNo, memberName) {
 						const obj = {}
 						obj.noteContent = "'" + memberName + "'님 " + message + "로/으로 강사 신청이 거절되었습니다.";
 						obj.memberNo = memberNo;
-						obj.flag = 0;
+						obj.flag = 1;
 
 						noteSock.send(JSON.stringify(obj));
 

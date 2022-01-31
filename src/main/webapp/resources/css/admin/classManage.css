@@ -38,19 +38,30 @@ body{
 	width: 100%;
 }
 
-thead tr > th:nth-of-type(5){
+thead tr > th:last-of-type{
 	width: 90px;
+	padding-right: 0 !important;
+}
+
+tbody td{
+	text-align: center;
+}
+
+tbody a{
+	display: block;
+}
+
+tbody a:hover{
+	text-decoration: underline;
 }
 
 /* 버튼 디자인  */
-tbody tr > td:nth-of-type(5){
-	display: flex;
-	justify-content: center;
+tbody tr > td:last-of-type{
 	margin: 0;
-	width: 90px;
+	width: 120px;
 }
 
-tbody tr > td:nth-of-type(5) > button{
+tbody tr > td:last-of-type > button{
 	margin: 0 5px;
 	width: 40px;
 }
