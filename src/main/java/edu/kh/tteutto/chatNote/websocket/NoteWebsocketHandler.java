@@ -59,12 +59,8 @@ public class NoteWebsocketHandler extends TextWebSocketHandler {
 			System.out.println("변경된 cm : " + cm);
 			
 			if(cm.getFlag() == 0) {
-				// 회차별 신청 승인
-				int result = service.episodeAgreeSendNote(cm);
-				
-			}else if(cm.getFlag() == 1) {
-				// 회차별 신청 거절
-				int result = service.episodeDenySendNote(cm);
+				// 쪽지 보내기
+				int result = service.sendNote(cm);
 				
 			}
 			

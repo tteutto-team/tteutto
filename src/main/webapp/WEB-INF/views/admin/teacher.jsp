@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/admin/classManage.css">
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     
 <jsp:include page="adminSidebar.jsp"></jsp:include>
 
@@ -15,14 +14,17 @@
 		프로필 : ${teacher.teacherImg} <br>
 		소개 : ${teacher.teacherIntro} <br>
 		
+		<c:if test="${!empty teacher.careerList}">
+			<c:forEach var="career" items="${teacher.careerList}">
+				${career.careerContent } <br>
+			</c:forEach>
+		</c:if>
 		
-		<c:forEach var="career" items="${teacher.careerList}">
-			${career.careerContent } <br>
-		</c:forEach>
-		
-		<c:forEach var="sns" items="${teacher.snsList}">
-			${sns.snsLink} <br>
-		</c:forEach>
+		<c:if test="${!empty teacher.snsList}">
+			<c:forEach var="sns" items="${teacher.snsList}">
+				${sns.snsLink} <br>
+			</c:forEach>
+		</c:if>		
 	</div>
 </div>
    

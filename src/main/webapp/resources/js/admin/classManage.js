@@ -11,27 +11,24 @@ function createTable() {
 			console.log(data);
 			$('#table_id').DataTable({
 				data: data,
+				order: [[3, "asc"]],
 				columns: [
 					{ data: "classNo" },
-					{ data: null },
-					{ data: "memberName" },
-					{ data: "classRequestDate" }
-				],
-				columnDefs: [
 					{
-						"targets": 4,
-						"data": null,
-						"render": function (data, type, row) {
-							return '<button onclick="agree(' + data.classNo + ', ' + data.memberNo + ', \'' + data.className + '\')">승인</button><button onclick="deny(' + data.classNo + ', ' + data.memberNo + ', \'' + data.className + '\')">거절</button>';
-						},
-						"orderable": false
-					},
-					{
-						"targets": 1,
-						"data": null,
-						"render": function (data, type, row) {
+						data: null,
+						render: function (data, type, row) {
 							return '<a href="#">' + data.className + '</a>';
+						}
+					},
+					{ data: "memberName" },
+					{ data: "classRequestDate" },
+					{
+						data: null,
+						render: function (data, type, row) {
+							return '<button onclick="agree(' + data.classNo + ', ' + data.memberNo + ', \'' + data.className + '\')">승인</button>'
+								+ '<button onclick="deny(' + data.classNo + ', ' + data.memberNo + ', \'' + data.className + '\')">거절</button>';
 						},
+						orderable: false
 					}
 				]
 			})
@@ -118,7 +115,7 @@ function deny(classNo, memberNo, className) {
 						const obj = {}
 						obj.noteContent = "'" + className + "' " + message + "로/으로 신청 거절되었습니다.";
 						obj.memberNo = memberNo;
-						obj.flag = 1;
+						obj.flag = 0;
 
 						noteSock.send(JSON.stringify(obj));
 

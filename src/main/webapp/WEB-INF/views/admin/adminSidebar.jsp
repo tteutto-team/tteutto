@@ -18,6 +18,9 @@
     <!-- sweetAlert -->
     <script src="${contextPath}/resources/js/admin/sweetalert2.min.js"></script>
 	<link rel="stylesheet" href="${contextPath}/resources/css/admin/sweetalert2.min.css">
+	
+	<!-- icon -->
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     
     <!-- font -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,19 +37,19 @@
 		</div>
 		<div class="admin-list">
 			<div>
-				<a href="classEpisodeManage"><i class="far fa-circle"></i> 회차별 신청 관리</a>
-				<a href="classManage"><i class="far fa-circle"></i> 클래스 신청 관리</a>
+				<a href="${contextPath}/admin/classEpisodeManage"><i class="far fa-circle"></i> 회차별 신청 관리</a>
+				<a href="${contextPath}/admin/classManage"><i class="far fa-circle"></i> 클래스 신청 관리</a>
 			</div>
 		</div>
 		<div class="admin-list">
 			<div>
 				<a href="#"><i class="far fa-circle"></i> 유저 관리</a>
-				<a href="teacherManage"><i class="far fa-circle"></i> 강사 신청 관리</a>
+				<a href="${contextPath}/admin/teacherManage"><i class="far fa-circle"></i> 강사 신청 관리</a>
 			</div>
 		</div>
 		<div class="admin-list">
 			<div>
-				<a href="#"><i class="far fa-circle"></i> 학생 신고 관리</a>
+				<a href="${contextPath}/admin/studentReportManage"><i class="far fa-circle"></i> 학생 신고 관리</a>
 				<a href="#"><i class="far fa-circle"></i> 클래스 신고 관리</a>
 			</div>
 		</div>

@@ -3,6 +3,7 @@ package edu.kh.tteutto.admin.model.service;
 import java.util.List;
 
 import edu.kh.tteutto.admin.model.vo.Admin;
+import edu.kh.tteutto.admin.model.vo.AdminReport;
 import edu.kh.tteutto.admin.model.vo.AdminTeacher;
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.member.model.vo.Member;
@@ -65,6 +66,17 @@ public interface AdminService {
 	 * @return teacher
 	 */
 	AdminTeacher selectTeacher(int memberNo);
+
+	/** 학생 신고 목록 조회
+	 * @return data
+	 */
+	List<AdminReport> studentReportList();
+
+	/** 학생 신고 신청 승인/거절 
+	 * @param adminReport
+	 * @return result
+	 */
+	int reportAgreeDeny(AdminReport adminReport);
 
 
 }
