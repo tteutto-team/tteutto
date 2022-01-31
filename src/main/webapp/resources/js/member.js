@@ -45,7 +45,6 @@ document.getElementById("email").addEventListener("input", function() {
 	const inputEmail = this.value;
 	const regExp = /^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/;
 	const checkEmail = document.getElementById("checkEmail");
-	console.log($(this));
 	if(inputEmail.length == 0){
         checkEmail.innerText = "";
         signUpCheckObj.email = false;
@@ -220,13 +219,15 @@ $(".phone").on("input", function(){
 let clickCount = 0;
 $("#check_btn").on("click", function(){
 	const inputEmail = $("#email").val();
-	
+	var time = 15;
+	var min = "";
+	var sec = "";
 	// console.log(inputEmail);
 	// console.log(clickCount);
 	if(clickCount == 0 && signUpCheckObj.email == true){
 		$("#email").attr("readonly",true);
 		let html = "<div class='certify_area'>";
-		html +=	"<label for='certify'>이메일 인증번호</label> <br>";
+		html +=	"<label for='certify'>이메일 인증번호</label> <span id='demo'></span> <br>";
 		html += "<div id='email-div'>";
 		html +=	"<input type='text' id='certify' name='memberCertify' placeholder='인증번호를 입력하세요.'>";
 		html += "<button type='button' id='numCh_btn'>확인하기</button>"
@@ -240,14 +241,23 @@ $("#check_btn").on("click", function(){
 			type : "GET",
 			data : {"inputEmail": inputEmail},
 			success : function(){
-			
+				var x = setInterval(function(){
+					min = parseInt(time/60);
+					sec = time%60;
+					document.getElementById("demo").innerHTML = min + "분" + sec +"초";
+					time--;
+					if(time < 0){
+						clearInterval(x);
+					}
+				},1000);
 				setTimeout(function(){
 					if(signUpCheckObj.certify != true){
 						$(".certify_area").remove();
 						$("#email").attr("readonly",false);
 						clickCount = 0;
+						time = 15;
 					}
-				}, 300000);			
+				}, 15000);			
 				$("#numCh_btn").on("click", function(){
 					const inputCertify = $("#certify").val();
 					console.log(inputCertify);

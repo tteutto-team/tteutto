@@ -36,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
+import edu.kh.tteutto.common.Util;
 import edu.kh.tteutto.member.model.service.MemberService;
 import edu.kh.tteutto.member.model.vo.Career;
 import edu.kh.tteutto.member.model.vo.Certified;
@@ -269,12 +270,8 @@ public class MemberController {
 	// 비밀번호 찾기 링크 보내기
 	@RequestMapping("sendEmail")
 	@ResponseBody
-	public String sendEmail(String inputEmail, RedirectAttributes ra) {
-		
+	public int sendEmail(String inputEmail, RedirectAttributes ra) {
 		String temp = "";
-		String text = "";
-		String icon = "";
-		
 		// 인증 번호 생성기
 		Random rnd = new Random();
 		for (int i = 0; i < 8; i++) {
@@ -303,10 +300,6 @@ public class MemberController {
 		int result =service.updateMailTest(map);
 		String url = "http://localhost:8080/tteutto/member/changePw?memberEmail=" +inputEmail+"&certCd="+ temp;
 		if (result == 1) {
-			
-			text = "이메일 링크 전송 성공";
-			icon = "success";
-			
 			String subject = "뜨또 비밀번호 찾기 입니다.";
 			String content = 
 				"<div style='width: 500px; border: 1px solid #ddd; border-radius: 5px; padding: 30px;\'>" +
@@ -353,18 +346,12 @@ public class MemberController {
 				 * 단순한 텍스트만 사용하신다면 다음의 코드를 사용하셔도 됩니다. mailHelper.setText(content);
 				 */
 				mailSender.send(mail);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else {
-			text = "이메일을 확인해주세요.";
-			icon = "error";
 		}
-		
-		ra.addFlashAttribute("text", text);
-		ra.addFlashAttribute("icon", icon);
-
-		return "redirect:/";
+		return result;
 	}
 	
 	// 비밀번호 변경
@@ -551,22 +538,21 @@ public class MemberController {
 		
 //		int result = service.teacherProfileUpdate(teacher, phone, snsList, profileInput, images, serverPath);
 		
-		
-		
-		
-		
 		return "redirect:teacherProfile";
 	}
-	
-	
-	
-	
-	
 	
 	// 강사 신청 페이지 이동
 	@RequestMapping(value = "teacherRegister", method = RequestMethod.GET)
 	public String teacherRegister() {
 		return "member/teacherRegister";
+	}
+	
+	// 지도 지역 불러오기 
+	@GetMapping("classLocation")
+	@ResponseBody()
+	public String classLocation() {
+		
+		return null;
 	}
 	
 	
