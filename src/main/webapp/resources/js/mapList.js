@@ -63,6 +63,7 @@ var proClassNm = [];
 var len;
 var searchLocation; // 좌표
 
+var test = [];
 function AddrChangeCoords(){
 
     for(let i = 0; i < len; i++){
@@ -85,18 +86,24 @@ function AddrChangeCoords(){
                 // map.setCenter(currentPos);
                 
 				var iwContent = '<div style="padding:5px;">'+proClassNm[i]+'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-				    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+				    iwRemoveable = false; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 				
 				// 인포윈도우를 생성합니다
 				var infowindow = new kakao.maps.InfoWindow({
 				    content : iwContent,
-				    removable : iwRemoveable
+				    //removable : iwRemoveable
 				});
                 // 클릭을 가능하게 해주는 구문(true : 불가능)
-				markerArr[i].setClickable(true);
-				kakao.maps.event.addListener(markerArr[i], 'click', function() {
+				//markerArr[i].setClickable(true);
+				//kakao.maps.event.addListener(markerArr[i], 'click', function() {
 				   	// 마커 위에 인포윈도우를 표시합니다
-				    infowindow.open(map, markerArr[i]);  
+				//    infowindow.open(map, markerArr[i]);  
+				//});
+				kakao.maps.event.addListener(markerArr[i], 'mouseover', function() {
+				    infowindow.open(map, markerArr[i]);
+				});
+				kakao.maps.event.addListener(markerArr[i], 'mouseout', function() {
+				    infowindow.close();
 				});
 				 
             } else if (status == "ZERO_RESULT") {
@@ -107,6 +114,10 @@ function AddrChangeCoords(){
             });
             distance[i] = Math.round(polyline[i].getLength());
             //console.log(distance);
+            test[i] = {
+				distance : distance[i],
+				proClassNm : proClassNm[i]
+			}
         });
     }
 }
@@ -164,4 +175,19 @@ $("#locationSearchBtn").on("click", function(){
 	ajaxLoad();
 })
 
-$("")
+let backupIndex = [];
+$("#locationClick").on("click", function(){
+	test.sort(function(a,b){ return a.distance - b.distance });
+	for(let i=0; i<len; i++){
+		if(test[i].distance <= 500){
+			backupIndex[i] = test[i].proClassNm;
+		}else{
+			backupIndex[i] = null;
+		}
+	}
+		backupIndex  = backupIndex.filter(function(item) {
+  		return item !== null && item !== undefined && item !== '';
+	});
+	console.log(backupIndex);
+});
+

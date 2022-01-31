@@ -106,4 +106,3 @@ function loadSearch(){
         '&eName=' + detail_addr;
 }
 
-$("#locationClick")
