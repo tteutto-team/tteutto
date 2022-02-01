@@ -56,17 +56,18 @@
                     </div>
                 </div>
                 <div class="profile_area">
-                    <div class="label_title">이력(권장사항)</div>
+                    <div class="label_title" id="check">이력(권장사항)</div>
                     <div class="label_content">
                     
                        	<c:forEach items="${careerList}" var="career" varStatus="status">
 	                        <div id="record_area">
-	                            <input type="text" class="profile_input" value="${career.careerContent}" name="profileInput">
+	                            <input type="text" class="profile_input talent" value="${career.careerContent}" name="profileInput">
 	                            <div class="upload_area">
 	                                <div class="upload_img">
-	                                    <img class="preview" src="${contextPath}/${career.careerImg}">
-	                                    <input type="file" class="profile_file" name="profileImg">
+	                                    <img class="preview img_img" src="${contextPath}${career.imgPath}${career.imgName}">
+	                                    <input type="file" class="profile_file talent_img" name="profileImg" onchange="loadImg(this)">
 	                                </div>
+	                                <div class='close_record' onclick='close_record_function(this,0)'>삭제</div>
 	                            </div>
                         	</div>
                         </c:forEach>
@@ -141,4 +142,5 @@
 
 <jsp:include page="../common/footer.jsp"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="${contextPath}/resources/js/teacherProfile.js"></script>

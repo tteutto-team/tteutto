@@ -46,7 +46,9 @@
 		<id property="memberNo" column="MEMBER_NO"/>
 		<result property="careerNo" column="CAREER_NO"/>
 		<result property="careerContent" column="CAREER_CONTENT"/>
-		<result property="careerImg" column="CAREER_IMG"/>
+		<result property="imgPath" column="IMG_PATH"/>
+		<result property="imgOriginal" column="IMG_ORIGINAL"/>
+		<result property="imgName" column="IMG_NM"/>
 	</resultMap>
 	
 	<resultMap type="Sns" id="sns_rm">
@@ -61,6 +63,8 @@
 		<result property="certCd" column="CERT_CD" />
 		<result property="certEndDt" column="CERT_END_DT" />
 	</resultMap>
+	
+	
 	<!-- 로그인 -->
 	<select id="login" resultMap="member_rm">
 		SELECT * FROM MEMBER
@@ -167,16 +171,35 @@
 	</update>
 	
 	<!-- 강사 sns 삭제 -->
-	<update id="teacherSnsUpdate">
+	<update id="teacherSnsDelete">
 		DELETE FROM SNS 
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
 	<!-- 강사 sns 삽입 -->
-	<update id="teacherSnsInsert">
+	<update id="teacherSnsInsert" parameterType="Sns">
 		INSERT INTO SNS VALUES(SEQ_SNS_NO.NEXTVAL, #{snsLink}, #{memberNo}, #{snsDiv})
 	</update>
 	
+	<!-- 강사 이력 삭제 -->
+	<update id="teacherProfileDelete">
+		DELETE FROM CAREER 
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
 	
+	<!-- 강사 이력 삽입 -->
+	<insert id="teacherProfileInsert">
+		INSERT INTO CAREER VALUES(SEQ_CAREER_NO.NEXTVAL, #{careerContent}, #{memberNo}, #{imgPath}, #{imgName}, #{imgOriginal})
+	</insert>
+	
+	<!-- 강사 신청 -->
+	<insert id="teacherRegisterInsert">
+		INSERT INTO TEACHER VALUES(#{memberNo}, 1, #{teacherIntro}, SYSDATE, 0)
+	</insert>
+	
+	<!-- 이력 삽입 -->
+	<insert id="insertTeacherCareer">
+		INSERT INTO CAREER VALUES(SEQ_CAREER_NO.NEXTVAL, #{careerContent}, #{memberNo}, 1, 2, 3)
+	</insert>
 	
 </mapper>
