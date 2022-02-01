@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="chat_info">
-        <div class="backBtn">
+        <div class="backBtn" onclick="location.href='/tteutto/chat/chatRoomList'">
             <svg width="25" height="25" viewBox="0 0 13 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="InnerIconstyled__Icon-sc-197h5bb-0 cYxoKX CompactHeaderstyled__BackButton-sc-1rdzle3-7 hQfOPQ" defaultOpacity="1" hoveredOpacity="1" margintop="0" marginright="0" marginbottom="0" marginleft="0">
                 <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M9.17255 16.4226C8.84711 16.748 8.31947 16.748 7.99404 16.4226L2.1607 10.5893C1.83527 10.2638 1.83527 9.73619 2.1607 9.41075L7.99404 3.57742C8.31947 3.25198 8.84711 3.25198 9.17255 3.57742C9.49799 3.90285 9.49799 4.43049 9.17255 4.75593L3.92847 10L9.17255 15.2441C9.49799 15.5695 9.49799 16.0972 9.17255 16.4226Z"></path>
             </svg>
