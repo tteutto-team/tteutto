@@ -543,8 +543,63 @@ public class MemberController {
 	
 	// 강사 신청 페이지 이동
 	@RequestMapping(value = "teacherRegister", method = RequestMethod.GET)
-	public String teacherRegister() {
-		return "member/teacherRegister";
+	public String teacherRegister(HttpSession session) {
+		if(session.getAttribute("loginMember") != null) {
+			return "member/teacherRegister";			
+		}else {
+			return "member/login";
+		}
+	}
+	
+	// 강사 신청
+	@RequestMapping(value = "teacherRegister", method=RequestMethod.POST)
+	public String teacherRegisterInsert(RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember, 
+										Teacher teacher, String instagram, String blog, String youtube,
+										List<MultipartFile> images, HttpSession session) {
+		
+		// 로그인 맴버 가져오기
+		teacher.setMemberNo(loginMember.getMemberNo());
+		
+		// 웹 접근 경로(webPath), 서버 저장 경로(serverPath)
+		String webPath = "/resources/images/teacher/"; // DB에 저장되는 경로
+		String serverPath = session.getServletContext().getRealPath(webPath);
+		
+		// SNS 리스트 생성 
+		List<Sns> snsList = new ArrayList<Sns>();
+		
+		if(instagram != null) {
+			Sns sns = new Sns();
+			sns.setSnsLink(instagram);
+			sns.setSnsDiv(0);
+			snsList.add(sns);
+		}
+		if(blog != null) {
+			Sns sns = new Sns();
+			sns.setSnsLink(blog);
+			sns.setSnsDiv(1);
+			snsList.add(sns);
+		}
+		if(youtube != null) {
+			Sns sns = new Sns();
+			sns.setSnsLink(youtube);
+			sns.setSnsDiv(2);
+			snsList.add(sns);
+		}
+		
+		// 이력 리스트 생성
+		List<Career> career = new ArrayList<Career>();
+		
+		int result = service.teacherRegisterInsert(teacher, images, career, snsList );
+		
+		if(result > 0) {
+			Util.swalSetMessage("강사 신청 완료", "관리자 승인을 기다려주세요.", "success", ra);			
+			return "redirect:/";
+		}else {
+			Util.swalSetMessage("강사 신청 실패", "관리자에게 문의해주세요.", "error", ra);			
+			return "redirect:/";
+		}
+		
+		
 	}
 	
 	// 지도 지역 불러오기 

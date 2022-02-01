@@ -177,6 +177,14 @@
 		INSERT INTO SNS VALUES(SEQ_SNS_NO.NEXTVAL, #{snsLink}, #{memberNo}, #{snsDiv})
 	</update>
 	
+	<!-- 강사 신청 -->
+	<insert id="teacherRegisterInsert">
+		INSERT INTO TEACHER VALUES(#{memberNo}, 1, #{teacherIntro}, SYSDATE, 0)
+	</insert>
 	
+	<!-- 이력 삽입 -->
+	<insert id="insertTeacherCareer">
+		INSERT INTO CAREER VALUES(SEQ_CAREER_NO.NEXTVAL, #{careerContent}, #{memberNo}, 1, 2, 3)
+	</insert>
 	
 </mapper>
