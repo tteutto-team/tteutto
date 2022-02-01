@@ -8,6 +8,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
 		<!-- favicon -->
 		<link rel="apple-touch-icon" sizes="57x57" href="${contextPath}/resources/images/favicon/apple-icon-57x57.png">
 		<link rel="apple-touch-icon" sizes="60x60" href="${contextPath}/resources/images/favicon/apple-icon-60x60.png">
@@ -77,7 +78,7 @@
 								<li><a href="${contextPath}/member/studentWishList"><i class="icon-heart"></i></a></li>
 								
 								<%-- 1:1 채팅 / 쪽지 팝업창 열기 --%>
-								<li><a href="#"><i class="icon-chat" id="chat">
+								<li><a href="#none" onclick="window.open('${contextPath}/chat/chatRoomList', '_blank', 'width=482, height=700, top=200');"><i class="icon-chat" id="chat">
 									<%-- 알림 표시 --%>
 									<span class="alert">2</span>
 								</i></a></li>

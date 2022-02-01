@@ -28,6 +28,7 @@
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Sns" alias="Sns" />
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Certified" alias="Certified" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.Teacher" alias="Teacher" />
+		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.Episode" alias="Episode" />
 	</typeAliases>
 	
 	<!-- mapper 파일(SQL 작성되는파일) 위치 등록 부분 -->

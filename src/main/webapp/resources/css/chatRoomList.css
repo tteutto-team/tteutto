@@ -1,0 +1,189 @@
+/* 채팅 info */
+.chat_info img {
+    width: 105px;
+    margin-left: 18px;
+}
+
+.chat_info span {
+    font-family: 'IBM Plex Sans KR';
+    font-weight: 500;
+    vertical-align: top;
+    display: inline-block;
+    padding: 17px 0 0 10px;
+}
+
+.chat_info {
+    background: #f8f8f8;
+    padding: 10px;
+    box-shadow: 2px 0 5px grey;
+}
+
+.chatClose {
+    position: absolute;
+    right: 10px;
+    top: 16px;
+    line-height: 100%;
+    font-size: 34px;
+    cursor: pointer;
+}
+
+.flex_wrap {
+    display: flex;
+}
+
+/* 메뉴 탭 */
+.menuTap ul{
+    list-style: none;
+    overflow: hidden;
+}
+
+.menuTap ul li{
+    width: 50%;
+    float: left;
+}
+
+.menuTap ul li a {
+    padding: 15px 0 15px 0;
+    background: #f0f2f4;
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+
+    border-bottom: 1px solid #dcdcdc;
+    
+}
+
+.menuTap ul li a.on{
+    background: #fff;
+    color: #bd3401;
+    font-weight: 600;
+
+    border: 1px solid #dcdcdc;
+    border-bottom: none;
+}
+
+/* 수강생/강사 모드 */
+.modeChange select{
+    border: none;
+    font-size: 17px;
+    font-weight: 500;
+    /* float: right; */
+    margin: 20px 0 0 20px;;
+    font-family: 'IBM Plex Sans KR';
+
+}
+
+
+/* 메인 안의 컨텐츠 스타일 지정 */
+.chat_romm_list{
+    margin: 24px;
+}
+
+.chat_romm_list ul{
+    /* flex box 생성 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* unordered list 기본 스타일 제거(점, 들여쓰기) */
+    list-style: none;
+    padding-left: 0;
+}
+.chat_romm_list li{
+    flex-basis:5rem; /*16 브라우저 기준 80px */
+    flex-shrink: 0;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.chat_romm_list li > a{
+    /* 안에 또 다른 flex box 생성 */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0px;
+    text-decoration: none;
+}
+.friend-name{
+    color: black;
+}
+.profile-img{
+    width: 4.125rem;
+    border-radius: 7px;
+}
+.chat_romm_list li .talk{
+    /* 프로필 사진과 메시지(채팅) 내용 사이 간격 조절 */
+    margin-left: 0.9375rem; /* 16 브라우저 기준 15px */
+    
+    flex-grow: 1; /* 메시지 내용과 시간 사이에 빈 공간 채우기 위한 flex-grow 설정 */
+}
+.talk > *, time{
+    margin-top: 0.3125rem ; /* 16 브라우저 기준 5px */
+    margin-bottom: 0.3125rem;
+}
+.friend-name{
+    /* 프로필명(이름) 스타일 조정 */
+    font-weight: bold;
+    font-size: 0.875rem; /* 16 브라우저 기준 14px */
+}
+.chat-content{
+    /* 메시지(채팅) 내용 스타일 조정 */
+    color: gray;
+    font-size: 0.75rem; /* 16 브라우저 기준 12px */
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+}
+.member_cnt{
+    /* 그룹 채팅방 경우, 인원 수 표시 */
+    color: rgb(194, 194, 194);
+    font-size: 0.75rem;
+    margin-left: 0.4375rem; /* 7px (!6폰트 브라우저 기준) */
+}
+.me{
+    display: inline-block;
+    background-image: url(../pic/me_balloon.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding: 0.125rem; /* 16폰트 브라우저 기준 2px */
+    margin-right: 0.125rem;
+
+    vertical-align: middle;
+    font-size: 0.625rem; /* 16 브라우저 기준 10px */
+    color: white;
+}
+
+.chat-status{
+    flex-basis: 4.5rem; /* 72p */
+    flex-shrink: 0; /* 유연하게 사이즈 조절 불가토록 설정 */
+    text-align: right;
+}
+
+time{
+    display: block;
+    color: rgb(194, 194, 194);
+    font-size: 0.725rem !important;/* 16 브라우저 기준 10px */
+}
+.chat-balloon{
+    /* 안읽은 메시지 수(count) 표시 스타일 지정 */    
+    display:inline-block;
+    border: 1px solid tomato;
+    background-color: tomato;
+    border-radius: 0.625rem;
+    font-size: 0.3125rem;
+    color: white;
+    font-weight: bold;
+    padding-top: 0.0625rem; /* 16 브라우저 기준 1px */
+    padding-bottom: 0.0625rem;
+    padding-left: 0.25rem; /* 16 브라우저 기준 4px */
+    padding-right:0.25rem;
+}

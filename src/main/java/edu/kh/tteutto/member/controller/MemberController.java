@@ -36,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
+import edu.kh.tteutto.common.Util;
 import edu.kh.tteutto.member.model.service.MemberService;
 import edu.kh.tteutto.member.model.vo.Career;
 import edu.kh.tteutto.member.model.vo.Certified;
@@ -54,34 +55,36 @@ public class MemberController {
 	@Autowired
 	private JavaMailSender mailSender;
 
-	@RequestMapping("callback")
-	public String callback() {
+	@RequestMapping(value="callback", method=RequestMethod.GET)
+	public String callback(HttpSession session, HttpServletRequest request) {
 		return "member/callback";
 	}
 	
-	// 회원가입 페이지 이동
-	@RequestMapping("naverLogin")
-	public ModelAndView naverLogin(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView();
-		String inputEmail = request.getParameter("user_email");
-		//System.out.println(inputEmail);
-		int result = service.emailDupCheck(inputEmail);
-		//System.out.println(result);
-		if(result == 0) {
-			System.out.println(inputEmail);
-			mv.addObject("inputEmail",inputEmail);
-			mv.setViewName("/member/signup");
-			return mv;
-		}else {
-			HttpSession session = request.getSession();
-			session.setAttribute("MEMBER_EMAIL", inputEmail);
-			mv.addObject(session);
-			mv.setViewName("redirect:/");
-			
-			return mv;
-		}
-		
-	}
+	
+	
+//	// 회원가입 페이지 이동
+//	@RequestMapping("naverLogin")
+//	public ModelAndView naverLogin(HttpServletRequest request) {
+//		ModelAndView mv = new ModelAndView();
+//		String inputEmail = request.getParameter("user_email");
+//		//System.out.println(inputEmail);
+//		int result = service.emailDupCheck(inputEmail);
+//		//System.out.println(result);
+//		if(result == 0) {
+//			System.out.println(inputEmail);
+//			mv.addObject("inputEmail",inputEmail);
+//			mv.setViewName("/member/signup");
+//			return mv;
+//		}else {
+//			HttpSession session = request.getSession();
+//			session.setAttribute("MEMBER_EMAIL", inputEmail);
+//			mv.addObject(session);
+//			mv.setViewName("redirect:/");
+//			
+//			return mv;
+//		}
+//		
+//	}
 	
 	// 회원가입 페이지 이동
 	@RequestMapping(value = "signup", method = RequestMethod.GET)
@@ -267,12 +270,8 @@ public class MemberController {
 	// 비밀번호 찾기 링크 보내기
 	@RequestMapping("sendEmail")
 	@ResponseBody
-	public String sendEmail(String inputEmail, RedirectAttributes ra) {
-		
+	public int sendEmail(String inputEmail, RedirectAttributes ra) {
 		String temp = "";
-		String text = "";
-		String icon = "";
-		
 		// 인증 번호 생성기
 		Random rnd = new Random();
 		for (int i = 0; i < 8; i++) {
@@ -301,10 +300,6 @@ public class MemberController {
 		int result =service.updateMailTest(map);
 		String url = "http://localhost:8080/tteutto/member/changePw?memberEmail=" +inputEmail+"&certCd="+ temp;
 		if (result == 1) {
-			
-			text = "이메일 링크 전송 성공";
-			icon = "success";
-			
 			String subject = "뜨또 비밀번호 찾기 입니다.";
 			String content = 
 				"<div style='width: 500px; border: 1px solid #ddd; border-radius: 5px; padding: 30px;\'>" +
@@ -351,18 +346,12 @@ public class MemberController {
 				 * 단순한 텍스트만 사용하신다면 다음의 코드를 사용하셔도 됩니다. mailHelper.setText(content);
 				 */
 				mailSender.send(mail);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else {
-			text = "이메일을 확인해주세요.";
-			icon = "error";
 		}
-		
-		ra.addFlashAttribute("text", text);
-		ra.addFlashAttribute("icon", icon);
-
-		return "redirect:/";
+		return result;
 	}
 	
 	// 비밀번호 변경
@@ -510,20 +499,23 @@ public class MemberController {
 		
 		List<Sns> snsList = new ArrayList<Sns>();
 		
-		if(instagram != null) {
+		if(!instagram.equals("")) {
 			Sns sns = new Sns();
+			sns.setMemberNo(3);
 			sns.setSnsLink(instagram);
 			sns.setSnsDiv(1);
 			snsList.add(sns);
 		}
-		if(blog != null) {
+		if(!blog.equals("")) {
 			Sns sns = new Sns();
+			sns.setMemberNo(3);
 			sns.setSnsLink(blog);
 			sns.setSnsDiv(2);
 			snsList.add(sns);
 		}
-		if(youtube != null) {
+		if(!youtube.equals("")) {
 			Sns sns = new Sns();
+			sns.setMemberNo(3);
 			sns.setSnsLink(youtube);
 			sns.setSnsDiv(3);
 			snsList.add(sns);
@@ -537,21 +529,23 @@ public class MemberController {
 		// 이력에 대한 설명이 작성되지 않았을 경우
 		for(int i = 0; i < profileInput.size(); i++) {
 			if(profileInput.get(i).equals("")) {
+				
+				
+				
 				profileInput.remove(i);
 				images.remove(i);
 			}
 		}
 		
 		
+		
 		// 1) 웹 접근 경로(webPath), 서버 저장 경로(serverPath)
 		String webPath = "/resources/images/teacher/profile/"; // (DB에 저장되는 경로)
 		String serverPath = session.getServletContext().getRealPath(webPath);
 		
-//		int result = service.teacherProfileUpdate(teacher, phone, snsList, profileInput, images, serverPath);
+		int result = service.teacherProfileUpdate(teacher, phone, snsList, profileInput, images, webPath, serverPath);
 		
-		
-		
-		
+		System.out.println("컨트롤러 최종 결과:"  + result);
 		
 		return "redirect:teacherProfile";
 	}
@@ -560,11 +554,73 @@ public class MemberController {
 	
 	
 	
-	
 	// 강사 신청 페이지 이동
 	@RequestMapping(value = "teacherRegister", method = RequestMethod.GET)
-	public String teacherRegister() {
-		return "member/teacherRegister";
+	public String teacherRegister(HttpSession session) {
+		if(session.getAttribute("loginMember") != null) {
+			return "member/teacherRegister";			
+		}else {
+			return "member/login";
+		}
+	}
+	
+	// 강사 신청
+	@RequestMapping(value = "teacherRegister", method=RequestMethod.POST)
+	public String teacherRegisterInsert(RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember, 
+										Teacher teacher, String instagram, String blog, String youtube,
+										List<MultipartFile> images, HttpSession session) {
+		
+		// 로그인 맴버 가져오기
+		teacher.setMemberNo(loginMember.getMemberNo());
+		
+		// 웹 접근 경로(webPath), 서버 저장 경로(serverPath)
+		String webPath = "/resources/images/teacher/"; // DB에 저장되는 경로
+		String serverPath = session.getServletContext().getRealPath(webPath);
+		
+		// SNS 리스트 생성 
+		List<Sns> snsList = new ArrayList<Sns>();
+		
+		if(instagram != null) {
+			Sns sns = new Sns();
+			sns.setSnsLink(instagram);
+			sns.setSnsDiv(0);
+			snsList.add(sns);
+		}
+		if(blog != null) {
+			Sns sns = new Sns();
+			sns.setSnsLink(blog);
+			sns.setSnsDiv(1);
+			snsList.add(sns);
+		}
+		if(youtube != null) {
+			Sns sns = new Sns();
+			sns.setSnsLink(youtube);
+			sns.setSnsDiv(2);
+			snsList.add(sns);
+		}
+		
+		// 이력 리스트 생성
+		List<Career> career = new ArrayList<Career>();
+		
+		int result = service.teacherRegisterInsert(teacher, images, career, snsList );
+		
+		if(result > 0) {
+			Util.swalSetMessage("강사 신청 완료", "관리자 승인을 기다려주세요.", "success", ra);			
+			return "redirect:/";
+		}else {
+			Util.swalSetMessage("강사 신청 실패", "관리자에게 문의해주세요.", "error", ra);			
+			return "redirect:/";
+		}
+		
+		
+	}
+	
+	// 지도 지역 불러오기 
+	@GetMapping("classLocation")
+	@ResponseBody()
+	public String classLocation() {
+		
+		return null;
 	}
 	
 	

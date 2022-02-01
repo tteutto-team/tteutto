@@ -66,9 +66,9 @@
 
         <div class="location-class-bottom">
 
-            <div class="class" onclick="location.href='/tteutto/class/classDetail'">
+            <div class="class" >
                 <div class="image">
-                    <img src="${contextPath}/resources/images/class/temp.jpg">
+                    <img src="${contextPath}/resources/images/class/temp.jpg" onclick="location.href='/tteutto/class/classDetail'">
                     <p class="location-p">서울 강남</p>
                 </div>
                 <button type="button" class="btn_like">
@@ -77,7 +77,7 @@
                 </button>
                 <div class="detail-info">
                     <span class="category-name">카테고리</span>
-                    <div class="class-name">[🏆BEST] 이봄의 타로 클래스 ❥ 고민으로 잠 못드는 당신을 위해</div>
+                    <div class="class-name" onclick="location.href='/tteutto/class/classDetail'">[🏆BEST] 이봄의 타로 클래스 ❥ 고민으로 잠 못드는 당신을 위해</div>
                     <div class="grade">
                         <i class="fi-rr-star"></i> <span>95%</span>
                         <i class="fi-rr-heart"></i> <span>120</span>
@@ -411,13 +411,16 @@
                     <div class="modal-location">
                         <p>'서울 종로구'</p>
                     </div>
-                    
-                    <div style="border: 1px solid #ccc; height: 300px;">Map API</div>
+                    <div class="modal_location_search">
+                    	<input type=text" id="locationSearch" name="locationSearch">
+                    	<button type="button" id="locationSearchBtn">찾기</button>	
+                    </div>
+                    <div style="border: 1px solid #ccc; height: 300px;"><div id="map" style="width:100%;height:100%;"></div></div>
 
-                    <input type="hidden">
+                    
 
                     <div id="modal-btn">
-                        <button>설정</button>
+                        <button id="locationClick" type="button">설정</button>
                         <button type="button" id="modal-close-btn" class="modal-close-btn">취소</button>
                     </div>
                 </form>
@@ -432,6 +435,10 @@
 <!-- 부트스트랩 케러셀 -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- 지도 API/JS -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c2fadae20e5509a211c93e833342aa29&libraries=services,clusterer,drawing"></script>
+<script src="${contextPath}/resources/js/mapList.js"></script>
 
 <script>
     $('.btn_like').click(function(){
@@ -450,12 +457,14 @@
     /* 위치 모달 */
     // 모달 열기
 	    $(".modal-open-btn").click(function () {
-	        
+	    	
 	    	// 위치
 	        if($(this).hasClass("location")){
 	            $(".location-setting").fadeIn(100);
 	            $(".location-setting").css("display", "flex");
 	        }
+	    	
+	        relayout();
 	    });
 	
 	    // 모달 닫기 버튼
