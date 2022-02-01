@@ -4,8 +4,10 @@ public class AdminTeacherCareer {
 
 	private int careerNo;
 	private String careerContent;
-	private String careerImg;
 	private int memberNo;
+	private String imgPath;
+	private String imgName;
+	private String imgOriginal;
 
 	public AdminTeacherCareer() {
 	}
@@ -26,14 +28,6 @@ public class AdminTeacherCareer {
 		this.careerContent = careerContent;
 	}
 
-	public String getCareerImg() {
-		return careerImg;
-	}
-
-	public void setCareerImg(String careerImg) {
-		this.careerImg = careerImg;
-	}
-
 	public int getMemberNo() {
 		return memberNo;
 	}
@@ -42,10 +36,34 @@ public class AdminTeacherCareer {
 		this.memberNo = memberNo;
 	}
 
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+
+	public String getImgName() {
+		return imgName;
+	}
+
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
+	}
+
+	public String getImgOriginal() {
+		return imgOriginal;
+	}
+
+	public void setImgOriginal(String imgOriginal) {
+		this.imgOriginal = imgOriginal;
+	}
+
 	@Override
 	public String toString() {
-		return "AdminTeacherCareer [careerNo=" + careerNo + ", careerContent=" + careerContent + ", careerImg="
-				+ careerImg + ", memberNo=" + memberNo + "]";
+		return "AdminTeacherCareer [careerNo=" + careerNo + ", careerContent=" + careerContent + ", memberNo="
+				+ memberNo + ", imgPath=" + imgPath + ", imgName=" + imgName + ", imgOriginal=" + imgOriginal + "]";
 	}
 
 }

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,14 +14,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 
 import edu.kh.tteutto.admin.model.service.AdminService;
 import edu.kh.tteutto.admin.model.vo.Admin;
+import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
 import edu.kh.tteutto.admin.model.vo.AdminTeacher;
+import edu.kh.tteutto.common.Util;
 import edu.kh.tteutto.member.model.vo.Member;
 
 @Controller
@@ -191,5 +198,84 @@ public class adminController {
 		
 		
 		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 공지사항 페이지 이동
+	@RequestMapping(value="noticeManage", method=RequestMethod.GET)
+	public String noticeManage() {
+		return "admin/noticeManage";
+	}
+	
+	// 공지사항 목록 조회
+	@RequestMapping(value="noticeList", method=RequestMethod.GET)
+	@ResponseBody
+	public List<AdminNoticeFaq> noticeList(){
+		
+		List<AdminNoticeFaq> data = service.noticeList();
+		
+		return data;
+	}
+	
+	// 공지사항 삭제
+	@RequestMapping(value="noticeDelete", method=RequestMethod.GET)
+	@ResponseBody
+	public int noticeDelete(int noticeNo){
+		
+		return service.noticeDelete(noticeNo);
+	}
+	
+	// 공지사항 글쓰기 페이지 이동
+	@RequestMapping(value="noticeInsert", method=RequestMethod.GET)
+	public String noticeInsert() {
+		return "admin/noticeInsert";
+	}
+	
+	// 공지사항 게시글 삽입
+	@RequestMapping(value="noticeInsert", method=RequestMethod.POST)
+	public String insertNotice(@RequestParam(value="images", required=false) List<MultipartFile> images,
+								HttpSession session,
+								RedirectAttributes ra, AdminNoticeFaq notice) {
+		
+		String webPath = "/resources/images/notice/"; // (DB에 저장되는 경로)
+		
+		String serverPath = session.getServletContext().getRealPath(webPath);
+		
+		int result = service.insertNotice(notice, images, webPath, serverPath);
+
+		if(result > 0) {
+			Util.swalSetMessage("게시글 삽입 완료", null, "success", ra);
+		}else {
+			Util.swalSetMessage("게시글 삽입 실패", null, "error", ra);
+		}
+		
+		return "redirect:/admin/noticeManage";
 	}
 }

@@ -1,0 +1,81 @@
+body{
+	background-color: #F1F1F1;
+}
+
+#right{
+	margin-left: 300px;
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+
+#right > div{
+	width: 1100px;
+	min-height: 750px;
+	background-color: white;
+	border: 1px solid #989696;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	
+}
+
+#right .title-wrap{
+	align-self: baseline;
+    padding: 30px 50px; 
+    display: flex;
+}
+
+#right .title-wrap > button{
+	right: 50;
+    top: 36;
+    position: absolute;
+    height: 30px;
+    width: 60px;
+}
+
+#right form {
+	padding: 0 50px;
+	
+}
+
+#right form > div{
+    display: flex;
+    border-bottom: 1px solid #989696;
+    margin-bottom: 50px;
+    padding-bottom: 20px;
+}
+
+#right input{
+	padding: 5px;
+}
+#right input[type=text]{
+	flex: 0.8 1 0;
+}
+
+
+#right textarea{
+	flex: 0.8 1 0;
+	resize: none;
+	height: 350px;
+	padding: 5px;
+}
+
+#right form > div:last-of-type{
+	border-bottom: 0;
+}
+
+#right form > div > p{
+	width: 200px;
+}
+#right form > div button:not(button:first-of-type){
+	margin-left: 4px;
+}
+
+#right form > button{
+	position: absolute;
+	width: 120px;
+	height: 30px;
+	left: calc(50% - 60px);
+	bottom: 10px;
+}
+
