@@ -145,6 +145,24 @@ public class MemberDAO {
 		return sqlSession.insert("memberMapper.teacherSnsInsert", sns);
 	}
 
+	/** 강사 정보 수정 - 이력 삭제
+	 * @param memberNo
+	 * @return result
+	 */
+	public int teacherProfileDelete(int memberNo) {
+		return sqlSession.delete("memberMapper.teacherProfileDelete", memberNo);
+	}
+
+	/** 강사 정보 수정 - 이력 삽입
+	 * @param career
+	 * @return result
+	 */
+	public int teacherProfileInsert(Career career) {
+		return sqlSession.insert("memberMapper.teacherProfileInsert", career);
+	}
+
+
+
 
 
 

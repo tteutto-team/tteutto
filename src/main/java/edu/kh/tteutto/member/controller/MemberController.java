@@ -499,20 +499,23 @@ public class MemberController {
 		
 		List<Sns> snsList = new ArrayList<Sns>();
 		
-		if(instagram != null) {
+		if(!instagram.equals("")) {
 			Sns sns = new Sns();
+			sns.setMemberNo(3);
 			sns.setSnsLink(instagram);
 			sns.setSnsDiv(1);
 			snsList.add(sns);
 		}
-		if(blog != null) {
+		if(!blog.equals("")) {
 			Sns sns = new Sns();
+			sns.setMemberNo(3);
 			sns.setSnsLink(blog);
 			sns.setSnsDiv(2);
 			snsList.add(sns);
 		}
-		if(youtube != null) {
+		if(!youtube.equals("")) {
 			Sns sns = new Sns();
+			sns.setMemberNo(3);
 			sns.setSnsLink(youtube);
 			sns.setSnsDiv(3);
 			snsList.add(sns);
@@ -526,20 +529,30 @@ public class MemberController {
 		// 이력에 대한 설명이 작성되지 않았을 경우
 		for(int i = 0; i < profileInput.size(); i++) {
 			if(profileInput.get(i).equals("")) {
+				
+				
+				
 				profileInput.remove(i);
 				images.remove(i);
 			}
 		}
 		
 		
+		
 		// 1) 웹 접근 경로(webPath), 서버 저장 경로(serverPath)
 		String webPath = "/resources/images/teacher/profile/"; // (DB에 저장되는 경로)
 		String serverPath = session.getServletContext().getRealPath(webPath);
 		
-//		int result = service.teacherProfileUpdate(teacher, phone, snsList, profileInput, images, serverPath);
+		int result = service.teacherProfileUpdate(teacher, phone, snsList, profileInput, images, webPath, serverPath);
+		
+		System.out.println("컨트롤러 최종 결과:"  + result);
 		
 		return "redirect:teacherProfile";
 	}
+	
+	
+	
+	
 	
 	// 강사 신청 페이지 이동
 	@RequestMapping(value = "teacherRegister", method = RequestMethod.GET)
