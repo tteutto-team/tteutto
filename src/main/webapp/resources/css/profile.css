@@ -186,6 +186,10 @@ main {
 	display: block;
 }
 
+#picture:hover{
+	cursor: pointer;
+}
+
 .label_title {
 	padding: 0 40px;
 	width: 20%;
@@ -456,4 +460,10 @@ main {
 
 .close_record:hover{
 	background-color: #ccc;
+}
+
+.ppap{
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
 }
