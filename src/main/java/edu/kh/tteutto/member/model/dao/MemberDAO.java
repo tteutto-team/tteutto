@@ -145,6 +145,25 @@ public class MemberDAO {
 		return sqlSession.insert("memberMapper.teacherSnsInsert", sns);
 	}
 
+	/** 강사 신청
+	 * @param teacher
+	 * @param career
+	 * @param sns
+	 * @return
+	 */
+	public int teacherRegisterInsert(Teacher teacher) {
+		return sqlSession.insert("memberMapper.teacherRegisterInsert", teacher);
+	}
+
+	
+	/** 이력 삽입
+	 * @param car
+	 * @return 
+	 */
+	public int insertTeacherCareer(Career car) {
+		return sqlSession.insert("memberMapper.insertTeacherCareer", car);
+	}
+
 
 
 
