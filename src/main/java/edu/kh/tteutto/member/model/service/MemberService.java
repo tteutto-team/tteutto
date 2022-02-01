@@ -101,10 +101,12 @@ public interface MemberService {
 	 * @param snsList
 	 * @param profileInput
 	 * @param images
+	 * @param webPath 
+	 * @param serverPath 
 	 * @return result
 	 */
 	int teacherProfileUpdate(Teacher teacher, String phone, List<Sns> snsList, List<String> profileInput,
-			List<MultipartFile> images);
+			List<MultipartFile> images, String webPath, String serverPath);
 
 
 	/** 강사 신청

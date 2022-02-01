@@ -129,10 +129,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	// 강사 정보 수정
-	@Transactional
-	@Override
+@Override
 	public int teacherProfileUpdate(Teacher teacher, String phone, List<Sns> snsList, List<String> profileInput,
-			List<MultipartFile> images) {
+		List<MultipartFile> images, String webPath, String serverPath) {
 		
 		int result = 0; 
 		int result4 = 0;
@@ -170,40 +169,45 @@ public class MemberServiceImpl implements MemberService{
 
 		if(result4 > 0) {
 			// 강사 이력 삭제
-//			result = dao.teacherProfileDelete(teacher.getMemberNo(), profileInput, images);
+			int result5 = dao.teacherProfileDelete(teacher.getMemberNo());
+			// 여기까지는 진행 완료
 			
 			
-			// 4) images에 담겨있는 파일 정보 중
-			//    업로드된 파일 정보를 imgList에 옮겨 담기
-//			if(result > 0) {
-//				
-//				List<BoardImage> imgList = new ArrayList<BoardImage>();
-//				
-//				for(int i=0 ; i<images.size(); i++) {
-//					// i == images 인덱스 == imgLevel
-//					
-//					// 업로드된 파일이 있는 경우
-//					if( !images.get(i).getOriginalFilename().equals("")  ) {
-//						
-//						BoardImage img = new BoardImage();
-//						
-//						img.setImgPath(webPath); // 웹 접근 경로
-//						img.setImgName( Util.fileRename( images.get(i).getOriginalFilename() ) ); // 변경된 파일명
-//						img.setImgOriginal( images.get(i).getOriginalFilename() ); // 원본 파일명
-//						img.setImgLevel(i); // 이미지 레벨
-//						img.setBoardNo( board.getBoardNo() ); // 게시글 번호
-//						
-//						imgList.add(img);
-//					}
-//				}
+			// images에 담겨있는 파일 정보 중 업로드된 파일 정보를 imgList에 옮겨 담기
+			
+			List<Career> imgList = new ArrayList<Career>();
+			
+			for(int i=0 ; i<images.size(); i++) {
 				
+				Career img = new Career();
 				
+				img.setMemberNo(teacher.getMemberNo()); // 강사 번호
+				img.setImgPath(webPath); // 웹 접근 경로
+				img.setImgName( Util.fileRename( images.get(i).getOriginalFilename() ) ); // 변경된 파일명
+				img.setImgOriginal( images.get(i).getOriginalFilename() ); // 원본 파일명
+				img.setCareerContent(profileInput.get(i));	// 이력 내용
 				
+				imgList.add(img);
 				
+				result = dao.teacherProfileInsert(img);
 				
-				
+				if(result > 0) {
+					
+					try {
+						images.get(i).transferTo(new File(serverPath + "/" + imgList.get(i).getImgName()));
+					} catch (Exception e) {
+						e.printStackTrace();
+						// 파일 변환이 실패할 경우
+						// 사용자 정의 예외 발생
+//						throw new InsertBoardFailException("파일 변환 중 문제 발생");
+					}
+				}
+			}
+			
+			
+			
+			
 		}
-		
 		
 		return result;
 	}
