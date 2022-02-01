@@ -7,9 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.tteutto.admin.model.vo.Admin;
+import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
+import edu.kh.tteutto.admin.model.vo.AdminNoticeImage;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
 import edu.kh.tteutto.admin.model.vo.AdminTeacher;
 
+/**
+ * @author ChoiSeungYeop
+ *
+ */
 @Repository
 public class AdminDAO {
 	
@@ -83,7 +89,14 @@ public class AdminDAO {
 	public int teacherAgree(int memberNo) {
 		return sqlSession.update("adminMapper.teacherAgree", memberNo);
 	}
-
+	
+	/** 강사 신청 승인 Enroll 업데이트
+	 * @param memberNo
+	 * @return result
+	 */
+	public int teacherEnrollY(int memberNo) {
+		return sqlSession.update("adminMapper.teacherEnrollY", memberNo);
+	}
 
 	/** 강사 신청 거절
 	 * @param memberNo
@@ -126,6 +139,59 @@ public class AdminDAO {
 	 */
 	public int memberBan(AdminReport adminReport) {
 		return sqlSession.update("adminMapper.memberBan", adminReport);
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/** 공지사항 목록 조회
+	 * @return data
+	 */
+	public List<AdminNoticeFaq> noticeList() {
+		return sqlSession.selectList("adminMapper.noticeList");
+	}
+
+
+	/** 공지사항 삭제
+	 * @param noticeNo
+	 * @return result
+	 */
+	public int noticeDelete(int noticeNo) {
+		return sqlSession.delete("adminMapper.noticeDelete", noticeNo);
+	}
+
+
+	/** 공지사항 게시글 삽입
+	 * @param notice
+	 * @return result
+	 */
+	public int insertNotice(AdminNoticeFaq notice) {
+		return sqlSession.insert("adminMapper.insertNotice", notice);
+	}
+
+
+	/** 공지사항 이미지 삽입
+	 * @param imgList
+	 * @return result
+	 */
+	public int insertImgList(List<AdminNoticeImage> imgList) {
+		return sqlSession.insert("adminMapper.insertImgList", imgList);
 	}
 
 

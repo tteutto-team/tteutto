@@ -4,7 +4,7 @@ $(function () {
 
 function createTable() {
 	$.ajax({
-		url: "classList",
+		url: "noticeList",
 		type: "GET",
 		dataType: "JSON",
 		success: function (data) {
@@ -12,62 +12,51 @@ function createTable() {
 			$('#table_id').DataTable({
 				language: lang_kor,
 				data: data,
-				order: [[3, "asc"]],
+				order: [[2, "desc"]],
 				columns: [
-					{ data: "classNo" },
+					{ data: "noticeNo" },
 					{
 						data: null,
 						render: function (data, type, row) {
-							return '<a href="#">' + data.className + '</a>';
+							return '<a href="#">' + data.noticeTitle + '</a>';
 						}
 					},
-					{ data: "memberName" },
-					{ data: "classRequestDate" },
+					{ data: "noticeDate" },
 					{
 						data: null,
 						render: function (data, type, row) {
-							return '<button onclick="agree(' + data.classNo + ', ' + data.memberNo + ', \'' + data.className + '\')">승인</button>'
-								+ '<button onclick="deny(' + data.classNo + ', ' + data.memberNo + ', \'' + data.className + '\')">거절</button>';
+							return '<button onclick="agree(' + data.noticeNo + ')">삭제</button>'
 						},
 						orderable: false
 					}
-				]
+				],
 			})
 		}
 	})
 }
 
-function agree(classNo, memberNo, className) {
+function agree(noticeNo) {
 	Swal.fire({
-		title: '승인 하시겠습니까?',
+		title: '삭제 하시겠습니까?',
 		icon: 'warning',
 		showCancelButton: true,
 		confirmButtonColor: '#3085d6',
 		cancelButtonColor: '#d33',
-		confirmButtonText: '승인 쪽지 보내기',
+		confirmButtonText: '삭제하기',
 		cancelButtonText: '취소'
 	}).then((result) => {
 		if (result.value) {
 			$.ajax({
-				url: "classAgree",
+				url: "noticeDelete",
 				dataType: "json",
 				data: {
-					"classNo": classNo,
-					"memberNo": memberNo,
-					"className": className,
+					"noticeNo": noticeNo
 				},
 				success: function (result) {
 					if (result > 0) {
 
-						const obj = {}
-						obj.noteContent = "'" + className + "' 신청이 승인되었습니다.";
-						obj.memberNo = memberNo;
-						obj.flag = 0;
-
-						noteSock.send(JSON.stringify(obj));
-
 						Swal.fire({
-							title: '신청 승인 완료',
+							title: '삭제 완료',
 							icon: 'success',
 							confirmButtonColor: '#3085d6',
 							confirmButtonText: '확인',
