@@ -219,7 +219,7 @@ $(".phone").on("input", function(){
 let clickCount = 0;
 $("#check_btn").on("click", function(){
 	const inputEmail = $("#email").val();
-	var time = 15;
+	var time = 600;
 	var min = "";
 	var sec = "";
 	// console.log(inputEmail);
@@ -255,9 +255,9 @@ $("#check_btn").on("click", function(){
 						$(".certify_area").remove();
 						$("#email").attr("readonly",false);
 						clickCount = 0;
-						time = 15;
+						time = 600;
 					}
-				}, 15000);			
+				}, 300000);			
 				$("#numCh_btn").on("click", function(){
 					const inputCertify = $("#certify").val();
 					console.log(inputCertify);

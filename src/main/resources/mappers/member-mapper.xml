@@ -176,7 +176,5 @@
 	<update id="teacherSnsInsert">
 		INSERT INTO SNS VALUES(SEQ_SNS_NO.NEXTVAL, #{snsLink}, #{memberNo}, #{snsDiv})
 	</update>
-	
-	
-	
+
 </mapper>

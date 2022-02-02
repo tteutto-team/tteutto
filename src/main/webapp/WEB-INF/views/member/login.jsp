@@ -34,21 +34,23 @@
 
         <div id="pw-signup">
             <a href="findPw">비밀번호 찾기</a>
-            |
+            
             <a href="signup">회원가입</a>
         </div>
 
-        <div id="naver_id_login"></div>
+        <a class="sns">
+            <div id="naverIdLogin"></div>
+        </a>
 
-        <a href="#" class="sns">
+        <a href="https://kauth.kakao.com/oauth/authorize?client_id=c3cd9a114b94b9c27733f5051708079c&redirect_uri=http://localhost:8080/tteutto/member/kakaoLogin&response_type=code" class="sns p-2">
             <div>
                 <img style="background-color: #f9e000;" src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/kakao_logo.png">
                 <span>카카오로 시작하기</span>
             </div>
         </a>
 
-        <a href="#" class="sns">
-            <div>
+        <a href="javascript:void(0)" class="sns">
+            <div onclick="unlinkApp();">
                 <img style="background-color: #f8f9fd;" src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/google_logo.png">
                 <span>구글로 시작하기</span>
             </div>
@@ -56,15 +58,24 @@
 
     </main>
 </div>
-
 <jsp:include page="../common/footer.jsp"/>
 
 <script type="text/javascript">
-  	var naver_id_login = new naver_id_login("d_q2NGPsQeZpTrvq0_S0", "http://localhost:8080/tteutto/member/callback");
-  	var state = naver_id_login.getUniqState();
-  	naver_id_login.setButton("green", 3, 60);
-  	naver_id_login.setDomain("http://localhost:8080/tteutto/member/login");
-  	naver_id_login.setState(state);
-  	//naver_id_login.setPopup();
-  	naver_id_login.init_naver_id_login();
+	var naverLogin = new naver.LoginWithNaverId(
+		{
+			clientId: "d_q2NGPsQeZpTrvq0_S0",
+	 			// 본인의 Client ID로 수정, 띄어쓰기는 사용하지 마세요.
+			callbackUrl: "http://localhost:8080/tteutto/member/callback",
+	 			// 본인의 callBack url로 수정하세요.
+			isPopup: false,
+			loginButton: {color: "white", type: 3, height: 60}
+	 			// 네이버 로그인버튼 디자인 설정. 한번 바꿔보세요:D
+		}
+	);
+	naverLogin.init();
 </script>
+
+
+
+<script src="${contextPath}/resources/js/snsLogin.js"></script>
+ 

@@ -25,6 +25,7 @@
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Member" alias="Member" />
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Career" alias="Career" />
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Sns" alias="Sns" />
+		<typeAlias type="edu.kh.tteutto.member.model.vo.SnsLogin" alias="SnsLogin" />
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Certified" alias="Certified" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.Teacher" alias="Teacher" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.Episode" alias="Episode" />
