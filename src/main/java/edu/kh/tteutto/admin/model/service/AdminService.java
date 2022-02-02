@@ -123,5 +123,22 @@ public interface AdminService {
 	 */
 	int insertNotice(AdminNoticeFaq notice, List<MultipartFile> images, String webPath, String serverPath);
 
+	/** FAQ 목록 조회
+	 * @return data
+	 */
+	List<AdminNoticeFaq> faqList();
+
+	/** FAQ 삭제
+	 * @param faqNo
+	 * @return result
+	 */
+	int faqDelete(int faqNo);
+
+	/** FAQ 게시글 삽입
+	 * @param faq
+	 * @return result
+	 */
+	int insertFaq(AdminNoticeFaq faq);
+
 
 }

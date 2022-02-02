@@ -33,8 +33,6 @@
 	</div>
 </div>
    
-<script src="${contextPath}/resources/js/admin/noticeInsert.js"></script>
-
 <script type="text/javascript">
 	$("#addImage").on("click", function(){
 		const input = $("<br><input type='file' name='images'>");
