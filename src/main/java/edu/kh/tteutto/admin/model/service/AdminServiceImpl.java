@@ -1,18 +1,21 @@
 package edu.kh.tteutto.admin.model.service;
 
-import java.util.HashMap;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.tteutto.admin.model.dao.AdminDAO;
 import edu.kh.tteutto.admin.model.vo.Admin;
+import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
+import edu.kh.tteutto.admin.model.vo.AdminNoticeImage;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
 import edu.kh.tteutto.admin.model.vo.AdminTeacher;
-import edu.kh.tteutto.member.model.vo.Member;
+import edu.kh.tteutto.common.Util;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -29,7 +32,6 @@ public class AdminServiceImpl implements AdminService{
 
 	// 회차별 신청 승인
 	@Override
-	@Transactional
 	public int episodeAgree(int classNo) {
 		
 		return dao.episodeAgree(classNo);
@@ -69,8 +71,16 @@ public class AdminServiceImpl implements AdminService{
 
 	// 강사 신청 승인
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int teacherAgree(int memberNo) {
-		return dao.teacherAgree(memberNo);
+		
+		int result = dao.teacherAgree(memberNo);
+		
+		if(result > 0) {
+			result = dao.teacherEnrollY(memberNo);
+		}
+		
+		return result;
 	}
 
 	// 강사 신청 거절
@@ -93,7 +103,7 @@ public class AdminServiceImpl implements AdminService{
 
 	// 학생 신고 신청 승인/거절
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public int reportAgreeDeny(AdminReport adminReport) {
 		
 		int result = dao.reportAgreeDeny(adminReport);
@@ -110,6 +120,99 @@ public class AdminServiceImpl implements AdminService{
 		
 		return result;
 	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 공지사항 목록 조회
+	@Override
+	public List<AdminNoticeFaq> noticeList() {
+		return dao.noticeList();
+	}
+
+	// 공지사항 삭제
+	@Override
+	public int noticeDelete(int noticeNo) {
+		return dao.noticeDelete(noticeNo);
+	}
+
+	// 공지사항 게시글 삽입
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int insertNotice(AdminNoticeFaq notice, List<MultipartFile> images, String webPath, String serverPath) {
+		notice.setNoticeTitle(Util.XSS(notice.getNoticeTitle()));
+		notice.setNoticeContent(Util.XSS(notice.getNoticeContent()));
+		
+		notice.setNoticeContent(Util.changeNewLine(notice.getNoticeContent()));
+		
+		int noticeNo = dao.insertNotice(notice);
+		
+		if(noticeNo > 0) {
+			
+			List<AdminNoticeImage> imgList = new ArrayList<AdminNoticeImage>();
+			
+			for(int i=0; i<images.size(); i++) {
+				if(!images.get(i).getOriginalFilename().equals("")) {
+					
+					AdminNoticeImage img = new AdminNoticeImage();
+					
+					img.setImgPath(webPath);
+					img.setImgOriginal(images.get(i).getOriginalFilename());
+					img.setImgName(Util.fileRename(images.get(i).getOriginalFilename()));
+					img.setNoticeNo(notice.getNoticeNo());
+					
+					imgList.add(img);
+					
+				} // if end
+				
+			} // for end
+			System.out.println(imgList);
+			
+			
+			if (!imgList.isEmpty()) {
+				int result = dao.insertImgList(imgList);
+
+				if (result == imgList.size()) {
+					for (int i = 0; i < imgList.size(); i++) {
+
+						try {
+							images.get(i)
+							.transferTo(new File(serverPath + "/" + imgList.get(i).getImgName()));
+						} catch (Exception e) {
+							e.printStackTrace();
+
+						}
+
+					}
+
+				}
+
+			}
+			 
+			
+			
+		}
+		
+		return noticeNo;
+	}
+
+	
+	
+	
+	
 	
 	
 

@@ -10,6 +10,7 @@ function createTable() {
 		success: function (data) {
 			console.log(data);
 			$('#table_id').DataTable({
+				language: lang_kor,
 				data: data,
 				order: [[3, "asc"]],
 				columns: [
@@ -103,57 +104,4 @@ function agree(reportNo,  reportContent, reportTargetNo, reportCount) {
 		}
 	})
 
-}
-
-// 거절 쪽지 보내기
-function deny(memberNo, memberName) {
-	Swal.fire({
-		title: '거절 하시겠습니까?',
-		input: "select",
-		inputOptions: {
-			'설명 부족': '설명 부족',
-			'이력서 미첨부': '이력서 미첨부',
-			'자격 미달': '자격 미달'
-		},
-		icon: 'warning',
-		showCancelButton: true,
-		confirmButtonColor: '#3085d6',
-		cancelButtonColor: '#d33',
-		confirmButtonText: '거절 쪽지 보내기',
-		cancelButtonText: '취소'
-	}).then((result) => {
-		const message = result.value;
-
-		if (result.value) {
-			$.ajax({
-				url: "teacherDeny",
-				dataType: "json",
-				data: {
-					"memberNo": memberNo,
-				},
-				success: function (result) {
-					if (result > 0) {
-
-						const obj = {}
-						obj.noteContent = "'" + memberName + "'님 " + message + "로/으로 강사 신청이 거절되었습니다.";
-						obj.memberNo = memberNo;
-						obj.flag = 1;
-
-						noteSock.send(JSON.stringify(obj));
-
-						Swal.fire({
-							title: '신청 거절 완료',
-							icon: 'success',
-							confirmButtonColor: '#3085d6',
-							confirmButtonText: '확인',
-						})
-
-						$('#table_id').DataTable().destroy();
-						createTable();
-
-					}
-				}
-			})
-		}
-	})
 }

@@ -40,8 +40,10 @@
 	<resultMap type="AdminTeacherCareer" id="career_rm">
 		<id property="careerNo" column="CAREER_NO"/>
 		<result property="careerContent" column="CAREER_CONTENT"/>
-		<result property="careerImg" column="CAREER_IMG"/>
 		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="imgPath" column="IMG_PATH"/>
+		<result property="imgName" column="IMG_NM"/>
+		<result property="imgOriginal" column="IMG_ORIGINAL"/>
 	</resultMap>
 	
 	<!-- 강사 sns 링크 VO -->
@@ -64,6 +66,35 @@
 		<result property="reportTargetNo" column="REPORT_TARGET_NO"/>
 		<result property="reportCount" column="REPORT_COUNT"/>
 	</resultMap>
+	
+	
+	
+	
+	<!-- 공지사항 VO -->
+	<resultMap type="AdminNoticeFaq" id="notice_rm">
+		<id property="noticeNo" column="NOTICE_NO"/>
+		<result property="noticeTitle" column="NOTICE_TITLE"/>
+		<result property="noticeContent" column="NOTICE_CONTENT"/>
+		<result property="noticeDate" column="NOTICE_DT"/>
+		
+		<!-- <collection property="imgList" column="NOTICE_NO" 
+					javaType="java.util.ArrayList" ofType="AdminNoticeImage" select="selectNoticeImage"/> -->
+	</resultMap>
+	
+	<!-- <resultMap type="AdminNoticeImage" id="noticeImage_rm">
+		<id property="noticeImgNo" column="NOTICE_ING_NO"/>
+		<result property="noticeNo" column="NOTICE_NO"/>
+		<result property="imgPath" column="IMG_PATH"/>
+		<result property="imgName" column="IMG_NAME"/>
+		<result property="imgOriginal" column="IMG_ORIGINAL"/>
+	</resultMap>
+	
+	특정 게시글 이미지 목록 조회
+	<select id="selectNoticeImage" resultMap="noticeImage_rm">
+		SELECT * FROM NOTICE_IMG
+		WHERE NOTICE_NO = #{noticeNo}
+	</select> -->
+	
 	
 	
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -111,6 +142,7 @@
 		WHERE CLASS_NO = #{classNo}
 	</update>
 	
+	<!-- 클래스 신청 목록 조회 -->
 	<select id="classList" resultMap="admin_rm">
 		SELECT CLASS_NO, CLASS_NM, CLASS_REQ_DT, MEMBER_NM, MEMBER_NO FROM CLASS
 		JOIN TEACHER USING(MEMBER_NO)
@@ -142,6 +174,12 @@
 		UPDATE TEACHER SET TEACHER_ST = 2
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+	<update id="teacherEnrollY">
+		UPDATE MEMBER SET TEACHER_ENROLL = 'Y'
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
 	
 	<!-- 강사 신청 거절 -->
 	<update id="teacherDeny">
@@ -183,5 +221,41 @@
 	<update id="memberBan">
 		UPDATE MEMBER SET MEMBER_ST = 2 WHERE MEMBER_NO = #{reportTargetNo}
 	</update>
+	
+	
+	
+	
+	<!-- 공지사항 목록 조회 -->
+	<select id="noticeList" resultMap="notice_rm">
+		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_DT FROM NOTICE
+	</select>
+	
+	<!-- 공지사항 삭제 -->
+	<delete id="noticeDelete">
+		DELETE FROM NOTICE WHERE NOTICE_NO = #{noticeNo}
+	</delete>
+	
+	<!-- 공지사항 게시글 삽입 -->
+	<insert id="insertNotice" useGeneratedKeys="true" parameterType="AdminNoticeFaq">
+		<selectKey order="BEFORE" resultType="_int" keyProperty="noticeNo">
+			SELECT SEQ_NOTICE_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO NOTICE VALUES(#{noticeNo}, #{noticeTitle}, #{noticeContent}, DEFAULT)
+	</insert>
+	
+	<!-- 공지사항 이미지 삽입 -->
+	<insert id="insertImgList" parameterType="java.util.List">
+		INSERT INTO NOTICE_IMG
+		SELECT SEQ_NOTICE_IMG_NO.NEXTVAL, A.* FROM
+		
+		<foreach collection="list" item="img" open="(" close=") A" separator=" UNION ALL ">
+			SELECT #{img.imgPath} IMG_PATH,
+				   #{img.imgName} IMG_NM,
+				   #{img.imgOriginal} IMG_ORIGINAL,
+				   #{img.noticeNo} NOTICE_NO
+			FROM DUAL
+		</foreach>
+	</insert>
+	
 	
 </mapper>

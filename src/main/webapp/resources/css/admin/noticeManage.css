@@ -1,0 +1,83 @@
+body{
+	background-color: #F1F1F1;
+}
+
+#right{
+	margin-left: 300px;
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+
+#right > div{
+	width: 1100px;
+	min-height: 750px;
+	background-color: white;
+	border: 1px solid #989696;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
+	
+}
+
+#right .title-wrap{
+	align-self: baseline;
+    padding: 30px 50px; 
+    display: flex;
+}
+
+#right .title-wrap > button{
+	right: 50;
+    top: 36;
+    position: absolute;
+    height: 30px;
+    width: 60px;
+}
+
+#table_id_wrapper {
+	width: 1000px;
+	
+}
+
+#table_id th {
+	border: 1px solid #ddd;
+}
+
+#table_id{
+	padding-top: 20px;
+	width: 100%;
+}
+
+thead tr > th:last-of-type{
+	width: 90px;
+	padding-right: 0 !important;
+}
+
+tbody td{
+	text-align: center;
+}
+
+tbody a{
+	display: block;
+}
+
+tbody a:hover{
+	text-decoration: underline;
+}
+
+/* 버튼 디자인  */
+tbody tr > td:last-of-type{
+	margin: 0;
+	width: 120px;
+}
+
+tbody tr > td:last-of-type > button{
+	margin: 0 5px;
+	width: 40px;
+}
+
+.paginate_button.current{
+	width: 30px;
+	height: 30px;
+	padding: 3px !important;
+}

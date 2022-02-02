@@ -30,6 +30,12 @@
 	
 </head>
 <body>
+	<%-- <c:if test="${loginMember.memberGrade != 1}">
+		<script type="text/javascript">
+			location.href="${contextPath}";
+		</script>
+	</c:if> --%>
+
 	<aside id="left">
 		<div class="logo">
 			<img src="${contextPath}/resources/images/common/TTEUTTO ver.2.png">
@@ -61,10 +67,48 @@
 		</div>
 		<div class="admin-list">
 			<div>
-				<a href="#"><i class="far fa-circle"></i> 공지사항</a>
+				<a href="${contextPath}/admin/noticeManage"><i class="far fa-circle"></i> 공지사항</a>
 				<a href="#"><i class="far fa-circle"></i> FAQ</a>
 			</div>
 		</div>
 	</aside>
 </body>
+<script>
+	var lang_kor = {
+        "decimal" : "",
+        "emptyTable" : "데이터가 없습니다.",
+        "info" : "_START_ - _END_ (총 _TOTAL_ 개)",
+        "infoEmpty" : "0개",
+        "infoFiltered" : "(전체 _MAX_ 개 중 검색결과)",
+        "infoPostFix" : "",
+        "thousands" : ",",
+        "lengthMenu" : "_MENU_ 개씩 보기",
+        "loadingRecords" : "로딩중...",
+        "processing" : "처리중...",
+        "search" : "검색 : ",
+        "zeroRecords" : "검색된 데이터가 없습니다.",
+        "paginate" : {
+            "first" : "첫 페이지",
+            "last" : "마지막 페이지",
+            "next" : "다음",
+            "previous" : "이전"
+        },
+        "aria" : {
+            "sortAscending" : " :  오름차순 정렬",
+            "sortDescending" : " :  내림차순 정렬"
+        }
+    };
+</script>
+
+<c:if test="${!empty requestScope.title }">
+	<script>
+		Swal.fire({
+			title : "${title}",
+			text : "${text}",
+			icon : "${icon}",
+			confirmButtonColor: '#3085d6',
+			confirmButtonText: '확인',
+		})
+	</script>
+</c:if>
 </html>

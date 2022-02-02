@@ -17,6 +17,8 @@
 		<c:if test="${!empty teacher.careerList}">
 			<c:forEach var="career" items="${teacher.careerList}">
 				${career.careerContent } <br>
+				${career.imgPath } <br>
+				${career.imgName } <br>
 			</c:forEach>
 		</c:if>
 		

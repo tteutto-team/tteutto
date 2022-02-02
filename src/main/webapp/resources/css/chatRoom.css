@@ -1,0 +1,152 @@
+        /* 채팅방 */
+        .chat_wrap{ /* width: 300px; */ padding:5px; font-size: 13px; color: #333;}
+        .chat_wrap .inner {/* background-color: #fff; */ border-radius: 5px; padding: 10px 20px; overflow-y: scroll; height: 250px;}
+        .chat_wrap .item {margin-top: 15px;}
+        .chat_wrap .item:first-child{margin-top: 0;}
+        .chat_wrap .item .box{display: inline-block; max-width: 203px; position: relative;}
+        .chat_wrap .item .box::before{content: ""; position:absolute; left: -8px; top:9px; border-top: 0px solid transparent; border-bottom: 8px solid transparent; border-right:  8px solid #f3f3f3; }
+        .chat_wrap .item .box .msg{background-color: #f3f3f3; border-radius: 10px; padding: 10px; text-align: left; font-size: 15px;}
+        .chat_wrap .item .box .time{font-size: 11px; color: #999; position: absolute; right: -75px; bottom: 0; width: 70px;}
+        .chat_wrap .item.mymsg{text-align: right;}
+        .chat_wrap .item.mymsg .box::before{left: auto; right: -8px; border-left:  8px solid #fee600; border-right: 0; }
+        .chat_wrap .item.mymsg .box .time{right: auto; left: -75px;}
+        .chat_wrap .item.mymsg .box .msg{background: #fee600;}
+        .chat_wrap .item .box{transition: all .3s ease-out; margin:0 0 0 20px; opacity: 0;}
+        .chat_wrap .item.mymsg .box{margin: 0 20px 0 0;}
+        .chat_wrap .item.on .box{margin:0; opacity: 1;}
+
+        input[type="text"] {border:0; width: 100%; border: 1px solid #ddd; border-radius: 14px; height: 30px; padding: 20px; box-sizing: border-box; margin-top: 5px;}
+        input[type="text"]::placeholder{color: #999;}
+
+
+        /* 채팅 info */
+        .chat_info img{
+            width: 105px;
+        }
+
+        .chat_info span{
+            font-family: 'IBM Plex Sans KR';
+            font-weight: 500;
+            vertical-align: top;
+            display: inline-block;
+            padding: 17px 0 0 10px;
+        }
+
+        .chat_info {
+            background: #f8f8f8;
+            padding:10px;
+            box-shadow: 2px 0 5px grey;
+        }
+
+        .chatClose{
+            position: absolute;
+            right: 10px;
+            top: 16px;
+            line-height: 100%;
+            font-size: 34px;
+            cursor: pointer;
+        }
+
+        .flex_wrap{
+            display: flex;
+        }
+
+        /* .tteuttoProfile{
+            display: flex;
+            flex-direction: column;
+            -webkit-box-pack: end;
+            justify-content: flex-start;
+            padding-top: 20px;
+            width: 40px;
+        } */
+        .sendBtn{
+            border: none;
+            background: #bc3401;
+            color: white;
+            border-radius: 15px;
+            padding-left: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 60px;
+            height: 40px;
+            margin: 5px;
+
+            align-items: center;
+            display: flex;
+        }
+
+        /* 채팅창 제목 */
+        .chat_title{
+            margin: auto;
+            max-width: 189px;
+        }
+
+        .chat_title img{
+            width: 71px;
+            border-radius: 35px;
+            margin: 21px 0 16px 60px;
+            box-shadow: 2px 3px 7px 3px rgb(0 0 0 / 4%);
+        }
+
+        .chat_title1{
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .chat_title2{
+            font-size: 14px;
+            letter-spacing: 0px;
+            margin: 10px 0;
+            text-align: center;
+            color: #9f9f9f;
+        }
+        
+        .linkFaq{
+            border: 1px solid #be3100;
+            padding: 10px 5px;
+            text-align: center;
+            border-radius: 7px;
+            width: 200px;
+            margin: auto;
+        }
+
+        .linkFaq a{
+            color: #be3100;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600; 
+        }
+
+        .backBtn{
+            float: left;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .chatSubTitle{
+            border:1px solid #999;
+            border-radius:10px;
+            margin:0 7%;
+            padding:5px 10px;
+            text-align:center;
+            line-height:150%;
+            font-size:12px;
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        /* 입력 버튼 */
+        .inputBtn{
+            display: flex;
+        }
+
+        .msg{
+            display: flex;
+        }
+
+        /* 상대방 이름 */
+        .otherName{
+            margin: 10px;
+            
+        }
