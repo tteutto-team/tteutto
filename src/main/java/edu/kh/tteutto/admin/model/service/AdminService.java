@@ -2,7 +2,10 @@ package edu.kh.tteutto.admin.model.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import edu.kh.tteutto.admin.model.vo.Admin;
+import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
 import edu.kh.tteutto.admin.model.vo.AdminTeacher;
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
@@ -77,6 +80,48 @@ public interface AdminService {
 	 * @return result
 	 */
 	int reportAgreeDeny(AdminReport adminReport);
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/** 공지사항 목록 조회
+	 * @return data
+	 */
+	List<AdminNoticeFaq> noticeList();
+
+	/** 공지사항 삭제
+	 * @param noticeNo
+	 * @return result
+	 */
+	int noticeDelete(int noticeNo);
+
+	/** 공지사항 게시글 삽입
+	 * @param notice 
+	 * @param images
+	 * @param webPath
+	 * @param serverPath
+	 * @return 
+	 */
+	int insertNotice(AdminNoticeFaq notice, List<MultipartFile> images, String webPath, String serverPath);
 
 
 }
