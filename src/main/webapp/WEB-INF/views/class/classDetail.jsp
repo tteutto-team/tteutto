@@ -723,3 +723,29 @@
 	<!-- 지도 API/JS -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c2fadae20e5509a211c93e833342aa29&libraries=services,clusterer,drawing"></script>
     <script src="${contextPath}/resources/js/map.js"></script>
+    
+    <!-- 결제 api -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+    
+    
+    <script>
+    // 구매하기 모달창
+    $(document).ready(function(){
+
+
+        $("#buyBtnId").click(function(){
+
+        	if(${!empty sessionScope.loginMember}){
+        		
+          	  $(".buyModal").fadeIn();
+        	}else{
+        		alert("로그인 후 진행해주세요.");
+        	}
+        });
+
+        $(".buy_modal_closeBtn").click(function(){
+            $(".buyModal").fadeOut();
+        });
+
+    });
+    </script>

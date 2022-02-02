@@ -62,23 +62,58 @@ $(".modal").click(function (e) {
 // 결제하기 체크된 경우만 결제하기 버튼 누를수 있도록
 // + 체크 안되어있으면 얼럿창
 
-$("#payCheckBox").on("click",function(){
+		
+		$("#payBtnId").on("click",function(){
+		
+			if($('#payCheckBox').is(":checked") == false){
+			    
+			    console.log("체크 안된 상태");
+			    alert("주문내용 확인에 동의해주세요.");
+			      
+		  	}
+		
+		});
+		
+		
+		//결제 api 
+		
+		    $(".payBtn").click(function() {
+    	  //class가 btn_payment인 태그를 선택했을 때 작동한다.
+    		
+    	  	IMP.init('imp19537399');
+    	  	//결제시 전달되는 정보
+    		IMP.request_pay({
+    				    pg : 'inicis', 
+    				    pay_method : 'card',
+    				    merchant_uid : 'merchant_' + new Date().getTime(),
+    				    name : '주문명:결제테스트'/*상품명*/,
+    				    amount : 1000/*상품 가격*/, 
+    				    buyer_email : 'iamport@siot.do'/*구매자 이메일*/,
+    				    buyer_name : '구매자이름',
+    				    buyer_tel : '010-1234-5678'/*구매자 연락처*/,
+    				    buyer_addr : '서울특별시 강남구 삼성동'/*구매자 주소*/,
+    				    buyer_postcode : '123-456'/*구매자 우편번호*/
+    				}, function(rsp) {
+    					var result = '';
+    				    if ( rsp.success ) {
+    				        var msg = '결제가 완료되었습니다.';
+    				        msg += '고유ID : ' + rsp.imp_uid;
+    				        msg += '상점 거래ID : ' + rsp.merchant_uid;
+    				        msg += '결제 금액 : ' + rsp.paid_amount;
+    				        msg += '카드 승인번호 : ' + rsp.apply_num;
+    				        result ='0';
+    				    } else {
+    				        var msg = '결제에 실패하였습니다.';
+    				        msg += '에러내용 : ' + rsp.error_msg;
+    				        result ='1';
+    				    }
+    				    if(result=="0") {
+    				    	location.href= $.getContextPath()+"/Cart/Success";
+    				    }
+    				    alert(msg);
+    				});
+    			});
 
-  if($('#payCheckBox').is(":checked") == true){
-        console.log('체크 된 상태');
-  
-    }
-
-  if($('#payCheckBox').is(":checked") == false){
-    console.log('체크 안 된 상태');
-    
-    $("#payBtnId").on("click",function(){
-      alert("주문내용 확인에 동의해주세요.")
-      
-    });
-  }
-
-});
 
 
 
@@ -251,18 +286,7 @@ AOS.init();
 
     });
 
-    // 구매하기 모달창
-    $(document).ready(function(){
 
-        $("#buyBtnId").click(function(){
-            $(".buyModal").fadeIn();
-        });
-
-        $(".buy_modal_closeBtn").click(function(){
-            $(".buyModal").fadeOut();
-        });
-
-    });
 
 
     //댓글 더읽기버튼 클릭 이벤트
