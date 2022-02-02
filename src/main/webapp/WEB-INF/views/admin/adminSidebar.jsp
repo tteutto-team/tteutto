@@ -68,7 +68,7 @@
 		<div class="admin-list">
 			<div>
 				<a href="${contextPath}/admin/noticeManage"><i class="far fa-circle"></i> 공지사항</a>
-				<a href="#"><i class="far fa-circle"></i> FAQ</a>
+				<a href="${contextPath}/admin/faqManage"><i class="far fa-circle"></i> FAQ</a>
 			</div>
 		</div>
 	</aside>

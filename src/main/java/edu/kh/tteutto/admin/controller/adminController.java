@@ -278,4 +278,51 @@ public class adminController {
 		
 		return "redirect:/admin/noticeManage";
 	}
+	
+	// FAQ 페이지 이동
+	@RequestMapping(value="faqManage", method=RequestMethod.GET)
+	public String faqManage() {
+		return "admin/faqManage";
+	}
+	
+	// FAQ 목록 조회
+	@RequestMapping(value="faqList", method=RequestMethod.GET)
+	@ResponseBody
+	public List<AdminNoticeFaq> faqList(){
+		
+		List<AdminNoticeFaq> data = service.faqList();
+		
+		return data;
+	}
+	
+	// FAQ 삭제
+	@RequestMapping(value="faqDelete", method=RequestMethod.GET)
+	@ResponseBody
+	public int faqDelete(int faqNo){
+		
+		return service.faqDelete(faqNo);
+	}
+	
+	// FAQ 글쓰기 페이지 이동
+	@RequestMapping(value="faqInsert", method=RequestMethod.GET)
+	public String faqInsert() {
+		return "admin/faqInsert";
+	}
+	
+	// FAQ 게시글 삽입
+	@RequestMapping(value="faqInsert", method=RequestMethod.POST)
+	public String insertFaq(AdminNoticeFaq faq, RedirectAttributes ra) {
+		
+		System.out.println(faq);
+		
+		int result = service.insertFaq(faq);
+
+		if(result > 0) {
+			Util.swalSetMessage("게시글 삽입 완료", null, "success", ra);
+		}else {
+			Util.swalSetMessage("게시글 삽입 실패", null, "error", ra);
+		}
+		
+		return "redirect:/admin/faqManage";
+	}
 }

@@ -195,4 +195,30 @@ public class AdminDAO {
 	}
 
 
+	/** FAQ 목록 조회
+	 * @return data
+	 */
+	public List<AdminNoticeFaq> faqList() {
+		return sqlSession.selectList("adminMapper.faqList");
+	}
+
+
+	/** FAQ 삭제
+	 * @param faqNo
+	 * @return result
+	 */
+	public int faqDelete(int faqNo) {
+		return sqlSession.delete("adminMapper.faqDelete", faqNo);
+	}
+
+
+	/** FAQ 게시글 삽입
+	 * @param faq
+	 * @return result
+	 */
+	public int insertFaq(AdminNoticeFaq faq) {
+		return sqlSession.insert("adminMapper.insertFaq", faq);
+	}
+
+
 }

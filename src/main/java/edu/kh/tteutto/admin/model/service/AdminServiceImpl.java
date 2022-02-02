@@ -179,8 +179,6 @@ public class AdminServiceImpl implements AdminService{
 				} // if end
 				
 			} // for end
-			System.out.println(imgList);
-			
 			
 			if (!imgList.isEmpty()) {
 				int result = dao.insertImgList(imgList);
@@ -208,6 +206,36 @@ public class AdminServiceImpl implements AdminService{
 		
 		return noticeNo;
 	}
+	
+	
+	// FAQ 목록 조회
+	@Override
+	public List<AdminNoticeFaq> faqList() {
+		return dao.faqList();
+	}
+
+	// FAQ 삭제
+	@Override
+	public int faqDelete(int faqNo) {
+		return dao.faqDelete(faqNo);
+	}
+
+	// FAQ 게시글 삽입
+	@Override
+	public int insertFaq(AdminNoticeFaq faq) {
+		faq.setFaqQuestion(Util.XSS(faq.getFaqQuestion()));
+		faq.setFaqAnswer(Util.XSS(faq.getFaqAnswer()));
+		
+		faq.setFaqAnswer(Util.changeNewLine(faq.getFaqAnswer()));
+		
+		int result = dao.insertFaq(faq);
+		
+		return result;
+	}
+	
+	
+	
+	
 
 	
 	
