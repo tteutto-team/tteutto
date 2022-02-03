@@ -191,11 +191,17 @@
 		DELETE FROM CAREER WHERE CAREER_NO = #{id}
 	</delete>
 	
-	<!-- 강사 이력 삽입 -->
+	<!-- 강사 이력 삽입(수정) -->
 	<insert id="teacherProfileInsert">
 		INSERT INTO CAREER VALUES(SEQ_CAREER_NO.NEXTVAL, #{careerContent}, #{memberNo}, #{imgPath}, #{imgName}, #{imgOriginal})
 	</insert>
 	
+	<!-- 학생 정보 수정  -->
+	<update id="studentProfileUpdate">
+		UPDATE MEMBER SET MEMBER_NM=#{memberNm}, MEMBER_PNO= #{memberPno}
+		WHERE MEMBER_NO=#{memberNo}
+	</update>
+		
 	<!-- 강사 신청 -->
 	<insert id="teacherRegisterInsert">
 		INSERT INTO TEACHER VALUES(#{memberNo}, 1, #{teacherIntro}, SYSDATE, 0)

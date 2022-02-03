@@ -192,6 +192,10 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.selectImgName", id);
 	}
 
+	public int studentProfileUpdate(Member member) {
+		return sqlSession.update("memberMapper.studentProfileUpdate", member);
+	}
+
 
 
 	

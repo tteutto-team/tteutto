@@ -134,6 +134,13 @@ public interface MemberService {
 	int teacherProfiledelete(String id, String webPath, String serverPath);
 
 
+	/** 학생 프로필 수정
+	 * @param member
+	 * @return result
+	 */
+	int studentProfileUpdate(Member member);
+
+
 
 	
 
