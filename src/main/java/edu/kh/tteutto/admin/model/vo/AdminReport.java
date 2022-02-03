@@ -13,6 +13,9 @@ public class AdminReport {
 	private String reportTarget;
 	private int reportTargetNo;
 	private int reportCount;
+	
+	public AdminReport() {
+	}
 
 	public int getReportNo() {
 		return reportNo;

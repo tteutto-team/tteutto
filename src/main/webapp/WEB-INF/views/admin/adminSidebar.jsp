@@ -61,7 +61,7 @@
 		</div>
 		<div class="admin-list">
 			<div>
-				<a href="#"><i class="far fa-circle"></i> 정산 관리</a>
+				<a href="${contextPath}/admin/calculateManage"><i class="far fa-circle"></i> 정산 관리</a>
 				<a href="#"><i class="far fa-circle"></i> 환불 관리</a>
 			</div>
 		</div>

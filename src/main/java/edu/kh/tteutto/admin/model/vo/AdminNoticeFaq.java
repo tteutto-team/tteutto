@@ -14,6 +14,9 @@ public class AdminNoticeFaq {
 	private String faqAnswer;
 
 	private List<AdminNoticeImage> imgList;
+	
+	public AdminNoticeFaq() {
+	}
 
 	public int getNoticeNo() {
 		return noticeNo;
