@@ -117,6 +117,24 @@ public interface MemberService {
 	 */
 	int teacherRegisterInsert(Teacher teacher, List<MultipartFile> images, List<Career> career, List<Sns> snsList);
 
+	/** 강사 신청 - 이력 수정 x
+	 * @param teacher
+	 * @param phone
+	 * @param snsList
+	 * @return result
+	 */
+	int teacherProfileUpdate2(Teacher teacher, String phone, List<Sns> snsList);
+
+	/**  강사 이력 삭제
+	 * @param id
+	 * @param serverPath 
+	 * @param webPath 
+	 * @return result
+	 */
+	int teacherProfiledelete(String id, String webPath, String serverPath);
+
+
+
 	
 
 

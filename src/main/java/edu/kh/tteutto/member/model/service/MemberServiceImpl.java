@@ -129,7 +129,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	// 강사 정보 수정
-@Override
+	@Override
 	public int teacherProfileUpdate(Teacher teacher, String phone, List<Sns> snsList, List<String> profileInput,
 		List<MultipartFile> images, String webPath, String serverPath) {
 		
@@ -168,13 +168,8 @@ public class MemberServiceImpl implements MemberService{
 		}
 
 		if(result4 > 0) {
-			// 강사 이력 삭제
-			int result5 = dao.teacherProfileDelete(teacher.getMemberNo());
-			// 여기까지는 진행 완료
-			
 			
 			// images에 담겨있는 파일 정보 중 업로드된 파일 정보를 imgList에 옮겨 담기
-			
 			List<Career> imgList = new ArrayList<Career>();
 			
 			for(int i=0 ; i<images.size(); i++) {
@@ -203,14 +198,70 @@ public class MemberServiceImpl implements MemberService{
 					}
 				}
 			}
-			
-			
-			
-			
 		}
 		
 		return result;
 	}
+	
+	// 강사 정보 수정 - 이력 수정 x
+	@Override
+	public int teacherProfileUpdate2(Teacher teacher, String phone, List<Sns> snsList) {
+		
+		int result = 0;
+		
+		// 전화번호, 강사 소개에 XSS 처리 + 강사 소개에 개행문자 변경처리
+		phone = (Util.XSS(phone));
+		teacher.setTeacherIntro(Util.XSS(teacher.getTeacherIntro()));
+		teacher.setTeacherIntro(Util.changeNewLine(teacher.getTeacherIntro()));	// 개행문자 처리
+		
+		Map<String, Object> map1 = new HashMap<String, Object>();
+		map1.put("memberNo", teacher.getMemberNo());
+		map1.put("phone", phone);
+		
+		
+		// 전화번호 업데이트
+		int result1 = dao.teacherPhoneUpdate(map1);
+		
+		if(result1 > 0) {
+			// 강사 소개 업데이트
+			int result2 = dao.teacherIntroduceUpdate(teacher);
+			
+			if(result2 > 0) {
+				// sns 삭제
+				int result3 = dao.teacherSnsDelete(teacher.getMemberNo());
+				
+				if(result3 > 0) {
+					// sns 삽입
+					for(Sns sns : snsList) {
+						sns.setMemberNo(teacher.getMemberNo());
+						result = dao.teacherSnsInsert(sns);
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	// 강사 정보 수정 - 이력 삭제
+	@Override
+	public int teacherProfiledelete(String id, String webPath, String serverPath) {
+		
+		String selectImgName = dao.selectImgName(id);
+
+		if(selectImgName.length() != 0) {
+			String fileName = serverPath + selectImgName;
+
+			//현재 게시판에 존재하는 파일객체를 만듬
+			File file = new File(fileName);
+			if(file.exists()) { // 파일이 존재하면
+				file.delete(); // 파일 삭제	
+			}
+		}
+		
+		return dao.teacherProfiledelete(id);
+	}
+
+
 
 	// 강사 신청
 	@Transactional
