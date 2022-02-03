@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="${contextPath}/resources/css/jquery-ui.multidatespicker.css">
 	
     <section id="classInsert2">
-    	<form action="${contextPath}" id="form" name="form" method="post">
+    	<form action="${contextPath}register/schedule" id="form" name="form" method="post">
         <div class="fixWidth">
         <div id="register_header">
             <div>스케쥴 등록</div>

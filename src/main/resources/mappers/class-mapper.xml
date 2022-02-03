@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="classMapper">
+
+	<resultMap type="ClassDetail" id="class_rm">
+		<id property="classNo" column="CLASS_NO" />
+		
+		<result property="classArea" column="CLASS_AREA" />
+		<result property="classType" column="CLASS_TYPE" />
+		<result property="classPerson" column="CLASS_PERSON" />
+		<result property="classMinPerson" column="CLASS_MIN_PERSON" />
+		<result property="classMaxPerson" column="CLASS_MAX_PERSON" />
+		<result property="className" column="CLASS_NM" />
+		<result property="classIntro" column="CLASS_INTRO" />
+		<result property="classLevel" column="CLASS_LEVEL" />
+		<result property="classReqDate" column="CLASS_REQ_DT" />
+		<result property="classStatus" column="CLASS_ST" />
+		<result property="categoryNo" column="CATG_NO" />
+		<result property="memberNo" column="MEMBER_NO" />
+	</resultMap>
+
+
+	<!-- 클래스 등록 -->
+	<insert id="classInsert" parameterType="ClassDetail">
+		INSERT INTO CLASS VALUES(
+		    SEQ_CLASS_NO.NEXTVAL, #{classArea}, #{classType}, #{classPerson}, #{classMinPerson}, #{classMaxPerson}, 
+		    #{className}, #{classIntro}, #{classLevel}, DEFAULT, 0, #{categoryNo}, #{memberNo}
+		)
+	</insert>
+
+</mapper>
