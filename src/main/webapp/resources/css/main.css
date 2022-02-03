@@ -40,7 +40,7 @@ main a{
 
 .category a{
     display: block;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     border-radius: 10px;
     box-shadow: 3px 2px 5px 2px #0000001a;
     color: black;
@@ -50,11 +50,13 @@ main a{
 .category-div{
     margin: 20px;
     width: 120px;
-    height: 120px;
+    height: 135px;
     padding-top: 20px;
+    background-size: contain;
 }
 
 .category-div p{
+	padding-top: 82px;
     text-align: center;
 }
 
