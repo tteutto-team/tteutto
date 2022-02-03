@@ -6,10 +6,15 @@
 
 <div class="left">
     <div class="box">
-        <img src="${contextPath}/resources/images/profile/temp.png">
+    	<c:if test="${empty loginMember.memberImg}">
+	        <img src="${contextPath}/resources/images/profile/temp.png">
+    	</c:if>
+    	<c:if test="${!empty loginMember.memberImg}">
+	        <img src="${contextPath}/resources/images/profile/${loginMember.memberImg}">
+    	</c:if>
     </div>
-    <div class="name">홍길동</div>
-    <div class="introduce">안녕하세요. 만나서 반갑습니다.</div>
+    <div class="name">${loginMember.memberNm}</div>
+    <div class="introduce">뜨또에 오신걸 환영합니다.</div>
 
     <div class="list">
         <div onclick="location.href='studentProfile'">학생 프로필</div>

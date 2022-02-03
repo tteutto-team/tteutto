@@ -261,6 +261,11 @@ public class MemberServiceImpl implements MemberService{
 		return dao.teacherProfiledelete(id);
 	}
 
+	// 학생 정보 수정
+	@Override
+	public int studentProfileUpdate(Member member) {
+		return dao.studentProfileUpdate(member);
+	}
 
 
 	// 강사 신청

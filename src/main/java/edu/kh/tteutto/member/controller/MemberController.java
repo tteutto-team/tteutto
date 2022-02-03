@@ -1,5 +1,7 @@
 package edu.kh.tteutto.member.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -446,13 +448,66 @@ public class MemberController {
 
 	// 학생 프로필 페이지 이동
 	@RequestMapping(value = "studentProfile", method = RequestMethod.GET)
-	public String studentProfile() {
+	public String studentProfile(@ModelAttribute("loginMember") Member loginMember, Model model) {
+		
+		System.out.println("로그인 한 회원정보 : "+ loginMember);
+		
+		String brith = loginMember.getMemberBirth().substring(0, 10);
+		String[] brithArray = brith.split("-");
+		
+		model.addAttribute("brithArray", brithArray);
+		model.addAttribute("loginMember", loginMember);
+		
 		return "member/studentProfile";
 	}
+	
+	// 학생 프로필 수정
+	@RequestMapping(value = "studentProfileUpdate", method = RequestMethod.POST)
+	public String studentProfileUpdate(@ModelAttribute("loginMember") Member loginMember, String name, String phone,
+										HttpSession session, RedirectAttributes ra, Model model, 
+										@RequestParam(value="profileImg", required=false, defaultValue="0") MultipartFile image/*업로드 파일*/) {
+		
+		Member member = new Member();
+		member.setMemberNo(loginMember.getMemberNo());
+		member.setMemberNm(name);
+		member.setMemberPno(phone);
+		
+		if(image.getSize() != 0) {
+			
+			// 웹 접근 경로(webPath), 서버 저장 경로(serverPath)
+			String webPath = "/resources/images/profile/"; // (DB에 저장되는 경로)
+			String serverPath = session.getServletContext().getRealPath(webPath);
+			member.setMemberImg(Util.fileRename( image.getOriginalFilename() )); // 변경된 파일명
+			
+			try {
+				image.transferTo(new File(serverPath + "/" + member.getMemberImg()));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		System.out.println("이미지: " + image.getSize());
+		
+		int result = service.studentProfileUpdate(member);
+		
+		if(result > 0 ) {	// 성공
+			loginMember.setMemberNm(name);
+			loginMember.setMemberPno(phone);
+			return "redirect:studentProfile";
+		} else { // 실패
+			return "redirect:studentProfile";
+		}
+		
+		
+	}
+	
+	
+	
+	
 
 	// 강사 프로필 페이지 이동
 	@RequestMapping(value = "teacherProfile", method = RequestMethod.GET)
-	public String teacherProfile(@ModelAttribute("loginMember") Member loginMember, Model model, HttpSession session) {
+	public String teacherProfile(@ModelAttribute("loginMember") Member loginMember, Model model) {
 
 		int memberNo = loginMember.getMemberNo();
 //		int memberNo = 3;
