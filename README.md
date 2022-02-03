@@ -21,6 +21,9 @@
 비밀번호 찾기
  * http://localhost:8080/tteutto/member/findPw
  
+비밀번호 변경
+ * http://localhost:8080/tteutto/member/changePw
+ 
 -----------------------------------------------------------------------
 
 학생 프로필
@@ -73,3 +76,40 @@ FAQ
 
 이용약관
  * http://localhost:8080/tteutto/notice/terms
+ 
+-----------------------------------------------------------------------
+
+채팅 목록 팝업창
+ * http://localhost:8080/tteutto/chat/chatRoomList
+
+쪽지 목록 팝업창
+ * http://localhost:8080/tteutto/chat/messageList
+
+채팅 내용 팝업창
+ * http://localhost:8080/tteutto/chat/chatRoom
+
+-----------------------------------------------------------------------
+
+회차별 신청 관리
+ * http://localhost:8080/tteutto/admin/classEpisodeManage
+
+클래스 신청 관리
+ * http://localhost:8080/tteutto/admin/classManage
+
+강사 신청 관리
+ * http://localhost:8080/tteutto/admin/teacherManage
+
+학생 신고 관리
+ * http://localhost:8080/tteutto/admin/studentReportManage
+
+공지사항
+ * http://localhost:8080/tteutto/admin/noticeManage
+
+공지사항 등록
+ * http://localhost:8080/tteutto/admin/noticeInsert
+
+FAQ
+ * http://localhost:8080/tteutto/admin/faqManage
+
+FAQ 등록
+ * http://localhost:8080/tteutto/admin/faqInsert

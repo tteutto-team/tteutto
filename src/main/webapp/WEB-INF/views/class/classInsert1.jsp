@@ -182,7 +182,7 @@
             <div id="next-btn">
                 <button class="btn-click" style="background-color: #3a3424; color: white;">미리보기</button>
                 <button class="btn-click" style="background-color: #3a3424; color: white;">임시저장</button>
-                <button class="btn-click" style="background-color: #FFDF3E;">최종 승인요청</button>
+                <button class="btn-click" style="background-color: #FFDF3E;">승인요청</button>
             </div>
         </div>
         

@@ -44,12 +44,21 @@
     <!-- 카테고리 -->
     <table class="category">
         <tr>
-            <td> <a class="category-div"><i class="fi-rr-camera"></i><p>사진</p></a></td>
-            <td> <a class="category-div"><i class="fi-rr-computer"></i><p>코딩</p></a></td>
-            <td> <a class="category-div"><i class="fi-rr-cupcake"></i><p>요리</p></a></td>
-            <td> <a class="category-div"><i class="fi-rr-scissors"></i><p>공예</p></a></td>
-            <td> <a class="category-div"><i class="fi-rr-brush"></i><p>미술</p></a></td>
-            <td> <a class="category-div"><i class="fi-rr-flower-bouquet"></i><p>플라워</p></a></td>
+            <!-- 
+            <td> <a class="category-div"><i class="fi-rr-camera"></i><p>공예/디자인</p></a></td>
+            <td> <a class="category-div"><i class="fi-rr-computer"></i><p>요리</p></a></td>
+            <td> <a class="category-div"><i class="fi-rr-cupcake"></i><p>뷰티/헬스</p></a></td>
+            <td> <a class="category-div"><i class="fi-rr-scissors"></i><p>사진/영상</p></a></td>
+            <td> <a class="category-div"><i class="fi-rr-brush"></i><p>커리어</p></a></td>
+            <td> <a class="category-div"><i class="fi-rr-flower-bouquet"></i><p>음악</p></a></td>
+             -->
+             
+            <td> <a class="category-div" style="background-image:url('${contextPath}/resources/images/main/design.png')"><p>공예/디자인</p></a></td>
+            <td> <a class="category-div" style="background-image:url('${contextPath}/resources/images/main/cooking.png')"><p>요리</p></a></td>
+            <td> <a class="category-div" style="background-image:url('${contextPath}/resources/images/main/beauty.png')"><p>뷰티/헬스</p></a></td>
+            <td> <a class="category-div" style="background-image:url('${contextPath}/resources/images/main/video.png')"><p>사진/영상</p></a></td>
+            <td> <a class="category-div" style="background-image:url('${contextPath}/resources/images/main/career.png')"><p>커리어</p></a></td>
+            <td> <a class="category-div" style="background-image:url('${contextPath}/resources/images/main/music.png')"><p>음악</p></a></td>
         </tr>
     </table>
 
