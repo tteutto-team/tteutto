@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 	
     <section id="classInsert">
+    	<form action="${contextPath}/register/class" id="form" name="form" method="post">
         <div class="fixWidth">
             <div id="register_header">
                 <div>클래스 등록</div>
@@ -17,9 +18,9 @@
             <div class="bottomLine">
                 <div class="line1 h4-height"><h4>수업난이도 <span class="redText">*</span></h4></div>
                 <div id="c-level"  class="line2">
-                    <div><input type="radio" name="level" value="under"required> 하</div>
-                    <div><input type="radio" name="level" value="middle" required> 중</div>
-                    <div><input type="radio" name="level" value="high" required> 상</div>
+                    <div><input type="radio" name="classLevel" value="하"required> 하</div>
+                    <div><input type="radio" name="classLevel" value="중" required> 중</div>
+                    <div><input type="radio" name="classLevel" value="상" required> 상</div>
                 </div>
             </div>
             <div class="bottomLine" style="clear: both;">
@@ -27,27 +28,29 @@
                 <div class="line2">
                     <!-- 브이월드 행정구역도를 이용한 셀렉트 박스 구현... 공간정보를 기반으로 하고 있어서 국가공간정보포털보다 느림 -->
                     <!-- <form id="nsdiSearchForm" action="#" class="form_data" onsubmit="return false;search();"> -->
-                        <select id="sido_code" class="select-style btn-select" required>
+                        <select id="sido_code" name="area1" class="select-style btn-select" required>
                             <option class="list-member">선택</option>
                         </select>
-                        <select id="sigoon_code" class="select-style btn-select" required>
+                        <select id="sigoon_code" name="area2" class="select-style btn-select" required>
                             <option class="list-member">선택</option>
                         </select>
+                        <input type="hidden" id="classArea1" name="classArea1" value=""/>
+                        <input type="hidden" id="classArea2" name="classArea2" value=""/>
                     <!-- </form> -->
                 </div>        
             </div>
             <div class="bottomLine">
                 <div class="line1 h4-height"><h4>수업카테고리 <span class="redText">*</span></h4></div> 
                 <div class="line2">
-                    <select id="ct1" name="ct1" class="select-style" required>
+                    <select id="ct1" name="categoryNo" class="select-style" required>
                         <option value="base" checked>선택</option>
-                        <option>공예/디자인</option>
-                        <option>요리</option>
-                        <option>뷰티/헬스</option>
-                        <option>사진/영상</option>
-                        <option>커리어</option>
-                        <option>음악</option>
-                        <option>기타</option>
+                        <option value='1'>공예/디자인</option>
+                        <option value='2'>요리</option>
+                        <option value='3'>뷰티/헬스</option>
+                        <option value='4'>사진/영상</option>
+                        <option value='5'>커리어</option>
+                        <option value='6'>음악</option>
+                        <option value='7'>기타</option>
                     </select>
                     
                     <select id="ct2" name="ct2" class="select-style" required>
@@ -59,8 +62,8 @@
                 <div class="line1 h4-height"><h4>수업형태 <span class="redText">*</span></h4></div>
                 <div>
                     <div>
-                        <input type="radio" name="classtype" value="oneday"required> 원데이 클래스
-                        <input type="radio" name="classtype" value="regular" required> 정규 수업
+                        <input type="radio" name="classType" value="0"required> 원데이 클래스
+                        <input type="radio" name="classType" value="1" required> 정규 수업
                     </div>
                     <div style="color: rgb(124, 124, 124);">* 시범강의가 아닌, 하루만에 무언가를 얻어갈 수 있는 원데이 클래스를 준비해주세요. </div>
                 </div>
@@ -68,10 +71,9 @@
             <div id="people-num" class="bottomLine">
                 <div class="line1 div-height"><h4>수업참여인원 <span class="redText">*</span></h4></div>
                 <div class="div-height">
-                    <input type="radio" id="solo-class" name="class" value="one" required> 1:1 수업
-                    <input type="radio" id="group-class" name="class" value="multi" required> 그룹수업
-                    <div id="group-input" style="display: none;"><input type="number" class="input-style"> &nbsp명~&nbsp <input type="number" class="input-style" required>&nbsp&nbsp명</div>
-                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
+                    <input type="radio" id="solo-class" name="classPerson" value="1" required> 1:1 수업
+                    <input type="radio" id="group-class" name="classPerson" value="0" required> 그룹수업
+                    <div id="group-input" style="display: none;"><input type="number" name="classMinPerson" class="input-style"> &nbsp명~&nbsp <input type="number" name="classMaxPerson" class="input-style">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
                     ex) 일대일 수업을 원하는 경우, 채팅으로 문의 주세요.
                     </p>
                 </div>
@@ -89,7 +91,7 @@
                             * 예시 : 미국주식, 내 손으로 직접 투자하자 / 4회만에 내 손으로 만든 영상, 유튜브에 업로드❤<br>
                         </div>
                     </div>
-                    <input type="text" id="titleArea" class="input-style" style="width: 750px;">&nbsp&nbsp<span id="titleText-count">0</span><span id="titleText-max">/50</span>
+                    <input type="text" id="titleArea" name="className" class="input-style" style="width: 750px;">&nbsp&nbsp<span id="titleText-count">0</span><span id="titleText-max">/50</span>
                 </div>
             </div>
             <div id="cover-img" class="bottomLine">
@@ -155,7 +157,7 @@
                             * 강조를 해야 할 내용이 있는 경우 되도록이면 일반 특수문자를 사용해주세요.
                         </div>
                     </div>
-                    <textarea id="summernote" name="boardContent"></textarea>
+                    <textarea id="summernote" name="classIntro"></textarea>
                 </div>
             </div>
 <!--             <div id="c-target" class="bottomLine">
@@ -185,7 +187,7 @@
                 <button class="btn-click" style="background-color: #FFDF3E;">승인요청</button>
             </div>
         </div>
-        
+        </form>
 
     </section>
 	

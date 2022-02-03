@@ -11,7 +11,7 @@ public class ClassDetail {
 	private int classPerson;
 	private int classMinPerson;
 	private int classMaxPerson;
-	private String classaName;
+	private String className;
 	private String classIntro;  // data_type : CLOB  //수업소개
 	private String classLevel;  // char // 난이도
 	private String classReqDate;  // date // 승인요청일자
@@ -106,11 +106,11 @@ public class ClassDetail {
 	public void setClassMaxPerson(int classMaxPerson) {
 		this.classMaxPerson = classMaxPerson;
 	}
-	public String getClassaName() {
-		return classaName;
+	public String getclassName() {
+		return className;
 	}
-	public void setClassaName(String classaName) {
-		this.classaName = classaName;
+	public void setclassName(String className) {
+		this.className = className;
 	}
 	public String getClassIntro() {
 		return classIntro;
@@ -310,7 +310,7 @@ public class ClassDetail {
 	public String toString() {
 		return "ClassDetail [classNo=" + classNo + ", classArea=" + classArea + ", classType=" + classType
 				+ ", classPerson=" + classPerson + ", classMinPerson=" + classMinPerson + ", classMaxPerson="
-				+ classMaxPerson + ", classaName=" + classaName + ", classIntro=" + classIntro + ", classLevel="
+				+ classMaxPerson + ", className=" + className + ", classIntro=" + classIntro + ", classLevel="
 				+ classLevel + ", classReqDate=" + classReqDate + ", classStatus=" + classStatus + ", categoryNo="
 				+ categoryNo + ", memberNo=" + memberNo + ", categoryNm=" + categoryNm + ", epNo=" + epNo + ", epPrice="
 				+ epPrice + ", epStatus=" + epStatus + ", epCount=" + epCount + ", introImgNo=" + introImgNo
