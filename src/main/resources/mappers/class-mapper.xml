@@ -27,5 +27,8 @@
 		    #{className}, #{classIntro}, #{classLevel}, DEFAULT, 0, #{categoryNo}, #{memberNo}
 		)
 	</insert>
+	
+	
+	
 
 </mapper>
