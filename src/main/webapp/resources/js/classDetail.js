@@ -63,22 +63,16 @@ $(".modal").click(function (e) {
 // + 체크 안되어있으면 얼럿창
 
 		
-		$("#payBtnId").on("click",function(){
+		$("#payBtnId").click(function(){
 		
 			if($('#payCheckBox').is(":checked") == false){
 			    
 			    console.log("체크 안된 상태");
 			    alert("주문내용 확인에 동의해주세요.");
 			      
-		  	}
-		
-		});
-		
-		
-		//결제 api 
-		
-		    $(".payBtn").click(function() {
-    	  //class가 btn_payment인 태그를 선택했을 때 작동한다.
+		  	}else{  //체크했을 경우 결제 api진행
+			
+			//결제 api 
     		
     	  	IMP.init('imp19537399');
     	  	//결제시 전달되는 정보
@@ -87,7 +81,7 @@ $(".modal").click(function (e) {
     				    pay_method : 'card',
     				    merchant_uid : 'merchant_' + new Date().getTime(),
     				    name : '주문명:결제테스트'/*상품명*/,
-    				    amount : 1000/*상품 가격*/, 
+    				    amount : payAmount/*상품 가격*/, 
     				    buyer_email : 'iamport@siot.do'/*구매자 이메일*/,
     				    buyer_name : '구매자이름',
     				    buyer_tel : '010-1234-5678'/*구매자 연락처*/,
@@ -112,9 +106,9 @@ $(".modal").click(function (e) {
     				    }
     				    alert(msg);
     				});
-    			});
-
-
+				}
+		});
+		
 
 
 // 
@@ -257,20 +251,7 @@ AOS.init();
     });
 
 
-    // 찜하기 - 빈하트 클릭시 
-    $('#wishBtn').on('click', function(){
-
-        if($('#emptyHeart').css('display')!="none"){
-            console.log("1111");
-            $('#fillHeart').css('display','block');
-            $('#emptyHeart').css('display','none');
-            alert("찜목록에 추가되었습니다.")
-            
-        }else{
-            $('#emptyHeart').css('display','block');
-            $('#fillHeart').css('display','none');
-        }
-    });
+    
 
 
     // 공유하기 모달창

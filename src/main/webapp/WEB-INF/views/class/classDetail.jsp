@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
+
 
 <jsp:include page="../common/header.jsp"/>
 
@@ -89,7 +92,8 @@
                     결제 금액
                 </div>
                 <div class="paymentAmount">
-                    <span>88,888</span>원
+             	    <c:set var="payAmount" value="15000"/> <!-- value="${스프링에서 넘겨온 값}" -->
+                    <fmt:formatNumber value="${payAmount}" groupingUsed="true" />원
                 </div>
             </div>
             <form id="paymentCheck">
@@ -138,7 +142,7 @@
                         </tr>
                         <tr>
                             <td colspan="2" id="classPrice">
-                                <span>월</span> <span>88,888</span> 원
+                                <span>월</span> <span id="class_price">15,000</span> 원
                             </td>
                             <td id="classStar">
                                 <img src="${contextPath}/resources/images/class-detail/star.png">
@@ -688,8 +692,6 @@
                                     </button>
                                 </div>
                             </form>
-                            
-                            
                         </div>
 
                     </div>
@@ -732,7 +734,6 @@
     // 구매하기 모달창
     $(document).ready(function(){
 
-
         $("#buyBtnId").click(function(){
 
         	if(${!empty sessionScope.loginMember}){
@@ -740,6 +741,7 @@
           	  $(".buyModal").fadeIn();
         	}else{
         		alert("로그인 후 진행해주세요.");
+        		$(location).attr("href", "${contextPath}/member/login");
         	}
         });
 
@@ -748,4 +750,30 @@
         });
 
     });
+    
+    
+ // 찜하기 - 빈하트 클릭시 
+	$('#wishBtn').on('click', function(){
+	 	if(${!empty sessionScope.loginMember}){
+	    	
+		        if($('#emptyHeart').css('display')!="none"){
+		            console.log("1111");
+		            $('#fillHeart').css('display','block');
+		            $('#emptyHeart').css('display','none');
+		            alert("찜목록에 추가되었습니다.")
+		            
+		        }else{
+		            $('#emptyHeart').css('display','block');
+		            $('#fillHeart').css('display','none');
+		        }
+		}else{
+		    alert("로그인 후 진행해주세요.");
+		    $(location).attr("href", "${contextPath}/member/login");
+	   	}
+		        
+	});
+ 
+ // 결제금액 변수선언
+ 	var payAmount = '<c:out value="${payAmount}"/>';
+ 
     </script>

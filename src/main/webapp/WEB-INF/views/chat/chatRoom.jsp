@@ -55,10 +55,12 @@
     <div class="chat_wrap">
         <div class="inner">
             <div class="flex_wrap">
-                <!-- <div class="tteuttoProfile">
+                <!-- 
+                <div class="tteuttoProfile">
 
                     <img src="https://trello.com/1/cards/61ea68649279785e229eb2dd/attachments/61eac69be448bf64cd927411/previews/61eac69ce448bf64cd927465/download/TTEUTTO_ver.3_%28favicon%29.png" style="width: 25px; border-radius: 5px;">
-                </div> -->
+                </div> 
+                -->
                 
                 <div class="item on">
                     <div class="otherName">백동현</div>
