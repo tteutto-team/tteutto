@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/class/*")
-public class ClassDetail {
+public class ClassDetailController {
 	
-	// 클래스 상세
+	// 클래스 상세 페이지
 	@RequestMapping("classDetail")
 	public String classList() {
 		return "class/classDetail";
