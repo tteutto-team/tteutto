@@ -270,7 +270,7 @@ select {
     margin-right: 10px;
 }
 
-#c-location > div > button{
+#c-location > div > input:last-child{
     font-family: 'IBMPlexSansKR-Regular';
     font-weight: bold;
     font-size: 14px;
