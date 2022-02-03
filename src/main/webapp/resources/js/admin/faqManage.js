@@ -8,7 +8,6 @@ function createTable() {
 		type: "GET",
 		dataType: "JSON",
 		success: function (data) {
-			console.log(data);
 			$('#table_id').DataTable({
 				language: lang_kor,
 				data: data,

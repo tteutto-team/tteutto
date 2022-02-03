@@ -11,7 +11,7 @@
 <div id="right">
 	<div>
 		<div class="title-wrap">
-			<h2>${cal.className}-${cal.episodeCount}회차 ${cal.teacherName}강사</h2>
+			<h2>${cal.className}-${cal.episodeCount}회차 <span>(${cal.teacherName} 강사님)</span></h2>
 			<button onclick="a();">정산하기</button>
 		</div>
 	    <table id="table_id" class="display">
@@ -26,9 +26,6 @@
 	        </tbody>
 	    </table>
 	</div>
-	<form action="#" name="updateRequest">
-		<input type="hidden" name="calNo" value="${paramCalNo}">
-	</form>
 </div>
    
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
@@ -41,7 +38,6 @@
 	const teacherName = "${cal.teacherName}";
 	const className = "${cal.className}-${cal.episodeCount}회차"	
 	const memberNo = "${cal.calNo}";
-	console.log(memberNo);
 	const paramCalNo = "${paramCalNo}";
 </script>
 <script src="${contextPath}/resources/js/admin/calculate.js"></script>
