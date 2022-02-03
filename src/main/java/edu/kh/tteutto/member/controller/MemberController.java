@@ -452,10 +452,10 @@ public class MemberController {
 
 	// 강사 프로필 페이지 이동
 	@RequestMapping(value = "teacherProfile", method = RequestMethod.GET)
-	public String teacherProfile(Model model, HttpSession session) {
+	public String teacherProfile(@ModelAttribute("loginMember") Member loginMember, Model model, HttpSession session) {
 
-//		int memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
-		int memberNo = 3;
+		int memberNo = loginMember.getMemberNo();
+//		int memberNo = 3;
 
 		Teacher teacher = service.selectTeacherProfile(memberNo);
 		List<Career> careerList = service.selectTeacherCareer(memberNo);
@@ -490,14 +490,14 @@ public class MemberController {
 	}
 	// 강사 프로필 업데이트
 	@RequestMapping(value = "teacherProfileUpdate", method = RequestMethod.POST)
-	public String teacherProfileUpdate(/* @ModelAttribute("loginMember") Member loginMember, */
+	public String teacherProfileUpdate( @ModelAttribute("loginMember") Member loginMember,
 										String phone, String introduce, @RequestParam(value = "profileInput", required=false, defaultValue="0") List<String> profileInput,
 										String instagram, String blog, String youtube, HttpSession session,
 										@RequestParam(value="profileImg", required=false, defaultValue="0") List<MultipartFile> images/*업로드 파일*/,
 										RedirectAttributes ra) {
 		
-//		int memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
-		int memberNo = 3;
+		int memberNo = loginMember.getMemberNo();
+//		int memberNo = 3;
 		
 		List<Sns> snsList = new ArrayList<Sns>();
 		
