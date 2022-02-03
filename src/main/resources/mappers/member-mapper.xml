@@ -180,12 +180,16 @@
 	<update id="teacherSnsInsert" parameterType="Sns">
 		INSERT INTO SNS VALUES(SEQ_SNS_NO.NEXTVAL, #{snsLink}, #{memberNo}, #{snsDiv})
 	</update>
-	
+
+	<!-- 강사 이력 이미지 조회 -->
+	<select id="selectImgName" resultType="string">
+		SELECT IMG_NM FROM CAREER WHERE CAREER_NO = #{id}
+	</select>
+
 	<!-- 강사 이력 삭제 -->
-	<update id="teacherProfileDelete">
-		DELETE FROM CAREER 
-		WHERE MEMBER_NO = #{memberNo}
-	</update>
+	<delete id="teacherProfiledelete">
+		DELETE FROM CAREER WHERE CAREER_NO = #{id}
+	</delete>
 	
 	<!-- 강사 이력 삽입 -->
 	<insert id="teacherProfileInsert">
