@@ -60,6 +60,16 @@ $.support.cors = true;
                                 let 행정구역코드 = f.properties.sig_cd;
                                 let 행정구역명 = f.properties.sig_kor_nm;
                                 
+                                //let cut = 행정구역명.indexOf(' ');
+                                if(행정구역명 == '세종특별자치시'){
+									행정구역명 = '특별시'
+								}else{
+                                	행정구역명 = 행정구역명.substr(0, 3);
+									
+								}
+                                
+                                
+                                
                                 html +=`<option value="${행정구역코드}">${행정구역명}</option>`
                                 
                             })
@@ -84,7 +94,7 @@ $.support.cors = true;
                             let html = "<option>선택</option>";
         
                             data.response.result.featureCollection.features.forEach(function(f){
-                                console.log(f.properties)
+                                //console.log(f.properties)
                                 let 행정구역코드 = f.properties.emd_cd;
                                 let 행정구역명 = f.properties.emd_kor_nm;
                                 html +=`<option value="${행정구역코드}">${행정구역명}</option>`
@@ -122,35 +132,36 @@ $("#ct1").on("change", function(){
     $("select#ct2 option").remove();
 
     if(c == "공예/디자인"){
-        $("select#ct2").append("<option>조향,캔들,비누</option>");
-        $("select#ct2").append("<option>가죽,목공,도예</option>");
-        $("select#ct2").append("<option>플라워</option>");
-        $("select#ct2").append("<option>캘리그라피</option>");
-        $("select#ct2").append("<option>디지털드로잉</option>");
-        $("select#ct2").append("<option>취미미술</option>");
+        $("select#ct2").append("<option value='1'>조향,캔들,비누</option>");
+        $("select#ct2").append("<option value='2'>가죽,목공,도예</option>");
+        $("select#ct2").append("<option value='3'>플라워</option>");
+        $("select#ct2").append("<option value='4'>캘리그라피</option>");
+        $("select#ct2").append("<option value='5'>디지털드로잉</option>");
+        $("select#ct2").append("<option value='6'>취미미술</option>");
     }else if(c == "요리"){
-        $("select#ct2").append("<option>베이킹,디저트</option>");
-        $("select#ct2").append("<option>커피,차,음료</option>");
-        $("select#ct2").append("<option>건강,다이어트식</option>");
-        $("select#ct2").append("<option>세계요리</option>");
+        $("select#ct2").append("<option value='7'>베이킹,디저트</option>");
+        $("select#ct2").append("<option value='8'>커피,차,음료</option>");
+        $("select#ct2").append("<option value='9'>건강,다이어트식</option>");
+        $("select#ct2").append("<option value='10'>세계요리</option>");
     }else if(c == "뷰티/헬스"){
-        $("select#ct2").append("<option>메이크업</option>");
-        $("select#ct2").append("<option>퍼스널컬러</option>");
-        $("select#ct2").append("<option>패션</option>");
-        $("select#ct2").append("<option>PT,GX</option>");
+        $("select#ct2").append("<option value='11'>메이크업</option>");
+        $("select#ct2").append("<option value='12'>퍼스널컬러</option>");
+        $("select#ct2").append("<option value='13'>패션</option>");
+        $("select#ct2").append("<option value='14'>PT,GX</option>");
     }else if(c == "사진/영상"){
-        $("select#ct2").append("<option>사진</option>");
-        $("select#ct2").append("<option>영상</option>");
+        $("select#ct2").append("<option value='15'>사진</option>");
+        $("select#ct2").append("<option value='16'>영상</option>");
     }else if(c == "커리어"){
-        $("select#ct2").append("<option>개발</option>");        
-        $("select#ct2").append("<option>언어,외국어</option>");        
-        $("select#ct2").append("<option>주식투자</option>");        
-        $("select#ct2").append("<option>자격증</option>");        
+        $("select#ct2").append("<option value='17'>금융</option>");        
+        $("select#ct2").append("<option value='18'>개발</option>");        
+        $("select#ct2").append("<option value='19'>언어,외국어</option>");        
+        $("select#ct2").append("<option value='20'>주식투자</option>");        
+        $("select#ct2").append("<option value='21'>자격증</option>");        
     }else if(c == "음악"){
-        $("select#ct2").append("<option>보컬</option>");      
-        $("select#ct2").append("<option>악기</option>");      
-        $("select#ct2").append("<option>작곡,디제잉</option>");      
-        $("select#ct2").append("<option>댄스</option>");      
+        $("select#ct2").append("<option value='22'>보컬</option>");      
+        $("select#ct2").append("<option value='23'>악기</option>");      
+        $("select#ct2").append("<option value='24'>작곡,디제잉</option>");      
+        $("select#ct2").append("<option value='25'>댄스</option>");      
     }else{
         $("select#ct2").append("<option>기타</option>");      
     }
@@ -185,4 +196,23 @@ $("#titleArea").on("input", function(){
     // 글자 수를 출력하는 span
     $("#titleText-count").text( count ); 
 });
+
+
+// 시,도 바꾸면 input 값 바꾸기
+$("#sido_code").on("change", function(){
+	
+	const st = $("#sido_code option:checked").text();
+	
+    $('#classArea1').val(st);
+    console.log($('#classArea1').val());
+})
+
+
+$("#sigoon_code").on("change", function(){
+	
+	const st = $("#sigoon_code option:checked").text();
+	
+    $('#classArea2').val(st);
+    console.log($('#classArea2').val());
+})
 

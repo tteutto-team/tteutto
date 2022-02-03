@@ -165,7 +165,7 @@ public class MemberDAO {
 	 * @param teacher
 	 * @param career
 	 * @param sns
-	 * @return
+	 * @return result
 	 */
 	public int teacherRegisterInsert(Teacher teacher) {
 		return sqlSession.insert("memberMapper.teacherRegisterInsert", teacher);
@@ -174,10 +174,26 @@ public class MemberDAO {
 	
 	/** 이력 삽입
 	 * @param car
-	 * @return 
+	 * @return result
 	 */
 	public int insertTeacherCareer(Career car) {
 		return sqlSession.insert("memberMapper.insertTeacherCareer", car);
+	}
+
+	/** 강사 이력 삭제
+	 * @param id
+	 * @return result
+	 */
+	public int teacherProfiledelete(String id) {
+		return sqlSession.insert("memberMapper.teacherProfiledelete", id);
+	}
+
+	public String selectImgName(String id) {
+		return sqlSession.selectOne("memberMapper.selectImgName", id);
+	}
+
+	public int studentProfileUpdate(Member member) {
+		return sqlSession.update("memberMapper.studentProfileUpdate", member);
 	}
 
 

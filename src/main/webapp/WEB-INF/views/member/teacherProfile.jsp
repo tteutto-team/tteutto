@@ -61,11 +61,11 @@
                     
                        	<c:forEach items="${careerList}" var="career" varStatus="status">
 	                        <div id="record_area">
-	                            <input type="text" class="profile_input talent" value="${career.careerContent}" name="profileInput">
-	                            <div class="upload_area">
+	                            <input type="text" class="profile_input talent" value="${career.careerContent}" disabled>
+	                            <div class="upload_area" id="career_${career.careerNo}">
 	                                <div class="upload_img">
 	                                    <img class="preview img_img" src="${contextPath}${career.imgPath}${career.imgName}">
-	                                    <input type="file" class="profile_file talent_img" name="profileImg" onchange="loadImg(this)">
+	                                    <input type="file" class="profile_file talent_img" disabled>
 	                                </div>
 	                                <div class='close_record' onclick='close_record_function(this,0)'>삭제</div>
 	                            </div>
@@ -140,7 +140,13 @@
     
 </div>
 
+<script>
+	const contextPath = "${contextPath}";
+</script>
+
 <jsp:include page="../common/footer.jsp"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="${contextPath}/resources/js/teacherProfile.js"></script>
+
+

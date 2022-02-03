@@ -47,6 +47,6 @@ document.getElementById("register_record_add").addEventListener("click", functio
 		</div>
 	</div>*/
 	
-	$("#record_area").append('<div id="record_area"><input type="text" class="profile_input" name="careerContent "placeholder="재능과 관련된 이력을 입력해 주세요."><div class="upload_area"><div class="upload_img"><img class="preview" src="https://front-img.taling.me/Content/app3/img/bg/bg-add-img-grey-115px@2x.png"><input type="file" class="profile_file" name="careerImage" onchange="loadCareerImg(this,'+add+')"></div></div></div>');
+	$("#record-box").append('<div id="record_area"><input type="text" class="profile_input" name="careerContent "placeholder="재능과 관련된 이력을 입력해 주세요."><div class="upload_area"><div class="upload_img"><img class="preview" src="https://front-img.taling.me/Content/app3/img/bg/bg-add-img-grey-115px@2x.png"><input type="file" class="profile_file" name="careerImage" onchange="loadCareerImg(this,'+add+')"></div></div></div>');
 	add = add + 1;
 })

@@ -1,5 +1,7 @@
 package edu.kh.tteutto.member.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -446,16 +448,69 @@ public class MemberController {
 
 	// 학생 프로필 페이지 이동
 	@RequestMapping(value = "studentProfile", method = RequestMethod.GET)
-	public String studentProfile() {
+	public String studentProfile(@ModelAttribute("loginMember") Member loginMember, Model model) {
+		
+		System.out.println("로그인 한 회원정보 : "+ loginMember);
+		
+		String brith = loginMember.getMemberBirth().substring(0, 10);
+		String[] brithArray = brith.split("-");
+		
+		model.addAttribute("brithArray", brithArray);
+		model.addAttribute("loginMember", loginMember);
+		
 		return "member/studentProfile";
 	}
+	
+	// 학생 프로필 수정
+	@RequestMapping(value = "studentProfileUpdate", method = RequestMethod.POST)
+	public String studentProfileUpdate(@ModelAttribute("loginMember") Member loginMember, String name, String phone,
+										HttpSession session, RedirectAttributes ra, Model model, 
+										@RequestParam(value="profileImg", required=false, defaultValue="0") MultipartFile image/*업로드 파일*/) {
+		
+		Member member = new Member();
+		member.setMemberNo(loginMember.getMemberNo());
+		member.setMemberNm(name);
+		member.setMemberPno(phone);
+		
+		if(image.getSize() != 0) {
+			
+			// 웹 접근 경로(webPath), 서버 저장 경로(serverPath)
+			String webPath = "/resources/images/profile/"; // (DB에 저장되는 경로)
+			String serverPath = session.getServletContext().getRealPath(webPath);
+			member.setMemberImg(Util.fileRename( image.getOriginalFilename() )); // 변경된 파일명
+			
+			try {
+				image.transferTo(new File(serverPath + "/" + member.getMemberImg()));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		System.out.println("이미지: " + image.getSize());
+		
+		int result = service.studentProfileUpdate(member);
+		
+		if(result > 0 ) {	// 성공
+			loginMember.setMemberNm(name);
+			loginMember.setMemberPno(phone);
+			return "redirect:studentProfile";
+		} else { // 실패
+			return "redirect:studentProfile";
+		}
+		
+		
+	}
+	
+	
+	
+	
 
 	// 강사 프로필 페이지 이동
 	@RequestMapping(value = "teacherProfile", method = RequestMethod.GET)
-	public String teacherProfile(Model model, HttpSession session) {
+	public String teacherProfile(@ModelAttribute("loginMember") Member loginMember, Model model) {
 
-//		int memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
-		int memberNo = 3;
+		int memberNo = loginMember.getMemberNo();
+//		int memberNo = 3;
 
 		Teacher teacher = service.selectTeacherProfile(memberNo);
 		List<Career> careerList = service.selectTeacherCareer(memberNo);
@@ -488,70 +543,90 @@ public class MemberController {
 
 		return "member/teacherProfile";
 	}
-	
 	// 강사 프로필 업데이트
 	@RequestMapping(value = "teacherProfileUpdate", method = RequestMethod.POST)
-	public String teacherProfileUpdate(/* @ModelAttribute("loginMember") Member loginMember, */
-										String phone, String introduce, @RequestParam(value = "profileInput") List<String> profileInput,
+	public String teacherProfileUpdate( @ModelAttribute("loginMember") Member loginMember,
+										String phone, String introduce, @RequestParam(value = "profileInput", required=false, defaultValue="0") List<String> profileInput,
 										String instagram, String blog, String youtube, HttpSession session,
-										@RequestParam(value="profileImg", required=false) List<MultipartFile> images/*업로드 파일*/,
+										@RequestParam(value="profileImg", required=false, defaultValue="0") List<MultipartFile> images/*업로드 파일*/,
 										RedirectAttributes ra) {
+		
+		int memberNo = loginMember.getMemberNo();
+//		int memberNo = 3;
 		
 		List<Sns> snsList = new ArrayList<Sns>();
 		
 		if(!instagram.equals("")) {
 			Sns sns = new Sns();
-			sns.setMemberNo(3);
+			sns.setMemberNo(memberNo);
 			sns.setSnsLink(instagram);
 			sns.setSnsDiv(1);
 			snsList.add(sns);
 		}
 		if(!blog.equals("")) {
 			Sns sns = new Sns();
-			sns.setMemberNo(3);
+			sns.setMemberNo(memberNo);
 			sns.setSnsLink(blog);
 			sns.setSnsDiv(2);
 			snsList.add(sns);
 		}
 		if(!youtube.equals("")) {
 			Sns sns = new Sns();
-			sns.setMemberNo(3);
+			sns.setMemberNo(memberNo);
 			sns.setSnsLink(youtube);
 			sns.setSnsDiv(3);
 			snsList.add(sns);
 		}
 		
 		Teacher teacher = new Teacher();
-		teacher.setMemberNo(3);
+		teacher.setMemberNo(memberNo);
 		teacher.setTeacherIntro(introduce);
 		
 		
-		// 이력에 대한 설명이 작성되지 않았을 경우
+		// 이력을 수정하지 않았을 경우
 		for(int i = 0; i < profileInput.size(); i++) {
-			if(profileInput.get(i).equals("")) {
-				
-				
-				
+			if(profileInput.get(0).equals("0")) {
 				profileInput.remove(i);
-				images.remove(i);
 			}
 		}
 		
-		
-		
-		// 1) 웹 접근 경로(webPath), 서버 저장 경로(serverPath)
+		// 웹 접근 경로(webPath), 서버 저장 경로(serverPath)
 		String webPath = "/resources/images/teacher/profile/"; // (DB에 저장되는 경로)
 		String serverPath = session.getServletContext().getRealPath(webPath);
 		
-		int result = service.teacherProfileUpdate(teacher, phone, snsList, profileInput, images, webPath, serverPath);
+		int result = 0;
 		
-		System.out.println("컨트롤러 최종 결과:"  + result);
+		// 이력을 수정하지 않았을 경우
+		if(profileInput.size() == 0) {
+			result = service.teacherProfileUpdate2(teacher, phone, snsList);
+		} else {	// 이력을 수정했을 경우
+			result = service.teacherProfileUpdate(teacher, phone, snsList, profileInput, images, webPath, serverPath);
+		}
 		
-		return "redirect:teacherProfile";
+		if(result > 0) {
+			return "redirect:teacherProfile";
+		} else {	// 에러일 경우
+			return "redirect:teacherProfile";
+		}
 	}
 	
-	
-	
+	// 강사 이력 삭제
+	@RequestMapping(value = "teacherProfiledelete", method = RequestMethod.POST)
+	@ResponseBody
+	public int teacherProfiledelete(HttpSession session, String id) {
+		
+		// 웹 접근 경로(webPath), 서버 저장 경로(serverPath)
+		String webPath = "/resources/images/teacher/profile/"; // (DB에 저장되는 경로)
+		String serverPath = session.getServletContext().getRealPath(webPath);
+		
+		int result = service.teacherProfiledelete(id, webPath, serverPath);
+		
+		if(result > 0) {
+			
+		}
+		
+		return result;
+	}
 	
 	
 	// 강사 신청 페이지 이동

@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.tteutto.admin.model.dao.AdminDAO;
 import edu.kh.tteutto.admin.model.vo.Admin;
+import edu.kh.tteutto.admin.model.vo.AdminCalcRefund;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeImage;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
@@ -117,7 +118,6 @@ public class AdminServiceImpl implements AdminService{
 			}
 		}
 		
-		
 		return result;
 	}
 
@@ -132,11 +132,62 @@ public class AdminServiceImpl implements AdminService{
 	
 	
 	
+	// 정산 신청 목록 조회
+	@Override
+	public List<AdminCalcRefund> calculateList() {
+		return dao.calculateList();
+	}
+	
+	// 영수증 생성
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int createReceipt(int calNo) {
+		
+		// 영수증 생성 전 정산 상태 수정
+		int result = dao.calStatus(calNo);
+		
+		if(result > 0) {
+			List<AdminCalcRefund> list = dao.receiptList(calNo);
+			
+			if(!list.isEmpty()) {
+				
+				result = dao.createReceipt(list);
+				
+			}
+		}
+		
+		return result;
+	}
+	
+	// 정산 학생 목록 조회
+	@Override
+	public List<AdminCalcRefund> receiptStList(int calNo) {
+		return dao.receiptStList(calNo);
+	}
+	
+	// 정산 클래스 이름, 강사 이름 조회
+	@Override
+	public AdminCalcRefund calculateClassTeacher(int calNo) {
+		return dao.calculateClassTeacher(calNo);
+	}
+	
+	// 정산 완료 업데이트
+	@Override
+	public int receiptUpdate(int calNo) {
+		return dao.receiptUpdate(calNo);
+	}
 	
 	
 	
 	
 	
+
+
+
+	
+
+	
+
 	// 공지사항 목록 조회
 	@Override
 	public List<AdminNoticeFaq> noticeList() {
@@ -179,8 +230,6 @@ public class AdminServiceImpl implements AdminService{
 				} // if end
 				
 			} // for end
-			System.out.println(imgList);
-			
 			
 			if (!imgList.isEmpty()) {
 				int result = dao.insertImgList(imgList);
@@ -201,13 +250,41 @@ public class AdminServiceImpl implements AdminService{
 				}
 
 			}
-			 
-			
 			
 		}
 		
 		return noticeNo;
 	}
+	
+	
+	// FAQ 목록 조회
+	@Override
+	public List<AdminNoticeFaq> faqList() {
+		return dao.faqList();
+	}
+
+	// FAQ 삭제
+	@Override
+	public int faqDelete(int faqNo) {
+		return dao.faqDelete(faqNo);
+	}
+
+	// FAQ 게시글 삽입
+	@Override
+	public int insertFaq(AdminNoticeFaq faq) {
+		faq.setFaqQuestion(Util.XSS(faq.getFaqQuestion()));
+		faq.setFaqAnswer(Util.XSS(faq.getFaqAnswer()));
+		
+		faq.setFaqAnswer(Util.changeNewLine(faq.getFaqAnswer()));
+		
+		int result = dao.insertFaq(faq);
+		
+		return result;
+	}
+	
+	
+	
+	
 
 	
 	

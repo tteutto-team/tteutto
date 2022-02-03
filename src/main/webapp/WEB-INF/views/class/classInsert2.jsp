@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="${contextPath}/resources/css/jquery-ui.multidatespicker.css">
 	
     <section id="classInsert2">
-    	<form action="${contextPath}" id="name" name="name" method="post">
+    	<form action="${contextPath}register/schedule" id="form" name="form" method="post">
         <div class="fixWidth">
         <div id="register_header">
             <div>스케쥴 등록</div>
@@ -20,8 +20,8 @@
                     <div><h4>수업기간 <span class="redText">*</span></h4></div>
                     <div id="mdp-box">
                         <div id="mdp-demo"></div>
-                        <button id="testtest" >원데이테스트용</button>
-                        <button id="testtest1" >다회차테스트용</button>
+                        <button type="button" id="testtest" >원데이테스트용</button>
+                        <button type="button" id="testtest1" >다회차테스트용</button>
                     </div>
                     <div id="schedule-val">
                         <div><input type="button" id="schedule-btn" class="btn-click" value="날짜 불러오기"></input></div>
@@ -76,9 +76,10 @@
             <div id="c-location" class="bottomLine">
                 <div class="line1 h4-height"><h4>수업장소 주소 <span class="redText">*</span></h4></div> 
                 <div class="line2">
-                    <input type="text" class="input-style" placeholder="서울시 구로구 구로동 100">
-                    <input type="text" class="input-style" placeholder="스터디카페 비버통 2층">
-                    <button class="btn-click">주소검색</button>
+                    <input type="text" id="roadAddrPart1"  name="roadAddrPart1" class="input-style" placeholder="서울시 구로구 구로동 100">
+                    <input type="text" id="addrDetail"  name="addrDetail" class="input-style" placeholder="스터디카페 비버통 2층">
+                    <!-- <button type="button" class="btn-click" onClick="goPopup();" >주소검색</button> -->
+                    <input type="button" class="btn-click" onClick="goPopup();" value="주소검색"/>
                 </div>
             </div>
 

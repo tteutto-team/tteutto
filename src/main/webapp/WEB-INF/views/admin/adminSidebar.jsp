@@ -61,14 +61,14 @@
 		</div>
 		<div class="admin-list">
 			<div>
-				<a href="#"><i class="far fa-circle"></i> 정산 관리</a>
+				<a href="${contextPath}/admin/calculateManage"><i class="far fa-circle"></i> 정산 관리</a>
 				<a href="#"><i class="far fa-circle"></i> 환불 관리</a>
 			</div>
 		</div>
 		<div class="admin-list">
 			<div>
 				<a href="${contextPath}/admin/noticeManage"><i class="far fa-circle"></i> 공지사항</a>
-				<a href="#"><i class="far fa-circle"></i> FAQ</a>
+				<a href="${contextPath}/admin/faqManage"><i class="far fa-circle"></i> FAQ</a>
 			</div>
 		</div>
 	</aside>

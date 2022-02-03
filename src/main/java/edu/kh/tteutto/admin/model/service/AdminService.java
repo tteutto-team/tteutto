@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.tteutto.admin.model.vo.Admin;
+import edu.kh.tteutto.admin.model.vo.AdminCalcRefund;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
 import edu.kh.tteutto.admin.model.vo.AdminTeacher;
@@ -91,14 +92,36 @@ public interface AdminService {
 	
 	
 	
+	/** 정산 신청 목록 조회
+	 * @return data
+	 */
+	List<AdminCalcRefund> calculateList();
 	
+	/** 영수증 생성
+	 * @param calNo
+	 * @return result
+	 */
+	int createReceipt(int calNo);
 	
+	/** 정산 학생 목록 조회
+	 * @param calNo
+	 * @return data
+	 */
+	List<AdminCalcRefund> receiptStList(int calNo);
+
 	
-	
-	
-	
-	
-	
+	/** 정산 클래스 이름, 강사 이름 조회
+	 * @param calNo
+	 * @return cal
+	 */
+	AdminCalcRefund calculateClassTeacher(int calNo);
+
+	/** 정산 완료 업데이트
+	 * @param calNo
+	 * @return result
+	 */
+	int receiptUpdate(int calNo);
+
 	
 	
 	
@@ -122,6 +145,26 @@ public interface AdminService {
 	 * @return 
 	 */
 	int insertNotice(AdminNoticeFaq notice, List<MultipartFile> images, String webPath, String serverPath);
+
+	/** FAQ 목록 조회
+	 * @return data
+	 */
+	List<AdminNoticeFaq> faqList();
+
+	/** FAQ 삭제
+	 * @param faqNo
+	 * @return result
+	 */
+	int faqDelete(int faqNo);
+
+	/** FAQ 게시글 삽입
+	 * @param faq
+	 * @return result
+	 */
+	int insertFaq(AdminNoticeFaq faq);
+
+
+
 
 
 }

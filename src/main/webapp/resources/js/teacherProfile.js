@@ -11,10 +11,32 @@ $(".record_add").on("click", function(){
 	$(this).before(html1+html2+html3+html4+html5+html6+html7+html8);
 });
 
-// 이력 추가 닫기
+// 이력 추가 삭제/닫기
 function close_record_function(el,num) {
     if(num == 0){
-        if(confirm("이력을 삭제하시겠습니까?")){
+        if(confirm("삭제하면 되돌릴 수 없습니다. 이력을 삭제하시겠습니까?")){
+            
+            let id = $(el).parent().attr('id').substr(7);
+
+            $.ajax({
+                url: contextPath + "/member/teacherProfiledelete",
+                type : "POST",
+                data: {"id": id},
+                dataType : "json",
+                success : function(result){
+                    if(result > 0){
+                        alert("성공");
+                    } else{
+                        alert("실패");
+                    }
+                },
+
+                error : function(req, status, error){
+                    console.log("삭제 실패");
+                    console.log(req.responseText);
+                }
+            });
+            
             $(el).parent().parent().remove();
         }
     }
@@ -44,14 +66,6 @@ function teacherProfileValidate() {
     
     const offset = $('#check').offset();
 
-    for(let i=0; i < input.length; i++){
-        if(input.eq(i).val().trim() == "" && img.eq(i).val()== ""){
-            input.eq(i).remove();
-            img.eq(i).remove();
-            img.eq(i).prev().remove();
-        }
-    }
-
     if ($("#phone").val().trim().length == 0) {
         alert("전화번호를 입력해 주세요.");
         $("#phone").focus();
@@ -79,7 +93,14 @@ function teacherProfileValidate() {
     }
 
     else{
-        return true;
+        // 빈 이력은 없애기
+        for(let i=0; i < input.length; i++){
+            if(input.eq(i).val().trim() == "" && 
+                img.eq(i).attr("src")== "https://front-img.taling.me/Content/app3/img/bg/bg-add-img-grey-115px@2x.png"){
+                input.eq(i).parent().remove();
+            }
+        }
+        return true;    
     }
 }
 

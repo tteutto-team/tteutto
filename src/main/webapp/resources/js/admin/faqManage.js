@@ -4,7 +4,7 @@ $(function () {
 
 function createTable() {
 	$.ajax({
-		url: "noticeList",
+		url: "faqList",
 		type: "GET",
 		dataType: "JSON",
 		success: function (data) {
@@ -12,20 +12,34 @@ function createTable() {
 			$('#table_id').DataTable({
 				language: lang_kor,
 				data: data,
-				order: [[2, "desc"]],
+				order: [[0, "desc"]],
 				columns: [
-					{ data: "noticeNo" },
+					{ data: "faqNo" },
 					{
 						data: null,
 						render: function (data, type, row) {
-							return '<a href="#">' + data.noticeTitle + '</a>';
+							return '<a href="#">' + data.faqQuestion + '</a>';
 						}
 					},
-					{ data: "noticeDate" },
 					{
 						data: null,
 						render: function (data, type, row) {
-							return '<button onclick="agree(' + data.noticeNo + ')">삭제</button>'
+							let div;
+
+							if (data.faqDiv == 0) {
+								div = "학생";
+							} else {
+								div = "강사";
+							}
+
+							return div;
+						}
+
+					},
+					{
+						data: null,
+						render: function (data, type, row) {
+							return '<button onclick="agree(' + data.faqNo + ')">삭제</button>'
 						},
 						orderable: false
 					}
@@ -35,7 +49,7 @@ function createTable() {
 	})
 }
 
-function agree(noticeNo) {
+function agree(faqNo) {
 	Swal.fire({
 		title: '삭제 하시겠습니까?',
 		icon: 'warning',
@@ -47,10 +61,10 @@ function agree(noticeNo) {
 	}).then((result) => {
 		if (result.value) {
 			$.ajax({
-				url: "noticeDelete",
+				url: "faqDelete",
 				dataType: "json",
 				data: {
-					"noticeNo": noticeNo
+					"faqNo": faqNo
 				},
 				success: function (result) {
 					if (result > 0) {

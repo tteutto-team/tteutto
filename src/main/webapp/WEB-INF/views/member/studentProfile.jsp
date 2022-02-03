@@ -10,22 +10,34 @@
     <main>
         <jsp:include page="../common/studentMypageSidebar.jsp"></jsp:include>
         
-        <form id ="signUp">
+        <form id ="signUp" action="studentProfileUpdate" method="post"  name="studentProfileUpdate"
+				  enctype="multipart/form-data" role="form" onsubmit="return studentProfileValidate();">
             <div id="profile_header">
-                <span>김사과</span>님의 학생 프로필
+                <span>${loginMember.memberNm}</span>님의 학생 프로필
                 <div id="secession" class="profile_btn btn_shadow">탈퇴하기</div>
                 <div id="save" class="profile_btn btn_shadow">저장하기</div>
             </div>
             <div class="profile_content">
                 <div class="profile_area">
-                    <div class="profile_img" id="img_cover" style="background-image:url(//img.taling.me/Content/Images/placeholders/profile-default.thumb.jpg)">
+                	<c:if test="${empty loginMember.memberImg}">
+	                    <div class="profile_img" id="img_cover" 
+    	                	style="background-image:url(${contextPath}/resources/images/profile/temp.png)">
+                	</c:if>
+                	<c:if test="${!empty loginMember.memberImg}">
+	                    <div class="profile_img" id="img_cover" 
+    	                	style="background-image:url(${contextPath}/resources/images/profile/${loginMember.memberImg})">
+                	</c:if>
+
+
                         <img class="camera" src="https://front-img.taling.me/Content/Images/Tutor/Images/btn_pfimg.png">
-                        <input type="file" id="picture" name="picture">
+                        <input type="file" name="profileImg" id="picture" name="picture" onchange='loadImg(this)'>
+                        
                     </div>
+                    
                 </div>
                 <div class="profile_area">
                     <div class="label_title">ID</div>
-                    <div class="label_content">user01@naver.com</div>
+                    <div class="label_content">${loginMember.memberEmail}</div>
                 </div>
                 <div class="profile_area">
                     <div class="label_title">비밀번호</div>
@@ -33,15 +45,15 @@
                 </div>
                 <div class="profile_area">
                     <div class="label_title">전화번호</div>
-                    <div class="label_content"><input type="text" class="profile_input" placeholder="010-1234-5678"></div>
+                    <div class="label_content"><input type="text" class="profile_input" name="phone" placeholder="010-1234-5678" value="${loginMember.memberPno}"></div>
                 </div>
                 <div class="profile_area">
                     <div class="label_title">이름</div>
-                    <div class="label_content"><input type="text" class="profile_input" placeholder="김케이"></div>
+                    <div class="label_content"><input type="text" class="profile_input" name="name" placeholder="김케이" value="${loginMember.memberNm}"></div>
                 </div>
                 <div class="profile_area">
                     <div class="label_title">생년월일</div>
-                    <div class="label_content">000111</div>
+                    <div class="label_content">${brithArray[0]}년 ${brithArray[1]}월 ${brithArray[2]}일</div>
                 </div>
             </div>
            
@@ -54,3 +66,5 @@
 <script>
 	$(".left > .list > div:nth-of-type(1)").addClass("selected");
 </script>
+
+<script src="${contextPath}/resources/js/studentProfile.js"></script>

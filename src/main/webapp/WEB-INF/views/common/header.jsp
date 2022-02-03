@@ -44,7 +44,7 @@
 						<a href="${contextPath}"><img src="${contextPath}/resources/images/common/TTEUTTO ver.2.png" alt="뜨또 로고 이미지"></a>
 					</div>
 					
-					<!-- 클래스 검색 목록 페이지로 이동 -->
+					<%-- 클래스 검색 목록 페이지로 이동 --%>
 					<div class="search">
 						<form action="${contextPath}/main/searchList?${param.search}" method="get">
 							<div class="search-icon">
@@ -61,7 +61,7 @@
 						<c:when test="${empty sessionScope.loginMember}">
 							<ul class="logout">
 								<%-- 강사 신청 페이지로 이동 --%>
-								<li><a href="${contextPath}/member/teacherRegister">강사 신청하기</a></li>
+								<li><a href="${contextPath}/member/teacherRegister" onclick="alert('로그인 후 이용 가능합니다.');">강사 신청하기</a></li>
 								
 								<%-- 로그인 페이지로 이동 --%>
 								<li><a href="${contextPath}/member/login">로그인</a></li>
@@ -71,8 +71,8 @@
 						<%-- 로그인 시 노출되는 메뉴 --%>
 						<c:otherwise>
 							<ul class="login">
-								<%-- 강사 신청 페이지로 이동 --%>
-								<li><a href="${contextPath}/member/teacherRegister">강사 신청하기</a></li>
+								<%-- 클래스 등록 페이지로 이동 --%>
+								<li><a href="${contextPath}/register/class">클래스 등록하기</a></li>
 								
 								<%-- 찜한 클래스 페이지로 이동--%>
 								<li><a href="${contextPath}/member/studentWishList"><i class="icon-heart"></i></a></li>
@@ -87,7 +87,18 @@
 								<li class="profile">
 									<div class="my-profile" id="my-profile">
 										<%-- 프로필 이미지 --%>
-										<img src="${contextPath}/resources/images/profile/temp.png" alt="프로필 이미지">
+										<c:choose>
+											<%-- 등록된 프로필 이미지가 없을 때 보이는 이미지 --%>
+											<c:when test="${empty sessionScope.loginMember.memberImg}">
+												<img src="${contextPath}/resources/images/profile/temp.png" alt="프로필 이미지">
+											</c:when>
+											
+											<%-- 등록된 프로필 이미지가 있을 때 보이는 이미지 --%>
+											<c:otherwise>
+												<img src="${contextPath}/resources/images/profile/${sessionScope.loginMember.memberImg}" alt="프로필 이미지">
+											</c:otherwise>
+										</c:choose>
+										
 										<i class="icon-open" id="icon"></i>
 									</div>
 									
@@ -95,20 +106,30 @@
 									<div class="profile-modal" id="profile-modal">
 										<div class="modal-1">
 											<%-- 프로필 이미지 --%>
-											<img src="${contextPath}/resources/images/profile/temp.png" alt="프로필 이미지">
+											<c:choose>
+												<%-- 등록된 프로필 이미지가 없을 때 보이는 이미지 --%>
+												<c:when test="${empty sessionScope.loginMember.memberImg}">
+													<img src="${contextPath}/resources/images/profile/temp.png" alt="프로필 이미지">
+												</c:when>
+												
+												<%-- 등록된 프로필 이미지가 있을 때 보이는 이미지 --%>
+												<c:otherwise>
+													<img src="${contextPath}/resources/images/profile/${sessionScope.loginMember.memberImg}" alt="프로필 이미지">
+												</c:otherwise>
+											</c:choose>
 											
 											<div class="user">
 												<%-- 회원명 --%>
 												<div class="user-name"><span>${sessionScope.loginMember.memberNm}</span></div>
 												
-												<%-- 회원 프로필 페이지로 이동 --%>
+												<%-- 학생 프로필 페이지로 이동 --%>
 												<div class="my-page"><a href="${contextPath}/member/studentProfile">학생 프로필</a></div>
 											</div>
 										</div>
 										
 										<div class="modal-2">
-											<%-- 내 클래스 조회 페이지로 이동 --%>
-											<div><a href="${contextPath}/teacher/classList" target="_blank">강사 페이지 열기</a></div>
+											<%-- 강사 프로필 페이지로 이동 --%>
+											<div><a href="${contextPath}/member/teacherProfile" target="_blank">강사 페이지 열기</a></div>
 											
 											<%-- 로그아웃 후 Main 페이지로 이동 --%>
 											<div><a href="${contextPath}/member/logout">로그아웃</a></div>

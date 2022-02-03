@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +24,7 @@ import com.google.gson.Gson;
 
 import edu.kh.tteutto.admin.model.service.AdminService;
 import edu.kh.tteutto.admin.model.vo.Admin;
+import edu.kh.tteutto.admin.model.vo.AdminCalcRefund;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
 import edu.kh.tteutto.admin.model.vo.AdminTeacher;
@@ -213,10 +215,71 @@ public class adminController {
 	
 	
 	
+	// 정산 페이지 이동
+	@RequestMapping(value="calculateManage", method=RequestMethod.GET)
+	public String calculateManage() {
+		return "admin/calculateManage";
+	}
 	
+	// 정산 신청 목록 조회
+	@RequestMapping(value="calculateList", method=RequestMethod.GET)
+	@ResponseBody
+	public List<AdminCalcRefund> calculateList(){
+		
+		List<AdminCalcRefund> data = service.calculateList();
+		
+		return data;
+	}
 	
+	// 영수증 생성
+	@RequestMapping(value="createReceipt", method=RequestMethod.GET)
+	@ResponseBody
+	public int createReceipt(int calNo) {
+		
+		int result = service.createReceipt(calNo);
+		
+		return result;
+	}
 	
+	// 정산 학생 목록 페이지 이동
+	@RequestMapping(value="calculate/{calNo}", method=RequestMethod.GET)
+	public String calculate(@PathVariable(value="calNo", required = false) int calNo, Model model, RedirectAttributes ra) {
+		
+		AdminCalcRefund cal = service.calculateClassTeacher(calNo);
+		
+		if(cal != null) {
+			model.addAttribute("cal", cal);
+			model.addAttribute("paramCalNo", calNo);
+			
+			return "admin/calculate";
+		}else {
+			Util.swalSetMessage("영수증 생성먼저 해주세요.", null, "error", ra);
+			
+			return "redirect:../calculateManage";
+		}
+		
+		
+	}
 	
+	// 정산 학생 목록 조회
+	@RequestMapping(value="calculate/receiptList", method=RequestMethod.GET)
+	@ResponseBody
+	public List<AdminCalcRefund> receiptList(int calNo){
+		
+		List<AdminCalcRefund> data = service.receiptStList(calNo);
+		
+		return data;
+	}
+	
+	// 정산 완료 업데이트
+	@RequestMapping(value="receiptUpdate", method=RequestMethod.POST)
+	@ResponseBody
+	public int receiptUpdate(int calNo, RedirectAttributes ra) {
+		
+		int result = service.receiptUpdate(calNo);
+		
+		return result;
+	}
 	
 	
 	
@@ -277,5 +340,52 @@ public class adminController {
 		}
 		
 		return "redirect:/admin/noticeManage";
+	}
+	
+	// FAQ 페이지 이동
+	@RequestMapping(value="faqManage", method=RequestMethod.GET)
+	public String faqManage() {
+		return "admin/faqManage";
+	}
+	
+	// FAQ 목록 조회
+	@RequestMapping(value="faqList", method=RequestMethod.GET)
+	@ResponseBody
+	public List<AdminNoticeFaq> faqList(){
+		
+		List<AdminNoticeFaq> data = service.faqList();
+		
+		return data;
+	}
+	
+	// FAQ 삭제
+	@RequestMapping(value="faqDelete", method=RequestMethod.GET)
+	@ResponseBody
+	public int faqDelete(int faqNo){
+		
+		return service.faqDelete(faqNo);
+	}
+	
+	// FAQ 글쓰기 페이지 이동
+	@RequestMapping(value="faqInsert", method=RequestMethod.GET)
+	public String faqInsert() {
+		return "admin/faqInsert";
+	}
+	
+	// FAQ 게시글 삽입
+	@RequestMapping(value="faqInsert", method=RequestMethod.POST)
+	public String insertFaq(AdminNoticeFaq faq, RedirectAttributes ra) {
+		
+		System.out.println(faq);
+		
+		int result = service.insertFaq(faq);
+
+		if(result > 0) {
+			Util.swalSetMessage("게시글 삽입 완료", null, "success", ra);
+		}else {
+			Util.swalSetMessage("게시글 삽입 실패", null, "error", ra);
+		}
+		
+		return "redirect:/admin/faqManage";
 	}
 }

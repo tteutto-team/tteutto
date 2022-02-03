@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.tteutto.admin.model.vo.Admin;
+import edu.kh.tteutto.admin.model.vo.AdminCalcRefund;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeImage;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
@@ -150,6 +151,58 @@ public class AdminDAO {
 	
 	
 	
+	/** 정산 신청 목록 조회
+	 * @return data
+	 */
+	public List<AdminCalcRefund> calculateList() {
+		return sqlSession.selectList("adminMapper.calculateList");
+	}
+	
+	/** 정산 상태 수정
+	 * @param calNo
+	 * @return result
+	 */
+	public int calStatus(int calNo) {
+		return sqlSession.update("adminMapper.calStatus", calNo);
+	}
+	
+	
+	/** 영수증 목록
+	 * @param calNo
+	 * @return list
+	 */
+	public List<AdminCalcRefund> receiptList(int calNo) {
+		return sqlSession.selectList("adminMapper.receiptList", calNo);
+	}
+	
+	/** 영수증 생성
+	 * @param list
+	 * @return result
+	 */
+	public int createReceipt(List<AdminCalcRefund> list) {
+		return sqlSession.insert("adminMapper.createReceipt", list);
+	}
+	
+	/** 정산 학생 목록 조회
+	 * @param calNo
+	 * @return data
+	 */
+	public List<AdminCalcRefund> receiptStList(int calNo) {
+		return sqlSession.selectList("adminMapper.receiptStList", calNo);
+	}
+
+	/** 정산 클래스 이름, 강사 이름 조회
+	 * @param calNo
+	 * @return cal
+	 */
+	public AdminCalcRefund calculateClassTeacher(int calNo) {
+		return sqlSession.selectOne("adminMapper.calculateClassTeacher", calNo);
+	}
+	
+	
+	
+	
+	
 	
 	
 	
@@ -193,6 +246,58 @@ public class AdminDAO {
 	public int insertImgList(List<AdminNoticeImage> imgList) {
 		return sqlSession.insert("adminMapper.insertImgList", imgList);
 	}
+
+
+	/** FAQ 목록 조회
+	 * @return data
+	 */
+	public List<AdminNoticeFaq> faqList() {
+		return sqlSession.selectList("adminMapper.faqList");
+	}
+
+
+	/** FAQ 삭제
+	 * @param faqNo
+	 * @return result
+	 */
+	public int faqDelete(int faqNo) {
+		return sqlSession.delete("adminMapper.faqDelete", faqNo);
+	}
+
+
+	/** FAQ 게시글 삽입
+	 * @param faq
+	 * @return result
+	 */
+	public int insertFaq(AdminNoticeFaq faq) {
+		return sqlSession.insert("adminMapper.insertFaq", faq);
+	}
+
+
+	/** 정산 완료 업데이트
+	 * @param calNo
+	 * @return result
+	 */
+	public int receiptUpdate(int calNo) {
+		return sqlSession.update("adminMapper.receiptUpdate", calNo);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
