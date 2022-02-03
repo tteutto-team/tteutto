@@ -72,8 +72,6 @@ const date = new Date();
                 $("select#startTime" + num).append("<option value='23'>23:00</option>");
                 
                 
-                
-                $("select#endTime" + num).append("<option value='9'>09:00</option>");
                 $("select#endTime" + num).append("<option value='10'>10:00</option>");
                 $("select#endTime" + num).append("<option value='11'>11:00</option>");
                 $("select#endTime" + num).append("<option>12:00</option>");
@@ -96,14 +94,11 @@ const date = new Date();
                     let et = this.parentNode.nextSibling.nextSibling.firstChild;
                     $(et).children('option').remove();
 
+					let opc = 0;
+
                     for(i=this.value; i<24; i++){
-                        if(i == 9){
-                            $(et).append('<option>09:00</option>');
-                        }else{
-                            i = Number(i)+1;
-                            $(et).append('<option>'+i+':00</option>');
-                        }
-                        
+                            opc = Number(i)+1;
+                            $(et).append('<option>'+opc+':00</option>');
                     }
 
                 })
@@ -199,8 +194,6 @@ const date = new Date();
                 $("select#startTime" + num).append("<option value='23'>23:00</option>");
                 
                 
-                
-                $("select#endTime" + num).append("<option>09:00</option>");
                 $("select#endTime" + num).append("<option>10:00</option>");
                 $("select#endTime" + num).append("<option>11:00</option>");
                 $("select#endTime" + num).append("<option>12:00</option>");
@@ -224,14 +217,11 @@ const date = new Date();
                     let et = this.parentNode.nextSibling.nextSibling.firstChild;
                     $(et).children('option').remove();
 
+					let opc = 0;
+
                     for(i=this.value; i<24; i++){
-                        if(i == 9){
-                            $(et).append('<option>09:00</option>');
-                        }else{
-                            i = Number(i)+1;
-                            $(et).append('<option>'+i+':00</option>');
-                        }
-                        
+                            opc = Number(i)+1;
+                            $(et).append('<option>'+opc+':00</option>');
                     }
 
                 })

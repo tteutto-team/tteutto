@@ -14,9 +14,9 @@
 				<div class="register_area">
 					<div class="label_title">프로필사진</div>
 					<div class="label_content">
-						<div class="register_img" id="register_img_cover">
+						<div class="register_img" id="register_img_cover" style="margin-bottom: 10px;">
 							<img class="ppap" src="//img.taling.me/Content/Images/placeholders/profile-default.thumb.jpg">
-							<img class="camera"
+							<img class="camera" style="margin-top: -40px;"
 								src="https://front-img.taling.me/Content/Images/Tutor/Images/btn_pfimg.png">
 							<input type="file" id="picture" name="picture" onchange="loadImg(this)">
 						</div>
@@ -44,25 +44,27 @@
 				<div class="register_area">
 					<div class="label_title">이력(권장사항)</div>
 					<div class="label_content">
-						<div id="record_area">
-							<input type="text" class="profile_input" name="careerContent"
-								placeholder="재능과 관련된 이력을 입력해 주세요.">
-							<div class="upload_area">
-								<div class="upload_img">
-									<img class="preview"
-										src="https://front-img.taling.me/Content/app3/img/bg/bg-add-img-grey-115px@2x.png">
-									<input type="file" class="profile_file" name="careerImage" onchange="loadCareerImg(this,0)">
+						<div id="record-box">
+							<div id="record_area">
+								<input type="text" class="profile_input" name="careerContent"
+									placeholder="재능과 관련된 이력을 입력해 주세요.">
+								<div class="upload_area">
+									<div class="upload_img">
+										<img class="preview"
+											src="https://front-img.taling.me/Content/app3/img/bg/bg-add-img-grey-115px@2x.png">
+										<input type="file" class="profile_file" name="careerImage" onchange="loadCareerImg(this,0)">
+									</div>
 								</div>
 							</div>
-						</div>
-						<div id="record_area">
-							<input type="text" class="profile_input" name="careerContent"
-								placeholder="재능과 관련된 이력을 입력해 주세요.">
-							<div class="upload_area">
-								<div class="upload_img">
-									<img class="preview"
-										src="https://front-img.taling.me/Content/app3/img/bg/bg-add-img-grey-115px@2x.png">
-									<input type="file" class="profile_file" name="careerImage" onchange="loadCareerImg(this,1)">
+							<div id="record_area">
+								<input type="text" class="profile_input" name="careerContent"
+									placeholder="재능과 관련된 이력을 입력해 주세요.">
+								<div class="upload_area">
+									<div class="upload_img">
+										<img class="preview"
+											src="https://front-img.taling.me/Content/app3/img/bg/bg-add-img-grey-115px@2x.png">
+										<input type="file" class="profile_file" name="careerImage" onchange="loadCareerImg(this,1)">
+									</div>
 								</div>
 							</div>
 						</div>
