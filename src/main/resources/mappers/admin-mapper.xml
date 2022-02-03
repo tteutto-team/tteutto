@@ -86,6 +86,19 @@
 		<result property="faqAnswer" column="FAQ_ANSWER"/>
 	</resultMap>
 	
+	<!-- 정산 VO -->
+	<resultMap type="AdminCalcRefund" id="calc_rm">
+		<id property="calNo" column="CAL_NO"/>
+		<result property="calRequestNo" column="CAL_REQ_NO"/>
+		<result property="calStatus" column="CAL_ST"/>
+		<result property="teacherName" column="TEACHER_NM"/>
+		<result property="className" column="CLASS_NM"/>
+		<result property="episodeCount" column="EP_COUNT"/>
+		<result property="studentName" column="STUDENT_NM"/>
+		<result property="calPrice" column="CAL_PRICE"/>
+		<result property="classProgress" column="CLASS_PROGRESS"/>
+	</resultMap>
+	
 	
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -211,6 +224,97 @@
 	<!-- 계정 정지 -->
 	<update id="memberBan">
 		UPDATE MEMBER SET MEMBER_ST = 2 WHERE MEMBER_NO = #{reportTargetNo}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 정산 신청 목록 조회 -->
+	<select id="calculateList" resultMap="calc_rm">
+		SELECT CAL_NO, CAL_REQ_NO, MEMBER_NM TEACHER_NM, CLASS_NM, EP_COUNT, CAL_ST
+		FROM CALCULATE
+		JOIN EPISODE USING(EP_NO)
+		JOIN CLASS USING(CLASS_NO)
+		JOIN TEACHER USING(MEMBER_NO)
+		JOIN MEMBER USING(MEMBER_NO)
+		WHERE CAL_ST != 1
+	</select>
+	
+	<!-- 정산 상태 수정 -->
+	<update id="calStatus">
+		UPDATE CALCULATE SET CAL_ST = 2 WHERE CAL_NO = #{calNo}
+	</update>
+	
+	<!-- 영수증 목록 -->
+	<select id="receiptList" resultMap="calc_rm">
+		SELECT REG_NM "STUDENT_NM",
+		    CASE WHEN REFUND_MONEY IS NULL
+		        THEN EP_PRICE
+		        ELSE REFUND_MONEY
+		    END "CAL_PRICE", CAL_NO
+		
+		FROM CALCULATE
+		JOIN EPISODE USING(EP_NO)
+		JOIN REGISTER USING(EP_NO)
+		LEFT JOIN REFUND USING(REG_NO)
+		WHERE PAY_ST = 0 AND (REFUND_DT IS NULL OR REFUND_DT = 1) AND CAL_NO = #{calNo}
+	</select>
+	
+	<!-- 영수증 생성 -->
+	<insert id="createReceipt" parameterType="java.util.List">
+		INSERT INTO RECEIPT
+		SELECT SEQ_RECEIPT_NO.NEXTVAL, A.* FROM
+		<foreach collection="list" item="s" open="(" close=") A" separator=" UNION ALL ">
+			SELECT #{s.studentName} STUDENT_NM,
+				   #{s.calPrice} CAL_PRICE,
+				   #{s.calNo} CAL_NO
+			FROM DUAL
+		</foreach>
+	</insert>
+	
+	<!-- 정산 학생 목록 조회 -->
+	<select id="receiptStList" resultMap="calc_rm">
+		SELECT  A.*,
+		(
+		SELECT CLASS_PROGRESS FROM REGISTER R
+		JOIN REFUND USING(REG_NO)
+		WHERE R.EP_NO = A.EP_NO
+		) "CLASS_PROGRESS"
+		
+		FROM
+		
+		(SELECT STUDENT_NM, CAL_PRICE, EP_NO FROM RECEIPT
+		JOIN CALCULATE USING(CAL_NO)
+		JOIN EPISODE USING(EP_NO)
+		WHERE CAL_NO = #{calNo}) A
+	</select>
+	
+	<!-- 정산 클래스이름, 강사명 조회 -->
+	<select id="calculateClassTeacher" resultMap="calc_rm">
+		SELECT MEMBER_NO CAL_NO, MEMBER_NM TEACHER_NM, CLASS_NM, EP_COUNT
+		FROM CALCULATE
+		JOIN EPISODE USING(EP_NO)
+		JOIN CLASS USING(CLASS_NO)
+		JOIN TEACHER USING(MEMBER_NO)
+		JOIN MEMBER USING(MEMBER_NO)
+		WHERE CAL_NO = #{calNo} AND CAL_ST = 2
+	</select>
+	
+	<!-- 정산 완료 업데이트 -->
+	<update id="receiptUpdate">
+		UPDATE CALCULATE SET CAL_ST = 1 WHERE CAL_NO=#{calNo}
 	</update>
 	
 	

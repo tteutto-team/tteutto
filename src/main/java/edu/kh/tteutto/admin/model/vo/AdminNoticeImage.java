@@ -6,6 +6,9 @@ public class AdminNoticeImage {
 	private String imgPath;
 	private String imgName;
 	private String imgOriginal;
+	
+	public AdminNoticeImage() {
+	}
 
 	public int getNoticeImgNo() {
 		return noticeImgNo;
