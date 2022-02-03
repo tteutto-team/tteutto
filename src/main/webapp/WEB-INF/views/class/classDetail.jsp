@@ -92,7 +92,7 @@
                     결제 금액
                 </div>
                 <div class="paymentAmount">
-             	    <c:set var="payAmount" value="15000"/> <!-- value="${스프링에서 넘겨온 값}" -->
+             	    <c:set var="payAmount" value="15000"/> 
                     <fmt:formatNumber value="${payAmount}" groupingUsed="true" />원
                 </div>
             </div>
@@ -137,7 +137,7 @@
                     <tbody>
                         <tr>
                             <td colspan="3">
-                                <strong id="naviClassName"> 콰야의 오일파스텔 드로잉 </strong>
+                                <strong id="naviClassName">[<span>1</span>회차] 콰야의 오일파스텔 드로잉 </strong>
                             </td>
                         </tr>
                         <tr>
