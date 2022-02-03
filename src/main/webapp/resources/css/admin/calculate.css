@@ -26,6 +26,10 @@ body{
     display: flex;
 }
 
+#right .title-wrap span{
+	font-size: 18px;
+}
+
 #right .title-wrap > button{
 	right: 50;
     top: 36;
