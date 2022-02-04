@@ -202,4 +202,19 @@
 		INSERT INTO CAREER VALUES(SEQ_CAREER_NO.NEXTVAL, #{careerContent}, #{memberNo}, 1, 2, 3)
 	</insert>
 	
+	
+	<!-- 소셜 로그인 회원 확인 -->
+	<select id="snsLogin" resultMap="member_rm">
+		SELECT * FROM MEMBER
+		WHERE MEMBER_EMAIL = #{email}
+		AND MEMBER_ST = 0
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="signUp2" parameterType="Member">
+		INSERT INTO MEMBER VALUES(SEQ_MEMBER_NO.NEXTVAL, DEFAULT,  DEFAULT, 
+		#{memberEmail}, null, #{memberNm}, 
+		#{memberBirth}, #{memberGender}, #{memberPno}, 
+		null, SYSDATE, DEFAULT, DEFAULT)
+	</insert>
 </mapper>

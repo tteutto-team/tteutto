@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,47 +11,16 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
-
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
-<script>
-	var naverLogin = new naver.LoginWithNaverId({
-		clientId: "d_q2NGPsQeZpTrvq0_S0", // 본인걸로 수정, 띄어쓰기 금지.
-		callbackUrl: "http://localhost:8080/member/memberMain", // 아무거나 설정
-		isPopup: false,
-		callbackHandle: true
-	});
-	naverLogin.init();
-
-	window.addEventListener('load', function () {
-	naverLogin.getLoginStatus(function (status) {
-
-	if (status) {
-		console.log(naverLogin.user);
-		var email = naverLogin.user.getEmail();
-		$.ajax({
-			type: 'post',
-			url: 'naverSave',
-			data: {'n_email':email},
-			dataType: 'text',
-			success: function(result) {
-				if(result=='ok') {
-					console.log('성공')
-					location.replace("http://localhost:8080/tteutto") 
-				} else if(result=='no') {
-					console.log('실패')
-					location.replace("http://localhost:8080/tteutto/member/login")
-				}
-			},
-			error: function(result) {
-				console.log('오류 발생')
-			}
-		})
-
-	} else {
-		console.log("callback 처리에 실패하였습니다.");
-	}
-	});
-});
-</script>
+<c:if test="${flag==1}">
+	<script>
+	location.href="${contextPath}/"
+	</script>
+</c:if>
+<c:if test="${flag==0}">
+	<script>
+		location.href="signup2"
+	</script>
+</c:if>
 </body>
 </html>

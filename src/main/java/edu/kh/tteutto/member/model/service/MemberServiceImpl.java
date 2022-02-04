@@ -78,7 +78,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	// 회원가입
-	@Transactional()
+	@Transactional("rollbackFor = Exception.class")
 	@Override
 	public int signUp(Member member) {
 		
@@ -129,7 +129,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	// 강사 정보 수정
-@Override
+	@Override
 	public int teacherProfileUpdate(Teacher teacher, String phone, List<Sns> snsList, List<String> profileInput,
 		List<MultipartFile> images, String webPath, String serverPath) {
 		
