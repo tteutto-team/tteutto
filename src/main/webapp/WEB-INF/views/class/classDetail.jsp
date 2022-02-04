@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="${contextPath}/resources/css/billboard.css">
     
     <!-- 클래스 번호 -->
-    <input type="hidden" id="class_detail_no" value="${cdtr.classNo}">
+    <input type="hidden" id="class_detail_no" value="${cdtr.cdt.classNo}">
     
     <!-- 공유하기 모달창 -->
     <div class="shareModal modal" style="display: none;">
@@ -95,7 +95,7 @@
                     결제 금액
                 </div>
                 <div class="paymentAmount">
-             	    <c:set var="payAmount" value="100"/> 
+             	    <c:set var="payAmount" value="${cdtr.ep.epPrice}"/> 
                     <fmt:formatNumber value="${payAmount}" groupingUsed="true" />원
                 </div>
             </div>
@@ -131,21 +131,23 @@
                     <thead>
                         <tr>
                             <td scope="col">
-                                <a href="#" class="aStyle" id="n_classCategory"> ${cdtr.categoryNm} </a> <br>
+                                <a href="#" class="aStyle" id="n_classCategory"> ${cdtr.cdt.categoryNm} </a> <br>
                             </td>
                             <td scope="col"></td>
-                            <td scope="col" id="teacherName">${cdtr.memberNm}</td>
+                            <td scope="col" id="teacherName">${cdtr.member.memberNm}</td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td colspan="3">
-                                <strong id="naviClassName">[<span>${cdtr.epCount}</span>회차] ${cdtr.className} </strong>
+                                <strong id="naviClassName">[<span>${cdtr.ep.epCount}</span>회차] ${cdtr.cdt.className} </strong>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2" id="classPrice">
-                                <span>월</span> <span id="class_price">15,000</span> 원
+                                <span>월</span> 
+                                	<c:set var="payAmount" value="${cdtr.ep.epPrice}"/> 
+                    				<fmt:formatNumber value="${payAmount}" groupingUsed="true" /> 원
                             </td>
                             <td id="classStar">
                                 <img src="${contextPath}/resources/images/class-detail/star.png">
