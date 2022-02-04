@@ -55,7 +55,7 @@ $.support.cors = true;
                         dataType: 'jsonp',
                         success: function(data) {
                             let html = "<option>선택</option>";
-        
+        					const arr = [];
                             data.response.result.featureCollection.features.forEach(function(f){
                                 let 행정구역코드 = f.properties.sig_cd;
                                 let 행정구역명 = f.properties.sig_kor_nm;
@@ -65,12 +65,12 @@ $.support.cors = true;
 									행정구역명 = '특별시'
 								}else{
                                 	행정구역명 = 행정구역명.substr(0, 3);
-									
 								}
                                 
-                                
-                                
-                                html +=`<option value="${행정구역코드}">${행정구역명}</option>`
+                                if(arr.indexOf(행정구역명) == -1){
+	                                arr.push(행정구역명);
+	                                html +=`<option value="${행정구역코드}">${행정구역명}</option>`
+								}
                                 
                             })
                             $('#sigoon_code').html(html);
@@ -295,11 +295,11 @@ function loadImg(input, num){
 		
 }
 
-
+// 이미지 삭제
 $("#img-del-btn").on("click", function(){
 	
 	if(index == 0){
-		console.log("메롱");
+		
 	}else{
 		document.querySelector("#mini-img > div:last-of-type").remove();
 		document.querySelector("#img-file-box > input:last-of-type").remove();
@@ -307,7 +307,12 @@ $("#img-del-btn").on("click", function(){
 		if(index == 0){
 			$("input[name=images]").val("");
 		}
-	console.log(index);
+	
 	}
 })
+
+// 다 했는지 체크함
+function checkInput(){
+	
+}
 

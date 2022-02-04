@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 	
     <section id="classInsert">
-    	<form action="${contextPath}/register/class" id="form" name="form" method="post">
+    	<form action="${contextPath}/register/class" enctype="multipart/form-data" id="form" name="form" method="post" onclick="return checkInput();">
         <div class="fixWidth">
             <div id="register_header">
                 <div>클래스 등록</div>
@@ -91,7 +91,7 @@
                             * 예시 : 미국주식, 내 손으로 직접 투자하자 / 4회만에 내 손으로 만든 영상, 유튜브에 업로드❤<br>
                         </div>
                     </div>
-                    <input type="text" id="titleArea" name="className" class="input-style" style="width: 750px;">&nbsp&nbsp<span id="titleText-count">0</span><span id="titleText-max">/50</span>
+                    <input type="text" id="titleArea" name="className" class="input-style" style="width: 750px;" required>&nbsp&nbsp<span id="titleText-count">0</span><span id="titleText-max">/50</span>
                 </div>
             </div>
             <div id="cover-img" class="bottomLine">

@@ -51,7 +51,6 @@ public class ClassRegisterServiceImpl implements ClassRegisterService{
 			} // for end
 			
 		
-		
 		if (!imgList.isEmpty()) {
 			int result = dao.insertImgList(imgList);
 
