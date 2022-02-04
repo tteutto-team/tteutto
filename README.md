@@ -3,16 +3,15 @@
 
 ```
 메인 페이지
- * http://localhost:8080/tteutto/        
------------------------------------------------------------------------
-
-클래스 상세 페이지
-* http://localhost:8080/tteutto/class/classDetail
-
+ * http://localhost:8080/tteutto/
+ 
 -----------------------------------------------------------------------
 
 클래스 검색 목록
  * http://localhost:8080/tteutto/main/searchList
+ 
+클래스 상세
+* http://localhost:8080/tteutto/class/classDetail
 
 -----------------------------------------------------------------------
 
