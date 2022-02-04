@@ -150,7 +150,8 @@ header #chat > .alert {
     border-radius: 15px;
     width: 17px;
     height: 17px;
-    background-color: #FFDF3E;
+    background-color: tomato;
+    color: white;      
     font-style: normal;
     font-size: 12px;
     text-align: center;
@@ -172,7 +173,7 @@ header .my-profile > img {
     left: -40px;
 	border-radius: 50%;
 	width: 40px;
-	height: auto;
+	height: 40px;
 }
 
 header ul {display: flex;}
@@ -325,4 +326,4 @@ footer .announce > span {
 
 footer ul {display: flex;}
 
-footer strong {font-weight: 500;}  
+footer strong {font-weight: 500;}
