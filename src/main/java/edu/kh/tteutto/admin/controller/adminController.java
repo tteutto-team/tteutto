@@ -281,6 +281,32 @@ public class adminController {
 		return result;
 	}
 	
+	// 환불 관리 페이지 이동
+	@RequestMapping(value="refundManage", method=RequestMethod.GET)
+	public String refundManage() {
+		return "admin/refundManage";
+	}
+	
+	// 환불 목록 조회
+	@RequestMapping(value="refundList", method=RequestMethod.GET)
+	@ResponseBody
+	public List<AdminCalcRefund> refundList(){
+		
+		List<AdminCalcRefund> data = service.refundList();
+		
+		return data;
+	} 
+	
+	// 환불 승인
+	@RequestMapping(value="refundAgree", method=RequestMethod.GET)
+	@ResponseBody
+	public int refundAgree(int refundNo) {
+		
+		int result = service.refundAgree(refundNo);
+		
+		return result;
+	}
+	
 	
 	
 	
