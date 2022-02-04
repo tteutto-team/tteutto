@@ -122,6 +122,20 @@ public interface AdminService {
 	 */
 	int receiptUpdate(int calNo);
 
+	/** 환불 목록 조회
+	 * @return data
+	 */
+	List<AdminCalcRefund> refundList();
+
+	/** 환불 승인
+	 * @param refundNo
+	 * @return result
+	 */
+	int refundAgree(int refundNo);
+
+	
+	
+	
 	
 	
 	
@@ -162,6 +176,7 @@ public interface AdminService {
 	 * @return result
 	 */
 	int insertFaq(AdminNoticeFaq faq);
+
 
 
 

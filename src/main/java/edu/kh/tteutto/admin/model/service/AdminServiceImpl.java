@@ -177,7 +177,17 @@ public class AdminServiceImpl implements AdminService{
 		return dao.receiptUpdate(calNo);
 	}
 	
+	// 환불 목록 조회
+	@Override
+	public List<AdminCalcRefund> refundList() {
+		return dao.refundList();
+	}
 	
+	// 환불 승인
+	@Override
+	public int refundAgree(int refundNo) {
+		return dao.refundAgree(refundNo);
+	}
 	
 	
 	
@@ -187,6 +197,10 @@ public class AdminServiceImpl implements AdminService{
 	
 
 	
+
+
+
+
 
 	// 공지사항 목록 조회
 	@Override

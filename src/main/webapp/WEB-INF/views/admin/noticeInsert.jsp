@@ -13,7 +13,7 @@
 		<div class="title-wrap">
 			<h2>공지사항 등록</h2>
 		</div>
-		<form action="noticeInsert" method="POST" enctype="multipart/form-data">
+		<form action="noticeInsert" method="POST" enctype="multipart/form-data"">
 		    <div class="notice-title">
 		    	<p>제목</p>
 		    	<input type="text" name="noticeTitle">
@@ -49,5 +49,33 @@
 		$(this).remove();
 	});
 		
+	$("form[method=POST]").on("submit", function(e){
+		
+		if($("textarea[name=noticeContent]").val().trim().length == 0){
+			e.preventDefault();
+
+			Swal.fire({
+				title: '내용을 입력해주세요.',
+				icon: 'warning',
+				confirmButtonColor: '#3085d6',
+				confirmButtonText: '확인',
+			})
+		}
+		
+		if($("input[name=noticeTitle]").val().trim().length == 0){
+			e.preventDefault();
+			
+			Swal.fire({
+				title: '제목을 입력해주세요.',
+				icon: 'warning',
+				confirmButtonColor: '#3085d6',
+				confirmButtonText: '확인',
+			})
+			
+		}
+		
+	})
+	
+	
 	
 </script>
