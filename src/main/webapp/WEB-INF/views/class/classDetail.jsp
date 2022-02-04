@@ -19,6 +19,9 @@
     <!-- Load with base style -->
     <link rel="stylesheet" href="${contextPath}/resources/css/billboard.css">
     
+    <!-- 클래스 번호 -->
+    <input type="hidden" id="class_detail_no" value="${cdtr.classNo}">
+    
     <!-- 공유하기 모달창 -->
     <div class="shareModal modal" style="display: none;">
         <div class="share_modal_content">
@@ -92,7 +95,7 @@
                     결제 금액
                 </div>
                 <div class="paymentAmount">
-             	    <c:set var="payAmount" value="15000"/> 
+             	    <c:set var="payAmount" value="100"/> 
                     <fmt:formatNumber value="${payAmount}" groupingUsed="true" />원
                 </div>
             </div>
@@ -128,16 +131,16 @@
                     <thead>
                         <tr>
                             <td scope="col">
-                                <a href="#" class="aStyle" id="n_classCategory"> 카테고리명 </a> <br>
+                                <a href="#" class="aStyle" id="n_classCategory"> ${cdtr.categoryNm} </a> <br>
                             </td>
                             <td scope="col"></td>
-                            <td scope="col" id="teacherName">강사명</td>
+                            <td scope="col" id="teacherName">${cdtr.memberNm}</td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td colspan="3">
-                                <strong id="naviClassName">[<span>1</span>회차] 콰야의 오일파스텔 드로잉 </strong>
+                                <strong id="naviClassName">[<span>${cdtr.epCount}</span>회차] ${cdtr.className} </strong>
                             </td>
                         </tr>
                         <tr>
@@ -275,7 +278,7 @@
                     </button>
                 </div> 
                 <div class="buyBtn" id="buyBtnId">
-                    <div>구매하기</div>
+                    <div>신청하기</div>
                 </div>
 
             </div> <!-- sticky nav end -->

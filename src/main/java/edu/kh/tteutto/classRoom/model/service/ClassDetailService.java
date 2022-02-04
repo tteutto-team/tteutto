@@ -1,13 +1,13 @@
 package edu.kh.tteutto.classRoom.model.service;
 
-import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
+import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 
 public interface ClassDetailService {
 
 	/** 클래스 상세페이지 조회
 	 * @param classNo
-	 * @return classDetail
+	 * @return classDetailRight
 	 */
-	ClassDetail selectClassDetail(int classNo);
+	ClassDetailRight selectClassDetail(int classNo);
 
 }
