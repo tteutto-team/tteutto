@@ -124,13 +124,64 @@ public class SnsLoginController {
 		return "member/signup2";
 	}
 	
+	 // 카카오 로그인 성공시 callback
+    @RequestMapping(value = "kakaoCallback", method = { RequestMethod.GET, RequestMethod.POST })
+    public String callback(HttpServletRequest request, HttpServletResponse response, Model model,
+                                            @RequestParam(value = "code", required = false) String code,
+                                            @RequestParam(value = "state", required = false) String state, RedirectAttributes ra, HttpSession session) throws Exception {
+
+        String serverUrl = request.getScheme() + "://" + request.getServerName();
+        if (request.getServerPort() != 80) {
+            serverUrl = serverUrl + ":" + request.getServerPort();
+        }
+
+        OAuth2AccessToken oauthToken;
+        oauthToken = kakaoLoginVO.getAccessToken(session, code, state, serverUrl);
+        if (oauthToken == null) {
+            model.addAttribute("msg", "카카오 로그인 access 토큰 발급 오류 입니다.");
+            model.addAttribute("url", "/");
+            return "/common/redirect";
+        }
+
+        //System.out.println("AccessToken : " + oauthToken.getAccessToken());
+        //System.out.println("RefreshToken : " + oauthToken.getRefreshToken());
+
+        // 로그인 사용자 정보를 읽어온다
+        String apiResult = kakaoLoginVO.getUserProfile(oauthToken, serverUrl);
+        //System.out.println("apiResult : " + apiResult.toString());
+
+        JSONParser jsonParser = new JSONParser();
+        Object obj = jsonParser.parse(apiResult);
+        JSONObject jsonObj = (JSONObject) obj;
+        //System.out.println("jsonObj : " + jsonObj);
+
+        JSONObject response_obj = (JSONObject) jsonObj.get("kakao_account");
+        //System.out.println("response_obj : " + response_obj);
+
+        // 프로필 조회
+        String email = (String) response_obj.get("email");
+        
+        Member loginMember = service.snsLogin(email);
+        int flag;
+        if(loginMember != null) {
+        	// 세션에 추가
+        	model.addAttribute("loginMember", loginMember);
+            flag = 1;
+        }else {
+        	ra.addFlashAttribute("message", "회원등록을 먼저 등록해주세요.");
+        	session.setAttribute("email", email);
+        	flag = 0;
+        }
+        model.addAttribute("flag", flag);
+        return "member/callback";
+    }
+	
 	// 회원가입
 	@RequestMapping(value = "signup2", method = RequestMethod.POST)
 	public String signUp(Member member, RedirectAttributes ra,
 			HttpSession session) {
 		
 		String email = (String) session.getAttribute("email");
-		//System.out.println(email);
 		member.setMemberEmail(email);
 		int result = service.signUp2(member);
 
@@ -154,55 +205,4 @@ public class SnsLoginController {
 
 		return "redirect:/";
 	}
-
-	
-	// 카카오 로그인 성공시 callback
-	 // 카카오 로그인 성공시 callback
-    @RequestMapping(value = "kakaoCallback", method = { RequestMethod.GET, RequestMethod.POST })
-    public String callback(HttpServletRequest request, HttpServletResponse response, Model model,
-                                            @RequestParam(value = "code", required = false) String code,
-                                            @RequestParam(value = "state", required = false) String state, HttpSession session) throws Exception {
-
-        String serverUrl = request.getScheme() + "://" + request.getServerName();
-        if (request.getServerPort() != 80) {
-            serverUrl = serverUrl + ":" + request.getServerPort();
-        }
-
-        OAuth2AccessToken oauthToken;
-        oauthToken = kakaoLoginVO.getAccessToken(session, code, state, serverUrl);
-        if (oauthToken == null) {
-            model.addAttribute("msg", "카카오 로그인 access 토큰 발급 오류 입니다.");
-            model.addAttribute("url", "/");
-            return "/common/redirect";
-        }
-
-        System.out.println("AccessToken : " + oauthToken.getAccessToken());
-        System.out.println("RefreshToken : " + oauthToken.getRefreshToken());
-
-        // 로그인 사용자 정보를 읽어온다
-        String apiResult = kakaoLoginVO.getUserProfile(oauthToken, serverUrl);
-        System.out.println("apiResult : " + apiResult.toString());
-
-        JSONParser jsonParser = new JSONParser();
-        Object obj = jsonParser.parse(apiResult);
-        JSONObject jsonObj = (JSONObject) obj;
-        System.out.println("jsonObj : " + jsonObj);
-
-        JSONObject response_obj = (JSONObject) jsonObj.get("kakao_account");
-        System.out.println("response_obj : " + response_obj);
-
-        // 프로필 조회
-        String email = (String) response_obj.get("email");
-        String gender = (String) response_obj.get("gender");
-        
-        System.out.println(email);
-        System.out.println(gender);
-        
-        session.setAttribute("islogin_r", "Y");
-        session.setAttribute("email", email);
-        session.setAttribute("gender", gender);
-
-        
-        return "member/callback";
-    }
 }
