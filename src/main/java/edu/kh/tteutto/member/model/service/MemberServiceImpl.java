@@ -78,7 +78,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	// 회원가입
-	@Transactional()
+	@Transactional("rollbackFor = Exception.class")
 	@Override
 	public int signUp(Member member) {
 		
