@@ -43,10 +43,9 @@
 	</insert>
 	
 	<!-- 클래스 이미지 등록 -->
-	<insert id="classImgInsert" parameterType="java.util.List">
-		INSERT INTO THUMBNAIL_IMG VALUES(
-			SELECT SEQ_TH_IMG_NO.NEXTVAL, A.* FROM
-		)
+	<insert id="classImageInsert" parameterType="java.util.List">
+		INSERT INTO THUMBNAIL_IMG
+		SELECT SEQ_TH_IMG_NO.NEXTVAL, A.* FROM
 		
 		<foreach collection="list" item="img" open="(" close=") A" separator=" UNION ALL ">
 			SELECT #{img.thImgNm} TH_IMG_NM,

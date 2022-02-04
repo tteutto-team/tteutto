@@ -61,8 +61,6 @@ public class RegisterController {
 								  @RequestParam(value="images", required=false) List<MultipartFile> images, 
 								  HttpSession session){
 			
-			System.out.println(images);
-			
 			// 시군 추가
 			String area = classArea1 + " " + classArea2;
 			cdt.setClassArea(area);
