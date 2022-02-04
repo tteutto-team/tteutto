@@ -42,6 +42,7 @@
 		<mapper resource="/mappers/admin-mapper.xml" />
 		<mapper resource="/mappers/teacher-mapper.xml" />
 		<mapper resource="/mappers/class-mapper.xml" />
+		<mapper resource="/mappers/class-detail-mapper.xml" />
 	</mappers>
 			
 	
