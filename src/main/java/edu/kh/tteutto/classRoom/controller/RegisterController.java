@@ -56,7 +56,7 @@ public class RegisterController {
 		// 클래스 등록
 		@RequestMapping(value="class", method=RequestMethod.POST)
 		public String classInsert(RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember,
-								  ClassDetail cdt, String classArea1, String classArea2, String ct2,
+								  ClassDetail cdt, String classArea1, String classArea2,
 								  List<MultipartFile> images, HttpSession session){
 			
 			System.out.println(classArea1);
@@ -67,7 +67,6 @@ public class RegisterController {
 			cdt.setClassArea(area);
 			cdt.setMemberNo(loginMember.getMemberNo());
 			
-			System.out.println(ct2);
 			System.out.println(cdt);
 
 			int result = service.classInsert(cdt);
