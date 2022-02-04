@@ -56,37 +56,7 @@ public class MemberController {
 
 	@Autowired
 	private JavaMailSender mailSender;
-
-	@RequestMapping(value="callback", method=RequestMethod.GET)
-	public String callback(HttpSession session, HttpServletRequest request) {
-		return "member/callback";
-	}
 	
-	
-	
-//	// 회원가입 페이지 이동
-//	@RequestMapping("naverLogin")
-//	public ModelAndView naverLogin(HttpServletRequest request) {
-//		ModelAndView mv = new ModelAndView();
-//		String inputEmail = request.getParameter("user_email");
-//		//System.out.println(inputEmail);
-//		int result = service.emailDupCheck(inputEmail);
-//		//System.out.println(result);
-//		if(result == 0) {
-//			System.out.println(inputEmail);
-//			mv.addObject("inputEmail",inputEmail);
-//			mv.setViewName("/member/signup");
-//			return mv;
-//		}else {
-//			HttpSession session = request.getSession();
-//			session.setAttribute("MEMBER_EMAIL", inputEmail);
-//			mv.addObject(session);
-//			mv.setViewName("redirect:/");
-//			
-//			return mv;
-//		}
-//		
-//	}
 	
 	// 회원가입 페이지 이동
 	@RequestMapping(value = "signup", method = RequestMethod.GET)
