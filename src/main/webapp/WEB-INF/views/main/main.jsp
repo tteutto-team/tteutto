@@ -77,7 +77,9 @@
 
             <div class="class" >
                 <div class="image">
-                    <img src="${contextPath}/resources/images/class/temp.jpg" onclick="location.href='/tteutto/class/classDetail'">
+
+                    <img src="${contextPath}/resources/images/class/temp.jpg" onclick="location.href='/tteutto/class/classDetail?classNo=${cdtr.classNo}'">
+
                     <p class="location-p">서울 강남</p>
                 </div>
                 <button type="button" class="btn_like">
@@ -86,7 +88,7 @@
                 </button>
                 <div class="detail-info">
                     <span class="category-name">카테고리</span>
-                    <div class="class-name" onclick="location.href='/tteutto/class/classDetail'">[🏆BEST] 이봄의 타로 클래스 ❥ 고민으로 잠 못드는 당신을 위해</div>
+                    <div class="class-name" onclick="location.href='/tteutto/class/classDetail?classNo=${cdtr.classNo}'">[🏆BEST] 이봄의 타로 클래스 ❥ 고민으로 잠 못드는 당신을 위해</div>
                     <div class="grade">
                         <i class="fi-rr-star"></i> <span>95%</span>
                         <i class="fi-rr-heart"></i> <span>120</span>

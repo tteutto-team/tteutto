@@ -10,7 +10,6 @@ public class MainPageContoller {
 	// 메인페이지
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String mainForward() {
-		
 		return "main/main";
 	}
 	

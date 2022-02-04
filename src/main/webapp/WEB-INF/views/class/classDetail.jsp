@@ -19,6 +19,9 @@
     <!-- Load with base style -->
     <link rel="stylesheet" href="${contextPath}/resources/css/billboard.css">
     
+    <!-- 클래스 번호 -->
+    <input type="hidden" id="class_detail_no" value="${cdtr.cdt.classNo}">
+    
     <!-- 공유하기 모달창 -->
     <div class="shareModal modal" style="display: none;">
         <div class="share_modal_content">
@@ -92,7 +95,7 @@
                     결제 금액
                 </div>
                 <div class="paymentAmount">
-             	    <c:set var="payAmount" value="15000"/> 
+             	    <c:set var="payAmount" value="${cdtr.ep.epPrice}"/> 
                     <fmt:formatNumber value="${payAmount}" groupingUsed="true" />원
                 </div>
             </div>
@@ -128,21 +131,23 @@
                     <thead>
                         <tr>
                             <td scope="col">
-                                <a href="#" class="aStyle" id="n_classCategory"> 카테고리명 </a> <br>
+                                <a href="#" class="aStyle" id="n_classCategory"> ${cdtr.cdt.categoryNm} </a> <br>
                             </td>
                             <td scope="col"></td>
-                            <td scope="col" id="teacherName">강사명</td>
+                            <td scope="col" id="teacherName">${cdtr.member.memberNm}</td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td colspan="3">
-                                <strong id="naviClassName">[<span>1</span>회차] 콰야의 오일파스텔 드로잉 </strong>
+                                <strong id="naviClassName">[<span>${cdtr.ep.epCount}</span>회차] ${cdtr.cdt.className} </strong>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2" id="classPrice">
-                                <span>월</span> <span id="class_price">15,000</span> 원
+                                <span>월</span> 
+                                	<c:set var="payAmount" value="${cdtr.ep.epPrice}"/> 
+                    				<fmt:formatNumber value="${payAmount}" groupingUsed="true" /> 원
                             </td>
                             <td id="classStar">
                                 <img src="${contextPath}/resources/images/class-detail/star.png">
@@ -159,7 +164,7 @@
                    <div class="threeBox">
                        <p>난이도</p>
                        <div>
-                           <span>하</span>
+                           <span>${cdtr.cdt.classLevel}</span>
                         </div>
                    </div>
                    <div class="threeBox">
@@ -171,7 +176,7 @@
                     <div class="threeBox">
                         <p>수업인원</p>
                         <div>
-                            최대<span>12</span>명
+                            최대<span>${cdtr.cdt.classMaxPerson}</span>명
                         </div>
                     </div>
                </div>
@@ -275,7 +280,7 @@
                     </button>
                 </div> 
                 <div class="buyBtn" id="buyBtnId">
-                    <div>구매하기</div>
+                    <div>신청하기</div>
                 </div>
 
             </div> <!-- sticky nav end -->

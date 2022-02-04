@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="classDetailMapper">
+
+	<!-- 클래스 VO -->
+	<resultMap type="ClassDetail" id="classDetail_rm">
+		<id property="classNo" column="CLASS_NO" />
+	
+		<result property="classArea" column="CLASS_AREA" />
+		<result property="classType" column="CLASS_TYPE" />
+		<result property="classPerson" column="CLASS_PERSON" />
+		<result property="classMinPerson" column="CLASS_MIN_PERSON" />
+		<result property="classMaxPerson" column="CLASS_MAX_PERSON" />
+		<result property="className" column="CLASS_NM" />
+		<result property="classIntro" column="CLASS_INTRO" />
+		<result property="classLevel" column="CLASS_LEVEL" />
+		<result property="classReqDate" column="CLASS_REQ_DT" />
+		<result property="classStatus" column="CLASS_ST" />
+		<result property="categoryNo" column="CATG_NO" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="categoryNm" column="CT_NM" />
+	</resultMap>
+	
+	<!-- member VO -->
+	<resultMap type="Member" id="member_rm">
+		<id property="memberNo" column="MEMBER_NO" />
+		
+		<result property="memberGrade" column="MEMBER_GRADE" />
+		<result property="memberSt" column="MEMBER_ST" />
+		<result property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="memberPw" column="MEMBER_PW" />
+		<result property="memberNm" column="MEMBER_NM" />
+		<result property="memberBirth" column="MEMBER_BIRTH" />
+		<result property="memberGender" column="MEMBER_GENDER" />
+		<result property="memberPno" column="MEMBER_PNO" />
+		<result property="memberImg" column="MEMBER_IMG" />
+		<result property="memberRegDt" column="MEMBER_REG_DT" />
+		<result property="memberSecDt" column="MEMBER_SEC_DT" />
+		<result property="teacherEnroll" column="TEACHER_ENROLL" />
+		<result property="memberKey" column="MEMBER_KEY" />
+	</resultMap>
+	
+	<!-- episode 회차 VO -->
+	<resultMap type="EPISODE" id="ep_rm">
+		<id property="epNo" column="EP_NO" />
+		
+		<result property="epPrice" column="EP_PRICE" />
+		<result property="ClassNo" column="CLASS_NO" />
+		<result property="epSt" column="EP_ST" />
+		<result property="epCount" column="EP_COUNT" />
+		<result property="epPlace" column="EP_PLACE" />
+	</resultMap>
+	
+	<!-- 클래스 상세 (결제박스) VO -->
+	<resultMap type="ClassDetailRight" id="classDetailRight_rm">
+		<collection property="cdt" resultMap="classDetail_rm"/>
+		<collection property="member" resultMap="member_rm"/>
+		<collection property="ep" resultMap="ep_rm"/>
+	</resultMap>
+	
+	
+	<!-- 클래스 상세조회 (오른쪽결제박스만) -->
+	<select id="selectClassDetail" resultMap="classDetailRight_rm">
+		SELECT CLASS.CLASS_NO, CT_NM , EP_COUNT, CLASS.CLASS_NM, CLASS_LEVEL,
+		        CLASS_MAX_PERSON,
+		        CLASS.MEMBER_NO, CLASS_TYPE , MEMBER_NM, EP_PRICE 
+		FROM CLASS
+		JOIN CLASS_CATEGORY ON CT_NO = CATG_NO
+		JOIN MEMBER ON MEMBER.MEMBER_NO = CLASS.MEMBER_NO
+		JOIN EPISODE ON CLASS.CLASS_NO = EPISODE.CLASS_NO
+		WHERE CLASS.CLASS_NO = #{classNo}
+	</select>
+	
+	
+	
+	
+	
+</mapper>
