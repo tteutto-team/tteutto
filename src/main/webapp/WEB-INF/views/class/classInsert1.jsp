@@ -104,10 +104,12 @@
                 </div>
                 <div>
                     <div id="img-select" class="div-height">
-                        <div id="img-insert"><img src="images/회사악그림.jpg"></div>
+                        <div id="img-insert">
+                        	<img class="why" id="why" src="https://cdn.epnc.co.kr/news/photo/202107/212199_212130_3942.jpg">
+                       	</div>
                         <div>
-                            <div><button id="img-plus-btn" class="img-btn btn-click"> + 이미지 추가</button></div>
-                            <div><button id="img-del-btn" class="img-btn btn-click"> - 이미지 삭제</button></div>
+                            <div><button id="img-plus-btn" class="img-btn btn-click" type="button"> + 이미지 추가</button></div>
+                            <div><button id="img-del-btn" class="img-btn btn-click" type="button"> - 이미지 삭제</button></div>
                             <div id="img-text">
                                 - <span class="redText">10MB 이하</span>의 jpg, jpeg, png 파일<br>
                                 - 840x540 픽셀<br><br>
@@ -125,12 +127,11 @@
                         <label for="check1"></label>
                         강사님께서 등록한 이미지를 마케팅에 활용하는 것에 동의합니다(선택)
                     </div>
-                    <div id="mini-img">
-                        <div><img src="images/회사악그림.jpg"></div>
-                        <div><img src="images/회사악그림.jpg"></div>
-                        <div><img src="images/회사악그림.jpg"></div>
-                        <div><img src="images/회사악그림.jpg"></div>
-                        <div><img src="images/회사악그림.jpg"></div>
+                    <div id="mini-img" class="mini-img">
+                        <%-- <div class="mini-img-box"><img src="${contextPath}/webapp/resource/images/profile/20220203214639_56036.jpg"></div> --%>
+                    </div>
+                    <div id="img-file-box" class="img-file-box">
+                    	<input type="file" name="images" onchange="loadImg(this,0)"> 
                     </div>
                 </div>
             </div>
@@ -194,11 +195,11 @@
 	<jsp:include page="../common/footer.jsp"/>
 
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="${contextPath}/resources/js/classInsert.js"></script>
     
     
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     
+    <script src="${contextPath}/resources/js/classInsert.js"></script>
 </body>
 </html>

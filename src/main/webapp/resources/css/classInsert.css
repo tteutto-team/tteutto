@@ -58,7 +58,7 @@ body{
 
 .fixWidth > div:nth-child(6){height: 200px;}
 .fixWidth > div:nth-child(7){height: 250px;}
-.fixWidth > div:nth-child(8){height: 580px;}
+/* .fixWidth > div:nth-child(8){height: 580px;} */
 
 /* .fixWidth > div:nth-child(9){height: 800px;} */
 
@@ -197,6 +197,11 @@ input[type='radio']:checked {
 
 
 /*수업소개영역*/
+#c-introduce{
+	clear:both;
+	border-top:1px solid #ddd;
+}
+
 #c-introduce > div, #c-target > div, #c-ptn > div, #c-price > div{
     float: left;
 }
@@ -264,6 +269,23 @@ input[type='radio']:checked {
 }
 
 /*작은 이미지*/
+/*스크롤바*/
+#mini-img{
+	width:700px;
+	white-space:nowrap;
+	overflow-x:scroll;
+	cursor:pointer;
+}
+
+#mini-img::-webkit-scrollbar{
+    width: 5px;
+    background: none;
+}
+#mini-img::-webkit-scrollbar-thumb{
+    background-color: #ddd;
+}
+
+
 #mini-img > div{
     float: left;
     margin-top: 15px;
@@ -354,9 +376,9 @@ h4{
 }
 
 
-
-
-
+#img-file-box{
+	display:none;
+}
 
 
 

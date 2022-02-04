@@ -217,4 +217,97 @@ $("#sigoon_code").on("change", function(){
 })
 
 
+// 이미지 추가
+var index = 0;
+$("#img-plus-btn").on("click", function(){
+		// 현재 클릭된 요소가 .boardImg 중 몇 번째 인덱스인지 반환
+		$("[type=file]").eq(index).click();
+		// 타입이 file인 요소 중 몇번째 인덱스 요소를 선택하여 클릭해라
+		//document.getElementById("why").setAttribute("src", "hhhhh");
+		
+})
+
+// 썸네일 이미지 바꾸기
+function loadImg(input, num){
+	console.log(input);
+	if(index == 0){
+		$("#mini-img").css("height", "150px");
+	}
+	/*
+	if(index == 0){
+		if (input.files && input.files[0]) {
+			 reader = new FileReader();
+			reader.readAsDataURL(input.files[0]);
+			reader.onload = function(e) {
+			$("#img-insert").children("img").attr("src", e.target.result);
+			$("#mini-img").children("div").eq(num).children("img").attr("src", e.target.result);
+			//document.getElementById("why").setAttribute("src", e.target.result);
+			index = index + 1;
+			$("#img-file-box").append('<input type="file" name="images" onchange="loadImg(this,'+index+')">');
+			}
+
+		}
+		
+	}else{*/
+		if (input.files && input.files[0]) {
+			
+			// div, img와 클릭이벤트 추가
+			const dv = $("<div>");
+			const im = $("<img>");
+			dv.append(im);
+			dv.addClass("mini-img-box");
+			$("#mini-img").append(dv);
+			
+			$(dv).on("click", function(){
+				var src = $(this).children("img").attr("src");
+				$("#img-insert").children("img").attr("src", src);
+			})
+			
+			/*$("#mini-img").append('<div id="m'+index+'" class="mini-img-box"><img><div>');*/
+			var reader = new FileReader();
+			reader.readAsDataURL(input.files[0]);
+			reader.onload = function(e) {
+			$("#img-insert").children("img").attr("src", e.target.result);
+			$("#mini-img").children("div").eq(num).children("img").attr("src", e.target.result);
+			//document.getElementById("why").setAttribute("src", e.target.result);
+			index = index + 1;
+			
+			// input 추가
+			$("#img-file-box").append('<input type="file" name="images" onchange="loadImg(this,'+index+')">');
+			
+			/*
+			// img클릭 이벤트 추가
+			$("#m" + index).on("click", function(){
+				console.log(this);
+				//var index = $(".mini-img-box").index(this);
+				// 현재 클릭된 요소가 .boardImg 중 몇 번째 인덱스인지 반환
+				//console.log(index);
+				// 타입이 file인 요소 중 몇번째 인덱스 요소를 선택하여 클릭해라
+				var src = $("#m" + index).children("img").attr("src");
+				$("#img-insert").children("img").attr("src", src);
+				
+			})
+			*/
+
+			}
+		}
+	
+		
+}
+
+
+$("#img-del-btn").on("click", function(){
+	
+	if(index == 0){
+		console.log("메롱");
+	}else{
+		document.querySelector("#mini-img > div:last-of-type").remove();
+		document.querySelector("#img-file-box > input:last-of-type").remove();
+		index = index - 1;
+		if(index == 0){
+			$("input[name=images]").val("");
+		}
+	console.log(index);
+	}
+})
 
