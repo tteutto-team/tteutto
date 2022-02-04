@@ -164,7 +164,7 @@
                    <div class="threeBox">
                        <p>난이도</p>
                        <div>
-                           <span>하</span>
+                           <span>${cdtr.cdt.classLevel}</span>
                         </div>
                    </div>
                    <div class="threeBox">
@@ -176,7 +176,7 @@
                     <div class="threeBox">
                         <p>수업인원</p>
                         <div>
-                            최대<span>12</span>명
+                            최대<span>${cdtr.cdt.classMaxPerson}</span>명
                         </div>
                     </div>
                </div>
