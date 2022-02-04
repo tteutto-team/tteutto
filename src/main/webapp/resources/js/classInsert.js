@@ -216,3 +216,5 @@ $("#sigoon_code").on("change", function(){
     console.log($('#classArea2').val());
 })
 
+
+

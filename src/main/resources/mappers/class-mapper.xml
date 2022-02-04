@@ -17,6 +17,7 @@
 		<result property="classStatus" column="CLASS_ST" />
 		<result property="categoryNo" column="CATG_NO" />
 		<result property="memberNo" column="MEMBER_NO" />
+		<result property="categoryDetailNo" column="CT_DETAIL_NO" />
 	</resultMap>
 
 
@@ -24,7 +25,7 @@
 	<insert id="classInsert" parameterType="ClassDetail">
 		INSERT INTO CLASS VALUES(
 		    SEQ_CLASS_NO.NEXTVAL, #{classArea}, #{classType}, #{classPerson}, #{classMinPerson}, #{classMaxPerson}, 
-		    #{className}, #{classIntro}, #{classLevel}, DEFAULT, 0, #{categoryNo}, #{memberNo}
+		    #{className}, #{classIntro}, #{classLevel}, DEFAULT, 0, #{categoryNo}, #{memberNo}, #{categoryDetailNo}
 		)
 	</insert>
 

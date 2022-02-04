@@ -53,7 +53,7 @@
                         <option value='7'>기타</option>
                     </select>
                     
-                    <select id="ct2" name="ct2" class="select-style" required>
+                    <select id="ct2" name="categoryDetailNo" class="select-style" required>
                         <option>선택</option>
                     </select>
                 </div>
