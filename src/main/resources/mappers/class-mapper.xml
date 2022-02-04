@@ -20,16 +20,41 @@
 		<result property="categoryDetailNo" column="CT_DETAIL_NO" />
 	</resultMap>
 
+	<resultMap type="ClassDetailImage" id="classImage_rm">
+		<id property="thImgNo" column="TH_IMG_NO"/>
+		
+		<result property="thImgNm" column="TH_IMG_NM"/>
+		<result property="thImgLevel" column="TH_IMG_LEVEL"/>
+		<result property="classNo" column="CLASS_NO"/>
+	</resultMap>
+
 
 	<!-- 클래스 등록 -->
-	<insert id="classInsert" parameterType="ClassDetail">
+	<insert id="classInsert" useGeneratedKeys="true" parameterType="ClassDetail">
+		
+		<selectKey order="BEFORE" resultType="_int" keyProperty="classNo">
+			SELECT SEQ_CLASS_NO.NEXTVAL FROM DUAL
+		</selectKey>
+	
 		INSERT INTO CLASS VALUES(
-		    SEQ_CLASS_NO.NEXTVAL, #{classArea}, #{classType}, #{classPerson}, #{classMinPerson}, #{classMaxPerson}, 
+		    #{classNo}, #{classArea}, #{classType}, #{classPerson}, #{classMinPerson}, #{classMaxPerson}, 
 		    #{className}, #{classIntro}, #{classLevel}, DEFAULT, 0, #{categoryNo}, #{memberNo}, #{categoryDetailNo}
 		)
 	</insert>
 	
-	
+	<!-- 클래스 이미지 등록 -->
+	<insert id="classImgInsert" parameterType="java.util.List">
+		INSERT INTO THUMBNAIL_IMG VALUES(
+			SELECT SEQ_TH_IMG_NO.NEXTVAL, A.* FROM
+		)
+		
+		<foreach collection="list" item="img" open="(" close=") A" separator=" UNION ALL ">
+			SELECT #{img.thImgNm} TH_IMG_NM,
+				   #{img.thImgLevel} TH_IMG_LEVEL,
+				   #{img.classNo} CLASS_NO
+			FROM DUAL
+		</foreach>
+	</insert>
 	
 
 </mapper>

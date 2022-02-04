@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -57,19 +58,20 @@ public class RegisterController {
 		@RequestMapping(value="class", method=RequestMethod.POST)
 		public String classInsert(RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember,
 								  ClassDetail cdt, String classArea1, String classArea2,
-								  List<MultipartFile> images, HttpSession session){
+								  @RequestParam(value="images", required=false) List<MultipartFile> images, 
+								  HttpSession session){
 			
-			System.out.println(classArea1);
-			System.out.println(classArea2);
+			System.out.println(images);
 			
 			// 시군 추가
 			String area = classArea1 + " " + classArea2;
 			cdt.setClassArea(area);
 			cdt.setMemberNo(loginMember.getMemberNo());
 			
-			System.out.println(cdt);
+			String webPath = "/resources/images/class/"; // (DB에 저장되는 경로)
+			String serverPath = session.getServletContext().getRealPath(webPath);
 
-			int result = service.classInsert(cdt);
+			int result = service.classInsert(cdt, images, webPath, serverPath);
 			
 			if(result > 0) {
 				Util.swalSetMessage("클래스 신청 완료", "관리자 승인을 기다려주세요.", "success", ra);			
