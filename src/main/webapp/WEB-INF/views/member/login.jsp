@@ -40,7 +40,7 @@
 
         <a href="javascript:naverLogin();" class="sns">
             <div>
-                <img style="background-color: #20c702;" src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/naver_logo.png">
+                <img src="${contextPath}/resources/images/main/naverLogo.png">
                 <span>네이버로 시작하기</span>
             </div>
         </a>
