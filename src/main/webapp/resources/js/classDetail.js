@@ -77,7 +77,7 @@ $(".modal").click(function (e) {
     	  	IMP.init('imp19537399');
     	  	//결제시 전달되는 정보
     		IMP.request_pay({
-    				    pg : 'inicis', 
+    				    pg : 'kakaopay', 
     				    pay_method : 'card',
     				    merchant_uid : 'merchant_' + new Date().getTime(),
     				    name : '주문명:결제테스트'/*상품명*/,

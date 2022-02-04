@@ -94,10 +94,10 @@
             }
     
             .imgFadeInEffect{
-                animation: imgfadein 3s;
-                -moz-animation: imgfadein 3s; /* Firefox */
-                -webkit-animation: imgfadein 3s; /* Safari and Chrome */
-                -o-animation: imgfadein 3s; /* Opera */
+                animation: imgfadein 1s;
+                -moz-animation: imgfadein 1s; /* Firefox */
+                -webkit-animation: imgfadein 1s; /* Safari and Chrome */
+                -o-animation: imgfadein 1s; /* Opera */
             }
     
             .sideImg{
@@ -123,7 +123,7 @@
     
             .sideImgStyle:hover{
                 opacity: 1;
-                transition-duration: 1s;
+                transition-duration: 0.3s;
             }
     
             .sticky_area{

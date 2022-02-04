@@ -77,7 +77,7 @@
 
             <div class="class" >
                 <div class="image">
-                    <img src="${contextPath}/resources/images/class/temp.jpg" onclick="location.href='/tteutto/class/classDetail'">
+                    <img src="${contextPath}/resources/images/class/temp.jpg" onclick="location.search﻿='/tteutto/class/classDetail?classNo=${cdtr.classNo}'">
                     <p class="location-p">서울 강남</p>
                 </div>
                 <button type="button" class="btn_like">
