@@ -99,7 +99,7 @@
 
 .searchList .announce {margin-bottom: 100px;}
 
-.searchList .yes > .title > span {color: #BF5846;}
+.searchList .title > span {color: #BF5846;}
 
 .searchList .location-class, .hot-class, .new-class {
     width: 100%;
@@ -199,6 +199,9 @@
 	margin-right: 10px;
 	padding-left: 3.5px;
 }
+
+.searchList .fi-rr-star {color: gold;}
+.searchList .fi-rr-heart {color: red;}
 
 .searchList .detail-info-bottom {
     position: absolute;

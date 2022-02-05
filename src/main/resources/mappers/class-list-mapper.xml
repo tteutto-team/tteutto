@@ -30,8 +30,16 @@
 		    JOIN MEMBER USING(MEMBER_NO)
 		    JOIN CT_DETAIL USING(CT_DETAIL_NO) 
 		    WHERE TH_IMG_LEVEL = 0
-		    AND ((CLASS_AREA LIKE '%${search}%' OR CLASS_NM LIKE '%${search}%' 
-		    OR CT_NM LIKE '%${search}%' OR MEMBER_NM LIKE '%${search}%' OR CT_DETAIL_NM LIKE '%${search}%'))
+		    
+		    <choose>
+		    	<when test="search == '원데이'">  AND CLASS_TYPE = 0 </when>
+		    	<when test="search == '정규'">  AND CLASS_TYPE = 1 </when>
+		    	<otherwise>
+				    AND ((CLASS_AREA LIKE '%${search}%' OR CLASS_NM LIKE '%${search}%' 
+				    OR CT_NM LIKE '%${search}%' OR MEMBER_NM LIKE '%${search}%' OR CT_DETAIL_NM LIKE '%${search}%'))
+		    	</otherwise>
+		    </choose>
+		    
 		)
 		WHERE EP_PRICE IS NOT NULL
 		ORDER BY CLASS_NO DESC
@@ -41,7 +49,7 @@
 	<select id="selectSearchList" resultMap="classList_rm">
 		SELECT * FROM(
 		    SELECT  C.CLASS_NO, CLASS_AREA, CLASS_NM, CLASS_TYPE,
-		            TH_IMG_NM, CT_NM, CT_DETAIL_NM, TEACHER_IMG, MEMBER_NM,
+		            TH_IMG_NM, NVL(CT_NM, '기타') CT_NM, CT_DETAIL_NM, TEACHER_IMG, MEMBER_NM,
 		        
 		        NVL( OPEN_PRICE(C.CLASS_NO) ,  PAST_PRICE(C.CLASS_NO)) "EP_PRICE",
 		
@@ -53,17 +61,31 @@
 		                JOIN EPISODE USING(CLASS_NO)
 		                JOIN REGISTER USING(EP_NO)
 		                JOIN REVIEW USING(REG_NO)
-		                WHERE CLASS_NO = C.CLASS_NO), 0) "STAR_AVG"
+		                WHERE CLASS_NO = C.CLASS_NO), 0) "STAR_AVG",
+		                
+                NVL( (SELECT COUNT(*) FROM CLASS
+		                JOIN EPISODE USING(CLASS_NO)
+		                JOIN REGISTER USING(EP_NO)
+		                JOIN REVIEW USING(REG_NO)
+		                WHERE CLASS_NO = C.CLASS_NO), 0)  "REVIE_CNT"
 		        
 		    FROM CLASS C
 		    LEFT JOIN THUMBNAIL_IMG T ON (C.CLASS_NO = T.CLASS_NO)
 		    JOIN CLASS_CATEGORY ON(CATG_NO = CT_NO)
 		    JOIN TEACHER USING(MEMBER_NO)
 		    JOIN MEMBER USING(MEMBER_NO)
-		    JOIN CT_DETAIL USING(CT_DETAIL_NO) 
+		    LEFT JOIN CT_DETAIL USING(CT_DETAIL_NO) 
 		    WHERE TH_IMG_LEVEL = 0
-		    AND ((CLASS_AREA LIKE '%${search}%' OR CLASS_NM LIKE '%${search}%' 
-		    OR CT_NM LIKE '%${search}%' OR MEMBER_NM LIKE '%${search}%' OR CT_DETAIL_NM LIKE '%${search}%'))
+		    
+   		    <choose>
+		    	<when test="search == '원데이'">  AND CLASS_TYPE = 0 </when>
+		    	<when test="search == '정규'">  AND CLASS_TYPE = 1 </when>
+		    	<otherwise>
+				    AND ((CLASS_AREA LIKE '%${search}%' OR CLASS_NM LIKE '%${search}%' 
+				    OR CT_NM LIKE '%${search}%' OR MEMBER_NM LIKE '%${search}%' OR CT_DETAIL_NM LIKE '%${search}%'))
+		    	</otherwise>
+		    </choose>
+		    
 		)
 		WHERE EP_PRICE IS NOT NULL
 		ORDER BY CLASS_NO DESC
