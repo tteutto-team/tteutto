@@ -1,9 +1,12 @@
 package edu.kh.tteutto.classRoom.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.kh.tteutto.classRoom.model.dao.TeacherDAO;
+import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 
 @Service
 public class TeacherServiceImpl implements TeacherService{
@@ -12,8 +15,7 @@ public class TeacherServiceImpl implements TeacherService{
 	private TeacherDAO dao;
 	
 	@Override
-	public int test() {
-		return dao.test();
+	public List<ClassDetail> selectClassList(int memberNo) {
+		return dao.selectClassList(memberNo);
 	}
-	
 }

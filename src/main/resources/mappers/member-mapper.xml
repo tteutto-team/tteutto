@@ -198,7 +198,7 @@
 	
 	<!-- 학생 정보 수정  -->
 	<update id="studentProfileUpdate">
-		UPDATE MEMBER SET MEMBER_NM=#{memberNm}, MEMBER_PNO= #{memberPno}
+		UPDATE MEMBER SET MEMBER_NM=#{memberNm}, MEMBER_PNO= #{memberPno}, MEMBER_IMG = #{memberImg}
 		WHERE MEMBER_NO=#{memberNo}
 	</update>
 		
