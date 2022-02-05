@@ -123,7 +123,29 @@ public class adminController {
 		return result;
 	}
 	
-	// 회차별 신청 관리 이동
+	// 유저 관리 이동
+	@RequestMapping(value="userManage", method=RequestMethod.GET)
+	public String userManage() {
+		return "admin/userManage";
+	}
+	
+	// 유저 목록 조회
+	@RequestMapping(value="userList", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Admin> userList() {
+		
+		List<Admin> data = service.userList();
+		
+		return data;
+	}
+	
+	
+	
+	
+	
+	
+	
+	// 강사 신청 관리 이동
 	@RequestMapping(value="teacherManage", method=RequestMethod.GET)
 	public String teacherManage() {
 		return "admin/teacherManage";

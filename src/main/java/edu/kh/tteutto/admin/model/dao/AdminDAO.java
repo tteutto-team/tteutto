@@ -74,6 +74,14 @@ public class AdminDAO {
 	public int classDeny(int classNo) {
 		return sqlSession.update("adminMapper.classDeny", classNo);
 	}
+	
+	/** 유저 목록 조회
+	 * @return
+	 */
+	public List<Admin> userList() {
+		return sqlSession.selectList("adminMapper.userList");
+	}
+
 
 
 	/** 강사 목록 조회
@@ -292,6 +300,8 @@ public class AdminDAO {
 	public int insertFaq(AdminNoticeFaq faq) {
 		return sqlSession.insert("adminMapper.insertFaq", faq);
 	}
+
+
 
 
 
