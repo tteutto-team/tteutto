@@ -52,38 +52,50 @@ crossorigin="anonymous"/>
             <!-- 클래스 목록 -->
             <div class="new-class">
 				<div class="new-class-bottom">
-					<!-- 클래스 카드 -->
-					<div class="class">
-						<div class="image">
-							<!-- 클래스 이미지 -->
-							<img src="${contextPath}/resources/images/class/temp.jpg">
-							
-							<!-- 수업 등록 지역 -->
-							<p class="location-p">서울 강남구</p>
-						</div>
-						
-						<!-- 클래스 찜하기 버튼 -->
-						<button type="button" class="btn_like">
-							<span class="img_emoti">좋아요</span>
-							<span class="ani_heart_m"></span>
-						</button>
-			
-						<div class="detail-info">
-							<span class="category-name">공예</span> <!-- 카테고리명 -->
-							<div class="class-name">[🏆BEST] 이봄의 타로 클래스 ❥ 고민으로 잠 못드는 당신을 위해</div> <!-- 클래스명 -->
-							<div class="grade">
-	                            <i class="fi-rr-star"></i> <span>95%</span> <!-- 평점 -->
-	                            <i class="fi-rr-heart"></i> <span>120</span> <!-- 찜 개수 -->
-                        	</div>
 
+					<c:forEach items="${searchList}" var="classList">					
+					<!-- 클래스 카드 -->
+						<div class="class">
+							<div class="image">
+								<!-- 클래스 이미지 -->
+								<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
+								onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}'">
+								
+								<!-- 수업 등록 지역 -->
+								<p class="location-p">${classList.classArea}</p>
+							</div>
 							
-							<div class="detail-info-bottom">
-								<img src="${contextPath}/resources/images/teacher/temp.jpg"> <!-- 강사 프로필 이미지 -->
-								<span class="teacher-name">HARAMCO</span> <!-- 강사명 -->
-								<span class="class-price">월 15,000</span> <!-- 클래스 가격 -->
+							<!-- 클래스 찜하기 버튼 -->
+							<c:if test="${classList.heartFlag == 0}">
+								<button type="button" class="btn_like">
+									<span class="img_emoti">좋아요</span>
+									<span class="ani_heart_m"></span>
+								</button>
+							</c:if>
+							
+							<c:if test="${classList.heartFlag == 1}">
+								<button type="button" class="btn_like btn_unlike">
+									<span class="img_emoti">좋아요</span>
+									<span class="ani_heart_m hi"></span>
+								</button>
+							</c:if>
+				
+							<div class="detail-info">
+								<span class="category-name">${classList.categoryName}</span> <!-- 카테고리명 -->
+								<div class="class-name">${classList.className}</div> <!-- 클래스명 -->
+								<div class="grade">
+		                            <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <!-- 평점 -->
+		                            <i class="fi-rr-heart"></i> <span>${classList.heartCount}</span> <!-- 찜 개수 -->
+	                        	</div>
+								
+								<div class="detail-info-bottom">
+									<img src="${contextPath}/resources/images/teacher/${classList.teacherImage}"> <!-- 강사 프로필 이미지 -->
+									<span class="teacher-name">${classList.memberName}</span> <!-- 강사명 -->
+									<span class="class-price">${classList.episodePrice}원</span> <!-- 클래스 가격 -->
+								</div>
 							</div>
 						</div>
-					</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
@@ -91,24 +103,34 @@ crossorigin="anonymous"/>
 		<!-- 페이지네이션 -->
         <div class="page-number">
             <ul class="page-ul">
-            	<!-- 이전 리스트로 이동 -->
-                <li><a href="#"><i class="fas fa-angle-double-left"></i></a></li>
+            	<c:if test="${pagination.startPage != 1}">
+	            	<!-- 이전 리스트로 이동 -->
+	                <li><a href="#"><i class="fas fa-angle-double-left"></i></a></li>
+	                <!-- 이전 페이지로 이동 -->
+	                <li><a href="#"><i class="fas fa-angle-left"></i></a></li>
+                </c:if>
                 
-                <!-- 이전 페이지로 이동 -->
-                <li><a href="#"><i class="fas fa-angle-left"></i></a></li>
+                <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" step="1"  var="i">
+                	<c:choose>
+                		<c:when test="${i == pagination.currentPage}">
+			                <!-- 선택된 페이지 -->
+			                <li style="border-radius: 50%; background-color: #FFDF3E;">
+			                    <a style="color: white;">${i}</a></li>
+		                </c:when>
+		                
+		                <c:otherwise>
+			                <!-- 선택되지 않은 페이지 -->
+			                <li><a href="searchList?search=${param.search}&page=${i}">${i}</a></li>
+		                </c:otherwise>
+	                </c:choose>
+                </c:forEach>
                 
-                <!-- 선택된 페이지 -->
-                <li style="border-radius: 50%; background-color: #FFDF3E;">
-                    <a style="color: white;">1</a></li>
-                
-                <!-- 선택되지 않은 페이지 -->
-                <li><a href="#">2</a></li>
-                
-                <!-- 다음 페이지로 이동 -->
-                <li><a href="#"><i class="fas fa-angle-right"></i></a></li>
-                
-                <!-- 다음 리스트로 이동 -->
-                <li><a href="#"><i class="fas fa-angle-double-right"></i></a></li>
+                <c:if test="${pagination.endPage != pagination.maxPage}">
+	                <!-- 다음 페이지로 이동 -->
+	                <li><a href="#"><i class="fas fa-angle-right"></i></a></li>
+	                <!-- 다음 리스트로 이동 -->
+	                <li><a href="#"><i class="fas fa-angle-double-right"></i></a></li>
+                </c:if>
             </ul>
         </div>
 	</div>
