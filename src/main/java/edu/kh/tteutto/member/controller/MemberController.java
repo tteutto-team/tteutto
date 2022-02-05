@@ -420,7 +420,7 @@ public class MemberController {
 	@RequestMapping(value = "studentProfile", method = RequestMethod.GET)
 	public String studentProfile(@ModelAttribute("loginMember") Member loginMember, Model model) {
 		
-		System.out.println("로그인 한 회원정보 : "+ loginMember);
+		System.out.println("로그인 한 회원정보 : "+ loginMember.getMemberImg());
 		
 		String brith = loginMember.getMemberBirth().substring(0, 10);
 		String[] brithArray = brith.split("-");
@@ -443,7 +443,6 @@ public class MemberController {
 		member.setMemberPno(phone);
 		
 		if(image.getSize() != 0) {
-			
 			// 웹 접근 경로(webPath), 서버 저장 경로(serverPath)
 			String webPath = "/resources/images/profile/"; // (DB에 저장되는 경로)
 			String serverPath = session.getServletContext().getRealPath(webPath);
@@ -456,35 +455,31 @@ public class MemberController {
 			}
 		}
 		
-		System.out.println("이미지: " + image.getSize());
-		
 		int result = service.studentProfileUpdate(member);
 		
 		if(result > 0 ) {	// 성공
 			loginMember.setMemberNm(name);
 			loginMember.setMemberPno(phone);
+			loginMember.setMemberImg(member.getMemberImg());
 			return "redirect:studentProfile";
 		} else { // 실패
 			return "redirect:studentProfile";
 		}
-		
-		
 	}
-	
-	
-	
 	
 
 	// 강사 프로필 페이지 이동
 	@RequestMapping(value = "teacherProfile", method = RequestMethod.GET)
-	public String teacherProfile(@ModelAttribute("loginMember") Member loginMember, Model model) {
+	public String teacherProfile(/* @ModelAttribute("loginMember") Member loginMember, */ Model model) {
 
-		int memberNo = loginMember.getMemberNo();
-//		int memberNo = 3;
+//		int memberNo = loginMember.getMemberNo();
+		int memberNo = 3;
 
 		Teacher teacher = service.selectTeacherProfile(memberNo);
 		List<Career> careerList = service.selectTeacherCareer(memberNo);
 		List<Sns> snsList = service.selectTeacherSns(memberNo);
+		
+		System.out.println("careerList : "+ careerList);
 		
 		List<Integer> snsDivList = new ArrayList<Integer>();
 		snsDivList.add(1);
@@ -513,6 +508,7 @@ public class MemberController {
 
 		return "member/teacherProfile";
 	}
+	
 	// 강사 프로필 업데이트
 	@RequestMapping(value = "teacherProfileUpdate", method = RequestMethod.POST)
 	public String teacherProfileUpdate( @ModelAttribute("loginMember") Member loginMember,
