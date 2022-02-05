@@ -47,6 +47,17 @@ public interface AdminService {
 	 * @return result
 	 */
 	int classDeny(int classNo);
+	
+	/** 유저 목록 조회
+	 * @return data
+	 */
+	List<Admin> userList();
+
+	
+	
+	
+	
+	
 
 	/** 강사 목록 조회
 	 * @return data
@@ -176,6 +187,7 @@ public interface AdminService {
 	 * @return result
 	 */
 	int insertFaq(AdminNoticeFaq faq);
+
 
 
 

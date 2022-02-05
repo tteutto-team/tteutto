@@ -63,6 +63,12 @@ public class AdminServiceImpl implements AdminService{
 	public int classDeny(int classNo) {
 		return dao.classDeny(classNo);
 	}
+	
+	// 유저 목록 조회
+	@Override
+	public List<Admin> userList() {
+		return dao.userList();
+	}
 
 	// 강사 목록 조회
 	@Override
