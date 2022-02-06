@@ -53,7 +53,7 @@
             </div>
         </a>
         
-        <a href="#" class="sns">
+        <a href="javascript:googleLogin();" class="sns">
             <div>
                 <img style="background-color: #f8f9fd;" src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/google_logo.png">
                 <span>구글로 시작하기</span>
@@ -78,6 +78,14 @@
 		$.ajax({
 			url:"snsLogin",
 			data : {"sns": "kakao"}
+		}).done(function(res){
+			window.location.replace(res);
+		})
+	}
+	function googleLogin(){
+		$.ajax({
+			url:"snsLogin",
+			data : {"sns": "google"}
 		}).done(function(res){
 			window.location.replace(res);
 		})
