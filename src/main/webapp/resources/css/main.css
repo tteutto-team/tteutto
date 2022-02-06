@@ -11,6 +11,9 @@ body{
 .class-name{
     margin-top: 5px;
     font-weight: 500;
+    height: 48px;
+    max-height: 48px;
+    font-size: 14px;
 }
 
 main{
@@ -145,7 +148,7 @@ tbody a {
 .class{
     float: left;
     width: 274px;
-    height: 445px;
+    height: 440px;
     border: 1px solid gainsboro;
     box-shadow: 3px 2px 5px 2px #0000001a;
     border-radius: 5px;
@@ -181,12 +184,17 @@ tbody a {
 }
 
 .grade{
-    margin-top: 8px;
+    margin-top: 5px;
+    font-size: 14px;
 }
 
 .grade > span{
     margin-right: 10px;
+    padding-left: 3.5px;
 }
+
+.fi-rr-star {color: gold;}
+.fi-rr-heart {color: red;}
 
 .detail-info-bottom{
     position: absolute;
@@ -196,12 +204,14 @@ tbody a {
     padding-top: 10px;
 }
 .teacher-name{
-    font-size: 15px;
+    font-size: 13px;
+    padding-left: 5px;
 }
 .class-price{
-    font-size: 15px;
+    font-size: 17px;
     float: right;
     padding-top: 1px;
+    font-weight: 500;
 }
 
 /* 이미지 확대 */
@@ -238,7 +248,7 @@ tbody a {
     display: block;
     top: 18px;
     left: 14px;
-    font-size: 14px;
+    font-size: 13px;
     background-color: rgb(255, 223, 62);
     border-radius: 5px;
  }  
