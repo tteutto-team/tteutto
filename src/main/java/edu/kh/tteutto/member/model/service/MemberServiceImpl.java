@@ -276,84 +276,91 @@ public class MemberServiceImpl implements MemberService{
 	// 강사 신청
 	@Transactional
 	@Override
-	public int teacherRegisterInsert(Teacher teacher, List<MultipartFile> images, List<Career> career, List<Sns> snsList) {
+	public int teacherRegisterInsert(Teacher teacher, List<MultipartFile> images, MultipartFile image, String careerContent, List<Sns> snsList, String serverPath, String serverPath2) {
+		
+		// 웹경로 프로필, 이력 이미지
+		String webPath = "/resources/images/teacher/profile/"; 
+		String webPath2 = "/resources/images/teacher/career/";
 		
 		// SNS 삽입
 		if(!snsList.isEmpty()) {
-			for(Sns sns : snsList) {
+			for(Sns sns : snsList) { 
 				sns.setMemberNo(teacher.getMemberNo());
-				dao.teacherSnsInsert(sns);
+				dao.teacherSnsInsert(sns); 
+				
 			}
 		}
 		
-		// 이력 삽입
-		if(!career.isEmpty()) {
-			for(Career car : career) {
-				car.setMemberNo(teacher.getMemberNo());
-				dao.insertTeacherCareer(car);
-			}
-		}
-
 		// 크로스사이트 ,개행문자
 		teacher.setTeacherIntro(Util.XSS(teacher.getTeacherIntro()));
 		teacher.setTeacherIntro(Util.changeNewLine(teacher.getTeacherIntro()));
-		teacher.setTeacherImg("/resources/images/teacher/" + Util.fileRename(images.get(0).getOriginalFilename()));
+
 		
+		// 프로필사진
+		if(image.getSize() != 0) {
+			teacher.setTeacherImg(Util.fileRename(image.getOriginalFilename() )); // 변경된 파일명
+			
+			try {
+				image.transferTo(new File(serverPath + "/" + teacher.getTeacherImg()));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		// 강사 등록
 		int result = dao.teacherRegisterInsert(teacher);
 		
-		/*
-		 * //이미지 삽입 if(result > 0) { // 게시글 삽입 성공 시
-		 * 
-		 * // 실제 업로드된 이미지를 분별하여 List<BoardImage> imgList에 담기 List<BoardImage> imgList =
-		 * new ArrayList<BoardImage>();
-		 * 
-		 * for(int i=0; i<images.size(); i++) { // i == images의 인덱스 == 업로드된 파일의 level
-		 * 
-		 * // 각 인덱스 요소에 파일이 업로드 되었는지 검사 if(
-		 * !images.get(i).getOriginalFilename().equals("") ) { // MultipartFile에서 DB저장에
-		 * 필요한 데이터만을 추출하여 // BoardImage 객체에 담은 후 imgList에 추가
-		 * 
-		 * BoardImage img = new BoardImage(); img.setImgPath(webPath); // 웹 접근 경로
-		 * img.setImgOriginal( images.get(i).getOriginalFilename() ); // 원본 파일명
-		 * img.setImgName( Util.fileRename(images.get(i).getOriginalFilename()) ); //
-		 * 변경된 파일명 img.setImgLevel(i); // 이미지 레벨 img.setBoardNo(boardNo); // DAO 수행 결과로
-		 * 반환 받은 boardNo
-		 * 
-		 * imgList.add(img); }
-		 * 
-		 * }
-		 * 
-		 * // 4) imgList에 업로드된 이미지 정보가 있다면 DAO 호출 if(!imgList.isEmpty()) { int result =
-		 * dao.insertImgList(imgList);
-		 * 
-		 * // System.out.println("삽입 성공한 이미지 정보 개수 : " + result);
-		 * 
-		 * // 5) 삽입 성공한 행의 개수와 imgList 개수가 같을 경우 // 파일을 서버에 저장 // 1 순위로 확인 할 것! :
-		 * servers -> fin server -> OverView // -> serve modules without.. 체크 // -> 저장되는
-		 * 파일 경로를 현재 프로젝트로 지정할 수 있음.
-		 * 
-		 * if(result == imgList.size()) { // 성공 ==> 파일 저장
-		 * 
-		 * // images : MultipartFile List, 실제 파일 자체 + 정보 // imgList : BoardImage List,
-		 * DB에 저장할 파일 정보 for(int i=0; i<imgList.size(); i++) {
-		 * 
-		 * // 업로드된 파일이 있는 images의 인덱스 요소를 얻어와 //지정된 경로와 이름으로 파일로 변환하여 저장 try {
-		 * images.get( imgList.get(i).getImgLevel() ) .transferTo(new File(serverPath +
-		 * "/" + imgList.get(i).getImgName() )); }catch (Exception e) { // TODO
-		 * Auto-generated catch block e.printStackTrace();
-		 * 
-		 * // 파일 변환이 실패할 경우 // 사용자 정의 예외 발생 throw new
-		 * InsertBoardFailException("파일 변환 중 문제 발생"); }
-		 * 
-		 * }
-		 * 
-		 * }else { // 업로드된 이미지 수와 삽입된 행의 수가 다를 경우 // 사용자 정의 예외 발생 throw new
-		 * InsertBoardFailException(); }
-		 * 
-		 * }
-		 * 
-		 * }
-		 */
+
+		// 캐리어 등록
+		List<Career> career = new ArrayList<Career>();
+		
+		// name careerContent 값을 "," 기준 잘라서 배열로 넣고 다시 빼서 써야징
+		if(careerContent != null) {
+		if(careerContent.length() != 0) {
+			
+			// 캐리어 크로스, 개행
+			careerContent = Util.changeNewLine(careerContent);
+			careerContent = Util.XSS(careerContent);
+			String[] carArray = careerContent.split(",");
+			
+			for(int c = 0; c<carArray.length; c++) {
+				Career car = new Career();
+				car.setCareerContent(carArray[c]);
+				car.setMemberNo(teacher.getMemberNo());
+				
+				// 이미지 있으면 이미지도 넣으시오
+				if(!images.get(c).getOriginalFilename().equals("")) {
+					car.setImgPath(webPath2); // 웹접근경로
+					car.setImgName(Util.fileRename(images.get(c).getOriginalFilename())); // 변경파일명
+					car.setImgOriginal(images.get(c).getOriginalFilename()); // 원본파일명
+					
+				} 
+				career.add(car);
+			}
+			
+		}
+		
+		// 캐리어 이미지 성공했으면 파일 저장
+		if (!career.isEmpty()) {
+			int imginsert = dao.insertTeacherCareer(career);
+			//System.out.println("캐리어는 몇 개 찍히니 " + career.size());
+			//System.out.println("몇 개 받았니 " + imginsert);
+
+			if (imginsert == career.size()) {
+				for (int i = 0; i<career.size(); i++) {
+
+					try {
+						images.get(i).transferTo(new File(serverPath2 + "/" + career.get(i).getImgName()));
+						//System.out.println(i + "번 추가");
+					} catch (Exception e) {
+						e.printStackTrace();
+
+					}
+	
+				}
+			}	
+		}
+		}
 		
 		return result;
 	}

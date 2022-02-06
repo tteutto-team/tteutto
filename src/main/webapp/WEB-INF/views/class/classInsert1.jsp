@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 	
     <section id="classInsert">
-    	<form action="${contextPath}/register/class" enctype="multipart/form-data" id="form" name="form" method="post" onclick="return checkInput();">
+    	<form action="${contextPath}/register/class" enctype="multipart/form-data" id="form" name="form" method="post" onsubmit="return checkInput();">
         <div class="fixWidth">
             <div id="register_header">
                 <div>클래스 등록</div>
@@ -73,7 +73,7 @@
                 <div class="div-height">
                     <input type="radio" id="solo-class" name="classPerson" value="1" required> 1:1 수업
                     <input type="radio" id="group-class" name="classPerson" value="0" required> 그룹수업
-                    <div id="group-input" style="display: none;"><input type="number" name="classMinPerson" class="input-style"> &nbsp명~&nbsp <input type="number" name="classMaxPerson" class="input-style">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
+                    <div id="group-input" style="display: none;"><input type="number" name="classMinPerson" class="input-style" value="0"> &nbsp명~&nbsp <input type="number" name="classMaxPerson" class="input-style" value="0">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
                     ex) 일대일 수업을 원하는 경우, 채팅으로 문의 주세요.
                     </p>
                 </div>
@@ -125,7 +125,7 @@
                     <div id="marketing">
                         <input type="checkbox" id="check1" name="marketing" value="mkok">
                         <label for="check1"></label>
-                        강사님께서 등록한 이미지를 마케팅에 활용하는 것에 동의합니다(선택)
+                        <p>강사님께서 등록한 이미지를 마케팅에 활용하는 것에 동의합니다(선택)</p>
                     </div>
                     <div id="mini-img" class="mini-img">
                         <%-- <div class="mini-img-box"><img src="${contextPath}/webapp/resource/images/profile/20220203214639_56036.jpg"></div> --%>
@@ -158,7 +158,28 @@
                             * 강조를 해야 할 내용이 있는 경우 되도록이면 일반 특수문자를 사용해주세요.
                         </div>
                     </div>
-                    <textarea id="summernote" name="classIntro"></textarea>
+                    <textarea id="summernote" name="classIntro" required>
+                    	<p style="font-size:20px; font-weight: 500; color: #bbb;">📝소개 EX)</p>
+                    	
+                    	<p style="font-size:25px; font-weight: 600;">간단한 클래스 소개</p>
+                    	<p>입문자분들을 위한 꿀조합 클래스입니다 :)</p>
+                    	<br>
+                    	<img style="width: 500px;" src="${contextPath}/resources/images/class-detail/temp3.jpg">
+                    	<br><br>
+                    	<p>오일파스텔을 쓰기위해서는 어떻게 명암이 들어가는지 아는 것이 중요해요. 기본적인 명암법을 배우고, 오일파스텔을 쓰기 전 특성을 알아볼 거예요. 또 기초를 바탕으로 어떻게 얼굴을 채워넣으면 좋은지 이야기 해볼게요. 그렇게 채색을 시작하면서 서서히 각자의 색으로 완성할 수 있도록 도와드리겠습니다.</p>
+						<br><br>
+						
+                    	<p style="font-size:25px; font-weight: 600;">이런분들께 추천합니다</p>
+                    	<ul>
+                    		<li>UX디자이너가 되기위해 취업준비중인 취준생</li>
+                    		<li>타 전공자분들을 위한 UX입문과정</li>
+                    		<li>UX팀으로 이직을 위한 이직 준비 과정(경력 기술서 만들기!!)</li>
+                    		<li>UX 디자인 포트폴리오 준비 및 취업 컨설팅이 필요한 대학생</li>
+                    		<li>프로토파이/인비전/XD 등 다양한 프로토 타이핑 툴 학습이 필요하신분</li>
+                    		<li>UX디자인 분석/휴리스틱 분석에 대한 학습이 필요하신분</li>
+                    		<li>스타트업을 시작하기 위해 반응형 APP Design이 필요한 분</li>
+                    	</ul>
+                    </textarea>
                 </div>
             </div>
 <!--             <div id="c-target" class="bottomLine">
@@ -183,8 +204,8 @@
                 </div>
             </div> -->
             <div id="next-btn">
-                <button class="btn-click" style="background-color: #3a3424; color: white;">미리보기</button>
-                <button class="btn-click" style="background-color: #3a3424; color: white;">임시저장</button>
+                <button type="button" id="priview-btn" class="btn-click" style="background-color: #3a3424; color: white;" onclick="javascript: form.onsubmit='return preview();'">미리보기</button>
+                <button id="save-btn" class="btn-click" style="background-color: #3a3424; color: white;" onclick="javascript: form.action='${contextPath}/register/save';">임시저장</button>
                 <button class="btn-click" style="background-color: #FFDF3E;">승인요청</button>
             </div>
         </div>

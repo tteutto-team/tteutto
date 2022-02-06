@@ -165,19 +165,20 @@ public class MemberDAO {
 	 * @param teacher
 	 * @param career
 	 * @param sns
-	 * @return result
+	 * @return
 	 */
 	public int teacherRegisterInsert(Teacher teacher) {
 		return sqlSession.insert("memberMapper.teacherRegisterInsert", teacher);
 	}
 
-	
+
+
 	/** 이력 삽입
-	 * @param car
-	 * @return result
+	 * @param career
+	 * @return 
 	 */
-	public int insertTeacherCareer(Career car) {
-		return sqlSession.insert("memberMapper.insertTeacherCareer", car);
+	public int insertTeacherCareer(List<Career> career) {
+		return sqlSession.insert("memberMapper.insertTeacherCareer", career);
 	}
 
 	/** 강사 이력 삭제

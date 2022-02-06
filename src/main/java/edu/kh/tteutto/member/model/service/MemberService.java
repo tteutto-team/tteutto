@@ -108,14 +108,17 @@ public interface MemberService {
 	int teacherProfileUpdate(Teacher teacher, String phone, List<Sns> snsList, List<String> profileInput,
 			List<MultipartFile> images, String webPath, String serverPath);
 
-
 	/** 강사 신청
 	 * @param teacher
-	 * @param career
+	 * @param image 
+	 * @param careerContent
 	 * @param snsList
+	 * @param serverPath 
+	 * @param webPath 
 	 * @return
 	 */
-	int teacherRegisterInsert(Teacher teacher, List<MultipartFile> images, List<Career> career, List<Sns> snsList);
+	int teacherRegisterInsert(Teacher teacher, List<MultipartFile> images, MultipartFile image, String careerContent, List<Sns> snsList, String serverPath, String serverPath2);
+
 
 	/** 강사 신청 - 이력 수정 x
 	 * @param teacher

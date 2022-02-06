@@ -1,14 +1,19 @@
 package edu.kh.tteutto.classRoom.controller;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -79,6 +84,41 @@ public class RegisterController {
 				return "redirect:/";
 			}
 			
+		}
+		
+		
+		// 클래스 미리보기 페이지
+		@RequestMapping("preview")
+		public String classPreview(HttpSession session) {
+			if(session.getAttribute("loginMember") != null) {
+				return "class/classDetailPreview";			
+			}else {
+				return "member/login";
+			}
+			
+		}
+		
+		// 임시저장
+		@RequestMapping("save")
+		public String classSave(HttpSession session, RedirectAttributes ra,
+								String classArea1, String classArea2, ClassDetail cdt, 
+								HttpServletRequest req, HttpServletResponse resp) {
+			String area = classArea1 + " " + classArea2;
+			cdt.setClassArea(area);
+			
+			System.out.println(cdt);
+			
+			Cookie cookie = new Cookie("classLevel", cdt.getClassLevel());
+			
+			cookie.setMaxAge(60 * 60 * 24 * 30);
+			
+			cookie.setPath(req.getContextPath());
+			
+			resp.addCookie(cookie);
+			
+			ra.addFlashAttribute("message", "임시저장이 완료되었습니다.");
+			
+			return "class/classInsert1"; 
 		}
 
 }

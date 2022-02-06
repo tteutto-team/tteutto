@@ -115,7 +115,7 @@ const date = new Date();
         });
 
 
-        // 테스트용------------------------------------------------------
+        // 원데이 스케쥴용------------------------------------------------------
         $("#testtest").on("click", function(){
             //$("#schedule-val").attr("display", "none");
             $("#schedule-val").fadeOut(500);
@@ -170,9 +170,9 @@ const date = new Date();
                 dateOrder = dateVal[i].substring(6, 10) + "/" + dateVal[i].substring(0, 5);
                 
                 if(num == 1){
-                    $('#test-table > tbody:last').append('<tr><td class="time-td2">수업일자</td><td class="time-td">'+dateOrder+'</td class="time-td4"><td>'+week2[i]+'</td><td class="time-td"><select id="startTime'+num+'" class="time-box"></select></td><td> ~ </td><td class="time-td"><select id="endTime'+num+'" class="time-box"></select></td><td><button id="plus-time'+num+'" class="plus-time">+</button></td></tr>');
+                    $('#test-table > tbody:last').append('<tr><td class="time-td2">수업일자</td><td class="time-td">'+dateOrder+'</td class="time-td4"><td>'+week2[i]+'</td><td class="time-td"><select id="startTime'+num+'" class="time-box"></select></td><td> ~ </td><td class="time-td"><select id="endTime'+num+'" class="time-box"></select></td><td><button id="plus-time'+num+'" class="plus-time" type="button">+</button></td></tr>');
                 }else{
-                    $('#test-table > tbody:last').append('<tr><td class="time-td2"></td><td class="time-td">'+dateOrder+'</td class="time-td4"><td>'+week2[i]+'</td><td class="time-td"><select id="startTime'+num+'" class="time-box"></select></td><td> ~ </td><td class="time-td"><select id="endTime'+num+'" class="time-box"></select></td><td><button id="plus-time'+num+'" class="plus-time">+</button></td></tr>');
+                    $('#test-table > tbody:last').append('<tr><td class="time-td2"></td><td class="time-td">'+dateOrder+'</td class="time-td4"><td>'+week2[i]+'</td><td class="time-td"><select id="startTime'+num+'" class="time-box"></select></td><td> ~ </td><td class="time-td"><select id="endTime'+num+'" class="time-box"></select></td><td><button id="plus-time'+num+'" class="plus-time" type="button">+</button></td></tr>');
                 }
 
                 
@@ -226,7 +226,7 @@ const date = new Date();
 
                 })
 
-                        
+                // 플러스 버튼
                 let plusNo = 1;
                 $("#plus-time" + num).on("click", function(e){
                     const tr = $("<tr>");
@@ -266,7 +266,6 @@ const date = new Date();
                     
                     
                     select2.addClass("time-box");
-                    select2.append("<option>09:00</option>");
                     select2.append("<option>10:00</option>");
                     select2.append("<option>11:00</option>");
                     select2.append("<option>12:00</option>");
@@ -293,6 +292,7 @@ const date = new Date();
                     minus.addClass("plus-time");
                     minus.addClass("minus-time");
                     minus.attr("id", "minus" + plusNo);
+                    minus.attr("type", "button");
                     //minus.setAttribute("onclick", "remove(event);");
                     //minus.addEventListener("click", remove);
                     // minus.attr("onclick", "removeCols();");
@@ -305,10 +305,15 @@ const date = new Date();
                     tr.append(td5);
                     tr.append(td6);
                     tr.append(td7);
-                    //$('#test-table > tbody:last').append(tr);
-                    //console.log(plusNo);
-                    //e.target.parentNode.nextSibling.append(tr);
-                    $('#test-table > tbody:first').append(tr);
+                    
+                    
+	                 // 추가 시간 옵션 최소시간 알아서 맞추기
+	                $("select#addStartTime" + plusNo).on("change", function(){
+	                    console.log("ㄷㄷ");
+	                })
+                    
+                    // tr 추가
+                    $(this).parent().parent().after(tr);
 
                     $(minus).on("click",function(e){
                         e.target.parentNode.parentNode.remove();
@@ -317,166 +322,15 @@ const date = new Date();
                     plusNo = plusNo + 1;
                 })
 
-
-                 // 추가 시간 옵션 최소시간 알아서 맞추기
-                $("select#addStartTime" + num).on("change", function(){
-                    //console.log(this.parentNode.nextSibling.nextSibling.firstChild);
-                    let et = this.parentNode.nextSibling.nextSibling.firstChild;
-                    $(et).children('option').remove();
-
-                    for(i=this.value; i<24; i++){
-                        if(i == 9){
-                            $(et).append('<option>09:00</option>');
-                        }else{
-                            i = Number(i)+1;
-                            $(et).append('<option>'+i+':00</option>');
-                        }
-                        
-                    }
-
-                })
-
-
                 num++;
 
             }
-            /* 
-            for(i= 0; i<dateVal.length; i++){
-                let dates = dateVal[i].substring(0, 5);
-                let days = week2[i]
-                if(i != dateVal.length - 1){
-                    scheduleDay += dates + "(" + days + "), ";
-                }else{
-                    scheduleDay += dates + "(" + days + ")";
-                }
-            } */
-
-            /*$("#schedule-day").html(scheduleDay);*/
-
-
 
 
             $("#test-schedule-text").hide();
             $("#test-schedule-text").slideDown(400);
         })
-
-        /*
-        let plusNo = 1;
-        $("#plus-time").on("click", function(){
-            const tr = $("<tr>");
-            const td = $("<td>");
-            const td2 = $("<td>");
-            const td3 = $("<td>");
-            const td4 = $("<td>");
-            const td5 = $("<td>");
-            td2.addClass("time-td"); 
-            td4.addClass("time-td"); 
-
-            const select1 = $("<select>");
-            const select2 = $("<select>");
-
-            select1.attr("id", "startTime" + plusNo);
-            select2.attr("id", "endTime" + plusNo);
-
-            select1.addClass("time-box");
-            select1.append("<option>09:00</option>");
-            select1.append("<option>10:00</option>");
-            select1.append("<option>11:00</option>");
-            select1.append("<option>12:00</option>");
-            select1.append("<option>13:00</option>");
-            select1.append("<option>14:00</option>");
-            select1.append("<option>15:00</option>");
-            select1.append("<option>16:00</option>");
-            select1.append("<option>17:00</option>");
-            select1.append("<option>18:00</option>");
-            select1.append("<option>19:00</option>");
-            select1.append("<option>20:00</option>");
-            select1.append("<option>21:00</option>");
-            select1.append("<option>22:00</option>");
-            select1.append("<option>23:00</option>");
-            
-            
-            select2.addClass("time-box");
-            select2.append("<option>09:00</option>");
-            select2.append("<option>10:00</option>");
-            select2.append("<option>11:00</option>");
-            select2.append("<option>12:00</option>");
-            select2.append("<option>13:00</option>");
-            select2.append("<option>14:00</option>");
-            select2.append("<option>15:00</option>");
-            select2.append("<option>16:00</option>");
-            select2.append("<option>17:00</option>");
-            select2.append("<option>18:00</option>");
-            select2.append("<option>19:00</option>");
-            select2.append("<option>20:00</option>");
-            select2.append("<option>21:00</option>");
-            select2.append("<option>22:00</option>");
-            select2.append("<option>23:00</option>");
-            
-
-
-            td2.append(select1);
-            td3.html("&nbsp~&nbsp");
-            td4.append(select2);
-
-            const minus = $("<button>");
-            minus.html("-");
-            minus.addClass("plus-time");
-            minus.addClass("minus-time");
-            minus.attr("id", "minus" + plusNo);
-            //minus.setAttribute("onclick", "remove(event);");
-            //minus.addEventListener("click", remove);
-            // minus.attr("onclick", "removeCols();");
-            td5.append(minus);
-
-            tr.append(td);
-            tr.append(td2);
-            tr.append(td3);
-            tr.append(td4);
-            tr.append(td5);
-            $('#test-table > tbody:last').append(tr);
-            //console.log(plusNo);
-
-            $(minus).on("click",function(e){
-                e.target.parentNode.parentNode.remove();
-            })
-
-            plusNo = plusNo + 1;
-        })
-        */
-
-        /*
-        function removeCols(){
-            alert("왜 안됨");
-            console.log(this)
-            this.parentNode.parentNode.remove();
-        }*/
-        /*
-        $("#minus" + plusNo).on("click", function(e){
-            e.target.parentNode.parentNode.remove();
-        })  */
-
-        // $(document).on("click","#minus" + plusNo,function(e){
-        //     //plusNo = plusNo - 1;
-        //     //this.parentNode.parentNode.remove();
-        //     console.log(this);
-        //     console.log(e.target);
-        //     e.target.parentNode.parentNode.remove();
-        //     /*
-        //         $(document).on("이벤트","선택자",함수(){});
-        //         id가 test인 태그를 click했을 때 function(){} 중괄호 안의 이벤트를 실행하라.
-        //         라는 의미입니다.
-                
-        //         무엇이 다르냐 하면, DOM 트리 구조의 상위요소(document)에 바인딩되며,
-        //         document안의 선택자와 일치하는 요소가 존재 혹은 생성 될 때 실행됩니다.
-         
-        //         즉, 이벤트를 선택자가 아니라 document에 위임한다고 보시면 됩니다.*/
-            
-        // });
-
-
-        //----------------------------------------------------------------
-
+        
 // 가격 계산스
 $("#time-price").on("input", function(){
     $("#pt1").html("");
