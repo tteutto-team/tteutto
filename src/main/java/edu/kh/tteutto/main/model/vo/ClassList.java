@@ -8,15 +8,14 @@ public class ClassList {
 	
 	private String thumbnailImageName;	// 썸네일이미지명
 	private String categoryName;		// 카테고리명
-	
 	private String teacherImage;		// 프로필사진
 	private String memberName;			// 회원명
-	private int episodePrice;			// 수업료
 	private String categoryDetailName;	// 세부카테고리명
 	
 	private double starAverage;	// 별점 평균
 	private int heartFlag;		// 찜 여부
 	private int heartCount;		// 찜 개수
+	private int episodePrice;	// 수업료
 	
 	public ClassList() {}
 
@@ -84,14 +83,6 @@ public class ClassList {
 		this.memberName = memberName;
 	}
 
-	public int getEpisodePrice() {
-		return episodePrice;
-	}
-
-	public void setEpisodePrice(int episodePrice) {
-		this.episodePrice = episodePrice;
-	}
-
 	public String getCategoryDetailName() {
 		return categoryDetailName;
 	}
@@ -124,12 +115,20 @@ public class ClassList {
 		this.heartCount = heartCount;
 	}
 
+	public int getEpisodePrice() {
+		return episodePrice;
+	}
+
+	public void setEpisodePrice(int episodePrice) {
+		this.episodePrice = episodePrice;
+	}
+
 	@Override
 	public String toString() {
 		return "ClassList [classNo=" + classNo + ", classArea=" + classArea + ", classType=" + classType
 				+ ", className=" + className + ", thumbnailImageName=" + thumbnailImageName + ", categoryName="
-				+ categoryName + ", teacherImage=" + teacherImage + ", memberName=" + memberName + ", episodePrice="
-				+ episodePrice + ", categoryDetailName=" + categoryDetailName + ", starAverage=" + starAverage
-				+ ", heartFlag=" + heartFlag + ", heartCount=" + heartCount + "]";
+				+ categoryName + ", teacherImage=" + teacherImage + ", memberName=" + memberName
+				+ ", categoryDetailName=" + categoryDetailName + ", starAverage=" + starAverage + ", heartFlag="
+				+ heartFlag + ", heartCount=" + heartCount + ", episodePrice=" + episodePrice + "]";
 	}
 }
