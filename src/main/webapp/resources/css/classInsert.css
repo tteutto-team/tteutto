@@ -129,6 +129,8 @@ input[type='radio']:checked {
   height: 14px;
   border-radius: 100%;
   margin-right: 0.1rem;
+  position: relative;
+  top: 1.5px;
 }
 
 input[type='radio'] {
@@ -137,6 +139,34 @@ input[type='radio'] {
 }
 input[type='radio']:checked {
   background-color: #FFDF3E;
+}
+
+/*checkbox*/
+input[id="check1"] + label {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	border: 1px solid darkgray;
+	cursor: pointer;
+	margin: 0px;
+}
+
+input[id="check1"]:checked + label {
+	background-color: #FFDF3E;
+}
+
+input[id="check1"] {
+	display: none;
+}
+
+label[for="check1"] {
+  position: relative;
+  top: 2.5px;
+}
+
+#marketing p{
+	display: inline-block;
+	margin: 0px;
 }
 
 /*수업난이도*/

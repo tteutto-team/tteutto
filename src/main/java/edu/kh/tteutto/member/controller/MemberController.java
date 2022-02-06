@@ -39,6 +39,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.common.Util;
+import edu.kh.tteutto.main.model.vo.Pagination;
 import edu.kh.tteutto.member.model.service.MemberService;
 import edu.kh.tteutto.member.model.vo.Career;
 import edu.kh.tteutto.member.model.vo.Certified;
@@ -400,17 +401,28 @@ public class MemberController {
 	
 	// 학생 마이페이지 클래스 목록 이동
 	@RequestMapping(value = "studentClassList", method = RequestMethod.GET)
-	public String studentClassList() {
+	public String studentClassList(@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+								   @ModelAttribute("loginMember") Member loginMember,
+								   Model model) {
+		
+		Pagination pagination = null;
+		
+		//pagination = service.getPagination(cp);
+		
 		return "member/studentClassList";
 	}
 
 	// 학생 마이페이지 후기 목록 이동
 	@RequestMapping(value = "studentCommentList", method = RequestMethod.GET)
-	public String studentCommentList() {
+	public String studentCommentList(@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+			   						 @ModelAttribute("loginMember") Member loginMember,
+			   						 Model model) {
+		Pagination pagination = null;
+		
 		return "member/studentCommentList";
 	}
 
-	// 학생 마이페이지 후기 목록 이동
+	// 학생 마이페이지 찜 목록 이동
 	@RequestMapping(value = "studentWishList", method = RequestMethod.GET)
 	public String studentWishList() {
 		return "member/studentWishList";
@@ -630,42 +642,46 @@ public class MemberController {
 	// 강사 신청
 	@RequestMapping(value = "teacherRegister", method=RequestMethod.POST)
 	public String teacherRegisterInsert(RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember, 
-										Teacher teacher, String instagram, String blog, String youtube,
-										List<MultipartFile> images, HttpSession session) {
+										Teacher teacher, String instagram, String blog, String youtube, String careerContent,
+										MultipartFile image, List<MultipartFile> images, HttpSession session) {
 		
 		// 로그인 맴버 가져오기
 		teacher.setMemberNo(loginMember.getMemberNo());
 		
 		// 웹 접근 경로(webPath), 서버 저장 경로(serverPath)
-		String webPath = "/resources/images/teacher/"; // DB에 저장되는 경로
+		// 프로필 이미지 저장 경로
+		String webPath = "/resources/images/teacher/profile/"; // DB에 저장되는 경로
 		String serverPath = session.getServletContext().getRealPath(webPath);
+		
+		// 캐리어 이미지 저장 경로
+		String webPath2 = "/resources/images/teacher/career/";
+		String serverPath2 = session.getServletContext().getRealPath(webPath2);
 		
 		// SNS 리스트 생성 
 		List<Sns> snsList = new ArrayList<Sns>();
 		
-		if(instagram != null) {
+		if(instagram.length() != 0) {
 			Sns sns = new Sns();
 			sns.setSnsLink(instagram);
 			sns.setSnsDiv(0);
 			snsList.add(sns);
 		}
-		if(blog != null) {
+		if(blog.length() != 0) {
 			Sns sns = new Sns();
 			sns.setSnsLink(blog);
 			sns.setSnsDiv(1);
 			snsList.add(sns);
 		}
-		if(youtube != null) {
+		if(youtube.length() != 0) {
 			Sns sns = new Sns();
 			sns.setSnsLink(youtube);
 			sns.setSnsDiv(2);
 			snsList.add(sns);
 		}
 		
-		// 이력 리스트 생성
-		List<Career> career = new ArrayList<Career>();
+
 		
-		int result = service.teacherRegisterInsert(teacher, images, career, snsList );
+		int result = service.teacherRegisterInsert(teacher, images, image, careerContent, snsList, serverPath, serverPath2 );
 		
 		if(result > 0) {
 			Util.swalSetMessage("강사 신청 완료", "관리자 승인을 기다려주세요.", "success", ra);			

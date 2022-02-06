@@ -5,20 +5,20 @@
     
 <div id="container">
 	<main>
-		<form action="${contextPath}/member/teacherRegister" method="POST" id="register" enctype="multipart/form-data" role="form">
+		<form action="${contextPath}/member/teacherRegister" method="POST" id="register" enctype="multipart/form-data" role="form" onsubmit="return checkInput();">
 			<div id="register_header">
                     <div>강사 신청</div>
                     <div><span>* </span>필수</div> 
             </div>
 			<div class="register_content">
 				<div class="register_area">
-					<div class="label_title">프로필사진</div>
+					<div class="label_title">프로필사진<span style="color: red">*</span></div>
 					<div class="label_content">
 						<div class="register_img" id="register_img_cover" style="margin-bottom: 10px;">
 							<img class="ppap" src="//img.taling.me/Content/Images/placeholders/profile-default.thumb.jpg">
 							<img class="camera" style="margin-top: -40px;"
 								src="https://front-img.taling.me/Content/Images/Tutor/Images/btn_pfimg.png">
-							<input type="file" id="picture" name="picture" onchange="loadImg(this)">
+							<input type="file" id="picture" name="image" onchange="loadImg(this)">
 						</div>
 						<div class="register_img"
 							style="background-image: url(https://front-img.taling.me/Content/app3/img/bg/bg-profile-example-01-64-px@2x.png)"></div>
@@ -38,13 +38,14 @@
 						강사소개<span style="color: red">*</span>
 					</div>
 					<div class="label_content">
-						<textarea name="teacherIntro" placeholder="-경력&#13;&#10;-재능 및 경험담" maxlength="1000"></textarea>
+						<textarea name="teacherIntro" placeholder="-경력&#13;&#10;-재능 및 경험담" maxlength="1000" required></textarea>
 					</div>
 				</div>
 				<div class="register_area">
 					<div class="label_title">이력(권장사항)</div>
 					<div class="label_content">
 						<div id="record-box">
+							<%--
 							<div id="record_area">
 								<input type="text" class="profile_input" name="careerContent"
 									placeholder="재능과 관련된 이력을 입력해 주세요.">
@@ -52,8 +53,9 @@
 									<div class="upload_img">
 										<img class="preview"
 											src="https://front-img.taling.me/Content/app3/img/bg/bg-add-img-grey-115px@2x.png">
-										<input type="file" class="profile_file" name="careerImage" onchange="loadCareerImg(this,0)">
+										<input type="file" class="profile_file" name="images" onchange="loadCareerImg(this,0)">
 									</div>
+									<div class="close_record" onclick="close_record_function(this)">닫기</div>
 								</div>
 							</div>
 							<div id="record_area">
@@ -63,10 +65,12 @@
 									<div class="upload_img">
 										<img class="preview"
 											src="https://front-img.taling.me/Content/app3/img/bg/bg-add-img-grey-115px@2x.png">
-										<input type="file" class="profile_file" name="careerImage" onchange="loadCareerImg(this,1)">
+										<input type="file" class="profile_file" name="images" onchange="loadCareerImg(this,1)">
 									</div>
+									<div class="close_record" onclick="close_record_function(this)">닫기</div>
 								</div>
 							</div>
+							 --%>
 						</div>
 						<button type="button" id="register_record_add" class="record_add">+
 							이력 추가</button>

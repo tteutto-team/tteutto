@@ -210,12 +210,24 @@
 	
 	<!-- 강사 신청 -->
 	<insert id="teacherRegisterInsert">
-		INSERT INTO TEACHER VALUES(#{memberNo}, 1, #{teacherIntro}, SYSDATE, 0)
+		INSERT INTO TEACHER VALUES(#{memberNo}, #{teacherImg}, #{teacherIntro}, SYSDATE, 0)
 	</insert>
 	
-	<!-- 이력 삽입 -->
-	<insert id="insertTeacherCareer">
-		INSERT INTO CAREER VALUES(SEQ_CAREER_NO.NEXTVAL, #{careerContent}, #{memberNo}, 1, 2, 3)
+	<!-- 강사 이력 등록 -->
+	<insert id="insertTeacherCareer" parameterType="list">
+	INSERT INTO CAREER
+	SELECT SEQ_CAREER_NO.NEXTVAL, A.* FROM
+	
+	<foreach collection="list" item="car"
+			open="(" close=") A" separator=" UNION ALL ">
+		SELECT #{car.careerContent} CAREER_CONTENT, 
+			   #{car.memberNo} MEMBER_NO,
+			   #{car.imgPath} IMG_PATH,
+			   #{car.imgName} IMG_NM,
+			   #{car.imgOriginal} IMG_ORIGINAL
+		FROM DUAL
+	</foreach>	
+	
 	</insert>
 	
 	
