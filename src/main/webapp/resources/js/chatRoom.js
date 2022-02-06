@@ -6,7 +6,7 @@ $(function(){
             $(this).val('');  // 입력폼 텍스트 없애기
             // alert(_val+"   "+_class);
 
-            var _tar = $(".chat_wrap .inner").append('<div class="item '+_class+'"><div class="otherName">백동현</div><div class="box"><p class="msg">'+_val+'</p><span class="time">'+currentTime()+'</span></div></div>');
+            var _tar = $(".chat_wrap .inner").append('<div class="item '+_class+'"><div class="otherName">백동현</div><div class="box"><p class="msg">'+_val+'</p><span class="read-status"> 1 </span><span class="time">'+currentTime()+'</span></div></div>');
         }
 
         // if($(".sendBtn").click() && $("input[type='text']").val().length ){ // 입력버튼 클릭시

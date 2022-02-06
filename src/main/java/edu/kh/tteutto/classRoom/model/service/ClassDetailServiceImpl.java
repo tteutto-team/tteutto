@@ -18,6 +18,11 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 	public ClassDetailRight selectClassDetail(int classNo) {
 		
 		return dao.selectClassDetail(classNo);
+
+//		클래스 일정 받는거 		
+//		a[1] [
+//		      "date" : tlrks
+//		      "time":[time]]
 	}
 	
 	

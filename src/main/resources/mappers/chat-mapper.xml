@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chatMapper">
+	
+	<resultMap type="ChatRoom" id="chatRoom_rm">
+		<id property="chatRoomNo" column="CHAT_ROOM_NO"/>
+		
+		<result property="chatRoomSt" column="CHAT_ROOM_ST"/>
+		<result property="chatMemberSt" column="CHAT_MEMBER_ST"/>
+		<result property="chatTeacherSt" column="CHAT_TEACHER_ST"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="teacherNo" column="TEACHER_NO"/>
+		<result property="memberNm" column="MEMBER_NM"/>
+		<result property="unreadMsgCnt" column="UNREAD_MSG_CNT"/>
+		<result property="teacherNm" column="TEACHER_NM"/>
+		<result property="teacherImg" column="TEACHER_IMG"/>
+		
+		<collection property="chatMessage" resultMap="chatMessage_rm"/>
+
+		
+	</resultMap>
+	
+	<resultMap type="ChatMessage" id="chatMessage_rm">
+		<id property="msgNo" column="MSG_NO"/>
+		
+		<result property="msgContent" column="MSG_CONTENT"/>
+		<result property="msgDt" column="MSG_DT"/>
+		<result property="msgSt" column="MSG_ST"/>
+		<result property="chatRoomNo" column="CHAT_ROOM_NO"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="memberNm" column="MEMBER_NM"/>
+	</resultMap>
+	
+	<!-- 채팅방 목록조회 -->
+	<select id="chatRoomList" resultMap="chatRoom_rm">
+		SELECT CHAT_ROOM_NO, MSG_CONTENT, MSG_DT,
+	        (SELECT DISTINCT MEMBER_NM
+	            FROM CHAT_MESSAGE
+	            JOIN TEACHER ON TEACHER.MEMBER_NO = CHAT_MESSAGE.MEMBER_NO
+	            JOIN MEMBER ON TEACHER.MEMBER_NO = MEMBER.MEMBER_NO
+	            WHERE CHAT_ROOM_NO = #{chatRoomNo}) TEACHER_NM ,
+	        (SELECT DISTINCT teacher.teacher_img
+	            FROM CHAT_MESSAGE
+	            JOIN TEACHER ON TEACHER.MEMBER_NO = CHAT_MESSAGE.MEMBER_NO
+	            JOIN MEMBER ON TEACHER.MEMBER_NO = MEMBER.MEMBER_NO
+	            WHERE CHAT_ROOM_NO = #{chatRoomNo}) TEACHER_IMG ,
+	        (SELECT COUNT(MSG_ST) FROM CHAT_MESSAGE WHERE MSG_ST = 0 AND CHAT_ROOM_NO = #{chatRoomNo}) UNREAD_MSG_CNT
+		FROM CHAT_MESSAGE
+		WHERE MSG_NO IN (SELECT MAX(MSG_NO) FROM CHAT_MESSAGE WHERE CHAT_ROOM_NO = #{chatRoomNo})
+	</select>
+	
+	<!-- 채팅방 열기 -->
+	<!-- useGeneratedKeys, <selectKey> 사용 -->
+	<insert id="openChatRoom" useGeneratedKeys="true">
+		<selectKey order="BEFORE" resultType="_int" keyProperty="chatRoomNo">
+			SELECT CHAT_ROOM_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO CHAT_ROOM VALUSE
+		(#{chatRoomNo}, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{teacherNo})
+	</insert>
+	
+	
+	<!-- 채팅방 존재 여부 확인 -->
+	<select id="existsChatRoom" resultType="_int">
+		SELECT COUNT(*) FROM CHAT_ROOM
+		WHERE CHAT_ROOM_NO = #{chatRoomNo}
+		AND CHAT_ROOM_ST = 0
+	</select>
+	
+	<!-- 채팅방 입장 --> <!-- teacherNo 컬럼이 필요한가... -->
+	<insert id="joinChatRoom">
+		INSERT INTO CHAT_ROOM VALUES(#{chatRoomNo}, DEFAULT, DEFAULT, DEFAULT, #{memberNo})
+	</insert>
+	
+	<!-- 채팅 메세지 조회  -->
+	<select id="selectChatMessage" resultMap="chatMessage_rm">
+		SELECT MESSAGE, TO_CHAR(MSG_DT, 'YYYY-MM-DD HH24:MI') MSG_DT,
+		MEMBER_NO, MEMBER_NM
+		FROM CHAT_MESSAGE
+		JOIN MEMBER USING(MEMBER_NO)
+		WHERE CHAT_ROOM_NO = #{chatRoomNo}
+		ORDER BY MSG_NO
+	</select>
+	
+</mapper>

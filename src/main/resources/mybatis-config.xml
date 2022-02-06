@@ -35,6 +35,9 @@
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassDetail" alias="ClassDetail" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassDetailImage" alias="ClassDetailImage" />	
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassDetailRight" alias="ClassDetailRight" />
+		
+		<typeAlias type="edu.kh.tteutto.chat.model.vo.ChatRoom" alias="ChatRoom" />
+		<typeAlias type="edu.kh.tteutto.chat.model.vo.ChatMessage" alias="ChatMessage" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.EpisodeClass" alias="EpisodeClass" />
 		<typeAlias type="edu.kh.tteutto.main.model.vo.ClassList" alias="ClassList" />
 
@@ -47,6 +50,7 @@
 		<mapper resource="/mappers/teacher-mapper.xml" />
 		<mapper resource="/mappers/class-mapper.xml" />
 		<mapper resource="/mappers/class-detail-mapper.xml" />
+		<mapper resource="/mappers/chat-mapper.xml" />
 		<mapper resource="/mappers/class-list-mapper.xml" />
 	</mappers>
 			

@@ -41,52 +41,68 @@
     </div>
 
     <!-- 채팅리스트 -->
-    <main class="chat_romm_list">
-        <ul>
-            <li>
-                <a href="${contextPath}/chat/chatRoom">
-                    <img src="${contextPath}/resources/images/class-detail/teacherProfileImg.png" class="profile-img" alt="k페이프로필사진">
-                    <div class="talk">
-                        <p class="friend-name"><span>백동현</span> 강사님</p>
-                        <p class="chat-content">안녕하세요😊</p>
-                    </div>
-                    <div class="chat-status">
-                        <time datetime="15:40:00+09:00">오후 3:40</time>
-                        <span class="chat-balloon">1</sapn>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="${contextPath}/resources/images/class-detail/teacherProfileImg.png" class="profile-img" alt="뫄뫄프로필사진">
-                    <div class="talk">
-                        <p class="friend-name"><span>천동현</span> 강사님</p>
-                        <p class="chat-content">네 물어보세요</p>
-                    </div>
-                    <div class="chat-status">
-                        <time datetime="15:39:00+09:00">오후 3:39</time>
-                            <span class="chat-balloon">1</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#" target="_blank">
-                    <img src="${contextPath}/resources/images/class-detail/teacherProfileImg.png" class="profile-img" alt="쀼프로필사진">
-                    <div class="talk">
-                        <p class="friend-name"><span>만동현</span> 강사님</p>
-                        <p class="chat-content">안녕하세요.안녕하세요.안녕하세요.안녕하세요.안녕하세요.안녕하세요.안녕하세요.안녕하세요.</p>
-                    </div>
-                    <div class="chat-status">
-                        <time datetime="10:15:00+09:00">오전 10:15</time>
-                    </div>
-                </a>
-            </li>
-
-
-            
-        </ul>
-    </main>
-
+	    <main class="chat_romm_list">
+	        <ul>
+	        	<%-- 채팅 목록 출력 --%>
+	        	<c:choose>
+	        	
+	        		<%-- 조회된 게시글 목록이 없을 때 --%>
+	        		<c:when test="${empty chatRoomList}">
+	        			<li>문의가 없습니다.</li>
+	        		
+	        		</c:when>
+	        		
+	        		<%-- 로그인한 회원의 채팅방 목록이 있을 때 --%>
+	        		<c:otherwise>
+	        			<c:forEach var="chatRoom" items="${chatRoomList}">
+	        				<input type="hidden" value="${chatRoom.chatRoomNo}">
+				            <li>
+				                <a href="${contextPath}/chat/chatRoom">
+				                    <img src="${contextPath}/resources/images/class-detail/teacherProfileImg.png" class="profile-img" alt="k페이프로필사진">
+				                    <div class="talk">
+				                        <p class="friend-name"><span>${chatRoom.teacherNm}</span> 강사님</p>
+				                        <p class="chat-content">${chatRoom.chatMessage.msgContent}</p>
+				                    </div>
+				                    <div class="chat-status">
+				                        <time datetime="15:40:00+09:00">${chatRoom.chatMessage.msgDt}</time>
+				                        <span class="chat-balloon">${chatRoom.chatMessage.unreadMsgCnt}</sapn>
+				                    </div>
+				                </a>
+				            </li>
+	        			</c:forEach>
+	            	</c:otherwise>
+	        	</c:choose>
+	            <%-- 
+	            <li>
+	                <a href="#">
+	                    <img src="${contextPath}/resources/images/class-detail/teacherProfileImg.png" class="profile-img" alt="뫄뫄프로필사진">
+	                    <div class="talk">
+	                        <p class="friend-name"><span>천동현</span> 강사님</p>
+	                        <p class="chat-content">네 물어보세요</p>
+	                    </div>
+	                    <div class="chat-status">
+	                        <time datetime="15:39:00+09:00">오후 3:39</time>
+	                            <span class="chat-balloon">1</span>
+	                    </div>
+	                </a>
+	            </li>
+	            <li>
+	                <a href="#" target="_blank">
+	                    <img src="${contextPath}/resources/images/class-detail/teacherProfileImg.png" class="profile-img" alt="쀼프로필사진">
+	                    <div class="talk">
+	                        <p class="friend-name"><span>만동현</span> 강사님</p>
+	                        <p class="chat-content">안녕하세요.안녕하세요.안녕하세요.안녕하세요.안녕하세요.안녕하세요.안녕하세요.안녕하세요.</p>
+	                    </div>
+	                    <div class="chat-status">
+	                        <time datetime="10:15:00+09:00">오전 10:15</time>
+	                    </div>
+	                </a>
+	            </li> --%>
+	
+	
+	            
+	        </ul>
+	    </main>
 
 
 
