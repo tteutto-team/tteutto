@@ -267,6 +267,11 @@ public class MemberServiceImpl implements MemberService{
 		return dao.studentProfileUpdate(member);
 	}
 
+	// 회원 탈퇴
+	@Override
+	public int memberResign(int memberNo) {
+		return dao.memberResign(memberNo);
+	}
 
 	// 강사 신청
 	@Transactional

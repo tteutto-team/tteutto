@@ -203,6 +203,14 @@ public class MemberDAO {
 	public int studentProfileUpdate(Member member) {
 		return sqlSession.update("memberMapper.studentProfileUpdate", member);
 	}
+	
+	/** 회원 탈퇴
+	 * @param memberNo
+	 * @return result
+	 */
+	public int memberResign(int memberNo) {
+		return sqlSession.update("memberMapper.memberResign", memberNo);
+	}
 
 
 

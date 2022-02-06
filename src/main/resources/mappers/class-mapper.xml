@@ -29,6 +29,15 @@
 	</resultMap>
 
 
+	<resultMap type="EpisodeClass" id="episode_class_rm">
+		<id property="epCount" column="EP_COUNT"/>
+		
+		<result property="StudyStatus" column="STUDY_STATUS"/>
+		<result property="ClassDate" column="CLASS_DATE"/>
+		<result property="deleteStatus" column="DELETE_STATUS"/>
+		<result property="calStatus" column="CAL_STATUS"/>
+	</resultMap>
+
 	<!-- 클래스 등록 -->
 	<insert id="classInsert" useGeneratedKeys="true" parameterType="ClassDetail">
 		
@@ -65,11 +74,13 @@
 	</select>
 	
 	<!-- 강사 클래스 목록 조회 - 1회차 이상인 클래스 검색 -->
-	<select id="selectEpisodeList">
-		SELECT * FROM CLASS
-		JOIN EPISODE A USING (CLASS_NO)
-		JOIN EP_SCHEDULE B USING (EP_NO)
-		WHERE CLASS_NO= #{classNo} AND EP_COUNT != 1
+	<select id="selectClassEpisode" resultMap="episode_class_rm">
+		SELECT EP_COUNT, SCHDL_DT AS CLASS_DATE, EP_ST AS DELETE_STATUS, CAL_ST AS CAL_STATUS
+		FROM EPISODE
+		JOIN EP_SCHEDULE USING(EP_NO)
+		JOIN CALCULATE USING(EP_NO)
+		WHERE CLASS_NO = #{classId}
+		ORDER BY EP_COUNT
 	</select>
 	
 
