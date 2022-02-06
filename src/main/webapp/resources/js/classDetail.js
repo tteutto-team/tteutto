@@ -355,12 +355,7 @@ AOS.init();
   
   
 
-  // 실시간톡 버튼
-  function liveTalk(){
-    var url="../chat/chatRoom";
-    var option="width=482, height=700, top=200"
-    window.open(url, "_blank", option);
-}
+
 
 
 

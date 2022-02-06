@@ -74,6 +74,7 @@
                             ※ 주말 및 공휴일 휴무 -->
                             <!-- <div> <a href=""> 뜨또 자주묻는 질문 </a></div> -->
                         </p>
+                        	<!-- <span class="read-status"> 1 </span> -->
                             <span class="time">오전 10:05</span>
                         </div>
                     </div>

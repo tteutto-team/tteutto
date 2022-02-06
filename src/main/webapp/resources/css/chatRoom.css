@@ -150,3 +150,14 @@
             margin: 10px;
             
         }
+        
+        
+        /* 읽음 상태 숫자 */
+        .read-status{
+	        position: absolute;
+		    right: auto;
+    		left: -18px;
+		    bottom: 13px;
+		    font-weight: 600;
+		    color: #be3100;
+	    }
