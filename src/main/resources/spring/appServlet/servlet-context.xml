@@ -25,6 +25,19 @@
 	
 	<context:component-scan base-package="edu.kh.tteutto" />
 	
+	<!-- google Class Bean설정 추가 -->
+    <!-- 클라이언트ID와 보안비밀 세팅 -->
+    <beans:bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
+      <beans:constructor-arg value="1043401104218-qa40fc4knjg7ru12mje6t95bl4p94vmc.apps.googleusercontent.com" />
+      <beans:constructor-arg value="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" />
+    </beans:bean>
+    
+    <!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
+    <beans:bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
+        <beans:property name="scope" value="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email" />
+         <beans:property name="redirectUri" value="http://localhost:8080/tteutto/member/googleCallback" />
+    </beans:bean>
+	
 	
 	<!-- 웹소켓 클래스 Bean 등록 -->
 	<!-- 1. namespaces 탭에서 websocket 체크 -->
