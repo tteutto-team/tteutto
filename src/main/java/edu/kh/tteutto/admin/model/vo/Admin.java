@@ -14,7 +14,13 @@ public class Admin {
 	// 회원
 	private int memberNo; // 회원 번호
 	private String memberName; // 강사명
-	
+	private int memberGrade; // 회원구분
+	private int memberStatus; // 회원 상태
+	private String memberBirth; // 생년월일
+	private char memberGender; // 성별
+	private String memberPhone; // 전화번호
+	private char teacherEnroll; // 강사 등록 여부
+
 	// ************ 필드 **************
 
 	// 생성자
@@ -70,10 +76,61 @@ public class Admin {
 		this.memberNo = memberNo;
 	}
 
+	public int getMemberGrade() {
+		return memberGrade;
+	}
+
+	public void setMemberGrade(int memberGrade) {
+		this.memberGrade = memberGrade;
+	}
+
+	public int getMemberStatus() {
+		return memberStatus;
+	}
+
+	public void setMemberStatus(int memberStatus) {
+		this.memberStatus = memberStatus;
+	}
+
+	public String getMemberBirth() {
+		return memberBirth;
+	}
+
+	public void setMemberBirth(String memberBirth) {
+		this.memberBirth = memberBirth;
+	}
+
+	public char getMemberGender() {
+		return memberGender;
+	}
+
+	public void setMemberGender(char memberGender) {
+		this.memberGender = memberGender;
+	}
+
+	public String getMemberPhone() {
+		return memberPhone;
+	}
+
+	public void setMemberPhone(String memberPhone) {
+		this.memberPhone = memberPhone;
+	}
+
+	public char getTeacherEnroll() {
+		return teacherEnroll;
+	}
+
+	public void setTeacherEnroll(char teacherEnroll) {
+		this.teacherEnroll = teacherEnroll;
+	}
+
 	@Override
 	public String toString() {
 		return "Admin [classNo=" + classNo + ", className=" + className + ", classRequestDate=" + classRequestDate
-				+ ", episodeCount=" + episodeCount + ", memberNo=" + memberNo + ", memberName=" + memberName + "]";
+				+ ", episodeCount=" + episodeCount + ", memberNo=" + memberNo + ", memberName=" + memberName
+				+ ", memberGrade=" + memberGrade + ", memberStatus=" + memberStatus + ", memberBirth=" + memberBirth
+				+ ", memberGender=" + memberGender + ", memberPhone=" + memberPhone + ", teacherEnroll=" + teacherEnroll
+				+ "]";
 	}
 
 }

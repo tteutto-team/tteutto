@@ -34,10 +34,6 @@
                     <div class="label_content">${teacher.memberEmail}</div>
                 </div>
                 <div class="profile_area">
-                    <div class="label_title">비밀번호</div>
-                    <div class="label_content"><a href="#" class="pw_change btn_shadow">비밀번호 변경하기</a></div>
-                </div>
-                <div class="profile_area">
                     <div class="label_title">전화번호</div>
                     <div class="label_content"><input type="text" name="phone" id="phone" class="profile_input" value="${teacher.memberPno}"></div>
                 </div>

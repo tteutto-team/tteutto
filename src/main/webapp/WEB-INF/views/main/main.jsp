@@ -491,3 +491,6 @@
 	
 	    });
 </script>
+<c:if test="${!empty sessionScope.email}">
+	<c:remove var="email" scope="session"/>
+</c:if>

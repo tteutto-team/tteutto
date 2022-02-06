@@ -49,7 +49,7 @@
 		</div>
 		<div class="admin-list">
 			<div>
-				<a href="#"><i class="far fa-circle"></i> 유저 관리</a>
+				<a href="${contextPath}/admin/userManage"><i class="far fa-circle"></i> 유저 관리</a>
 				<a href="${contextPath}/admin/teacherManage"><i class="far fa-circle"></i> 강사 신청 관리</a>
 			</div>
 		</div>
@@ -62,7 +62,7 @@
 		<div class="admin-list">
 			<div>
 				<a href="${contextPath}/admin/calculateManage"><i class="far fa-circle"></i> 정산 관리</a>
-				<a href="#"><i class="far fa-circle"></i> 환불 관리</a>
+				<a href="${contextPath}/admin/refundManage"><i class="far fa-circle"></i> 환불 관리</a>
 			</div>
 		</div>
 		<div class="admin-list">

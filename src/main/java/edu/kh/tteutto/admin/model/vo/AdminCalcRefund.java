@@ -13,7 +13,12 @@ public class AdminCalcRefund {
 	private String studentName;
 	private int calPrice;
 
+	private int refundNo;
+	private String refundRequestDate;
 	private int classProgress;
+	private int refundMoney;
+	private int refundStatus;
+	private int memberNo;
 
 	public AdminCalcRefund() {
 	}
@@ -98,12 +103,54 @@ public class AdminCalcRefund {
 		this.classProgress = classProgress;
 	}
 
+	public int getRefundNo() {
+		return refundNo;
+	}
+
+	public void setRefundNo(int refundNo) {
+		this.refundNo = refundNo;
+	}
+
+	public String getRefundRequestDate() {
+		return refundRequestDate;
+	}
+
+	public void setRefundRequestDate(String refundRequestDate) {
+		this.refundRequestDate = refundRequestDate;
+	}
+
+	public int getRefundMoney() {
+		return refundMoney;
+	}
+
+	public void setRefundMoney(int refundMoney) {
+		this.refundMoney = refundMoney;
+	}
+
+	public int getRefundStatus() {
+		return refundStatus;
+	}
+
+	public void setRefundStatus(int refundStatus) {
+		this.refundStatus = refundStatus;
+	}
+
+	public int getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+
 	@Override
 	public String toString() {
 		return "AdminCalcRefund [calNo=" + calNo + ", calRequestNo=" + calRequestNo + ", calStatus=" + calStatus
 				+ ", episodeNo=" + episodeNo + ", teacherName=" + teacherName + ", className=" + className
 				+ ", episodeCount=" + episodeCount + ", studentName=" + studentName + ", calPrice=" + calPrice
-				+ ", classProgress=" + classProgress + "]";
+				+ ", refundNo=" + refundNo + ", refundRequestDate=" + refundRequestDate + ", classProgress="
+				+ classProgress + ", refundMoney=" + refundMoney + ", refundStatus=" + refundStatus + ", memberNo="
+				+ memberNo + "]";
 	}
 
 }

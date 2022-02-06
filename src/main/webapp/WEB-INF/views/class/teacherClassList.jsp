@@ -14,7 +14,7 @@
                 <div class="box">
                     <img src="${contextPath}/resources/images/profile/temp.png">
                 </div>
-                <div class="name">홍길동</div>
+                <div class="name">${loginMember.memberNm}</div>
                 <div class="introduce">안녕하세요. 만나서 반갑습니다.</div>
 
                 <div class="list">
@@ -25,7 +25,7 @@
 
             <div class="right">
                 <div class="right-top">
-                    <p><span>'홍길동'</span>님의 클래스 목록</p>
+                    <p><span>'${loginMember.memberNm}'</span>님의 클래스 목록</p>
                     <button class="new-class modal-open-btn" id="new-class">새 클래스 열기</button>
                 </div>
 
@@ -36,21 +36,24 @@
                         <div class="column table-colunm"></div>
                     </div>
 
-                    <div class="row">
-                        <div class="column">1</div>
-                        <div class="column">클래스1</div>
-                        <div class="column slide">
-                            <i class="fas fa-angle-down"></i>
-                        </div>
-                    </div>
-                    
+					<c:forEach items="${classList}" var="classOne" varStatus="status">
+						<div class="row">
+	                        <div class="column">${status.count}</div>
+	                        <div class="column">${classOne.className}</div>
+	                        <div class="column slide" id="class_${classOne.classNo}">
+	                            <i class="fas fa-angle-down"></i>
+	                        </div>
+                    	</div>
+					
+					</c:forEach>
+				
                     <div class="invisible-a">
                         <div class="invisible-div-row"  onclick="location.href=''${contextPath}/##'">
 	                        <div class="column">회차</div>
 	                        <div class="column">상태</div>
 	                        <div class="column">기간</div>
 	                        <div class="column">학생 관리</div>
-	                        <div class="column">삭제 예부</div>
+	                        <div class="column">삭제 여부</div>
 	                        <div class="column">정산</div>
                         </div>
                         <div class="invisible-div">
@@ -79,7 +82,7 @@
                         </div>
                     </div>
 					
-					<div class="row">
+					<!-- <div class="row">
                         <div class="column">2</div>
                         <div class="column">클래스2</div>
                         <div class="column slide">
@@ -346,7 +349,7 @@
 	                        <div class="column">-</div>
 	                        <div class="column"><button class="modal-open-btn receipt">영수증</button></div>
 	                    </div>
-                    </div>
+                    </div> -->
                     
                     
                 </div>
@@ -374,7 +377,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> <!-- div-table end -->
         </main>
 
         <!-- 삭제 모달 -->
@@ -522,100 +525,9 @@
 
 
     </div>
-    
+    <script>
+    	const contextPath = "${contextPath}";
+    </script>
     <jsp:include page="../common/footer.jsp"/>
-	<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-    
-	<script>
-	
-	    // 모달 열기
-	    $(".modal-open-btn").click(function () {
-	
-	        if($(this).hasClass("receipt")){
-	            $(".receipt-request").fadeIn(100);
-	            $(".receipt-request").css("display", "flex");
-	        }
-	
-	        if($(this).hasClass("delete")){
-	        	console.log("삭제");
-	            $(".delete-request").fadeIn(100);
-	            $(".delete-request").css("display", "flex");
-	        }
-	
-	        if($(this).hasClass("new-class")){
-	            $(".class-open").fadeIn(100);
-	            $(".class-open").css("display", "flex");
-	        }
-	        
-	    });
-	
-	    // 모달 닫기 버튼
-	    $(".modal-close-btn").click(function () {
-	        $(".modal").fadeOut(100);
-	    });
-	
-	    // 모달 밖에 클릭시 모달 닫기
-	    $(".modal").click(function (e) {
-	        if($(e.target).hasClass('modal-layer')) {
-	            $(".modal").fadeOut(100);
-	        }
-	
-	    });
-	
-	    // 슬라이드
-	    $(".slide").on("click", function () {
-
-	    	console.log($(this).parent().next());
-	    	
-	        if ($(this).parent().next().hasClass("invisible-a")){
-	        	
-	        	if($(this).parent().next().css("display") == "none") {
-		            $(".invisible-a").slideUp(100);	// 모든 슬라이드를 다 올리고
-		            $(".slide").html('<i class="fas fa-angle-down"></i>');	// 모든 슬라이드 아이콘을 바꾸고
-		            $(this).parent().next().slideDown(100);	// 숨겨진 슬라이드를 내린다.
-		            $(this).html('<i class="fas fa-angle-up"></i>');	// 내린 슬라이드의 아이콘을 바꾼다
-				
-	        	} else {	// 펼쳐져 있는 경우
-	            	$(this).parent().next().slideUp(100);	// 버튼을 누른 슬라이드를 닫고
-	            	$(this).html('<i class="fas fa-angle-down"></i>');	// 아이콘을 바꾼다.
-	        	} 
-	
-        	} else{
-        		console.log("안가짐")
-        	}
-	        
-	    });
-	    
-	
-	    /* 기존 강좌 이어열기 클릭시 */
-	    $("#existing").on("click", function(){
-	        if($(".class-list").css('display') === 'none'){
-	            $(".class-list").css("display","flex");
-	        }
-	        else{
-	            $(".class-list").css("display","none");
-	        }
-	    });
-	    
-	    
-	    /* 기존 강좌 이어열기 - 열기 클릭시 */
-	    $(".existing-class-select").on("click", function(){
-	    	if($(".btn-select").text() != "강의 목록"){
-	    		location.href="${contextPath}/register/schedule";
-	    	}
-	    });
-	
-	    
-	    /* select-option */
-	    const btn = document.querySelector('.btn-select');
-	    const list = document.querySelector('.list-member');
-	    btn.addEventListener('click', () => {
-	        btn.classList.toggle('on');
-	    });
-	    list.addEventListener('click', (event) => {
-	        if (event.target.nodeName === "BUTTON") {
-	            btn.innerText = event.target.innerText;
-	            btn.classList.remove('on');
-	        }
-	    });
-	</script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+    <script src="${contextPath}/resources/js/teacherClass.js"></script>

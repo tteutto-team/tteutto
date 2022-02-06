@@ -56,37 +56,7 @@ public class MemberController {
 
 	@Autowired
 	private JavaMailSender mailSender;
-
-	@RequestMapping(value="callback", method=RequestMethod.GET)
-	public String callback(HttpSession session, HttpServletRequest request) {
-		return "member/callback";
-	}
 	
-	
-	
-//	// 회원가입 페이지 이동
-//	@RequestMapping("naverLogin")
-//	public ModelAndView naverLogin(HttpServletRequest request) {
-//		ModelAndView mv = new ModelAndView();
-//		String inputEmail = request.getParameter("user_email");
-//		//System.out.println(inputEmail);
-//		int result = service.emailDupCheck(inputEmail);
-//		//System.out.println(result);
-//		if(result == 0) {
-//			System.out.println(inputEmail);
-//			mv.addObject("inputEmail",inputEmail);
-//			mv.setViewName("/member/signup");
-//			return mv;
-//		}else {
-//			HttpSession session = request.getSession();
-//			session.setAttribute("MEMBER_EMAIL", inputEmail);
-//			mv.addObject(session);
-//			mv.setViewName("redirect:/");
-//			
-//			return mv;
-//		}
-//		
-//	}
 	
 	// 회원가입 페이지 이동
 	@RequestMapping(value = "signup", method = RequestMethod.GET)
@@ -450,7 +420,7 @@ public class MemberController {
 	@RequestMapping(value = "studentProfile", method = RequestMethod.GET)
 	public String studentProfile(@ModelAttribute("loginMember") Member loginMember, Model model) {
 		
-		System.out.println("로그인 한 회원정보 : "+ loginMember);
+		System.out.println("로그인 한 회원정보 : "+ loginMember.getMemberImg());
 		
 		String brith = loginMember.getMemberBirth().substring(0, 10);
 		String[] brithArray = brith.split("-");
@@ -473,7 +443,6 @@ public class MemberController {
 		member.setMemberPno(phone);
 		
 		if(image.getSize() != 0) {
-			
 			// 웹 접근 경로(webPath), 서버 저장 경로(serverPath)
 			String webPath = "/resources/images/profile/"; // (DB에 저장되는 경로)
 			String serverPath = session.getServletContext().getRealPath(webPath);
@@ -486,35 +455,53 @@ public class MemberController {
 			}
 		}
 		
-		System.out.println("이미지: " + image.getSize());
-		
 		int result = service.studentProfileUpdate(member);
 		
 		if(result > 0 ) {	// 성공
 			loginMember.setMemberNm(name);
 			loginMember.setMemberPno(phone);
+			loginMember.setMemberImg(member.getMemberImg());
 			return "redirect:studentProfile";
 		} else { // 실패
 			return "redirect:studentProfile";
 		}
-		
-		
 	}
 	
-	
-	
-	
+	// 회원 탈퇴
+	@RequestMapping(value = "resign", method = RequestMethod.GET)
+	public String memberResign( @ModelAttribute("loginMember") Member loginMember, RedirectAttributes ra, SessionStatus status) {
+		
+		int memberNo = loginMember.getMemberNo();
+//		int memberNo = 3;
+
+		String path = null;
+		
+		int result = service.memberResign(memberNo);
+		
+		if(result > 0) {
+			status.setComplete();	// 세션 만료
+			Util.swalSetMessage("탈퇴가 되었습니다.", "그동안 뜨또를 사랑해주셔서 감사합니다.", "success", ra);
+			path="/";
+		} else {
+			Util.swalSetMessage("탈퇴 실패", "관리자에게 문의해주세요.", "error", ra);
+			path = "resign";
+		}
+		
+		return "redirect:" + path;
+	}
 
 	// 강사 프로필 페이지 이동
 	@RequestMapping(value = "teacherProfile", method = RequestMethod.GET)
-	public String teacherProfile(@ModelAttribute("loginMember") Member loginMember, Model model) {
+	public String teacherProfile(/* @ModelAttribute("loginMember") Member loginMember, */ Model model) {
 
-		int memberNo = loginMember.getMemberNo();
-//		int memberNo = 3;
+//		int memberNo = loginMember.getMemberNo();
+		int memberNo = 3;
 
 		Teacher teacher = service.selectTeacherProfile(memberNo);
 		List<Career> careerList = service.selectTeacherCareer(memberNo);
 		List<Sns> snsList = service.selectTeacherSns(memberNo);
+		
+		System.out.println("careerList : "+ careerList);
 		
 		List<Integer> snsDivList = new ArrayList<Integer>();
 		snsDivList.add(1);
@@ -543,6 +530,7 @@ public class MemberController {
 
 		return "member/teacherProfile";
 	}
+	
 	// 강사 프로필 업데이트
 	@RequestMapping(value = "teacherProfileUpdate", method = RequestMethod.POST)
 	public String teacherProfileUpdate( @ModelAttribute("loginMember") Member loginMember,

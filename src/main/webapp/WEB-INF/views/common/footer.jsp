@@ -71,8 +71,10 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- 네이버 api -->
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+ 
+<!-- 카카오 로그인 api -->
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
 <c:if test="${ !empty requestScope.message }">
 	<script>
@@ -97,3 +99,4 @@
 		});
 	</script>
 </c:if>
+

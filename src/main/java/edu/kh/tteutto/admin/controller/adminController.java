@@ -123,7 +123,39 @@ public class adminController {
 		return result;
 	}
 	
-	// 회차별 신청 관리 이동
+	// 유저 관리 이동
+	@RequestMapping(value="userManage", method=RequestMethod.GET)
+	public String userManage() {
+		return "admin/userManage";
+	}
+	
+	// 유저 목록 조회
+	@RequestMapping(value="userList", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Admin> userList() {
+		
+		List<Admin> data = service.userList();
+		
+		return data;
+	}
+	
+	// 유저 정보 업데이트
+	@RequestMapping(value="userSave", method=RequestMethod.POST)
+	@ResponseBody
+	public int userSave(Admin admin) {
+		
+		int result = service.userSave(admin);
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	// 강사 신청 관리 이동
 	@RequestMapping(value="teacherManage", method=RequestMethod.GET)
 	public String teacherManage() {
 		return "admin/teacherManage";
@@ -277,6 +309,32 @@ public class adminController {
 	public int receiptUpdate(int calNo, RedirectAttributes ra) {
 		
 		int result = service.receiptUpdate(calNo);
+		
+		return result;
+	}
+	
+	// 환불 관리 페이지 이동
+	@RequestMapping(value="refundManage", method=RequestMethod.GET)
+	public String refundManage() {
+		return "admin/refundManage";
+	}
+	
+	// 환불 목록 조회
+	@RequestMapping(value="refundList", method=RequestMethod.GET)
+	@ResponseBody
+	public List<AdminCalcRefund> refundList(){
+		
+		List<AdminCalcRefund> data = service.refundList();
+		
+		return data;
+	} 
+	
+	// 환불 승인
+	@RequestMapping(value="refundAgree", method=RequestMethod.GET)
+	@ResponseBody
+	public int refundAgree(int refundNo) {
+		
+		int result = service.refundAgree(refundNo);
 		
 		return result;
 	}

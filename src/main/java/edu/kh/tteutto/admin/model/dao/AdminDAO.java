@@ -74,6 +74,24 @@ public class AdminDAO {
 	public int classDeny(int classNo) {
 		return sqlSession.update("adminMapper.classDeny", classNo);
 	}
+	
+	/** 유저 목록 조회
+	 * @return data
+	 */
+	public List<Admin> userList() {
+		return sqlSession.selectList("adminMapper.userList");
+	}
+	
+	/** 유저 정보 업데이트
+	 * @param admin
+	 * @return result
+	 */
+	public int userSave(Admin admin) {
+		return sqlSession.update("adminMapper.userSave", admin);
+	}
+	
+	
+	
 
 
 	/** 강사 목록 조회
@@ -199,9 +217,29 @@ public class AdminDAO {
 		return sqlSession.selectOne("adminMapper.calculateClassTeacher", calNo);
 	}
 	
+	/** 정산 완료 업데이트
+	 * @param calNo
+	 * @return result
+	 */
+	public int receiptUpdate(int calNo) {
+		return sqlSession.update("adminMapper.receiptUpdate", calNo);
+	}
+
+
+	/** 환불 목록 조회
+	 * @return data
+	 */
+	public List<AdminCalcRefund> refundList() {
+		return sqlSession.selectList("adminMapper.refundList");
+	}
 	
-	
-	
+	/** 환불 승인
+	 * @param refundNo
+	 * @return result
+	 */
+	public int refundAgree(int refundNo) {
+		return sqlSession.update("adminMapper.refundAgree", refundNo);
+	}
 	
 	
 	
@@ -274,13 +312,10 @@ public class AdminDAO {
 	}
 
 
-	/** 정산 완료 업데이트
-	 * @param calNo
-	 * @return result
-	 */
-	public int receiptUpdate(int calNo) {
-		return sqlSession.update("adminMapper.receiptUpdate", calNo);
-	}
+
+
+
+
 
 
 

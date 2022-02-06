@@ -10,9 +10,18 @@ public class ClassDetailImage {
 	private int thImgNo; // 썸네일 이미지 번호
 	private String thImgNm; // 썸네일 이미지명
 	private int thImgLevel; // 썸네일 이미지 위치
+	private int classNo; // 클래스번호
 	
 	public ClassDetailImage() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public int getClassNo() {
+		return classNo;
+	}
+
+	public void setClassNo(int classNo) {
+		this.classNo = classNo;
 	}
 
 	public int getIntroImgNo() {
@@ -58,9 +67,9 @@ public class ClassDetailImage {
 	@Override
 	public String toString() {
 		return "ClassDetailImage [introImgNo=" + introImgNo + ", introImgNm=" + introImgNm + ", thImgNo=" + thImgNo
-				+ ", thImgNm=" + thImgNm + ", thImgLevel=" + thImgLevel + "]";
+				+ ", thImgNm=" + thImgNm + ", thImgLevel=" + thImgLevel + ", classNo=" + classNo + "]";
 	}
-	
-	
+
+
 	
 }

@@ -64,7 +64,6 @@
                                         <td id="schedule-td2" class="time-td">00/00/0000</td>
                                     </tr>
                                     
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>

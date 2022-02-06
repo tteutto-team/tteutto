@@ -47,6 +47,24 @@ public interface AdminService {
 	 * @return result
 	 */
 	int classDeny(int classNo);
+	
+	/** 유저 목록 조회
+	 * @return data
+	 */
+	List<Admin> userList();
+	
+	/** 유저 정보 업데이트
+	 * @param admin
+	 * @return result
+	 */
+	int userSave(Admin admin);
+
+
+	
+	
+	
+	
+	
 
 	/** 강사 목록 조회
 	 * @return data
@@ -122,6 +140,20 @@ public interface AdminService {
 	 */
 	int receiptUpdate(int calNo);
 
+	/** 환불 목록 조회
+	 * @return data
+	 */
+	List<AdminCalcRefund> refundList();
+
+	/** 환불 승인
+	 * @param refundNo
+	 * @return result
+	 */
+	int refundAgree(int refundNo);
+
+	
+	
+	
 	
 	
 	
@@ -162,6 +194,9 @@ public interface AdminService {
 	 * @return result
 	 */
 	int insertFaq(AdminNoticeFaq faq);
+
+
+
 
 
 

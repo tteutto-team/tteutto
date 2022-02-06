@@ -34,20 +34,26 @@
 
         <div id="pw-signup">
             <a href="findPw">비밀번호 찾기</a>
-            |
+            
             <a href="signup">회원가입</a>
         </div>
 
-        <div id="naver_id_login"></div>
-
-        <a href="#" class="sns">
+        <a href="javascript:naverLogin();" class="sns">
             <div>
+                <img src="${contextPath}/resources/images/main/naverLogo.png">
+                <span>네이버로 시작하기</span>
+            </div>
+        </a>
+
+        <a href="javascript:kakaoLogin();" class="sns">
+            <div>
+
                 <img style="background-color: #f9e000;" src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/kakao_logo.png">
                 <span>카카오로 시작하기</span>
             </div>
         </a>
-
-        <a href="#" class="sns">
+        
+        <a href="javascript:googleLogin();" class="sns">
             <div>
                 <img style="background-color: #f8f9fd;" src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/google_logo.png">
                 <span>구글로 시작하기</span>
@@ -56,15 +62,34 @@
 
     </main>
 </div>
-
 <jsp:include page="../common/footer.jsp"/>
 
 <script type="text/javascript">
-  	var naver_id_login = new naver_id_login("d_q2NGPsQeZpTrvq0_S0", "http://localhost:8080/tteutto/member/callback");
-  	var state = naver_id_login.getUniqState();
-  	naver_id_login.setButton("green", 3, 60);
-  	naver_id_login.setDomain("http://localhost:8080/tteutto/member/login");
-  	naver_id_login.setState(state);
-  	//naver_id_login.setPopup();
-  	naver_id_login.init_naver_id_login();
+	function naverLogin(){
+		$.ajax({
+			url:"snsLogin",
+			data : {"sns": "naver"}
+			
+		}).done(function(res){
+			window.location.replace(res);
+		})
+	}
+	function kakaoLogin(){
+		$.ajax({
+			url:"snsLogin",
+			data : {"sns": "kakao"}
+		}).done(function(res){
+			window.location.replace(res);
+		})
+	}
+	function googleLogin(){
+		$.ajax({
+			url:"snsLogin",
+			data : {"sns": "google"}
+		}).done(function(res){
+			window.location.replace(res);
+		})
+	}
+	
 </script>
+ 

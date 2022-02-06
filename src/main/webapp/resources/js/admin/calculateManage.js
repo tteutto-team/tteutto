@@ -18,7 +18,7 @@ function createTable() {
 						data: null,
 						render: function (data, type, row) {
 							if(data.calStatus == 0){
-								return '' + data.className + '-' + data.episodeCount + '';
+								return '' + data.className + '-' + data.episodeCount + '회차';
 							}else if(data.calStatus == 2){
 								return '<a href="calculate/' + data.calNo + '">' + data.className + '-' + data.episodeCount + '회차</a>';
 								

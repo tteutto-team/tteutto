@@ -141,6 +141,13 @@ public interface MemberService {
 	int studentProfileUpdate(Member member);
 
 
+	/** 회원 탈퇴
+	 * @param memberNo
+	 * @return result
+	 */
+	int memberResign(int memberNo);
+
+
 
 	
 

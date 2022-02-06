@@ -27,16 +27,20 @@
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Member" alias="Member" />
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Career" alias="Career" />
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Sns" alias="Sns" />
+		<typeAlias type="edu.kh.tteutto.member.model.vo.SnsLogin" alias="SnsLogin" />
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Certified" alias="Certified" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.Teacher" alias="Teacher" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.Episode" alias="Episode" />
 		
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassDetail" alias="ClassDetail" />
-
+		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassDetailImage" alias="ClassDetailImage" />	
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassDetailRight" alias="ClassDetailRight" />
 		
 		<typeAlias type="edu.kh.tteutto.chat.model.vo.ChatRoom" alias="ChatRoom" />
 		<typeAlias type="edu.kh.tteutto.chat.model.vo.ChatMessage" alias="ChatMessage" />
+		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.EpisodeClass" alias="EpisodeClass" />
+		<typeAlias type="edu.kh.tteutto.main.model.vo.ClassList" alias="ClassList" />
+
 	</typeAliases>
 	
 	<!-- mapper 파일(SQL 작성되는파일) 위치 등록 부분 -->
@@ -47,6 +51,7 @@
 		<mapper resource="/mappers/class-mapper.xml" />
 		<mapper resource="/mappers/class-detail-mapper.xml" />
 		<mapper resource="/mappers/chat-mapper.xml" />
+		<mapper resource="/mappers/class-list-mapper.xml" />
 	</mappers>
 			
 	

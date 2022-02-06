@@ -20,16 +20,71 @@
 		<result property="categoryDetailNo" column="CT_DETAIL_NO" />
 	</resultMap>
 
+	<resultMap type="ClassDetailImage" id="classImage_rm">
+		<id property="thImgNo" column="TH_IMG_NO"/>
+		
+		<result property="thImgNm" column="TH_IMG_NM"/>
+		<result property="thImgLevel" column="TH_IMG_LEVEL"/>
+		<result property="classNo" column="CLASS_NO"/>
+	</resultMap>
+
+
+	<resultMap type="EpisodeClass" id="episode_class_rm">
+		<id property="epCount" column="EP_COUNT"/>
+		
+		<result property="StudyStatus" column="STUDY_STATUS"/>
+		<result property="ClassDate" column="CLASS_DATE"/>
+		<result property="deleteStatus" column="DELETE_STATUS"/>
+		<result property="calStatus" column="CAL_STATUS"/>
+	</resultMap>
 
 	<!-- 클래스 등록 -->
-	<insert id="classInsert" parameterType="ClassDetail">
+	<insert id="classInsert" useGeneratedKeys="true" parameterType="ClassDetail">
+		
+		<selectKey order="BEFORE" resultType="_int" keyProperty="classNo">
+			SELECT SEQ_CLASS_NO.NEXTVAL FROM DUAL
+		</selectKey>
+	
 		INSERT INTO CLASS VALUES(
-		    SEQ_CLASS_NO.NEXTVAL, #{classArea}, #{classType}, #{classPerson}, #{classMinPerson}, #{classMaxPerson}, 
+		    #{classNo}, #{classArea}, #{classType}, #{classPerson}, #{classMinPerson}, #{classMaxPerson}, 
 		    #{className}, #{classIntro}, #{classLevel}, DEFAULT, 0, #{categoryNo}, #{memberNo}, #{categoryDetailNo}
 		)
 	</insert>
 	
+	<!-- 클래스 이미지 등록 -->
+	<insert id="classImageInsert" parameterType="java.util.List">
+		INSERT INTO THUMBNAIL_IMG
+		SELECT SEQ_TH_IMG_NO.NEXTVAL, A.* FROM
+		
+		<foreach collection="list" item="img" open="(" close=") A" separator=" UNION ALL ">
+			SELECT #{img.thImgNm} TH_IMG_NM,
+				   #{img.thImgLevel} TH_IMG_LEVEL,
+				   #{img.classNo} CLASS_NO
+			FROM DUAL
+		</foreach>
+	</insert>
 	
+	<!-- 강사 페이지  -->
+	<!-- 강사 클래스 목록 조회 - 1회차 클래스 검색 -->
+	<select id="selectClassList" resultMap="class_rm">
+		SELECT CLASS_NO, CLASS_NM FROM CLASS
+		JOIN EPISODE A USING (CLASS_NO)
+		JOIN EP_SCHEDULE B USING (EP_NO)
+		WHERE MEMBER_NO = #{memberNo} AND EP_COUNT = 1
+	</select>
 	
+	<!-- 강사 클래스 목록 조회 - 1회차 이상인 클래스 검색 -->
+	<select id="selectClassEpisode" resultMap="episode_class_rm">
+		SELECT EP_COUNT, SCHDL_DT AS CLASS_DATE, EP_ST AS DELETE_STATUS, CAL_ST AS CAL_STATUS
+		FROM EPISODE
+		JOIN EP_SCHEDULE USING(EP_NO)
+		JOIN CALCULATE USING(EP_NO)
+		WHERE CLASS_NO = #{classId}
+		ORDER BY EP_COUNT
+	</select>
+	
+
+
+
 
 </mapper>

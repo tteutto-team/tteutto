@@ -198,10 +198,16 @@
 	
 	<!-- 학생 정보 수정  -->
 	<update id="studentProfileUpdate">
-		UPDATE MEMBER SET MEMBER_NM=#{memberNm}, MEMBER_PNO= #{memberPno}
+		UPDATE MEMBER SET MEMBER_NM=#{memberNm}, MEMBER_PNO= #{memberPno}, MEMBER_IMG = #{memberImg}
 		WHERE MEMBER_NO=#{memberNo}
 	</update>
-		
+	
+	<!-- 회원 탈퇴 -->
+	<update id="memberResign">
+		UPDATE MEMBER SET MEMBER_ST = 1, MEMBER_SEC_DT = SYSDATE
+		WHERE MEMBER_NO=#{memberNo}
+	</update>	
+	
 	<!-- 강사 신청 -->
 	<insert id="teacherRegisterInsert">
 		INSERT INTO TEACHER VALUES(#{memberNo}, 1, #{teacherIntro}, SYSDATE, 0)
@@ -212,4 +218,19 @@
 		INSERT INTO CAREER VALUES(SEQ_CAREER_NO.NEXTVAL, #{careerContent}, #{memberNo}, 1, 2, 3)
 	</insert>
 	
+	
+	<!-- 소셜 로그인 회원 확인 -->
+	<select id="snsLogin" resultMap="member_rm">
+		SELECT * FROM MEMBER
+		WHERE MEMBER_EMAIL = #{email}
+		AND MEMBER_ST = 0
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="signUp2" parameterType="Member">
+		INSERT INTO MEMBER VALUES(SEQ_MEMBER_NO.NEXTVAL, DEFAULT,  DEFAULT, 
+		#{memberEmail}, null, #{memberNm}, 
+		#{memberBirth}, #{memberGender}, #{memberPno}, 
+		null, SYSDATE, DEFAULT, DEFAULT)
+	</insert>
 </mapper>

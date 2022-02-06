@@ -35,3 +35,32 @@
 		</form>
 	</div>
 </div>
+
+<script type="text/javascript">
+$("form[method=POST]").on("submit", function(e){
+	
+	if($("textarea[name=faqAnswer]").val().trim().length == 0){
+		e.preventDefault();
+
+		Swal.fire({
+			title: '답변을 입력해주세요.',
+			icon: 'warning',
+			confirmButtonColor: '#3085d6',
+			confirmButtonText: '확인',
+		})
+	}
+	
+	if($("input[name=faqQuestion]").val().trim().length == 0){
+		e.preventDefault();
+		
+		Swal.fire({
+			title: '질문을 입력해주세요.',
+			icon: 'warning',
+			confirmButtonColor: '#3085d6',
+			confirmButtonText: '확인',
+		})
+		
+	}
+	
+})
+</script>

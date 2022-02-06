@@ -188,12 +188,28 @@ public class MemberDAO {
 		return sqlSession.insert("memberMapper.teacherProfiledelete", id);
 	}
 
+	/** 강사 이력 이미지 조회
+	 * @param id
+	 * @return selectImgName
+	 */
 	public String selectImgName(String id) {
 		return sqlSession.selectOne("memberMapper.selectImgName", id);
 	}
 
+	/** 학생 프로필 수정
+	 * @param member
+	 * @return result
+	 */
 	public int studentProfileUpdate(Member member) {
 		return sqlSession.update("memberMapper.studentProfileUpdate", member);
+	}
+	
+	/** 회원 탈퇴
+	 * @param memberNo
+	 * @return result
+	 */
+	public int memberResign(int memberNo) {
+		return sqlSession.update("memberMapper.memberResign", memberNo);
 	}
 
 

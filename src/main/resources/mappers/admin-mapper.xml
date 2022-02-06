@@ -16,6 +16,17 @@
 		<result property="memberNo" column="MEMBER_NO" />
 	</resultMap>
 	
+	<!-- Admin VO 유저 목록 -->
+	<resultMap type="Admin" id="user_rm">
+		<id property="memberNo" column="MEMBER_NO"/>
+		<result property="memberName" column="MEMBER_NM"/>
+		<result property="memberGrade" column="MEMBER_GRADE"/>
+		<result property="memberStatus" column="MEMBER_ST"/>
+		<result property="memberBirth" column="MEMBER_BIRTH"/>
+		<result property="memberGender" column="MEMBER_GENDER"/>
+		<result property="memberPhone" column="MEMBER_PNO"/>
+		<result property="teacherEnroll" column="TEACHER_ENROLL"/>
+	</resultMap>
 	
 	
 	<!-- 강사 VO -->
@@ -100,6 +111,20 @@
 	</resultMap>
 	
 	
+	<!-- 환불 VO -->
+	<resultMap type="AdminCalcRefund" id="refund_rm">
+		<id property="refundNo" column="REFUND_NO"/>
+		<result property="refundRequestDate" column="REFUND_REQ_DT"/>	
+		<result property="classProgress" column="CLASS_PROGRESS"/>	
+		<result property="refundMoney" column="REFUND_MONEY"/>	
+		<result property="refundStatus" column="REFUND_STATUS"/>
+		<result property="studentName" column="STUDENT_NM"/>
+		<result property="className" column="CLASS_NAME"/>
+		<result property="episodeCount" column="EP_COUNT"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+	</resultMap>
+	
+	
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -164,6 +189,24 @@
 		UPDATE CLASS SET CLASS_ST = 3
 		WHERE CLASS_NO = #{classNo}
 	</update>
+	
+	<!-- 유저 목록 조회 -->
+	<select id="userList" resultMap="user_rm">
+		SELECT MEMBER_NO, MEMBER_NM, MEMBER_GRADE, MEMBER_ST, TEACHER_ENROLL, TO_CHAR(MEMBER_BIRTH, 'YYYY-MM-DD') MEMBER_BIRTH, MEMBER_GENDER, MEMBER_PNO FROM MEMBER
+	</select>
+	
+	<!-- 유저 정보 업데이트 -->
+	<update id="userSave" parameterType="Admin">
+		UPDATE MEMBER SET MEMBER_NM = #{memberName}, MEMBER_GRADE = #{memberGrade}, 
+		TEACHER_ENROLL = #{teacherEnroll}, MEMBER_ST = #{memberStatus}, MEMBER_BIRTH = #{memberBirth},
+		MEMBER_GENDER = #{memberGender}, MEMBER_PNO = #{memberPhone}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	
+	
+	
+	
 	
 	<!-- 강사 목록 조회 -->
 	<select id="teacherList" resultMap="adminTeacher_rm">
@@ -314,10 +357,23 @@
 	
 	<!-- 정산 완료 업데이트 -->
 	<update id="receiptUpdate">
-		UPDATE CALCULATE SET CAL_ST = 1 WHERE CAL_NO=#{calNo}
+		UPDATE CALCULATE SET CAL_ST = 1, CAL_FIN_NO = SYSDATE WHERE CAL_NO=#{calNo}
 	</update>
 	
+	<!-- 환불 신청 목록 조회 -->
+	<select id="refundList" resultMap="refund_rm">
+		SELECT REFUND_NO, REFUND_REQ_DT, CLASS_PROGRESS, REFUND_MONEY, REG_NM "STUDENT_NM", CLASS_NM, EP_COUNT, REGISTER.MEMBER_NO
+		FROM REFUND
+		JOIN REGISTER USING(REG_NO)
+		JOIN EPISODE USING(EP_NO)
+		JOIN CLASS USING(CLASS_NO)
+		WHERE REFUND_ST = 0
+	</select>
 	
+	<!-- 환불 승인 -->
+	<update id="refundAgree">
+		UPDATE REFUND SET REFUND_ST = 1, REFUND_FIN_DT = SYSDATE WHERE REFUND_NO = #{refundNo}
+	</update>
 	
 	
 	
