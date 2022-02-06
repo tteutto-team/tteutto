@@ -36,6 +36,8 @@
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassDetailImage" alias="ClassDetailImage" />	
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassDetailRight" alias="ClassDetailRight" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.EpisodeClass" alias="EpisodeClass" />
+		<typeAlias type="edu.kh.tteutto.main.model.vo.ClassList" alias="ClassList" />
+
 	</typeAliases>
 	
 	<!-- mapper 파일(SQL 작성되는파일) 위치 등록 부분 -->
@@ -45,6 +47,7 @@
 		<mapper resource="/mappers/teacher-mapper.xml" />
 		<mapper resource="/mappers/class-mapper.xml" />
 		<mapper resource="/mappers/class-detail-mapper.xml" />
+		<mapper resource="/mappers/class-list-mapper.xml" />
 	</mappers>
 			
 	

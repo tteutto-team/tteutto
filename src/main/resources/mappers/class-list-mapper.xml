@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="classListMapper">
+	<resultMap type="ClassList" id="classList_rm">
+		<id property="classNo" column="CLASS_NO"/>
+		
+		<result property="classArea" column="CLASS_AREA"/>
+		<result property="classType" column="CLASS_TYPE"/>
+		<result property="className" column="CLASS_NM"/>
+		<result property="thumbnailImageName" column="TH_IMG_NM"/>
+		<result property="categoryName" column="CT_NM"/>
+		<result property="teacherImage" column="TEACHER_IMG"/>
+		<result property="memberName" column="MEMBER_NM"/>
+		<result property="episodePrice" column="EP_PRICE"/>
+		<result property="categoryDetailName" column="CT_DETAIL_NM"/>
+		<result property="starAverage" column="STAR_AVG"/>
+		<result property="heartCount" column="HEART_COUNT"/>
+		<result property="heartFlag" column="HEART_FLAG"/>
+	</resultMap>
+	
+	<!-- 검색어가 포함된 클래스 개수 -->
+	<select id="getSearchListCount" resultType="_int">
+		SELECT COUNT(*) FROM(
+		    SELECT  C.CLASS_NO, 
+		        NVL( OPEN_PRICE(C.CLASS_NO) ,  PAST_PRICE(C.CLASS_NO)) "EP_PRICE"
+		    FROM CLASS C
+		    LEFT JOIN THUMBNAIL_IMG T ON (C.CLASS_NO = T.CLASS_NO)
+		    JOIN CLASS_CATEGORY ON(CATG_NO = CT_NO)
+		    JOIN TEACHER USING(MEMBER_NO)
+		    JOIN MEMBER USING(MEMBER_NO)
+		    JOIN CT_DETAIL USING(CT_DETAIL_NO) 
+		    WHERE TH_IMG_LEVEL = 0
+		    
+		    <choose>
+		    	<when test="search == '원데이'">  AND CLASS_TYPE = 0 </when>
+		    	<when test="search == '정규'">  AND CLASS_TYPE = 1 </when>
+		    	<otherwise>
+				    AND ((CLASS_AREA LIKE '%${search}%' OR CLASS_NM LIKE '%${search}%' 
+				    OR CT_NM LIKE '%${search}%' OR MEMBER_NM LIKE '%${search}%' OR CT_DETAIL_NM LIKE '%${search}%'))
+		    	</otherwise>
+		    </choose>
+		    
+		)
+		WHERE EP_PRICE IS NOT NULL
+		ORDER BY CLASS_NO DESC
+	</select>
+	
+	
+	<select id="selectSearchList" resultMap="classList_rm">
+		SELECT * FROM(
+		    SELECT  C.CLASS_NO, CLASS_AREA, CLASS_NM, CLASS_TYPE,
+		            TH_IMG_NM, NVL(CT_NM, '기타') CT_NM, CT_DETAIL_NM, TEACHER_IMG, MEMBER_NM,
+		        
+		        NVL( OPEN_PRICE(C.CLASS_NO) ,  PAST_PRICE(C.CLASS_NO)) "EP_PRICE",
+		
+		        (SELECT COUNT(*) FROM CLASS_WISH WHERE CLASS_NO = C.CLASS_NO) "HEART_COUNT",
+		        
+		        (SELECT COUNT(*) FROM CLASS_WISH WHERE CLASS_NO = C.CLASS_NO AND MEMBER_NO = ${memberNo}) "HEART_FLAG",
+		        
+		        NVL( (SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS
+		                JOIN EPISODE USING(CLASS_NO)
+		                JOIN REGISTER USING(EP_NO)
+		                JOIN REVIEW USING(REG_NO)
+		                WHERE CLASS_NO = C.CLASS_NO), 0) "STAR_AVG",
+		                
+                NVL( (SELECT COUNT(*) FROM CLASS
+		                JOIN EPISODE USING(CLASS_NO)
+		                JOIN REGISTER USING(EP_NO)
+		                JOIN REVIEW USING(REG_NO)
+		                WHERE CLASS_NO = C.CLASS_NO), 0)  "REVIE_CNT"
+		        
+		    FROM CLASS C
+		    LEFT JOIN THUMBNAIL_IMG T ON (C.CLASS_NO = T.CLASS_NO)
+		    JOIN CLASS_CATEGORY ON(CATG_NO = CT_NO)
+		    JOIN TEACHER USING(MEMBER_NO)
+		    JOIN MEMBER USING(MEMBER_NO)
+		    LEFT JOIN CT_DETAIL USING(CT_DETAIL_NO) 
+		    WHERE TH_IMG_LEVEL = 0
+		    
+   		    <choose>
+		    	<when test="search == '원데이'">  AND CLASS_TYPE = 0 </when>
+		    	<when test="search == '정규'">  AND CLASS_TYPE = 1 </when>
+		    	<otherwise>
+				    AND ((CLASS_AREA LIKE '%${search}%' OR CLASS_NM LIKE '%${search}%' 
+				    OR CT_NM LIKE '%${search}%' OR MEMBER_NM LIKE '%${search}%' OR CT_DETAIL_NM LIKE '%${search}%'))
+		    	</otherwise>
+		    </choose>
+		    
+		)
+		WHERE EP_PRICE IS NOT NULL
+		ORDER BY CLASS_NO DESC
+	</select>
+	
+	
+	
+	
+</mapper>

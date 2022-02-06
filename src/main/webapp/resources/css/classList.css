@@ -99,7 +99,7 @@
 
 .searchList .announce {margin-bottom: 100px;}
 
-.searchList .yes > .title > span {color: #BF5846;}
+.searchList .title > span {color: #BF5846;}
 
 .searchList .location-class, .hot-class, .new-class {
     width: 100%;
@@ -138,7 +138,7 @@
 .searchList .class {
     display: inline-block;
     width: 274px;
-    height: 445px;
+    height: 440px;
     border: 1px solid gainsboro;
     box-shadow: 3px 2px 5px 2px #0000001a;
     border-radius: 5px;
@@ -168,7 +168,7 @@
    display: block;
    top: 18px; /* 수정 */
    left: 14px;
-   font-size: 14px;
+   font-size: 13px;
    background-color: #FFDF3E;
    margin-top: 0;
    border-radius: 5px;
@@ -184,12 +184,24 @@
 
 .searchList .class-name {
 	margin-top: 5px;
+	height: 48px;
+	max-height: 48px;
+	font-size: 14px;
 	font-weight: 500;
 }
 
-.searchList .grade {margin-top: 8px;}
+.searchList .grade {
+	margin-top: 5px;
+	font-size: 14px;
+}
 
-.searchList .grade > span {margin-right: 10px;}
+.searchList .grade > span {
+	margin-right: 10px;
+	padding-left: 3.5px;
+}
+
+.searchList .fi-rr-star {color: gold;}
+.searchList .fi-rr-heart {color: red;}
 
 .searchList .detail-info-bottom {
     position: absolute;
@@ -207,10 +219,14 @@
 	height: auto;
 }
 
-.searchList .teacher-name {font-size: 15px;}
+.searchList .teacher-name {
+	padding-left: 5px;
+	font-size: 13px;
+}
 
 .searchList .class-price {
-    font-size: 15px;
+    font-size: 17px;
+    font-weight: 500;
     float: right;
     padding-top: 1px;
 }
