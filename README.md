@@ -11,7 +11,7 @@
  * http://localhost:8080/tteutto/main/searchList
  
 클래스 상세
-* http://localhost:8080/tteutto/class/classDetail
+* http://localhost:8080/tteutto/class/classDetail?classNo=1
 
 -----------------------------------------------------------------------
 
