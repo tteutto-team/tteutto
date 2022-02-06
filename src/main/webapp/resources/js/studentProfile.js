@@ -1,3 +1,36 @@
+// 탈퇴하기 모달
+ // 모달 열기
+ $(".modal-open-btn").click(function () {
+
+    console.log("click");
+    $(".resign-request").fadeIn(100);
+    $(".resign-request").css("display", "flex");
+});
+
+// 모달 닫기 버튼
+$(".modal-close-btn").click(function () {
+    $(".modal").fadeOut(100);
+});
+
+// 모달 밖에 클릭시 모달 닫기
+$(".modal").click(function (e) {
+    if($(e.target).hasClass('modal-layer')) {
+        $(".modal").fadeOut(100);
+    }
+});
+
+function resign_cancle(){
+    swal({
+        title: "취소되었습니다.",
+        text: "",
+        icon: "error"
+      });
+
+    $(".modal").fadeOut(100);
+}
+
+
+
 // 이미지 파일을 첨부 했을 경우 미리 보기가 가능하도록 하는 함수
 function loadImg(input) {
 

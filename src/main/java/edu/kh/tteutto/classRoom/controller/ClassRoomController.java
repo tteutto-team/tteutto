@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.tteutto.classRoom.model.service.TeacherService;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
+import edu.kh.tteutto.classRoom.model.vo.EpisodeClass;
 import edu.kh.tteutto.member.model.vo.Member;
 
 @Controller
@@ -39,9 +40,9 @@ public class ClassRoomController {
 	
 	@ResponseBody
 	@RequestMapping(value = "classEpisode", method=RequestMethod.POST)
-	public String classEpisode() {
+	public String classEpisode(String classId) {
 		
-		
+		List<EpisodeClass> episodeList = service.selectClassEpisode(classId);
 		
 		return "null";
 	}

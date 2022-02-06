@@ -53,7 +53,7 @@
 	                        <div class="column">상태</div>
 	                        <div class="column">기간</div>
 	                        <div class="column">학생 관리</div>
-	                        <div class="column">삭제 예부</div>
+	                        <div class="column">삭제 여부</div>
 	                        <div class="column">정산</div>
                         </div>
                         <div class="invisible-div">

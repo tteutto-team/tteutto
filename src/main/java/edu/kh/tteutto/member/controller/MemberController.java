@@ -467,6 +467,28 @@ public class MemberController {
 		}
 	}
 	
+	// 회원 탈퇴
+	@RequestMapping(value = "resign", method = RequestMethod.GET)
+	public String memberResign( @ModelAttribute("loginMember") Member loginMember, RedirectAttributes ra, SessionStatus status) {
+		
+		int memberNo = loginMember.getMemberNo();
+//		int memberNo = 3;
+
+		String path = null;
+		
+		int result = service.memberResign(memberNo);
+		
+		if(result > 0) {
+			status.setComplete();	// 세션 만료
+			Util.swalSetMessage("탈퇴가 되었습니다.", "그동안 뜨또를 사랑해주셔서 감사합니다.", "success", ra);
+			path="/";
+		} else {
+			Util.swalSetMessage("탈퇴 실패", "관리자에게 문의해주세요.", "error", ra);
+			path = "resign";
+		}
+		
+		return "redirect:" + path;
+	}
 
 	// 강사 프로필 페이지 이동
 	@RequestMapping(value = "teacherProfile", method = RequestMethod.GET)

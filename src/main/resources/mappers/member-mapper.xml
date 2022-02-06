@@ -201,7 +201,13 @@
 		UPDATE MEMBER SET MEMBER_NM=#{memberNm}, MEMBER_PNO= #{memberPno}, MEMBER_IMG = #{memberImg}
 		WHERE MEMBER_NO=#{memberNo}
 	</update>
-		
+	
+	<!-- 회원 탈퇴 -->
+	<update id="memberResign">
+		UPDATE MEMBER SET MEMBER_ST = 1, MEMBER_SEC_DT = SYSDATE
+		WHERE MEMBER_NO=#{memberNo}
+	</update>	
+	
 	<!-- 강사 신청 -->
 	<insert id="teacherRegisterInsert">
 		INSERT INTO TEACHER VALUES(#{memberNo}, 1, #{teacherIntro}, SYSDATE, 0)
