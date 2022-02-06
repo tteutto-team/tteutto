@@ -195,6 +195,19 @@
 		SELECT MEMBER_NO, MEMBER_NM, MEMBER_GRADE, MEMBER_ST, TEACHER_ENROLL, TO_CHAR(MEMBER_BIRTH, 'YYYY-MM-DD') MEMBER_BIRTH, MEMBER_GENDER, MEMBER_PNO FROM MEMBER
 	</select>
 	
+	<!-- 유저 정보 업데이트 -->
+	<update id="userSave" parameterType="Admin">
+		UPDATE MEMBER SET MEMBER_NM = #{memberName}, MEMBER_GRADE = #{memberGrade}, 
+		TEACHER_ENROLL = #{teacherEnroll}, MEMBER_ST = #{memberStatus}, MEMBER_BIRTH = #{memberBirth},
+		MEMBER_GENDER = #{memberGender}, MEMBER_PNO = #{memberPhone}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	
+	
+	
+	
+	
 	<!-- 강사 목록 조회 -->
 	<select id="teacherList" resultMap="adminTeacher_rm">
 		SELECT MEMBER_NO, TEACHER_REQ_DT, MEMBER_NM FROM TEACHER

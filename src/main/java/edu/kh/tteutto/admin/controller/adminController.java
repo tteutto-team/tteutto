@@ -139,6 +139,16 @@ public class adminController {
 		return data;
 	}
 	
+	// 유저 정보 업데이트
+	@RequestMapping(value="userSave", method=RequestMethod.POST)
+	@ResponseBody
+	public int userSave(Admin admin) {
+		
+		int result = service.userSave(admin);
+		
+		return result;
+	}
+	
 	
 	
 	

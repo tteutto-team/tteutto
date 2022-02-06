@@ -69,6 +69,18 @@ public class AdminServiceImpl implements AdminService{
 	public List<Admin> userList() {
 		return dao.userList();
 	}
+	
+	// 유저 정보 업데이트
+	@Override
+	public int userSave(Admin admin) {
+		return dao.userSave(admin);
+	}
+	
+	
+	
+	
+
+	
 
 	// 강사 목록 조회
 	@Override
