@@ -52,6 +52,13 @@ public interface AdminService {
 	 * @return data
 	 */
 	List<Admin> userList();
+	
+	/** 유저 정보 업데이트
+	 * @param admin
+	 * @return result
+	 */
+	int userSave(Admin admin);
+
 
 	
 	
@@ -187,6 +194,7 @@ public interface AdminService {
 	 * @return result
 	 */
 	int insertFaq(AdminNoticeFaq faq);
+
 
 
 

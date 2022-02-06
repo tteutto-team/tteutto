@@ -76,12 +76,22 @@ public class AdminDAO {
 	}
 	
 	/** 유저 목록 조회
-	 * @return
+	 * @return data
 	 */
 	public List<Admin> userList() {
 		return sqlSession.selectList("adminMapper.userList");
 	}
-
+	
+	/** 유저 정보 업데이트
+	 * @param admin
+	 * @return result
+	 */
+	public int userSave(Admin admin) {
+		return sqlSession.update("adminMapper.userSave", admin);
+	}
+	
+	
+	
 
 
 	/** 강사 목록 조회
@@ -300,6 +310,7 @@ public class AdminDAO {
 	public int insertFaq(AdminNoticeFaq faq) {
 		return sqlSession.insert("adminMapper.insertFaq", faq);
 	}
+
 
 
 
