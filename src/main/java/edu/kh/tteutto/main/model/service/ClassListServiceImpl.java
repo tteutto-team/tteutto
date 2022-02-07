@@ -16,16 +16,16 @@ public class ClassListServiceImpl implements ClassListService {
 	@Autowired
 	private ClassListDAO dao;
 
+	// 클래스 개수 조회 + 페이지네이션
 	@Override
 	public Pagination getPagination(String search, int page) {
 		int searchListCount = dao.getSearchListCount(search);
 		return new Pagination(searchListCount, page);
 	}
-
+	
+	// 클래스 카드 목록 조회
 	@Override
 	public List<ClassList> selectSearchList(Pagination pagination, Map<String, Object> map) {
 		return dao.selectSearchList(pagination, map);
 	}
-	
-	
 }

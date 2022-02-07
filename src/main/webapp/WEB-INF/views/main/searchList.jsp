@@ -68,7 +68,7 @@ crossorigin="anonymous"/>
 										<p class="location-p">${classList.classArea}</p>
 									</div>
 									
-									<!-- 클래스 찜하기 버튼 -->
+									<!-- 클래스 찜하기 버튼 > 찜 X -->
 									<c:if test="${classList.heartFlag == 0}">
 										<button type="button" class="btn_like">
 											<span class="img_emoti">좋아요</span>
@@ -76,6 +76,7 @@ crossorigin="anonymous"/>
 										</button>
 									</c:if>
 									
+									<!-- 클래스 찜하기 버튼 > 찜 O -->
 									<c:if test="${classList.heartFlag == 1}">
 										<button type="button" class="btn_like btn_unlike">
 											<span class="img_emoti">좋아요</span>
@@ -94,7 +95,7 @@ crossorigin="anonymous"/>
 										<div class="detail-info-bottom">
 											<img src="${contextPath}/resources/images/teacher/${classList.teacherImage}"> <!-- 강사 프로필 이미지 -->
 											<span class="teacher-name">${classList.memberName}</span> <!-- 강사명 -->
-											<span class="class-price"><fmt:formatNumber value="${classList.episodePrice}" pattern="#,###"/>원</span> <!-- 클래스 가격 -->
+											<span class="class-price"><fmt:formatNumber value="${classList.episodePrice}" pattern="#,###"/>원</span> <!-- 수업료 -->
 										</div>
 									</div>
 								</div>

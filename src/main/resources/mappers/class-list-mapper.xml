@@ -13,16 +13,15 @@
 		<result property="memberName" column="MEMBER_NM"/>
 		<result property="categoryDetailName" column="CT_DETAIL_NM"/>
 		<result property="starAverage" column="STAR_AVG"/>
-		<result property="heartCount" column="HEART_COUNT"/>
 		<result property="heartFlag" column="HEART_FLAG"/>
+		<result property="heartCount" column="HEART_COUNT"/>
 		<result property="episodePrice" column="EP_PRICE"/>
 	</resultMap>
 	
 	<!-- 클래스 검색 목록 > 클래스 개수 조회 -->
 	<select id="getSearchListCount" resultType="_int">
 		SELECT COUNT(*) FROM (
-		    SELECT C.CLASS_NO, 
-		        NVL(OPEN_PRICE(C.CLASS_NO), PAST_PRICE(C.CLASS_NO)) EP_PRICE 
+		    SELECT C.CLASS_NO, OPEN_PRICE(C.CLASS_NO) EP_PRICE 
 		    FROM CLASS C 
 		    JOIN THUMBNAIL_IMG T ON(C.CLASS_NO = T.CLASS_NO) 
 		    JOIN CLASS_CATEGORY ON(CATG_NO = CT_NO) 
@@ -47,14 +46,14 @@
 		SELECT * FROM (
 		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, CLASS_NM, TH_IMG_NM, 
 		    CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, 
+		    OPEN_PRICE(C.CLASS_NO) EP_PRICE, 
 		        NVL((SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
 		            JOIN EPISODE USING(CLASS_NO) 
 		            JOIN REGISTER USING(EP_NO) 
 		            JOIN REVIEW USING(REG_NO) 
 		            WHERE C.CLASS_NO = CLASS_NO), 0) STAR_AVG, 
 		        (SELECT COUNT(*) FROM CLASS_WISH WHERE C.CLASS_NO = CLASS_NO) HEART_COUNT, 
-		        (SELECT COUNT(*) FROM CLASS_WISH WHERE C.CLASS_NO = CLASS_NO AND MEMBER_NO = ${memberNo}) HEART_FLAG, 
-		        NVL(OPEN_PRICE(C.CLASS_NO), PAST_PRICE(C.CLASS_NO)) EP_PRICE 
+		        (SELECT COUNT(*) FROM CLASS_WISH WHERE C.CLASS_NO = CLASS_NO AND MEMBER_NO = ${memberNo}) HEART_FLAG 
 		    FROM CLASS C 
 		    JOIN THUMBNAIL_IMG T ON(C.CLASS_NO = T.CLASS_NO) 
 		    JOIN CLASS_CATEGORY ON(CATG_NO = CT_NO) 
@@ -70,6 +69,55 @@
 				    OR CT_NM LIKE '%${search}%' OR MEMBER_NM LIKE '%${search}%' OR CT_DETAIL_NM LIKE '%${search}%'))
 		    	</otherwise>
 		    </choose>
+		)
+		WHERE EP_PRICE IS NOT NULL
+	</select>
+	
+	<!-- 찜한 클래스 > 클래스 개수 조회 -->
+	<select id="getWishListCount" resultType="_int">
+		SELECT COUNT(*) FROM (
+		    SELECT C.CLASS_NO, 
+		    NVL(OPEN_PRICE(C.CLASS_NO), PAST_PRICE(C.CLASS_NO)) EP_PRICE, 
+		        NVL((SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
+		            JOIN EPISODE USING(CLASS_NO) 
+		            JOIN REGISTER USING(EP_NO) 
+		            JOIN REVIEW USING(REG_NO) 
+		            WHERE C.CLASS_NO = CLASS_NO), 0) STAR_AVG, 
+		        (SELECT COUNT(*) FROM CLASS_WISH WHERE C.CLASS_NO = CLASS_NO) HEART_COUNT, 
+		        (SELECT COUNT(*) FROM CLASS_WISH WHERE C.CLASS_NO = CLASS_NO AND MEMBER_NO = ${memberNo}) HEART_FLAG 
+		    FROM CLASS C 
+		    JOIN THUMBNAIL_IMG T ON(C.CLASS_NO = T.CLASS_NO) 
+		    JOIN CLASS_CATEGORY ON(CATG_NO = CT_NO) 
+		    JOIN TEACHER USING(MEMBER_NO) 
+		    JOIN MEMBER USING(MEMBER_NO) 
+		    LEFT JOIN CT_DETAIL USING(CT_DETAIL_NO) 
+		    WHERE TH_IMG_LEVEL = 0 AND MEMBER_ST = 0 
+		    AND C.CLASS_NO IN (SELECT CLASS_NO FROM CLASS_WISH WHERE MEMBER_NO = ${memberNo})
+		)
+		WHERE EP_PRICE IS NOT NULL
+	</select>
+	
+	<!-- 찜한 클래스 > 클래스 카드 조회 -->
+	<select id="selectWishList" resultMap="classList_rm">
+		SELECT * FROM (
+		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, CLASS_NM, TH_IMG_NM, 
+		    CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, 
+		    NVL(OPEN_PRICE(C.CLASS_NO), PAST_PRICE(C.CLASS_NO)) EP_PRICE, 
+		        NVL((SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
+		            JOIN EPISODE USING(CLASS_NO) 
+		            JOIN REGISTER USING(EP_NO) 
+		            JOIN REVIEW USING(REG_NO) 
+		            WHERE C.CLASS_NO = CLASS_NO), 0) STAR_AVG, 
+		        (SELECT COUNT(*) FROM CLASS_WISH WHERE C.CLASS_NO = CLASS_NO) HEART_COUNT, 
+		        (SELECT COUNT(*) FROM CLASS_WISH WHERE C.CLASS_NO = CLASS_NO AND MEMBER_NO = ${memberNo}) HEART_FLAG 
+		    FROM CLASS C 
+		    JOIN THUMBNAIL_IMG T ON(C.CLASS_NO = T.CLASS_NO) 
+		    JOIN CLASS_CATEGORY ON(CATG_NO = CT_NO) 
+		    JOIN TEACHER USING(MEMBER_NO) 
+		    JOIN MEMBER USING(MEMBER_NO) 
+		    LEFT JOIN CT_DETAIL USING(CT_DETAIL_NO) 
+		    WHERE TH_IMG_LEVEL = 0 AND MEMBER_ST = 0 
+		    AND C.CLASS_NO IN (SELECT CLASS_NO FROM CLASS_WISH WHERE MEMBER_NO = ${memberNo})
 		)
 		WHERE EP_PRICE IS NOT NULL
 	</select>

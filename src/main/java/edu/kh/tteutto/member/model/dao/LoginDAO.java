@@ -32,5 +32,13 @@ public class LoginDAO {
 		return sqlSession.insert("memberMapper.signUp2", member);
 	}
 
+	/** sns 이메일 중복 확인
+	 * @param email
+	 * @return result
+	 */
+	public int emailCheck(String email) {
+		return sqlSession.selectOne("memberMapper.emailCheck", email);
+	}
+
 
 }

@@ -205,6 +205,15 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.studentProfileUpdate", member);
 	}
 	
+	/** 회원 탈퇴 조회
+	 * @param memberNo
+	 * @return result
+	 */
+	public int selectmemberResign(int memberNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 	/** 회원 탈퇴
 	 * @param memberNo
 	 * @return result
@@ -212,6 +221,7 @@ public class MemberDAO {
 	public int memberResign(int memberNo) {
 		return sqlSession.update("memberMapper.memberResign", memberNo);
 	}
+
 
 
 
