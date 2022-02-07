@@ -40,6 +40,7 @@
 		<typeAlias type="edu.kh.tteutto.chat.model.vo.ChatMessage" alias="ChatMessage" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.EpisodeClass" alias="EpisodeClass" />
 		<typeAlias type="edu.kh.tteutto.main.model.vo.ClassList" alias="ClassList" />
+		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.EpisodeSchedule" alias="EpisodeSchedule" />
 
 	</typeAliases>
 	

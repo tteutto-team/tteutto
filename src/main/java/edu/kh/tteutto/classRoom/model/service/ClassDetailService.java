@@ -1,5 +1,7 @@
 package edu.kh.tteutto.classRoom.model.service;
 
+import java.util.Map;
+
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 
 public interface ClassDetailService {
@@ -9,5 +11,11 @@ public interface ClassDetailService {
 	 * @return classDetailRight
 	 */
 	ClassDetailRight selectClassDetail(int classNo);
+
+	/** 클래스 신청 여부 조회
+	 * @param map
+	 * @return result
+	 */
+	String selectRegisterDt(Map<String, Integer> map);
 
 }

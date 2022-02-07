@@ -487,7 +487,7 @@
             }
     
             .buyClassName > p {
-                font-weight: 500;
+                font-weight: 600;
                 line-height: 25px;
             }
     
@@ -706,6 +706,10 @@
                 font-size: 17px;
                 font-weight: 600;
             }
+            
+            .multiClassDate{
+            	position:relative;
+            }
     
             .onedayClassDate > strong{
                 margin-left: 11px;
@@ -733,14 +737,13 @@
                 height: 80px;
                 padding-bottom: 16px;
                 line-height: 25px;
-                
     
             }
     
             .lesson-bottom-opacity{
                 position: absolute;
                 left: 0;
-                bottom: 143px;
+                top: 109px;
                 width: 98%;
                 height: 23px;
                 background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.85) 50%, #ffffff); 

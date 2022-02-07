@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
 
@@ -83,10 +84,17 @@
                 </div>
                 <div class="buyClassName flexStyle2">
                         <p class="buyClassTitle">
-                            콰야의 오일파스텔 드로잉
+                            [<span>${cdtr.ep.epCount}</span>회차] ${cdtr.cdt.className}
                         </p> 
-                        <span>강사명</span>
-                        <span id="buyClassDate">2022년 1월 15일 (토) 11:00 ~12:00</span>
+                        <span>${cdtr.member.memberNm} 강사</span> 
+                        <c:choose>
+                        	<c:when test="${cdtr.cdt.classType == 0}">
+	                        	<span id="buyClassDate">2022년 1월 15일 (토) 11:00 ~12:00</span>
+	                        </c:when>
+	                        <c:otherwise>
+	                        	<span id="buyClassDate">${cdtr.epSchedule[0].schdlDt}  (${cdtr.epSchedule[0].schdlWeek})  <br> ~ ${cdtr.epSchedule[ fn:length(cdtr.epSchedule)-1].schdlDt}  (${cdtr.epSchedule[fn:length(cdtr.epSchedule)-1].schdlWeek})</span>
+	                        </c:otherwise>
+                        </c:choose>
                 </div>
             </div>
             <div class="paymentList">
@@ -118,7 +126,6 @@
     <!-- 클래스 상세 내용 -->
     <div class="classContent">
     
-
         <!-- 오른쪽 결제 박스 -->
         <aside class="sticky_area sticky">
             <div class="sticky_navi">
@@ -145,7 +152,6 @@
                         </tr>
                         <tr>
                             <td colspan="2" id="classPrice">
-                                <span>월</span> 
                                 	<c:set var="payAmount" value="${cdtr.ep.epPrice}"/> 
                     				<fmt:formatNumber value="${payAmount}" groupingUsed="true" /> 원
                             </td>
@@ -159,7 +165,7 @@
                         </tr>
                     </tbody>
                 </table>
-                
+               
                <div class="boxContent">
                    <div class="threeBox">
                        <p>난이도</p>
@@ -170,7 +176,7 @@
                    <div class="threeBox">
                     <p>소요시간</p>
                     <div>
-                        <span>3</span>시간
+                        <span>${cdtr.epSchedule[0].schdlTime}</span>시간
                     </div>
                     </div>
                     <div class="threeBox">
@@ -181,69 +187,42 @@
                     </div>
                </div>
 
-               <!-- 다회차 클래스 날짜 area --> 
+               <!-- 정규 클래스 날짜 area (CLASS_TYPE = 1) --> 
               <div class="lesson-area">
                    <div class="multiClassDate">
                       <strong>클래스 일정</strong>
                       <div class="lessonCnt">
-                          <strong class="lessonCntList"> <span> 1 </span> 일차 </strong>  
-                          <span class="lessonDate">  2022년 01월 07일</span> (<span>금</span>) <span> 10:00 </span> ~ <span> 11:00 </span> <br>
-                          <strong class="lessonCntList"> <span> 2 </span> 일차 </strong>  
-                          <span class="lessonDate">  2022년 01월 07일</span> (<span>금</span>) <span> 10:00 </span> ~ <span> 11:00 </span> <br>
-                          <strong class="lessonCntList"> <span> 3 </span> 일차 </strong>  
-                          <span class="lessonDate">  2022년 01월 07일</span> (<span>금</span>) <span> 10:00 </span> ~ <span> 11:00 </span> <br>
-                          <strong class="lessonCntList"> <span> 4 </span> 일차 </strong>  
-                          <span class="lessonDate">  2022년 01월 07일</span> (<span>금</span>) <span> 10:00 </span> ~ <span> 11:00 </span> <br>
-                          <strong class="lessonCntList"> <span> 5 </span> 일차 </strong>  
-                          <span class="lessonDate">  2022년 01월 07일</span> (<span>금</span>) <span> 10:00 </span> ~ <span> 11:00 </span> <br>
-                        </div>
-                        <div class="lesson-bottom-opacity"> </div>
+                          <c:choose>
+                          	<c:when test="${cdtr.cdt.classType == 1}"><c:set var="sign" value="일차"/></c:when>
+							<c:otherwise><c:set var="sign" value="회차"/> </c:otherwise>
+                          </c:choose>
+                          <c:forEach var="eps" items="${cdtr.epSchedule}" varStatus="vs">
+	                          <strong class="lessonCntList"> <span> ${vs.count} </span> ${sign} </strong>  
+	                          <span class="lessonDate">  ${eps.schdlDt} </span> (<span>${eps.schdlWeek}</span>) <span> ${eps.schdlStartTime}</span> ~ <span> ${eps.schdlEndTime}</span> <br>
+                         </c:forEach>
                     </div>
-                    
-                    <!-- 원데이 클래스 날짜 선택 -->
-                    <!-- <div>
-                        <div class="onedayDateSelect">
-                            <select class="selectBox">
-                                <option> 2022년 01월 07일 (금) </option>
-                                <option> 2022년 01월 07일 (금) </option>
-                                <option> 2022년 01월 07일 (금) </option>
-                            </select>
-                        </div>
-                        <div class="onedayTimeSelect ">
-                            <select class="selectBox">
-                                <option> 10:00 ~ 11:00 </option>
-                                <option> 10:00 ~ 11:00 </option>
-                                <option> 10:00 ~ 11:00 </option>
-                            </select>
-                        </div>
-                    </div> -->
-                    
-                    
+                    <div class="lesson-bottom-opacity"> </div>
+
                     <!-- 옵션 선택 -->
                     <!-- 원데이 클래스 날짜 선택 -->
-                    <div class="onedayClassDate">
-                        <strong> 클래스 일정 선택 </strong>
-                        <article class="onedaySelect">
-                            <button class="btn-select">2022년 01월 07일 (금)</button>
-                            <ul class="list-date">
-                                <li><button type="button">2022년 01월 07일 (금)</button></li>
-                                <li><button type="button">2022년 01월 08일 (토)</button></li>
-                                <li><button type="button">2022년 01월 09일 (일)</button></li>
-                                <li><button type="button">2022년 01월 10일 (월)</button></li>
-                                <li><button type="button">2022년 01월 11일 (화)</button></li>
-                            </ul>
-                        </article>
-                        <article class="onedaySelect">
-                            <button class="btn-select">10:00 ~ 11:00</button>
-                            <ul class="list-date">
-                                <li><button type="button">10:00 ~ 11:00</button></li>
-                                <li><button type="button">11:00 ~ 12:00</button></li>
-                                <li><button type="button">13:00 ~ 14:00</button></li>
-                                <li><button type="button">14:00 ~ 15:00</button></li>
-                                <li><button type="button">15:00 ~ 16:00</button></li>
-                            </ul>
-                        </article>
-                    </div>
+                    <c:if test="${cdtr.cdt.classType == 0}">
+	                    <div class="onedayClassDate">
+	                        <strong> 클래스 일정 선택 </strong>
+	                        <article class="onedaySelect">
+	                            <button class="btn-select">일정을 선택해주세요.</button>
+	                            <ul class="list-date">
+	                            	<c:forEach var="eps" items="${cdtr.epSchedule}">
+	                            		<c:if test="${eps.possibleFl == 1}">
+		                                	<li><button type="button">${eps.schdlDt} (${eps.schdlWeek}) ${eps.schdlStartTime} ~ ${eps.schdlEndTime}</button></li>
+	                            		</c:if>
+	                            	</c:forEach>
+	                            </ul>
+	                        </article>
+	                       
+	                    </div>
+              	    </c:if>  
+ 			
+                    
                 </div>
 
                 
@@ -280,7 +259,10 @@
                     </button>
                 </div> 
                 <div class="buyBtn" id="buyBtnId">
-                    <div>신청하기</div>
+                	<c:choose>
+		                    <div>신청하기</div>
+		                    <!-- <div><span>남은 시간 : </span>2022-02-12 10:00 </div> -->
+                	</c:choose>
                 </div>
 
             </div> <!-- sticky nav end -->
@@ -706,7 +688,7 @@
         </div>
         
         <div class="btnLiveChat">
-            <button type="button" style="bottom: 20px;" onclick="liveTalk();">
+            <button type="button" style="bottom: 20px;" id="livetalk">
                 실시간 톡
             </button>
         </div>
@@ -714,6 +696,8 @@
     </div>
     
 <jsp:include page="../common/footer.jsp"/>
+    
+    
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- 차트 라이브러리 js -->
@@ -724,6 +708,12 @@
     <!-- Step 2) Load billboard.js with style -->
     <script src="${contextPath}/resources/js/billboard.js"></script>
     
+    <script>
+    	// 변수 선언
+    	const loginMemberNo = '${loginMember.memberNo}';
+    	/* const loginMemberName = '${loginMember.memberNm}'; */
+    	const classNo = '${param.classNo}';
+    </script>
     
     <script src="${contextPath}/resources/js/classDetail.js"></script>
 	
@@ -778,15 +768,21 @@
 		        
 	});
  
- // 결제금액 변수선언
+ 	// 결제금액 변수선언
  	var payAmount = '<c:out value="${payAmount}"/>';
  	
  	
  	  // 실시간톡 버튼
- 	  function liveTalk(){
- 	    var url="../chat/chatRoom";
- 	    var option="width=482, height=700, top=200"
- 	    window.open(url, "_blank", option);
- 	}
+ 	  $('#livetalk').on('click', function(){
+	 	  	if(${!empty sessionScope.loginMember}){
+			 	    var url="../chat/chatRoom";
+			 	    var option="width=482, height=700, top=200"
+			 	    window.open(url, "_blank", option);
+			 	  
+		 	  }else{
+		 		 alert("로그인 후 진행해주세요.");
+				 $(location).attr("href", "${contextPath}/member/login");
+		 	  }
+ 	  });
  
     </script>

@@ -1,5 +1,8 @@
 package edu.kh.tteutto.classRoom.model.service;
 
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +20,25 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 	@Override
 	public ClassDetailRight selectClassDetail(int classNo) {
 		
-		return dao.selectClassDetail(classNo);
+		ClassDetailRight cdtr = dao.selectClassDetail(classNo);
+		
+		if( cdtr.getCdt() != null) {
+			
+			cdtr.setEpSchedule(dao.selectEpisodeSchedule(classNo));
+		
+		}
+				
+		
+		return cdtr;
 
-//		클래스 일정 받는거 		
-//		a[1] [
-//		      "date" : tlrks
-//		      "time":[time]]
+
+	}
+
+	//클래스 신청 여부 조회
+	@Override
+	public String selectRegisterDt(Map<String, Integer> map) {
+		
+		return dao.selectRegisterDt(map);
 	}
 	
 	

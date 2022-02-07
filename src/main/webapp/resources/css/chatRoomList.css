@@ -187,3 +187,9 @@ time{
     padding-left: 0.25rem; /* 16 브라우저 기준 4px */
     padding-right:0.25rem;
 }
+
+.classTitle{
+    color: #bd3401;
+    font-size: 14px;
+    font-weight: bold;
+}
