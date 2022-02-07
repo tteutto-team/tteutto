@@ -202,6 +202,24 @@
 		WHERE MEMBER_NO=#{memberNo}
 	</update>
 	
+	<!-- 회원 탈퇴 검사 -->
+	<select id="selectmemberResign">
+		<![CDATA[
+		select * from (
+		    SELECT c.member_no, e.ep_no, c.class_no, to_char(min(s.schdl_dt),'yyyymmdd') start_date, to_char(max(s.schdl_dt),'yyyymmdd') end_date
+		    FROM CLASS c
+		    LEFT JOIN episode e on c.class_no = e.class_no
+		    LEFT JOIN ep_schedule s on e.ep_no = s.ep_no
+		    WHERE c.member_no =]]>#{memberNo}
+		    <![CDATA[
+		    group by c.member_no, e.ep_no, c.class_no
+		    order by ep_no
+		) t
+		where (to_char(sysdate, 'yyyymmdd') >= t.start_date and to_char(sysdate, 'yyyymmdd') <= t.end_date)
+		    or (to_char(sysdate, 'yyyymmdd') <= t.start_date and to_char(sysdate, 'yyyymmdd') <= t.end_date)
+		]]>
+	</select>
+	
 	<!-- 회원 탈퇴 -->
 	<update id="memberResign">
 		UPDATE MEMBER SET MEMBER_ST = 1, MEMBER_SEC_DT = SYSDATE

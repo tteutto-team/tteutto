@@ -27,15 +27,11 @@ public class TeacherServiceImpl implements TeacherService{
 	@Override
 	public List<EpisodeClass> selectClassEpisode(String classId) {
 		
-		
 		List<EpisodeClass> episodeClassList = dao.selectClassEpisode(classId);
 		
 		for(EpisodeClass episode : episodeClassList) {
 			
-			
 		}
-		
-		
 		
 		return null;
 	}
