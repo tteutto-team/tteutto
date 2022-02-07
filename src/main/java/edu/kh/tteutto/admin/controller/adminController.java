@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 import edu.kh.tteutto.admin.model.service.AdminService;
 import edu.kh.tteutto.admin.model.vo.Admin;
 import edu.kh.tteutto.admin.model.vo.AdminCalcRefund;
+import edu.kh.tteutto.admin.model.vo.AdminClass;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
 import edu.kh.tteutto.admin.model.vo.AdminTeacher;
@@ -121,6 +122,19 @@ public class adminController {
 		
 		
 		return result;
+	}
+	
+	// 클래스 상세 조회
+	@RequestMapping(value="class/{classNo}", method=RequestMethod.GET)
+	public String selectClass(@PathVariable(value="classNo", required = false) int classNo, Model model) {
+		
+		AdminClass classOne = service.selectClass(classNo);
+		
+		model.addAttribute("classOne", classOne);
+		
+		System.out.println(classOne);
+		
+		return "admin/class";
 	}
 	
 	// 유저 관리 이동

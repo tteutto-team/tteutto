@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import edu.kh.tteutto.admin.model.vo.Admin;
 import edu.kh.tteutto.admin.model.vo.AdminCalcRefund;
+import edu.kh.tteutto.admin.model.vo.AdminClass;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeImage;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
@@ -73,6 +74,14 @@ public class AdminDAO {
 	 */
 	public int classDeny(int classNo) {
 		return sqlSession.update("adminMapper.classDeny", classNo);
+	}
+
+	/** 클래스 상세 조회
+	 * @param memberNo
+	 * @return classOne
+	 */
+	public AdminClass selectClass(int classNo) {
+		return sqlSession.selectOne("adminMapper.selectClass", classNo);
 	}
 	
 	/** 유저 목록 조회
@@ -310,6 +319,17 @@ public class AdminDAO {
 	public int insertFaq(AdminNoticeFaq faq) {
 		return sqlSession.insert("adminMapper.insertFaq", faq);
 	}
+
+
+	/** 강사 신청 검토중으로 업데이트
+	 * @param memberNo
+	 * @return result
+	 */
+	public int teacherStatusUpdate(int memberNo) {
+		return sqlSession.update("adminMapper.teacherStatusUpdate", memberNo);
+	}
+
+
 
 
 

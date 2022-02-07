@@ -23,6 +23,8 @@
 		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminReport" alias="AdminReport" />
 		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminNoticeFaq" alias="AdminNoticeFaq" />
 		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminCalcRefund" alias="AdminCalcRefund" />
+		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminClass" alias="AdminClass" />
+		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminClassThumbnail" alias="AdminClassThumbnail" />
 		
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Member" alias="Member" />
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Career" alias="Career" />
