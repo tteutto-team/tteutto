@@ -12,8 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.common.Util;
+import edu.kh.tteutto.main.model.vo.ClassList;
+import edu.kh.tteutto.main.model.vo.Pagination;
 import edu.kh.tteutto.member.model.dao.MemberDAO;
 import edu.kh.tteutto.member.model.vo.Career;
 import edu.kh.tteutto.member.model.vo.Certified;
@@ -370,5 +373,26 @@ public class MemberServiceImpl implements MemberService{
 		
 		return result;
 	}
+	
+	// 클래스 개수 조회 + 페이지네이션
+	@Override
+	public Pagination getPagination(int memberNo, int page) {
+		int wishListCount = dao.getWishListCount(memberNo);
+		return new Pagination(wishListCount, page);
+	}
+	
+	// 클래스 카드 목록 조회
+	@Override
+	public List<ClassList> selectWishList(Pagination pagination, int memberNo) {
+		return dao.selectWishList(pagination, memberNo);
+	}
+
+	@Override
+	public List<ClassRegister> studentClassList(int memberNo) {
+		return dao.studentClassList(memberNo);
+	}
+	
+
+
 	
 }

@@ -3,12 +3,16 @@ package edu.kh.tteutto.member.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
+import edu.kh.tteutto.main.model.vo.ClassList;
+import edu.kh.tteutto.main.model.vo.Pagination;
 import edu.kh.tteutto.member.model.vo.Career;
 import edu.kh.tteutto.member.model.vo.Certified;
 import edu.kh.tteutto.member.model.vo.Member;
@@ -223,8 +227,31 @@ public class MemberDAO {
 	}
 
 
+	// 클래스 개수 조회 + 페이지네이션
+	public int getWishListCount(int memberNo) {
+		return sqlSession.selectOne("classListMapper.getWishListCount", memberNo);
+	}
+
+	// 클래스 카드 목록 조회
+	public List<ClassList> selectWishList(Pagination pagination, int memberNo) {
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit() ;
+		int limit = pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return sqlSession.selectList("classListMapper.selectWishList", memberNo, rowBounds);
+	}
+
+	/** 학생 수강 신청 목록
+	 * @param memberNo
+	 * @return
+	 */
+	public List<ClassRegister> studentClassList(int memberNo) {
+		return sqlSession.selectList("memberMapper.studentClassList", memberNo);
+	}
 
 
+
+	
 	
 
 }
