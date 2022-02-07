@@ -132,19 +132,27 @@ public class SnsLoginController {
         
         Member loginMember = service.snsLogin(email);
         int flag;
+        // System.out.println(loginMember);
         if(loginMember != null) {
         	// 세션에 추가
         	model.addAttribute("loginMember", loginMember);
             flag = 1;
         }else {
-        	ra.addFlashAttribute("message", "회원등록을 먼저 등록해주세요.");
-        	session.setAttribute("email", email);
-        	flag = 0;
+        	
+        	int result2 = service.emailCheck(email);
+        	// System.out.println(result2);
+        	if(result2 != 0) {
+        		flag = 2;
+        	}else {
+        		session.setAttribute("email", email);
+        		flag = 0;
+        	}
         }
         model.addAttribute("flag", flag);
         return "member/callback";
     }
 	
+	// 추가 정보 입력
 	@RequestMapping(value="signup2", method = RequestMethod.GET)
 	public String signUp() {
 		return "member/signup2";
@@ -194,14 +202,21 @@ public class SnsLoginController {
         	model.addAttribute("loginMember", loginMember);
             flag = 1;
         }else {
-        	ra.addFlashAttribute("message", "회원등록을 먼저 등록해주세요.");
-        	session.setAttribute("email", email);
-        	flag = 0;
+        	
+        	int result2 = service.emailCheck(email);
+        	// System.out.println(result2);
+        	if(result2 != 0) {
+        		flag = 2;
+        	}else {
+        		session.setAttribute("email", email);
+        		flag = 0;
+        	}
         }
         model.addAttribute("flag", flag);
         return "member/callback";
     }
     
+    // 구글 로그인 성공시
     @RequestMapping(value = "googleCallback", method = { RequestMethod.GET, RequestMethod.POST })
     public String googleAuth(Model model, @RequestParam(value = "code") String authCode, RedirectAttributes ra, HttpServletRequest request, HttpSession session)
             throws Exception {
@@ -263,13 +278,18 @@ public class SnsLoginController {
         	model.addAttribute("loginMember", loginMember);
             flag = 1;
         }else {
-        	ra.addFlashAttribute("message", "회원등록을 먼저 등록해주세요.");
-        	session.setAttribute("email", email);
-        	flag = 0;
+        	
+        	int result2 = service.emailCheck(email);
+        	// System.out.println(result2);
+        	if(result2 != 0) {
+        		flag = 2;
+        	}else {
+        		session.setAttribute("email", email);
+        		flag = 0;
+        	}
         }
         model.addAttribute("flag", flag);
         return "member/callback";
-    
     }
     
 	
