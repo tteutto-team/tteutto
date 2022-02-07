@@ -132,8 +132,6 @@ public class adminController {
 		
 		model.addAttribute("classOne", classOne);
 		
-		System.out.println(classOne);
-		
 		return "admin/class";
 	}
 	

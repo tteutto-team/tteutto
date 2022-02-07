@@ -84,6 +84,13 @@ public class AdminDAO {
 		return sqlSession.selectOne("adminMapper.selectClass", classNo);
 	}
 	
+	/** 클래스 상세 조회 후 상태 변경
+	 * @param classNo
+	 */
+	public int classStatusUpdate(int classNo) {
+		return sqlSession.update("adminMapper.classStatusUpdate", classNo); 
+	}
+	
 	/** 유저 목록 조회
 	 * @return data
 	 */
@@ -97,6 +104,14 @@ public class AdminDAO {
 	 */
 	public int userSave(Admin admin) {
 		return sqlSession.update("adminMapper.userSave", admin);
+	}
+	
+
+	/** 유저 정보에서 강사 상태 업데이트
+	 * @param admin
+	 */
+	public int teacherStatusUpdate2(Admin admin) {
+		return sqlSession.update("adminMapper.teacherStatusUpdate2", admin);
 	}
 	
 	
@@ -328,6 +343,11 @@ public class AdminDAO {
 	public int teacherStatusUpdate(int memberNo) {
 		return sqlSession.update("adminMapper.teacherStatusUpdate", memberNo);
 	}
+
+
+
+
+
 
 
 

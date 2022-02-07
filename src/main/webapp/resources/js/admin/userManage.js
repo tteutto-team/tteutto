@@ -38,6 +38,24 @@ function createTable() {
 					{
 						data: null,
 						render: function (data, type, row) {
+							if (data.teacherStatus == 0) {
+								return "신청완료";
+							}else if(data.teacherStatus == 1) {
+								return "검토중";
+							}else if(data.teacherStatus == 2){
+								return "승인완료";
+							}else if(data.teacherStatus == 3){
+								return "반려";
+							}else if(data.teacherStatus == 4){
+								return "정지";
+							}else if(data.teacherStatus == 100){
+								return "미신청";
+							}
+						}
+					},
+					{
+						data: null,
+						render: function (data, type, row) {
 							if (data.memberStatus == 0) {
 								return "정상";
 							} else if (data.memberStatus == 1) {
@@ -63,7 +81,7 @@ function createTable() {
 						data: null,
 						render: function (data, type, row) {
 							return '<button onclick="update(this, ' + data.memberNo + ', \'' + data.memberName + '\', '
-								+ data.memberGrade + ', \'' + data.teacherEnroll + '\', ' + data.memberStatus + ', \'' + data.memberBirth + '\', \'' + data.memberGender + '\', \'' + data.memberPhone + '\');">수정</button>'
+								+ data.memberGrade + ', \'' + data.teacherEnroll + '\', ' + data.teacherStatus +', '+ data.memberStatus + ', \'' + data.memberBirth + '\', \'' + data.memberGender + '\', \'' + data.memberPhone + '\');">수정</button>'
 								+ '<button onclick="note(this,' + data.memberNo + ');">쪽지</button>';
 						},
 						orderable: false
@@ -75,7 +93,7 @@ function createTable() {
 }
 
 
-function update(el, memberNo, memberName, memberGrade, teacherEnroll, memberStatus, memberBirth, memberGender, memberPhone) {
+function update(el, memberNo, memberName, memberGrade, teacherEnroll, teacherStatus, memberStatus, memberBirth, memberGender, memberPhone) {
 	if ($(".cancel").length != 0) {
 		Swal.fire({
 			title: '수정중인 작업을 취소하시겠습니까?',
@@ -88,19 +106,19 @@ function update(el, memberNo, memberName, memberGrade, teacherEnroll, memberStat
 		}).then((result) => {
 			if (result.value) {
 				$(".cancel").click();
-				update2(el, memberNo, memberName, memberGrade, teacherEnroll, memberStatus, memberBirth, memberGender, memberPhone);
+				update2(el, memberNo, memberName, memberGrade, teacherEnroll, teacherStatus, memberStatus, memberBirth, memberGender, memberPhone);
 			} else {
 				return false;
 			}
 		})
 	} else {
-		update2(el, memberNo, memberName, memberGrade, teacherEnroll, memberStatus, memberBirth, memberGender, memberPhone);
+		update2(el, memberNo, memberName, memberGrade, teacherEnroll, teacherStatus, memberStatus, memberBirth, memberGender, memberPhone);
 	}
 }
 
-function update2(el, memberNo, memberName, memberGrade, teacherEnroll, memberStatus, memberBirth, memberGender, memberPhone) {
+function update2(el, memberNo, memberName, memberGrade, teacherEnroll, teacherStatus, memberStatus, memberBirth, memberGender, memberPhone) {
 	const button = $('<button class="cancel" onclick="cancel(this, ' + memberNo + ', \'' + memberName + '\', '
-		+ memberGrade + ', \'' + teacherEnroll + '\', ' + memberStatus + ', \'' + memberBirth + '\', \'' + memberGender + '\', \'' + memberPhone + '\');">취소</button>')
+		+ memberGrade + ', \'' + teacherEnroll + '\', ' + teacherStatus + ', ' + memberStatus + ', \'' + memberBirth + '\', \'' + memberGender + '\', \'' + memberPhone + '\');">취소</button>')
 	const button2 = $('<button onclick="save(this, ' + memberNo + ')">저장</button>')
 
 	// 이름 수정 input
@@ -144,6 +162,38 @@ function update2(el, memberNo, memberName, memberGrade, teacherEnroll, memberSta
 	}
 	$(el).parent().parent().children("td:nth-of-type(4)").html(select2);
 
+	// 강사 신청 상태 selectbox
+	const select5 = $("<select>");
+	for (let i = 0; i < 5; i++) {
+		let option = $("<option>");
+		if (i == 0) {
+			option.text("신청완료");
+			option.val(0);
+		} else if (i == 1) {
+			option.text("검토중");
+			option.val(1);
+		}else if(i == 2){
+			option.text("승인완료")
+			option.val(2);
+			
+		}else if(i == 3){
+			option.text("반려")
+			option.val(3);
+		}else if(i == 4){
+			option.text("정지")
+			option.val(4);
+
+		}
+
+		if (i == teacherStatus) {
+			option.attr("selected", "selected");
+		}
+		select5.append(option);
+	}
+	if(teacherStatus != 100){
+		$(el).parent().parent().children("td:nth-of-type(5)").html(select5);
+	}
+
 	const select3 = $("<select>");
 	for (let i = 0; i < 3; i++) {
 		let option = $("<option>");
@@ -163,11 +213,11 @@ function update2(el, memberNo, memberName, memberGrade, teacherEnroll, memberSta
 		select3.append(option);
 	}
 
-	$(el).parent().parent().children("td:nth-of-type(5)").html(select3);
+	$(el).parent().parent().children("td:nth-of-type(6)").html(select3);
 
 	// 생년월일 수정 input
 	const birth = $('<input>').val(memberBirth).css("width", "80px").attr("class", "datePicker");
-	$(el).parent().parent().children("td:nth-of-type(6)").html(birth);
+	$(el).parent().parent().children("td:nth-of-type(7)").html(birth);
 	$(".datePicker").datepicker();
 
 	// 성별 수정 select
@@ -188,11 +238,11 @@ function update2(el, memberNo, memberName, memberGrade, teacherEnroll, memberSta
 
 		select4.append(option);
 	}
-	$(el).parent().parent().children("td:nth-of-type(7)").html(select4);
+	$(el).parent().parent().children("td:nth-of-type(8)").html(select4);
 
 	// 전화번호 수정 input
 	const phone = $('<input>').val(memberPhone).css("width", "110px");
-	$(el).parent().parent().children("td:nth-of-type(8)").html(phone);
+	$(el).parent().parent().children("td:nth-of-type(9)").html(phone);
 
 
 	// 취소 버튼
@@ -202,10 +252,10 @@ function update2(el, memberNo, memberName, memberGrade, teacherEnroll, memberSta
 
 
 
-function cancel(el, memberNo, memberName, memberGrade, teacherEnroll, memberStatus, memberBirth, memberGender, memberPhone) {
+function cancel(el, memberNo, memberName, memberGrade, teacherEnroll, teacherStatus, memberStatus, memberBirth, memberGender, memberPhone) {
 
 	const button = $('<button onclick="update(this, ' + memberNo + ', \'' + memberName + '\', '
-		+ memberGrade + ', \'' + teacherEnroll + '\', ' + memberStatus + ', \'' + memberBirth + '\', \'' + memberGender + '\', \'' + memberPhone + '\');">수정</button>')
+		+ memberGrade + ', \'' + teacherEnroll + '\', ' + teacherStatus + ', ' + memberStatus + ', \'' + memberBirth + '\', \'' + memberGender + '\', \'' + memberPhone + '\');">수정</button>')
 
 	const button2 = $('<button onclick="note(this,' + memberNo + ');">쪽지</button>');
 
@@ -223,22 +273,36 @@ function cancel(el, memberNo, memberName, memberGrade, teacherEnroll, memberStat
 		$(el).parent().parent().children("td:nth-of-type(4)").html("학생");
 	}
 
-	if (memberStatus == 0) {
-		$(el).parent().parent().children("td:nth-of-type(5)").html("정상");
-	} else if (memberStatus == 1) {
-		$(el).parent().parent().children("td:nth-of-type(5)").html("탈퇴");
-	} else {
+	if(teacherStatus == 0){
+		$(el).parent().parent().children("td:nth-of-type(5)").html("신청완료");
+	}else if(teacherStatus == 1){
+		$(el).parent().parent().children("td:nth-of-type(5)").html("검토중");
+	}else if(teacherStatus == 2){
+		$(el).parent().parent().children("td:nth-of-type(5)").html("승인완료");
+	}else if(teacherStatus == 3){
+		$(el).parent().parent().children("td:nth-of-type(5)").html("반려");
+	}else if(teacherStatus == 4){
 		$(el).parent().parent().children("td:nth-of-type(5)").html("정지");
+	}else if(teacherStatus == 100){
+		$(el).parent().parent().children("td:nth-of-type(5)").html("미신청");
 	}
 
-	$(el).parent().parent().children("td:nth-of-type(6)").html(memberBirth);
+	if (memberStatus == 0) {
+		$(el).parent().parent().children("td:nth-of-type(6)").html("정상");
+	} else if (memberStatus == 1) {
+		$(el).parent().parent().children("td:nth-of-type(6)").html("탈퇴");
+	} else {
+		$(el).parent().parent().children("td:nth-of-type(6)").html("정지");
+	}
+
+	$(el).parent().parent().children("td:nth-of-type(7)").html(memberBirth);
 
 	if (memberGender == 'M') {
-		$(el).parent().parent().children("td:nth-of-type(7)").html("남자");
+		$(el).parent().parent().children("td:nth-of-type(8)").html("남자");
 	} else {
-		$(el).parent().parent().children("td:nth-of-type(7)").html("여자");
+		$(el).parent().parent().children("td:nth-of-type(8)").html("여자");
 	}
-	$(el).parent().parent().children("td:nth-of-type(8)").html(memberPhone);
+	$(el).parent().parent().children("td:nth-of-type(9)").html(memberPhone);
 
 	$(el).parent().html(button).append(button2);
 
@@ -254,12 +318,17 @@ function save(el, memberNo) {
 	const memberName = $(el).parent().parent().children("td:nth-of-type(2)").children().val();
 	const memberGrade = $(el).parent().parent().children("td:nth-of-type(3)").children().val();
 	const teacherEnroll = $(el).parent().parent().children("td:nth-of-type(4)").children().val();
-	const memberStatus = $(el).parent().parent().children("td:nth-of-type(5)").children().val();
-	const memberBirth = $(el).parent().parent().children("td:nth-of-type(6)").children().val();
-	const memberGender = $(el).parent().parent().children("td:nth-of-type(7)").children().val();
-	const memberPhone = $(el).parent().parent().children("td:nth-of-type(8)").children().val();
+	let teacherStatus = $(el).parent().parent().children("td:nth-of-type(5)").children().val();
+	const memberStatus = $(el).parent().parent().children("td:nth-of-type(6)").children().val();
+	const memberBirth = $(el).parent().parent().children("td:nth-of-type(7)").children().val();
+	const memberGender = $(el).parent().parent().children("td:nth-of-type(8)").children().val();
+	const memberPhone = $(el).parent().parent().children("td:nth-of-type(9)").children().val();
 
-	console.log(memberName, memberGrade, teacherEnroll, memberStatus, memberBirth, memberGender, memberPhone);
+	if(teacherStatus == undefined){
+		teacherStatus = 100;
+	}
+
+	console.log(memberName, memberGrade, teacherEnroll, teacherStatus, memberStatus, memberBirth, memberGender, memberPhone);
 
 	Swal.fire({
 		title: '수정내용을 저장하시겠습니까?',
@@ -278,6 +347,7 @@ function save(el, memberNo) {
 					"memberName": memberName,
 					"memberGrade": memberGrade,
 					"teacherEnroll": teacherEnroll,
+					"teacherStatus": teacherStatus,
 					"memberStatus": memberStatus,
 					"memberBirth": memberBirth,
 					"memberGender": memberGender,
@@ -302,25 +372,39 @@ function save(el, memberNo) {
 							$(el).parent().parent().children("td:nth-of-type(4)").html("학생");
 						}
 
-						if (memberStatus == 0) {
-							$(el).parent().parent().children("td:nth-of-type(5)").html("정상");
-						} else if (memberStatus == 1) {
-							$(el).parent().parent().children("td:nth-of-type(5)").html("탈퇴");
-						} else {
+						if(teacherStatus == 0){
+							$(el).parent().parent().children("td:nth-of-type(5)").html("신청완료");
+						}else if(teacherStatus == 1){
+							$(el).parent().parent().children("td:nth-of-type(5)").html("검토중");
+						}else if(teacherStatus == 2){
+							$(el).parent().parent().children("td:nth-of-type(5)").html("승인완료");
+						}else if(teacherStatus == 3){
+							$(el).parent().parent().children("td:nth-of-type(5)").html("반려");
+						}else if(teacherStatus == 4){
 							$(el).parent().parent().children("td:nth-of-type(5)").html("정지");
+						}else if(teacherStatus == 100){
+							$(el).parent().parent().children("td:nth-of-type(5)").html("미신청");
 						}
 
-						$(el).parent().parent().children("td:nth-of-type(6)").html(memberBirth);
+						if (memberStatus == 0) {
+							$(el).parent().parent().children("td:nth-of-type(6)").html("정상");
+						} else if (memberStatus == 1) {
+							$(el).parent().parent().children("td:nth-of-type(6)").html("탈퇴");
+						} else {
+							$(el).parent().parent().children("td:nth-of-type(6)").html("정지");
+						}
+
+						$(el).parent().parent().children("td:nth-of-type(7)").html(memberBirth);
 
 						if (memberGender == 'M') {
-							$(el).parent().parent().children("td:nth-of-type(7)").html("남자");
+							$(el).parent().parent().children("td:nth-of-type(8)").html("남자");
 						} else {
-							$(el).parent().parent().children("td:nth-of-type(7)").html("여자");
+							$(el).parent().parent().children("td:nth-of-type(8)").html("여자");
 						}
-						$(el).parent().parent().children("td:nth-of-type(8)").html(memberPhone);
+						$(el).parent().parent().children("td:nth-of-type(9)").html(memberPhone);
 
 						const button = $('<button onclick="update(this, ' + memberNo + ', \'' + memberName + '\', '
-							+ memberGrade + ', \'' + teacherEnroll + '\', ' + memberStatus + ', \'' + memberBirth + '\', \'' + memberGender + '\', \'' + memberPhone + '\');">수정</button>');
+							+ memberGrade + ', \'' + teacherEnroll + '\', ' + teacherStatus + ', ' + memberStatus + ', \'' + memberBirth + '\', \'' + memberGender + '\', \'' + memberPhone + '\');">수정</button>');
 						const button2 = $('<button onclick="note(this,' + memberNo + ');">쪽지</button>');
 
 						$(el).parent().html(button).append(button2);

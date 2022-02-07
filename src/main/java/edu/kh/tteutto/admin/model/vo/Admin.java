@@ -21,6 +21,8 @@ public class Admin {
 	private String memberPhone; // 전화번호
 	private char teacherEnroll; // 강사 등록 여부
 
+	private int teacherStatus; // 강사 상태
+
 	// ************ 필드 **************
 
 	// 생성자
@@ -124,13 +126,21 @@ public class Admin {
 		this.teacherEnroll = teacherEnroll;
 	}
 
+	public int getTeacherStatus() {
+		return teacherStatus;
+	}
+
+	public void setTeacherStatus(int teacherStatus) {
+		this.teacherStatus = teacherStatus;
+	}
+
 	@Override
 	public String toString() {
 		return "Admin [classNo=" + classNo + ", className=" + className + ", classRequestDate=" + classRequestDate
 				+ ", episodeCount=" + episodeCount + ", memberNo=" + memberNo + ", memberName=" + memberName
 				+ ", memberGrade=" + memberGrade + ", memberStatus=" + memberStatus + ", memberBirth=" + memberBirth
 				+ ", memberGender=" + memberGender + ", memberPhone=" + memberPhone + ", teacherEnroll=" + teacherEnroll
-				+ "]";
+				+ ", teacherStatus=" + teacherStatus + "]";
 	}
 
 }

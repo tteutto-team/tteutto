@@ -23,6 +23,7 @@ a, ol, ul{
 	height: 100%;
 	background-color: #2F4858;
 	border-right: 1px solid #989696;
+	z-index: 1;
 }
 #left *{
 	color: #e8e6e6;
