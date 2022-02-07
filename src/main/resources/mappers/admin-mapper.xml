@@ -124,11 +124,39 @@
 		<result property="memberNo" column="MEMBER_NO"/>
 	</resultMap>
 	
+	<resultMap type="AdminClass" id="class_rm">
+		<id property="classNo" column="CLASS_NO"/>
+		<result property="classArea" column="CLASS_AREA"/>
+		<result property="classType" column="CLASS_TYPE"/>
+		<result property="classPerson" column="CLASS_PERSON"/>
+		<result property="classMinPerson" column="CLASS_MIN_PERSON"/>
+		<result property="classMaxPerson" column="CLASS_MAX_PERSON"/>
+		<result property="className" column="CLASS_NM"/>
+		<result property="classIntro" column="CLASS_INTRO"/>
+		<result property="classLevel" column="CLASS_LEVEL"/>
+		<result property="categoryName" column="CT_NM"/>
+		<result property="categoryDetailName" column="CT_DETAIL_NM"/>
+		
+		<collection property="thumbnailImg" column="CLASS_NO" 
+			javaType="java.util.ArrayList" ofType="AdminClassThumbnail" select="selectClassThumbnail" />
+	</resultMap>
+	
+	<resultMap type="AdminClassThumbnail" id="thumbnail_rm">
+		<id property="ThumbnailImgNo" column="TH_IMG_NO"/>
+		<result property="ThumbnailImgName" column="TH_IMG_NM"/>
+		<result property="ThumbnailImgLevel" column="TH_IMG_LEVEL"/>
+		<result property="classNo" column="CLASS_NO"/>
+	</resultMap>
 	
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	
+	<!-- 클래스 썸네일 조회 -->
+	<select id="selectClassThumbnail" resultMap="thumbnail_rm">
+		SELECT * FROM THUMBNAIL_IMG
+		WHERE CLASS_NO = #{ClassNo}
+	</select>
 	
 	<!-- 강사 커리어 조회 -->
 	<select id="selectTeacherCareerList" resultMap="career_rm">
@@ -190,6 +218,14 @@
 		WHERE CLASS_NO = #{classNo}
 	</update>
 	
+	<select id="selectClass" resultMap="class_rm">
+		SELECT CLASS_AREA, CLASS_TYPE, CLASS_PERSON, CLASS_MIN_PERSON, CLASS_MAX_PERSON,
+		CLASS_NM, CLASS_INTRO, CLASS_LEVEL, CT_NM, CT_DETAIL_NM FROM CLASS
+		JOIN CLASS_CATEGORY ON(CLASS.CATG_NO = CLASS_CATEGORY.CT_NO)
+		JOIN CT_DETAIL USING(CT_DETAIL_NO)
+		WHERE CLASS_NO = #{classNo}
+	</select>
+	
 	<!-- 유저 목록 조회 -->
 	<select id="userList" resultMap="user_rm">
 		SELECT MEMBER_NO, MEMBER_NM, MEMBER_GRADE, MEMBER_ST, TEACHER_ENROLL, TO_CHAR(MEMBER_BIRTH, 'YYYY-MM-DD') MEMBER_BIRTH, MEMBER_GENDER, MEMBER_PNO FROM MEMBER
@@ -231,6 +267,11 @@
 	<update id="teacherDeny">
 		UPDATE TEACHER SET TEACHER_ST = 3
 		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 강사 신청 검토중으로 업데이트 -->
+	<update id="teacherStatusUpdate">
+		UPDATE TEACHER SET TEACHER_ST = 1 WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
 	<!-- 강사 정보 조회 -->

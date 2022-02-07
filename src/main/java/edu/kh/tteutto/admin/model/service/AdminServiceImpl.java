@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.kh.tteutto.admin.model.dao.AdminDAO;
 import edu.kh.tteutto.admin.model.vo.Admin;
 import edu.kh.tteutto.admin.model.vo.AdminCalcRefund;
+import edu.kh.tteutto.admin.model.vo.AdminClass;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeImage;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
@@ -64,6 +65,12 @@ public class AdminServiceImpl implements AdminService{
 		return dao.classDeny(classNo);
 	}
 	
+	// 클래스 상세 조회
+	@Override
+	public AdminClass selectClass(int classNo) {
+		return dao.selectClass(classNo);
+	}
+
 	// 유저 목록 조회
 	@Override
 	public List<Admin> userList() {
@@ -111,7 +118,15 @@ public class AdminServiceImpl implements AdminService{
 	// 강사 정보 조회
 	@Override
 	public AdminTeacher selectTeacher(int memberNo) {
-		return dao.selectTeacher(memberNo);
+		
+		int result = dao.teacherStatusUpdate(memberNo);
+		
+		if(result > 0) {
+			return dao.selectTeacher(memberNo);
+		}else {
+			return null;
+		}
+		
 	}
 
 	// 학생 신고 목록 조회

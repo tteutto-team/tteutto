@@ -17,7 +17,7 @@ function createTable() {
 					{
 						data: null,
 						render: function (data, type, row) {
-							return '<a href="#">' + data.className + '</a>';
+							return '<a href="class/'+ data.classNo +'">' + data.className + '</a>';
 						}
 					},
 					{ data: "memberName" },
