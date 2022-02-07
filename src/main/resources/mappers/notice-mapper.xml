@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="noticeMapper">
+
+	<resultMap type="Notice" id="notice_rm">
+		<id property="noticeNo" column="NOTICE_NO" />
+		
+		<result property="noticeTitle" column="NOTICE_TITLE" />
+		<result property="noticeContent" column="NOTICE_CONTENT" />
+		<result property="noticeDt" column="NOTICE_DT" />
+		<result property="noticeImgNo" column="NOTICE_IMG_NO" />
+		
+		<collection property="imgList" column="Notice_NO"
+			javaType="java.util.ArrayList" ofType="NoticeImg"
+			select="selectNoticeImageList" />
+	</resultMap>
+	
+	<resultMap type="NoticeImg" id="noticeImg_rm">
+
+		<id property="noticeImgNo" column="NOTICE_IMG_NO" />
+		
+		<result property="imgPath" column="IMG_PATH" />
+		<result property="imgNm" column="IMG_NM" />
+		<result property="imgOriginal" column="IMG_ORIGINAL" />
+		<result property="noticeNo" column="NOTICE_NO" />
+	</resultMap>
+		
+	
+	<select id="selectNoticeList" resultMap="notice_rm">
+		SELECT NOTICE_NO, NOTICE_TITLE 
+		FROM NOTICE
+		ORDER BY NOTICE_DT DESC
+	</select>
+	
+	<!-- 특정 게시글 이미지 목록 조회 -->
+	<select id="selectNoticeImageList" resultMap="noticeImg_rm">
+		SELECT * FROM
+		NOTICE_IMG
+		WHERE NOTICE_NO = #{noticeNo}
+	</select>
+	
+	<select id="selectNotice" resultMap="notice_rm">
+		SELECT NOTICE_TITLE, NOTICE_CONTENT, IMG_PATH, IMG_NM, IMG_ORIGINAL
+		FROM NOTICE
+		LEFT JOIN NOTICE_IMG USING(NOTICE_NO)
+        WHERE NOTICE_NO = ${noticeNo}
+	</select>
+</mapper>

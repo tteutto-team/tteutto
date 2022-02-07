@@ -43,6 +43,11 @@ public class LoginService {
 	public int signUp2(Member member) {
 		return dao.signUp2(member);
 	}
+
+	// sns 이메일 중복 확인
+	public int emailCheck(String email) {
+		return dao.emailCheck(email);
+	}
 	
 	
 }

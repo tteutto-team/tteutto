@@ -26,7 +26,8 @@ public class ClassListContoller {
 	
 	// 클래스 검색 목록
 	@RequestMapping("searchList")
-	public String searchList(HttpSession session, Model model, @RequestParam(value="search", required=false) String search,  
+	public String searchList(HttpSession session, Model model, 
+			@RequestParam(value="search", required=false) String search,  
 			@RequestParam(value="page", required=false, defaultValue="1") int page) {
 		
 		int memberNo = 0;
@@ -40,14 +41,14 @@ public class ClassListContoller {
 		
 		if (search != null) {
 			pagination = service.getPagination(search, page);
+			pagination.setLimit(12);
+			pagination.setPageSize(5);
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("search", search);
 			map.put("memberNo", memberNo);
 			
-			
 			searchList = service.selectSearchList(pagination, map);
-			
 			
 			model.addAttribute("pagination", pagination);
 			model.addAttribute("searchList", searchList);

@@ -23,6 +23,8 @@
 		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminReport" alias="AdminReport" />
 		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminNoticeFaq" alias="AdminNoticeFaq" />
 		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminCalcRefund" alias="AdminCalcRefund" />
+		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminClass" alias="AdminClass" />
+		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminClassThumbnail" alias="AdminClassThumbnail" />
 		
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Member" alias="Member" />
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Career" alias="Career" />
@@ -42,6 +44,9 @@
 		<typeAlias type="edu.kh.tteutto.main.model.vo.ClassList" alias="ClassList" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.EpisodeSchedule" alias="EpisodeSchedule" />
 
+		
+		<typeAlias type="edu.kh.tteutto.notice.model.vo.Notice" alias="Notice" />
+		<typeAlias type="edu.kh.tteutto.notice.model.vo.NoticeImg" alias="NoticeImg" />
 	</typeAliases>
 	
 	<!-- mapper 파일(SQL 작성되는파일) 위치 등록 부분 -->
@@ -53,6 +58,7 @@
 		<mapper resource="/mappers/class-detail-mapper.xml" />
 		<mapper resource="/mappers/chat-mapper.xml" />
 		<mapper resource="/mappers/class-list-mapper.xml" />
+		<mapper resource="/mappers/notice-mapper.xml" />
 	</mappers>
 			
 	
