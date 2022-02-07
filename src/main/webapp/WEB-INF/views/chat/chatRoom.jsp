@@ -63,28 +63,40 @@
                 -->
                 
                 <div class="item on">
-                    <div class="otherName">백동현</div>
-                    <div class="box">
-                        <p class="msg">안녕하세요😊 
-                            <!-- <span style="font-weight: bold;">뜨또</span>입니다!<br>
-                            이용중 궁금한 사항이 있으시면 문의 바랍니다.🙇‍♀️<br><br>
-                            탈잉센터 운영시간 안내 <br>
-                            평일 10:00 ~ 17:00<br>
-                            (점심 13:00 ~ 14:00)<br>
-                            ※ 주말 및 공휴일 휴무 -->
-                            <!-- <div> <a href=""> 뜨또 자주묻는 질문 </a></div> -->
-                        </p>
-                        	<!-- <span class="read-status"> 1 </span> -->
-                            <span class="time">오전 10:05</span>
-                        </div>
-                    </div>
+                
+                	<c:forEach items="${list}" var="msg">
+                	
+                		<c:if test="${msg.memberNo != loginMember.memberNo}">
+		                    <div class="item mymsg">
+		                        <div class="box">
+		                            <p class="msg">${msg.message}</p>
+		                            <span class="time">${msg.msgDt}</span>
+		                        </div>
+		                    </div> 
+	                    </c:if> 
+	                    
+                		<c:if test="${msg.memberNo == loginMember.memberNo}">
+		                    <div class="otherName">백동현</div>
+		                    <div class="box">
+		                        <p class="msg">안녕하세요😊 
+		                            <!-- <span style="font-weight: bold;">뜨또</span>입니다!<br>
+		                            이용중 궁금한 사항이 있으시면 문의 바랍니다.🙇‍♀️<br><br>
+		                            탈잉센터 운영시간 안내 <br>
+		                            평일 10:00 ~ 17:00<br>
+		                            (점심 13:00 ~ 14:00)<br>
+		                            ※ 주말 및 공휴일 휴무 -->
+		                            <!-- <div> <a href=""> 뜨또 자주묻는 질문 </a></div> -->
+		                        </p>
+		                        	<!-- <span class="read-status"> 1 </span> -->
+		                            <span class="time">오전 10:05</span>
+		                        </div>
+                		</c:if>
+	                        
+	                       
                     
-                    <!-- <div class="item mymsg">
-                        <div class="box">
-                            <p class="msg">안녕하세요</p>
-                            <span class="time">오전 10:05</span>
-                        </div>
-                    </div> -->
+                	</c:forEach>
+	             </div>
+                    
                     
                 </div>
             </div>

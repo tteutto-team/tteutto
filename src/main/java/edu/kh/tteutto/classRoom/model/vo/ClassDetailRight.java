@@ -1,5 +1,7 @@
 package edu.kh.tteutto.classRoom.model.vo;
 
+import java.util.List;
+
 import edu.kh.tteutto.member.model.vo.Member;
 
 
@@ -8,6 +10,8 @@ public class ClassDetailRight {
 	private ClassDetail cdt;
 	private Member member;
 	private Episode ep;
+	
+	private List<EpisodeSchedule> epSchedule;
 	
 	public ClassDetailRight() {
 		// TODO Auto-generated constructor stub
@@ -36,11 +40,24 @@ public class ClassDetailRight {
 	public void setEp(Episode ep) {
 		this.ep = ep;
 	}
+	
+	
+
+	public List<EpisodeSchedule> getEpSchedule() {
+		return epSchedule;
+	}
+
+	public void setEpSchedule(List<EpisodeSchedule> epSchedule) {
+		this.epSchedule = epSchedule;
+	}
 
 	@Override
 	public String toString() {
-		return "ClassDetailRight [cdt=" + cdt + ", member=" + member + ", ep=" + ep + "]";
+		return "ClassDetailRight [cdt=" + cdt + ", member=" + member + ", ep=" + ep + ", epSchedule=" + epSchedule
+				+ "]";
 	}
+
+	
 	
 	
 	

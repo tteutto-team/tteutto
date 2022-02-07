@@ -80,22 +80,29 @@ $(".modal").click(function (e) {
     				    pg : 'kakaopay', 
     				    pay_method : 'card',
     				    merchant_uid : 'merchant_' + new Date().getTime(),
-    				    name : '주문명:결제테스트'/*상품명*/,
+    				    name : '주문명:결제테스트'/*클래스 제목*/,
     				    amount : payAmount/*상품 가격*/, 
-    				    buyer_email : 'iamport@siot.do'/*구매자 이메일*/,
     				    buyer_name : '구매자이름',
     				    buyer_tel : '010-1234-5678'/*구매자 연락처*/,
-    				    buyer_addr : '서울특별시 강남구 삼성동'/*구매자 주소*/,
-    				    buyer_postcode : '123-456'/*구매자 우편번호*/
+    				    
     				}, function(rsp) {
     					var result = '';
     				    if ( rsp.success ) {
+							
+							
     				        var msg = '결제가 완료되었습니다.';
     				        msg += '고유ID : ' + rsp.imp_uid;
     				        msg += '상점 거래ID : ' + rsp.merchant_uid;
     				        msg += '결제 금액 : ' + rsp.paid_amount;
     				        msg += '카드 승인번호 : ' + rsp.apply_num;
     				        result ='0';
+    				        
+    				        
+    				       	swal({'icon' : 'success',
+    				       		  'title' : '결제가 완료되었습니다.'
+    				       		  });
+    				         $(".modal").css("display","none");
+    				        
     				    } else {
     				        var msg = '결제에 실패하였습니다.';
     				        msg += '에러내용 : ' + rsp.error_msg;
@@ -106,9 +113,47 @@ $(".modal").click(function (e) {
     				    }
     				    alert(msg);
     				});
+ 
 				}
 		});
 		
+	// 로그인한 회원의 클래스 신청 여부 조회
+	function selectRegisterDt(){
+		if(loginMemberNo != ''){
+			$.ajax({
+				
+				url : "selectRegisterDt",
+				data : {
+					   "memberNo" : loginMemberNo,
+					   'classNo' : classNo },
+				type : "POST",
+				success : function(registerDt){
+					console.log(registerDt);
+					
+				},
+				error : function(){
+					console.log("에러");
+				}
+				
+			});
+				
+		
+		}
+	}
+	
+	
+	//클래스 (회차) 신청 (insert)
+	function insertRegisterEp(){
+		if(loginMemberNo != ''){
+			$.ajax({
+				url : "insertRegisterEp",
+				data : {
+					
+				}
+				
+			})
+		}
+	}
 
 
 // 

@@ -60,6 +60,7 @@
 				                <a href="${contextPath}/chat/chatRoom">
 				                    <img src="${contextPath}/resources/images/class-detail/teacherProfileImg.png" class="profile-img" alt="k페이프로필사진">
 				                    <div class="talk">
+				                    	<p class="classTitle"> [ <span> ${cdtr.cdt.className}</span> ] </p>
 				                        <p class="friend-name"><span>${chatRoom.teacherNm}</span> 강사님</p>
 				                        <p class="chat-content">${chatRoom.chatMessage.msgContent}</p>
 				                    </div>

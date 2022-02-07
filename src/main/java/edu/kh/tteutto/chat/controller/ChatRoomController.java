@@ -117,8 +117,8 @@ public class ChatRoomController {
 //  -> 채팅장 입장 시 로그인이 되어있지 않은 경우
 //     == 주소로 채팅방에 강제 접근
 	@ExceptionHandler(HttpSessionRequiredException.class)
-	public String exceptionHandler(Exception e) {
-		
-		return "redirect:../../member/login";   
+	public String exceptionHandler(Exception e, RedirectAttributes ra) {
+		Util.swalSetMessage("로그인 후 이용해주세요.", null, "info", ra);
+		return "redirect:../member/login";   
 	}
 }

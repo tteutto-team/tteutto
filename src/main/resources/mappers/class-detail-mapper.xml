@@ -51,12 +51,30 @@
 		<result property="epPlace" column="EP_PLACE" />
 	</resultMap>
 	
+	<!-- EpisodeSchedule VO -->
+	<resultMap type="EpisodeSchedule" id="epSchedule_rm">
+		<id property="epNo" column="EP_NO" />
+		
+		<result property="epCount" column="EP_COUNT" />
+		<result property="remainPeopleCnt" column="REMAIN_PEOPLE_CNT" />
+		<result property="epPrice" column="EP_PRICE" />
+		<result property="schdlDt" column="SCHDL_DT" />
+		<result property="schdlWeek" column="SCHDL_WEEK" />
+		<result property="schdlStartTime" column="SCHDL_START_TIME" />
+		<result property="schdlEndTime" column="SCHDL_END_TIME" />
+		<result property="possibleFl" column="POSSIBLE_FL" />
+		<result property="schdlTime" column="SCHDL_TIME" />
+	</resultMap>
+	
 	<!-- 클래스 상세 (결제박스) VO -->
 	<resultMap type="ClassDetailRight" id="classDetailRight_rm">
 		<collection property="cdt" resultMap="classDetail_rm"/>
 		<collection property="member" resultMap="member_rm"/>
 		<collection property="ep" resultMap="ep_rm"/>
+		<collection property="epSchedule" resultMap="epSchedule_rm"/>
 	</resultMap>
+	
+	
 	
 	
 	<!-- 클래스 상세조회 (오른쪽결제박스만) -->
@@ -69,10 +87,39 @@
 		JOIN MEMBER ON MEMBER.MEMBER_NO = CLASS.MEMBER_NO
 		JOIN EPISODE ON CLASS.CLASS_NO = EPISODE.CLASS_NO
 		WHERE CLASS.CLASS_NO = #{classNo}
+		AND CLASS_ST = 2
 		AND EP_COUNT IN (SELECT MAX(EP_COUNT) FROM EPISODE WHERE EPISODE.CLASS_NO = #{classNo})
 	</select>
 	
+	<!-- 클래스 상세페이지 - 회차 스케쥴 (일정) 선택 -->
+	<select id="selectEpisodeSchedule" resultMap="epSchedule_rm">
+		SELECT 
+				 SCHDL_TIME,
+		       EP_NO, 
+		       EP_COUNT, 
+		       CLASS_MAX_PERSON - CLASS_PERSON "REMAIN_PEOPLE_CNT", 
+		       EP_PRICE, 
+		       TO_CHAR(SCHDL_DT, 'YYYY"년" MM"월" DD"일' ) SCHDL_DT,
+		       SCHDL_WEEK, 
+		       SCHDL_START_TIME, 
+		       SCHDL_END_TIME,
+		       (SELECT COUNT(*) FROM EP_SCHEDULE WHERE SCHDL_NO = ES.SCHDL_NO AND SCHDL_DT > SYSDATE) "POSSIBLE_FL"
+		FROM CLASS
+		JOIN EPISODE USING(CLASS_NO)
+		JOIN EP_SCHEDULE ES USING(EP_NO)
+		WHERE CLASS_NO = #{classNo}
+		ORDER BY SCHDL_DT, TO_DATE(SCHDL_START_TIME, 'HH24:MI')
+	</select>
 	
+	<!-- 클래스 신청 여부 조회  -->
+	<select id="selectRegisterDt" resultType="string" >
+		SELECT TO_CHAR(SCHDL_DT, 'YYYY-MM-DD ' ) ||  SCHDL_START_TIME SCHDL_DT FROM CLASS 
+		JOIN EPISODE USING(CLASS_NO)
+		JOIN EP_SCHEDULE USING(EP_NO)
+		JOIN REGISTER R USING(EP_NO)
+		WHERE CLASS_NO = ${classNo}
+		AND R.MEMBER_NO = ${memberNo}
+	</select>
 	
 	
 	
