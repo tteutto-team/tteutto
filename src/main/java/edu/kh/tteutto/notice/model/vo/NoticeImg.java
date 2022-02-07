@@ -1,13 +1,13 @@
 package edu.kh.tteutto.notice.model.vo;
 
-public class noticeImg {
+public class NoticeImg {
 	private String noticeImgNo;
 	private String imgPath;
 	private String imgNm;
 	private String imgOriginal;
 	private String noticeNo;
 	
-	public noticeImg() { }
+	public NoticeImg() { }
 	
 	public String getNoticeImgNo() {
 		return noticeImgNo;

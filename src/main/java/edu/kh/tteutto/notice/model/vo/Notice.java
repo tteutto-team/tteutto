@@ -9,7 +9,7 @@ public class Notice {
 	private String noticeContent;
 	private String noticeDt;
 	private String noticeImgNo;
-	private List<noticeImg> imgList;
+	private List<NoticeImg> imgList;
 	
 	
 	public Notice() { }
@@ -54,11 +54,11 @@ public class Notice {
 		this.noticeImgNo = noticeImgNo;
 	}
 
-	public List<noticeImg> getImgList() {
+	public List<NoticeImg> getImgList() {
 		return imgList;
 	}
 
-	public void setImgList(List<noticeImg> imgList) {
+	public void setImgList(List<NoticeImg> imgList) {
 		this.imgList = imgList;
 	}
 	
