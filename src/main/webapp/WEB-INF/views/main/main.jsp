@@ -69,7 +69,7 @@
                 주변 클래스 추천<i class="fas fa-angle-right"></i>
             </span>
             <span class="location modal-open-btn" style="cursor: pointer;">
-                <i class=" fi-rr-marker"></i> <p>서울 종로구</p>
+                <i class=" fi-rr-marker"></i> <p id="location">서울 종로구</p>
             </span>
         </div>
 

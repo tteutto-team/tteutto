@@ -40,7 +40,9 @@
 		<typeAlias type="edu.kh.tteutto.chat.model.vo.ChatMessage" alias="ChatMessage" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.EpisodeClass" alias="EpisodeClass" />
 		<typeAlias type="edu.kh.tteutto.main.model.vo.ClassList" alias="ClassList" />
-
+		
+		<typeAlias type="edu.kh.tteutto.notice.model.vo.Notice" alias="Notice" />
+		<typeAlias type="edu.kh.tteutto.notice.model.vo.NoticeImg" alias="NoticeImg" />
 	</typeAliases>
 	
 	<!-- mapper 파일(SQL 작성되는파일) 위치 등록 부분 -->
@@ -52,6 +54,7 @@
 		<mapper resource="/mappers/class-detail-mapper.xml" />
 		<mapper resource="/mappers/chat-mapper.xml" />
 		<mapper resource="/mappers/class-list-mapper.xml" />
+		<mapper resource="/mappers/notice-mapper.xml" />
 	</mappers>
 			
 	
