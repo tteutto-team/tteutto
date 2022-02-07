@@ -41,6 +41,8 @@ public class ClassListContoller {
 		
 		if (search != null) {
 			pagination = service.getPagination(search, page);
+			pagination.setLimit(12);
+			pagination.setPageSize(5);
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("search", search);

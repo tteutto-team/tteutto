@@ -36,6 +36,7 @@ public class WishController {
 		
 		pagination = service.getPagination(memberNo, page);
 		pagination.setLimit(9);
+		pagination.setPageSize(5);
 		
 		wishList = service.selectWishList(pagination, memberNo);
 		
