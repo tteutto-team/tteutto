@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="${contextPath}/resources/css/jquery-ui.multidatespicker.css">
 	
     <section id="classInsert2">
-    	<form action="${contextPath}register/schedule" id="form" name="form" method="post">
+    	<form action="${contextPath}/register/schedule" id="form" name="form" method="post">
         <div class="fixWidth">
         <div id="register_header">
             <div>스케쥴 등록</div>
@@ -20,8 +20,8 @@
                     <div><h4>수업기간 <span class="redText">*</span></h4></div>
                     <div id="mdp-box">
                         <div id="mdp-demo"></div>
-                        <button type="button" id="testtest" >원데이테스트용</button>
-                        <button type="button" id="testtest1" >다회차테스트용</button>
+                        <!-- <button type="button" id="testtest" >원데이테스트용</button> -->
+                        <!-- <button type="button" id="testtest1" >다회차테스트용</button> -->
                     </div>
                     <div id="schedule-val">
                         <div><input type="button" id="schedule-btn" class="btn-click" value="날짜 불러오기"></input></div>
@@ -75,12 +75,15 @@
             <div id="c-location" class="bottomLine">
                 <div class="line1 h4-height"><h4>수업장소 주소 <span class="redText">*</span></h4></div> 
                 <div class="line2">
-                    <input type="text" id="roadAddrPart1"  name="roadAddrPart1" class="input-style" placeholder="서울시 구로구 구로동 100">
-                    <input type="text" id="addrDetail"  name="addrDetail" class="input-style" placeholder="스터디카페 비버통 2층">
+                    <input type="text" id="roadAddrPart1"  name="roadAddrPart1" class="input-style" placeholder="서울시 구로구 구로동 100" required>
+                    <input type="text" id="addrDetail"  name="addrDetail" class="input-style" placeholder="스터디카페 비버통 2층" required>
                     <!-- <button type="button" class="btn-click" onClick="goPopup();" >주소검색</button> -->
-                    <input type="button" class="btn-click" onClick="goPopup();" value="주소검색"/>
+                    <input type="button" class="btn-click" onClick="goPopup();" value="주소검색"/> 
                 </div>
+                <input type="hidden" id="epPlace1" name="epPlace1"/>
+                <input type="hidden" id="epPlace2" name="epPlace2"/>
             </div>
+			
 
             <div id="c-ptn">
                 <div class="line1">
@@ -88,11 +91,11 @@
                 </div>
                 <div id="ptn-multi">
                     <div>시간당 가격</div>
-                    <div><input type="number" id="time-price" class="input-style largeSize"> &nbsp원</div>
+                    <div><input type="number" id="time-price" class="input-style largeSize" required> &nbsp원</div>
                     <div>1회당 수업시간</div>
-                    <div><input type="number" id="num-time" class="input-style largeSize"> &nbsp시간</div>
+                    <div><input type="number" id="num-time" name="scheduleTime" class="input-style largeSize" required> &nbsp시간</div>
                     <div>총 수업횟수</div>
-                    <div><input type="number" id="num-class" class="input-style largeSize"> &nbsp회</div>
+                    <div><input type="number" id="num-class" class="input-style largeSize" readonly required> &nbsp회</div>
                 </div>
                 <div id="ptn-one" style="display: none;">
                     <div>시간당 가격</div>
@@ -118,6 +121,7 @@
                             연결수수료 <span>99,999원</span>
                         </div>
                     </div>
+                    <input type="hidden" id="epPrice" name="epPrice"/>
                     <div><span class="redText" style="font-weight: bold; font-size: large;">Q.</span> 뜨또의 수수료 정책은 어떻게 되나요?</div>
                     <div><span style="font-weight: bold; font-size: large;">A.</span> 뜨또 연결 수수료는 다회차 수업의 경우 첫 1시간 수업료, 원데이 클래스의 경우 전체 수업료의 20%입니다.</div>
                 </div>

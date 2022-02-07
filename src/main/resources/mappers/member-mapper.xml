@@ -64,6 +64,17 @@
 		<result property="certEndDt" column="CERT_END_DT" />
 	</resultMap>
 	
+	<resultMap type="ClassRegister" id="classRegister_rm">
+		<id property="regNo" column="REG_NO"/>
+		<result property="classNo" column="CLASS_NO"/>
+		<result property="className" column="CLASS_NM"/>
+		<result property="classStatus" column="CLASS_ST"/>
+		<result property="scheduleDate" column="SCHDL_DT"/>
+		<result property="refundStatus" column="REFUND_ST"/>
+		<result property="refundMoney" column="REFUND_MONEY"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+	</resultMap>
+	
 	
 	<!-- 로그인 -->
 	<select id="login" resultMap="member_rm">
@@ -272,4 +283,33 @@
 		#{memberBirth}, #{memberGender}, #{memberPno}, 
 		null, SYSDATE, DEFAULT, DEFAULT)
 	</insert>
+	
+	<!-- 학생 수강 신청목록 -->
+	<select id="studentClassList" resultMap="classRegister_rm">
+		SELECT A.*,
+	    (SELECT MIN(SCHDL_DT) || ' ~ ' || MAX(SCHDL_DT) 
+	            FROM EP_SCHEDULE
+	            WHERE EP_NO = A.EP_NO)
+		FROM(
+		    SELECT EP_NO, CLASS_NO, CLASS_NM, CLASS_ST, REFUND_ST, REFUND_MONEY
+		    FROM CLASS
+		    JOIN EPISODE EP USING(CLASS_NO)
+		    JOIN REGISTER R USING(EP_NO)
+		    LEFT JOIN REFUND USING(REG_NO)
+		    WHERE R.MEMBER_NO = #{memberNo}) A
+	</select>
+	<!--
+	<select id="studentCommentList" resultMap="">
+		SELECT  RE_NO, CLASS_NM, EP_COUNT, MEMBER_NM, RE_STAR, RE_CONTENT  
+		FROM REVIEW
+	    JOIN REGISTER R USING(REG_NO)
+	    JOIN EPISODE USING(EP_NO)
+	    JOIN CLASS C USING(CLASS_NO)
+	    JOIN MEMBER M ON(C.MEMBER_NO = M.MEMBER_NO)
+	    WHERE R.MEMBER_NO = #{memberNo}
+	</select>
+	-->
+	
+	
+	
 </mapper>

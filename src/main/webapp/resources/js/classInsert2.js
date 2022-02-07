@@ -53,7 +53,8 @@ const date = new Date();
 
                 dateOrder = dateVal[i].substring(6, 10) + "/" + dateVal[i].substring(0, 5);
 
-                $('#schedule-table > tbody:last').append('<tr><td class="time-td2">'+num+'일차</td><td class="time-td">'+dateOrder+'</td class="time-td4"><td>'+week2[i]+'</td><td class="time-td"><select id="startTime'+num+'" class="time-box"></select></td><td> ~ </td><td class="time-td"><select id="endTime'+num+'" class="time-box"></select></td></tr>');
+                $('#schedule-table > tbody:last').append('<tr><td class="time-td2">'+num+'일차</td><td class="time-td"><input type="text" class="tdInput" name="schdlDt" value="'+dateOrder+'" readonly></td class="time-td4" ><td><input type="text" class="tdInput" name="schdlWeek" value="'+week2[i]+'" readonly></td><td class="time-td"><select name="schdlStartTime" id="startTime'+num+'" class="time-box"></select></td><td> ~ </td><td class="time-td"><input type="text" id="endTime'+num+'" name="schdlEndTime" class="time-box" value="10:00" readonly/></td></tr>');
+                
                 
                 $("select#startTime" + num).append("<option value='9'>09:00</option>");
                 $("select#startTime" + num).append("<option value='10'>10:00</option>");
@@ -71,7 +72,7 @@ const date = new Date();
                 $("select#startTime" + num).append("<option value='22'>22:00</option>");
                 $("select#startTime" + num).append("<option value='23'>23:00</option>");
                 
-                
+                /*
                 $("select#endTime" + num).append("<option value='10'>10:00</option>");
                 $("select#endTime" + num).append("<option value='11'>11:00</option>");
                 $("select#endTime" + num).append("<option>12:00</option>");
@@ -86,9 +87,10 @@ const date = new Date();
                 $("select#endTime" + num).append("<option>21:00</option>");
                 $("select#endTime" + num).append("<option>22:00</option>");
                 $("select#endTime" + num).append("<option>23:00</option>");
-
+				*/
                 
                 // 옵션 최소시간 알아서 맞추기
+                /*
                 $("select#startTime" + num).on("change", function(){
                     // console.log(this.parentNode.nextSibling.nextSibling.firstChild);
                     let et = this.parentNode.nextSibling.nextSibling.firstChild;
@@ -102,6 +104,26 @@ const date = new Date();
                     }
 
                 })
+                */
+                
+                // 옵션 endTime 알아서 맞추기
+                $("select#startTime" + num).on("change", function(){
+                    let et = this.parentNode.nextSibling.nextSibling.firstChild;
+                    let v = $(this).val();
+                    let c = $("#num-time").val();
+                    let s = Number(v) + Number(c);
+                    let t = s + ":00";
+					et.value = t;
+                })      
+                
+                
+                // 총 수업횟수 구겨넣기
+                $("#num-class").val(i + 1);
+                $("#sumPrice").html("");
+			    let sum = $("#time-price").val() * $("#num-time").val() * $("#num-class").val();
+			    let per = Math.floor($("#time-price").val());
+			    $("#sumPrice").html("총 <span class='redText'>" + sum + "원</span> <br> 연결수수료 " + per + "원");
+			    $("#epPrice").val(sum);
 
                 num++;
             }
@@ -342,7 +364,7 @@ $("#num-time").on("input", function(){
     $("#pt2").html("x " + $(this).val());
 })
 
-$("#num-class").on("input", function(){
+$("#num-class").on("propertychange change keyup paste input", function(){
     $("#pt3").html("");
     $("#pt3").html("x " + $(this).val());
 })
@@ -352,6 +374,7 @@ $("#time-price, #num-time, #num-class").on("input", function(){
     let sum = $("#time-price").val() * $("#num-time").val() * $("#num-class").val();
     let per = Math.floor($("#time-price").val());
     $("#sumPrice").html("총 <span class='redText'>" + sum + "원</span> <br> 연결수수료 " + per + "원");
+    $("#epPrice").val(sum);
 })
 
 //------------------ test------------------------
@@ -393,10 +416,16 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAdd
 		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
 		document.form.roadAddrPart1.value = roadAddrPart1;
 		document.form.addrDetail.value = addrDetail;
-		document.form.emdNm.value = emdNm;
-		document.form.liNm.value = liNm;
-		document.form.rn.value = rn;
+
 }
+/*
 
+$("#roadAddrPart1").on("propertychange change keyup paste input", function(){
+	$("#epPlace1").val($(this).val());
+})
 
+$("#addrDetail").on("propertychange change keyup paste input", function(){
+	$("#epPlace2").val($(this).val());
+})
+*/
 
