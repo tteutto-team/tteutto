@@ -25,7 +25,8 @@ public class WishController {
 	
 	// 찜한 클래스
 	@RequestMapping("studentWishList")
-	public String studentWishList(Model model, @ModelAttribute("loginMember") Member loginMember, 
+	public String studentWishList(Model model, 
+			@ModelAttribute("loginMember") Member loginMember, 
 			@RequestParam(value="page", required=false, defaultValue="1") int page) {
 		 
 		int memberNo = loginMember.getMemberNo();
