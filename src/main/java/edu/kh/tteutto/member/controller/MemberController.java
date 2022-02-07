@@ -219,11 +219,18 @@ public class MemberController {
 			}
 			cookie.setPath(req.getContextPath());
 			resp.addCookie(cookie);
+			return "redirect:/";
 		} else {
-			ra.addFlashAttribute("message", "아이디 또는 비밀번호를 확인해주세요.");
-
+			String title = "로그인 실패";
+			String text = "아이디, 비밀번호를 확인해주세요.";
+			String icon = "error"; // success, error, info, warning
+			
+			ra.addFlashAttribute("title", title);
+			ra.addFlashAttribute("text", text);
+			ra.addFlashAttribute("icon", icon);
+			return "redirect:/member/login";
 		}
-		return "redirect:/";
+		
 	}
 
 	// 로그아웃

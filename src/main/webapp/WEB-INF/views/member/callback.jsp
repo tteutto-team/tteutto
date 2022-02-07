@@ -34,7 +34,7 @@
 		swal({
 			title : "이미 회원 가입 상태입니다",
 			text : "홈페이지 로그인을 이용해주세요",
-			icon : "info"
+			icon : "error"
 		}).then(function(){
 			window.location.href="login"
 		});
