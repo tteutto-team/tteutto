@@ -42,7 +42,11 @@ public class ClassRoomController {
 	@RequestMapping(value = "classEpisode", method=RequestMethod.POST)
 	public String classEpisode(String classId) {
 		
+		System.out.println("classId: " + classId);
+		
 		List<EpisodeClass> episodeList = service.selectClassEpisode(classId);
+		
+		System.out.println("episodeList? " + episodeList);
 		
 		return "null";
 	}

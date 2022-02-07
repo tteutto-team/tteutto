@@ -494,9 +494,12 @@ public class MemberController {
 			status.setComplete();	// 세션 만료
 			Util.swalSetMessage("탈퇴가 되었습니다.", "그동안 뜨또를 사랑해주셔서 감사합니다.", "success", ra);
 			path="/";
-		} else {
-			Util.swalSetMessage("탈퇴 실패", "관리자에게 문의해주세요.", "error", ra);
+		} else if(result == -1) {
+			Util.swalSetMessage("탈퇴 실패", "수강 중이거나 수강예정인 강의가 있습니다. 관리자에게 문의해주세요.", "error", ra);
 			path = "resign";
+		} else {
+		Util.swalSetMessage("탈퇴 실패", "관리자에게 문의해주세요.", "error", ra);
+		path = "resign";
 		}
 		
 		return "redirect:" + path;
