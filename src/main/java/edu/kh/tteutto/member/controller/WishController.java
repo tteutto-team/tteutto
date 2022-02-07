@@ -17,7 +17,7 @@ import edu.kh.tteutto.member.model.vo.Member;
 
 @Controller
 @SessionAttributes({"loginMember"})
-@RequestMapping("/member/*")
+@RequestMapping("/member2/*")
 public class WishController {
 	
 	@Autowired
@@ -30,11 +30,20 @@ public class WishController {
 			@RequestParam(value="page", required=false, defaultValue="1") int page) {
 		 
 		int memberNo = loginMember.getMemberNo();
+		System.out.println("memberNo = " + memberNo);
 		
 		Pagination pagination = null;
 		List<ClassList> wishList = null;
 		
-		pagination = service.getPagination(page);
+		pagination = service.getPagination(memberNo, page);
+		System.out.println(pagination);
+		
+		
+		wishList = service.selectWishList(pagination, memberNo);
+		System.out.println(wishList);
+		
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("wishList", wishList);
 		
 		return "member/studentWishList";
 	}
