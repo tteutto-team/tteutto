@@ -68,7 +68,14 @@ public class AdminServiceImpl implements AdminService{
 	// 클래스 상세 조회
 	@Override
 	public AdminClass selectClass(int classNo) {
-		return dao.selectClass(classNo);
+		
+		AdminClass classOne = dao.selectClass(classNo);
+		
+		if(classOne != null) {
+			dao.classStatusUpdate(classNo);
+		}
+		
+		return classOne;
 	}
 
 	// 유저 목록 조회
@@ -80,6 +87,12 @@ public class AdminServiceImpl implements AdminService{
 	// 유저 정보 업데이트
 	@Override
 	public int userSave(Admin admin) {
+		
+		if(admin.getTeacherStatus() != 100) {
+			dao.teacherStatusUpdate2(admin);
+		}
+		
+		
 		return dao.userSave(admin);
 	}
 	
