@@ -236,6 +236,15 @@
 		SELECT * FROM MEMBER
 		WHERE MEMBER_EMAIL = #{email}
 		AND MEMBER_ST = 0
+		AND MEMBER_PW IS NULL
+	</select>
+	
+	<!-- sns 이메일 중복 검사 -->
+	<select id="emailCheck" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_EMAIL = #{email}
+		AND MEMBER_ST != 2
 	</select>
 	
 	<!-- 회원가입 -->
