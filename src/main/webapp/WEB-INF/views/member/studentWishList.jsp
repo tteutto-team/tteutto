@@ -88,7 +88,7 @@
 					                
 					                <c:otherwise>
 						                <!-- 선택되지 않은 페이지 -->
-						                <li><a href="searchList?page=${i}">${i}</a></li>
+						                <li><a href="studentWishList?page=${i}">${i}</a></li>
 					                </c:otherwise>
 				                </c:choose>
 			                </c:forEach>

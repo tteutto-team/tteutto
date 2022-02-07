@@ -30,17 +30,14 @@ public class WishController {
 			@RequestParam(value="page", required=false, defaultValue="1") int page) {
 		 
 		int memberNo = loginMember.getMemberNo();
-		System.out.println("memberNo = " + memberNo);
 		
 		Pagination pagination = null;
 		List<ClassList> wishList = null;
 		
 		pagination = service.getPagination(memberNo, page);
-		System.out.println(pagination);
-		
+		pagination.setLimit(9);
 		
 		wishList = service.selectWishList(pagination, memberNo);
-		System.out.println(wishList);
 		
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("wishList", wishList);
