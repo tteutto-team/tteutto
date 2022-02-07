@@ -8,6 +8,5 @@ import edu.kh.tteutto.main.model.vo.Pagination;
 
 public interface ClassListService {
 	Pagination getPagination(String search, int page);
-
 	List<ClassList> selectSearchList(Pagination pagination, Map<String, Object> map);
 }
