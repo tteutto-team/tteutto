@@ -53,6 +53,18 @@
       "css": "close",
       "code": 59393,
       "src": "entypo"
+    },
+    {
+      "uid": "d870630ff8f81e6de3958ecaeac532f2",
+      "css": "left",
+      "code": 59395,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "399ef63b1e23ab1b761dfbb5591fa4da",
+      "css": "right",
+      "code": 59396,
+      "src": "fontawesome"
     }
   ]
 }

@@ -71,8 +71,17 @@
 						<%-- 로그인 시 노출되는 메뉴 --%>
 						<c:otherwise>
 							<ul class="login">
-								<%-- 클래스 등록 페이지로 이동 --%>
-								<li><a href="${contextPath}/register/class">클래스 등록하기</a></li>
+								<c:choose>
+									<%-- 강사 미등록 시 강사 신청 페이지로 이동 --%>
+									<c:when test="${sessionScope.loginMember.teacherEnroll == 'N'}">
+										<li><a href="${contextPath}/member/teacherRegister" onclick="alert('강사 등록 후 이용 가능합니다.');">클래스 등록하기</a></li>
+									</c:when>
+									
+									<%-- 강사 등록 시 클래스 등록 페이지로 이동 --%>
+									<c:otherwise>
+										<li><a href="${contextPath}/register/class">클래스 등록하기</a></li>
+									</c:otherwise>
+								</c:choose>
 								
 								<%-- 찜한 클래스 페이지로 이동--%>
 								<li><a href="${contextPath}/member/studentWishList"><i class="icon-heart"></i></a></li>
@@ -128,8 +137,17 @@
 										</div>
 										
 										<div class="modal-2">
-											<%-- 강사 프로필 페이지로 이동 --%>
-											<div><a href="${contextPath}/member/teacherProfile" target="_blank">강사 페이지 열기</a></div>
+											<c:choose>
+												<%-- 강사 미등록 시 강사 신청 페이지로 이동 --%>
+												<c:when test="${sessionScope.loginMember.teacherEnroll == 'N'}">
+													<div><a href="${contextPath}/member/teacherRegister" onclick="alert('강사 등록 후 이용 가능합니다.');">강사 페이지 열기</a></div>
+												</c:when>
+												
+												<%-- 강사 등록 시 강사 페이지 열기 --%>
+												<c:otherwise>
+													<div><a href="${contextPath}/member/teacherProfile" target="_blank">강사 페이지 열기</a></div>
+												</c:otherwise>
+											</c:choose>
 											
 											<%-- 로그아웃 후 Main 페이지로 이동 --%>
 											<div><a href="${contextPath}/member/logout">로그아웃</a></div>
