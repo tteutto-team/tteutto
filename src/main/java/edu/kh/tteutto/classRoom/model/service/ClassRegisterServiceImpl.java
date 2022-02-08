@@ -13,8 +13,11 @@ import edu.kh.tteutto.admin.model.vo.AdminNoticeImage;
 import edu.kh.tteutto.classRoom.model.dao.ClassRegisterDAO;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailImage;
+import edu.kh.tteutto.classRoom.model.vo.Episode;
+import edu.kh.tteutto.classRoom.model.vo.EpisodeSchedule;
 import edu.kh.tteutto.common.Util;
 import edu.kh.tteutto.member.model.dao.MemberDAO;
+import edu.kh.tteutto.member.model.vo.Sns;
 
 @Service
 public class ClassRegisterServiceImpl implements ClassRegisterService{
@@ -78,6 +81,25 @@ public class ClassRegisterServiceImpl implements ClassRegisterService{
 		
 	return classNo;
 		
+	}
+
+	// 스케쥴 등록
+	@Override
+	public int insertClassSchedule(Episode episode, List<EpisodeSchedule> epsList) {
+		
+		int epNo = dao.insertEpisode(episode);
+		
+		System.out.println(epNo);
+		
+		if(epNo > 0) {
+			
+			for(EpisodeSchedule es : epsList) {
+				es.setEpNo(epNo);
+				dao.insertEpisodeSchedule(es);
+			}
+		}
+		
+		return epNo;
 	}
 	
 }

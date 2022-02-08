@@ -23,6 +23,9 @@ const date = new Date();
         // const startDate = Math.abs(Math.floor((new Date().getTime() - new Date("2022-01-26").getTime())/1000/60/60/24));
         // const endDate = Math.abs(Math.floor((new Date().getTime() - new Date("2022-02-04").getTime())/1000/60/60/24));
 
+		// 날짜 불러왔는지 체크하는 변수
+		let dateloadcheck = false;
+
         $("#schedule-btn").on("click", function(){
             //console.log($("#mdp-demo").multiDatesPicker('getDates'));
             let dateVal = $("#mdp-demo").multiDatesPicker('getDates');
@@ -72,50 +75,44 @@ const date = new Date();
                 $("select#startTime" + num).append("<option value='22'>22:00</option>");
                 $("select#startTime" + num).append("<option value='23'>23:00</option>");
                 
-                /*
-                $("select#endTime" + num).append("<option value='10'>10:00</option>");
-                $("select#endTime" + num).append("<option value='11'>11:00</option>");
-                $("select#endTime" + num).append("<option>12:00</option>");
-                $("select#endTime" + num).append("<option>13:00</option>");
-                $("select#endTime" + num).append("<option>14:00</option>");
-                $("select#endTime" + num).append("<option>15:00</option>");
-                $("select#endTime" + num).append("<option>16:00</option>");
-                $("select#endTime" + num).append("<option>17:00</option>");
-                $("select#endTime" + num).append("<option>18:00</option>");
-                $("select#endTime" + num).append("<option>19:00</option>");
-                $("select#endTime" + num).append("<option>20:00</option>");
-                $("select#endTime" + num).append("<option>21:00</option>");
-                $("select#endTime" + num).append("<option>22:00</option>");
-                $("select#endTime" + num).append("<option>23:00</option>");
-				*/
-                
-                // 옵션 최소시간 알아서 맞추기
-                /*
-                $("select#startTime" + num).on("change", function(){
-                    // console.log(this.parentNode.nextSibling.nextSibling.firstChild);
-                    let et = this.parentNode.nextSibling.nextSibling.firstChild;
-                    $(et).children('option').remove();
-
-					let opc = 0;
-
-                    for(i=this.value; i<24; i++){
-                            opc = Number(i)+1;
-                            $(et).append('<option>'+opc+':00</option>');
-                    }
-
-                })
-                */
-                
                 // 옵션 endTime 알아서 맞추기
-                $("select#startTime" + num).on("change", function(){
+                $("select#startTime" + num).on("change focus", function(){
                     let et = this.parentNode.nextSibling.nextSibling.firstChild;
                     let v = $(this).val();
                     let c = $("#num-time").val();
                     let s = Number(v) + Number(c);
+                    
+                    if(s > 24){
+						s = 24;
+					}
+                    
                     let t = s + ":00";
 					et.value = t;
                 })      
                 
+                
+                $("#num-time").on("change input", function(){
+					let array = $("select[name=schdlStartTime]");
+					const nv = this.value;
+
+					for(i=0; i<array.length; i++){
+						let sv = array[i].value;
+						let ev = array[i].parentNode.nextSibling.nextSibling.firstChild;
+						
+						let sum = Number(sv) + Number(nv);
+						
+						if(sum > 24){
+							sum = 24;
+						}
+						
+						let sumtext = sum + ':00';
+						
+						ev.value = sumtext;
+						
+					}
+					
+				})
+				
                 
                 // 총 수업횟수 구겨넣기
                 $("#num-class").val(i + 1);
@@ -129,7 +126,7 @@ const date = new Date();
             }
 
 
-
+			dateloadcheck = true;
             $("#schedule-text").hide();
             $("#schedule-text").slideDown(400);
             
@@ -429,3 +426,12 @@ $("#addrDetail").on("propertychange change keyup paste input", function(){
 })
 */
 
+
+
+function dlc(){
+	if(dateloadcheck != true){
+		alert("수업 날짜를 불러와주세요.")
+		document.getElementById("mdp-box").scrollIntoView();
+		return false;
+	}
+}

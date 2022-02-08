@@ -28,6 +28,7 @@
                         <div class="column table-column">후기 내용</div>
                         <div class="column table-column"></div>
                     </div>
+                    <%--
                     <div class="row">
                         <div class="column">1</div>
                         <div class="column">클래스명1</div>
@@ -50,9 +51,70 @@
                             <button><i class="far fa-trash-alt"></i> 삭제</button>
                         </div>
                     </div>
+                    --%>
 
-
-                    
+					<c:choose>
+						<c:when test="${empty review}">
+							<div>응 후기안쓰면 그만이야~</div>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${review}" var="rv">
+			                    <div class="row">
+			                        <div class="column">${rv.reviewNo}</div>
+			                        <div class="column">${rv.className} (${rv.epCount}회차)</div>
+			                        <div class="column">${rv.memberName}</div>
+			                        <div class="column">
+			                        	<c:if test="${rv.reviewStar == 5}">
+				                            <i class="fas fa-star"></i>
+				                            <i class="fas fa-star"></i>
+				                            <i class="fas fa-star"></i>
+				                            <i class="fas fa-star"></i>
+				                            <i class="fas fa-star"></i>
+			                        	</c:if>
+			                        	<c:if test="${rv.reviewStar == 4}">
+				                            <i class="fas fa-star"></i>
+				                            <i class="fas fa-star"></i>
+				                            <i class="fas fa-star"></i>
+				                            <i class="fas fa-star"></i>
+				                            <i class="far fa-star"></i>
+			                        	</c:if>
+			                        	<c:if test="${rv.reviewStar == 3}">
+				                            <i class="fas fa-star"></i>
+				                            <i class="fas fa-star"></i>
+				                            <i class="fas fa-star"></i>
+				                            <i class="far fa-star"></i>
+				                            <i class="far fa-star"></i>
+			                        	</c:if>
+			                        	<c:if test="${rv.reviewStar == 2}">
+				                            <i class="fas fa-star"></i>
+				                            <i class="fas fa-star"></i>
+				                            <i class="far fa-star"></i>
+				                            <i class="far fa-star"></i>
+				                            <i class="far fa-star"></i>
+			                        	</c:if>
+			                        	<c:if test="${rv.reviewStar == 1}">
+				                            <i class="fas fa-star"></i>
+				                            <i class="far fa-star"></i>
+				                            <i class="far fa-star"></i>
+				                            <i class="far fa-star"></i>
+				                            <i class="far fa-star"></i>
+			                        	</c:if>
+			                        </div>
+			                        <div class="column">${rv.reviewContent}</div>
+			                        <div class="column slide">
+			                            <i class="fas fa-angle-down"></i>
+			                        </div>
+			                    </div>
+			                    <div class="invisible">
+			                        <div class="invisible-btn">
+			                        	<div style="display:none;">${rv.reviewStar}</div>
+			                            <button class="review-modal-btn"><i class="far fa-edit"></i> 수정</button>
+			                            <button class="review-delete-btn"><i class="far fa-trash-alt"></i> 삭제</button>
+			                        </div>
+			                    </div>
+		                    </c:forEach>
+						</c:otherwise>
+					</c:choose>
 
 
                 </div>
@@ -86,13 +148,14 @@
 
         <div id="review-modal">
             <div class="modal-content">
-                <form action="#" method="post">
+                <form action="${contextPath}/member/updateComment" method="POST" onsubmit="return starClick();">
                     <div class="modal-title">
                         <h2>후기 수정</h2>
                     </div>
     
                     <div class="modal-classname">
-                        <p>'클래스명1' - 홍길동</p>
+                        <p id="className">'클래스명1' - 홍길동</p>
+                        <input id="review-reviewNo" type="hidden" name="reviewNo"/>
                     </div>
 
                     <div class="score">
@@ -105,12 +168,12 @@
                         <i class="far fa-star"><span>5</span></i>
                     </div>
                     
-                    <textarea name="" class="modal-comment" placeholder="댓글 수정">댓글 내용</textarea>
+                    <textarea id="reviewContent" name="reviewContent" class="modal-comment" placeholder="댓글 내용 작성." required></textarea>
 
-                    <input type="hidden">
+                    <input id="reviewStar" type="hidden" name="reviewStar"/>
 
                     <div class="modal-btn">
-                        <button>수정하기</button>
+                        <button type="submit">수정하기</button>
                         <button type="button" class="modal-close-btn">취소</button>
                     </div>
                 </form>
@@ -130,9 +193,18 @@
 	
 	
     // 모달 열기
-    $(".review-modal-btn").click(function () {
+    $(".review-modal-btn").click(function (e) {
         $("#review-modal").fadeIn(100);
         $("#review-modal").css("display", "flex");
+        
+        const reviewNo = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[1].innerText;
+        const classNm = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[3].innerText;
+        const teacher = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[5].innerText;
+        const content = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[9].innerText;
+        const sum = classNm + " - " + teacher;
+        $("#className").html(sum);
+        $("#reviewContent").val(content);
+        $("#review-reviewNo").val(reviewNo);
     });
 
     // 모달 닫기 버튼
@@ -163,11 +235,51 @@
         }
     });
     
-    $(document).on("click", ".score > i", function(){
+    let checkStar = false;
+    
+    // 별점스
+    $(document).on("click", ".score > i", function(e){
     	$(".score > i").removeClass();
     	$(this).nextAll("i").addClass("far fa-star");
     	$(this).addClass("fas fa-star");
     	$(this).prevAll("i").addClass("fas fa-star");
+    	
+    	const star = e.target.childNodes[0].innerText;
+    	$("#reviewStar").val(star);
+    	checkStar = true;
     });
+
+    
+    // 별점은 꼭 눌러라
+    function starClick(){
+    	if(checkStar != true){
+    		alert("별점을 선택해주세요.");
+    		return false;
+    	}
+    }
+    
+    
+    // 후기 삭제
+    $(".review-delete-btn").on("click", function(e){
+    	if(confirm("정말로 후기를 삭제하시겠습니까?")){
+    		
+    		const reviewNo = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[1].innerText;
+    		console.log(reviewNo);
+    		
+    		$.ajax({
+                url : "deleteReview",      
+                data : {"reviewNo" : reviewNo},  
+                type : "POST",               
+                success : function(result){
+            		console.log("성공!");
+                },
+
+                error : function(){}
+
+            });
+    	}
+    })
+    
+    
 
 </script>

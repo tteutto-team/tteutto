@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailImage;
+import edu.kh.tteutto.classRoom.model.vo.Episode;
+import edu.kh.tteutto.classRoom.model.vo.EpisodeSchedule;
 
 @Repository
 public class ClassRegisterDAO {
@@ -18,18 +20,42 @@ public class ClassRegisterDAO {
 	
 	/** 클래스 등록
 	 * @param cdt
-	 * @return
+	 * @return classNo
 	 */
 	public int classInsert(ClassDetail cdt) {
-		return sqlSession.insert("classMapper.classInsert", cdt);
+		int result = sqlSession.insert("classMapper.classInsert", cdt);
+		
+		if(result > 0)  return cdt.getClassNo();
+		else			return 0;
+		
 	}
 
 	/** 클래스 이미지 등록
 	 * @param imgList
-	 * @return
+	 * @return result
 	 */
 	public int insertImgList(List<ClassDetailImage> imgList) {
 		return sqlSession.insert("classMapper.classImageInsert", imgList);
+	}
+
+	/** 클래스 스케쥴 등록 (EPISODE)
+	 * @param episode
+	 * @return epNo
+	 */
+	public int insertEpisode(Episode episode) {
+		int result = sqlSession.insert("classMapper.insertEpisode", episode);
+		
+		if(result > 0)  return episode.getEpNo();
+		else			return 0;
+	}
+
+	/** 클래스 스케쥴 등록 (EP_SCHEDULE)
+	 * @param episodeSd
+	 * @return result
+	 */
+	public int insertEpisodeSchedule(EpisodeSchedule episodeSd) {
+		return sqlSession.insert("classMapper.insertEpisodeSchedule", episodeSd);
+
 	}
 	
 }

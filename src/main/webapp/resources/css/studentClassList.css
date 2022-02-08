@@ -141,7 +141,7 @@ main{
 }
 
 /* 버튼 */
-.invisible-btn > button{
+.invisible-btn button{
     /* margin-left: 10px;
     padding: 3px;
     border-radius: 5px;
@@ -159,7 +159,7 @@ main{
     border: 1px solid rgba(70, 70, 70, 0.788);
     background: none;
 }
-.invisible-btn > button:hover{
+.invisible-btn button:hover{
     border-color: #e4e5ed;
     background-color: #FFDF3E;
 }

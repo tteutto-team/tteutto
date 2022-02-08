@@ -12,10 +12,65 @@ public class ClassReview {
 		private int regNo; //수강번호
 		private int reviewAvg; //별점평균
 	
+		private String className; // 클래스명
+		private int epCount; // 클래스 회차
+		private String memberName; // 강사명
+		
 		
 		public ClassReview() {
 			// TODO Auto-generated constructor stub
 		}
+
+		
+		
+		
+
+		public String getClassName() {
+			return className;
+		}
+
+
+
+
+
+		public void setClassName(String className) {
+			this.className = className;
+		}
+
+
+
+
+
+		public int getEpCount() {
+			return epCount;
+		}
+
+
+
+
+
+		public void setEpCount(int epCount) {
+			this.epCount = epCount;
+		}
+
+
+
+
+
+		public String getMemberName() {
+			return memberName;
+		}
+
+
+
+
+
+		public void setMemberName(String memberName) {
+			this.memberName = memberName;
+		}
+
+
+
 
 
 		public int getReviewNo() {
@@ -91,15 +146,16 @@ public class ClassReview {
 		}
 
 
+
+
+
 		@Override
 		public String toString() {
 			return "ClassReview [reviewNo=" + reviewNo + ", reviewStar=" + reviewStar + ", reviewContent="
 					+ reviewContent + ", reviewDt=" + reviewDt + ", reviewStatus=" + reviewStatus + ", regNo=" + regNo
-					+ ", reveiwAvg=" + reviewAvg + "]";
+					+ ", reviewAvg=" + reviewAvg + ", className=" + className + ", epCount=" + epCount + ", memberName="
+					+ memberName + "]";
 		}
-
-
-		
 
 
 		

@@ -37,7 +37,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.tteutto.chat.model.vo.ChatRoom;
+import edu.kh.tteutto.classRoom.model.vo.ClassRefund;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
+import edu.kh.tteutto.classRoom.model.vo.ClassReport;
+import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.common.Util;
 import edu.kh.tteutto.main.model.vo.ClassList;
@@ -432,7 +436,13 @@ public class MemberController {
 	public String studentCommentList(@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 			   						 @ModelAttribute("loginMember") Member loginMember,
 			   						 Model model) {
-		Pagination pagination = null;
+		//Pagination pagination = null;
+		
+		int memberNo = loginMember.getMemberNo();
+		
+		List<ClassReview> review = service.studentCommentList(memberNo);
+		
+		model.addAttribute("review", review);
 		
 		return "member/studentCommentList";
 	}
@@ -737,6 +747,85 @@ public class MemberController {
 		return null;
 	}
 	
+	// 내 클래스 목록에서 후기 작성
+	@RequestMapping("insertComment")
+	public String insertComment(ClassReview classReview, RedirectAttributes ra) {
+		
+		int result = service.insertComment(classReview);
+		
+		if(result > 0) {
+			ra.addFlashAttribute("message", "후기 작성이 완료되었습니다.");			
+		}
+		
+		return "redirect:/member/studentClassList";
+	}
+	
+	// 내 클래스 목록에서 신고 작성
+	@RequestMapping("insertReport")
+	public String insertReport(ClassReport classReport, RedirectAttributes ra) {
+		
+		int result = service.insertReport(classReport);
+		
+		if(result > 0) {
+			ra.addFlashAttribute("message", "신고가 정상적으로 접수되었습니다.");			
+		}
+		
+		return "redirect:/member/studentClassList";
+	}
+	
+	// 학생 후기 수정
+	@RequestMapping("updateComment")
+	public String updateComment(ClassReview classReview, RedirectAttributes ra) { 
+		
+		int result = service.updateReport(classReview);
+		
+		if(result > 0) {
+			ra.addFlashAttribute("message", "후기 수정이 완료되었습니다.");			
+		}
+		
+		return "redirect:/member/studentCommentList";
+	}
+	
+	// 학생 - 강사 채팅방 생성
+	@RequestMapping("insertChatRoom")
+	public String insertChatRoom(@ModelAttribute("loginMember") Member loginMember, ChatRoom chatRoom) {
+		
+		chatRoom.setMemberNo(loginMember.getMemberNo());
+	
+		int check = service.checkChatRoom(chatRoom);
+		
+		if(check == 0) {
+			int result = service.insertChatRoom(chatRoom);			
+		}
+		
+		return "redirect:/member/studentClassList";
+	}
+	
+	// 클래스 환불 신청
+	@RequestMapping("refundClass")
+	public String refundClass(ClassRefund refund, RedirectAttributes ra) {
+
+		int result = service.refundClass(refund);
+		
+		if(result > 0) {
+			ra.addFlashAttribute("message", "환불 신청이 완료되었습니다.");			
+		}
+		
+		return "redirect:/member/studentClassList";
+	}
+	
+	// 학생 후기 삭제
+	@RequestMapping("deleteReview")
+	public String deleteReview(int reviewNo, RedirectAttributes ra) {
+
+		int result = service.deleteReview(reviewNo);
+		
+		if(result > 0) {
+			ra.addFlashAttribute("message", "후기가 삭제되었습니다.");			
+		}
+		
+		return "redirect:/member/studentClassList";
+	}
 	
 	
 }

@@ -12,7 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.tteutto.chat.model.vo.ChatRoom;
+import edu.kh.tteutto.classRoom.model.vo.ClassRefund;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
+import edu.kh.tteutto.classRoom.model.vo.ClassReport;
+import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.common.Util;
 import edu.kh.tteutto.main.model.vo.ClassList;
@@ -387,9 +391,58 @@ public class MemberServiceImpl implements MemberService{
 		return dao.selectWishList(pagination, memberNo);
 	}
 
+	// 학생 수강신청 목록 조회
 	@Override
 	public List<ClassRegister> studentClassList(int memberNo) {
 		return dao.studentClassList(memberNo);
+	}
+
+	// 학생 클래스 신고
+	@Override
+	public int insertReport(ClassReport classReport) {
+		return dao.insertReport(classReport);
+	}
+
+	// 학생 후기 작성
+	@Override
+	public int insertComment(ClassReview classReview) {
+		return dao.insertComment(classReview);
+	}
+
+	// 학생 작성한 후기 목록 조회
+	@Override
+	public List<ClassReview> studentCommentList(int memberNo) {
+		return dao.studentCommentList(memberNo);
+	}
+
+	// 학생 후기 수정
+	@Override
+	public int updateReport(ClassReview classReview) {
+		return dao.updateReport(classReview);
+	}
+
+	// 학생 대 강사 채팅방 생성
+	@Override
+	public int insertChatRoom(ChatRoom chatRoom) {
+		return dao.insertChatRoom(chatRoom);
+	}
+
+	// 채팅방이 이미 있는지 확인
+	@Override
+	public int checkChatRoom(ChatRoom chatRoom) {
+		return dao.checkChatRoom(chatRoom); 
+	}
+
+	// 클래스 환불 신청
+	@Override
+	public int refundClass(ClassRefund refund) {
+		return dao.refundClass(refund);
+	}
+
+	// 학생 후기 삭제
+	@Override
+	public int deleteReview(int reviewNo) {
+		return dao.deleteReview(reviewNo);
 	}
 	
 
