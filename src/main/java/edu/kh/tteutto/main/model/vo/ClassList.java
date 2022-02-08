@@ -12,6 +12,7 @@ public class ClassList {
 	private String memberName;			// 회원명
 	private String categoryDetailName;	// 세부카테고리명
 	
+	private int episodeNo;		// 회차번호
 	private double starAverage;	// 별점평균
 	private int heartCount;		// 찜개수
 	private int heartFlag;		// 찜여부
@@ -91,6 +92,14 @@ public class ClassList {
 		this.categoryDetailName = categoryDetailName;
 	}
 
+	public int getEpisodeNo() {
+		return episodeNo;
+	}
+
+	public void setEpisodeNo(int episodeNo) {
+		this.episodeNo = episodeNo;
+	}
+
 	public double getStarAverage() {
 		return starAverage;
 	}
@@ -128,7 +137,8 @@ public class ClassList {
 		return "ClassList [classNo=" + classNo + ", classArea=" + classArea + ", classType=" + classType
 				+ ", className=" + className + ", thumbnailImageName=" + thumbnailImageName + ", categoryName="
 				+ categoryName + ", teacherImage=" + teacherImage + ", memberName=" + memberName
-				+ ", categoryDetailName=" + categoryDetailName + ", starAverage=" + starAverage + ", heartCount="
-				+ heartCount + ", heartFlag=" + heartFlag + ", episodePrice=" + episodePrice + "]";
+				+ ", categoryDetailName=" + categoryDetailName + ", episodeNo=" + episodeNo + ", starAverage="
+				+ starAverage + ", heartCount=" + heartCount + ", heartFlag=" + heartFlag + ", episodePrice="
+				+ episodePrice + "]";
 	}
 }
