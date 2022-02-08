@@ -25,6 +25,8 @@
 		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminCalcRefund" alias="AdminCalcRefund" />
 		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminClass" alias="AdminClass" />
 		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminClassThumbnail" alias="AdminClassThumbnail" />
+		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminEpisode" alias="AdminEpisode" />
+		<typeAlias type="edu.kh.tteutto.admin.model.vo.AdminEpisodeSchedule" alias="AdminEpisodeSchedule" />
 		
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Member" alias="Member" />
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Career" alias="Career" />

@@ -43,8 +43,9 @@
 		</div>
 		<div class="admin-list">
 			<div>
-				<a href="${contextPath}/admin/classEpisodeManage"><i class="far fa-circle"></i> 회차별 신청 관리</a>
 				<a href="${contextPath}/admin/classManage"><i class="far fa-circle"></i> 클래스 신청 관리</a>
+				<a href="${contextPath}/admin/classUpdateManage"><i class="far fa-circle"></i> 클래스 수정 관리</a>
+				<a href="${contextPath}/admin/classEpisodeManage"><i class="far fa-circle"></i> 회차별 신청 관리</a>
 			</div>
 		</div>
 		<div class="admin-list">
@@ -56,7 +57,7 @@
 		<div class="admin-list">
 			<div>
 				<a href="${contextPath}/admin/studentReportManage"><i class="far fa-circle"></i> 학생 신고 관리</a>
-				<a href="#"><i class="far fa-circle"></i> 클래스 신고 관리</a>
+				<a href="${contextPath}/admin/classReportManage"><i class="far fa-circle"></i> 클래스 신고 관리</a>
 			</div>
 		</div>
 		<div class="admin-list">

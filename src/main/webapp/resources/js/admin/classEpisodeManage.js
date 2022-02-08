@@ -11,22 +11,32 @@ function createTable() {
 			$('#table_id').DataTable({
 				language: lang_kor,
 				data: data,
-				order: [[3, "asc"]],
+				order: [[4, "asc"]],
 				columns: [
-					{ data: "classNo" },
+					{ data: "episodeNo" },
 					{
 						data: null,
 						render: function (data, type, row) {
-							return '<a href="#">' + data.className + '-' + data.episodeCount + '회차</a>';
+							return '<a href="classEpisode/'+ data.episodeNo +'?no='+ data.classNo +'">' + data.className + '-' + data.episodeCount + '회차</a>';
 						}
 					},
 					{ data: "memberName" },
+					{
+						data: null,
+						render: function (data, type, row) {
+							if(data.episodeStatus == 0){
+								return "신청완료";
+							}else{
+								return "검토중";
+							}
+						}
+					},
 					{ data: "classRequestDate" },
 					{
 						data: null,
 						render: function (data, type, row) {
-							return '<button onclick="agree(' + data.classNo + ', ' + data.memberNo + ', \'' + data.className + '-' + data.episodeCount + '\')">승인</button>'
-							+ '<button onclick="deny(' + data.classNo + ', ' + data.memberNo + ', \'' + data.className + '-' + data.episodeCount + '\')">거절</button>';
+							return '<button onclick="agree(' + data.episodeNo + ', ' + data.memberNo + ', \'' + data.className + '-' + data.episodeCount + '\')">승인</button>'
+							+ '<button onclick="deny(' + data.episodeNo + ', ' + data.memberNo + ', \'' + data.className + '-' + data.episodeCount + '\')">거절</button>';
 						},
 						orderable: false
 					}
@@ -36,7 +46,7 @@ function createTable() {
 	})
 }
 
-function agree(classNo, memberNo, className) {
+function agree(episodeNo, memberNo, className) {
 	Swal.fire({
 		title: '승인 하시겠습니까?',
 		icon: 'warning',
@@ -51,7 +61,7 @@ function agree(classNo, memberNo, className) {
 				url: "episodeAgree",
 				dataType: "json",
 				data: {
-					"classNo": classNo,
+					"episodeNo": episodeNo,
 					"memberNo": memberNo,
 					"className": className,
 				},
@@ -84,7 +94,7 @@ function agree(classNo, memberNo, className) {
 }
 
 // 거절 쪽지 보내기
-function deny(classNo, memberNo, className) {
+function deny(episodeNo, memberNo, className) {
 	Swal.fire({
 		title: '거절 하시겠습니까?',
 		input: "select",
@@ -107,7 +117,7 @@ function deny(classNo, memberNo, className) {
 				url: "episodeDeny",
 				dataType: "json",
 				data: {
-					"classNo": classNo,
+					"episodeNo": episodeNo,
 				},
 				success: function (result) {
 					if (result > 0) {

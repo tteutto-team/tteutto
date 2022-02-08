@@ -4,7 +4,7 @@ $(function () {
 
 function createTable() {
 	$.ajax({
-		url: "studentReportList",
+		url: "classReportList",
 		type: "GET",
 		dataType: "JSON",
 		success: function (data) {

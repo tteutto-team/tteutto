@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.kh.tteutto.admin.model.vo.Admin;
 import edu.kh.tteutto.admin.model.vo.AdminCalcRefund;
 import edu.kh.tteutto.admin.model.vo.AdminClass;
+import edu.kh.tteutto.admin.model.vo.AdminEpisode;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
 import edu.kh.tteutto.admin.model.vo.AdminTeacher;
@@ -31,6 +32,18 @@ public interface AdminService {
 	 * @return result
 	 */
 	int episodeDeny(int classNo);
+	
+	/** 회차 상세 조회
+	 * @param episodeNo
+	 * @return episodeOne
+	 */
+	AdminEpisode selectEpisode(int episodeNo);
+	
+	/** 회차 상세 조회시 검토중으로 업데이트
+	 * @param episodeNo
+	 * @return result
+	 */
+	int episodeStatusUpdate(int episodeNo);
 
 	/** 클래스 목록 조회
 	 * @return data
@@ -54,7 +67,36 @@ public interface AdminService {
 	 * @return
 	 */
 	AdminClass selectClass(int classNo);
+	
+	/** 클래스 상세 조회시 검토중으로 업데이트
+	 * @param classNo
+	 * @return result
+	 */
+	int classStatusUpdate(int classNo);
 
+	/** 클래스 수정 신청 목록 조회
+	 * @return data
+	 */
+	List<Admin> classUpdateList();
+
+	/** 클래스 수정 승인
+	 * @param classNo
+	 * @return result
+	 */
+	int classUpdateAgree(int classNo);
+
+	/** 클래스 수정 거절
+	 * @param classNo
+	 * @return result
+	 */
+	int classUpdateDeny(int classNo);
+
+	
+	
+	
+	
+	
+	
 	
 	/** 유저 목록 조회
 	 * @return data
@@ -108,7 +150,11 @@ public interface AdminService {
 	 */
 	int reportAgreeDeny(AdminReport adminReport);
 
-	
+	/** 클래스 신고 목록 조회
+	 * @return data
+	 */
+	List<AdminReport> classReportList();
+
 	
 	
 	
@@ -202,6 +248,13 @@ public interface AdminService {
 	 * @return result
 	 */
 	int insertFaq(AdminNoticeFaq faq);
+
+
+
+
+
+
+
 
 
 

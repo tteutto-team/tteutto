@@ -4,7 +4,7 @@ $(function () {
 
 function createTable() {
 	$.ajax({
-		url: "classList",
+		url: "classUpdateList",
 		type: "GET",
 		dataType: "JSON",
 		success: function (data) {
@@ -58,18 +58,16 @@ function agree(classNo, memberNo, className) {
 	}).then((result) => {
 		if (result.value) {
 			$.ajax({
-				url: "classAgree",
+				url: "classUpdateAgree",
 				dataType: "json",
 				data: {
 					"classNo": classNo,
-					"memberNo": memberNo,
-					"className": className,
 				},
 				success: function (result) {
 					if (result > 0) {
 
 						const obj = {}
-						obj.noteContent = "'" + className + "' 신청이 승인되었습니다.";
+						obj.noteContent = "'" + className + "' 수정 신청이 승인되었습니다.";
 						obj.memberNo = memberNo;
 						obj.flag = 0;
 
@@ -100,8 +98,7 @@ function deny(classNo, memberNo, className) {
 		input: "select",
 		inputOptions: {
 			'설명 부족': '설명 부족',
-			'부적절한내용': '부적절한내용',
-			'가격 부적합': '가격 부적합'
+			'부적절한내용': '부적절한내용'
 		},
 		icon: 'warning',
 		showCancelButton: true,
@@ -114,7 +111,7 @@ function deny(classNo, memberNo, className) {
 
 		if (result.value) {
 			$.ajax({
-				url: "classDeny",
+				url: "classUpdateDeny",
 				dataType: "json",
 				data: {
 					"classNo": classNo,
