@@ -26,6 +26,7 @@ import edu.kh.tteutto.admin.model.service.AdminService;
 import edu.kh.tteutto.admin.model.vo.Admin;
 import edu.kh.tteutto.admin.model.vo.AdminCalcRefund;
 import edu.kh.tteutto.admin.model.vo.AdminClass;
+import edu.kh.tteutto.admin.model.vo.AdminEpisode;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
 import edu.kh.tteutto.admin.model.vo.AdminTeacher;
@@ -81,6 +82,25 @@ public class adminController {
 		return result;
 	}
 	
+	// 회차 상세 조회
+	@RequestMapping(value="classEpisode/{episodeNo}", method=RequestMethod.GET)
+	public String episode(@PathVariable(value="episodeNo", required=false) int episodeNo, Model model,
+			@RequestParam(value="no", required=false) int classNo) {
+		
+		AdminClass classOne = service.selectClass(classNo);
+		
+		AdminEpisode episodeOne = service.selectEpisode(episodeNo);
+		
+		if(classOne != null && episodeOne != null) {
+			int result = service.episodeStatusUpdate(episodeNo);
+		}
+		
+		model.addAttribute("classOne", classOne);
+		model.addAttribute("episodeOne", episodeOne);
+		
+		return "admin/classEpisode";
+	}
+	
 	
 	
 	// 클래스 신청 관리 이동
@@ -105,9 +125,7 @@ public class adminController {
 	@ResponseBody
 	public int classAgree(int classNo) {
 		
-		
 		int result = service.classAgree(classNo);
-		
 		
 		return result;
 	}
@@ -130,10 +148,60 @@ public class adminController {
 		
 		AdminClass classOne = service.selectClass(classNo);
 		
+		if(classOne != null) {
+			int result = service.classStatusUpdate(classNo);
+		}
+		
 		model.addAttribute("classOne", classOne);
 		
 		return "admin/class";
 	}
+	
+	// 클래스 수정 관리 이동
+	@RequestMapping(value="classUpdateManage", method=RequestMethod.GET)
+	public String classUpdateManage() {
+		return "admin/classUpdateManage";
+	}
+	
+	// 클래스 수정 신청 목록 조회
+	@RequestMapping(value="classUpdateList", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Admin> classUpdateList() {
+		
+		List<Admin> data = service.classUpdateList();
+		
+		return data;
+	}
+	
+	// 클래스 신청 승인
+	@RequestMapping(value="classUpdateAgree", method=RequestMethod.GET)
+	@ResponseBody
+	public int classUpdateAgree(int classNo) {
+		
+		int result = service.classUpdateAgree(classNo);
+		
+		return result;
+	}
+	
+	// 클래스 신청 거절
+	@RequestMapping(value="classUpdateDeny", method=RequestMethod.GET)
+	@ResponseBody
+	public int classUpdateDeny(int classNo) {
+		
+		int result = service.classUpdateDeny(classNo);
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// 유저 관리 이동
 	@RequestMapping(value="userManage", method=RequestMethod.GET)
@@ -225,7 +293,7 @@ public class adminController {
 		return "admin/studentReportManage";
 	}
 	
-	// 강사 목록 조회
+	// 학생 신고 목록 조회
 	@RequestMapping(value="studentReportList", method=RequestMethod.GET)
 	@ResponseBody
 	public List<AdminReport> studentReportList(){
@@ -246,7 +314,21 @@ public class adminController {
 		return result;
 	}
 	
+	// 클래스 신고 관리 이동
+	@RequestMapping(value="classReportManage", method=RequestMethod.GET)
+	public String classReportManage() {
+		return "admin/classReportManage";
+	}
 	
+	// 클래스 신고 목록 조회
+	@RequestMapping(value="classReportList", method=RequestMethod.GET)
+	@ResponseBody
+	public List<AdminReport> classReportList(){
+		
+		List<AdminReport> data = service.classReportList();
+		
+		return data;
+	}
 	
 	
 	

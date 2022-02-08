@@ -3,19 +3,19 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/admin/classEpisodeManage.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/admin/classUpdateManage.css">
     
 <jsp:include page="adminSidebar.jsp"></jsp:include>
 
 
 <div id="right">
 	<div>
-		<h2>회차별 신청 관리</h2>
+		<h2>클래스 수정 관리</h2>
 	    <table id="table_id" class="display">
 	        <thead>
 	            <tr>
 	                <th>번호</th>
-	                <th>클래스명-회차</th>
+	                <th>클래스명</th>
 	                <th>강사명</th>
 	                <th>신청상태</th>
 	                <th>신청일자</th>
@@ -34,4 +34,4 @@
 	let noteSock = new SockJS("<c:url value='/note' />");
  
 </script>
-<script src="${contextPath}/resources/js/admin/classEpisodeManage.js"></script>
+<script src="${contextPath}/resources/js/admin/classUpdateManage.js"></script>

@@ -3,7 +3,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/admin/class.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/admin/classEpisode.css">
     
 <jsp:include page="adminSidebar.jsp"></jsp:include>
 
@@ -16,7 +16,7 @@
 		수업 참여 인원 : ${classOne.classPerson} <br>
 		수업 최소 인원 : ${classOne.classMinPerson} <br>
 		수업 최대 인원 : ${classOne.classMaxPerson} <br>
-		클래스 이름 : ${classOne.className} <br>
+		클래스 이름 : ${classOne.className} - ${episodeOne.episodeCount}회차 <br>
 		수업 소개 : ${classOne.classIntro} <br>
 		난이도 : ${classOne.classLevel} <br>
 		카테고리 : ${classOne.categoryName} - ${classOne.categoryDetailName} <br>
@@ -27,7 +27,17 @@
 			</c:forEach>
 		</c:if>
 		
-			
+		가격 : ${episodeOne.episodePrice} <br>
+		장소 : ${episodeOne.episodePlace} <br>
+		
+		<c:if test="${!empty episodeOne.scheduleList}">
+			<c:forEach var="schedule" items="${episodeOne.scheduleList}">
+				수업 날짜 : ${schedule.scheduleDate} <br>
+				수업 요일 : ${schedule.scheduleWeek}요일 <br>
+				수업 시간 : ${schedule.scheduleStartTime} ~ ${schedule.scheduleEndTime} <br>
+				소요 시간 : ${schedule.scheduleTime}시간 <br>
+			</c:forEach>
+		</c:if>		
 	</div>
 </div>
    

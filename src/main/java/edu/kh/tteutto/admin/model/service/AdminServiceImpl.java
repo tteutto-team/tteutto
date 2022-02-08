@@ -13,6 +13,7 @@ import edu.kh.tteutto.admin.model.dao.AdminDAO;
 import edu.kh.tteutto.admin.model.vo.Admin;
 import edu.kh.tteutto.admin.model.vo.AdminCalcRefund;
 import edu.kh.tteutto.admin.model.vo.AdminClass;
+import edu.kh.tteutto.admin.model.vo.AdminEpisode;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeImage;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
@@ -20,6 +21,7 @@ import edu.kh.tteutto.admin.model.vo.AdminTeacher;
 import edu.kh.tteutto.common.Util;
 
 @Service
+@Transactional(readOnly = true)
 public class AdminServiceImpl implements AdminService{
 	
 	@Autowired
@@ -44,6 +46,19 @@ public class AdminServiceImpl implements AdminService{
 	@Transactional
 	public int episodeDeny(int classNo) {
 		return dao.episodeDeny(classNo);
+	}
+
+	// 회차 상세 조회
+	@Override
+	public AdminEpisode selectEpisode(int episodeNo) {
+		return dao.selectEpisode(episodeNo);
+	}
+	
+	
+	// 회차 상세 조회시 검토중으로 업데이트
+	@Override
+	public int episodeStatusUpdate(int episodeNo) {
+		return dao.episodeStatusUpdate(episodeNo);
 	}
 
 	// 클래스 목록 조회
@@ -71,12 +86,61 @@ public class AdminServiceImpl implements AdminService{
 		
 		AdminClass classOne = dao.selectClass(classNo);
 		
-		if(classOne != null) {
-			dao.classStatusUpdate(classNo);
-		}
-		
 		return classOne;
 	}
+	
+	// 클래스 상세 조회시 검토중으로 업데이트
+	@Override
+	public int classStatusUpdate(int classNo) {
+		return dao.classStatusUpdate(classNo);
+	}
+
+	// 클래스 수정 신청 목록 조회
+	@Override
+	public List<Admin> classUpdateList() {
+		return dao.classUpdateList();
+	}
+	
+	// 클래스 수정 승인
+	@Override
+	public int classUpdateAgree(int classNo) {
+		
+		AdminClass classOne = dao.selectUpdateClass(classNo);
+		
+		int result = 0;
+		
+		if(classOne != null) {
+			result = dao.updateClass(classOne);
+			
+			if(result > 0) {
+				result = dao.classUpdateAgree(classNo);
+			}
+		}
+		
+		
+		return result;
+	}
+	
+	// 클래스 수정 거절
+	@Override
+	public int classUpdateDeny(int classNo) {
+		return dao.classUpdateDeny(classNo);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+
+	
 
 	// 유저 목록 조회
 	@Override
@@ -158,15 +222,22 @@ public class AdminServiceImpl implements AdminService{
 		if(adminReport.getReportStatus() == 2) { // 승인되었을 때 count 증가
 			adminReport.setReportCount(adminReport.getReportCount() + 1);
 			
-			if(adminReport.getReportCount() >= 3) {
+			if(adminReport.getReportDiv() == 1 && adminReport.getReportCount() >= 3) {
 				result = dao.memberBan(adminReport);
-				
+			}
+			if(adminReport.getReportDiv() == 0 && adminReport.getReportCount() >= 10) {
+				result = dao.teacherBan(adminReport);
 			}
 		}
 		
 		return result;
 	}
 
+	// 클래스 신고 목록 조회
+	@Override
+	public List<AdminReport> classReportList() {
+		return dao.classReportList();
+	}
 	
 	
 	
@@ -178,6 +249,7 @@ public class AdminServiceImpl implements AdminService{
 	
 	
 	
+
 	// 정산 신청 목록 조회
 	@Override
 	public List<AdminCalcRefund> calculateList() {

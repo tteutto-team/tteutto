@@ -4,8 +4,24 @@
 
 
 	<!-- Admin VO -->
-	<resultMap type="Admin" id="admin_rm">
+	<resultMap type="Admin" id="classlist_rm">
 		<id property="classNo" column="CLASS_NO" />
+		<result property="classStatus" column="CLASS_ST" />
+				
+		<result property="className" column="CLASS_NM" />
+		<result property="classRequestDate" column="CLASS_REQ_DT" />
+		
+		<result property="episodeCount" column="EP_COUNT" />
+		
+		<result property="memberName" column="MEMBER_NM" />
+		<result property="memberNo" column="MEMBER_NO" />
+	</resultMap>
+	
+	<resultMap type="Admin" id="episodelist_rm">
+		<id property="episodeNo" column="EP_NO" />
+		<result property="classNo" column="CLASS_NO" />
+		<result property="episodeStatus" column="EP_ST" />
+		
 		
 		<result property="className" column="CLASS_NM" />
 		<result property="classRequestDate" column="CLASS_REQ_DT" />
@@ -14,6 +30,29 @@
 		
 		<result property="memberName" column="MEMBER_NM" />
 		<result property="memberNo" column="MEMBER_NO" />
+	</resultMap>
+	
+	<!-- 회차 VO -->
+	<resultMap type="AdminEpisode" id="episode_rm">
+		<id property="episodeNo" column="EP_NO"/>
+		<result property="episodePrice" column="EP_PRICE"/>
+		<result property="episodeStatus" column="EP_ST"/>
+		<result property="episodeCount" column="EP_COUNT"/>
+		<result property="episodePlace" column="EP_PLACE"/>
+		
+		<collection property="scheduleList" column="EP_NO" 
+					javaType="java.util.ArrayList" ofType="AdminEpisodeSchedule" select="selectSchedule" />
+	</resultMap>
+	
+	<!-- 회차 스케줄 VO -->
+	<resultMap type="AdminEpisodeSchedule" id="episodeSchedule_rm">
+		<id property="scheduleNo" column="SCHDL_NO"/>
+		<result property="scheduleDate" column="SCHDL_DT"/>
+		<result property="scheduleWeek" column="SCHDL_WEEK"/>
+		<result property="scheduleStartTime" column="SCHDL_START_TIME"/>
+		<result property="scheduleEndTime" column="SCHDL_END_TIME"/>
+		<result property="scheduleTime" column="SCHDL_TIME"/>
+		<result property="episodeNo" column="EP_NO"/>
 	</resultMap>
 	
 	<!-- Admin VO 유저 목록 -->
@@ -156,6 +195,13 @@
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	
+	<!-- 회차 스케줄 조회 -->
+	<select id="selectSchedule" resultMap="episodeSchedule_rm">
+		SELECT SCHDL_NO, TO_CHAR(SCHDL_DT, 'YYYY-MM-DD') SCHDL_DT, SCHDL_WEEK, SCHDL_START_TIME, SCHDL_END_TIME, EP_NO, SCHDL_TIME 
+		FROM EP_SCHEDULE
+		WHERE EP_NO = #{episodeNo}
+	</select>
+	
 	<!-- 클래스 썸네일 조회 -->
 	<select id="selectClassThumbnail" resultMap="thumbnail_rm">
 		SELECT * FROM THUMBNAIL_IMG
@@ -176,19 +222,24 @@
 	
 	
 	<!-- 회차별 목록 조회 -->
-	<select id="classEpisodeList" resultMap="admin_rm">
-		SELECT CLASS_NO, CLASS_NM, CLASS_REQ_DT, EP_COUNT, MEMBER_NM, MEMBER_NO FROM CLASS
-		JOIN EPISODE USING(CLASS_NO)
+	<select id="classEpisodeList" resultMap="episodelist_rm">
+		SELECT EP_NO, CLASS_NO, CLASS_NM, CLASS_REQ_DT, EP_COUNT, MEMBER_NM, MEMBER_NO, EP_ST
+		FROM EPISODE
+		JOIN CLASS USING(CLASS_NO)
 		JOIN TEACHER USING(MEMBER_NO)
 		JOIN MEMBER USING(MEMBER_NO)
-		WHERE EP_ST = 0
+		WHERE EP_ST = 0 OR EP_ST = 1
 	</select>
 	
+	<!-- 회차 목록 조회 후 검토중으로 업데이트 -->
+	<update id="episodeStatusUpdate">
+		UPDATE EPISODE SET EP_ST = 1 WHERE EP_NO = #{episodeNo}
+	</update>
 	
 	<!-- 회차별 신청 승인 -->
 	<update id="episodeAgree">
 		UPDATE EPISODE SET EP_ST = 2
-		WHERE CLASS_NO = #{classNo}
+		WHERE EP_NO = #{episodeNo}
 	</update>
 	
 	<!-- 쪽지 보내기 -->
@@ -199,12 +250,18 @@
 	<!-- 회차별 신청 거절 -->
 	<update id="episodeDeny">
 		UPDATE EPISODE SET EP_ST = 3
-		WHERE CLASS_NO = #{classNo}
+		WHERE EP_NO = #{episodeNo}
 	</update>
 	
+	<select id="selectEpisode" resultMap="episode_rm">
+		SELECT EP_NO, EP_PRICE, EP_ST, EP_COUNT, EP_PLACE FROM EPISODE
+		WHERE EP_NO = #{episodeNo}
+	</select>
+	
 	<!-- 클래스 신청 목록 조회 -->
-	<select id="classList" resultMap="admin_rm">
-		SELECT CLASS_NO, CLASS_NM, CLASS_REQ_DT, MEMBER_NM, MEMBER_NO FROM CLASS
+	<select id="classList" resultMap="classlist_rm">
+		SELECT CLASS_NO, CLASS_NM, CLASS_REQ_DT, MEMBER_NM, MEMBER_NO, CLASS_ST
+		FROM CLASS
 		JOIN TEACHER USING(MEMBER_NO)
 		JOIN MEMBER USING(MEMBER_NO)
 		WHERE CLASS_ST = 0 OR CLASS_ST = 1
@@ -236,6 +293,50 @@
 		UPDATE CLASS SET CLASS_ST = 1 WHERE CLASS_NO = #{classNo}
 	</update>
 	
+	<!-- 클래스 수정 신청 목록 조회 -->
+	<select id="classUpdateList" resultMap="classlist_rm">
+		SELECT C.CLASS_NO, C.CLASS_NM, C.CLASS_REQ_DT, MEMBER_NM, MEMBER_NO, C.CLASS_ST
+		FROM CLASS_UPDATE C
+		JOIN CLASS CC ON(C.CLASS_NO = CC.CLASS_NO)
+		JOIN TEACHER USING(MEMBER_NO)
+		JOIN MEMBER USING(MEMBER_NO)
+		WHERE C.CLASS_ST = 0 OR C.CLASS_ST = 1
+	</select>
+	
+	<!-- 클래스 수정할 내용 조회 -->
+	<select id="selectUpdateClass" resultMap="class_rm">
+		SELECT CLASS_NO, CLASS_AREA, CLASS_MIN_PERSON, CLASS_MAX_PERSON, CLASS_NM, CLASS_INTRO
+		FROM CLASS_UPDATE
+		WHERE CLASS_NO = #{classNo}
+	</select>
+	
+	<!-- 클래스 수정 승인 후 덮어씌우기 -->
+	<update id="updateClass">
+		UPDATE CLASS SET CLASS_AREA = #{classArea}, CLASS_MIN_PERSON = #{classMinPerson}, CLASS_MAX_PERSON = #{classMaxPerson}, CLASS_NM = #{className}, CLASS_INTRO = #{classIntro}
+		WHERE CLASS_NO = #{classNo}
+	</update>
+	
+	<!-- 클래스 수정 승인 후 상태 수정하기 -->
+	<update id="classUpdateAgree">
+		UPDATE CLASS_UPDATE SET CLASS_ST = 2 WHERE CLASS_NO = #{classNo}
+	</update>
+	
+	<!-- 클래스 수정 거절 후 상태 수정하기 -->
+	<update id="classUpdateDeny">
+		UPDATE CLASS_UPDATE SET CLASS_ST = 3 WHERE CLASS_NO = #{classNo}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<!-- 유저 목록 조회 -->
 	<select id="userList" resultMap="user_rm">
 		SELECT MEMBER_NO, MEMBER_NM, MEMBER_GRADE, MEMBER_ST, 
@@ -262,7 +363,8 @@
 	
 	<!-- 강사 목록 조회 -->
 	<select id="teacherList" resultMap="adminTeacher_rm">
-		SELECT MEMBER_NO, TEACHER_REQ_DT, MEMBER_NM FROM TEACHER
+		SELECT MEMBER_NO, TEACHER_REQ_DT, MEMBER_NM, TEACHER_ST
+		FROM TEACHER
 		JOIN MEMBER USING(MEMBER_NO)
 		WHERE TEACHER_ST = 0 OR TEACHER_ST = 1
 	</select>
@@ -297,6 +399,7 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
+	<!-- 학생 신고 목록 조회 -->
 	<select id="studentReportList" resultMap="report_rm">
 		SELECT A.*, 
 
@@ -306,7 +409,7 @@
 		
 		FROM
 		
-		(SELECT REG_NM "REPORT_TARGET", REPORT_CONTENT, MEMBER_NM "REPORT_NM", REG_NO, REPORT_REQ_DT, REPORT_NO, REGISTER.MEMBER_NO "REPORT_TARGET_NO"
+		(SELECT REG_NM "REPORT_TARGET", REPORT_CONTENT, MEMBER_NM "REPORT_NM", REG_NO, REPORT_REQ_DT, REPORT_NO, REGISTER.MEMBER_NO "REPORT_TARGET_NO", REPORT_DIV
 		FROM REPORT
 		JOIN REGISTER USING(REG_NO)
 		JOIN EPISODE USING(EP_NO)
@@ -322,13 +425,36 @@
 	</update>
 	
 	<!-- 계정 정지 -->
-	<update id="memberBan">
+	<update id="memberBan">	
 		UPDATE MEMBER SET MEMBER_ST = 2 WHERE MEMBER_NO = #{reportTargetNo}
 	</update>
 	
+	<!-- 클래스 신고 목록 조회 -->
+	<select id="classReportList" resultMap="report_rm">
+		SELECT A.*, 
+
+		(SELECT COUNT(*) FROM REPORT R
+		JOIN REGISTER REG USING(REG_NO)
+		JOIN EPISODE USING(EP_NO)
+		JOIN CLASS C ON(C.CLASS_NO = EPISODE.CLASS_NO)
+		WHERE C.CLASS_NO = A.CLASS_NO AND REPORT_ST = 2) "REPORT_COUNT"
+		
+		FROM
+		
+		(SELECT REG_NM "REPORT_NM", REPORT_CONTENT, CLASS_NM "REPORT_TARGET", REG_NO, REPORT_REQ_DT, REPORT_NO, M.MEMBER_NO "REPORT_TARGET_NO", CLASS_NO, REPORT_DIV
+		FROM REPORT
+		JOIN REGISTER USING(REG_NO)
+		JOIN EPISODE USING(EP_NO)
+		JOIN CLASS C USING(CLASS_NO)
+		JOIN TEACHER T ON(T.MEMBER_NO = C.MEMBER_NO)
+		JOIN MEMBER M ON(M.MEMBER_NO = T.MEMBER_NO)
+		WHERE REPORT_DIV = 0 AND REPORT_ST = 0) A
+	</select>
 	
-	
-	
+	<!-- 강사 정지 -->
+	<update id="teacherBan">	
+		UPDATE TEACHER SET TEACHER_ST = 4 WHERE MEMBER_NO = #{reportTargetNo}
+	</update>
 	
 	
 	
@@ -369,7 +495,7 @@
 		JOIN EPISODE USING(EP_NO)
 		JOIN REGISTER USING(EP_NO)
 		LEFT JOIN REFUND USING(REG_NO)
-		WHERE PAY_ST = 0 AND (REFUND_DT IS NULL OR REFUND_DT = 1) AND CAL_NO = #{calNo}
+		WHERE PAY_ST = 0 AND (REFUND_ST IS NULL OR REFUND_ST = 1) AND CAL_NO = #{calNo}
 	</select>
 	
 	<!-- 영수증 생성 -->
