@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="${contextPath}/resources/css/jquery-ui.multidatespicker.css">
 	
     <section id="classInsert2">
-    	<form action="${contextPath}/register/schedule" id="form" name="form" method="post">
+    	<form action="${contextPath}/register/schedule" id="form" name="form" method="post" role="form" onsubmit="return dlc();">
         <div class="fixWidth">
         <div id="register_header">
             <div>스케쥴 등록</div>
@@ -93,7 +93,7 @@
                     <div>시간당 가격</div>
                     <div><input type="number" id="time-price" class="input-style largeSize" required> &nbsp원</div>
                     <div>1회당 수업시간</div>
-                    <div><input type="number" id="num-time" name="scheduleTime" class="input-style largeSize" required> &nbsp시간</div>
+                    <div><input type="number" id="num-time" name="schdlTime" class="input-style largeSize" required> &nbsp시간</div>
                     <div>총 수업횟수</div>
                     <div><input type="number" id="num-class" class="input-style largeSize" readonly required> &nbsp회</div>
                 </div>

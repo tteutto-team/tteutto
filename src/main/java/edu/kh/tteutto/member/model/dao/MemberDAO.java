@@ -9,7 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.tteutto.chat.model.vo.ChatRoom;
+import edu.kh.tteutto.classRoom.model.vo.ClassRefund;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
+import edu.kh.tteutto.classRoom.model.vo.ClassReport;
+import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.main.model.vo.ClassList;
 import edu.kh.tteutto.main.model.vo.Pagination;
@@ -243,10 +247,76 @@ public class MemberDAO {
 
 	/** 학생 수강 신청 목록
 	 * @param memberNo
-	 * @return
+	 * @return register
 	 */
 	public List<ClassRegister> studentClassList(int memberNo) {
 		return sqlSession.selectList("memberMapper.studentClassList", memberNo);
+	}
+
+	/** 학생 클래스 신고
+	 * @param classReport
+	 * @return result
+	 */
+	public int insertReport(ClassReport classReport) {
+		return sqlSession.insert("memberMapper.insertReport", classReport);
+	}
+
+	
+	/** 학생 후기 작성
+	 * @param classReview
+	 * @return result
+	 */
+	public int insertComment(ClassReview classReview) {
+		return sqlSession.insert("memberMapper.insertReview", classReview);
+	}
+
+	/** 학생 작성한 후기 목록
+	 * @param memberNo
+	 * @return review
+	 */
+	public List<ClassReview> studentCommentList(int memberNo) {
+		return sqlSession.selectList("memberMapper.studentCommentList", memberNo);
+	}
+
+	/** 학생 후기 수정
+	 * @param classReview
+	 * @return result
+	 */
+	public int updateReport(ClassReview classReview) {
+		return sqlSession.update("memberMapper.updateReview", classReview);
+	}
+
+	/** 학생 대 강사 채팅방 생성
+	 * @param chatRoom
+	 * @return result
+	 */
+	public int insertChatRoom(ChatRoom chatRoom) {
+		return sqlSession.insert("memberMapper.insertChatRoom", chatRoom);
+	}
+
+
+	/** 채팅방이 이미 있는지 확인
+	 * @param chatRoom
+	 * @return check
+	 */
+	public int checkChatRoom(ChatRoom chatRoom) {
+		return sqlSession.selectOne("memberMapper.checkChatRoom", chatRoom);
+	}
+
+	/** 클래스 환불 신청
+	 * @param refund
+	 * @return result
+	 */
+	public int refundClass(ClassRefund refund) {
+		return sqlSession.insert("memberMapper.refundClass", refund);
+	}
+
+	/** 학생 후기 삭제
+	 * @param regNo
+	 * @return
+	 */
+	public int deleteReview(int reviewNo) {
+		return sqlSession.update("memberMapper.deleteReview", reviewNo);
 	}
 
 
