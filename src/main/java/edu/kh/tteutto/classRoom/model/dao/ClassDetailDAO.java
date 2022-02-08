@@ -45,6 +45,15 @@ public class ClassDetailDAO {
 	public int insertRegister(ClassRegister classReg) {
 		return sqlSession.insert("classDetailMapper.insertRegister", classReg);
 	}
+
+	public int insertWish(Map<String, Integer> map) {
+		
+		return sqlSession.insert("classDetailMapper.insertWish", map);
+	}
+
+	public int deletetWish(Map<String, Integer> map) {
+		return sqlSession.delete("classDetailMapper.deleteWish", map);
+	}
 	
 	
 

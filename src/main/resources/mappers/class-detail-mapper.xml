@@ -158,10 +158,19 @@
 		WHERE CLASS_NO = ${classNo}
 	</select>
 	
-	
+	<!--  결제(신청) 내역 DB삽입 -->
 	<insert id="insertRegister">
 		INSERT into register values(SEQ_REG_NO.nextval, #{regNm}, #{regPhoneNo}, default, default, default, #{epNo}, #{memberNo})
 	</insert>
 	
+	<!-- 찜목록에 추가 -->
+	<insert id="insertWish">
+		INSERT INTO CLASS_WISH VALUES(#{memberNo}, #{classNo})
+	</insert>
+	
+	<!-- 찜목록에서 삭제 -->
+	<delete id="deleteWish">
+		DELETE FROM CLASS_WISH WHERE MEMBER_NO = #{memberNo} AND CLASS_NO = #{classNo}
+	</delete>
 	
 </mapper>
