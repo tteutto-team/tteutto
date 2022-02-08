@@ -4,12 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -83,6 +87,34 @@ public class ClassDetailController {
 	@RequestMapping("insertRegister")
 	public int insertRegister(Model model, ClassRegister classReg) {
 		return service.insertRegister(classReg);
+	}
+	
+	// 찜목록에 추가하기
+	@ResponseBody
+	@RequestMapping(value="insertWish", method=RequestMethod.POST)
+	public int insertWish(int memberNo, int classNo) {
+		
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+	
+		map.put("memberNo", memberNo);
+		map.put("classNo", classNo);
+		
+		return service.insertWish(map);
+	}
+	
+	// 찜목록에서 삭제하기
+	@ResponseBody
+	@RequestMapping(value="deletetWish", method=RequestMethod.POST)
+	public int deletetWish(int memberNo, int classNo) {
+		
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+	
+		map.put("memberNo", memberNo);
+		map.put("classNo", classNo);
+		
+		return service.deletetWish(map);
 	}
 	
 	

@@ -171,18 +171,7 @@ $(".modal").click(function (e) {
 	}
 	
 	
-	//클래스 (회차) 신청 (insert)
-	function insertRegisterEp(){
-		if(loginMemberNo != ''){
-			$.ajax({
-				url : "insertRegisterEp",
-				data : {
-					
-				}
-				
-			})
-		}
-	}
+	
 
 
 // 

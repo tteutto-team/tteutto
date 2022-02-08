@@ -35,4 +35,16 @@ public interface ClassDetailService {
 	 */
 	int insertRegister(ClassRegister classReg);
 
+	/** 찜목록에 추가
+	 * @param map
+	 * @return result
+	 */
+	int insertWish(Map<String, Integer> map);
+
+	/** 찜목록에서 삭제
+	 * @param map
+	 * @return result
+	 */
+	int deletetWish(Map<String, Integer> map);
+
 }

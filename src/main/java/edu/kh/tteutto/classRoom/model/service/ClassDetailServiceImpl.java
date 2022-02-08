@@ -58,6 +58,19 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 	public int insertRegister(ClassRegister classReg) {
 		return dao.insertRegister(classReg);
 	}
+
+	
+	// 찜목록 추가
+	@Override
+	public int insertWish(Map<String, Integer> map) {
+		return dao.insertWish(map);
+	}
+
+	// 찜목록에서 삭제
+	@Override
+	public int deletetWish(Map<String, Integer> map) {
+		return dao.deletetWish(map);
+	}
 	
 	
 }

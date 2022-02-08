@@ -42,14 +42,14 @@
                         <path fill="#1B1C1D" fill-rule="evenodd" d="M12 4c-4.971 0-9 3.185-9 7.115 0 2.558 1.707 4.8 4.27 6.054l-.78 2.94c-.122.489.179.483.377.351l3.463-2.353a11.39 11.39 0 001.67.123c4.971 0 9-3.185 9-7.115S16.971 4 12 4"></path>
                     </svg>
                 </div>
-                <div class="share_twiter">
+                <div class="share_twiter" onclick="shareTwitter();">
                     <svg viewBox="0 0 64 64" width="36" height="36">
                         <g>
                             <path fill="#FFF" d="M48,22.1c-1.2,0.5-2.4,0.9-3.8,1c1.4-0.8,2.4-2.1,2.9-3.6c-1.3,0.8-2.7,1.3-4.2,1.6 C41.7,19.8,40,19,38.2,19c-3.6,0-6.6,2.9-6.6,6.6c0,0.5,0.1,1,0.2,1.5c-5.5-0.3-10.3-2.9-13.5-6.9c-0.6,1-0.9,2.1-0.9,3.3 c0,2.3,1.2,4.3,2.9,5.5c-1.1,0-2.1-0.3-3-0.8c0,0,0,0.1,0,0.1c0,3.2,2.3,5.8,5.3,6.4c-0.6,0.1-1.1,0.2-1.7,0.2c-0.4,0-0.8,0-1.2-0.1 c0.8,2.6,3.3,4.5,6.1,4.6c-2.2,1.8-5.1,2.8-8.2,2.8c-0.5,0-1.1,0-1.6-0.1c2.9,1.9,6.4,2.9,10.1,2.9c12.1,0,18.7-10,18.7-18.7 c0-0.3,0-0.6,0-0.8C46,24.5,47.1,23.4,48,22.1z"></path>
                         </g>
                     </svg>
                 </div>
-                <div class="share_facebook">
+                <div class="share_facebook" onclick="shareFacebook();">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="#FFF" fill-rule="evenodd" d="M20.007 3H3.993A.992.992 0 003 3.993v16.013c0 .549.444.993.993.993h8.621v-6.97h-2.347v-2.716h2.347V9.308c0-2.324 1.42-3.589 3.494-3.589.993 0 1.847.072 2.096.106v2.43h-1.44c-1.125 0-1.344.54-1.344 1.328v1.733h2.689l-.349 2.723h-2.34V21h4.587a.992.992 0 00.993-.993V3.993A.992.992 0 0020.007 3"></path>
                     </svg>
@@ -96,7 +96,7 @@
 	                        	<span id="buyClassDate">${cdtr.epSchedule[0].schdlDt}  (${cdtr.epSchedule[0].schdlWeek})  <br> ~ ${cdtr.epSchedule[ fn:length(cdtr.epSchedule)-1].schdlDt}  (${cdtr.epSchedule[fn:length(cdtr.epSchedule)-1].schdlWeek})</span>
 	                        </c:otherwise>
                         </c:choose>
-                </div>
+                </div> 
             </div>
             <div class="paymentList">
 
@@ -840,14 +840,47 @@
 	 	if(${!empty sessionScope.loginMember}){
 	    	
 		        if($('#emptyHeart').css('display')!="none"){
-		            console.log("1111");
+		            // console.log("1111");
 		            $('#fillHeart').css('display','block');
 		            $('#emptyHeart').css('display','none');
-		            alert("찜목록에 추가되었습니다.")
+		            swal({'icon' : 'success',
+			    		 'title' : '찜목록에 추가되었습니다.'
+	    				       		  	});
+		            $.ajax({
+		                url: "insertWish",
+		                data: {
+		                	'memberNo' : loginMemberNo,
+		                	'classNo' : classNo
+		                },
+		                type: "POST",
+		                success : function(data){
+		                  console.log("추가성공")
+		                },
+		                error : function(){
+		                  console.log("추가에러")		
+		                }
+		              });
 		            
 		        }else{
 		            $('#emptyHeart').css('display','block');
 		            $('#fillHeart').css('display','none');
+		            swal({'icon' : 'info',
+			    		 'title' : '찜목록에서 삭제되었습니다.'
+	    				       		  	});
+		            $.ajax({
+		                url: "deletetWish",
+		                data: {
+		                	'memberNo' : loginMemberNo,
+		                	'classNo' : classNo
+		                },
+		                type: "POST",
+		                success : function(data){
+		                  console.log("삭제성공")
+		                },
+		                error : function(){
+		                  console.log("삭제에러")		
+		                }
+		              });
 		        }
 		}else{
 		    alert("로그인 후 진행해주세요.");
@@ -880,6 +913,19 @@
         Kakao.Link.sendCustom({
             templateId: 70472
         });
-    }
+      }
+ 	  
+ 	  //트위터 공유하기
+ 	  function shareTwitter() {
+	    var sendText = "뜨또"; // 전달할 텍스트
+	    var sendUrl = "http://localhost:8080/tteutto/"; // 전달할 URL
+	    window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+	  }
+ 	  
+ 	  //페이스북 공유하기
+ 	  function shareFacebook() {
+		    var sendUrl = "http://localhost:8080/tteutto/"; // 전달할 URL
+		    window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+		}
  
     </script>
