@@ -27,4 +27,10 @@ public interface ClassListService {
 	 * @return searchList
 	 */
 	List<ClassList> selectSearchList(Pagination pagination, Map<String, Object> map);
+
+	/** 클래스 추천 목록 조회
+	 * @param memberNo
+	 * @return recommendList
+	 */
+	List<ClassList> selectRecoList(int memberNo);
 }

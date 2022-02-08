@@ -35,4 +35,9 @@ public class ClassListDAO {
 		
 		return sqlSession.selectList("classListMapper.selectSearchList", map, rowBounds);
 	}
+
+	// 클래스 추천 목록 조회
+	public List<ClassList> selectRecoList(int memberNo) {
+		return sqlSession.selectList("classListMapper.selectRecoList", memberNo);
+	}
 }

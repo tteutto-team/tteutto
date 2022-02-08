@@ -23,6 +23,51 @@ crossorigin="anonymous"/>
 						<span>찾고자하는 클래스가 없으신가요? 아래에 추천드리는 다른 클래스들도 구경해보세요.</span>
 					</div>
 				</div>
+				
+				<c:forEach items="${recommendList}" var="classList">					
+				<%-- 클래스 카드 --%>
+					<div class="class">
+						<div class="image">
+							<%-- 클래스 이미지 --%>
+							<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
+							onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}'">
+							
+							<%-- 수업 등록 지역 --%>
+							<p class="location-p">${classList.classArea}</p>
+						</div>
+						
+						<%-- 클래스 찜하기 버튼 > 찜 X --%>
+						<c:if test="${classList.heartFlag == 0}">
+							<button type="button" class="btn_like">
+								<span class="img_emoti">좋아요</span>
+								<span class="ani_heart_m"></span>
+							</button>
+						</c:if>
+						
+						<%-- 클래스 찜하기 버튼 > 찜 O --%>
+						<c:if test="${classList.heartFlag == 1}">
+							<button type="button" class="btn_like btn_unlike">
+								<span class="img_emoti">좋아요</span>
+								<span class="ani_heart_m hi"></span>
+							</button>
+						</c:if>
+			
+						<div class="detail-info">
+							<span class="category-name">${classList.categoryName}</span> <%-- 카테고리명 --%>
+							<div class="class-name">${classList.className}</div> <%-- 클래스명 --%>
+							<div class="grade">
+	                            <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 평점 --%>
+	                            <i class="fi-rr-heart"></i> <span>${classList.heartCount}</span> <%-- 찜 개수 --%>
+	                       	</div>
+							
+							<div class="detail-info-bottom">
+								<img src="${contextPath}/resources/images/teacher/${classList.teacherImage}"> <%-- 강사 프로필 이미지 --%>
+								<span class="teacher-name">${classList.memberName}</span> <%-- 강사명 --%>
+								<span class="class-price"><fmt:formatNumber value="${classList.episodePrice}" pattern="#,###"/>원</span> <%-- 수업료 --%>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
 			</c:when>
 			 
 			<c:otherwise>
