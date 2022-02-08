@@ -12,7 +12,18 @@ for (let j = 0; j < list.length; j++) {
    list[j].addEventListener('click', (event) => {
        if (event.target.nodeName === "BUTTON") {
            btn[j].innerText = event.target.innerText;
+          // console.log(event.target.childNodes[1].innerText); //4회차
+          // console.log(event.target.childNodes[3].innerText); // 10,000
+          //console.log(event.target.childNodes[5].innerText); // 2022년 02월 14일 (월) 15:00 ~ 19:00
+          console.log(event.target.childNodes[7].innerText); // 70001
+
            btn[j].classList.remove('on');
+           
+           document.getElementById("epPrice").innerText = event.target.childNodes[3].innerText;
+           document.getElementById("buyEp").innerText = event.target.childNodes[1].innerText;
+           document.getElementById("epAmount").innerText = event.target.childNodes[3].innerText;
+           document.getElementById("buyClassDate").innerText = event.target.childNodes[5].innerText;
+           document.getElementById("epNoSpan").innerText = event.target.childNodes[7].innerText;
         }
         
 
@@ -67,7 +78,7 @@ $(".modal").click(function (e) {
 		
 			if($('#payCheckBox').is(":checked") == false){
 			    
-			    console.log("체크 안된 상태");
+			    //console.log("체크 안된 상태");
 			    alert("주문내용 확인에 동의해주세요.");
 			      
 		  	}else{  //체크했을 경우 결제 api진행
@@ -89,19 +100,38 @@ $(".modal").click(function (e) {
     					var result = '';
     				    if ( rsp.success ) {
 							
-							
-    				        var msg = '결제가 완료되었습니다.';
-    				        msg += '고유ID : ' + rsp.imp_uid;
-    				        msg += '상점 거래ID : ' + rsp.merchant_uid;
-    				        msg += '결제 금액 : ' + rsp.paid_amount;
-    				        msg += '카드 승인번호 : ' + rsp.apply_num;
-    				        result ='0';
-    				        
-    				        
-    				       	swal({'icon' : 'success',
-    				       		  'title' : '결제가 완료되었습니다.'
-    				       		  });
-    				         $(".modal").css("display","none");
+							$.ajax({
+					          type: 'post',
+					          url: 'insertRegister',
+					          data: {
+					                    /*'imp_uid': rsp.imp_uid,
+					                    'merchant_uid': rsp.merchant_uid,
+					                    'paid_amount' : rsp.paid_amount,
+					                    'apply_num' : rsp.apply_num,*/
+					                   
+					                    'regNm' : loginMemberName,
+					                    "memberNo" : loginMemberNo,
+					                    'regPhoneNo' : loginMemberPno,
+					                    'epNo' : $("#epNoSpan").text()
+					                    
+					          },
+					          success: function (result) {
+						           if(result > 0){
+										swal({'icon' : 'success',
+			    				       		  'title' : '결제가 완료되었습니다.'
+	    				       		  	}).then(function(){
+				    				        // $(".modal").css("display","none")
+											location.href = contextPath + "/member/studentClassList";
+										  });
+									}
+						        }, error:function(request, status, error){
+
+									console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
+	}
+					          
+					      	})
+    				       	
     				        
     				    } else {
     				        var msg = '결제에 실패하였습니다.';
@@ -111,7 +141,6 @@ $(".modal").click(function (e) {
     				    if(result=="0") {
     				    	location.href= $.getContextPath()+"/Cart/Success";
     				    }
-    				    alert(msg);
     				});
  
 				}

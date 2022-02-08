@@ -10,6 +10,9 @@ public class ClassRegister {
 	private int payStauts; // 결제상태
 	private int regStatus; // 수강신청상태
 	
+	private int epNo; //회차번호
+	private int memberNo; //회원번호
+	
 	
 	public ClassRegister() {
 		// TODO Auto-generated constructor stub
@@ -51,12 +54,31 @@ public class ClassRegister {
 	public void setRegStatus(int regStatus) {
 		this.regStatus = regStatus;
 	}
+	
+
+	public int getEpNo() {
+		return epNo;
+	}
+
+	public void setEpNo(int epNo) {
+		this.epNo = epNo;
+	}
+
+	public int getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
 
 	@Override
 	public String toString() {
 		return "ClassRegister [regNo=" + regNo + ", regNm=" + regNm + ", regPhoneNo=" + regPhoneNo + ", payDt=" + payDt
-				+ ", payStauts=" + payStauts + ", regStatus=" + regStatus + "]";
+				+ ", payStauts=" + payStauts + ", regStatus=" + regStatus + ", epNo=" + epNo + ", memberNo=" + memberNo
+				+ "]";
 	}
+
 	
 	
 	

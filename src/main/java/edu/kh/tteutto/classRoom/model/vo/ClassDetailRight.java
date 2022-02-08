@@ -13,6 +13,10 @@ public class ClassDetailRight {
 	
 	private List<EpisodeSchedule> epSchedule;
 	
+	private ClassRegister classReg;
+	
+
+	
 	public ClassDetailRight() {
 		// TODO Auto-generated constructor stub
 	}
@@ -50,12 +54,24 @@ public class ClassDetailRight {
 	public void setEpSchedule(List<EpisodeSchedule> epSchedule) {
 		this.epSchedule = epSchedule;
 	}
+	
+	
+
+	public ClassRegister getClassReg() {
+		return classReg;
+	}
+
+	public void setClassReg(ClassRegister classReg) {
+		this.classReg = classReg;
+	}
 
 	@Override
 	public String toString() {
 		return "ClassDetailRight [cdt=" + cdt + ", member=" + member + ", ep=" + ep + ", epSchedule=" + epSchedule
-				+ "]";
+				+ ", classReg=" + classReg + "]";
 	}
+
+	
 
 	
 	

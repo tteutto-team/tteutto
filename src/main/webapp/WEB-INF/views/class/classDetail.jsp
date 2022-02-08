@@ -37,7 +37,7 @@
                 </button>
             </div>
             <div class="modalContent">
-                <div class="share_kakao">
+                <div class="share_kakao" onclick="sendLinkCustom();">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="#1B1C1D" fill-rule="evenodd" d="M12 4c-4.971 0-9 3.185-9 7.115 0 2.558 1.707 4.8 4.27 6.054l-.78 2.94c-.122.489.179.483.377.351l3.463-2.353a11.39 11.39 0 001.67.123c4.971 0 9-3.185 9-7.115S16.971 4 12 4"></path>
                     </svg>
@@ -84,12 +84,13 @@
                 </div>
                 <div class="buyClassName flexStyle2">
                         <p class="buyClassTitle">
-                            [<span>${cdtr.ep.epCount}</span>회차] ${cdtr.cdt.className}
+                            [<span id="buyEp">${cdtr.ep.epCount}회차</span>] ${cdtr.cdt.className}
                         </p> 
                         <span>${cdtr.member.memberNm} 강사</span> 
                         <c:choose>
                         	<c:when test="${cdtr.cdt.classType == 0}">
-	                        	<span id="buyClassDate">2022년 1월 15일 (토) 11:00 ~12:00</span>
+	                        	<span id="buyClassDate"></span>
+	                        	<span style="display:none" id="epNoSpan"></span>
 	                        </c:when>
 	                        <c:otherwise>
 	                        	<span id="buyClassDate">${cdtr.epSchedule[0].schdlDt}  (${cdtr.epSchedule[0].schdlWeek})  <br> ~ ${cdtr.epSchedule[ fn:length(cdtr.epSchedule)-1].schdlDt}  (${cdtr.epSchedule[fn:length(cdtr.epSchedule)-1].schdlWeek})</span>
@@ -103,8 +104,11 @@
                     결제 금액
                 </div>
                 <div class="paymentAmount">
-             	    <c:set var="payAmount" value="${cdtr.ep.epPrice}"/> 
-                    <fmt:formatNumber value="${payAmount}" groupingUsed="true" />원
+                	<span id="epAmount">
+	             	    <c:set var="payAmount" value="${cdtr.ep.epPrice}"/> 
+                    	<fmt:formatNumber value="${payAmount}" groupingUsed="true" />
+                	</span>
+                    원
                 </div>
             </div>
             <form id="paymentCheck">
@@ -147,20 +151,67 @@
                     <tbody>
                         <tr>
                             <td colspan="3">
-                                <strong id="naviClassName">[<span>${cdtr.ep.epCount}</span>회차] ${cdtr.cdt.className} </strong>
+                                <strong id="naviClassName">[
+                                <c:choose>
+                                	<c:when test="${cdtr.cdt.classType == 1}">
+	                                	<span>${cdtr.ep.epCount}회차</span>
+                                	</c:when>
+									<c:otherwise>
+										<span>원데이</span>
+									</c:otherwise>                                	
+                                </c:choose>
+                                
+                                ] ${cdtr.cdt.className} </strong>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2" id="classPrice">
                                 	<c:set var="payAmount" value="${cdtr.ep.epPrice}"/> 
-                    				<fmt:formatNumber value="${payAmount}" groupingUsed="true" /> 원
+                    				<span id="epPrice"> <fmt:formatNumber value="${payAmount}" groupingUsed="true" /> </span> 원
                             </td>
                             <td id="classStar">
-                                <img src="${contextPath}/resources/images/class-detail/star.png">
-                                <img src="${contextPath}/resources/images/class-detail/star.png">
-                                <img src="${contextPath}/resources/images/class-detail/star.png">
-                                <img src="${contextPath}/resources/images/class-detail/star.png">
-                                <img src="${contextPath}/resources/images/class-detail/star2.png">
+                            	<c:if test="${empty crev.reviewAvg}">
+	                                <img src="${contextPath}/resources/images/class-detail/star2.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star2.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star2.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star2.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star2.png">
+                            	</c:if>
+                            	<c:if test="${crev.reviewAvg == 1}">
+	                                <img src="${contextPath}/resources/images/class-detail/star.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star2.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star2.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star2.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star2.png">
+                            	</c:if>
+                            	<c:if test="${crev.reviewAvg == 2}">
+	                                <img src="${contextPath}/resources/images/class-detail/star.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star2.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star2.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star2.png">
+                            	</c:if>
+                            	<c:if test="${crev.reviewAvg == 3}">
+	                                <img src="${contextPath}/resources/images/class-detail/star.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star2.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star2.png">
+                            	</c:if>
+                            	<c:if test="${crev.reviewAvg == 4}">
+	                                <img src="${contextPath}/resources/images/class-detail/star.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star2.png">
+                            	</c:if>
+                            	<c:if test="${crev.reviewAvg == 5}">
+	                                <img src="${contextPath}/resources/images/class-detail/star.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star.png">
+	                                <img src="${contextPath}/resources/images/class-detail/star.png">
+                            	</c:if> 
                             </td>
                         </tr>
                     </tbody>
@@ -197,8 +248,25 @@
 							<c:otherwise><c:set var="sign" value="회차"/> </c:otherwise>
                           </c:choose>
                           <c:forEach var="eps" items="${cdtr.epSchedule}" varStatus="vs">
-	                          <strong class="lessonCntList"> <span> ${vs.count} </span> ${sign} </strong>  
-	                          <span class="lessonDate">  ${eps.schdlDt} </span> (<span>${eps.schdlWeek}</span>) <span> ${eps.schdlStartTime}</span> ~ <span> ${eps.schdlEndTime}</span> <br>
+	                           
+	                          <c:choose>
+								<c:when test="${cdtr.cdt.classType == 0}">
+									<c:if test="${eps.possibleFl == 1}">
+				                          <strong class="lessonCntList">
+				                          	<span> ${eps.epCount} </span>
+				                           ${sign} </strong>  
+			                          	<span class="lessonDate">  ${eps.schdlDt} </span> (<span>${eps.schdlWeek}</span>) <span> ${eps.schdlStartTime}</span> ~ <span> ${eps.schdlEndTime}</span> <br>
+									</c:if>
+								</c:when>
+								<c:otherwise>
+									<strong class="lessonCntList">
+			                       <span> ${vs.count} </span>
+			                        ${sign} </strong>  
+	                          		<span class="lessonDate">  ${eps.schdlDt} </span> (<span>${eps.schdlWeek}</span>) <span> ${eps.schdlStartTime}</span> ~ <span> ${eps.schdlEndTime}</span> <br>
+								</c:otherwise>
+	                          </c:choose>
+	                          
+	                          
                          </c:forEach>
                     </div>
                     <div class="lesson-bottom-opacity"> </div>
@@ -207,13 +275,19 @@
                     <!-- 원데이 클래스 날짜 선택 -->
                     <c:if test="${cdtr.cdt.classType == 0}">
 	                    <div class="onedayClassDate">
-	                        <strong> 클래스 일정 선택 </strong>
+	                        <strong> 클래스 회차 선택 </strong>
 	                        <article class="onedaySelect">
-	                            <button class="btn-select">일정을 선택해주세요.</button>
+	                            <button class="btn-select">회차를 선택해주세요.</button>
 	                            <ul class="list-date">
 	                            	<c:forEach var="eps" items="${cdtr.epSchedule}">
 	                            		<c:if test="${eps.possibleFl == 1}">
-		                                	<li><button type="button">${eps.schdlDt} (${eps.schdlWeek}) ${eps.schdlStartTime} ~ ${eps.schdlEndTime}</button></li>
+		                                	<li>
+		                                		<button type="button">
+		                                			<span>${eps.epCount}회차</span> - <span><fmt:formatNumber value="${eps.epPrice}" groupingUsed="true" /></span>원
+		                                			<span style="display:none">${eps.schdlDt} (${eps.schdlWeek}) ${eps.schdlStartTime} ~ ${eps.schdlEndTime}</span>
+		                                			<span style="display:none">${eps.epNo}</span>
+		                                		</button>
+	                                		</li>
 	                            		</c:if>
 	                            	</c:forEach>
 	                            </ul>
@@ -259,10 +333,8 @@
                     </button>
                 </div> 
                 <div class="buyBtn" id="buyBtnId">
-                	<c:choose>
 		                    <div>신청하기</div>
 		                    <!-- <div><span>남은 시간 : </span>2022-02-12 10:00 </div> -->
-                	</c:choose>
                 </div>
 
             </div> <!-- sticky nav end -->
@@ -340,7 +412,7 @@
                     <p data-aos="fade-up">클래스 장소</p> 
                 </div>
                 <div data-aos="fade-up"> 
-                    <p class="subTitle" id="classAddress">서울특별시 강남구 강남구 테헤란로14길 6</p>
+                    <p class="subTitle" id="classAddress">${cdtr.ep.epPlace}</p>
                     <button type="button" onclick="window.open(loadSearch())" class="searchAddress">길찾기 ></button>
                 </div>
                 <div id="place_map" data-aos="fade-up"><div id="map" style="width:100%;height:100%;"></div></div>
@@ -709,10 +781,18 @@
     <script src="${contextPath}/resources/js/billboard.js"></script>
     
     <script>
-    	// 변수 선언
+    	const contextPath = '${contextPath}';
+    
+    	// 신청여부 조회용 변수 선언
     	const loginMemberNo = '${loginMember.memberNo}';
-    	/* const loginMemberName = '${loginMember.memberNm}'; */
     	const classNo = '${param.classNo}';
+    	
+    	// 결제내역 삽입용 변수 선언
+    	const loginMemberName = '${loginMember.memberNm}';
+    	const loginMemberPno = '${loginMember.memberPno}';
+    	
+    	//const epNo = $("#epNoSpan").text();
+    	
     </script>
     
     <script src="${contextPath}/resources/js/classDetail.js"></script>
@@ -732,8 +812,16 @@
         $("#buyBtnId").click(function(){
 
         	if(${!empty sessionScope.loginMember}){
+        	
         		
-          	  $(".buyModal").fadeIn();
+        		if($(".btn-select").text() == '회차를 선택해주세요.'){
+        			swal({'icon' : 'info',
+			       		  'title' : '회차 선택 후 신청해주세요.'
+			       		  });
+        		}else{
+        			
+	          	  $(".buyModal").fadeIn();
+        		}
         	}else{
         		alert("로그인 후 진행해주세요.");
         		$(location).attr("href", "${contextPath}/member/login");
@@ -784,5 +872,14 @@
 				 $(location).attr("href", "${contextPath}/member/login");
 		 	  }
  	  });
+ 	  
+ 	  
+ 	  //카카오 공유하기
+ 	  function sendLinkCustom() {
+        Kakao.init("78e4a93e20f860122fd8a26c9c05dbe7");
+        Kakao.Link.sendCustom({
+            templateId: 70472
+        });
+    }
  
     </script>
