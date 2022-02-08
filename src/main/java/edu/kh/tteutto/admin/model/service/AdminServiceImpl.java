@@ -127,6 +127,17 @@ public class AdminServiceImpl implements AdminService{
 		return dao.classUpdateDeny(classNo);
 	}
 	
+	// 클래스 수정 상세 조회
+	@Override
+	public AdminClass selectClassUpdate(int classNo) {
+		return dao.selectClassUpdate(classNo);	
+	}
+	
+	// 클래스 수정 상세 조회시 상태 업데이트
+	@Override
+	public int classUpdateStatus(int classNo) {
+		return dao.classUpdateStatus(classNo);
+	}
 	
 	
 	
@@ -134,8 +145,9 @@ public class AdminServiceImpl implements AdminService{
 	
 	
 	
+
 	
-	
+
 	
 
 	

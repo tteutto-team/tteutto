@@ -148,9 +148,17 @@ public class AdminDAO {
 		return sqlSession.update("adminMapper.classUpdateDeny", classNo);
 	}
 	
+	/** 클래스 수정 상세 조회
+	 * @param classNo
+	 * @return classOne2
+	 */
+	public AdminClass selectClassUpdate(int classNo) {
+		return sqlSession.selectOne("adminMapper.selectClassUpdate", classNo);
+	}
 	
-	
-	
+	public int classUpdateStatus(int classNo) {
+		return sqlSession.update("adminMapper.classUpdateStatus", classNo);
+	}
 	
 	
 	
@@ -418,57 +426,6 @@ public class AdminDAO {
 	public int teacherStatusUpdate(int memberNo) {
 		return sqlSession.update("adminMapper.teacherStatusUpdate", memberNo);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

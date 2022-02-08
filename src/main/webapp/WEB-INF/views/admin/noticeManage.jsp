@@ -30,3 +30,6 @@
 </div>
    
 <script src="${contextPath}/resources/js/admin/noticeManage.js"></script>
+<script type="text/javascript">
+	const contextPath = "${contextPath}";
+</script>

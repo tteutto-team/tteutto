@@ -91,8 +91,18 @@ public interface AdminService {
 	 */
 	int classUpdateDeny(int classNo);
 
-	
-	
+	/** 클래스 수정 상세 조회
+	 * @param classNo
+	 * @return classOne2
+	 */
+	AdminClass selectClassUpdate(int classNo);
+
+	/** 클래스 수정 상세 조회시 상태 업데이트
+	 * @param classNo
+	 * @return result
+	 */
+	int classUpdateStatus(int classNo);
+
 	
 	
 	
@@ -248,6 +258,8 @@ public interface AdminService {
 	 * @return result
 	 */
 	int insertFaq(AdminNoticeFaq faq);
+
+
 
 
 

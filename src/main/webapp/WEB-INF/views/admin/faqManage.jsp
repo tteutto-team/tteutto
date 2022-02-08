@@ -30,3 +30,6 @@
 </div>
    
 <script src="${contextPath}/resources/js/admin/faqManage.js"></script>
+<script type="text/javascript">
+	const contextPath = "${contextPath}";
+</script>
