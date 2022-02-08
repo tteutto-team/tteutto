@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -42,7 +44,15 @@ public class adminController {
 	
 	// 회차별 신청 관리 이동
 	@RequestMapping(value="classEpisodeManage", method=RequestMethod.GET)
-	public String classEpisodeManage() {
+	public String classEpisodeManage(RedirectAttributes ra, HttpSession session) {
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
+		
 		return "admin/classEpisodeManage";
 	}
 	
@@ -50,7 +60,7 @@ public class adminController {
 	// 회차별 목록 조회
 	@RequestMapping(value="classEpisodeList", method=RequestMethod.GET)
 	@ResponseBody
-	public List<Admin> classEpisodeList() {
+	public List<Admin> classEpisodeList(RedirectAttributes ra) {
 		
 		List<Admin> data = service.classEpisodeList();
 		
@@ -85,7 +95,15 @@ public class adminController {
 	// 회차 상세 조회
 	@RequestMapping(value="classEpisode/{episodeNo}", method=RequestMethod.GET)
 	public String episode(@PathVariable(value="episodeNo", required=false) int episodeNo, Model model,
-			@RequestParam(value="no", required=false) int classNo) {
+			@RequestParam(value="no", required=false) int classNo,RedirectAttributes ra, HttpSession session) {
+		
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
 		
 		AdminClass classOne = service.selectClass(classNo);
 		
@@ -105,7 +123,15 @@ public class adminController {
 	
 	// 클래스 신청 관리 이동
 	@RequestMapping(value="classManage", method=RequestMethod.GET)
-	public String classManage() {
+	public String classManage(RedirectAttributes ra, HttpSession session) {
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
+		
 		return "admin/classManage";
 	}
 	
@@ -144,7 +170,14 @@ public class adminController {
 	
 	// 클래스 상세 조회
 	@RequestMapping(value="class/{classNo}", method=RequestMethod.GET)
-	public String selectClass(@PathVariable(value="classNo", required = false) int classNo, Model model) {
+	public String selectClass(@PathVariable(value="classNo", required = false) int classNo, Model model,RedirectAttributes ra, HttpSession session) {
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
 		
 		AdminClass classOne = service.selectClass(classNo);
 		
@@ -159,7 +192,15 @@ public class adminController {
 	
 	// 클래스 수정 관리 이동
 	@RequestMapping(value="classUpdateManage", method=RequestMethod.GET)
-	public String classUpdateManage() {
+	public String classUpdateManage(RedirectAttributes ra, HttpSession session) {
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
+		
 		return "admin/classUpdateManage";
 	}
 	
@@ -193,7 +234,34 @@ public class adminController {
 		return result;
 	}
 	
-	
+	// 클래스 수정 상세 조회
+	@RequestMapping(value="classUpdate/{classNo}", method=RequestMethod.GET)
+	public String selectUpdateClass(@PathVariable(value="classNo", required = false) int classNo, Model model,RedirectAttributes ra, HttpSession session) {
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
+		
+		AdminClass classOne = service.selectClass(classNo);
+		
+		if(classOne != null) {
+			AdminClass classOne2 = service.selectClassUpdate(classNo);
+			
+			if(classOne2 != null) {
+				int result = service.classUpdateStatus(classNo);
+				
+				if(result > 0) {
+					model.addAttribute("classOne", classOne);
+					model.addAttribute("classOne2", classOne2);
+				}
+			}
+		}
+		
+		return "admin/classUpdate";
+	}
 	
 	
 	
@@ -205,7 +273,15 @@ public class adminController {
 	
 	// 유저 관리 이동
 	@RequestMapping(value="userManage", method=RequestMethod.GET)
-	public String userManage() {
+	public String userManage(RedirectAttributes ra, HttpSession session) {
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
+		
 		return "admin/userManage";
 	}
 	
@@ -237,7 +313,15 @@ public class adminController {
 	
 	// 강사 신청 관리 이동
 	@RequestMapping(value="teacherManage", method=RequestMethod.GET)
-	public String teacherManage() {
+	public String teacherManage(RedirectAttributes ra, HttpSession session) {
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
+		
 		return "admin/teacherManage";
 	}
 	
@@ -256,9 +340,7 @@ public class adminController {
 	@ResponseBody
 	public int teacherAgree(int memberNo) {
 		
-		
 		int result = service.teacherAgree(memberNo);
-		
 		
 		return result;
 	}
@@ -268,9 +350,7 @@ public class adminController {
 	@ResponseBody
 	public int teacherDeny(int memberNo) {
 		
-		
 		int result = service.teacherDeny(memberNo);
-		
 		
 		return result;
 	}
@@ -278,7 +358,15 @@ public class adminController {
 	// 강사 상세 조회
 	@RequestMapping(value="teacher/{memberNo}", method=RequestMethod.GET)
 	public String teacher(@PathVariable(value="memberNo", required = false) int memberNo,
-							Model model) {
+							Model model,RedirectAttributes ra, HttpSession session) {
+		
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
 		
 		AdminTeacher teacher = service.selectTeacher(memberNo);
 		
@@ -289,7 +377,15 @@ public class adminController {
 	
 	// 학생 신고 관리 이동
 	@RequestMapping(value="studentReportManage", method=RequestMethod.GET)
-	public String studentReportManage() {
+	public String studentReportManage(RedirectAttributes ra, HttpSession session) {
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
+		
 		return "admin/studentReportManage";
 	}
 	
@@ -316,7 +412,15 @@ public class adminController {
 	
 	// 클래스 신고 관리 이동
 	@RequestMapping(value="classReportManage", method=RequestMethod.GET)
-	public String classReportManage() {
+	public String classReportManage(RedirectAttributes ra, HttpSession session) {
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
+		
 		return "admin/classReportManage";
 	}
 	
@@ -343,7 +447,15 @@ public class adminController {
 	
 	// 정산 페이지 이동
 	@RequestMapping(value="calculateManage", method=RequestMethod.GET)
-	public String calculateManage() {
+	public String calculateManage(RedirectAttributes ra, HttpSession session) {
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
+		
 		return "admin/calculateManage";
 	}
 	
@@ -369,7 +481,14 @@ public class adminController {
 	
 	// 정산 학생 목록 페이지 이동
 	@RequestMapping(value="calculate/{calNo}", method=RequestMethod.GET)
-	public String calculate(@PathVariable(value="calNo", required = false) int calNo, Model model, RedirectAttributes ra) {
+	public String calculate(@PathVariable(value="calNo", required = false) int calNo, Model model, RedirectAttributes ra, HttpSession session) {
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
 		
 		AdminCalcRefund cal = service.calculateClassTeacher(calNo);
 		
@@ -400,7 +519,7 @@ public class adminController {
 	// 정산 완료 업데이트
 	@RequestMapping(value="receiptUpdate", method=RequestMethod.POST)
 	@ResponseBody
-	public int receiptUpdate(int calNo, RedirectAttributes ra) {
+	public int receiptUpdate(int calNo) {
 		
 		int result = service.receiptUpdate(calNo);
 		
@@ -409,7 +528,15 @@ public class adminController {
 	
 	// 환불 관리 페이지 이동
 	@RequestMapping(value="refundManage", method=RequestMethod.GET)
-	public String refundManage() {
+	public String refundManage(RedirectAttributes ra, HttpSession session) {
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
+		
 		return "admin/refundManage";
 	}
 	
@@ -445,7 +572,15 @@ public class adminController {
 	
 	// 공지사항 페이지 이동
 	@RequestMapping(value="noticeManage", method=RequestMethod.GET)
-	public String noticeManage() {
+	public String noticeManage(RedirectAttributes ra, HttpSession session) {
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
+		
 		return "admin/noticeManage";
 	}
 	
@@ -469,7 +604,15 @@ public class adminController {
 	
 	// 공지사항 글쓰기 페이지 이동
 	@RequestMapping(value="noticeInsert", method=RequestMethod.GET)
-	public String noticeInsert() {
+	public String noticeInsert(RedirectAttributes ra, HttpSession session) {
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
+		
 		return "admin/noticeInsert";
 	}
 	
@@ -496,7 +639,15 @@ public class adminController {
 	
 	// FAQ 페이지 이동
 	@RequestMapping(value="faqManage", method=RequestMethod.GET)
-	public String faqManage() {
+	public String faqManage(RedirectAttributes ra, HttpSession session) {
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
+		
 		return "admin/faqManage";
 	}
 	
@@ -520,15 +671,21 @@ public class adminController {
 	
 	// FAQ 글쓰기 페이지 이동
 	@RequestMapping(value="faqInsert", method=RequestMethod.GET)
-	public String faqInsert() {
+	public String faqInsert(RedirectAttributes ra, HttpSession session) {
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
+		
 		return "admin/faqInsert";
 	}
 	
 	// FAQ 게시글 삽입
 	@RequestMapping(value="faqInsert", method=RequestMethod.POST)
 	public String insertFaq(AdminNoticeFaq faq, RedirectAttributes ra) {
-		
-		System.out.println(faq);
 		
 		int result = service.insertFaq(faq);
 

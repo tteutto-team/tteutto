@@ -326,8 +326,14 @@
 		UPDATE CLASS_UPDATE SET CLASS_ST = 3 WHERE CLASS_NO = #{classNo}
 	</update>
 	
+	<select id="selectClassUpdate" resultMap="class_rm">
+		SELECT CLASS_AREA, CLASS_MIN_PERSON, CLASS_MAX_PERSON, CLASS_NM, CLASS_INTRO
+		FROM CLASS_UPDATE
+	</select>
 	
-	
+	<update id="classUpdateStatus">
+		UPDATE CLASS_UPDATE SET CLASS_ST = 1 WHERE CLASS_NO = #{classNo}
+	</update>
 	
 	
 	
