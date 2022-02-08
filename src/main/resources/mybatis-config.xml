@@ -37,6 +37,7 @@
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassDetail" alias="ClassDetail" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassDetailImage" alias="ClassDetailImage" />	
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassDetailRight" alias="ClassDetailRight" />
+		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.Receipt" alias="Receipt" />
 		
 		<typeAlias type="edu.kh.tteutto.chat.model.vo.ChatRoom" alias="ChatRoom" />
 		<typeAlias type="edu.kh.tteutto.chat.model.vo.ChatMessage" alias="ChatMessage" />

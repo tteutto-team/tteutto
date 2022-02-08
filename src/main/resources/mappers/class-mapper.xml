@@ -30,12 +30,27 @@
 
 
 	<resultMap type="EpisodeClass" id="episode_class_rm">
-		<id property="epCount" column="EP_COUNT"/>
+		<id property="epNo" column="EP_NO"/>
 		
-		<result property="StudyStatus" column="STUDY_STATUS"/>
-		<result property="ClassDate" column="CLASS_DATE"/>
+		<result property="classNo" column="CLASS_NO"/>
+		
+		<result property="epCount" column="EP_COUNT"/>
+		<result property="studyStatus" column="STUDY_STATUS"/>
+		<result property="startDate" column="START_DATE"/>
+		<result property="endDate" column="END_DATE"/>
 		<result property="deleteStatus" column="DELETE_STATUS"/>
 		<result property="calStatus" column="CAL_STATUS"/>
+	</resultMap>
+
+	<!-- 영수증 -->
+	<resultMap type="Receipt" id="receipt_rm">
+		<id property="receiptNo" column="RECEIPT_NO"/>
+		
+		<result property="classNm" column="CLASS_NM"/>
+		<result property="teacherNm" column="TEACHER_NM"/>
+		<result property="studentNm" column="STUDENT_NM"/>
+		<result property="price" column="PRICE"/>
+		<result property="calDate" column="CAL_DATE"/>
 	</resultMap>
 
 	<!-- 클래스 등록 -->
@@ -64,8 +79,8 @@
 		</foreach>
 	</insert>
 	
+	
 	<!-- 강사 페이지  -->
-	<!-- 강사 클래스 목록 조회 - 1회차 클래스 검색 -->
 	<select id="selectClassList" resultMap="class_rm">
 		SELECT CLASS_NO, CLASS_NM FROM CLASS
 		JOIN EPISODE A USING (CLASS_NO)
@@ -73,16 +88,59 @@
 		WHERE MEMBER_NO = #{memberNo} AND EP_COUNT = 1
 	</select>
 	
-	<!-- 강사 클래스 목록 조회 - 1회차 이상인 클래스 검색 -->
+	
+	<!-- 강사 클래스 목록 조회 - 1회차 이상인 클래스 검색 -> 회차별 조회 -->
 	<select id="selectClassEpisode" resultMap="episode_class_rm">
-		SELECT EP_COUNT, SCHDL_DT AS CLASS_DATE, EP_ST AS DELETE_STATUS, CAL_ST AS CAL_STATUS
-		FROM EPISODE
-		JOIN EP_SCHEDULE USING(EP_NO)
-		JOIN CALCULATE USING(EP_NO)
-		WHERE CLASS_NO = #{classId}
-		ORDER BY EP_COUNT
+		SELECT c.class_no as class_no, e.ep_no as ep_no,
+		e.EP_COUNT as ep_count, 
+		e.EP_ST AS DELETE_STATUS, 
+		ca.CAL_ST AS CAL_STATUS,
+	
+		to_char(min(s.schdl_dt),'yyyymmdd') start_date, 
+		to_char(max(s.schdl_dt),'yyyymmdd') end_date 
+		
+		FROM CLASS c
+		LEFT JOIN episode e on c.class_no = e.class_no
+		LEFT JOIN ep_schedule s on e.ep_no = s.ep_no
+		LEFT JOIN calculate ca on s.ep_no = ca.ep_no
+		
+		WHERE ep_st != 4 and c.member_no = #{memberNo}
+		group by c.class_no, e.ep_no, e.EP_COUNT, e.EP_ST, ca.CAL_ST, e.ep_st
+		order by ep_no
 	</select>
 	
+	<!-- 영수증 조회 -->
+	<select id="selectReceipt" resultMap="receipt_rm">
+		select r.receipt_no RECEIPT_NO, c.class_nm CLASS_NM, m.member_nm TEACHER_NM, 
+        STUDENT_NM, cal_price PRICE, ca.cal_fin_no CAL_DATE
+		from episode e
+		join class c on (e.class_no = c.class_no)
+		join member m on(c.member_no = m.member_no)
+		join calculate ca on (e.ep_no = ca.ep_no)
+		join receipt r on (ca.cal_no = r.cal_no)
+		where e.ep_no = #{epNo}
+	</select>
+	
+	
+	<!-- 클래스 삭제 가능여부 조회 -->
+	<select id="selectDeleteClass" resultType="_int">
+		select count(*) from (
+		    SELECT e.ep_no, to_char(min(s.schdl_dt),'yyyymmdd') start_date, to_char(max(s.schdl_dt),'yyyymmdd') end_date
+		    FROM CLASS c
+		    LEFT JOIN episode e on c.class_no = e.class_no
+		    LEFT JOIN ep_schedule s on e.ep_no = s.ep_no
+		    WHERE e.ep_no = #{epNo}
+		    group by e.ep_no
+		    order by ep_no
+		) t
+		where (  (select count(*) from register where ep_no = #{epNo}) = 0 and
+		      (  ( to_char(sysdate, 'yyyymmdd') <![CDATA[ >= ]]> t.start_date and to_char(sysdate, 'yyyymmdd') <![CDATA[ <= ]]> t.end_date )  or  ( to_char(sysdate, 'yyyymmdd') <![CDATA[ <= ]]> t.start_date and to_char(sysdate, 'yyyymmdd') <![CDATA[ <= ]]> t.end_date ) ) )
+	</select>
+	
+	<!-- 클래스 삭제 -->
+	<delete id="deletClass">
+		delete from episode where ep_no = #{epNo}
+	</delete>
 
 
 
