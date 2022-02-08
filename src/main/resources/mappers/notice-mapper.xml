@@ -25,7 +25,15 @@
 		<result property="noticeNo" column="NOTICE_NO" />
 	</resultMap>
 		
+	<resultMap type="Faq" id="faq_rm">
+		<id property="faqNo" column="FAQ_NO" />
+		
+		<result property="faqDiv" column="FAQ_DIV" />
+		<result property="faqQuestion" column="FAQ_QUESTION" />
+		<result property="faqAnswer" column="FAQ_ANSWER" />
+	</resultMap>
 	
+	<!-- 공지사항 목록 조회 -->
 	<select id="selectNoticeList" resultMap="notice_rm">
 		SELECT NOTICE_NO, NOTICE_TITLE 
 		FROM NOTICE
@@ -39,10 +47,18 @@
 		WHERE NOTICE_NO = #{noticeNo}
 	</select>
 	
+	<!-- 공지사항 상세 조회 -->
 	<select id="selectNotice" resultMap="notice_rm">
-		SELECT NOTICE_TITLE, NOTICE_CONTENT, IMG_PATH, IMG_NM, IMG_ORIGINAL
+		SELECT NOTICE_TITLE, NOTICE_CONTENT, imgList
 		FROM NOTICE
 		LEFT JOIN NOTICE_IMG USING(NOTICE_NO)
         WHERE NOTICE_NO = ${noticeNo}
+	</select>
+	
+	<!-- 공지사항 상세 조회 -->
+	<select id="selectFaqList" resultMap="faq_rm">
+		SELECT FAQ_NO, FAQ_QUESTION, FAQ_ANSWER
+		FROM FAQ
+        WHERE FAQ_DIV = ${faqDiv}
 	</select>
 </mapper>
