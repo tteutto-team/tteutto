@@ -48,6 +48,7 @@
 		
 		<typeAlias type="edu.kh.tteutto.notice.model.vo.Notice" alias="Notice" />
 		<typeAlias type="edu.kh.tteutto.notice.model.vo.NoticeImg" alias="NoticeImg" />
+		<typeAlias type="edu.kh.tteutto.notice.model.vo.Faq" alias="Faq" />
 	</typeAliases>
 	
 	<!-- mapper 파일(SQL 작성되는파일) 위치 등록 부분 -->

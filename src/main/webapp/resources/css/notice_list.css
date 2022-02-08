@@ -97,23 +97,29 @@ h3, h2{
     cursor: pointer;
 }
 
-.tab{
+
+#student{
+	float: left;
+    margin-right: 80px;
+}
+
+#teacher{
+	float: left;
+    margin-right: 80px;
+}
+.tab_on{
     color: #BF5846;
     border-bottom: 5px solid #BF5846;
-    float: left;
-    margin-right: 80px;
     font-weight: 500;
     font-size: 25px;
     cursor: pointer;
     padding: 0 15px 5px 15px;
 }
 
-.tab_on{
-    float: left;
-    margin-right: 80px;
+.tab{
     font-weight: 500;
     font-size: 25px;
-    padding-bottom: 5px;
+    padding: 0 15px 5px 15px;
 }
 
 #faq_list{
