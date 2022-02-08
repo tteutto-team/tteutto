@@ -9,6 +9,9 @@ public class ClassReview {
 		private String reviewDt; // 후기 작성일자
 		private String reviewStatus; //후기 상태
 		
+		private int regNo; //수강번호
+		private int reviewAvg; //별점평균
+	
 		
 		public ClassReview() {
 			// TODO Auto-generated constructor stub
@@ -64,12 +67,42 @@ public class ClassReview {
 			this.reviewStatus = reviewStatus;
 		}
 
+		
+
+		public int getRegNo() {
+			return regNo;
+		}
+
+
+		public void setRegNo(int regNo) {
+			this.regNo = regNo;
+		}
+		
+		
+
+
+		public int getReviewAvg() {
+			return reviewAvg;
+		}
+
+
+		public void setReviewAvg(int reviewAvg) {
+			this.reviewAvg = reviewAvg;
+		}
+
 
 		@Override
 		public String toString() {
 			return "ClassReview [reviewNo=" + reviewNo + ", reviewStar=" + reviewStar + ", reviewContent="
-					+ reviewContent + ", reviewDt=" + reviewDt + ", reviewStatus=" + reviewStatus + "]";
+					+ reviewContent + ", reviewDt=" + reviewDt + ", reviewStatus=" + reviewStatus + ", regNo=" + regNo
+					+ ", reveiwAvg=" + reviewAvg + "]";
 		}
+
+
+		
+
+
+		
 		
 		
 		

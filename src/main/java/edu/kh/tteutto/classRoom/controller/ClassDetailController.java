@@ -19,6 +19,8 @@ import edu.kh.tteutto.member.model.vo.Member;
 import edu.kh.tteutto.classRoom.model.service.ClassDetailService;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
+import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
+import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 
 @Controller
 @RequestMapping("/class/*")
@@ -40,11 +42,14 @@ public class ClassDetailController {
 
 		ClassDetailRight cdtr = service.selectClassDetail(classNo);
 		
+		//클래스 후기 조회
+		ClassReview crev = service.selectReviewAvg(classNo);
 		
 		String path = null;
 		
 		if(cdtr != null) {
 			model.addAttribute("cdtr", cdtr);
+			model.addAttribute("crev", crev);
 			path = "class/classDetail";
 			
 		}else { // 경로로 검색시
@@ -71,5 +76,15 @@ public class ClassDetailController {
 		
 		return result;
 	}
-
+	
+	
+	// 클래스 결제(신청) 후 결제내역 DB 삽입
+	@ResponseBody
+	@RequestMapping("insertRegister")
+	public int insertRegister(Model model, ClassRegister classReg) {
+		return service.insertRegister(classReg);
+	}
+	
+	
+	
 }

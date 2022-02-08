@@ -12,6 +12,8 @@ public class ClassRegister {
 	private int payStauts; // 결제상태
 	private int regStatus; // 수강신청상태
 	
+	private int epNo; //회차번호
+	
 	private int classNo; // 클래스번호
 	private String className;// 클래스제목
 	private int classStatus; // 클래스상태
@@ -36,17 +38,6 @@ public class ClassRegister {
 		this.classNo = classNo;
 	}
 
-
-
-	public int getMemberNo() {
-		return memberNo;
-	}
-
-
-
-	public void setMemberNo(int memberNo) {
-		this.memberNo = memberNo;
-	}
 
 
 
@@ -97,6 +88,23 @@ public class ClassRegister {
 	public void setRegStatus(int regStatus) {
 		this.regStatus = regStatus;
 	}
+	
+
+	public int getEpNo() {
+		return epNo;
+	}
+
+	public void setEpNo(int epNo) {
+		this.epNo = epNo;
+	}
+
+	public int getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
 
 	public String getClassName() {
 		return className;
@@ -138,13 +146,18 @@ public class ClassRegister {
 		this.refundMoney = refundMoney;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "ClassRegister [regNo=" + regNo + ", regNm=" + regNm + ", regPhoneNo=" + regPhoneNo + ", payDt=" + payDt
-				+ ", payStauts=" + payStauts + ", regStatus=" + regStatus + ", className=" + className
-				+ ", classStatus=" + classStatus + ", scheduleDate=" + scheduleDate + ", refundStatus=" + refundStatus
-				+ ", refundMoney=" + refundMoney + "]";
+				+ ", payStauts=" + payStauts + ", regStatus=" + regStatus + ", epNo=" + epNo + ", classNo=" + classNo
+				+ ", className=" + className + ", classStatus=" + classStatus + ", scheduleDate=" + scheduleDate
+				+ ", refundStatus=" + refundStatus + ", refundMoney=" + refundMoney + ", memberNo=" + memberNo + "]";
 	}
+
+	
+
 	
 	
 	

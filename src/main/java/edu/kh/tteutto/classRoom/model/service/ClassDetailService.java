@@ -2,7 +2,12 @@ package edu.kh.tteutto.classRoom.model.service;
 
 import java.util.Map;
 
+import org.springframework.ui.Model;
+
+import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
+import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
+import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 
 public interface ClassDetailService {
 
@@ -17,5 +22,17 @@ public interface ClassDetailService {
 	 * @return result
 	 */
 	String selectRegisterDt(Map<String, Integer> map);
+
+	/** 클래스 후기 평점조회
+	 * @param classNo
+	 * @return classRegister
+	 */
+	ClassReview selectReviewAvg(int classNo);
+
+	/** 결제(신청) 내역 삽입
+	 * @param classReg
+	 * @return result
+	 */
+	int insertRegister(ClassRegister classReg);
 
 }

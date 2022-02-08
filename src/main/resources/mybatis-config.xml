@@ -47,6 +47,8 @@
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.EpisodeClass" alias="EpisodeClass" />
 		<typeAlias type="edu.kh.tteutto.main.model.vo.ClassList" alias="ClassList" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.EpisodeSchedule" alias="EpisodeSchedule" />
+		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassRegister" alias="ClassRegister" />
+		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassReview" alias="ClassReview" />
 
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassRegister" alias="ClassRegister" />
 		
