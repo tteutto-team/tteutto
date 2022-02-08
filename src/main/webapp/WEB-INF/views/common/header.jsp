@@ -148,7 +148,7 @@
 			const profileModal = document.querySelector("#profile-modal");
 			const icon = document.querySelector("#icon");
 		
-			/* 헤더 프로필 이미지 + icon 클릭 시 모달창 열고 닫기 */
+			<%-- 헤더 프로필 이미지 + icon 클릭 시 모달창 열고 닫기 --%>
 			myProfile.addEventListener("click", function() {
 				if (profileModal.style.display != "block") {
 					profileModal.style.display = "block";
@@ -162,7 +162,7 @@
 				}  
 			});
 			
-			/* 모달창이 열려있을 때 헤더 프로필 이미지 + icon, 모달창 외 나머지 클릭 시 모달창 닫기 */
+			<%-- 모달창이 열려있을 때 헤더 프로필 이미지 + icon, 모달창 외 나머지 클릭 시 모달창 닫기 --%>
 			window.addEventListener("click", function(e) {
 				const nodeList = document.querySelectorAll("#profile-modal *");
 				const arr = Array.from(nodeList);
