@@ -31,10 +31,10 @@
         let epNo = $(this).parent().parent().attr("id").split("_")[1];
 
         if($(this).hasClass("0")){  // 진행중인 클래스
-            location.href = contextPath + "/teacher/studentListOngoing";
+            sendPost(contextPath+"/teacher/studentListOngoing", "epNo", epNo);
             
         } else{ // 진행 예정 클래스
-            location.href = contextPath + "/teacher/studentListExpect";
+            sendPost(contextPath+"/teacher/studentListOngoing", "epNo", epNo);
         }
     }
 
@@ -236,4 +236,24 @@ function deleteClass(epNo){
 
 
     })
+}
+
+
+// post 방식 데이터 전송
+function sendPost(url, name, params) { 
+
+    var form = document.createElement('form'); 
+    form.setAttribute('method', 'post'); 
+    form.setAttribute('action', url); 
+    
+    for (var key in params) { 
+        var hiddenField = document.createElement('input'); 
+        hiddenField.setAttribute('type', 'hidden');
+        hiddenField.setAttribute('name', name); 
+        // hiddenField.setAttribute('value', params[key]); 
+        hiddenField.setAttribute('value', 1); 
+        form.appendChild(hiddenField); 
+    } 
+    document.body.appendChild(form); 
+    form.submit(); 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import edu.kh.tteutto.classRoom.model.dao.TeacherDAO;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeClass;
+import edu.kh.tteutto.classRoom.model.vo.OngingClass;
 import edu.kh.tteutto.classRoom.model.vo.Receipt;
 
 @Service
@@ -44,5 +45,11 @@ public class TeacherServiceImpl implements TeacherService{
 	@Override
 	public int deletClass(String epNo) {
 		return dao.deletClass(epNo);
+	}
+	
+	// 진행중인 클래스 목록 조회
+	@Override
+	public List<OngingClass> selectOngoingClass(int epNo) {
+		return dao.selectOngoingClass(epNo);
 	}
 }

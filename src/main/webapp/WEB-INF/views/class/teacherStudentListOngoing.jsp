@@ -26,7 +26,7 @@
 
             <div class="right">
 	            <div class="right-top">
-	                <p><span>'클래스1'</span> 학생 목록 <span id="class-status">(교육 중)</span></p>
+	                <p><span>${ongoingClassList[0].className}-${ongoingClassList[0].epCount}</span> 학생 목록 <span id="class-status">(진행 중)</span></p>
 				</div>
 				
                 <div class="table">
@@ -34,64 +34,32 @@
                         <div class="column">번호</div>
                         <div class="column">학생 이름</div>
                         <div class="column">성별</div>
-                        <div class="column">출석일</div>
                         <div class="column">신고 횟수</div>
                         <div class="column"></div>
                     </div>
-
-                    <div class="row">
-                        <div class="column">1</div>
-                        <div class="column">학생1</div>
-                        <div class="column">남자</div>
-                        <div class="column">1일</div>
-                        <div class="column">2회</div>
-                        <div class="column slide">
-                            <i class="fas fa-angle-down"></i>
-                        </div>
-                    </div>
-                    <div class="invisible">
-                        <div class="invisible-btn">
-                            <button><i class="far fa-comment"></i> 채팅</button>
-                            <button class="modal-open-btn report"><i class="fas fa-exclamation-triangle"></i> 신고</button>
-                            <button class="modal-open-btn reject" style="width: auto;"><i class="fas fa-ban"></i> 신청 거절</button>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="column">2</div>
-                        <div class="column">학생2</div>
-                        <div class="column">남자</div>
-                        <div class="column">4일</div>
-                        <div class="column">1회</div>
-                        <div class="column slide">
-                            <i class="fas fa-angle-down"></i>
-                        </div>
-                    </div>
-                    <div class="invisible">
-                        <div class="invisible-btn">
-                            <button><i class="far fa-comment"></i> 채팅</button>
-                            <button class="modal-open-btn report"><i class="fas fa-exclamation-triangle"></i> 신고</button>
-                            <button class="modal-open-btn reject" style="width: auto;"><i class="fas fa-ban"></i> 신청 거절</button>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="column">3</div>
-                        <div class="column">학생3</div>
-                        <div class="column">여자</div>
-                        <div class="column">5일</div>
-                        <div class="column">0회</div>
-                        <div class="column slide">
-                            <i class="fas fa-angle-down"></i>
-                        </div>
-                    </div>
-                    <div class="invisible">
-                        <div class="invisible-btn">
-                            <button><i class="far fa-comment"></i> 채팅</button>
-                            <button class="modal-open-btn report"><i class="fas fa-exclamation-triangle"></i> 신고</button>
-                            <button class="modal-open-btn reject" style="width: auto;"><i class="fas fa-ban"></i> 신청 거절</button>
-                        </div>
-                    </div>
+                    
+					<c:forEach items="${ongoingClassList}" var="ongoingClass" varStatus="status">
+						<c:if test="${!empty ongoingClass.studentName}">
+	                    
+	                    <div class="row">
+	                        <div class="column">${status.count}</div>
+	                        <div class="column">${ongoingClass.studentName}</div>
+	                        <div class="column">${ongoingClass.memberGender}</div>
+	                        <div class="column">${ongoingClass.reportCount}회</div>
+	                        <div class="column slide">
+	                            <i class="fas fa-angle-down"></i>
+	                        </div>
+	                    </div>
+	                    <div class="invisible">
+	                        <div class="invisible-btn" id="student_${ongoingClass.studentNo}">
+	                            <button><i class="far fa-comment"></i> 채팅</button>
+	                            <button class="modal-open-btn report"><i class="fas fa-exclamation-triangle"></i> 신고</button>
+	                            <button class="modal-open-btn reject" style="width: auto;"><i class="fas fa-ban"></i> 신청 거절</button>
+	                        </div>
+	                    </div>
+	                    
+						</c:if>
+					</c:forEach>
                 </div>
 
                 <div class="page-number">
