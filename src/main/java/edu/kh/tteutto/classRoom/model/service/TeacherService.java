@@ -4,6 +4,7 @@ import java.util.List;
 
 import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeClass;
+import edu.kh.tteutto.classRoom.model.vo.OngingClass;
 import edu.kh.tteutto.classRoom.model.vo.Receipt;
 
 public interface TeacherService {
@@ -37,6 +38,12 @@ public interface TeacherService {
 	 * @return result
 	 */
 	int deletClass(String epNo);
+
+	/** 진행중인 클래스 목록 조회
+	 * @param epNo
+	 * @return ongoingClassList
+	 */
+	List<OngingClass> selectOngoingClass(int epNo);
 	
 	
 }
