@@ -11,13 +11,23 @@ function createTable() {
 			$('#table_id').DataTable({
 				language: lang_kor,
 				data: data,
-				order: [[2, "asc"]],
+				order: [[3, "asc"]],
 				columns: [
 					{ data: "memberNo" },
 					{
 						data: null,
 						render: function (data, type, row) {
 							return '<a href="teacher/' + data.memberNo + '">' + data.memberName + '</a>';
+						}
+					},
+					{
+						data: null,
+						render: function (data, type, row) {
+							if(data.teacherStatus == 0){
+								return "신청완료";
+							}else{
+								return "검토중";
+							}
 						}
 					},
 					{ data: "teacherRequestDate" },

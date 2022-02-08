@@ -37,10 +37,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.common.Util;
+import edu.kh.tteutto.main.model.vo.ClassList;
 import edu.kh.tteutto.main.model.vo.Pagination;
 import edu.kh.tteutto.member.model.service.MemberService;
+import edu.kh.tteutto.member.model.service.WishService;
 import edu.kh.tteutto.member.model.vo.Career;
 import edu.kh.tteutto.member.model.vo.Certified;
 import edu.kh.tteutto.member.model.vo.Member;
@@ -409,12 +412,17 @@ public class MemberController {
 	// 학생 마이페이지 클래스 목록 이동
 	@RequestMapping(value = "studentClassList", method = RequestMethod.GET)
 	public String studentClassList(@RequestParam(value="cp", required=false, defaultValue="1") int cp,
-								   @ModelAttribute("loginMember") Member loginMember,
-								   Model model) {
+								   @ModelAttribute("loginMember") Member loginMember, Model model) {
 		
-		Pagination pagination = null;
+		int memberNo = loginMember.getMemberNo();
+		
+		//Pagination pagination = null;
 		
 		//pagination = service.getPagination(cp);
+		
+		List<ClassRegister> register = service.studentClassList(memberNo);
+		
+		model.addAttribute("register", register);
 		
 		return "member/studentClassList";
 	}
@@ -429,9 +437,26 @@ public class MemberController {
 		return "member/studentCommentList";
 	}
 
-	// 학생 마이페이지 찜 목록 이동
-	@RequestMapping(value = "studentWishList", method = RequestMethod.GET)
-	public String studentWishList() {
+	// 찜한 클래스
+	@RequestMapping("studentWishList")
+	public String studentWishList(Model model, 
+			@ModelAttribute("loginMember") Member loginMember, 
+			@RequestParam(value="page", required=false, defaultValue="1") int page) {
+		 
+		int memberNo = loginMember.getMemberNo();
+		
+		Pagination pagination = null;
+		List<ClassList> wishList = null;
+		
+		pagination = service.getPagination(memberNo, page);
+		pagination.setLimit(9);
+		pagination.setPageSize(5);
+		
+		wishList = service.selectWishList(pagination, memberNo);
+		
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("wishList", wishList);
+		
 		return "member/studentWishList";
 	}
 

@@ -18,7 +18,7 @@
         </div>
         <div id="notice-footer">
             <div id="list_btn">
-                <a href="#">목록으로</a>
+                <a href="${contextPath}/notice/noticeList">목록으로</a>
             </div>
         </div>
     </main>

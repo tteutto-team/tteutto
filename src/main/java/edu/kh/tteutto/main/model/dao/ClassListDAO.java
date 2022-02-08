@@ -17,6 +17,11 @@ public class ClassListDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+	// 신규 클래스 추천 목록 조회
+	public List<ClassList> selectNewList(int memberNo) {
+		return sqlSession.selectList("classListMapper.selectNewList", memberNo);
+	}
+	
 	// 클래스 개수 조회 + 페이지네이션
 	public int getSearchListCount(String search) {
 		return sqlSession.selectOne("classListMapper.getSearchListCount", search);
@@ -29,5 +34,10 @@ public class ClassListDAO {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
 		return sqlSession.selectList("classListMapper.selectSearchList", map, rowBounds);
+	}
+
+	// 클래스 추천 목록 조회
+	public List<ClassList> selectRecoList(int memberNo) {
+		return sqlSession.selectList("classListMapper.selectRecoList", memberNo);
 	}
 }

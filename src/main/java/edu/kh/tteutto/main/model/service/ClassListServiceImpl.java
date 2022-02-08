@@ -16,6 +16,12 @@ public class ClassListServiceImpl implements ClassListService {
 	@Autowired
 	private ClassListDAO dao;
 
+	// 신규 클래스 추천 목록 조회
+	@Override
+	public List<ClassList> selectNewList(int memberNo) {
+		return dao.selectNewList(memberNo);
+	}
+	
 	// 클래스 개수 조회 + 페이지네이션
 	@Override
 	public Pagination getPagination(String search, int page) {
@@ -27,5 +33,11 @@ public class ClassListServiceImpl implements ClassListService {
 	@Override
 	public List<ClassList> selectSearchList(Pagination pagination, Map<String, Object> map) {
 		return dao.selectSearchList(pagination, map);
+	}
+
+	// 클래스 추천 목록 조회
+	@Override
+	public List<ClassList> selectRecoList(int memberNo) {
+		return dao.selectRecoList(memberNo);
 	}
 }

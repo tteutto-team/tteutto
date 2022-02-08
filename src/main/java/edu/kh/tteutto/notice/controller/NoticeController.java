@@ -7,10 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.tteutto.common.Util;
 import edu.kh.tteutto.notice.model.service.NoticeService;
+import edu.kh.tteutto.notice.model.vo.Faq;
 import edu.kh.tteutto.notice.model.vo.Notice;
 
 @Controller
@@ -31,6 +33,15 @@ public class NoticeController {
 	@RequestMapping("faq")
 	public String faq() {
 		return "notice/faq";
+	}
+	
+	// 공지사항 조회
+	@RequestMapping("selectFaq")
+	@ResponseBody
+	public List<Faq> selectFaq(Model model, int faqDiv) {
+		List<Faq> FaqList = service.selectFaqList(faqDiv);
+		
+		return FaqList;
 	}
 	
 	// 공지사항 목록 페이지

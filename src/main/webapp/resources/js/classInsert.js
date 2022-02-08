@@ -350,10 +350,37 @@ $("#save-btn").on("click", function(){
 	
 }) */
 
+/*
 // 미리보기
 $("#priview-btn").on("click", function(){
 	const url = "/tteutto/register/preview"
 	const name = "test"
 	const option = "width = 1200, height = 1200, left = 500, location = no"	
 	window.open(url, name, option);
+	
+	var w = window.open('/tteutto/register/preview','newPopup','scrollbars=yes, width=1200, height=1200');
+	var testForm = document.getElementById('form');
+	testForm.target = 'newPopup';
+	testForm.submit(w);
 })
+*/
+
+// 팝업오픈하여 폼데이터 Post 전송
+function PopUp(){
+	
+    var pop_title = "preview" ;
+    var option = "width = 1200, height = 1200, left = 500, location = no"	
+     
+    window.open("/tteutto/register/preview", pop_title, option) ;
+     
+    var frmData = document.getElementById("form");
+    console.log(frmData);
+    
+    frmData.target = pop_title ;
+    frmData.action = "preview" ;
+     
+    frmData.submit() ;
+     
+     
+     
+}

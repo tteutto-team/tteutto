@@ -38,8 +38,9 @@ public class ClassListContoller {
 		
 		Pagination pagination = null;
 		List<ClassList> searchList = null;
+		List<ClassList> recommendList = null;
 		
-		if (search != null) {
+		if (search != null && !search.equals("")) {
 			pagination = service.getPagination(search, page);
 			pagination.setLimit(12);
 			pagination.setPageSize(5);
@@ -52,6 +53,15 @@ public class ClassListContoller {
 			
 			model.addAttribute("pagination", pagination);
 			model.addAttribute("searchList", searchList);
+			
+			if(searchList.isEmpty()) {
+				recommendList = service.selectRecoList(memberNo);
+				model.addAttribute("recommendList", recommendList);
+			}
+			
+		} else {
+			recommendList = service.selectRecoList(memberNo);
+			model.addAttribute("recommendList", recommendList);
 		}
 		
 		return "main/searchList";

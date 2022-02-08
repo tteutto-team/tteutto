@@ -21,7 +21,7 @@ function createTable() {
 					{
 						data: null,
 						render: function (data, type, row) {
-							return '<button onclick="agree(' + data.reportNo + ', \'' + data.reportContent + '\', ' + data.reportTargetNo + ', ' + data.reportCount + ')">신고 내용</button>';
+							return '<button onclick="agree(' + data.reportNo + ', \'' + data.reportContent + '\', ' + data.reportTargetNo + ', ' + data.reportCount + ', '+ data.reportDiv +')">신고 내용</button>';
 						},
 						orderable: false
 					}
@@ -31,7 +31,7 @@ function createTable() {
 	})
 }
 
-function agree(reportNo,  reportContent, reportTargetNo, reportCount) {
+function agree(reportNo,  reportContent, reportTargetNo, reportCount, reportDiv) {
 	Swal.fire({
 		title: '신고 내용',
 		text: reportContent,
@@ -62,7 +62,8 @@ function agree(reportNo,  reportContent, reportTargetNo, reportCount) {
 					"reportNo": reportNo,
 					"reportTargetNo": reportTargetNo,
 					"reportCount": reportCount,
-					"reportStatus": reportStatus
+					"reportStatus": reportStatus,
+					"reportDiv" : reportDiv
 				},
 				success: function (result) {
 					console.log(result);

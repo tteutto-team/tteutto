@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import edu.kh.tteutto.admin.model.vo.Admin;
 import edu.kh.tteutto.admin.model.vo.AdminCalcRefund;
 import edu.kh.tteutto.admin.model.vo.AdminClass;
+import edu.kh.tteutto.admin.model.vo.AdminEpisode;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeImage;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
@@ -50,6 +51,23 @@ public class AdminDAO {
 		return sqlSession.update("adminMapper.episodeDeny", classNo);
 	}
 
+	/** 회차 상세 조회
+	 * @param episodeNo
+	 * @return episodeOne
+	 */
+	public AdminEpisode selectEpisode(int episodeNo) {
+		return sqlSession.selectOne("adminMapper.selectEpisode", episodeNo);
+	}
+	
+	/** 회차 상세 조회 후 검토중으로 업데이트
+	 * @param episodeNo
+	 * @return result
+	 */
+	public int episodeStatusUpdate(int episodeNo) {
+		return sqlSession.update("adminMapper.episodeStatusUpdate", episodeNo);
+	}
+
+
 
 	/** 클래스 목록 조회
 	 * @return
@@ -84,6 +102,67 @@ public class AdminDAO {
 		return sqlSession.selectOne("adminMapper.selectClass", classNo);
 	}
 	
+	/** 클래스 상세 조회 후 검토중으로 업데이트
+	 * @param classNo
+	 */
+	public int classStatusUpdate(int classNo) {
+		return sqlSession.update("adminMapper.classStatusUpdate", classNo); 
+	}
+	
+	/** 클래스 수정 신청 목록 조회
+	 * @return
+	 */
+	public List<Admin> classUpdateList() {
+		return sqlSession.selectList("adminMapper.classUpdateList");
+	}
+	
+	/** 클래스 수정할 내용 조회
+	 * @param classNo
+	 * @return classOne
+	 */
+	public AdminClass selectUpdateClass(int classNo) {
+		return sqlSession.selectOne("adminMapper.selectUpdateClass", classNo);
+	}
+	
+	/** 클래스 수정 승인 후 덮어씌우기
+	 * @param classOne
+	 * @return
+	 */
+	public int updateClass(AdminClass classOne) {
+		return sqlSession.update("adminMapper.updateClass", classOne);
+	}
+	
+	/** 클래스 수정 승인 후 상태 수정하기
+	 * @param classNo
+	 * @return result
+	 */
+	public int classUpdateAgree(int classNo) {
+		return sqlSession.update("adminMapper.classUpdateAgree", classNo);
+	}
+	
+	/** 클래스 수정 거절 후 상태 수정하기
+	 * @param classNo
+	 * @return result
+	 */
+	public int classUpdateDeny(int classNo) {
+		return sqlSession.update("adminMapper.classUpdateDeny", classNo);
+	}
+	
+	/** 클래스 수정 상세 조회
+	 * @param classNo
+	 * @return classOne2
+	 */
+	public AdminClass selectClassUpdate(int classNo) {
+		return sqlSession.selectOne("adminMapper.selectClassUpdate", classNo);
+	}
+	
+	public int classUpdateStatus(int classNo) {
+		return sqlSession.update("adminMapper.classUpdateStatus", classNo);
+	}
+	
+	
+	
+	
 	/** 유저 목록 조회
 	 * @return data
 	 */
@@ -97,6 +176,14 @@ public class AdminDAO {
 	 */
 	public int userSave(Admin admin) {
 		return sqlSession.update("adminMapper.userSave", admin);
+	}
+	
+
+	/** 유저 정보에서 강사 상태 업데이트
+	 * @param admin
+	 */
+	public int teacherStatusUpdate2(Admin admin) {
+		return sqlSession.update("adminMapper.teacherStatusUpdate2", admin);
 	}
 	
 	
@@ -169,9 +256,20 @@ public class AdminDAO {
 		return sqlSession.update("adminMapper.memberBan", adminReport);
 	}
 
-
+	/** 클래스 신고 목록 조회
+	 * @return data
+	 */
+	public List<AdminReport> classReportList() {
+		return sqlSession.selectList("adminMapper.classReportList");
+	}
 	
-	
+	/** 강사 정지
+	 * @param adminReport
+	 * @return result
+	 */
+	public int teacherBan(AdminReport adminReport) {
+		return sqlSession.update("adminMapper.teacherBan", adminReport);
+	}
 	
 	
 	
@@ -328,28 +426,6 @@ public class AdminDAO {
 	public int teacherStatusUpdate(int memberNo) {
 		return sqlSession.update("adminMapper.teacherStatusUpdate", memberNo);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

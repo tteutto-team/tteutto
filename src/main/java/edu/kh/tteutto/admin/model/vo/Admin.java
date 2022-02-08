@@ -5,11 +5,16 @@ public class Admin {
 	// ************ 필드 **************
 	// 클래스 테이블
 	private int classNo; // 클래스 번호
+
+	private int episodeNo;
 	private String className; // 클래스 이름
 	private String classRequestDate; // 클래스 생성 날짜
 
 	// 클래스 회차 테이블
 	private int episodeCount; // 클래스 회차
+
+	private int episodeStatus;
+	private int classStatus;
 
 	// 회원
 	private int memberNo; // 회원 번호
@@ -20,6 +25,8 @@ public class Admin {
 	private char memberGender; // 성별
 	private String memberPhone; // 전화번호
 	private char teacherEnroll; // 강사 등록 여부
+
+	private int teacherStatus; // 강사 상태
 
 	// ************ 필드 **************
 
@@ -34,6 +41,14 @@ public class Admin {
 
 	public void setClassNo(int classNo) {
 		this.classNo = classNo;
+	}
+
+	public int getEpisodeNo() {
+		return episodeNo;
+	}
+
+	public void setEpisodeNo(int episodeNo) {
+		this.episodeNo = episodeNo;
 	}
 
 	public String getClassName() {
@@ -124,13 +139,38 @@ public class Admin {
 		this.teacherEnroll = teacherEnroll;
 	}
 
+	public int getTeacherStatus() {
+		return teacherStatus;
+	}
+
+	public void setTeacherStatus(int teacherStatus) {
+		this.teacherStatus = teacherStatus;
+	}
+
+	public int getEpisodeStatus() {
+		return episodeStatus;
+	}
+
+	public void setEpisodeStatus(int episodeStatus) {
+		this.episodeStatus = episodeStatus;
+	}
+
+	public int getClassStatus() {
+		return classStatus;
+	}
+
+	public void setClassStatus(int classStatus) {
+		this.classStatus = classStatus;
+	}
+
 	@Override
 	public String toString() {
-		return "Admin [classNo=" + classNo + ", className=" + className + ", classRequestDate=" + classRequestDate
-				+ ", episodeCount=" + episodeCount + ", memberNo=" + memberNo + ", memberName=" + memberName
-				+ ", memberGrade=" + memberGrade + ", memberStatus=" + memberStatus + ", memberBirth=" + memberBirth
-				+ ", memberGender=" + memberGender + ", memberPhone=" + memberPhone + ", teacherEnroll=" + teacherEnroll
-				+ "]";
+		return "Admin [classNo=" + classNo + ", episodeNo=" + episodeNo + ", className=" + className
+				+ ", classRequestDate=" + classRequestDate + ", episodeCount=" + episodeCount + ", episodeStatus="
+				+ episodeStatus + ", classStatus=" + classStatus + ", memberNo=" + memberNo + ", memberName="
+				+ memberName + ", memberGrade=" + memberGrade + ", memberStatus=" + memberStatus + ", memberBirth="
+				+ memberBirth + ", memberGender=" + memberGender + ", memberPhone=" + memberPhone + ", teacherEnroll="
+				+ teacherEnroll + ", teacherStatus=" + teacherStatus + "]";
 	}
 
 }

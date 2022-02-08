@@ -17,7 +17,7 @@ function createTable() {
 					{
 						data: null,
 						render: function (data, type, row) {
-							return '<a href="#">' + data.faqQuestion + '</a>';
+							return '<a href="'+ contextPath +'/notice/faq" target="_blank">' + data.faqQuestion + '</a>';
 						}
 					},
 					{

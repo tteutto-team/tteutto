@@ -100,6 +100,7 @@ tbody a {
 .detail > i{
 	margin-left: 15px;
 }
+
 .location-class, .hot-class, .new-class{
     width: 100%;
     height: 500px;
@@ -139,11 +140,55 @@ tbody a {
 	font-weight: 500;
 }
 
-
-
 .location p{
     display: inline-block;
 }
+
+.hot-class {
+	width: 100%; 	
+	position: relative;
+}
+
+.hot-class-bottom {
+	width: 100%;
+	height: 450px;
+	overflow: hidden;
+	display : block;
+}
+
+.hot-class-bottom-view {
+	width: 300%;
+	justify-content: flex-start;
+	position: relative;
+	display: flex;
+}
+
+.arrow {
+	position: absolute;
+	width: 20px;
+	top: 280px;
+	cursor: pointer;
+}
+
+.arrow > i {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	height: 40px;
+    color: #ccc;
+	font-size: 30px;
+}
+
+.hot-class-content {
+    justify-content: space-around;
+	width: 1200px;
+	display: flex;
+}
+
+
+.left {left: -50px;}
+.right {left: 1208px;}
 
 .class{
     float: left;

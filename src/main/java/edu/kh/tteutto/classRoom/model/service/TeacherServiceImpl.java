@@ -1,7 +1,5 @@
 package edu.kh.tteutto.classRoom.model.service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +8,8 @@ import org.springframework.stereotype.Service;
 import edu.kh.tteutto.classRoom.model.dao.TeacherDAO;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeClass;
+import edu.kh.tteutto.classRoom.model.vo.OngingClass;
+import edu.kh.tteutto.classRoom.model.vo.Receipt;
 
 @Service
 public class TeacherServiceImpl implements TeacherService{
@@ -25,14 +25,31 @@ public class TeacherServiceImpl implements TeacherService{
 	
 	// 회차별 클래스 목록 조회
 	@Override
-	public List<EpisodeClass> selectClassEpisode(String classId) {
-		
-		List<EpisodeClass> episodeClassList = dao.selectClassEpisode(classId);
-		
-		for(EpisodeClass episode : episodeClassList) {
-			
-		}
-		
-		return null;
+	public List<EpisodeClass> selectClassEpisode(int memberNo) {
+		return dao.selectClassEpisode(memberNo);
+	}
+	
+	// 영수증 조회
+	@Override
+	public List<Receipt> selectReceipt(String epNo) {
+		return dao.selectReceipt(epNo);
+	}
+	
+	// 클래스 삭제 가능여부 조회
+	@Override
+	public int selectDeleteClass(String epNo) {
+		return dao.selectDeleteClass(epNo);
+	}
+	
+	// 클래스 삭제
+	@Override
+	public int deletClass(String epNo) {
+		return dao.deletClass(epNo);
+	}
+	
+	// 진행중인 클래스 목록 조회
+	@Override
+	public List<OngingClass> selectOngoingClass(int epNo) {
+		return dao.selectOngoingClass(epNo);
 	}
 }

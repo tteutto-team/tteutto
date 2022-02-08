@@ -11,7 +11,7 @@ function createTable() {
 			$('#table_id').DataTable({
 				language: lang_kor,
 				data: data,
-				order: [[3, "asc"]],
+				order: [[4, "asc"]],
 				columns: [
 					{ data: "classNo" },
 					{
@@ -21,6 +21,16 @@ function createTable() {
 						}
 					},
 					{ data: "memberName" },
+					{
+						data: null,
+						render: function (data, type, row) {
+							if(data.classStatus == 0){
+								return "신청완료";
+							}else{
+								return "검토중";
+							}
+						}
+					},
 					{ data: "classRequestDate" },
 					{
 						data: null,

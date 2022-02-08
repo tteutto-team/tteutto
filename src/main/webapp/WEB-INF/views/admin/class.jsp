@@ -10,7 +10,6 @@
 
 <div id="right">
 	<div>
-	${classOne}
 		지역 : ${classOne.classArea} <br>
 		수업 형태 : <c:if test="${classOne.classType == 0}">원데이</c:if>
 					<c:if test="${classOne.classType == 1 }">정규</c:if> <br>

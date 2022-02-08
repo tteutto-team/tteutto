@@ -65,7 +65,7 @@ function agree(calNo) {
 					if (result > 0) {
 
 						Swal.fire({
-							title: '신청 승인 완료',
+							title: '영수증 생성 완료',
 							icon: 'success',
 							confirmButtonColor: '#3085d6',
 							confirmButtonText: '확인',

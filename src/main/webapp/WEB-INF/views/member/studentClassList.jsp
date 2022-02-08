@@ -29,27 +29,7 @@
                         <div class="column table-column">환불 금액</div>
                         <div class="column table-column"></div>
                     </div>
-                    <div class="row">
-                        <div class="column">1</div>
-                        <div class="column">클래스명1</div>
-                        <div class="column">수강 예정</div>
-                        <div class="column">22/03/01 ~ 22/04/01</div>
-                        <div class="column">환불 신청</div>
-                        <div class="column">20000</div>
-                        <div class="column slide">
-                            <i class="fas fa-angle-down"></i>
-                        </div>
-                    </div>
-                    <div class="invisible">
-                        <div class="invisible-btn">
-                            <button><i class="far fa-comment"></i> 채팅</button>
-                            <button class="review-modal-btn"><i class="fas fa-pen"></i> 후기</button>
-                            <button class="report-modal-btn"><i class="fas fa-exclamation-triangle"></i> 신고</button>
-                            <button><i class="fas fa-wallet"></i> 환불</button>
-                        </div>
-                    </div>
-
-
+                    <%-- 
                     <div class="row">
                         <div class="column">1</div>
                         <div class="column">클래스명1</div>
@@ -69,27 +49,37 @@
                             <button><i class="fas fa-wallet"></i> 환불</button>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="column">1</div>
-                        <div class="column">클래스명1</div>
-                        <div class="column">수강 예정</div>
-                        <div class="column">22/03/01 ~ 22/04/01</div>
-                        <div class="column">-</div>
-                        <div class="column">-</div>
-                        <div class="column slide">
-                            <i class="fas fa-angle-down"></i>
-                        </div>
-                    </div>
-                    <div class="invisible">
-                        <div class="invisible-btn">
-                            <button><i class="far fa-comment"></i> 채팅</button>
-                            <button class="review-modal-btn"><i class="fas fa-pen"></i> 후기</button>
-                            <button class="report-modal-btn"><i class="fas fa-exclamation-triangle"></i> 신고</button>
-                            <button><i class="fas fa-wallet"></i> 환불</button>
-                        </div>
-                    </div>
+                    --%>
                     
-
+                    <c:choose>
+                    	<c:when test="${empty register}">
+                    		<div>응 공부안하면 그만이야~</div>
+                    	</c:when>
+                    	<c:otherwise>
+		                    <c:forEach items="${register}" var="rg">
+			                    <div class="row">
+			                        <div class="column">${rg.classNo}</div>
+			                        <div class="column">${rg.className}</div>
+			                        <div class="column">${rg.classStatus}</div>
+			                        <div class="column">${rg.scheduleDate}</div>
+			                        <div class="column">${rg.refundStatus}</div>
+			                        <div class="column">${rg.refundMoney}</div>
+			                        <div class="column slide">
+			                            <i class="fas fa-angle-down"></i>
+			                        </div>
+			                    </div>
+			                    <div class="invisible">
+			                        <div class="invisible-btn">
+			                            <button><i class="far fa-comment"></i> 채팅</button>
+			                            <button class="review-modal-btn"><i class="fas fa-pen"></i> 후기</button>
+			                            <button class="report-modal-btn"><i class="fas fa-exclamation-triangle"></i> 신고</button>
+			                            <button><i class="fas fa-wallet"></i> 환불</button>
+			                        </div>
+			                    </div>
+		                    </c:forEach>	
+                    	</c:otherwise>
+                    </c:choose>
+                    
 
                 </div>
                 <div class="page-number">

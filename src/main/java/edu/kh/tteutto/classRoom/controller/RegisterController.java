@@ -1,4 +1,5 @@
 package edu.kh.tteutto.classRoom.controller;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.tteutto.classRoom.model.service.ClassRegisterService;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
+import edu.kh.tteutto.classRoom.model.vo.ClassDetailImage;
+import edu.kh.tteutto.classRoom.model.vo.Episode;
+import edu.kh.tteutto.classRoom.model.vo.EpisodeSchedule;
 import edu.kh.tteutto.common.Util;
 import edu.kh.tteutto.member.model.service.MemberService;
 import edu.kh.tteutto.member.model.vo.Member;
@@ -89,9 +94,37 @@ public class RegisterController {
 		
 		// 클래스 미리보기 페이지
 		@RequestMapping("preview")
-		public String classPreview(HttpSession session) {
+		public String classPreview(HttpSession session, ClassDetail cdt, Model model,
+								   @RequestParam(value="images", required=false) List<MultipartFile> images) {
+			
 			if(session.getAttribute("loginMember") != null) {
-				return "class/classDetailPreview";			
+			
+				System.out.println(cdt);
+				
+				if(images != null) {
+					List<ClassDetailImage> imgList = new ArrayList<ClassDetailImage>();
+					
+					for(int i=0; i<images.size(); i++) {
+						if(!images.get(i).getOriginalFilename().equals("")) {
+							
+							ClassDetailImage img = new ClassDetailImage();
+							
+							img.setThImgNm(Util.fileRename(images.get(i).getOriginalFilename()));
+							img.setThImgLevel(i);
+							
+							imgList.add(img);
+							
+						}
+						
+					} 				
+					
+					model.addAttribute("imgList", imgList);
+				}
+				
+				model.addAttribute("cdt", cdt);
+				
+				return "class/classDetailPreview";
+				
 			}else {
 				return "member/login";
 			}
@@ -119,6 +152,34 @@ public class RegisterController {
 			ra.addFlashAttribute("message", "임시저장이 완료되었습니다.");
 			
 			return "class/classInsert1"; 
+		}
+		
+		// 클래스 스케쥴 등록
+		@RequestMapping(value="schedule", method=RequestMethod.POST)
+		public String insertClassSchedule(RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember,
+										  Episode episode, EpisodeSchedule episodeSd, String roadAddrPart1, String addrDetail) {
+			
+			String epPlace = roadAddrPart1 + " " + addrDetail;
+			episode.setEpPlace(epPlace);
+			
+			System.out.println(episode);
+			System.out.println(episodeSd);
+			
+			int classNo = 1;
+			
+			/*
+			int result = service.insertClassSchedule(episode, episodeSd);
+			
+			if(result > 0) {
+				Util.swalSetMessage("클래스 스케쥴 등록 완료", null, "success", ra);			
+				return "redirect:/";
+			}else {
+				Util.swalSetMessage("클래스 스케줄 등록 실패", null, "error", ra);			
+				return "redirect:/";
+			}
+			*/
+			
+			return "redirect:/";
 		}
 
 }
