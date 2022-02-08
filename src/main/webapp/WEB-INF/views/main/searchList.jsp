@@ -80,11 +80,21 @@ crossorigin="anonymous"/>
 						<div class="select">
 				            <article class="cont-select">
 				                <input type="hidden" name="classType">
-				                <button class="btn-select" type="button">클래스 종류</button>
+				                <button class="btn-select" type="button">수업 형태</button>
 				                <ul class="list-member">
-				                    <li><button type="button">전체 클래스</button></li>
-				                    <li><button type="button">원데이 클래스</button></li>
-				                    <li><button type="button">정규 클래스</button></li>
+				                    <li><button type="button">전체</button></li>
+				                    <li><button type="button">원데이</button></li>
+				                    <li><button type="button">정규</button></li>
+				                </ul>
+				            </article>
+				            
+				            <article class="cont-select">
+				                <input type="hidden" name="classProgress">
+				                <button class="btn-select" type="button">진행 여부</button>
+				                <ul class="list-member">
+				                    <li><button type="button">전체</button></li>
+				                    <li><button type="button">진행 예정</button></li>
+				                    <li><button type="button">진행 중</button></li>
 				                </ul>
 				            </article>
 				            
@@ -93,21 +103,12 @@ crossorigin="anonymous"/>
 				                <button class="btn-select" type="button">정렬</button>
 				                <ul class="list-member">
 				                    <li><button type="button">인기순</button></li>
-				                    <li><button type="button">최신순</button></li>
-				                    <li><button type="button">평점 높은 순</button></li>
+				                    <li><button type="button">별점 높은 순</button></li>
 				                    <li><button type="button">찜 많은 순</button></li>
+				                    <li><button type="button">후기 많은 순</button></li>
 				                </ul>
 				            </article>
 						</div>
-			            
-			            <article class="cont-select">
-			                <input type="hidden" name="classProgress">
-			                <button class="btn-select" type="button">진행 여부</button>
-			                <ul class="list-member">
-			                    <li><button type="button">진행 예정</button></li>
-			                    <li><button type="button">진행 중</button></li>
-			                </ul>
-			            </article>
 			             
 			            <div>
 				            <input type="checkbox" name="classDay" value="월">월
