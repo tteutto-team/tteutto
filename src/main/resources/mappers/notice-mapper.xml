@@ -49,9 +49,8 @@
 	
 	<!-- 공지사항 상세 조회 -->
 	<select id="selectNotice" resultMap="notice_rm">
-		SELECT NOTICE_TITLE, NOTICE_CONTENT, imgList
+		SELECT NOTICE_TITLE, NOTICE_CONTENT
 		FROM NOTICE
-		LEFT JOIN NOTICE_IMG USING(NOTICE_NO)
         WHERE NOTICE_NO = ${noticeNo}
 	</select>
 	
