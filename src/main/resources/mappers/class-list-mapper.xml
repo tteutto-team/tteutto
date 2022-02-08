@@ -12,6 +12,7 @@
 		<result property="teacherImage" column="TEACHER_IMG"/>
 		<result property="memberName" column="MEMBER_NM"/>
 		<result property="categoryDetailName" column="CT_DETAIL_NM"/>
+		<result property="episodeNo" column="EP_NO"/>
 		<result property="starAverage" column="STAR_AVG"/>
 		<result property="heartFlag" column="HEART_FLAG"/>
 		<result property="heartCount" column="HEART_COUNT"/>
@@ -26,8 +27,8 @@
 	<!-- Main > 신규 클래스 추천 조회 -->
 	<select id="selectNewList" resultMap="classList_rm">
 		SELECT * FROM (
-		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, CLASS_NM, TH_IMG_NM, 
-		    CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, 
+		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, OPEN_EP_NO(C.CLASS_NO) EP_NO, CLASS_NM, 
+		    TH_IMG_NM, CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, 
 		    OPEN_PRICE(C.CLASS_NO) EP_PRICE, 
 		        NVL((SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
 		            JOIN EPISODE USING(CLASS_NO) 
@@ -75,8 +76,8 @@
 	<!-- 클래스 검색 목록 > 클래스 카드 조회 -->
 	<select id="selectSearchList" resultMap="classList_rm">
 		SELECT * FROM (
-		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, CLASS_NM, TH_IMG_NM, 
-		    CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, 
+		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, OPEN_EP_NO(C.CLASS_NO) EP_NO, CLASS_NM, 
+		    TH_IMG_NM, CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, 
 		    OPEN_PRICE(C.CLASS_NO) EP_PRICE, 
 		        NVL((SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
 		            JOIN EPISODE USING(CLASS_NO) 
@@ -107,8 +108,8 @@
 	<!-- 클래스 검색 목록 > 추천 클래스 조회 -->
 	<select id="selectRecoList" resultMap="classList_rm">
 		SELECT * FROM (
-		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, CLASS_NM, TH_IMG_NM, 
-		    CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, 
+		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, OPEN_EP_NO(C.CLASS_NO) EP_NO, CLASS_NM, 
+		    TH_IMG_NM, CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, 
 		    OPEN_PRICE(C.CLASS_NO) EP_PRICE, 
 		        NVL((SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
 		            JOIN EPISODE USING(CLASS_NO) 
@@ -162,8 +163,8 @@
 	<!-- 찜한 클래스 > 클래스 카드 조회 -->
 	<select id="selectWishList" resultMap="classList_rm">
 		SELECT * FROM (
-		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, CLASS_NM, TH_IMG_NM, 
-		    CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, 
+		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, OPEN_EP_NO(C.CLASS_NO) EP_NO, CLASS_NM, 
+		    TH_IMG_NM, CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, 
 		    NVL(OPEN_PRICE(C.CLASS_NO), PAST_PRICE(C.CLASS_NO)) EP_PRICE, 
 		        NVL((SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
 		            JOIN EPISODE USING(CLASS_NO) 

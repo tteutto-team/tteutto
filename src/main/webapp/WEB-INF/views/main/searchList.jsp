@@ -180,7 +180,16 @@ crossorigin="anonymous"/>
 						
 									<div class="detail-info">
 										<span class="category-name">${classList.categoryName}</span> <%-- 카테고리명 --%>
-										<div class="class-name">${classList.className}</div> <%-- 클래스명 --%>
+										
+										<%-- 클래스명 --%>
+										<div class="class-name">
+											<c:choose>
+												<c:when test="${classList.classType == 0}">[원데이] </c:when>
+												<c:otherwise>[${classList.episodeNo}회차] </c:otherwise>
+											</c:choose>
+											${classList.className}
+										</div>
+										
 										<div class="grade">
 				                            <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 평점 --%>
 				                            <i class="fi-rr-heart"></i> <span>${classList.heartCount}</span> <%-- 찜 개수 --%>

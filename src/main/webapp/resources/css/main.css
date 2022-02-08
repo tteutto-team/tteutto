@@ -151,6 +151,7 @@ tbody a {
 
 .hot-class-bottom {
 	width: 100%;
+	height: 450px;
 	overflow: hidden;
 	display : block;
 }
