@@ -30,7 +30,7 @@ import edu.kh.tteutto.member.model.service.MemberService;
 import edu.kh.tteutto.member.model.vo.Member;
 
 @Controller
-@SessionAttributes({ "loginMember" })
+@SessionAttributes({ "loginMember", "openClass" })
 @RequestMapping(value="register/*")
 public class RegisterController {
 	
@@ -141,6 +141,9 @@ public class RegisterController {
 			
 			System.out.println(cdt);
 			
+			session.setAttribute("cdt", cdt);
+			
+			/*
 			Cookie cookie = new Cookie("classLevel", cdt.getClassLevel());
 			
 			cookie.setMaxAge(60 * 60 * 24 * 30);
@@ -148,6 +151,7 @@ public class RegisterController {
 			cookie.setPath(req.getContextPath());
 			
 			resp.addCookie(cookie);
+			*/
 			
 			ra.addFlashAttribute("message", "임시저장이 완료되었습니다.");
 			
@@ -159,27 +163,56 @@ public class RegisterController {
 		public String insertClassSchedule(RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember,
 										  Episode episode, EpisodeSchedule episodeSd, String roadAddrPart1, String addrDetail) {
 			
+			// 주소 합치기
 			String epPlace = roadAddrPart1 + " " + addrDetail;
 			episode.setEpPlace(epPlace);
 			
-			System.out.println(episode);
-			System.out.println(episodeSd);
+			// 테스트용 클래스 데이터 //
+			episode.setClassNo(82);
 			
-			int classNo = 1;
+			// 날짜 넣기
+			List<EpisodeSchedule> epsList = new ArrayList<EpisodeSchedule>();
+			String dt = episodeSd.getSchdlDt();
+			String wk = episodeSd.getSchdlWeek();
+			String st = episodeSd.getSchdlStartTime();
+			String et = episodeSd.getSchdlEndTime();
+
+			String[] schdlDt = dt.split(",");
+			String[] schdlWk = wk.split(",");
+			String[] schdlSt = st.split(",");
+			String[] schdlEt = et.split(",");
+
+			for(int i=0; i<schdlSt.length; i++) {
+				if(schdlSt[i] == "9") {
+					schdlSt[i] = "0" + schdlSt[i] + ":00";
+				}else {
+					schdlSt[i] = schdlSt[i] + ":00";
+				}
+				
+			}
 			
-			/*
-			int result = service.insertClassSchedule(episode, episodeSd);
+			for(int i=0; i<schdlDt.length; i++) {
+				EpisodeSchedule eps = new EpisodeSchedule();
+				eps.setEpPrice(episodeSd.getEpPrice());
+				eps.setSchdlDt(schdlDt[i]);
+				eps.setSchdlWeek(schdlWk[i]);
+				eps.setSchdlStartTime(schdlSt[i]);
+				eps.setSchdlEndTime(schdlEt[i]);
+				eps.setSchdlTime(episodeSd.getSchdlTime());
+				
+				epsList.add(eps);
+			}
+			
+			int result = service.insertClassSchedule(episode, epsList);
 			
 			if(result > 0) {
 				Util.swalSetMessage("클래스 스케쥴 등록 완료", null, "success", ra);			
 				return "redirect:/";
 			}else {
-				Util.swalSetMessage("클래스 스케줄 등록 실패", null, "error", ra);			
+				Util.swalSetMessage("클래스 스케줄 등록 실패", "관리자에게 문의해주세요", "error", ra);			
 				return "redirect:/";
 			}
-			*/
 			
-			return "redirect:/";
 		}
 
 }

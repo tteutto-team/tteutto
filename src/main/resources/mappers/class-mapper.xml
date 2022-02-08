@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="classMapper">
 
+	<!-- 클래스 -->
 	<resultMap type="ClassDetail" id="class_rm">
 		<id property="classNo" column="CLASS_NO" />
 		
@@ -20,6 +21,7 @@
 		<result property="categoryDetailNo" column="CT_DETAIL_NO" />
 	</resultMap>
 
+	<!-- 클래스 이미지 -->
 	<resultMap type="ClassDetailImage" id="classImage_rm">
 		<id property="thImgNo" column="TH_IMG_NO"/>
 		
@@ -64,6 +66,36 @@
 		<result property="memberGender" column="MEMBER_GENDER"/>
 		<result property="reportCount" column="REPORT_COUNT"/>
 	</resultMap>
+	
+	
+	<!-- 회차 -->
+	<resultMap type="Episode" id="ep_rm">
+		<id property="epNo" column="EP_NO" />
+		
+		<result property="epPrice" column="EP_PRICE" />
+		<result property="classNo" column="CLASS_NO" />
+		<result property="epSt" column="EP_ST" />
+		<result property="epCount" column="EP_COUNT" />
+		<result property="epPlace" column="EP_PLACE" />
+	</resultMap>
+	
+	<!-- 스케쥴 -->
+	<resultMap type="EpisodeSchedule" id="epSchedule_rm">
+		<id property="epNo" column="EP_NO" />
+		
+		<result property="epCount" column="EP_COUNT" />
+		<result property="remainPeopleCnt" column="REMAIN_PEOPLE_CNT" />
+		<result property="epPrice" column="EP_PRICE" />
+		<result property="schdlDt" column="SCHDL_DT" />
+		<result property="schdlWeek" column="SCHDL_WEEK" />
+		<result property="schdlStartTime" column="SCHDL_START_TIME" />
+		<result property="schdlEndTime" column="SCHDL_END_TIME" />
+		<result property="possibleFl" column="POSSIBLE_FL" />
+		<result property="schdlTime" column="SCHDL_TIME" />
+	</resultMap>
+	
+	
+	
 
 	<!-- 클래스 등록 -->
 	<insert id="classInsert" useGeneratedKeys="true" parameterType="ClassDetail">
@@ -171,7 +203,24 @@
 		WHERE E.EP_NO = #{epNo}
 	</select>
 	
+		
+	<!-- 강사 스케쥴 등록 (episode) -->
+	<insert id="insertEpisode" useGeneratedKeys="true" parameterType="Episode">
+		<selectKey order="BEFORE" resultType="_int" keyProperty="epNo">
+			SELECT SEQ_EP_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO EPISODE VALUES(
+			#{epNo}, #{epPrice}, #{classNo}, 0, 1, #{epPlace}
+		)
+	</insert>
 	
+	<!-- 강사 스케쥴 등록 (ep_schedule) -->
+	<insert id="insertEpisodeSchedule" parameterType="EpisodeSchedule">
+		INSERT INTO EP_SCHEDULE VALUES(
+			SEQ_SCHDL_NO.NEXTVAL, #{schdlDt}, #{schdlWeek}, #{schdlStartTime}, #{schdlEndTime}, #{epNo}, #{schdlTime}
+		)
+	</insert>
 
 
 

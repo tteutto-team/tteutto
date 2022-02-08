@@ -49,7 +49,8 @@
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.EpisodeSchedule" alias="EpisodeSchedule" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassRegister" alias="ClassRegister" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassReview" alias="ClassReview" />
-
+		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassRefund" alias="ClassRefund" />
+		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassReport" alias="ClassReport" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassRegister" alias="ClassRegister" />
 		
 		<typeAlias type="edu.kh.tteutto.notice.model.vo.Notice" alias="Notice" />
