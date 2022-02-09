@@ -117,6 +117,26 @@ public class ClassDetailController {
 		return service.deletetWish(map);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="genderChart")
+	public List<Member> genderChart(Member member, int classNo) {
+		
+		List<Member> genderList = service.genderChart(classNo);
+		
+		//System.out.println(ageList);
+		
+		return genderList;
+	}
 	
+	@ResponseBody
+	@RequestMapping(value="ageChart")
+	public List<Member> ageChart(Member member, int classNo) {
+		
+		List<Member> ageChart = service.ageChart(classNo);
+		//System.out.println(ageChart);
+		//System.out.println(ageList);
+		
+		return ageChart;
+	}
 	
 }

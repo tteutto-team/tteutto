@@ -1,5 +1,6 @@
 package edu.kh.tteutto.classRoom.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.ui.Model;
@@ -8,6 +9,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
+import edu.kh.tteutto.member.model.vo.Member;
 
 public interface ClassDetailService {
 
@@ -46,5 +48,18 @@ public interface ClassDetailService {
 	 * @return result
 	 */
 	int deletetWish(Map<String, Integer> map);
+
+
+	/** 차트 성별 조회
+	 * @param classNo
+	 * @return genderChart
+	 */
+	List<Member> genderChart(int classNo);
+
+	/** 차트 연령대 조회
+	 * @param classNo
+	 * @return ageChart
+	 */
+	List<Member> ageChart(int classNo);
 
 }

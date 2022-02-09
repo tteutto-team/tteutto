@@ -13,6 +13,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeSchedule;
+import edu.kh.tteutto.member.model.vo.Member;
 
 
 @Repository
@@ -53,6 +54,14 @@ public class ClassDetailDAO {
 
 	public int deletetWish(Map<String, Integer> map) {
 		return sqlSession.delete("classDetailMapper.deleteWish", map);
+	}
+
+	public List<Member> genderChart(int classNo) {
+		return sqlSession.selectList("classDetailMapper.genderChart", classNo);
+	}
+
+	public List<Member> ageChart(int classNo) {
+		return sqlSession.selectList("classDetailMapper.ageChart", classNo);
 	}
 	
 	

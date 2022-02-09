@@ -1,5 +1,6 @@
 package edu.kh.tteutto.classRoom.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,12 @@ import edu.kh.tteutto.classRoom.model.dao.ClassDetailDAO;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
+import edu.kh.tteutto.member.model.vo.Member;
 
+/**
+ * @author zkxm0
+ *
+ */
 @Service
 public class ClassDetailServiceImpl implements ClassDetailService{
 
@@ -71,6 +77,20 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 	public int deletetWish(Map<String, Integer> map) {
 		return dao.deletetWish(map);
 	}
+
+	// 차트 성별 조회
+	@Override
+	public List<Member> genderChart(int classNo) {
+		return dao.genderChart(classNo);
+	}
+
+	// 차트 연령대 조회
+	@Override
+	public List<Member> ageChart(int classNo) {
+		return dao.ageChart(classNo);
+	}
+	
+	
 	
 	
 }
