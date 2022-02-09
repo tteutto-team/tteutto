@@ -384,7 +384,7 @@
                         <p>'서울 종로구'</p>
                     </div>
                     <div class="modal_location_search">
-                    	<input type=text" id="locationSearch" name="locationSearch">
+                    	<input type=text id="locationSearch" name="locationSearch">
                     	<button type="button" id="locationSearchBtn">찾기</button>	
                     </div>
                     <div style="border: 1px solid #ccc; height: 300px;"><div id="map" style="width:100%;height:100%;"></div></div>
