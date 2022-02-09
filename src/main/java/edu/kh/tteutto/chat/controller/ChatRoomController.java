@@ -89,11 +89,11 @@ public class ChatRoomController {
 		if(list != null) {
 			
 			model.addAttribute("list", list);
-			model.addAttribute("chatRoomNo", chatRoomNo);
+			model.addAttribute("chatRoomNo", chatRoomNo); //session에 올림
 			
 			return "chat/chatRoom";
 			 
-		}else { // 채팅방이 존재하지 않으면 roomList로 리다이렉트
+		}else { // 채팅방이 존재하지 않으면 채팅목록으로 리다이렉트
 			
 			Util.swalSetMessage("채팅방이 존재하지 않습니다.", null, "info", ra);
 			

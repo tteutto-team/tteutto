@@ -13,6 +13,7 @@ import edu.kh.tteutto.admin.model.vo.AdminEpisode;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeImage;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
+import edu.kh.tteutto.admin.model.vo.AdminReview;
 import edu.kh.tteutto.admin.model.vo.AdminTeacher;
 
 /**
@@ -425,6 +426,23 @@ public class AdminDAO {
 	 */
 	public int teacherStatusUpdate(int memberNo) {
 		return sqlSession.update("adminMapper.teacherStatusUpdate", memberNo);
+	}
+
+
+	/** 후기 목록 조회
+	 * @return data
+	 */
+	public List<AdminReview> reviewList() {
+		return sqlSession.selectList("adminMapper.reviewList");
+	}
+
+
+	/** 후기 삭제
+	 * @param reviewNo
+	 * @return result
+	 */
+	public int reviewDeny(int reviewNo) {
+		return sqlSession.update("adminMapper.reviewDeny", reviewNo);
 	}
 
 

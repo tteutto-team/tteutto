@@ -18,6 +18,9 @@ public class Member {
 	private String memberKey;
 	private String kEmail;
 	private String teacherImg;
+	private String memberAgeGroup;
+	private int memberAgeCount;
+
 	
 	public Member() {}
 
@@ -148,16 +151,22 @@ public class Member {
 	public void setTeacherImg(String teacherImg) {
 		this.teacherImg = teacherImg;
 	}
-
-	@Override
-	public String toString() {
-		return "Member [memberNo=" + memberNo + ", memberGrade=" + memberGrade + ", memberSt=" + memberSt
-				+ ", memberEmail=" + memberEmail + ", memberPw=" + memberPw + ", memberNm=" + memberNm
-				+ ", memberBirth=" + memberBirth + ", memberGender=" + memberGender + ", memberPno=" + memberPno
-				+ ", memberImg=" + memberImg + ", memberRegDt=" + memberRegDt + ", memberSecDt=" + memberSecDt
-				+ ", teacherEnroll=" + teacherEnroll + ", memberKey=" + memberKey + ", kEmail=" + kEmail
-				+ ", teacherImg=" + teacherImg + "]";
+	public String getMemberAgeGroup() {
+		return memberAgeGroup;
 	}
+
+	public void setMemberAgeGroup(String memberAgeGroup) {
+		this.memberAgeGroup = memberAgeGroup;
+	}
+
+	public int getMemberAgeCount() {
+		return memberAgeCount;
+	}
+
+	public void setMemberAgeCount(int memberAgeCount) {
+		this.memberAgeCount = memberAgeCount;
+	}
+
 
 	
 }

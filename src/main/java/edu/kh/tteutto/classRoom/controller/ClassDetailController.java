@@ -1,3 +1,4 @@
+
 package edu.kh.tteutto.classRoom.controller;
 
 import java.util.HashMap;
@@ -29,6 +30,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
+import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
 
 @Controller
 @RequestMapping("/class/*")
@@ -72,6 +74,12 @@ public class ClassDetailController {
 		TeacherIntro tIntro = service.selectTeacher(classNo);
 		
 		
+		// 클래스 썸네일 이미지 조회
+		List<ThumnailImg> thumImgList = service.selectThumImg(classNo);
+		
+
+		
+		
 		String path = null;
 		
 		if(cdtr != null) {
@@ -79,6 +87,7 @@ public class ClassDetailController {
 			model.addAttribute("crev", crev);
 			model.addAttribute("heartFlag", heartFlag);
 			model.addAttribute("tIntro", tIntro);
+			model.addAttribute("thumImgList", thumImgList);
 			path = "class/classDetail";
 			
 		}else { // 경로로 검색시
@@ -142,6 +151,26 @@ public class ClassDetailController {
 		return service.deletetWish(map);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="genderChart")
+	public List<Member> genderChart(Member member, int classNo) {
+		
+		List<Member> genderList = service.genderChart(classNo);
+		
+		//System.out.println(ageList);
+		
+		return genderList;
+	}
 	
+	@ResponseBody
+	@RequestMapping(value="ageChart")
+	public List<Member> ageChart(Member member, int classNo) {
+		
+		List<Member> ageChart = service.ageChart(classNo);
+		//System.out.println(ageChart);
+		//System.out.println(ageList);
+		
+		return ageChart;
+	}
 	
 }
