@@ -32,6 +32,7 @@
 
         if($(this).hasClass("0")){  // 진행중인 클래스
             sendPost(contextPath+"/teacher/studentListOngoing", "epNo", epNo);
+
             
         } else{ // 진행 예정 클래스
             sendPost(contextPath+"/teacher/studentListOngoing", "epNo", epNo);
