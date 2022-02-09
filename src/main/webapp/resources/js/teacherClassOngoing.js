@@ -68,18 +68,21 @@ function reportSubmit(){
 
         $.ajax({
             url : contextPath + "/teacher/reportStudent",
-            data : {"epNo" : epNo, "memberNo" : memberNo},
+            data : {"epNo" : epNo, "memberNo" : memberNo, "reportText" : reportText.val()},
             type : "POST",
-            succeess : function(result){
-
+            dataType : "JSON",
+            success : function(result){
                 if(result > 0){
+                    $(".modal").fadeOut(100);
                     swal({"title" : "신고가 접수되었습니다.", "icon" : "success"});
+
                 } else{
                     swal({
-                        title: "정말로 삭제하시겠습니까?",
+                        title: "신고에 문제가 생겼습니다.",
                         text: "관리자에게 문의하세요.",
                         icon: "warning"
                       })
+                    $(".modal").fadeOut(100);
                 }
 
             }

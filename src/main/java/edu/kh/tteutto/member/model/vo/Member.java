@@ -17,6 +17,8 @@ public class Member {
 	private String teacherEnroll;
 	private String memberKey;
 	private String kEmail;
+	private String memberAgeGroup;
+	private int memberAgeCount;
 	
 	public Member() {}
 
@@ -140,6 +142,24 @@ public class Member {
 		this.kEmail = kEmail;
 	}
 
+	public String getMemberAgeGroup() {
+		return memberAgeGroup;
+	}
+
+	public void setMemberAgeGroup(String memberAgeGroup) {
+		this.memberAgeGroup = memberAgeGroup;
+	}
+
+	public int getMemberAgeCount() {
+		return memberAgeCount;
+	}
+
+	public void setMemberAgeCount(int memberAgeCount) {
+		this.memberAgeCount = memberAgeCount;
+	}
+
+	
+	
 
 	
 }

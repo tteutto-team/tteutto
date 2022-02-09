@@ -9,6 +9,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
+import edu.kh.tteutto.member.model.vo.Member;
 import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
 import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
 import edu.kh.tteutto.main.model.vo.ClassList;
@@ -51,6 +52,19 @@ public interface ClassDetailService {
 	 */
 	int deletetWish(Map<String, Integer> map);
 
+
+	/** 차트 성별 조회
+	 * @param classNo
+	 * @return genderChart
+	 */
+	List<Member> genderChart(int classNo);
+
+	/** 차트 연령대 조회
+	 * @param classNo
+	 * @return ageChart
+	 */
+	List<Member> ageChart(int classNo);
+	
 	/**  찜 여부
 	 * @param map
 	 * @return result

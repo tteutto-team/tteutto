@@ -11,6 +11,7 @@ public class ClassList {
 	private String teacherImage;		// 프로필사진
 	private String memberName;			// 회원명
 	private String categoryDetailName;	// 세부카테고리명
+	private int memberNo;				// 회원번호
 	
 	private int episodeNo;		// 회차번호
 	private double starAverage;	// 별점평균
@@ -92,6 +93,14 @@ public class ClassList {
 		this.categoryDetailName = categoryDetailName;
 	}
 
+	public int getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+
 	public int getEpisodeNo() {
 		return episodeNo;
 	}
@@ -137,8 +146,8 @@ public class ClassList {
 		return "ClassList [classNo=" + classNo + ", classArea=" + classArea + ", classType=" + classType
 				+ ", className=" + className + ", thumbnailImageName=" + thumbnailImageName + ", categoryName="
 				+ categoryName + ", teacherImage=" + teacherImage + ", memberName=" + memberName
-				+ ", categoryDetailName=" + categoryDetailName + ", episodeNo=" + episodeNo + ", starAverage="
-				+ starAverage + ", heartCount=" + heartCount + ", heartFlag=" + heartFlag + ", episodePrice="
-				+ episodePrice + "]";
+				+ ", categoryDetailName=" + categoryDetailName + ", memberNo=" + memberNo + ", episodeNo=" + episodeNo
+				+ ", starAverage=" + starAverage + ", heartCount=" + heartCount + ", heartFlag=" + heartFlag
+				+ ", episodePrice=" + episodePrice + "]";
 	}
 }

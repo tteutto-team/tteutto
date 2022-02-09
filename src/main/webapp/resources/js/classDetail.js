@@ -346,6 +346,9 @@ AOS.init();
     //     $(this).addClass("selected");
     // });
 
+$(document).ready(function(){
+	$("#classAge").trigger("click");
+})
     // 연령대, 성별 클릭시
     $('.stats_ageGender').click(function(){
 
@@ -362,7 +365,87 @@ AOS.init();
             $("#ageChart").css("display", "block");
             $("#genderChart").css("display", "none");
             $("#ageGenderTxt1").text("연령대는");
-            $("#ageGenderTxt2").text("30대");
+            $.ajax({
+				url : "ageChart",
+				type : "GET",
+				data : {"classNo": classNo},
+				success : function(result){
+					console.log(result);
+					let ten = 0;
+					let twenty = 0;
+					let thirty = 0;
+					let fourty = 0;
+					let other = 0;
+					for(let i=0; i<result.length; i++){
+						if(result[i].memberAgeGroup == "10대"){
+							ten = result[i].memberAgeCount;
+						}else if(result[i].memberAgeGroup == "20대"){
+							twenty = result[i].memberAgeCount;
+						}else if(result[i].memberAgeGroup == "30대"){
+							thirty = result[i].memberAgeCount;
+						}else if(result[i].memberAgeGroup == "40대"){
+							fourty = result[i].memberAgeCount;
+						}else if(result[i].memberAgeGroup == "50대이상"){
+							other =result[i].memberAgeCount;
+						}
+					}
+					const maxValue = Math.max(ten, twenty, thirty, fourty, other);
+					console.log(maxValue);
+					
+					let maxV = "";
+					
+					for(let i=0; i<result.length; i++){
+						if(result[i].memberAgeCount == maxValue){
+							maxV += result[i].memberAgeGroup + ", ";
+						}
+					}
+					$("#ageGenderTxt2").text(maxV.slice(0,-2));
+					var chart = bb.generate({
+						bindto: "#ageChart",
+						data: {
+							type: "bar",
+							x: "x",
+							
+							columns: [
+								["x", "10대", "20대", "30대", "40대", "50대이상"],
+								["연령대", ten, twenty, thirty, fourty, other]
+							],
+							groups: [
+									[
+									"연령대"
+								]
+							],
+							colors: {
+								"연령대": "#ffd500"
+							},
+						},
+						axis: {
+							x: {
+								type: "category"
+							}
+						},
+						bar: {
+							radius: {
+								ratio: 0.1
+							},
+							width: {
+								ratio: 0.9,
+								max: 50
+							}
+						},
+					});
+				},
+				error : function(request, status, error){
+			        if( request.status == 404 ){
+			            console.log("ajax 요청 주소가 올바르지 않습니다.");
+			        } else if( request.status == 500){
+			            console.log("서버 내부 에러 발생");
+			        }
+			    },
+			    complete : function(){}
+			});
+
+            
 
 
         }else if($(this).attr("id") === "classGender"){
@@ -374,7 +457,58 @@ AOS.init();
             $("#genderChart").css("display", "block");
             $("#ageChart").css("display", "none");
             $("#ageGenderTxt1").text("성별은");
-            $("#ageGenderTxt2").text("남성/여성");
+            $.ajax({
+				url : "genderChart",
+				type : "GET",
+				data : {"classNo": classNo},
+				success : function(result){
+					// console.log(result);
+					
+					let male = 0;
+					let female = 0;
+					for(let i=0; i<result.length; i++){
+						if(result[i].memberGender == 'F'){
+							female = female + 1;
+						}else{
+							male = male + 1;
+						}
+					}if(male == 0 && female == 0){
+						$("#ageGenderTxt2").text("");
+					}else if(male == female){
+						$("#ageGenderTxt2").text("남자 / 여자");
+					}else if(male < female){
+						$("#ageGenderTxt2").text("여자");
+					}else{
+						$("#ageGenderTxt2").text("남자");
+					}
+					//console.log(male);
+					//console.log(female);
+					var chart = bb.generate({
+					
+						bindto: "#genderChart",
+						data: {
+							type: "donut",
+							columns: [
+								["남성", male],
+								["여성", female]
+							],
+							colors: {
+								"남성": "#ffd500",
+								"여성": "#acc43d"
+							},
+						}
+					});
+				},
+				error : function(request, status, error){
+			        if( request.status == 404 ){
+			            console.log("ajax 요청 주소가 올바르지 않습니다.");
+			        } else if( request.status == 500){
+			            console.log("서버 내부 에러 발생");
+			        }
+			    },
+			    complete : function(){}
+			});
+
 
         }
     });
@@ -432,57 +566,10 @@ AOS.init();
     });
 
 
-    //차트
-    var chart = bb.generate({
-      bindto: "#ageChart",
-      data: {
-          type: "bar",
-          x : "x",
-          columns: [
-              ["x","10대","20대","30대","40대","50대이상"],
-              ["연령대", 30, 40, 70, 30, 10]
-          ],
-          groups: [
-              [
-                  "연령대"
-              ]
-          ],
-          colors: {
-              "연령대": "#ffd500"
-          },
-      }, 
-      axis: {
-          x: {
-            type: "category"
-          }
-      },
-      bar: {
-          radius: {
-          ratio: 0.1
-          },
-          width: {
-              ratio: 0.9,
-              max: 50
-          }
-      },
-  });
+//차트
 
-  var chart = bb.generate({
-      bindto: "#genderChart",
-      data: {
-          type: "donut",
-          columns: [
-              ["남성", 60],
-              ["여성", 40]
-          ],
-          colors: {
-              "남성": "#ffd500",
-              "여성": "#acc43d"
-          },
-      }
-  });
-  
-  
+
+
 
 
 

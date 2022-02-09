@@ -13,6 +13,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeSchedule;
+import edu.kh.tteutto.member.model.vo.Member;
 import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
 import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
 import edu.kh.tteutto.main.model.vo.ClassList;
@@ -60,7 +61,18 @@ public class ClassDetailDAO {
 	public int deletetWish(Map<String, Integer> map) {
 		return sqlSession.delete("classDetailMapper.deleteWish", map);
 	}
+	
+	// 차트 성별 조회
+	public List<Member> genderChart(int classNo) {
+		return sqlSession.selectList("classDetailMapper.genderChart", classNo);
+	}
 
+	// 차트 연령대 조회
+	public List<Member> ageChart(int classNo) {
+		return sqlSession.selectList("classDetailMapper.ageChart", classNo);
+
+	}
+	
 	// 찜 여부
 	public int selectWishFlag(Map<String, Integer> map) {
 		return sqlSession.selectOne("classDetailMapper.selectWishFlag", map);

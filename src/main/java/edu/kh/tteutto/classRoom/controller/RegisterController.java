@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,8 +49,8 @@ public class RegisterController {
 		}
 		
 		// 클래스 스케쥴 등록 페이지 이동
-		@RequestMapping(value="schedule", method=RequestMethod.GET)
-		public String classRegisterSchedule(HttpSession session) {
+		@RequestMapping(value="schedule/{no}", method=RequestMethod.GET)
+		public String classRegisterSchedule(HttpSession session, @PathVariable (value = "no", required = false) int no ) {
 			if(session.getAttribute("loginMember") != null) {
 				return "class/classInsert2";			
 			}else {

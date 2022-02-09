@@ -823,7 +823,6 @@
     <!-- 결제 api -->
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     
-    
     <script>
     // 구매하기 모달창
     $(document).ready(function(){

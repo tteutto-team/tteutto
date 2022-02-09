@@ -56,12 +56,19 @@ public class ClassListContoller {
 			model.addAttribute("searchList", searchList);
 			
 			if (searchList.isEmpty()) {
-				recommendList = service.selectRecoList(memberNo);
+				map.put("result", "no");
+				recommendList = service.selectRecoList(map);
 				model.addAttribute("recommendList", recommendList);
 			}
 			
 		} else {
-			recommendList = service.selectRecoList(memberNo);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("search", search);
+			map.put("memberNo", memberNo);
+			map.put("pageKey", "search");
+			map.put("result", "no");
+			
+			recommendList = service.selectRecoList(map);
 			model.addAttribute("recommendList", recommendList);
 		}
 		

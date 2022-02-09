@@ -57,7 +57,18 @@ public class TeacherServiceImpl implements TeacherService{
 	// 학생 신고
 	@Override
 	public int reportStudent(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.reportStudent(map);
+	}
+	
+	// 정산 신청
+	@Override
+	public int calculate(String epNo) {
+		return dao.calculate(epNo);
+	}
+	
+	// 클래스 신청 - 기존 클래스 목록 조회
+	@Override
+	public List<ClassDetail> existingClassList(int memberNo) {
+		return dao.existingClassList(memberNo);
 	}
 }
