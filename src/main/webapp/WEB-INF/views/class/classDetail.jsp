@@ -233,7 +233,12 @@
                     <div class="threeBox">
                         <p>수업인원</p>
                         <div>
+                        <c:if test="${cdtr.cdt.classPerson == 0}">
                             최대<span>${cdtr.cdt.classMaxPerson}</span>명
+                        </c:if>
+                        <c:if test="${cdtr.cdt.classPerson == 1}">
+                        	1:1수업
+                        </c:if>
                         </div>
                     </div>
                </div>
@@ -286,6 +291,7 @@
 		                                			<span>${eps.epCount}회차</span> - <span><fmt:formatNumber value="${eps.epPrice}" groupingUsed="true" /></span>원
 		                                			<span style="display:none">${eps.schdlDt} (${eps.schdlWeek}) ${eps.schdlStartTime} ~ ${eps.schdlEndTime}</span>
 		                                			<span style="display:none">${eps.epNo}</span>
+		                                			<span> ( ${eps.registerStudentCnt} / ${cdtr.cdt.classMaxPerson} )</span>
 		                                		</button>
 	                                		</li>
 	                            		</c:if>
@@ -345,7 +351,12 @@
                     </button>
                 </div> 
                 <div class="buyBtn" id="buyBtnId">
-		                    <div id="registerBtn">신청하기</div>
+                <c:if test="${cdtr.cdt.classMaxPerson == cdtr.epSchedule[0].registerStudentCnt }">
+		                    <div id="registerBtn">신청마감</div>
+                </c:if>
+                <c:if test="${cdtr.cdt.classMaxPerson != cdtr.epSchedule[0].registerStudentCnt }">
+                			<div id="registerBtn">신청하기</div>
+                </c:if>
 		                    <!-- <div><span>남은 시간 : </span>2022-02-12 10:00 </div> -->
                 </div>
 
@@ -353,7 +364,6 @@
 
         </aside>
 
-        
         <!-- 클래스 내용 -->
         <div class="classContainer" >
             
@@ -362,10 +372,9 @@
                 <img class="classMainImage" src="${contextPath}/resources/images/class-detail/${thumImgList[0].thImgNm}" id="mainImg">
             </div>
                 <div class="sideImg">
-                    <img class="sideImgStyle" src="${contextPath}/resources/images/class-detail/${thumImgList[0].thImgNm}" id="sideImg1">
-                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/${thumImgList[1].thImgNm}" id="sideImg2">
-                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/${thumImgList[2].thImgNm}" id="sideImg3">
-                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/${thumImgList[3].thImgNm}" id="sideImg3">
+                <c:forEach var="imgList" items="${thumImgList}" varStatus="vs">
+                    <img class="sideImgStyle" src="${contextPath}/resources/images/class-detail/${imgList.thImgNm}" id="sideImg1">
+                </c:forEach>
                 </div> 
 
             </div>
@@ -810,7 +819,11 @@
     	
     	//const epNo = $("#epNoSpan").text();
     	
+    	// 최대인원 변수선언
+    	const classMaxPerson = '${cdtr.cdt.classMaxPerson}';
+    	
     	let heartFlag = '${heartFlag}';
+    	
     	
     </script>
     
@@ -837,7 +850,8 @@
 			       		  'title' : '회차 선택 후 신청해주세요.'
 			       		  });
         		}else{
-        			
+        		
+        		 
 	          	  $(".buyModal").fadeIn();
         		}
         	}else{
@@ -983,7 +997,7 @@
  	  
  	  //페이스북 공유하기
  	  function shareFacebook() {
-		    var sendUrl = "http://localhost:8080/tteutto/"; // 전달할 URL
+		    var sendUrl = "http://kh-aclass.xyz:8080/tteutto/class/classDetail?classNo=${cdtr.cdt.classNo}"; // 전달할 URL
 		    window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
 		}
  
