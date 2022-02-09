@@ -3,7 +3,9 @@ package edu.kh.tteutto.classRoom.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -144,6 +146,7 @@ public class ClassRoomController {
 	
 	
 	// 학생 관리(수강 예정)
+//	@RequestMapping(value="studentListExpect/{epNo}", method=RequestMethod.POST)
 	@RequestMapping(value="studentListExpect", method=RequestMethod.POST)
 //	public String studentListExpect(@PathVariable("epNo") int epNo, Model model,RedirectAttributes ra) {
 	public String studentListExpect(String epNo, Model model,RedirectAttributes ra) {
@@ -155,7 +158,8 @@ public class ClassRoomController {
 	// 학생 관리(진행 중)
 //	@RequestMapping(value="studentListOngoing/{epNo}", method=RequestMethod.POST)
 	@RequestMapping(value="studentListOngoing", method=RequestMethod.POST)
-	public String studentListOngoing(int epNo, Model model,RedirectAttributes ra) {
+	public String studentListOngoing(int epNo, Model model) {
+//		public String studentListOngoing(@PathVariable("epNo") int epNo, Model model, RedirectAttributes ra) {
 
 		List<OngingClass> ongoingClassList = service.selectOngoingClass(epNo);
 		
@@ -168,9 +172,28 @@ public class ClassRoomController {
 			}
 			
 		}
-		
+		model.addAttribute("epNo", epNo);
 		model.addAttribute("ongoingClassList", ongoingClassList);
 		
 		return "class/teacherStudentListOngoing";
 	}
+	
+	
+	// 학생 관리(진행 중) - 신고
+	@ResponseBody
+	@RequestMapping(value="reportStudent", method=RequestMethod.POST)
+	public String reportStudent(String epNo, String memberNo) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("epNo", epNo);
+		map.put("memberNo", memberNo);
+		
+		int result = service.reportStudent(map);
+		
+		return "";
+	}
+	
+
+	
 }
