@@ -109,8 +109,14 @@
 		<result property="memberNm" column="MEMBER_NM" />
 	</resultMap>
 	
-	
-
+	<!-- 클래스 썸네일 이미지 조회 VO -->
+	<resultMap type="ThumnailImg" id="thumnailImg_rm">
+		<id property="thImgNo" column="TH_IMG_NO" />
+		
+		<result property="thImgNm" column="TH_IMG_NM" />
+		<result property="thImgLevel" column="TH_IMG_LEVEL" />
+		<result property="classNo" column="CLASS_NO" />
+	</resultMap>
 	
 	<!-- 클래스 상세 (결제박스) VO -->
 	<resultMap type="ClassDetailRight" id="classDetailRight_rm">
@@ -128,7 +134,7 @@
 	<select id="selectClassDetail" resultMap="classDetailRight_rm">
 		SELECT CLASS.CLASS_NO, CT_NM , EP_COUNT, CLASS.CLASS_NM, CLASS_LEVEL,
 		        CLASS_MAX_PERSON,
-		        CLASS.MEMBER_NO, CLASS_TYPE , MEMBER_NM, open_price(#{classNo}) EP_PRICE,
+		        CLASS.MEMBER_NO, CLASS_TYPE , MEMBER_NM, NVL(open_price(#{classNo}), past_price(#{classNo})) EP_PRICE,
 		        EP_PLACE
 		FROM CLASS
 		JOIN CLASS_CATEGORY ON CT_NO = CATG_NO
@@ -207,6 +213,11 @@
 		WHERE class_no = #{classNo}
 	</select>
 	
+	<!-- 클래스 썸네일 이미지 조회  -->
+	<select id="selectThumImg" resultMap="thumnailImg_rm">
+		select TH_IMG_NO, TH_IMG_NM, TH_IMG_LEVEL, CLASS_NO from THUMBNAIL_IMG
+		where class_no = #{classNo}
+	</select>
 	<!-- 차트 성별 조회 -->
 	<select id="genderChart" resultMap="member_rm">
 		SELECT M.MEMBER_NO, M.MEMBER_NM, M.MEMBER_GENDER 

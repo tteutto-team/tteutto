@@ -15,6 +15,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeSchedule;
 import edu.kh.tteutto.member.model.vo.Member;
 import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
+import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
 import edu.kh.tteutto.main.model.vo.ClassList;
 
 
@@ -81,6 +82,12 @@ public class ClassDetailDAO {
 	public TeacherIntro selectTeacher(int classNo) {
 		return sqlSession.selectOne("classDetailMapper.selectTeacher", classNo);
 	}
+
+	// 클래스 썸네일 이미지 조회
+	public List<ThumnailImg> selectThumImg(int classNo) {
+		return sqlSession.selectList("classDetailMapper.selectThumImg",classNo);
+	}
+
 	
 	
 

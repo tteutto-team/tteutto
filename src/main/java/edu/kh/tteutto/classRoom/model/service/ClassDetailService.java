@@ -11,6 +11,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 import edu.kh.tteutto.member.model.vo.Member;
 import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
+import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
 import edu.kh.tteutto.main.model.vo.ClassList;
 
 public interface ClassDetailService {
@@ -75,5 +76,15 @@ public interface ClassDetailService {
 	 * @return tIntro
 	 */
 	TeacherIntro selectTeacher(int classNo);
+
+	/** 클래스 썸네일 이미지 조회
+	 * @param classNo
+	 * @return thumnailImg
+	 */
+	List<ThumnailImg> selectThumImg(int classNo);
+
+	
+	
+
 
 }

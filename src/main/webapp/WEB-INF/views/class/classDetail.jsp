@@ -345,7 +345,7 @@
                     </button>
                 </div> 
                 <div class="buyBtn" id="buyBtnId">
-		                    <div>신청하기</div>
+		                    <div id="registerBtn">신청하기</div>
 		                    <!-- <div><span>남은 시간 : </span>2022-02-12 10:00 </div> -->
                 </div>
 
@@ -357,16 +357,19 @@
         <!-- 클래스 내용 -->
         <div class="classContainer" >
             
-            <!-- 네비바 -->
             <div class="classDetailContainer">
-                <img class="classMainImage" src="${contextPath}/resources/images/class-detail/temp3.jpg" id="mainImg">
+            <div class="wrapperImg">
+                <img class="classMainImage" src="${contextPath}/resources/images/class-detail/${thumImgList[0].thImgNm}" id="mainImg">
+            </div>
                 <div class="sideImg">
-                    <img class="sideImgStyle" src="${contextPath}/resources/images/class-detail/temp3.jpg" id="sideImg1">
-                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/temp6.jpg" id="sideImg2">
-                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/temp5.jpg" id="sideImg3">
+                    <img class="sideImgStyle" src="${contextPath}/resources/images/class-detail/${thumImgList[0].thImgNm}" id="sideImg1">
+                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/${thumImgList[1].thImgNm}" id="sideImg2">
+                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/${thumImgList[2].thImgNm}" id="sideImg3">
+                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/${thumImgList[3].thImgNm}" id="sideImg3">
                 </div> 
 
             </div>
+            <!-- 네비바 -->
             <div class="classNav floating-menu">
                <ul>
                     <li class="navList selected m"> <a href="#section1"> 강의소개 </a></li>
@@ -855,9 +858,9 @@
 	 	if(${!empty sessionScope.loginMember}){
 	    	
 		        if(heartFlag == 1){
-			            swal({'icon' : 'info',
+			            /* swal({'icon' : 'info',
 				    		 'title' : '찜목록에서 삭제되었습니다.'
-		    				       		  	});
+		    				       		  	}); */
 			            $.ajax({
 			                url: "deletetWish",
 			                data: {
@@ -879,9 +882,9 @@
 		            
 		        }else{
 		        	 // console.log("1111");
-		            swal({'icon' : 'success',
+		            /* swal({'icon' : 'success',
 			    		 'title' : '찜목록에 추가되었습니다.'
-	    				       		  	});
+	    				       		  	}); */
 		            $.ajax({
 		                url: "insertWish",
 		                data: {

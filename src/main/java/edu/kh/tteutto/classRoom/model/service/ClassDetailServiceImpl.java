@@ -12,6 +12,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 import edu.kh.tteutto.member.model.vo.Member;
 import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
+import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
 import edu.kh.tteutto.main.model.vo.ClassList;
 
 
@@ -29,7 +30,7 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 		ClassDetailRight cdtr = dao.selectClassDetail(classNo);
 		
 		
-		if( cdtr.getCdt() != null) {
+		if( cdtr != null && cdtr.getCdt() != null) {
 			
 			cdtr.setEpSchedule(dao.selectEpisodeSchedule(classNo));
 		
@@ -101,6 +102,16 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 	public TeacherIntro selectTeacher(int classNo) {
 		return dao.selectTeacher(classNo);
 	}
+
+	//클래스 썸네일 이미지 조회
+	@Override
+	public List<ThumnailImg> selectThumImg(int classNo) {
+		return dao.selectThumImg(classNo);
+	}
+
+
+	
+
 	
 	
 }
