@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestAttribute;
@@ -31,6 +32,7 @@ import edu.kh.tteutto.admin.model.vo.AdminClass;
 import edu.kh.tteutto.admin.model.vo.AdminEpisode;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
+import edu.kh.tteutto.admin.model.vo.AdminReview;
 import edu.kh.tteutto.admin.model.vo.AdminTeacher;
 import edu.kh.tteutto.common.Util;
 import edu.kh.tteutto.member.model.vo.Member;
@@ -696,5 +698,35 @@ public class adminController {
 		}
 		
 		return "redirect:/admin/faqManage";
+	}
+	
+	// 후기 관리 페이지 이동
+	@RequestMapping(value="reviewManage", method=RequestMethod.GET)
+	public String reviewManage(RedirectAttributes ra, HttpSession session) {
+		Member loginMember = ((Member)session.getAttribute("loginMember"));
+		
+		if(loginMember == null || loginMember.getMemberGrade() != 1) {
+			Util.swalSetMessage("접근 권한이 없습니다", null, "warning", ra);
+			
+			return "redirect:/";
+		}
+		
+		return "admin/reviewManage";
+	}
+	
+	// 후기 목록 조회
+	@RequestMapping(value="reviewList", method=RequestMethod.GET)
+	@ResponseBody
+	public List<AdminReview> reviewList(){
+		
+		List<AdminReview> data = service.reviewList();
+		
+		return data;
+	}
+	
+	@RequestMapping(value="reviewDeny", method=RequestMethod.GET)
+	@ResponseBody
+	public int reviewDeny(int reviewNo) {
+		return service.reviewDeny(reviewNo);
 	}
 }
