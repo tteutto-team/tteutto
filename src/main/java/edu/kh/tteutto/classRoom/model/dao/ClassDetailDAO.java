@@ -13,6 +13,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeSchedule;
+import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
 import edu.kh.tteutto.main.model.vo.ClassList;
 
 
@@ -60,8 +61,13 @@ public class ClassDetailDAO {
 	}
 
 	// 찜 여부
-	public ClassList selectWishFlag(Map<String, Integer> map) {
+	public int selectWishFlag(Map<String, Integer> map) {
 		return sqlSession.selectOne("classDetailMapper.selectWishFlag", map);
+	}
+
+	// 강사 소개 조회
+	public TeacherIntro selectTeacher(int classNo) {
+		return sqlSession.selectOne("classDetailMapper.selectTeacher", classNo);
 	}
 	
 	

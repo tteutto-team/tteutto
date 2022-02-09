@@ -8,6 +8,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
+import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
 import edu.kh.tteutto.main.model.vo.ClassList;
 
 public interface ClassDetailService {
@@ -52,6 +53,12 @@ public interface ClassDetailService {
 	 * @param map
 	 * @return result
 	 */
-	ClassList selectWishFlag(Map<String, Integer> map);
+	int selectWishFlag(Map<String, Integer> map);
+
+	/** 강사 소개 조회
+	 * @param classNo
+	 * @return tIntro
+	 */
+	TeacherIntro selectTeacher(int classNo);
 
 }

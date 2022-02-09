@@ -27,6 +27,8 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
+import edu.kh.tteutto.classRoom.model.vo.Teacher;
+import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
 
 @Controller
 @RequestMapping("/class/*")
@@ -64,14 +66,19 @@ public class ClassDetailController {
 		map.put("memberNo", memberNo);
 		map.put("classNo", classNo);
 		
-		ClassList classList =  service.selectWishFlag(map);
+		int heartFlag =  service.selectWishFlag(map);
+		
+		// 클래스 강사 조회
+		TeacherIntro tIntro = service.selectTeacher(classNo);
+		
 		
 		String path = null;
 		
 		if(cdtr != null) {
 			model.addAttribute("cdtr", cdtr);
 			model.addAttribute("crev", crev);
-			model.addAttribute("classList", classList);
+			model.addAttribute("heartFlag", heartFlag);
+			model.addAttribute("tIntro", tIntro);
 			path = "class/classDetail";
 			
 		}else { // 경로로 검색시
