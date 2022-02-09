@@ -17,8 +17,10 @@ public class Member {
 	private String teacherEnroll;
 	private String memberKey;
 	private String kEmail;
+	private String teacherImg;
 	private String memberAgeGroup;
 	private int memberAgeCount;
+
 	
 	public Member() {}
 
@@ -142,6 +144,13 @@ public class Member {
 		this.kEmail = kEmail;
 	}
 
+	public String getTeacherImg() {
+		return teacherImg;
+	}
+
+	public void setTeacherImg(String teacherImg) {
+		this.teacherImg = teacherImg;
+	}
 	public String getMemberAgeGroup() {
 		return memberAgeGroup;
 	}
@@ -158,8 +167,6 @@ public class Member {
 		this.memberAgeCount = memberAgeCount;
 	}
 
-	
-	
 
 	
 }

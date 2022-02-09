@@ -94,8 +94,24 @@
 		<result property="schdlTime" column="SCHDL_TIME" />
 	</resultMap>
 	
-	
-	
+	<!-- 회원 -->
+	<resultMap type="Member" id="member_rm">
+		<id property="memberNo" column="MEMBER_NO" />
+		
+		<result property="memberGrade" column="MEMBER_GRADE" />
+		<result property="memberSt" column="MEMBER_ST" />
+		<result property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="memberPw" column="MEMBER_PW" />
+		<result property="memberNm" column="MEMBER_NM" />
+		<result property="memberBirth" column="MEMBER_BIRTH" />
+		<result property="memberGender" column="MEMBER_GENDER" />
+		<result property="memberPno" column="MEMBER_PNO" />
+		<result property="memberImg" column="MEMBER_IMG" />
+		<result property="memberRegDt" column="MEMBER_REG_DT" />
+		<result property="memberSecDt" column="MEMBER_SEC_DT" />
+		<result property="teacherEnroll" column="TEACHER_ENROLL" />
+		<result property="memberKey" column="MEMBER_KEY" />
+	</resultMap>
 
 	<!-- 클래스 등록 -->
 	<insert id="classInsert" useGeneratedKeys="true" parameterType="ClassDetail">
@@ -241,5 +257,28 @@
 		where member_no = #{memberNo}
 	</select>
 	
+	<!-- 교육 예정 클래스 학생 목록 조회-->
+	<select id="studentListExpect" resultMap="member_rm">
+		select member_no, reg_nm as member_nm
+		from register
+		where reg_st != 1 and pay_st != 1 and ep_no = #{epNo}
+	</select>
 	
+	<!-- 수강 거절 -->
+	<update id="rejectStudent">
+		update register set reg_st = 1, pay_st = 1
+		where member_no = #{studentNo} and ep_no = #{epNo}
+	</update>
+	
+	<!-- 수강 거절 - 메시지 삽입 -->
+	<insert id="insertMessage">
+		insert into note values(seq_note_no.nextval, #{className} || ' 이 수강 거절 되었습니다.', default, #{studentNo})
+	</insert>
+	
+	<!-- 강사 여부 조회 -->
+	<select id="selectTeacher" resultType="string">
+		select teacher_enroll
+		from member
+		where member_no = #{memberNo}
+	</select>
 </mapper>

@@ -7,6 +7,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeClass;
 import edu.kh.tteutto.classRoom.model.vo.OngingClass;
 import edu.kh.tteutto.classRoom.model.vo.Receipt;
+import edu.kh.tteutto.member.model.vo.Member;
 
 public interface TeacherService {
 
@@ -63,6 +64,24 @@ public interface TeacherService {
 	 * @return classList
 	 */
 	List<ClassDetail> existingClassList(int memberNo);
+
+	/** 클래스 교육 예정
+	 * @param epNo
+	 * @return studentList
+	 */
+	List<Member> studentListExpect(int epNo);
+
+	/** 수강 거절
+	 * @param map
+	 * @return result
+	 */
+	int rejectStudent(Map<String, String> map);
+
+	/** 강사 여부 조회
+	 * @param memberNo
+	 * @return teacherOK
+	 */
+	String selectTeacher(int memberNo);
 
 	
 }

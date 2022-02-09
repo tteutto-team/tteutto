@@ -11,6 +11,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeClass;
 import edu.kh.tteutto.classRoom.model.vo.OngingClass;
 import edu.kh.tteutto.classRoom.model.vo.Receipt;
+import edu.kh.tteutto.member.model.vo.Member;
 
 @Repository
 public class TeacherDAO {
@@ -62,5 +63,26 @@ public class TeacherDAO {
 	public List<ClassDetail> existingClassList(int memberNo) {
 		return sqlSession.selectList("classMapper.existingClassList", memberNo);
 	}
+
+	// 클래스 교육 예정
+	public List<Member> studentListExpect(int epNo) {
+		return sqlSession.selectList("classMapper.studentListExpect", epNo);
+	}
+
+	// 수강 거절
+	public int rejectStudent(Map<String, String> map) {
+		return sqlSession.update("classMapper.rejectStudent", map);
+	}
+
+	// 수강 거절 - 메시지 삽입
+	public int insertMessage(Map<String, String> map) {
+		return sqlSession.insert("classMapper.insertMessage", map);
+	}
+
+	// 강사 여부 조회
+	public String selectTeacher(int memberNo) {
+		return sqlSession.selectOne("classMapper.selectTeacher", memberNo);
+	}
+	
 
 }

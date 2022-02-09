@@ -553,16 +553,18 @@ public class MemberController {
 
 	// 강사 프로필 페이지 이동
 	@RequestMapping(value = "teacherProfile", method = RequestMethod.GET)
-	public String teacherProfile(/* @ModelAttribute("loginMember") Member loginMember, */ Model model) {
+	public String teacherProfile(@ModelAttribute("loginMember") Member loginMember, Model model) {
 
-//		int memberNo = loginMember.getMemberNo();
-		int memberNo = 3;
+		int memberNo = loginMember.getMemberNo();
+//		int memberNo = 3;
 
 		Teacher teacher = service.selectTeacherProfile(memberNo);
 		List<Career> careerList = service.selectTeacherCareer(memberNo);
 		List<Sns> snsList = service.selectTeacherSns(memberNo);
 		
-		System.out.println("careerList : "+ careerList);
+//		System.out.println("careerList : "+ careerList);
+//		System.out.println("teacher:" + teacher);
+		loginMember.setTeacherImg(teacher.getMemberImg());
 		
 		List<Integer> snsDivList = new ArrayList<Integer>();
 		snsDivList.add(1);
@@ -653,6 +655,7 @@ public class MemberController {
 		}
 		
 		if(result > 0) {
+			
 			return "redirect:teacherProfile";
 		} else {	// 에러일 경우
 			return "redirect:teacherProfile";
