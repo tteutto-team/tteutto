@@ -37,7 +37,8 @@
 		<result property="memberRegDt" column="MEMBER_REG_DT" />
 		<result property="memberSecDt" column="MEMBER_SEC_DT" />
 		<result property="teacherEnroll" column="TEACHER_ENROLL" />
-		<result property="memberKey" column="MEMBER_KEY" />
+		<result property="memberAgeGroup" column="MEMBER_AGEGROUP" />
+		<result property="memberAgeCount" column="MEMBER_AGECOUNT" />
 	</resultMap>
 	
 	<!-- episode 회차 VO -->
@@ -204,6 +205,41 @@
 		join class c on c.member_no = m.member_no
 		join sns s on s.member_no = m.member_no
 		WHERE class_no = #{classNo}
+	</select>
+	
+	<!-- 차트 성별 조회 -->
+	<select id="genderChart" resultMap="member_rm">
+		SELECT M.MEMBER_NO, M.MEMBER_NM, M.MEMBER_GENDER 
+		FROM CLASS C
+		JOIN EPISODE E ON(C.CLASS_NO = E.CLASS_NO)
+		JOIN REGISTER R ON(R.EP_NO = E.EP_NO)
+		JOIN MEMBER M ON(M.MEMBER_NO = R.MEMBER_NO)
+		WHERE C.CLASS_NO = ${classNo}
+	</select>
+	
+	<!-- 차트 연령대 조회 -->
+	<select id="ageChart" resultMap="member_rm">
+
+		SELECT TO_CHAR(MEMBER_AGEGROUP) AS MEMBER_AGEGROUP, COUNT(*) AS MEMBER_AGECOUNT
+		FROM(
+		    SELECT CASE 
+		    WHEN AGE_GROUP &lt; 20 THEN '10대'
+		    WHEN AGE_GROUP &lt; 30 THEN '20대'  
+		    WHEN AGE_GROUP &lt; 40 THEN '30대'
+		    WHEN AGE_GROUP &lt; 50 THEN '40대' 
+		    ELSE '50대이상'
+		    END AS MEMBER_AGEGROUP
+		    FROM (SELECT TO_NUMBER((TO_CHAR(PAY_DT,'YYYY'))- TO_NUMBER(TO_CHAR(MEMBER_BIRTH,'YYYY')-1)) AGE_GROUP 
+		        FROM (SELECT M.MEMBER_BIRTH, R.PAY_DT
+		            FROM CLASS C
+		            JOIN EPISODE E ON(C.CLASS_NO = E.CLASS_NO)
+		            JOIN REGISTER R ON(R.EP_NO = E.EP_NO)
+		            JOIN MEMBER M ON(M.MEMBER_NO = R.MEMBER_NO)
+		            WHERE C.CLASS_NO = ${classNo}
+		        )
+		    )
+		)
+		GROUP BY MEMBER_AGEGROUP
 	</select>
 	
 </mapper>
