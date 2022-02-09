@@ -9,6 +9,7 @@ import edu.kh.tteutto.classRoom.model.dao.ClassDetailDAO;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
+import edu.kh.tteutto.main.model.vo.ClassList;
 
 @Service
 public class ClassDetailServiceImpl implements ClassDetailService{
@@ -70,6 +71,12 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 	@Override
 	public int deletetWish(Map<String, Integer> map) {
 		return dao.deletetWish(map);
+	}
+
+	// 찜 여부
+	@Override
+	public ClassList selectWishFlag(Map<String, Integer> map) {
+		return dao.selectWishFlag(map);
 	}
 	
 	
