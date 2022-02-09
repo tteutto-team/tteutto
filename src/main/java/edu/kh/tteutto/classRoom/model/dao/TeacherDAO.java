@@ -1,6 +1,7 @@
 package edu.kh.tteutto.classRoom.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,24 @@ public class TeacherDAO {
 		return sqlSession.delete("classMapper.deletClass", epNo);
 	}
 
+	// 진행 중인 클래스 학생 목록 조회
 	public List<OngingClass> selectOngoingClass(int epNo) {
 		return sqlSession.selectList("classMapper.selectOngoingClass", epNo);
+	}
+
+	// 학생 신고
+	public int reportStudent(Map<String, String> map) {
+		return sqlSession.insert("classMapper.reportStudent", map);
+	}
+
+	// 정산 신청
+	public int calculate(String epNo) {
+		return sqlSession.insert("classMapper.calculate", epNo);
+	}
+
+	// 클래스 신청 - 기존 클래스 목록 조회
+	public List<ClassDetail> existingClassList(int memberNo) {
+		return sqlSession.selectList("classMapper.existingClassList", memberNo);
 	}
 
 }
