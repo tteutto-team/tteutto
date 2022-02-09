@@ -10,6 +10,8 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 import edu.kh.tteutto.member.model.vo.Member;
+import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
+import edu.kh.tteutto.main.model.vo.ClassList;
 
 public interface ClassDetailService {
 
@@ -61,5 +63,17 @@ public interface ClassDetailService {
 	 * @return ageChart
 	 */
 	List<Member> ageChart(int classNo);
+	
+	/**  찜 여부
+	 * @param map
+	 * @return result
+	 */
+	int selectWishFlag(Map<String, Integer> map);
+
+	/** 강사 소개 조회
+	 * @param classNo
+	 * @return tIntro
+	 */
+	TeacherIntro selectTeacher(int classNo);
 
 }

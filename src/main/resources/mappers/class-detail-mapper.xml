@@ -92,7 +92,25 @@
 		<result property="reviewAvg" column="REVIEW_AVG" />
 	</resultMap>
 	
+	<!-- 강사 소개 VO -->
+	<resultMap type="TeacherIntro" id="teacherIntro_rm">
+		<id property="snsNo" column="SNS_NO" />
+		
+		<result property="snsLink" column="SNS_LINK" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="snsDiv" column="SNS_DIV" />
+		<result property="snsId" column="SNS_ID" />
+		
+		<result property="teacherImg" column="TEACHER_IMG" />
+		<result property="teacherIntro" column="TEACHER_INTRO" />
+		<result property="teacherReqDt" column="TEACHER_REQ_DT" />
+		<result property="teacherStatus" column="TEACHER_ST" />
+		
+		<result property="memberNm" column="MEMBER_NM" />
+	</resultMap>
 	
+	
+
 	
 	<!-- 클래스 상세 (결제박스) VO -->
 	<resultMap type="ClassDetailRight" id="classDetailRight_rm">
@@ -173,6 +191,21 @@
 	<delete id="deleteWish">
 		DELETE FROM CLASS_WISH WHERE MEMBER_NO = #{memberNo} AND CLASS_NO = #{classNo}
 	</delete>
+
+	<!-- 해당 클래스 찜여부 -->
+	<select id="selectWishFlag" resultType="_int">
+		SELECT COUNT(*) FROM CLASS_WISH 
+		WHERE CLASS_NO = #{classNo} AND MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 강사 소개 조회  -->
+	<select id="selectTeacher" resultMap="teacherIntro_rm">
+		select c.class_no,  TEACHER_IMG, TEACHER_INTRO, MEMBER_NM, sns_id FROM TEACHER T
+		JOIN MEMBER M ON M.MEMBER_NO = T.MEMBER_NO 
+		join class c on c.member_no = m.member_no
+		join sns s on s.member_no = m.member_no
+		WHERE class_no = #{classNo}
+	</select>
 	
 	<!-- 차트 성별 조회 -->
 	<select id="genderChart" resultMap="member_rm">

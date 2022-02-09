@@ -85,7 +85,7 @@
 				                        <div class="column">불가능</div>
 									</c:when>
 									<c:when test="${episode.calStatus == -1}">
-				                        <div class="column"><button class="modal-open-btn calculation">신청</button></div>
+				                        <div class="column"><button class="modal-open-btn calculation" onclick="calculate(${episode.epNo}, this)">신청</button></div>
 									</c:when>
 									<c:when test="${episode.calStatus == 0}">
 				                        <div class="column">요청 완료</div>
@@ -174,7 +174,6 @@
         <!-- 클래스 열기 모달 -->
         <div id="modal" class="class-open modal">
             <div class="modal-content" style="position: relative;">
-                <!-- <form action="#" method="post"> -->
                     <div class="modal-title">
                         <h2>클래스 오픈</h2>
                     </div>
@@ -196,7 +195,6 @@
                         </ul>
                         <button class="existing-class-select">열기</button>
                     </article>
-                <!-- </form> -->
                 <button type="button" id="modal-close-btn" class="modal-close-btn new-class-modal-close" style="background: none;" >X</button>
             </div>
 

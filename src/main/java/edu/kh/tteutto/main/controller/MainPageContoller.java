@@ -1,6 +1,8 @@
 package edu.kh.tteutto.main.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -32,9 +34,31 @@ public class MainPageContoller {
 		if (loginMember != null)
 			memberNo = loginMember.getMemberNo();
 		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		
+		// 내 주변 클래스 추천 목록
+		map.put("pageKey", "surround");
+		
+		List<ClassList> surroundList = null;
+		surroundList = service.selectMainList(map);
+		
+		model.addAttribute("surroundList", surroundList);
+		
+		// 인기 클래스 추천 목록
+		map.put("pageKey", "hot");
+		
+		List<ClassList> hotList = null;
+		hotList = service.selectMainList(map);
+		
+		model.addAttribute("hotList", hotList);
+		
 		// 신규 클래스 추천 목록
+		map.put("pageKey", "new");
+		
 		List<ClassList> newList = null;
-		newList = service.selectNewList(memberNo);
+		newList = service.selectMainList(map);
+		
 		model.addAttribute("newList", newList);
 		
 		return "main/main";

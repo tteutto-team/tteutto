@@ -12,6 +12,7 @@
 		<result property="teacherImage" column="TEACHER_IMG"/>
 		<result property="memberName" column="MEMBER_NM"/>
 		<result property="categoryDetailName" column="CT_DETAIL_NM"/>
+		<result property="memberNo" column="MEMBER_NO"/>
 		<result property="episodeNo" column="EP_NO"/>
 		<result property="starAverage" column="STAR_AVG"/>
 		<result property="heartFlag" column="HEART_FLAG"/>
@@ -19,39 +20,8 @@
 		<result property="episodePrice" column="EP_PRICE"/>
 	</resultMap>
 	
-	<!-- Main > 인기 클래스 추천 조회 -->
-	<select id="" resultMap="classList_rm">
-		
-	</select>
-	
-	<!-- Main > 신규 클래스 추천 조회 -->
-	<select id="selectNewList" resultMap="classList_rm">
-		SELECT * FROM (
-		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, OPEN_EP_NO(C.CLASS_NO) EP_NO, CLASS_NM, 
-		    TH_IMG_NM, CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, 
-		    OPEN_PRICE(C.CLASS_NO) EP_PRICE, 
-		        NVL((SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
-		            JOIN EPISODE USING(CLASS_NO) 
-		            JOIN REGISTER USING(EP_NO) 
-		            JOIN REVIEW USING(REG_NO) 
-		            WHERE C.CLASS_NO = CLASS_NO), 0) STAR_AVG, 
-		        (SELECT COUNT(*) FROM CLASS_WISH WHERE C.CLASS_NO = CLASS_NO) HEART_COUNT, 
-		        (SELECT COUNT(*) FROM CLASS_WISH WHERE C.CLASS_NO = CLASS_NO AND MEMBER_NO = ${memberNo}) HEART_FLAG 
-		    FROM CLASS C 
-		    JOIN THUMBNAIL_IMG T ON(C.CLASS_NO = T.CLASS_NO) 
-		    JOIN CLASS_CATEGORY ON(CATG_NO = CT_NO) 
-		    JOIN TEACHER USING(MEMBER_NO) 
-		    JOIN MEMBER USING(MEMBER_NO) 
-		    LEFT JOIN CT_DETAIL USING(CT_DETAIL_NO) 
-		    WHERE TH_IMG_LEVEL = 0 AND MEMBER_ST = 0 
-		    ORDER BY NEW_EP_NO(C.CLASS_NO) DESC
-		)
-		WHERE EP_PRICE IS NOT NULL 
-		AND ROWNUM &lt;= 12
-	</select>
-	
-	<!-- 클래스 검색 목록 > 클래스 개수 조회 -->
-	<select id="getSearchListCount" resultType="_int">
+	<!-- 클래스 개수 조회 -->
+	<select id="selectClassCount" resultType="_int">
 		SELECT COUNT(*) FROM (
 		    SELECT C.CLASS_NO, OPEN_PRICE(C.CLASS_NO) EP_PRICE 
 		    FROM CLASS C 
@@ -62,19 +32,28 @@
 		    LEFT JOIN CT_DETAIL USING(CT_DETAIL_NO) 
 		    WHERE TH_IMG_LEVEL = 0 AND MEMBER_ST = 0 
 		    <choose>
-		    	<when test="search == '원데이'">AND CLASS_TYPE = 0 </when>
-		    	<when test="search == '정규'">AND CLASS_TYPE = 1 </when>
-		    	<otherwise>
-				    AND ((CLASS_AREA LIKE '%${search}%' OR CLASS_NM LIKE '%${search}%' 
-				    OR CT_NM LIKE '%${search}%' OR MEMBER_NM LIKE '%${search}%' OR CT_DETAIL_NM LIKE '%${search}%'))
-		    	</otherwise>
+		    	<!-- 클래스 검색 목록 -->
+		    	<when test="pageKey == 'search'">
+				    <choose>
+				    	<when test="search == '원데이'">AND CLASS_TYPE = 0 </when>
+				    	<when test="search == '정규'">AND CLASS_TYPE = 1 </when>
+				    	<otherwise>
+						    AND ((CLASS_AREA LIKE '%${search}%' OR CLASS_NM LIKE '%${search}%' 
+						    OR CT_NM LIKE '%${search}%' OR MEMBER_NM LIKE '%${search}%' OR CT_DETAIL_NM LIKE '%${search}%'))
+				    	</otherwise>
+				    </choose>
+		    	</when>
+		    	<!-- 찜한 클래스 -->
+		    	<when test="pageKey == 'wish'">
+			    	 AND C.CLASS_NO IN (SELECT CLASS_NO FROM CLASS_WISH WHERE MEMBER_NO = ${memberNo})
+			    </when>
 		    </choose>
 		)
 		WHERE EP_PRICE IS NOT NULL
 	</select>
 	
-	<!-- 클래스 검색 목록 > 클래스 카드 조회 -->
-	<select id="selectSearchList" resultMap="classList_rm">
+	<!-- 클래스 카드 조회 -->
+	<select id="selectClassCard" resultMap="classList_rm">
 		SELECT * FROM (
 		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, OPEN_EP_NO(C.CLASS_NO) EP_NO, CLASS_NM, 
 		    TH_IMG_NM, CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, 
@@ -94,94 +73,54 @@
 		    LEFT JOIN CT_DETAIL USING(CT_DETAIL_NO) 
 		    WHERE TH_IMG_LEVEL = 0 AND MEMBER_ST = 0 
 		    <choose>
-		    	<when test="search == '원데이'">AND CLASS_TYPE = 0 </when>
-		    	<when test="search == '정규'">AND CLASS_TYPE = 1 </when>
-		    	<otherwise>
-				    AND ((CLASS_AREA LIKE '%${search}%' OR CLASS_NM LIKE '%${search}%' 
-				    OR CT_NM LIKE '%${search}%' OR MEMBER_NM LIKE '%${search}%' OR CT_DETAIL_NM LIKE '%${search}%'))
-		    	</otherwise>
+		    	<!-- 클래스 검색 목록 -->
+	    		<when test="pageKey == 'search'">
+				    <choose>
+				    	<when test="search == '원데이'">AND CLASS_TYPE = 0 </when>
+				    	<when test="search == '정규'">AND CLASS_TYPE = 1 </when>
+				    	
+				    	<!-- 클래스 검색 목록 검색 결과 X -->
+					    <when test="result == 'no'">
+					    	AND (SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
+						            JOIN EPISODE USING(CLASS_NO) 
+						            JOIN REGISTER USING(EP_NO) 
+						            JOIN REVIEW USING(REG_NO) 
+						            WHERE C.CLASS_NO = CLASS_NO) >= 4.0 
+						    ORDER BY STAR_AVG DESC
+					    </when>
+					    
+				    	<otherwise>
+						    AND ((CLASS_AREA LIKE '%${search}%' OR CLASS_NM LIKE '%${search}%' 
+						    OR CT_NM LIKE '%${search}%' OR MEMBER_NM LIKE '%${search}%' OR CT_DETAIL_NM LIKE '%${search}%'))
+				    	</otherwise>
+				    </choose>
+			    </when>
+			    <!-- 찜한 클래스 -->
+			    <when test="pageKey == 'wish'">
+			    	AND C.CLASS_NO IN (SELECT CLASS_NO FROM CLASS_WISH WHERE MEMBER_NO = ${memberNo})
+			    </when>
+			    
+			    <!-- 메인 페이지 신규 -->
+			    <when test="pageKey == 'new'">
+			    	ORDER BY NEW_EP_NO(C.CLASS_NO) DESC
+			    </when>
+
 		    </choose>
 		)
 		WHERE EP_PRICE IS NOT NULL
+		<!-- 메인 페이지 -->
+		<if test="pageKey == 'main'"> <!-- 질문 -->
+			AND ROWNUM &lt;= 12
+		</if>
 	</select>
 	
-	<!-- 클래스 검색 목록 > 추천 클래스 조회 -->
-	<select id="selectRecoList" resultMap="classList_rm">
-		SELECT * FROM (
-		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, OPEN_EP_NO(C.CLASS_NO) EP_NO, CLASS_NM, 
-		    TH_IMG_NM, CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, 
-		    OPEN_PRICE(C.CLASS_NO) EP_PRICE, 
-		        NVL((SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
-		            JOIN EPISODE USING(CLASS_NO) 
-		            JOIN REGISTER USING(EP_NO) 
-		            JOIN REVIEW USING(REG_NO) 
-		            WHERE C.CLASS_NO = CLASS_NO), 0) STAR_AVG, 
-		        (SELECT COUNT(*) FROM CLASS_WISH WHERE C.CLASS_NO = CLASS_NO) HEART_COUNT, 
-		        (SELECT COUNT(*) FROM CLASS_WISH WHERE C.CLASS_NO = CLASS_NO AND MEMBER_NO = ${memberNo}) HEART_FLAG 
-		    FROM CLASS C 
-		    JOIN THUMBNAIL_IMG T ON(C.CLASS_NO = T.CLASS_NO) 
-		    JOIN CLASS_CATEGORY ON(CATG_NO = CT_NO) 
-		    JOIN TEACHER USING(MEMBER_NO) 
-		    JOIN MEMBER USING(MEMBER_NO) 
-		    LEFT JOIN CT_DETAIL USING(CT_DETAIL_NO) 
-		    WHERE TH_IMG_LEVEL = 0 AND MEMBER_ST = 0 
-		    AND (SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
-		            JOIN EPISODE USING(CLASS_NO) 
-		            JOIN REGISTER USING(EP_NO) 
-		            JOIN REVIEW USING(REG_NO) 
-		            WHERE C.CLASS_NO = CLASS_NO) >= 4.0 
-		    ORDER BY STAR_AVG DESC
-		)
-		WHERE EP_PRICE IS NOT NULL 
-		AND ROWNUM &lt;= 12
-	</select>
+	<!-- 찜한 클래스 삽입 -->
+	<insert id="insertHeart">
+		INSERT INTO CLASS_WISH VALUES(${memberNo}, ${classNo})
+	</insert>
 	
-	<!-- 찜한 클래스 > 클래스 개수 조회 -->
-	<select id="getWishListCount" resultType="_int">
-		SELECT COUNT(*) FROM (
-		    SELECT C.CLASS_NO, 
-		    NVL(OPEN_PRICE(C.CLASS_NO), PAST_PRICE(C.CLASS_NO)) EP_PRICE, 
-		        NVL((SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
-		            JOIN EPISODE USING(CLASS_NO) 
-		            JOIN REGISTER USING(EP_NO) 
-		            JOIN REVIEW USING(REG_NO) 
-		            WHERE C.CLASS_NO = CLASS_NO), 0) STAR_AVG, 
-		        (SELECT COUNT(*) FROM CLASS_WISH WHERE C.CLASS_NO = CLASS_NO) HEART_COUNT, 
-		        (SELECT COUNT(*) FROM CLASS_WISH WHERE C.CLASS_NO = CLASS_NO AND MEMBER_NO = ${memberNo}) HEART_FLAG 
-		    FROM CLASS C 
-		    JOIN THUMBNAIL_IMG T ON(C.CLASS_NO = T.CLASS_NO) 
-		    JOIN CLASS_CATEGORY ON(CATG_NO = CT_NO) 
-		    JOIN TEACHER USING(MEMBER_NO) 
-		    JOIN MEMBER USING(MEMBER_NO) 
-		    LEFT JOIN CT_DETAIL USING(CT_DETAIL_NO) 
-		    WHERE TH_IMG_LEVEL = 0 AND MEMBER_ST = 0 
-		    AND C.CLASS_NO IN (SELECT CLASS_NO FROM CLASS_WISH WHERE MEMBER_NO = ${memberNo})
-		)
-		WHERE EP_PRICE IS NOT NULL
-	</select>
-	
-	<!-- 찜한 클래스 > 클래스 카드 조회 -->
-	<select id="selectWishList" resultMap="classList_rm">
-		SELECT * FROM (
-		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, OPEN_EP_NO(C.CLASS_NO) EP_NO, CLASS_NM, 
-		    TH_IMG_NM, CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, 
-		    NVL(OPEN_PRICE(C.CLASS_NO), PAST_PRICE(C.CLASS_NO)) EP_PRICE, 
-		        NVL((SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
-		            JOIN EPISODE USING(CLASS_NO) 
-		            JOIN REGISTER USING(EP_NO) 
-		            JOIN REVIEW USING(REG_NO) 
-		            WHERE C.CLASS_NO = CLASS_NO), 0) STAR_AVG, 
-		        (SELECT COUNT(*) FROM CLASS_WISH WHERE C.CLASS_NO = CLASS_NO) HEART_COUNT, 
-		        (SELECT COUNT(*) FROM CLASS_WISH WHERE C.CLASS_NO = CLASS_NO AND MEMBER_NO = ${memberNo}) HEART_FLAG 
-		    FROM CLASS C 
-		    JOIN THUMBNAIL_IMG T ON(C.CLASS_NO = T.CLASS_NO) 
-		    JOIN CLASS_CATEGORY ON(CATG_NO = CT_NO) 
-		    JOIN TEACHER USING(MEMBER_NO) 
-		    JOIN MEMBER USING(MEMBER_NO) 
-		    LEFT JOIN CT_DETAIL USING(CT_DETAIL_NO) 
-		    WHERE TH_IMG_LEVEL = 0 AND MEMBER_ST = 0 
-		    AND C.CLASS_NO IN (SELECT CLASS_NO FROM CLASS_WISH WHERE MEMBER_NO = ${memberNo})
-		)
-		WHERE EP_PRICE IS NOT NULL
-	</select>
+	<!-- 찜한 클래스 삭제 -->
+	<delete id="deleteHeart">
+		DELETE FROM CLASS_WISH WHERE MEMBER_NO = ${memberNo} AND CLASS_NO = ${classNo}
+	</delete>
 </mapper>

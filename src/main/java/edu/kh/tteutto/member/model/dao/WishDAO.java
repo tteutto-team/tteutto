@@ -1,6 +1,7 @@
 package edu.kh.tteutto.member.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -16,17 +17,17 @@ public class WishDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	// 클래스 개수 조회 + 페이지네이션
-	public int getWishListCount(int memberNo) {
-		return sqlSession.selectOne("classListMapper.getWishListCount", memberNo);
+	// 클래스 개수 조회
+	public int getWishListCount(Map<String, Object> map) {
+		return sqlSession.selectOne("classListMapper.selectClassCount", map);
 	}
 
-	// 클래스 카드 목록 조회
-	public List<ClassList> selectWishList(Pagination pagination, int memberNo) {
+	// 클래스 카드 조회
+	public List<ClassList> selectWishList(Pagination pagination, Map<String, Object> map) {
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit() ;
 		int limit = pagination.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return sqlSession.selectList("classListMapper.selectWishList", memberNo, rowBounds);
+		return sqlSession.selectList("classListMapper.selectClassCard", map, rowBounds);
 	}
 }

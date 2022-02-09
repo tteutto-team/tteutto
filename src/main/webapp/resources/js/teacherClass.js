@@ -32,6 +32,7 @@
 
         if($(this).hasClass("0")){  // 진행중인 클래스
             sendPost(contextPath+"/teacher/studentListOngoing", "epNo", epNo);
+
             
         } else{ // 진행 예정 클래스
             sendPost(contextPath+"/teacher/studentListOngoing", "epNo", epNo);
@@ -49,14 +50,15 @@
 // 모달 닫기 버튼
 $(".modal-close-btn").click(function () {
     $(".modal").fadeOut(100);
+    $(".cont-select").fadeOut(100);
 });
 
 // 모달 밖에 클릭시 모달 닫기
 $(".modal").click(function (e) {
     if($(e.target).hasClass('modal-layer')) {
+        $(".cont-select").fadeOut(100);
         $(".modal").fadeOut(100);
     }
-
 });
 
 // 슬라이드
@@ -90,18 +92,46 @@ $(".slide").on("click", function () {
 $("#existing").on("click", function(){
     if($(".class-list").css('display') === 'none'){
         $(".class-list").css("display","flex");
+
+        $.ajax({
+            url : contextPath + "/teacher/ExistingClassList",
+            dataType : "JSON",
+            type : "POST",
+            success : function(rList){
+                if(rList != null){
+                    let ul = $(".list-member")
+                    ul.empty();
+                    
+                    $.each(rList, function(index, classOne){
+                        let li = "<li><button class = 'class-no-open' id=" + classOne.classNo + " type='button'>"+ classOne.className +"</button></li>";
+                        ul.append(li);
+                    });
+                }
+            }
+
+        })
     }
     else{
         $(".class-list").css("display","none");
     }
 });
 
-/* 기존 강좌 이어열기 - 열기 클릭시 */
+/* 기존 강좌 열기 클릭시 */
 $(".existing-class-select").on("click", function(){
-    if($(".btn-select").text() != "강의 목록"){
-        location.href="${contextPath}/register/schedule";
+    const liList = $(".class-no-open");
+    const select = $(".btn-select").val();
+
+    for(let name of liList){
+        if($(name).val() == select){
+            let id = $(name).attr("id");
+            location.href = contextPath + "/register/schedule/"+id;
+        }
     }
+
 });
+
+
+
 
 /* select-option */
 const btn = document.querySelector('.btn-select');
@@ -190,9 +220,11 @@ function possibleDeleteClass(epNo){
                             icon: "success",
                           });
                       } else{
-                        swal("강의를 삭제하는데 실패하였습니다. 관리자에게 문의바랍니다.", {
-                            icon: "error",
-                          });
+                          swal({
+                            title: "강의를 삭제하는데 실패하였습니다..",
+                            text: "관리자에게 문의해주세요!",
+                            icon: "error"
+                        });
                       }
 
                     } else {
@@ -256,4 +288,36 @@ function sendPost(url, name, params) {
     } 
     document.body.appendChild(form); 
     form.submit(); 
+}
+
+
+// 정산하기
+function calculate(epNo, el){
+    
+   $.ajax({
+       url: contextPath + "/teacher/calculate",
+       data : {"epNo" : epNo},
+       type : "POST",
+       success : function(result) {
+            
+            if(result > 0){
+
+                let div = $(el).parent();
+                $(el).remove();
+                div.append("<div class='column'>요청 완료</div>");
+
+                swal("정산 신청이 되었습니다.", {
+                    icon: "success",
+                  });
+
+            } else{
+                swal({
+                    title: "클래스를 삭제할 수 없습니다.",
+                    text: "진행중이거나 수강 학생이 있는 진행 예정인 강좌입니다. 관리자에게 문의해주세요!",
+                    icon: "error"
+                });
+            }
+       }
+   })
+
 }

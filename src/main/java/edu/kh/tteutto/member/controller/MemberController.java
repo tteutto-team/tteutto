@@ -452,17 +452,21 @@ public class MemberController {
 	public String studentWishList(Model model, 
 			@ModelAttribute("loginMember") Member loginMember, 
 			@RequestParam(value="page", required=false, defaultValue="1") int page) {
-		 
+		
 		int memberNo = loginMember.getMemberNo();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("pageKey", "wish");
 		
 		Pagination pagination = null;
 		List<ClassList> wishList = null;
 		
-		pagination = service.getPagination(memberNo, page);
+		pagination = service.getPagination(map, page);
 		pagination.setLimit(9);
 		pagination.setPageSize(5);
 		
-		wishList = service.selectWishList(pagination, memberNo);
+		wishList = service.selectWishList(pagination, map);
 		
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("wishList", wishList);
@@ -827,5 +831,11 @@ public class MemberController {
 		return "redirect:/member/studentClassList";
 	}
 	
+	// 클래스에 후기가 작성되었는지 ajax로 검사
+	@RequestMapping("searchReview")
+	@ResponseBody
+	public int searchReview(int regNo) {
+		return service.searchReview(regNo);
+	}
 	
 }

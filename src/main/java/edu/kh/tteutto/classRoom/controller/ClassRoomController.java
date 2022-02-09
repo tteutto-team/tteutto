@@ -3,7 +3,9 @@ package edu.kh.tteutto.classRoom.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -32,8 +35,8 @@ public class ClassRoomController {
 	private TeacherService service;
 	
 	// 클래스 목록
-	@RequestMapping(value = "classList", method = RequestMethod.GET)
-	public String classList(@ModelAttribute("loginMember") Member loginMember, Model model) {
+	@RequestMapping(value = "classList/{memNo}", method = RequestMethod.GET)
+	public String classList(@ModelAttribute("loginMember") Member loginMember, Model model, @RequestParam(value = "pageNo", required = false, defaultValue = "1") int pageNo, @PathVariable("memNo") int memNo) {
 		
 //		int memberNo = loginMember.getMemberNo();
 		int memberNo = 3;
@@ -76,13 +79,23 @@ public class ClassRoomController {
 				int startCompare = startDate.compareTo(today); 
 				int endCompare = endDate.compareTo(today); 
 				
-				if(endCompare > 0) {	// 수업이 아직 안끝났을 경우
-					// 현재 날짜 < 끝 날짜
+				if(endCompare > 0) {	// 수업이 아직 안끝났을 경우 (현재 날짜 < 끝 날짜)
 					episodeList.get(i).setCalStatus(-2);	// 정산 신청 버튼 X
 					
-				}else if(endCompare <= 0 && episodeList.get(i).getCalStatus() != 1 ) {	// 수업이 끝났을 경우 && 미정산인 경우
+				}
+				
+				// 수업이 끝났을 경우 && 미정산인 경우
+				else if(endCompare <= 0 && episodeList.get(i).getCalStatus() == -1 ) {
 					// 현재 날짜 > 끝 날짜 
 					episodeList.get(i).setCalStatus(-1);	// 정산 신청 버튼 나오게 해야함
+				} 
+				
+				else if(episodeList.get(i).getCalStatus() == 1) {	
+					episodeList.get(i).setCalStatus(1);
+				}
+				
+				else if(episodeList.get(i).getCalStatus() == 0) {
+					episodeList.get(i).setCalStatus(0);
 				}
 				
 				// 진행 중인 경우 => start - 오늘 ; startCompare <= 0 && end - 오늘; endCompare >= 0
@@ -145,7 +158,6 @@ public class ClassRoomController {
 	
 	// 학생 관리(수강 예정)
 	@RequestMapping(value="studentListExpect", method=RequestMethod.POST)
-//	public String studentListExpect(@PathVariable("epNo") int epNo, Model model,RedirectAttributes ra) {
 	public String studentListExpect(String epNo, Model model,RedirectAttributes ra) {
 		
 		
@@ -153,9 +165,8 @@ public class ClassRoomController {
 	}
 	
 	// 학생 관리(진행 중)
-//	@RequestMapping(value="studentListOngoing/{epNo}", method=RequestMethod.POST)
 	@RequestMapping(value="studentListOngoing", method=RequestMethod.POST)
-	public String studentListOngoing(int epNo, Model model,RedirectAttributes ra) {
+	public String studentListOngoing(int epNo, Model model) {
 
 		List<OngingClass> ongoingClassList = service.selectOngoingClass(epNo);
 		
@@ -168,9 +179,58 @@ public class ClassRoomController {
 			}
 			
 		}
-		
+		model.addAttribute("epNo", epNo);
 		model.addAttribute("ongoingClassList", ongoingClassList);
 		
 		return "class/teacherStudentListOngoing";
 	}
+	
+	
+	// 학생 관리(진행 중) - 신고
+	@ResponseBody
+	@RequestMapping(value="reportStudent", method=RequestMethod.POST)
+	public int reportStudent(String epNo, String memberNo, String reportText) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("epNo", epNo);
+		map.put("memberNo", memberNo);
+		map.put("reportText", reportText);
+		
+		int result = service.reportStudent(map);
+		
+		return result;
+	}
+	
+	// 정산 신청
+	@ResponseBody
+	@RequestMapping(value="calculate", method=RequestMethod.POST)
+	public int calculate(String epNo) {
+		
+		int result = service.calculate(epNo);
+		
+		System.out.println("result " + result);
+		return result;
+	}
+	
+	// 클래스 신청 - 기존 클래스 목록 조회
+	@ResponseBody
+	@RequestMapping(value="ExistingClassList", method=RequestMethod.POST)
+	public String ExistingClassList(@ModelAttribute("loginMember") Member loginMember ) {
+		
+		
+		
+//		List<ClassDetail> classList= service.existingClassList(loginMember.getMemberNo());
+		List<ClassDetail> classList= service.existingClassList(4);
+		
+		Gson gson = new Gson();
+		String rList = gson.toJson(classList);
+		
+		System.out.println("rList " + rList);
+		return rList;
+	}
+	
+	
+
+	
 }

@@ -1,6 +1,7 @@
 package edu.kh.tteutto.classRoom.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeClass;
@@ -44,6 +45,24 @@ public interface TeacherService {
 	 * @return ongoingClassList
 	 */
 	List<OngingClass> selectOngoingClass(int epNo);
-	
+
+	/** 학생 신고
+	 * @param map
+	 * @return result
+	 */
+	int reportStudent(Map<String, String> map);
+
+	/** 정산 신청
+	 * @param epNo
+	 * @return result
+	 */
+	int calculate(String epNo);
+
+	/** 클래스 신청 - 기존 클래스 목록 조회
+	 * @param memberNo
+	 * @return classList
+	 */
+	List<ClassDetail> existingClassList(int memberNo);
+
 	
 }
