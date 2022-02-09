@@ -29,6 +29,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
+import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
 
 @Controller
 @RequestMapping("/class/*")
@@ -72,6 +73,12 @@ public class ClassDetailController {
 		TeacherIntro tIntro = service.selectTeacher(classNo);
 		
 		
+		// 클래스 썸네일 이미지 조회
+		List<ThumnailImg> thumImgList = service.selectThumImg(classNo);
+		
+
+		
+		
 		String path = null;
 		
 		if(cdtr != null) {
@@ -79,6 +86,7 @@ public class ClassDetailController {
 			model.addAttribute("crev", crev);
 			model.addAttribute("heartFlag", heartFlag);
 			model.addAttribute("tIntro", tIntro);
+			model.addAttribute("thumImgList", thumImgList);
 			path = "class/classDetail";
 			
 		}else { // 경로로 검색시

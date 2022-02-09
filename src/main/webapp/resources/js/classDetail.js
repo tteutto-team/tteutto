@@ -148,6 +148,8 @@ $(".modal").click(function (e) {
 		
 	// 로그인한 회원의 클래스 신청 여부 조회
 	function selectRegisterDt(){
+		let res;
+		
 		if(loginMemberNo != ''){
 			$.ajax({
 				
@@ -156,9 +158,10 @@ $(".modal").click(function (e) {
 					   "memberNo" : loginMemberNo,
 					   'classNo' : classNo },
 				type : "POST",
+				async : false,
 				success : function(registerDt){
 					console.log(registerDt);
-					
+					res = registerDt;
 				},
 				error : function(){
 					console.log("에러");
@@ -168,11 +171,74 @@ $(".modal").click(function (e) {
 				
 		
 		}
+		
+		return res;
 	}
 	
 	
+	let remainDate; 
+	let remainHour;
+	let remainMin;
+	let remainSec;
+	
+	
+	(function(){
+		const registerDt =  selectRegisterDt();
+		
+		if(registerDt != undefined){
+			
+			const remainTime = new Date(registerDt).getTime() - new Date().getTime();
+			
+			if(remainTime > 0){
+				remainDate = Math.floor(Number(remainTime)/1000/60/60/24);
+				remainHour = Math.floor(remainTime/1000/60/60%24);
+				remainMin = Math.floor(remainTime/1000/60%60%24);
+				remainSec = Math.floor(remainTime/1000%60%60%24);
+				
+				
+				countTime();
+				
+			}
+		}
+			
+		
+		
+		
+	})();
+	
+	
+	function plus0(param){
+		if(param < 10) return "0"+param;
+		else return param;
+	}
 	
 
+	function countTime(){
+		const interval = setInterval(function(){
+			remainSec--; // 1초씩 감소
+			
+			if(remainSec < 0){
+				remainSec = 59;
+				remainMin--; // 1분 감소
+			}
+			
+			if(remainMin < 0){
+				remainMin = 59;
+				remainHour--;
+			}
+			
+			if(remainHour < 0){
+				remainHour = 23;
+				remainDate--;
+			}
+			
+			const printTime ="신청한 수업까지 남은시간 : " + plus0(remainDate) + "일 " 
+						+ plus0(remainHour) + ":" + plus0(remainMin) + ":" + plus0(remainSec);
+		
+			$("#registerBtn").text(printTime);
+			$("#buyBtnId").off("click");
+		}, 1000);
+	}
 
 // 
 
@@ -259,7 +325,6 @@ AOS.init();
 
     // 사이드 이미지 클릭시 
     $('.sideImgStyle').click(function(){
-
         // 만약 원래 클릭된 이미지가 있다면 기존 것은 불투명도 0.3
         
         // 선택한 이미지 불투명도 1
@@ -270,6 +335,7 @@ AOS.init();
         
         // 메인이미지에 띄우기
         $('#mainImg').attr("src",  $(this).attr("src") ).addClass("imgFadeInEffect");
+        $('#mainImg').css("opacity",0).animate({opacity : 1}, 300)
     });
 
     
