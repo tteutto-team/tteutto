@@ -1,3 +1,4 @@
+
 package edu.kh.tteutto.classRoom.controller;
 
 import java.util.HashMap;
@@ -5,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,12 +21,16 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.tteutto.common.Util;
+import edu.kh.tteutto.main.model.vo.ClassList;
 import edu.kh.tteutto.member.model.vo.Member;
 import edu.kh.tteutto.classRoom.model.service.ClassDetailService;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
+import edu.kh.tteutto.classRoom.model.vo.Teacher;
+import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
+import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
 
 @Controller
 @RequestMapping("/class/*")
@@ -42,18 +48,46 @@ public class ClassDetailController {
 
 	// 클래스 상세 페이지 조회(결제박스만)
 	@RequestMapping("classDetail")
-	public String selectClassDetail(int classNo, Model model, RedirectAttributes ra) {
+	public String selectClassDetail(int classNo, Model model, RedirectAttributes ra, HttpSession session) {
 
 		ClassDetailRight cdtr = service.selectClassDetail(classNo);
 		
-		//클래스 후기 조회
+		//클래스 후기평점 조회
 		ClassReview crev = service.selectReviewAvg(classNo);
+		
+		
+		//클래스 찜하기 플래그
+		int memberNo = 0;
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		
+		if (loginMember != null)
+			memberNo = loginMember.getMemberNo();
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+		map.put("memberNo", memberNo);
+		map.put("classNo", classNo);
+		
+		int heartFlag =  service.selectWishFlag(map);
+		
+		// 클래스 강사 조회
+		TeacherIntro tIntro = service.selectTeacher(classNo);
+		
+		
+		// 클래스 썸네일 이미지 조회
+		List<ThumnailImg> thumImgList = service.selectThumImg(classNo);
+		
+
+		
 		
 		String path = null;
 		
 		if(cdtr != null) {
 			model.addAttribute("cdtr", cdtr);
 			model.addAttribute("crev", crev);
+			model.addAttribute("heartFlag", heartFlag);
+			model.addAttribute("tIntro", tIntro);
+			model.addAttribute("thumImgList", thumImgList);
 			path = "class/classDetail";
 			
 		}else { // 경로로 검색시
@@ -117,6 +151,26 @@ public class ClassDetailController {
 		return service.deletetWish(map);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="genderChart")
+	public List<Member> genderChart(Member member, int classNo) {
+		
+		List<Member> genderList = service.genderChart(classNo);
+		
+		//System.out.println(ageList);
+		
+		return genderList;
+	}
 	
+	@ResponseBody
+	@RequestMapping(value="ageChart")
+	public List<Member> ageChart(Member member, int classNo) {
+		
+		List<Member> ageChart = service.ageChart(classNo);
+		//System.out.println(ageChart);
+		//System.out.println(ageList);
+		
+		return ageChart;
+	}
 	
 }

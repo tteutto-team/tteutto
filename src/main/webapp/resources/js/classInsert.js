@@ -204,7 +204,7 @@ $(document).ready(function() {
 
 
 // 제목 글자수
-$("#titleArea").on("input", function(){
+$("#titleArea").on("input focus change", function(){
     // 현재 작성된 글자 수를 변수에 저장
     let count = $(this).val().length;
     // 안넘으면 빨간색
@@ -368,11 +368,18 @@ $("#priview-btn").on("click", function(){
 // 팝업오픈하여 폼데이터 Post 전송
 function PopUp(){
 	
+	/*
     var pop_title = "preview" ;
     var option = "width = 1200, height = 1200, left = 500, location = no"	
      
     window.open("/tteutto/register/preview", pop_title, option) ;
-     
+    */
+    
+    //path, 이름, option
+	window.open('/tteutto/register/preview','preview','width=1200, height=1200');
+	opener.document.getElementById('summernote').value = $('#coupon').val();
+	opener.document.getElementById('titleArea').value = $('#coupon').val();
+    /*
     var frmData = document.getElementById("form");
     console.log(frmData);
     
@@ -380,7 +387,7 @@ function PopUp(){
     frmData.action = "preview" ;
      
     frmData.submit() ;
-     
+    */ 
      
      
 }

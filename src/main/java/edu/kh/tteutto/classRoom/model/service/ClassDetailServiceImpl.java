@@ -1,5 +1,6 @@
 package edu.kh.tteutto.classRoom.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,11 @@ import edu.kh.tteutto.classRoom.model.dao.ClassDetailDAO;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
+import edu.kh.tteutto.member.model.vo.Member;
+import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
+import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
+import edu.kh.tteutto.main.model.vo.ClassList;
+
 
 @Service
 public class ClassDetailServiceImpl implements ClassDetailService{
@@ -24,7 +30,7 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 		ClassDetailRight cdtr = dao.selectClassDetail(classNo);
 		
 		
-		if( cdtr.getCdt() != null) {
+		if( cdtr != null && cdtr.getCdt() != null) {
 			
 			cdtr.setEpSchedule(dao.selectEpisodeSchedule(classNo));
 		
@@ -71,6 +77,41 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 	public int deletetWish(Map<String, Integer> map) {
 		return dao.deletetWish(map);
 	}
+
+	// 차트 성별 조회
+	@Override
+	public List<Member> genderChart(int classNo) {
+		return dao.genderChart(classNo);
+	}
+
+	// 차트 연령대 조회
+	@Override
+	public List<Member> ageChart(int classNo) {
+		return dao.ageChart(classNo);
+	}
+	
+	// 찜 여부
+	@Override
+	public int selectWishFlag(Map<String, Integer> map) {
+		return dao.selectWishFlag(map);
+	}
+
+	
+	// 강사 소개 조회
+	@Override
+	public TeacherIntro selectTeacher(int classNo) {
+		return dao.selectTeacher(classNo);
+	}
+
+	//클래스 썸네일 이미지 조회
+	@Override
+	public List<ThumnailImg> selectThumImg(int classNo) {
+		return dao.selectThumImg(classNo);
+	}
+
+
+	
+
 	
 	
 }

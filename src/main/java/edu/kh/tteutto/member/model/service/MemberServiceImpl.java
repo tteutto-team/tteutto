@@ -379,16 +379,15 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	// 클래스 개수 조회 + 페이지네이션
-	@Override
-	public Pagination getPagination(int memberNo, int page) {
-		int wishListCount = dao.getWishListCount(memberNo);
+	public Pagination getPagination(Map<String, Object> map, int page) {
+		int wishListCount = dao.getWishListCount(map);
 		return new Pagination(wishListCount, page);
 	}
 	
 	// 클래스 카드 목록 조회
 	@Override
-	public List<ClassList> selectWishList(Pagination pagination, int memberNo) {
-		return dao.selectWishList(pagination, memberNo);
+	public List<ClassList> selectWishList(Pagination pagination, Map<String, Object> map) {
+		return dao.selectWishList(pagination, map);
 	}
 
 	// 학생 수강신청 목록 조회
@@ -443,6 +442,12 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int deleteReview(int reviewNo) {
 		return dao.deleteReview(reviewNo);
+	}
+
+	// 후기 있는지 검사
+	@Override
+	public int searchReview(int regNo) {
+		return dao.searchReview(regNo);
 	}
 	
 

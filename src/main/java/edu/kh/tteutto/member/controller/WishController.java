@@ -1,6 +1,8 @@
 package edu.kh.tteutto.member.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,17 +30,21 @@ public class WishController {
 	public String studentWishList(Model model, 
 			@ModelAttribute("loginMember") Member loginMember, 
 			@RequestParam(value="page", required=false, defaultValue="1") int page) {
-		 
+		
 		int memberNo = loginMember.getMemberNo();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("pageKey", "wish");
 		
 		Pagination pagination = null;
 		List<ClassList> wishList = null;
 		
-		pagination = service.getPagination(memberNo, page);
+		pagination = service.getPagination(map, page);
 		pagination.setLimit(9);
 		pagination.setPageSize(5);
 		
-		wishList = service.selectWishList(pagination, memberNo);
+		wishList = service.selectWishList(pagination, map);
 		
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("wishList", wishList);

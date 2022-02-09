@@ -53,6 +53,8 @@
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassRefund" alias="ClassRefund" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassReport" alias="ClassReport" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassRegister" alias="ClassRegister" />
+		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.TeacherIntro" alias="TeacherIntro" />
+		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ThumnailImg" alias="ThumnailImg" />
 		
 		<typeAlias type="edu.kh.tteutto.notice.model.vo.Notice" alias="Notice" />
 		<typeAlias type="edu.kh.tteutto.notice.model.vo.NoticeImg" alias="NoticeImg" />

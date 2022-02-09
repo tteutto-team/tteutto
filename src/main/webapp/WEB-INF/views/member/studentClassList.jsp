@@ -195,16 +195,34 @@
 
     // 후기 모달 열기
     $(".review-modal-btn").click(function (e) {
-        $("#review-modal").fadeIn(100);
-        $("#review-modal").css("display", "flex");
-        
-        const teacherNm = e.target.parentNode.childNodes[9].innerText;
-        const regNo = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[1].innerText;
-        const classNm = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[3].innerText;
-		const tc = classNm + ' - ' + teacherNm
+    	
+    	const regNo = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[1].innerText;
+    	
+    	$.ajax({
+            url : "searchReview",      
+            data : {"regNo" : regNo},  
+            type : "POST",               
+            success : function(result){
+        		if(result > 0){
+        	        $("#review-modal").fadeIn(100);
+        	        $("#review-modal").css("display", "flex");
+        	        
+        	        const teacherNm = e.target.parentNode.childNodes[9].innerText;
+        	        const classNm = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[3].innerText;
+        			const tc = classNm + ' - ' + teacherNm
 
-        $("#review-class-name").html(tc);
-        $("#review-regNo").val(regNo);
+        	        $("#review-class-name").html(tc);
+        	        $("#review-regNo").val(regNo);
+        		}else{
+        			alert("이미 이 클래스에 대한 후기를 작성했습니다.")
+        		}
+            },
+
+            error : function(){}
+
+        });
+    	
+
     });
 
     // 모달 밖에 클릭시 모달 닫기

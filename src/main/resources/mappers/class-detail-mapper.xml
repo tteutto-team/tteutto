@@ -37,7 +37,8 @@
 		<result property="memberRegDt" column="MEMBER_REG_DT" />
 		<result property="memberSecDt" column="MEMBER_SEC_DT" />
 		<result property="teacherEnroll" column="TEACHER_ENROLL" />
-		<result property="memberKey" column="MEMBER_KEY" />
+		<result property="memberAgeGroup" column="MEMBER_AGEGROUP" />
+		<result property="memberAgeCount" column="MEMBER_AGECOUNT" />
 	</resultMap>
 	
 	<!-- episode 회차 VO -->
@@ -91,7 +92,31 @@
 		<result property="reviewAvg" column="REVIEW_AVG" />
 	</resultMap>
 	
+	<!-- 강사 소개 VO -->
+	<resultMap type="TeacherIntro" id="teacherIntro_rm">
+		<id property="snsNo" column="SNS_NO" />
+		
+		<result property="snsLink" column="SNS_LINK" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="snsDiv" column="SNS_DIV" />
+		<result property="snsId" column="SNS_ID" />
+		
+		<result property="teacherImg" column="TEACHER_IMG" />
+		<result property="teacherIntro" column="TEACHER_INTRO" />
+		<result property="teacherReqDt" column="TEACHER_REQ_DT" />
+		<result property="teacherStatus" column="TEACHER_ST" />
+		
+		<result property="memberNm" column="MEMBER_NM" />
+	</resultMap>
 	
+	<!-- 클래스 썸네일 이미지 조회 VO -->
+	<resultMap type="ThumnailImg" id="thumnailImg_rm">
+		<id property="thImgNo" column="TH_IMG_NO" />
+		
+		<result property="thImgNm" column="TH_IMG_NM" />
+		<result property="thImgLevel" column="TH_IMG_LEVEL" />
+		<result property="classNo" column="CLASS_NO" />
+	</resultMap>
 	
 	<!-- 클래스 상세 (결제박스) VO -->
 	<resultMap type="ClassDetailRight" id="classDetailRight_rm">
@@ -109,7 +134,7 @@
 	<select id="selectClassDetail" resultMap="classDetailRight_rm">
 		SELECT CLASS.CLASS_NO, CT_NM , EP_COUNT, CLASS.CLASS_NM, CLASS_LEVEL,
 		        CLASS_MAX_PERSON,
-		        CLASS.MEMBER_NO, CLASS_TYPE , MEMBER_NM, open_price(#{classNo}) EP_PRICE,
+		        CLASS.MEMBER_NO, CLASS_TYPE , MEMBER_NM, NVL(open_price(#{classNo}), past_price(#{classNo})) EP_PRICE,
 		        EP_PLACE
 		FROM CLASS
 		JOIN CLASS_CATEGORY ON CT_NO = CATG_NO
@@ -172,5 +197,60 @@
 	<delete id="deleteWish">
 		DELETE FROM CLASS_WISH WHERE MEMBER_NO = #{memberNo} AND CLASS_NO = #{classNo}
 	</delete>
+
+	<!-- 해당 클래스 찜여부 -->
+	<select id="selectWishFlag" resultType="_int">
+		SELECT COUNT(*) FROM CLASS_WISH 
+		WHERE CLASS_NO = #{classNo} AND MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 강사 소개 조회  -->
+	<select id="selectTeacher" resultMap="teacherIntro_rm">
+		select c.class_no,  TEACHER_IMG, TEACHER_INTRO, MEMBER_NM, sns_id FROM TEACHER T
+		JOIN MEMBER M ON M.MEMBER_NO = T.MEMBER_NO 
+		join class c on c.member_no = m.member_no
+		join sns s on s.member_no = m.member_no
+		WHERE class_no = #{classNo}
+	</select>
+	
+	<!-- 클래스 썸네일 이미지 조회  -->
+	<select id="selectThumImg" resultMap="thumnailImg_rm">
+		select TH_IMG_NO, TH_IMG_NM, TH_IMG_LEVEL, CLASS_NO from THUMBNAIL_IMG
+		where class_no = #{classNo}
+	</select>
+	<!-- 차트 성별 조회 -->
+	<select id="genderChart" resultMap="member_rm">
+		SELECT M.MEMBER_NO, M.MEMBER_NM, M.MEMBER_GENDER 
+		FROM CLASS C
+		JOIN EPISODE E ON(C.CLASS_NO = E.CLASS_NO)
+		JOIN REGISTER R ON(R.EP_NO = E.EP_NO)
+		JOIN MEMBER M ON(M.MEMBER_NO = R.MEMBER_NO)
+		WHERE C.CLASS_NO = ${classNo}
+	</select>
+	
+	<!-- 차트 연령대 조회 -->
+	<select id="ageChart" resultMap="member_rm">
+
+		SELECT TO_CHAR(MEMBER_AGEGROUP) AS MEMBER_AGEGROUP, COUNT(*) AS MEMBER_AGECOUNT
+		FROM(
+		    SELECT CASE 
+		    WHEN AGE_GROUP &lt; 20 THEN '10대'
+		    WHEN AGE_GROUP &lt; 30 THEN '20대'  
+		    WHEN AGE_GROUP &lt; 40 THEN '30대'
+		    WHEN AGE_GROUP &lt; 50 THEN '40대' 
+		    ELSE '50대이상'
+		    END AS MEMBER_AGEGROUP
+		    FROM (SELECT TO_NUMBER((TO_CHAR(PAY_DT,'YYYY'))- TO_NUMBER(TO_CHAR(MEMBER_BIRTH,'YYYY')-1)) AGE_GROUP 
+		        FROM (SELECT M.MEMBER_BIRTH, R.PAY_DT
+		            FROM CLASS C
+		            JOIN EPISODE E ON(C.CLASS_NO = E.CLASS_NO)
+		            JOIN REGISTER R ON(R.EP_NO = E.EP_NO)
+		            JOIN MEMBER M ON(M.MEMBER_NO = R.MEMBER_NO)
+		            WHERE C.CLASS_NO = ${classNo}
+		        )
+		    )
+		)
+		GROUP BY MEMBER_AGEGROUP
+	</select>
 	
 </mapper>
