@@ -46,6 +46,7 @@
 				<a href="${contextPath}/admin/classManage"><i class="far fa-circle"></i> 클래스 신청 관리</a>
 				<a href="${contextPath}/admin/classUpdateManage"><i class="far fa-circle"></i> 클래스 수정 관리</a>
 				<a href="${contextPath}/admin/classEpisodeManage"><i class="far fa-circle"></i> 회차별 신청 관리</a>
+				<a href="${contextPath}/admin/reviewManage"><i class="far fa-circle"></i> 후기 관리</a>
 			</div>
 		</div>
 		<div class="admin-list">
