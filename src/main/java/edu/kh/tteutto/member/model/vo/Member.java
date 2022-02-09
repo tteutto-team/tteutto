@@ -17,6 +17,7 @@ public class Member {
 	private String teacherEnroll;
 	private String memberKey;
 	private String kEmail;
+	private String teacherImg;
 	
 	public Member() {}
 
@@ -140,6 +141,23 @@ public class Member {
 		this.kEmail = kEmail;
 	}
 
+	public String getTeacherImg() {
+		return teacherImg;
+	}
+
+	public void setTeacherImg(String teacherImg) {
+		this.teacherImg = teacherImg;
+	}
+
+	@Override
+	public String toString() {
+		return "Member [memberNo=" + memberNo + ", memberGrade=" + memberGrade + ", memberSt=" + memberSt
+				+ ", memberEmail=" + memberEmail + ", memberPw=" + memberPw + ", memberNm=" + memberNm
+				+ ", memberBirth=" + memberBirth + ", memberGender=" + memberGender + ", memberPno=" + memberPno
+				+ ", memberImg=" + memberImg + ", memberRegDt=" + memberRegDt + ", memberSecDt=" + memberSecDt
+				+ ", teacherEnroll=" + teacherEnroll + ", memberKey=" + memberKey + ", kEmail=" + kEmail
+				+ ", teacherImg=" + teacherImg + "]";
+	}
 
 	
 }
