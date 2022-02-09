@@ -172,9 +172,10 @@ public interface MemberService {
 
 	/** 학생 수강신청 목록
 	 * @param memberNo
+	 * @param pagination 
 	 * @return register
 	 */
-	List<ClassRegister> studentClassList(int memberNo);
+	List<ClassRegister> studentClassList(int memberNo, Pagination pagination);
 
 
 	/** 학생 클래스 신고
@@ -193,9 +194,10 @@ public interface MemberService {
 
 	/** 학생 작성한 후기 목록 조회
 	 * @param memberNo
+	 * @param pagination 
 	 * @return review
 	 */
-	List<ClassReview> studentCommentList(int memberNo);
+	List<ClassReview> studentCommentList(int memberNo, Pagination pagination);
 
 
 	/** 학생 후기 수정
@@ -238,6 +240,36 @@ public interface MemberService {
 	 * @return result
 	 */
 	int searchReview(int regNo);
+
+
+	/** 신고가 있는지 검사
+	 * @param regNo
+	 * @return result
+	 */
+	int searchReport(int regNo);
+
+
+	/** 환불 신청이 있는지 검사
+	 * @param regNo
+	 * @return result
+	 */
+	int checkRefund(int regNo);
+
+
+	/** 내 수강신청 목록 카운트
+	 * @param memberNo
+	 * @param cp
+	 * @return pagination
+	 */
+	Pagination registerPagination(int memberNo, int cp);
+
+
+	/** 내 후기목록 카운트
+	 * @param memberNo
+	 * @param cp
+	 * @return pagination
+	 */
+	Pagination reviewPagination(int memberNo, int cp);
 
 
 

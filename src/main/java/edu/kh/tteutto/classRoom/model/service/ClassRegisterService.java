@@ -25,5 +25,17 @@ public interface ClassRegisterService {
 	 * @return
 	 */
 	int insertClassSchedule(Episode episode, List<EpisodeSchedule> epsList);
+
+	/** 클래스의 선생 번호 가져오기
+	 * @param no
+	 * @return teacherNo
+	 */
+	int teacherNo(int no);
+
+	/** 클래스 가져오기
+	 * @param no
+	 * @return cdt
+	 */
+	ClassDetail classSelect(int no);
 	
 }

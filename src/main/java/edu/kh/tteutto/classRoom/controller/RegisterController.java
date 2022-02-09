@@ -50,12 +50,33 @@ public class RegisterController {
 		
 		// 클래스 스케쥴 등록 페이지 이동
 		@RequestMapping(value="schedule/{no}", method=RequestMethod.GET)
-		public String classRegisterSchedule(HttpSession session, @PathVariable (value = "no", required = false) int no ) {
+		public String classRegisterSchedule(HttpSession session, @PathVariable (value = "no", required = false) int no,
+											@ModelAttribute("loginMember") Member loginMember, RedirectAttributes ra) {
+			
+			String path = "";
+			
 			if(session.getAttribute("loginMember") != null) {
-				return "class/classInsert2";			
+				
+				int teacherNo = service.teacherNo(no);
+				
+				if(teacherNo == loginMember.getMemberNo()) {
+					
+					ClassDetail cdt = service.classSelect(no);
+					
+					session.setAttribute("cdt", cdt);
+					
+					path = "class/classInsert2";	
+				}else {
+					ra.addFlashAttribute("message", "잘못된 접근 입니다.");
+					path = "redirect:/";
+				}
+		
 			}else {
-				return "member/login";
+				ra.addFlashAttribute("message", "로그인 후 이용해주세요.");
+				path = "member/login";
 			}
+			
+			return path;
 			
 		}
 		
@@ -93,37 +114,13 @@ public class RegisterController {
 		}
 		
 		
+
 		// 클래스 미리보기 페이지
 		@RequestMapping("preview")
-		public String classPreview(HttpSession session, ClassDetail cdt, Model model,
-								   @RequestParam(value="images", required=false) List<MultipartFile> images) {
+		public String classPreview(HttpSession session) {
 			
 			if(session.getAttribute("loginMember") != null) {
 			
-				System.out.println(cdt);
-				
-				if(images != null) {
-					List<ClassDetailImage> imgList = new ArrayList<ClassDetailImage>();
-					
-					for(int i=0; i<images.size(); i++) {
-						if(!images.get(i).getOriginalFilename().equals("")) {
-							
-							ClassDetailImage img = new ClassDetailImage();
-							
-							img.setThImgNm(Util.fileRename(images.get(i).getOriginalFilename()));
-							img.setThImgLevel(i);
-							
-							imgList.add(img);
-							
-						}
-						
-					} 				
-					
-					model.addAttribute("imgList", imgList);
-				}
-				
-				model.addAttribute("cdt", cdt);
-				
 				return "class/classDetailPreview";
 				
 			}else {
@@ -136,12 +133,13 @@ public class RegisterController {
 		@RequestMapping("save")
 		public String classSave(HttpSession session, RedirectAttributes ra,
 								String classArea1, String classArea2, ClassDetail cdt, 
-								HttpServletRequest req, HttpServletResponse resp) {
+								HttpServletRequest req, HttpServletResponse resp, String marketing) {
 			String area = classArea1 + " " + classArea2;
 			cdt.setClassArea(area);
 			
 			System.out.println(cdt);
 			
+			session.setAttribute("mark", marketing);
 			session.setAttribute("cdt", cdt);
 			
 			/*
@@ -169,7 +167,7 @@ public class RegisterController {
 			episode.setEpPlace(epPlace);
 			
 			// 테스트용 클래스 데이터 //
-			episode.setClassNo(101);
+			//episode.setClassNo(101);
 			
 			// 날짜 넣기
 			List<EpisodeSchedule> epsList = new ArrayList<EpisodeSchedule>();

@@ -101,5 +101,17 @@ public class ClassRegisterServiceImpl implements ClassRegisterService{
 		
 		return epNo;
 	}
+
+	// 클래스의 선생 번호 가져오기
+	@Override
+	public int teacherNo(int no) {
+		return dao.teacherNo(no);
+	}
+
+	// 클래스 가져오기
+	@Override
+	public ClassDetail classSelect(int no) {
+		return dao.classSelect(no);
+	}
 	
 }
