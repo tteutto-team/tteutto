@@ -259,10 +259,10 @@
 									</c:if>
 								</c:when>
 								<c:otherwise>
-									<strong class="lessonCntList">
-			                       <span> ${vs.count} </span>
-			                        ${sign} </strong>  
-	                          		<span class="lessonDate">  ${eps.schdlDt} </span> (<span>${eps.schdlWeek}</span>) <span> ${eps.schdlStartTime}</span> ~ <span> ${eps.schdlEndTime}</span> <br>
+										<strong class="lessonCntList">
+					                       <span> ${vs.count} </span>
+					                     	${sign} </strong>  
+		                          		<span class="lessonDate">  ${eps.schdlDt} </span> (<span>${eps.schdlWeek}</span>) <span> ${eps.schdlStartTime}</span> ~ <span> ${eps.schdlEndTime}</span> <br>
 								</c:otherwise>
 	                          </c:choose>
 	                          
@@ -298,20 +298,23 @@
  			
                     
                 </div>
-
-                
                 <!-- 찜하기, 공유하기 -->
                <div class="wishShareBtn">
                     <button type="button" class="wsBtn" id="wishBtn"> 
                         <div class="wsIcon">
-                            <svg id="emptyHeart" class="wishIcon" width="18" height="18" fill="none" viewBox="0 0 24 24">
-                                <path fill-rule="evenodd" d="M20.5 9c0-2-1.5-3.9-3.7-3.9-2.3 0-3.8 1.63-4.8 3.33-1-1.7-2.5-3.33-4.8-3.33C5 5.1 3.5 6.867 3.5 9c0 4.62 4.949 7.667 8.5 9.623 3.551-1.956 8.5-5.003 8.5-9.623zm-19-.176C1.5 5.607 3.962 3 7 3c2.7 0 4 1 5 2.2C13 4 14.3 3 17 3c3.038 0 5.5 2.607 5.5 5.824C22.5 14.827 16.684 18.52 12 21 7.316 18.52 1.5 14.827 1.5 8.824z" fill="#1a1a1a"></path>
-                            
-                            </svg>
-                            <!-- 로그인한 회원이 이 상품을 찜했을시 -->
-                            <svg id="fillHeart" class="wishIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" style="display: none;">
-                                <path fill-rule="evenodd" d="M1.5 8.824C1.5 5.607 3.962 3 7 3c2.5 0 4 1.5 5 3 1-1.5 2.5-3 5-3 3.038 0 5.5 2.607 5.5 5.824C22.5 14.827 16.684 18.52 12 21 7.316 18.52 1.5 14.827 1.5 8.824z" fill="rgb(253, 48, 73)"></path>
-                            </svg>
+	                        <%-- 클래스 찜하기 버튼 > 찜 X --%>
+							<c:if test="${classList.heartFlag == 0}">
+	                            <svg id="emptyHeart" class="wishIcon" width="18" height="18" fill="none" viewBox="0 0 24 24">
+	                                <path fill-rule="evenodd" d="M20.5 9c0-2-1.5-3.9-3.7-3.9-2.3 0-3.8 1.63-4.8 3.33-1-1.7-2.5-3.33-4.8-3.33C5 5.1 3.5 6.867 3.5 9c0 4.62 4.949 7.667 8.5 9.623 3.551-1.956 8.5-5.003 8.5-9.623zm-19-.176C1.5 5.607 3.962 3 7 3c2.7 0 4 1 5 2.2C13 4 14.3 3 17 3c3.038 0 5.5 2.607 5.5 5.824C22.5 14.827 16.684 18.52 12 21 7.316 18.52 1.5 14.827 1.5 8.824z" fill="#1a1a1a"></path>
+	                            </svg>
+	                         </c:if>
+							<%-- 클래스 찜하기 버튼 > 찜 O --%>
+							<c:if test="${classList.heartFlag == 1}">
+	                            <!-- 로그인한 회원이 이 상품을 찜했을시 -->
+	                            <svg id="fillHeart" class="wishIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24">
+	                                <path fill-rule="evenodd" d="M1.5 8.824C1.5 5.607 3.962 3 7 3c2.5 0 4 1.5 5 3 1-1.5 2.5-3 5-3 3.038 0 5.5 2.607 5.5 5.824C22.5 14.827 16.684 18.52 12 21 7.316 18.52 1.5 14.827 1.5 8.824z" fill="rgb(253, 48, 73)"></path>
+	                            </svg>
+	                        </c:if>
                         </div>
                         <div>
                             찜하기 
@@ -914,6 +917,13 @@
             templateId: 70472
         });
       }
+ 	  
+ 	 Kakao.init("7600de820cee45bf01f"); //어플의 Javascript Key 값 
+ 	 function sendLinkCustom() { 
+ 		 debugger; Kakao.Link.sendCustom({ templateId : 53911 //숫자값 
+ 		 }); } try { function sendLinkDefault() { 
+ 			 Kakao.Link.sendDefault({ objectType : 'feed', content : { title : 'Test Homepage Title', description : '#Test #Homepage #Kakao Link Description', imageUrl : 'http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png', link : { mobileWebUrl : 'https://developers.kakao.com', webUrl : 'https://developers.kakao.com', }, }, social : { likeCount : 100, commentCount : 200, sharedCount : 300, }, buttons : [ { title : '웹으로 보기', link : { mobileWebUrl : 'https://developers.kakao.com', webUrl : 'https://developers.kakao.com', }, }, { title : '앱으로 보기', link : { mobileWebUrl : 'https://developers.kakao.com', webUrl : 'https://developers.kakao.com', }, }, ], }) } ; window.kakaoDemoCallback && window.kakaoDemoCallback() } catch (e) { window.kakaoDemoException && window.kakaoDemoException(e) }
+
  	  
  	  //트위터 공유하기
  	  function shareTwitter() {

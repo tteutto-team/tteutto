@@ -8,6 +8,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
+import edu.kh.tteutto.main.model.vo.ClassList;
 
 public interface ClassDetailService {
 
@@ -46,5 +47,11 @@ public interface ClassDetailService {
 	 * @return result
 	 */
 	int deletetWish(Map<String, Integer> map);
+
+	/**  찜 여부
+	 * @param map
+	 * @return result
+	 */
+	ClassList selectWishFlag(Map<String, Integer> map);
 
 }

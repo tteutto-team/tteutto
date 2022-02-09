@@ -13,6 +13,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeSchedule;
+import edu.kh.tteutto.main.model.vo.ClassList;
 
 
 @Repository
@@ -42,17 +43,25 @@ public class ClassDetailDAO {
 		return sqlSession.selectOne("classDetailMapper.selectReviewAvg", classNo);
 	}
 
+	// 결제(신청) DB삽입
 	public int insertRegister(ClassRegister classReg) {
 		return sqlSession.insert("classDetailMapper.insertRegister", classReg);
 	}
-
+	
+	// 찜에 추가
 	public int insertWish(Map<String, Integer> map) {
 		
 		return sqlSession.insert("classDetailMapper.insertWish", map);
 	}
 
+	// 찜에서 삭제
 	public int deletetWish(Map<String, Integer> map) {
 		return sqlSession.delete("classDetailMapper.deleteWish", map);
+	}
+
+	// 찜 여부
+	public ClassList selectWishFlag(Map<String, Integer> map) {
+		return sqlSession.selectOne("classDetailMapper.selectWishFlag", map);
 	}
 	
 	
