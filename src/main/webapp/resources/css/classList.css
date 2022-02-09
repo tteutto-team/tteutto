@@ -184,10 +184,17 @@
 
 .searchList .class-name {
 	margin-top: 5px;
-	height: 48px;
-	max-height: 48px;
+	height: 46px;
+	max-height: 46px;
 	font-size: 14px;
 	font-weight: 500;
+	/* 말줄임 */	
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	word-wrap: break-word;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	-webkit-line-clamp: 2;
 }
 
 .searchList .grade {

@@ -89,16 +89,6 @@ crossorigin="anonymous"/>
 				            </article>
 				            
 				            <article class="cont-select">
-				                <input type="hidden" name="classProgress">
-				                <button class="btn-select" type="button">진행 여부</button>
-				                <ul class="list-member">
-				                    <li><button type="button">전체</button></li>
-				                    <li><button type="button">진행 예정</button></li>
-				                    <li><button type="button">진행 중</button></li>
-				                </ul>
-				            </article>
-				            
-				            <article class="cont-select">
 				                <input type="hidden" name="classSort">
 				                <button class="btn-select" type="button">정렬</button>
 				                <ul class="list-member">
