@@ -10,6 +10,7 @@ import edu.kh.tteutto.admin.model.vo.AdminClass;
 import edu.kh.tteutto.admin.model.vo.AdminEpisode;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
+import edu.kh.tteutto.admin.model.vo.AdminReview;
 import edu.kh.tteutto.admin.model.vo.AdminTeacher;
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.member.model.vo.Member;
@@ -258,6 +259,17 @@ public interface AdminService {
 	 * @return result
 	 */
 	int insertFaq(AdminNoticeFaq faq);
+
+	/** 후기 목록 조회
+	 * @return data
+	 */
+	List<AdminReview> reviewList();
+
+	/** 후기 삭제
+	 * @param reviewNo
+	 * @return result
+	 */
+	int reviewDeny(int reviewNo);
 
 
 

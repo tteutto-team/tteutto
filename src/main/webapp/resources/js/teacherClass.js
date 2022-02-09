@@ -32,7 +32,6 @@
 
         if($(this).hasClass("0")){  // 진행중인 클래스
             sendPost(contextPath+"/teacher/studentListOngoing", "epNo", epNo);
-
             
         } else{ // 진행 예정 클래스
             sendPost(contextPath+"/teacher/studentListOngoing", "epNo", epNo);
@@ -91,7 +90,6 @@ $(".slide").on("click", function () {
 /* 기존 강좌 이어열기 클릭시 */
 $("#existing").on("click", function(){
     if($(".class-list").css('display') === 'none'){
-        $(".class-list").css("display","flex");
 
         $.ajax({
             url : contextPath + "/teacher/ExistingClassList",
@@ -106,6 +104,10 @@ $("#existing").on("click", function(){
                         let li = "<li><button class = 'class-no-open' id=" + classOne.classNo + " type='button'>"+ classOne.className +"</button></li>";
                         ul.append(li);
                     });
+                    $(".class-list").css("display","flex");
+                } 
+                else{
+                    swal({"title" : "클래스가 없습니다.", "icon" : "error"});
                 }
             }
 
@@ -129,7 +131,6 @@ $(".existing-class-select").on("click", function(){
     }
 
 });
-
 
 
 
@@ -265,8 +266,6 @@ function deleteClass(epNo){
             console.log("삭제 실패");
             console.log(req.responseText);
         }
-
-
     })
 }
 
@@ -275,15 +274,15 @@ function deleteClass(epNo){
 function sendPost(url, name, params) { 
 
     var form = document.createElement('form'); 
-    form.setAttribute('method', 'post'); 
+    form.setAttribute('method', 'get'); 
     form.setAttribute('action', url); 
     
     for (var key in params) { 
         var hiddenField = document.createElement('input'); 
         hiddenField.setAttribute('type', 'hidden');
         hiddenField.setAttribute('name', name); 
-        // hiddenField.setAttribute('value', params[key]); 
-        hiddenField.setAttribute('value', 1); 
+        hiddenField.setAttribute('value', params[key]); 
+        // hiddenField.setAttribute('value', 1); 
         form.appendChild(hiddenField); 
     } 
     document.body.appendChild(form); 

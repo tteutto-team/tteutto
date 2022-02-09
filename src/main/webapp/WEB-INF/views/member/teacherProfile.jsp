@@ -6,14 +6,14 @@
     <main>
         <div class="left">
             <div class="box">
-                <img src="${contextPath}/${teacher.teacherImg}">
+                <img src="${contextPath}/resources/images/teacher/profile/${teacher.teacherImg}">
             </div>
             <div class="name">${teacher.memberNm}</div>
             <div class="introduce">${teacher.teacherIntro}</div>
 
             <div class="list">
                 <div class="selected" onclick="location.href='${contextPath}/member/teacherProfile'">강사 프로필</div>
-                <div onclick="location.href='${contextPath}/teacher/classList'">클래스 목록</div>
+                <div onclick="location.href='${contextPath}/teacher/classList/${loginMember.memberNo}'">클래스 목록</div>
             </div>
         </div>
         <form id ="signUp" action="teacherProfileUpdate" method="post"  name="teacherProfileUpdate"
@@ -24,7 +24,7 @@
             </div>
             <div class="profile_content">
                 <div class="profile_area">
-                    <div class="profile_img" id="img__cover" style="background-image:url(//img.taling.me/Content/Images/placeholders/profile-default.thumb.jpg)">
+                    <div class="profile_img" id="img__cover" style="background-image:url('${contextPath}/resources/images/teacher/profile/${teacher.teacherImg}')">
                         <img class="camera" src="https://front-img.taling.me/Content/Images/Tutor/Images/btn_pfimg.png">
                         <input type="file" id="picture" name="picture">
                     </div>

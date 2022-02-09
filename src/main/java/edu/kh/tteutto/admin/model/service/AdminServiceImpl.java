@@ -17,6 +17,7 @@ import edu.kh.tteutto.admin.model.vo.AdminEpisode;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeFaq;
 import edu.kh.tteutto.admin.model.vo.AdminNoticeImage;
 import edu.kh.tteutto.admin.model.vo.AdminReport;
+import edu.kh.tteutto.admin.model.vo.AdminReview;
 import edu.kh.tteutto.admin.model.vo.AdminTeacher;
 import edu.kh.tteutto.common.Util;
 
@@ -425,23 +426,18 @@ public class AdminServiceImpl implements AdminService{
 		
 		return result;
 	}
-	
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
+	// 후기 목록 조회
+	@Override
+	public List<AdminReview> reviewList() {
+		return dao.reviewList();
+	}
 
-	
-	
-	
-	
-	
+	// 후기 삭제
+	@Override
+	public int reviewDeny(int reviewNo) {
+		return dao.reviewDeny(reviewNo);
+	}
 	
 	
 	

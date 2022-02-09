@@ -191,6 +191,20 @@
 		<result property="classNo" column="CLASS_NO"/>
 	</resultMap>
 	
+	<!-- 후기 VO -->
+	<resultMap type="AdminReview" id="review_rm">
+		<id property="reviewNo" column="RE_NO"/>
+		<result property="reviewStar" column="RE_STAR"/>
+		<result property="reviewContent" column="RE_CONTENT"/>
+		<result property="reviewDate" column="RE_DT"/>
+		<result property="reviewStatus" column="RE_ST"/>
+		<result property="registerNo" column="REG_NO"/>
+		<result property="memberName" column="MEMBER_NM"/>
+		<result property="episodeCount" column="EP_COUNT"/>
+		<result property="className" column="CLASS_NM"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+	</resultMap>
+	
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	<!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -624,5 +638,18 @@
 		INSERT INTO FAQ VALUES(SEQ_FAQ_NO.NEXTVAL, #{faqDiv}, #{faqQuestion}, #{faqAnswer})
 	</insert>
 	
+	<!-- 후기 목록 조회 -->
+	<select id="reviewList" resultMap="review_rm">
+		SELECT RE_NO, CLASS_NM, EP_COUNT, REG_NM MEMBER_NM, RE_CONTENT, RE_ST, RE_DT, REGISTER.MEMBER_NO
+		FROM REVIEW
+		JOIN REGISTER USING(REG_NO)
+		JOIN EPISODE USING(EP_NO)
+		JOIN CLASS USING(CLASS_NO)
+	</select>
+	
+	<!-- 후기 삭제 -->
+	<update id="reviewDeny">
+		UPDATE REVIEW SET RE_ST = 1 WHERE RE_NO = #{reviewNo}
+	</update>
 	
 </mapper>

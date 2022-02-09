@@ -11,6 +11,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeClass;
 import edu.kh.tteutto.classRoom.model.vo.OngingClass;
 import edu.kh.tteutto.classRoom.model.vo.Receipt;
+import edu.kh.tteutto.member.model.vo.Member;
 
 @Service
 public class TeacherServiceImpl implements TeacherService{
@@ -70,5 +71,27 @@ public class TeacherServiceImpl implements TeacherService{
 	@Override
 	public List<ClassDetail> existingClassList(int memberNo) {
 		return dao.existingClassList(memberNo);
+	}
+	
+	// 클래스 교육 예정
+	@Override
+	public List<Member> studentListExpect(int epNo) {
+		return dao.studentListExpect(epNo);
+	}
+	
+	// 수강 거절
+	@Override
+	public int rejectStudent(Map<String, String> map) {
+		int result = 0;
+		if(dao.rejectStudent(map) > 0) {
+			result = dao.insertMessage(map);
+		}
+		return result;
+	}
+	
+	// 강사 여부 조회
+	@Override
+	public String selectTeacher(int memberNo) {
+		return dao.selectTeacher(memberNo);
 	}
 }
