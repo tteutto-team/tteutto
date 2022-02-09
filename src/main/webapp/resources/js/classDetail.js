@@ -24,6 +24,18 @@ for (let j = 0; j < list.length; j++) {
            document.getElementById("epAmount").innerText = event.target.childNodes[3].innerText;
            document.getElementById("buyClassDate").innerText = event.target.childNodes[5].innerText;
            document.getElementById("epNoSpan").innerText = event.target.childNodes[7].innerText;
+           
+           // 신청하기 버튼
+           if(event.target.childNodes[9].innerText < classMaxPerson  ){
+				console.log(event.target.childNodes[9].innerText);
+					
+					
+	
+			}else{
+				$("#registerBtn").text("신청마감");
+				$("#buyBtnId").off("click");
+				
+			}
         }
         
 
@@ -61,7 +73,7 @@ for (let j = 0; j < rList.length; j++) {
 
 // 모달 밖에 클릭시 모달 닫기
 $(".modal").click(function (e) {
-  console.log(e.target);
+  //console.log(e.target);
   if($(e.target).hasClass('modal-layer')) {
       $(".modal").css("display","none");
   }
@@ -126,7 +138,7 @@ $(".modal").click(function (e) {
 									}
 						        }, error:function(request, status, error){
 
-									console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+									//console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 
 	}
 					          
@@ -160,11 +172,11 @@ $(".modal").click(function (e) {
 				type : "POST",
 				async : false,
 				success : function(registerDt){
-					console.log(registerDt);
+					//console.log(registerDt);
 					res = registerDt;
 				},
 				error : function(){
-					console.log("에러");
+					//console.log("에러");
 				}
 				
 			});
@@ -198,6 +210,8 @@ $(".modal").click(function (e) {
 				
 				countTime();
 				
+			}else{
+				
 			}
 		}
 			
@@ -214,6 +228,14 @@ $(".modal").click(function (e) {
 	
 
 	function countTime(){
+		const printTime ="신청한 수업시작까지 남은시간 : " + plus0(remainDate) + "일 " 
+						+ plus0(remainHour) + ":" + plus0(remainMin) + ":" + plus0(remainSec);
+			
+			
+			$("#registerBtn").text(printTime);
+			$("#buyBtnId").off("click");
+			$("#registerBtn").css("font-size", "14px");
+		
 		const interval = setInterval(function(){
 			remainSec--; // 1초씩 감소
 			
@@ -232,11 +254,13 @@ $(".modal").click(function (e) {
 				remainDate--;
 			}
 			
-			const printTime ="신청한 수업까지 남은시간 : " + plus0(remainDate) + "일 " 
+			const printTime ="신청한 수업시작까지 남은시간 : " + plus0(remainDate) + "일 " 
 						+ plus0(remainHour) + ":" + plus0(remainMin) + ":" + plus0(remainSec);
-		
+			
+			
 			$("#registerBtn").text(printTime);
 			$("#buyBtnId").off("click");
+			$("#registerBtn").css("font-size", "14px");
 		}, 1000);
 	}
 
@@ -370,7 +394,7 @@ $(document).ready(function(){
 				type : "GET",
 				data : {"classNo": classNo},
 				success : function(result){
-					console.log(result);
+					//console.log(result);
 					let ten = 0;
 					let twenty = 0;
 					let thirty = 0;
@@ -390,7 +414,7 @@ $(document).ready(function(){
 						}
 					}
 					const maxValue = Math.max(ten, twenty, thirty, fourty, other);
-					console.log(maxValue);
+					//console.log(maxValue);
 					
 					let maxV = "";
 					
@@ -437,9 +461,9 @@ $(document).ready(function(){
 				},
 				error : function(request, status, error){
 			        if( request.status == 404 ){
-			            console.log("ajax 요청 주소가 올바르지 않습니다.");
+			            //console.log("ajax 요청 주소가 올바르지 않습니다.");
 			        } else if( request.status == 500){
-			            console.log("서버 내부 에러 발생");
+			           // console.log("서버 내부 에러 발생");
 			        }
 			    },
 			    complete : function(){}
@@ -501,9 +525,9 @@ $(document).ready(function(){
 				},
 				error : function(request, status, error){
 			        if( request.status == 404 ){
-			            console.log("ajax 요청 주소가 올바르지 않습니다.");
+			            //console.log("ajax 요청 주소가 올바르지 않습니다.");
 			        } else if( request.status == 500){
-			            console.log("서버 내부 에러 발생");
+			            //console.log("서버 내부 에러 발생");
 			        }
 			    },
 			    complete : function(){}
@@ -560,7 +584,7 @@ $(document).ready(function(){
     /* 셀렉트 바 닫힘-열림 중복 방지*/
     $(".btn-select").on("click",function(){
         if($(this).hasClass("on") && $(this).parent().next().find(".btn-select").hasClass("on")){
-            console.log($(this).parent().next().find(".btn-select"));
+            //console.log($(this).parent().next().find(".btn-select"));
             $(this).parent().next().find(".btn-select").removeClass("on");
         }
     });

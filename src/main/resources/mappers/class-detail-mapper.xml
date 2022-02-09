@@ -65,6 +65,7 @@
 		<result property="schdlEndTime" column="SCHDL_END_TIME" />
 		<result property="possibleFl" column="POSSIBLE_FL" />
 		<result property="schdlTime" column="SCHDL_TIME" />
+		<result property="registerStudentCnt" column="REGISTER_STUDENT_COUNT" />
 	</resultMap>
 	
 	<!-- 클래스 등록(신청) VO -->
@@ -133,7 +134,7 @@
 	<!-- 클래스 상세조회 (오른쪽결제박스만) -->
 	<select id="selectClassDetail" resultMap="classDetailRight_rm">
 		SELECT CLASS.CLASS_NO, CT_NM , EP_COUNT, CLASS.CLASS_NM, CLASS_LEVEL,
-		        CLASS_MAX_PERSON,
+		        CLASS_MAX_PERSON, CLASS_PERSON,
 		        CLASS.MEMBER_NO, CLASS_TYPE , MEMBER_NM, NVL(open_price(#{classNo}), past_price(#{classNo})) EP_PRICE,
 		        EP_PLACE
 		FROM CLASS
@@ -147,22 +148,30 @@
 	
 	<!-- 클래스 상세페이지 - 회차 스케쥴 (일정) 선택 -->
 	<select id="selectEpisodeSchedule" resultMap="epSchedule_rm">
-		SELECT 
-				 SCHDL_TIME,
-		       EP_NO, 
-		       EP_COUNT, 
-		       CLASS_MAX_PERSON - CLASS_PERSON "REMAIN_PEOPLE_CNT", 
-		       EP_PRICE, 
-		       TO_CHAR(SCHDL_DT, 'YYYY"년" MM"월" DD"일' ) SCHDL_DT,
-		       SCHDL_WEEK, 
-		       SCHDL_START_TIME, 
-		       SCHDL_END_TIME,
-		       (SELECT COUNT(*) FROM EP_SCHEDULE WHERE SCHDL_NO = ES.SCHDL_NO AND SCHDL_DT > SYSDATE) "POSSIBLE_FL"
-		FROM CLASS
-		JOIN EPISODE USING(CLASS_NO)
-		JOIN EP_SCHEDULE ES USING(EP_NO)
-		WHERE CLASS_NO = #{classNo}
-		ORDER BY SCHDL_DT, TO_DATE(SCHDL_START_TIME, 'HH24:MI')
+		SELECT A.*, 
+			(select count(*) 
+				from register
+				where pay_st = 0 
+				and reg_st = 0
+				and ep_no = A.EP_NO) REGISTER_STUDENT_COUNT  
+		FROM (
+			SELECT 
+				SCHDL_TIME,
+				EP_NO, 
+				EP_COUNT, 
+				CLASS_MAX_PERSON - CLASS_PERSON "REMAIN_PEOPLE_CNT", 
+				EP_PRICE, 
+				TO_CHAR(SCHDL_DT, 'YYYY"년" MM"월" DD"일' ) SCHDL_DT,
+				SCHDL_WEEK, 
+				SCHDL_START_TIME, 
+				SCHDL_END_TIME,
+				(SELECT COUNT(*) FROM EP_SCHEDULE WHERE SCHDL_NO = ES.SCHDL_NO AND SCHDL_DT > SYSDATE) "POSSIBLE_FL"
+			FROM CLASS
+			JOIN EPISODE USING(CLASS_NO)
+			JOIN EP_SCHEDULE ES USING(EP_NO)
+			WHERE CLASS_NO = #{classNo}
+			ORDER BY SCHDL_DT, TO_DATE(SCHDL_START_TIME, 'HH24:MI')
+        ) A
 	</select>
 	
 	<!-- 클래스 신청 여부 조회  -->

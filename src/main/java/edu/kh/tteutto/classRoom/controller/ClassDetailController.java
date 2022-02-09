@@ -51,7 +51,6 @@ public class ClassDetailController {
 	public String selectClassDetail(int classNo, Model model, RedirectAttributes ra, HttpSession session) {
 
 		ClassDetailRight cdtr = service.selectClassDetail(classNo);
-		
 		//클래스 후기평점 조회
 		ClassReview crev = service.selectReviewAvg(classNo);
 		

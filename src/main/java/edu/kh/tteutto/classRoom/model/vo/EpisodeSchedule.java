@@ -14,6 +14,8 @@ public class EpisodeSchedule {
 	
 	private int schdlTime; // 수업 소요시간
 	
+	private int registerStudentCnt; // 수업 신청한 인원
+	
 	 public EpisodeSchedule() {
 	}
 
@@ -100,14 +102,25 @@ public class EpisodeSchedule {
 	public void setSchdlTime(int schdlTime) {
 		this.schdlTime = schdlTime;
 	}
+	
+	
+
+	public int getRegisterStudentCnt() {
+		return registerStudentCnt;
+	}
+
+	public void setRegisterStudentCnt(int registerStudentCnt) {
+		this.registerStudentCnt = registerStudentCnt;
+	}
 
 	@Override
 	public String toString() {
 		return "EpisodeSchedule [epNo=" + epNo + ", epCount=" + epCount + ", remainPeopleCnt=" + remainPeopleCnt
 				+ ", epPrice=" + epPrice + ", schdlDt=" + schdlDt + ", schdlWeek=" + schdlWeek + ", schdlStartTime="
 				+ schdlStartTime + ", schdlEndTime=" + schdlEndTime + ", possibleFl=" + possibleFl + ", schdlTime="
-				+ schdlTime + "]";
+				+ schdlTime + ", registerStudentCnt=" + registerStudentCnt + "]";
 	}
+
 
 	
 	
