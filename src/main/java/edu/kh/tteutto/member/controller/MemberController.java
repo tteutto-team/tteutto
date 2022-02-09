@@ -412,40 +412,46 @@ public class MemberController {
 		return path;
 	}
 	
-	
 	// 학생 마이페이지 클래스 목록 이동
-	@RequestMapping(value = "studentClassList", method = RequestMethod.GET)
-	public String studentClassList(@RequestParam(value="cp", required=false, defaultValue="1") int cp,
-								   @ModelAttribute("loginMember") Member loginMember, Model model) {
-		
-		int memberNo = loginMember.getMemberNo();
-		
-		//Pagination pagination = null;
-		
-		//pagination = service.getPagination(cp);
-		
-		List<ClassRegister> register = service.studentClassList(memberNo);
-		
-		model.addAttribute("register", register);
-		
-		return "member/studentClassList";
-	}
+		@RequestMapping(value = "studentClassList", method = RequestMethod.GET)
+		public String studentClassList(@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+									   @ModelAttribute("loginMember") Member loginMember, Model model) {
+			
+			int memberNo = loginMember.getMemberNo();
+			
+			Pagination pagination = null;
+			List<ClassRegister> register = null;
+			
+			pagination = service.registerPagination(memberNo ,cp);
+			
+			register = service.studentClassList(memberNo, pagination);
+			
+			model.addAttribute("register", register);
+			model.addAttribute("pagination", pagination);
+			
+			return "member/studentClassList";
+		}
 
-	// 학생 마이페이지 후기 목록 이동
-	@RequestMapping(value = "studentCommentList", method = RequestMethod.GET)
-	public String studentCommentList(@RequestParam(value="cp", required=false, defaultValue="1") int cp,
-			   						 @ModelAttribute("loginMember") Member loginMember,
-			   						 Model model) {
-		//Pagination pagination = null;
-		
-		int memberNo = loginMember.getMemberNo();
-		
-		List<ClassReview> review = service.studentCommentList(memberNo);
-		
-		model.addAttribute("review", review);
-		
-		return "member/studentCommentList";
-	}
+		// 학생 마이페이지 후기 목록 이동
+		@RequestMapping(value = "studentCommentList", method = RequestMethod.GET)
+		public String studentCommentList(@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+				   						 @ModelAttribute("loginMember") Member loginMember,
+				   						 Model model) {
+			Pagination pagination = null;
+			List<ClassReview> review = null;
+			
+			int memberNo = loginMember.getMemberNo();
+			
+			pagination = service.reviewPagination(memberNo ,cp);
+			
+			review = service.studentCommentList(memberNo, pagination);
+			
+			model.addAttribute("pagination", pagination);
+			model.addAttribute("review", review);
+			
+			return "member/studentCommentList";
+		}
+
 
 	// 찜한 클래스
 	@RequestMapping("studentWishList")
@@ -809,36 +815,56 @@ public class MemberController {
 	}
 	
 	// 클래스 환불 신청
-	@RequestMapping("refundClass")
-	public String refundClass(ClassRefund refund, RedirectAttributes ra) {
+		@RequestMapping("refundClass")
+		public String refundClass(ClassRefund refund, RedirectAttributes ra) {
 
-		int result = service.refundClass(refund);
-		
-		if(result > 0) {
-			ra.addFlashAttribute("message", "환불 신청이 완료되었습니다.");			
+			// 환불이 이미 신청되었는지 검사
+			int check = service.checkRefund(refund.getRegNo());
+			
+			if(check > 0) {
+				System.out.println("이놈아저씨");
+				ra.addFlashAttribute("message", "이미 환불 신청을 하였습니다.");
+			}else {
+				
+				int result = service.refundClass(refund);
+				
+				if(result > 0) {
+					ra.addFlashAttribute("message", "환불 신청이 완료되었습니다.");			
+				}
+				
+			}
+
+			return "redirect:/member/studentClassList";
 		}
 		
-		return "redirect:/member/studentClassList";
-	}
-	
-	// 학생 후기 삭제
-	@RequestMapping("deleteReview")
-	public String deleteReview(int reviewNo, RedirectAttributes ra) {
+		// 학생 후기 삭제
+		@RequestMapping("deleteReview")
+		public String deleteReview(int reviewNo, RedirectAttributes ra) {
 
-		int result = service.deleteReview(reviewNo);
-		
-		if(result > 0) {
-			ra.addFlashAttribute("message", "후기가 삭제되었습니다.");			
+			int result = service.deleteReview(reviewNo);
+			
+			if(result > 0) {
+				ra.addFlashAttribute("message", "후기가 삭제되었습니다.");			
+			}
+			
+			return "redirect:/member/studentClassList";
 		}
 		
-		return "redirect:/member/studentClassList";
-	}
+		// 클래스에 후기가 작성되었는지 ajax로 검사
+		@RequestMapping("searchReview")
+		@ResponseBody
+		public int searchReview(int regNo) {
+			int result = service.searchReview(regNo);
+			System.out.println(result);
+			return result;
+		}
+		
+		// 클래스에 신고가 작성되었는지 ajax로 검사
+		@RequestMapping("searchReport")
+		@ResponseBody
+		public int searchReport(int regNo) {
+			return service.searchReport(regNo);
+		}
 	
-	// 클래스에 후기가 작성되었는지 ajax로 검사
-	@RequestMapping("searchReview")
-	@ResponseBody
-	public int searchReview(int regNo) {
-		return service.searchReview(regNo);
-	}
 	
 }

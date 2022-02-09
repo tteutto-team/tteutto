@@ -140,21 +140,21 @@
                     <tbody>
                         <tr>
                             <td colspan="3">
-                                <strong id="naviClassName">[<span>${cdtr.ep.epCount}</span>회차] ${cdtr.cdt.className} </strong>
+                                <strong id="naviClassName">[<span>1</span>회차] <span id="className"></span> </strong>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2" id="classPrice">
                                 <span>월</span> 
                                 	<c:set var="payAmount" value="${cdtr.ep.epPrice}"/> 
-                    				<fmt:formatNumber value="${payAmount}" groupingUsed="true" /> 원
+                    				<fmt:formatNumber value="${payAmount}" groupingUsed="true" />10,000 원
                             </td>
                             <td id="classStar">
                                 <img src="${contextPath}/resources/images/class-detail/star.png">
                                 <img src="${contextPath}/resources/images/class-detail/star.png">
                                 <img src="${contextPath}/resources/images/class-detail/star.png">
                                 <img src="${contextPath}/resources/images/class-detail/star.png">
-                                <img src="${contextPath}/resources/images/class-detail/star2.png">
+                                <img src="${contextPath}/resources/images/class-detail/star.png">
                             </td>
                         </tr>
                     </tbody>
@@ -164,19 +164,19 @@
                    <div class="threeBox">
                        <p>난이도</p>
                        <div>
-                           <span>${cdtr.cdt.classLevel}</span>
+                           <span id="classLevel"></span>
                         </div>
                    </div>
                    <div class="threeBox">
                     <p>소요시간</p>
                     <div>
-                        <span>3</span>시간
+                        
                     </div>
                     </div>
                     <div class="threeBox">
                         <p>수업인원</p>
                         <div>
-                            최대<span>${cdtr.cdt.classMaxPerson}</span>명
+                            최대<span id="maxPerson"></span>명
                         </div>
                     </div>
                </div>
@@ -218,67 +218,10 @@
                         </div>
                     </div> -->
                     
-                    
-                    <!-- 옵션 선택 -->
-                    <!-- 원데이 클래스 날짜 선택 -->
-                    <div class="onedayClassDate">
-                        <strong> 클래스 일정 선택 </strong>
-                        <article class="onedaySelect">
-                            <button class="btn-select">2022년 01월 07일 (금)</button>
-                            <ul class="list-date">
-                                <li><button type="button">2022년 01월 07일 (금)</button></li>
-                                <li><button type="button">2022년 01월 08일 (토)</button></li>
-                                <li><button type="button">2022년 01월 09일 (일)</button></li>
-                                <li><button type="button">2022년 01월 10일 (월)</button></li>
-                                <li><button type="button">2022년 01월 11일 (화)</button></li>
-                            </ul>
-                        </article>
-                        <article class="onedaySelect">
-                            <button class="btn-select">10:00 ~ 11:00</button>
-                            <ul class="list-date">
-                                <li><button type="button">10:00 ~ 11:00</button></li>
-                                <li><button type="button">11:00 ~ 12:00</button></li>
-                                <li><button type="button">13:00 ~ 14:00</button></li>
-                                <li><button type="button">14:00 ~ 15:00</button></li>
-                                <li><button type="button">15:00 ~ 16:00</button></li>
-                            </ul>
-                        </article>
-                    </div>
-                </div>
+                
 
                 
-                <!-- 찜하기, 공유하기 -->
-               <div class="wishShareBtn">
-                    <button type="button" class="wsBtn" id="wishBtn"> 
-                        <div class="wsIcon">
-                            <svg id="emptyHeart" class="wishIcon" width="18" height="18" fill="none" viewBox="0 0 24 24">
-                                <path fill-rule="evenodd" d="M20.5 9c0-2-1.5-3.9-3.7-3.9-2.3 0-3.8 1.63-4.8 3.33-1-1.7-2.5-3.33-4.8-3.33C5 5.1 3.5 6.867 3.5 9c0 4.62 4.949 7.667 8.5 9.623 3.551-1.956 8.5-5.003 8.5-9.623zm-19-.176C1.5 5.607 3.962 3 7 3c2.7 0 4 1 5 2.2C13 4 14.3 3 17 3c3.038 0 5.5 2.607 5.5 5.824C22.5 14.827 16.684 18.52 12 21 7.316 18.52 1.5 14.827 1.5 8.824z" fill="#1a1a1a"></path>
-                            
-                            </svg>
-                            <!-- 로그인한 회원이 이 상품을 찜했을시 -->
-                            <svg id="fillHeart" class="wishIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" style="display: none;">
-                                <path fill-rule="evenodd" d="M1.5 8.824C1.5 5.607 3.962 3 7 3c2.5 0 4 1.5 5 3 1-1.5 2.5-3 5-3 3.038 0 5.5 2.607 5.5 5.824C22.5 14.827 16.684 18.52 12 21 7.316 18.52 1.5 14.827 1.5 8.824z" fill="rgb(253, 48, 73)"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            찜하기 
-                        </div>
-                        
-                        
-                    </button>
-                    <button type="button" class="wsBtn" id="shareBtn"> 
-                        <div class="wsIcon">
-                            <svg class="shareIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24">
-                                <path fill-rule="evenodd" d="M20 19v-7h2v8a1 1 0 01-1 1H3a1 1 0 01-1-1v-8h2v7h16zM13 5.829l3.586 3.587L18 8.001 12 2 6 8.001l1.414 1.414L11 5.829v10.173h2V5.829z" fill="#1a1a1a"></path>
-                            </svg>
-                        </div>
-                        
-                        <div>
-                            공유하기
-                        </div> 
-                        
-                    </button>
-                </div> 
+               
                 <div class="buyBtn" id="buyBtnId">
                     <div>신청하기</div>
                 </div>
@@ -293,11 +236,13 @@
             
             <!-- 네비바 -->
             <div class="classDetailContainer">
-                <img class="classMainImage" src="${contextPath}/resources/images/class-detail/temp3.jpg" id="mainImg">
-                <div class="sideImg">
+                <img id="mainImage" class="classMainImage" src="${contextPath}/resources/images/class-detail/temp3.jpg" id="mainImg">
+                <div id="sideImage" class="sideImg">
                     <img class="sideImgStyle" src="${contextPath}/resources/images/class-detail/temp3.jpg" id="sideImg1">
                     <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/temp6.jpg" id="sideImg2">
                     <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/temp5.jpg" id="sideImg3">
+                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/temp5.jpg" id="sideImg4">
+                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/temp5.jpg" id="sideImg5">
                 </div> 
 
             </div>
@@ -315,41 +260,7 @@
             <div id="section1" class="scroll"></div>
             <div class="section1"  data-aos="fade-up">
                 <div class="introClass" style="margin-top: 100px;"> 
-                    <p  >간단한 클래스 소개</p> 
-                </div>
-                <div> 
-                    <p class="subTitle">입문자분들을 위한 꿀조합 클래스입니다 :)</p>
-                </div>
-                <div>
-                    <img src="${contextPath}/resources/images/class-detail/temp7.jpg"> 
-                </div>
-                <div class="classDescription">
-                    <p>
-                        오일파스텔을 쓰기위해서는 어떻게 명암이 들어가는지 아는 것이 중요해요. 기본적인 명암법을 배우고, 오일파스텔을 쓰기 전 특성을 알아볼 거예요. 또 기초를 바탕으로 어떻게 얼굴을 채워넣으면 좋은지 이야기 해볼게요. 그렇게 채색을 시작하면서 서서히 각자의 색으로 완성할 수 있도록 도와드리겠습니다.<br><br>
-                    </p>
-                    
-                    <img src="${contextPath}/resources/images/class-detail/temp9.JPG">
-                    <p>
-                        감정이나 경험, 무언가 오래 기억하고 싶은게 있을 때, 기록하는 방법은 여러가지가 있습니다. 다양한 소재들을 이용해 손이 가는 대로 슥슥 그리다 보면 기분이 좋아지곤 합니다. 제가 사용하는 여러 가지 재료들 중에 오일파스텔 이라는 재료로 그림 그리는 재미를 나누고자 해요. 오일파스텔은 생소한 재료일 수 있는데, 사용하다 보면 오일파스텔만의 질감에 매력을 느끼고 쉽고 친숙한 재료라고 느껴질 거예요.
-                    </p>
-                </div>
-
-                <!-- 수업대상 추천 -->
-                <div class="classRecommend">
-                    <div class="recommend-title">
-                        <p>이런분들께 추천합니다</p>
-                        <div>
-                            <ul>
-                                <li>UX디자이너가 되기위해 취업준비중인 취준생</li>
-                                <li>타 전공자분들을 위한 UX입문과정</li>
-                                <li>UX팀으로 이직을 위한 이직 준비 과정(경력 기술서 만들기!!)</li>
-                                <li>UX 디자인 포트폴리오 준비 및 취업 컨설팅이 필요한 대학생</li>
-                                <li>프로토파이/인비전/XD 등 다양한 프로토 타이핑 툴 학습이 필요하신분</li>
-                                <li>UX디자인 분석/휴리스틱 분석에 대한 학습이 필요하신분</li>
-                                <li>스타트업을 시작하기 위해 반응형 APP Design이 필요한 분</li>
-                            </ul>
-                        </div>
-                    </div>
+                   	<div id="summernote"></div>
                 </div>
 
                 <!-- 지도부분 -->
@@ -736,6 +647,22 @@
     
     
     <script>
+	
+    // 부모창에서 팝업창으로 데이터 가져오기
+    //앞은 자식꺼 // 뒤는 부모꺼
+    $('#summernote').html(opener.document.getElementById('summernote').value);
+    $('#className').html(opener.document.getElementById('titleArea').value);
+    $('#maxPerson').html(opener.document.getElementById('maxPerson').value);
+    $('#classLevel').html(opener.$('input[name="classLevel"]:checked').val());
+
+	// 부모창에서 등록한 이미지 불러오기
+	$("#mainImage").attr("src", opener.document.getElementById("mini-img").childNodes[1].childNodes[0].src);
+	$("#sideImg1").attr("src", opener.document.getElementById("mini-img").childNodes[1].childNodes[0].src);
+	$("#sideImg2").attr("src", opener.document.getElementById("mini-img").childNodes[2].childNodes[0].src);
+	$("#sideImg3").attr("src", opener.document.getElementById("mini-img").childNodes[3].childNodes[0].src);
+	$("#sideImg4").attr("src", opener.document.getElementById("mini-img").childNodes[4].childNodes[0].src);
+	$("#sideImg5").attr("src", opener.document.getElementById("mini-img").childNodes[5].childNodes[0].src);
+
     // 구매하기 모달창
     $(document).ready(function(){
 

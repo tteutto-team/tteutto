@@ -246,10 +246,17 @@ public class MemberDAO {
 
 	/** 학생 수강 신청 목록
 	 * @param memberNo
+	 * @param pagination 
 	 * @return register
 	 */
-	public List<ClassRegister> studentClassList(int memberNo) {
-		return sqlSession.selectList("memberMapper.studentClassList", memberNo);
+	public List<ClassRegister> studentClassList(int memberNo, Pagination pagination) {
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		int limit = pagination.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return sqlSession.selectList("memberMapper.studentClassList", memberNo, rowBounds);
 	}
 
 	/** 학생 클래스 신고
@@ -271,10 +278,16 @@ public class MemberDAO {
 
 	/** 학생 작성한 후기 목록
 	 * @param memberNo
+	 * @param pagination 
 	 * @return review
 	 */
-	public List<ClassReview> studentCommentList(int memberNo) {
-		return sqlSession.selectList("memberMapper.studentCommentList", memberNo);
+	public List<ClassReview> studentCommentList(int memberNo, Pagination pagination) {
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		int limit = pagination.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return sqlSession.selectList("memberMapper.studentCommentList", memberNo, rowBounds);
 	}
 
 	/** 학생 후기 수정
@@ -324,6 +337,34 @@ public class MemberDAO {
 	 */
 	public int searchReview(int regNo) {
 		return sqlSession.selectOne("memberMapper.searchReview",regNo);
+	}
+
+	/** 신고 있는지 검사
+	 * @param regNo
+	 * @return result
+	 */
+	public int searchReport(int regNo) {
+		return sqlSession.selectOne("memberMapper.searchReport", regNo);
+	}
+
+	/** 환불 신청이 이미 있는지 검사
+	 * @param regNo
+	 * @return result
+	 */
+	public int checkRefund(int regNo) {
+		return sqlSession.selectOne("memberMapper.checkRefund", regNo);
+	}
+
+	/** 내 수강신청 목록 카운트
+	 * @param memberNo
+	 * @return listCount
+	 */
+	public int registerCount(int memberNo) {
+		return sqlSession.selectOne("memberMapper.registerCount", memberNo);
+	}
+
+	public int reviewCount(int memberNo) {
+		return sqlSession.selectOne("memberMapper.reviewCount", memberNo);
 	}
 
 

@@ -57,5 +57,21 @@ public class ClassRegisterDAO {
 		return sqlSession.insert("classMapper.insertEpisodeSchedule", episodeSd);
 
 	}
+
+	/** 클래스의 선생 번호 가져오기
+	 * @param no
+	 * @return teacherNo
+	 */
+	public int teacherNo(int no) {
+		return sqlSession.selectOne("classMapper.teacherNo", no);
+	}
+
+	/** 클래스 가져오기
+	 * @param no
+	 * @return cdt
+	 */
+	public ClassDetail classSelect(int no) {
+		return sqlSession.selectOne("classMapper.classSelect", no);
+	}
 	
 }

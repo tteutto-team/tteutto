@@ -81,10 +81,10 @@
 	                        <input type="radio" name="classType" value="1" required> 정규 수업
                     	</c:when>
                     	<c:otherwise>
-       	                    <c:if test="${sessionScope.cdt.classType == '0'}"><div><input type="radio" name="classType" value="0"required checked> 원데이 클래스</div></c:if>
-		                    <c:if test="${sessionScope.cdt.classType != '0'}"><div><input type="radio" name="classType" value="0"required> 원데이 클래스</div></c:if>
-		                    <c:if test="${sessionScope.cdt.classType == '1'}"><div><input type="radio" name="classType" value="1" required checked> 정규 수업</div></c:if>
-		                    <c:if test="${sessionScope.cdt.classType != '1'}"><div><input type="radio" name="classType" value="1" required> 정규 수업</div></c:if>
+       	                    <c:if test="${sessionScope.cdt.classType == '0'}"><input type="radio" name="classType" value="0"required checked> 원데이 클래스</c:if>
+		                    <c:if test="${sessionScope.cdt.classType != '0'}"><input type="radio" name="classType" value="0"required> 원데이 클래스</c:if>
+		                    <c:if test="${sessionScope.cdt.classType == '1'}"><input type="radio" name="classType" value="1" required checked> 정규 수업</c:if>
+		                    <c:if test="${sessionScope.cdt.classType != '1'}"><input type="radio" name="classType" value="1" required> 정규 수업</c:if>
                     	</c:otherwise>
                     	</c:choose>
                     </div>
@@ -98,7 +98,7 @@
                        	<c:when test="${empty sessionScope.cdt}">
                    		 	<input type="radio" id="solo-class" name="classPerson" value="1" required> 1:1 수업
                     		<input type="radio" id="group-class" name="classPerson" value="0" required> 그룹수업
-                    		<div id="group-input" style="display: none;"><input type="number" name="classMinPerson" class="input-style" value="0"> &nbsp명~&nbsp <input type="number" name="classMaxPerson" class="input-style" value="0">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
+                    		<div id="group-input" style="display: none;"><input type="number" name="classMinPerson" class="input-style" value="0"> &nbsp명~&nbsp <input id="maxPerson" type="number" name="classMaxPerson" class="input-style" value="0">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
                     		ex) 일대일 수업을 원하는 경우, 채팅으로 문의 주세요.
                     		</p>
                     	</c:when>
@@ -108,12 +108,12 @@
 		                    <c:if test="${sessionScope.cdt.classPerson == '0'}"><input type="radio" id="group-class" name="classPerson" value="0" required checked> 그룹수업</c:if>
 		                    <c:if test="${sessionScope.cdt.classPerson != '0'}"><input type="radio" id="group-class" name="classPerson" value="0" required> 그룹수업</c:if>
 		                    <c:if test="${sessionScope.cdt.classPerson == '0'}">
-                           		<div id="group-input" style="display: none;"><input type="number" name="classMinPerson" class="input-style" value="${sessionScope.cdt.classMinPerson}"> &nbsp명~&nbsp <input type="number" name="classMaxPerson" class="input-style" value="${sessionScope.cdt.classMaxPerson}">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
+                           		<div id="group-input" style="display: none;"><input type="number" name="classMinPerson" class="input-style" value="${sessionScope.cdt.classMinPerson}"> &nbsp명~&nbsp <input id="maxPerson" type="number" name="classMaxPerson" class="input-style" value="${sessionScope.cdt.classMaxPerson}">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
        		             		ex) 일대일 수업을 원하는 경우, 채팅으로 문의 주세요.
             	        		</p>
                     		</c:if>
 		                    <c:if test="${sessionScope.cdt.classPerson != '0'}">
-		                    	<div id="group-input" style="display: none;"><input type="number" name="classMinPerson" class="input-style" value="0"> &nbsp명~&nbsp <input type="number" name="classMaxPerson" class="input-style" value="0">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
+		                    	<div id="group-input" style="display: none;"><input type="number" name="classMinPerson" class="input-style" value="0"> &nbsp명~&nbsp <input id="maxPerson" type="number" name="classMaxPerson" class="input-style" value="0">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
        		             		ex) 일대일 수업을 원하는 경우, 채팅으로 문의 주세요.
             	        		</p>
 		                    </c:if>
@@ -166,8 +166,14 @@
                         </div>
                     </div>
                     <div id="marketing">
-                        <input type="checkbox" id="check1" name="marketing" value="mkok">
-                        <label for="check1"></label>
+                    	<c:if test="${empty mark}">
+                    		<input type="checkbox" id="check1" name="marketing" value="mkok">
+                       		<label for="check1"></label>
+                    	</c:if>
+                    	<c:if test="${!empty mark}">
+                    		<input type="checkbox" id="check1" name="marketing" value="mkok" checked>
+                        	<label for="check1"></label>
+                    	</c:if>                       
                         <p>강사님께서 등록한 이미지를 마케팅에 활용하는 것에 동의합니다(선택)</p>
                     </div>
                     <div id="mini-img" class="mini-img">

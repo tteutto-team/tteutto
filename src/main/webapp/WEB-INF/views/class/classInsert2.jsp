@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
 	<jsp:include page="../common/header.jsp"/>
 	<link rel="stylesheet" href="${contextPath}/resources/css/classInsert2.css"/>
@@ -13,7 +14,7 @@
             <div><span class="redText">* </span>필수</div> 
         </div>
 
-        <div> 코딩 오지게 잘하는 비법 <span id="ep-count">(1회차)</span> </div>    
+        <div> ${cdt.className} <span id="ep-count">(1회차)</span><input type="hidden" name="memberNo" value="${cdt.classNo}"/> </div>    
             
             <div>
                 <div id="c-schedule">

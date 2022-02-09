@@ -81,6 +81,7 @@
 			                            	<input type="hidden" name="regNo" value="${rg.regNo}">
 										</form>			                            	
 			                            <div style="display:none;">${rg.memberNm}</div>
+			                            <div style="display:none;">${rg.epNo}</div>
 			                        </div>
 			                    </div>
 		                    </c:forEach>	
@@ -89,31 +90,40 @@
                     
 
                 </div>
-                <div class="page-number">
-                    <ul class="page-ul">
-                        <li>
-                            <a href="#"><i class="fas fa-angle-double-left"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fas fa-angle-left"></i></a>
-                        </li>
-                        
-                        <li style="border-radius: 50%; background-color: #FFDF3E;">
-                            <a style="color: white;">1</a>
-                        </li>
-                        <li>
-                            <a href="#">2</a>
-                        </li>
-                        
-                        
-                        <li>
-                            <a href="#"><i class="fas fa-angle-right"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fas fa-angle-double-right"></i></a>
-                        </li>
-                    </ul>
-                </div>
+                
+			        <div class="page-number">
+			            <ul class="page-ul">
+			            	<c:if test="${pagination.startPage != 1}">
+				            	<%-- 이전 리스트로 이동 --%>
+				                <li><a href="#"><i class="fas fa-angle-double-left"></i></a></li>
+				                <%-- 이전 페이지로 이동 --%>
+				                <li><a href="#"><i class="fas fa-angle-left"></i></a></li>
+			                </c:if>
+			                
+			                <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" step="1"  var="i">
+			                	<c:choose>
+			                		<c:when test="${i == pagination.currentPage}">
+						                <%-- 선택된 페이지 --%>
+						                <li style="border-radius: 50%; background-color: #FFDF3E;">
+						                    <a style="color: white;">${i}</a></li>
+					                </c:when>
+					                
+					                <c:otherwise>
+						                <%-- 선택되지 않은 페이지 --%>
+						                <li><a href="studentClassList?cp=${i}">${i}</a></li>
+					                </c:otherwise>
+				                </c:choose>
+			                </c:forEach>
+			                
+			                <c:if test="${pagination.endPage != pagination.maxPage}">
+				                <%-- 다음 페이지로 이동 --%>
+				                <li><a href="#"><i class="fas fa-angle-right"></i></a></li>
+				                <%-- 다음 리스트로 이동 --%>
+				                <li><a href="#"><i class="fas fa-angle-double-right"></i></a></li>
+			                </c:if>
+			            </ul>
+			        </div>
+		        
             </div>
         </main>
 
@@ -204,7 +214,11 @@
             type : "POST",               
             success : function(result){
         		if(result > 0){
-        	        $("#review-modal").fadeIn(100);
+        			alert("이미 이 클래스에 대한 후기를 작성했습니다.");
+        			
+        		}else{
+        			
+        			$("#review-modal").fadeIn(100);
         	        $("#review-modal").css("display", "flex");
         	        
         	        const teacherNm = e.target.parentNode.childNodes[9].innerText;
@@ -213,8 +227,6 @@
 
         	        $("#review-class-name").html(tc);
         	        $("#review-regNo").val(regNo);
-        		}else{
-        			alert("이미 이 클래스에 대한 후기를 작성했습니다.")
         		}
             },
 
@@ -235,14 +247,34 @@
 
     // 신고 모달 열기
     $(".report-modal-btn").click(function (e) {
-        $("#report-modal").fadeIn(100);
-        $("#report-modal").css("display", "flex");
-       
-        const regNo = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[1].innerText;
-        const classNm = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[3].innerText;
+    	
+    	const regNo = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[1].innerText;
+    	
+    	$.ajax({
+            url : "searchReport",      
+            data : {"regNo" : regNo},  
+            type : "POST",               
+            success : function(result){
+        		if(result > 0){
+        			alert("이미 이 클래스에 대한 신고를 작성했습니다.");
+        	        
+        		}else{
+        			
+        			$("#report-modal").fadeIn(100);
+        	        $("#report-modal").css("display", "flex");
+        	       
+        	        const regNo = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[1].innerText;
+        	        const classNm = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[3].innerText;
 
-        $("#report-class-Nm").html(classNm);
-        $("#report-regNo").val(regNo);
+        	        $("#report-class-Nm").html(classNm);
+        	        $("#report-regNo").val(regNo);
+        		}
+            },
+
+            error : function(){}
+
+        });
+    	
     });
 
     // 모달 닫기 버튼
@@ -296,24 +328,30 @@
     	}
     }
     
-    /* 환불 눌렀을 때
+    //환불 눌렀을 때
     $(".refund-btn").on("click", function(e){
-    		const regNo = const regNo = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[1].innerText;
     		
+    	const regNo = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[1].innerText;
+    	const epNo = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[1].innerText;
+    	
     		$.ajax({
                 url : "refundClass",      
-                data : {"regNo" : regNo},  
+                data : {"regNo" : regNo, "epNo" : epNo},  
                 type : "POST",               
                 success : function(result){
-					alert("")
+					if(result > 0){
+						
+					}else{
+						alert("이미 환불 신청이 요청되었습니다.");
+						
+					}
                 },
 
                 error : function(){}
 
             });
-    		
-    	}
-    })
-    */
+    	
+    });
+    
 
 </script>

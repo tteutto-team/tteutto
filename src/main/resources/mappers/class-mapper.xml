@@ -281,4 +281,18 @@
 		from member
 		where member_no = #{memberNo}
 	</select>
+	
+		<!-- 강사 번호 가져오기 -->
+	<select id="teacherNo" resultType="_int">
+		SELECT MEMBER_NO FROM CLASS
+		WHERE CLASS_NO = #{no}
+	</select>
+
+	<!-- 클래스 가져오기 -->
+	<select id="classSelect" resultMap="class_rm">
+		SELECT * FROM CLASS 
+		WHERE CLASS_NO = #{classNo}
+	</select>
+	
+	
 </mapper>
