@@ -195,8 +195,13 @@
             }
     
             .wishIcon{
+                display: none;
                 margin-left: 30px;
                 margin-top: 10px;
+            }
+
+            .iconFlag{
+                display: inline;
             }
     
     
