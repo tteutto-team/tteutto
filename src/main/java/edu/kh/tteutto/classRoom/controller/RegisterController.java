@@ -155,7 +155,7 @@ public class RegisterController {
 			
 			ra.addFlashAttribute("message", "임시저장이 완료되었습니다.");
 			
-			return "class/classInsert1"; 
+			return "class/classInsert1";
 		}
 		
 		// 클래스 스케쥴 등록
@@ -168,7 +168,7 @@ public class RegisterController {
 			episode.setEpPlace(epPlace);
 			
 			// 테스트용 클래스 데이터 //
-			episode.setClassNo(82);
+			episode.setClassNo(101);
 			
 			// 날짜 넣기
 			List<EpisodeSchedule> epsList = new ArrayList<EpisodeSchedule>();
@@ -214,5 +214,6 @@ public class RegisterController {
 			}
 			
 		}
-
+		
+		
 }

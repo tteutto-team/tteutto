@@ -161,13 +161,13 @@ public interface MemberService {
 	 * @param page
 	 * @return pagination
 	 */
-	public Pagination getPagination(int memberNo, int page);
+	public Pagination getPagination(Map<String, Object> map, int page);
 	
 	/** 클래스 카드 목록 조회
 	 * @param memberNo
 	 * @return wishList
 	 */
-	public List<ClassList> selectWishList(Pagination pagination, int memberNo);
+	public List<ClassList> selectWishList(Pagination pagination, Map<String, Object> map);
 
 
 	/** 학생 수강신청 목록
@@ -231,6 +231,13 @@ public interface MemberService {
 	 * @return result
 	 */
 	int deleteReview(int reviewNo);
+
+
+	/** 후기 있는지 검사
+	 * @param regNo
+	 * @return result
+	 */
+	int searchReview(int regNo);
 
 
 
