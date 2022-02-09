@@ -92,18 +92,22 @@ header .logo > a > img {
 
 header .search {margin-left: 15px;}
 
-header .search-icon {position: relative;}
+header .search-icon {
+	position: relative;
+	margin-top: 30px;
+	height: 50px;
+	line-height: 0;
+}
 
 header .search-icon > i {
 	position: absolute;
     left: 480px;
-    top: 10px;
     color: #6C6C6C;
     font-size: 25px;
+    line-height: 50px;
 }
 
 header .search-icon > input {
-	margin-top: 32px;
 	padding-left: 25px;
 	border-radius: 30px;
 	border: none;

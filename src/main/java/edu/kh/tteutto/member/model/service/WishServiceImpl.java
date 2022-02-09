@@ -16,12 +16,14 @@ public class WishServiceImpl implements WishService {
 	@Autowired
 	private WishDAO dao;
 
+	// 클래스 개수 조회
 	@Override
 	public Pagination getPagination(Map<String, Object> map, int page) {
 		int wishListCount = dao.getWishListCount(map);
 		return new Pagination(wishListCount, page);
 	}
 
+	// 클래스 카드 조회
 	@Override
 	public List<ClassList> selectWishList(Pagination pagination, Map<String, Object> map) {
 		return dao.selectWishList(pagination, map);
