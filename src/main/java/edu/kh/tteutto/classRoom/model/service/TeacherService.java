@@ -52,5 +52,17 @@ public interface TeacherService {
 	 */
 	int reportStudent(Map<String, String> map);
 
+	/** 정산 신청
+	 * @param epNo
+	 * @return result
+	 */
+	int calculate(String epNo);
+
+	/** 클래스 신청 - 기존 클래스 목록 조회
+	 * @param memberNo
+	 * @return classList
+	 */
+	List<ClassDetail> existingClassList(int memberNo);
+
 	
 }
