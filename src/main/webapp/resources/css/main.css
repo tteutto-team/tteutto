@@ -11,8 +11,8 @@ body{
 .class-name{
     margin-top: 5px;
     font-weight: 500;
-    height: 46px;
-    max-height: 46px;
+    height: 45px;
+    max-height: 45px;
     font-size: 14px;
     /* 말줄임 */	
 	display: -webkit-box;

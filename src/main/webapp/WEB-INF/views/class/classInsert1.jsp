@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
     
 	<jsp:include page="../common/header.jsp"/>
 	<link rel="stylesheet" href="${contextPath}/resources/css/classInsert.css"/>
@@ -18,9 +19,21 @@
             <div class="bottomLine">
                 <div class="line1 h4-height"><h4>수업난이도 <span class="redText">*</span></h4></div>
                 <div id="c-level"  class="line2">
-                    <div><input type="radio" name="classLevel" value="하"required> 하</div>
-                    <div><input type="radio" name="classLevel" value="중" required> 중</div>
-                    <div><input type="radio" name="classLevel" value="상" required> 상</div>
+                    <c:choose>
+                    	<c:when test="${empty sessionScope.cdt}">
+                   		 	<div><input type="radio" name="classLevel" value="하" required> 하</div>
+                    		<div><input type="radio" name="classLevel" value="중" required> 중</div>
+                    		<div><input type="radio" name="classLevel" value="상" required> 상</div>
+                    	</c:when>
+                    	<c:otherwise>
+       	                    <c:if test="${sessionScope.cdt.classLevel == '하'}"><div><input type="radio" name="classLevel" value="하" checked required> 하</div></c:if>
+		                    <c:if test="${sessionScope.cdt.classLevel != '하'}"><div><input type="radio" name="classLevel" value="하"required> 하</div></c:if>
+		                    <c:if test="${sessionScope.cdt.classLevel == '중'}"><div><input type="radio" name="classLevel" value="중" checked required> 중</div></c:if>
+		                    <c:if test="${sessionScope.cdt.classLevel != '중'}"><div><input type="radio" name="classLevel" value="중"required> 중</div></c:if>
+		                    <c:if test="${sessionScope.cdt.classLevel == '상'}"><div><input type="radio" name="classLevel" value="상" checked required> 상</div></c:if>
+		                    <c:if test="${sessionScope.cdt.classLevel != '상'}"><div><input type="radio" name="classLevel" value="상"required> 상</div></c:if>
+                    	</c:otherwise>
+                    </c:choose>
                 </div>
             </div>
             <div class="bottomLine" style="clear: both;">
@@ -62,8 +75,18 @@
                 <div class="line1 h4-height"><h4>수업형태 <span class="redText">*</span></h4></div>
                 <div>
                     <div>
-                        <input type="radio" name="classType" value="0"required> 원데이 클래스
-                        <input type="radio" name="classType" value="1" required> 정규 수업
+                    	<c:choose>
+                       	<c:when test="${empty sessionScope.cdt}">
+                   		 	<input type="radio" name="classType" value="0"required> 원데이 클래스
+	                        <input type="radio" name="classType" value="1" required> 정규 수업
+                    	</c:when>
+                    	<c:otherwise>
+       	                    <c:if test="${sessionScope.cdt.classType == '0'}"><div><input type="radio" name="classType" value="0"required checked> 원데이 클래스</div></c:if>
+		                    <c:if test="${sessionScope.cdt.classType != '0'}"><div><input type="radio" name="classType" value="0"required> 원데이 클래스</div></c:if>
+		                    <c:if test="${sessionScope.cdt.classType == '1'}"><div><input type="radio" name="classType" value="1" required checked> 정규 수업</div></c:if>
+		                    <c:if test="${sessionScope.cdt.classType != '1'}"><div><input type="radio" name="classType" value="1" required> 정규 수업</div></c:if>
+                    	</c:otherwise>
+                    	</c:choose>
                     </div>
                     <div style="color: rgb(124, 124, 124);">* 시범강의가 아닌, 하루만에 무언가를 얻어갈 수 있는 원데이 클래스를 준비해주세요. </div>
                 </div>
@@ -71,11 +94,31 @@
             <div id="people-num" class="bottomLine">
                 <div class="line1 div-height"><h4>수업참여인원 <span class="redText">*</span></h4></div>
                 <div class="div-height">
-                    <input type="radio" id="solo-class" name="classPerson" value="1" required> 1:1 수업
-                    <input type="radio" id="group-class" name="classPerson" value="0" required> 그룹수업
-                    <div id="group-input" style="display: none;"><input type="number" name="classMinPerson" class="input-style" value="0"> &nbsp명~&nbsp <input type="number" name="classMaxPerson" class="input-style" value="0">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
-                    ex) 일대일 수업을 원하는 경우, 채팅으로 문의 주세요.
-                    </p>
+                	<c:choose>
+                       	<c:when test="${empty sessionScope.cdt}">
+                   		 	<input type="radio" id="solo-class" name="classPerson" value="1" required> 1:1 수업
+                    		<input type="radio" id="group-class" name="classPerson" value="0" required> 그룹수업
+                    		<div id="group-input" style="display: none;"><input type="number" name="classMinPerson" class="input-style" value="0"> &nbsp명~&nbsp <input type="number" name="classMaxPerson" class="input-style" value="0">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
+                    		ex) 일대일 수업을 원하는 경우, 채팅으로 문의 주세요.
+                    		</p>
+                    	</c:when>
+                    	<c:otherwise>
+       	                    <c:if test="${sessionScope.cdt.classPerson == '1'}"><input type="radio" id="solo-class" name="classPerson" value="1" required checked> 1:1 수업</c:if>
+		                    <c:if test="${sessionScope.cdt.classPerson != '1'}"><input type="radio" id="solo-class" name="classPerson" value="1" required> 1:1 수업</c:if>
+		                    <c:if test="${sessionScope.cdt.classPerson == '0'}"><input type="radio" id="group-class" name="classPerson" value="0" required checked> 그룹수업</c:if>
+		                    <c:if test="${sessionScope.cdt.classPerson != '0'}"><input type="radio" id="group-class" name="classPerson" value="0" required> 그룹수업</c:if>
+		                    <c:if test="${sessionScope.cdt.classPerson == '0'}">
+                           		<div id="group-input" style="display: none;"><input type="number" name="classMinPerson" class="input-style" value="${sessionScope.cdt.classMinPerson}"> &nbsp명~&nbsp <input type="number" name="classMaxPerson" class="input-style" value="${sessionScope.cdt.classMaxPerson}">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
+       		             		ex) 일대일 수업을 원하는 경우, 채팅으로 문의 주세요.
+            	        		</p>
+                    		</c:if>
+		                    <c:if test="${sessionScope.cdt.classPerson != '0'}">
+		                    	<div id="group-input" style="display: none;"><input type="number" name="classMinPerson" class="input-style" value="0"> &nbsp명~&nbsp <input type="number" name="classMaxPerson" class="input-style" value="0">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
+       		             		ex) 일대일 수업을 원하는 경우, 채팅으로 문의 주세요.
+            	        		</p>
+		                    </c:if>
+                    	</c:otherwise>
+               		</c:choose>
                 </div>
             </div>
             <div id="c-title" class="bottomLine">
@@ -91,7 +134,7 @@
                             * 예시 : 미국주식, 내 손으로 직접 투자하자 / 4회만에 내 손으로 만든 영상, 유튜브에 업로드❤<br>
                         </div>
                     </div>
-                    <input type="text" id="titleArea" name="className" class="input-style" style="width: 750px;" required>&nbsp&nbsp<span id="titleText-count">0</span><span id="titleText-max">/50</span>
+                    <input type="text" id="titleArea" name="className" class="input-style" style="width: 750px;" required value=" ${sessionScope.cdt.className}">&nbsp&nbsp<span id="titleText-count">0</span><span id="titleText-max">/50</span>
                 </div>
             </div>
             <div id="cover-img" class="bottomLine">
@@ -159,6 +202,7 @@
                         </div>
                     </div>
                     <textarea id="summernote" name="classIntro" required>
+                    	<%--
                     	<p style="font-size:20px; font-weight: 500; color: #bbb;">📝소개 EX)</p>
                     	
                     	<p style="font-size:25px; font-weight: 600;">간단한 클래스 소개</p>
@@ -179,6 +223,8 @@
                     		<li>UX디자인 분석/휴리스틱 분석에 대한 학습이 필요하신분</li>
                     		<li>스타트업을 시작하기 위해 반응형 APP Design이 필요한 분</li>
                     	</ul>
+                    	--%>
+                    	 ${sessionScope.cdt.classIntro}
                     </textarea>
                 </div>
             </div>

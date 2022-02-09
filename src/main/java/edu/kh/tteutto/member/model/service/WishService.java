@@ -1,21 +1,22 @@
 package edu.kh.tteutto.member.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import edu.kh.tteutto.main.model.vo.ClassList;
 import edu.kh.tteutto.main.model.vo.Pagination;
 
 public interface WishService {
 	
-	/** 클래스 개수 조회 + 페이지네이션
+	/** 클래스 개수 조회
 	 * @param page
 	 * @return pagination
 	 */
-	public Pagination getPagination(int memberNo, int page);
+	public Pagination getPagination(Map<String, Object> map, int page);
 	
-	/** 클래스 카드 목록 조회
-	 * @param memberNo
+	/** 클래스 카드 조회
+	 * @param map
 	 * @return wishList
 	 */
-	public List<ClassList> selectWishList(Pagination pagination, int memberNo);
+	public List<ClassList> selectWishList(Pagination pagination, Map<String, Object> map);
 }

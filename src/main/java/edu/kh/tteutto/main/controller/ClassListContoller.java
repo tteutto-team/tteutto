@@ -41,20 +41,21 @@ public class ClassListContoller {
 		List<ClassList> recommendList = null;
 		
 		if (search != null && !search.equals("")) {
-			pagination = service.getPagination(search, page);
-			pagination.setLimit(12);
-			pagination.setPageSize(5);
-			
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("search", search);
 			map.put("memberNo", memberNo);
+			map.put("pageKey", "search");
+			
+			pagination = service.getPagination(map, page);
+			pagination.setLimit(12);
+			pagination.setPageSize(5);
 			
 			searchList = service.selectSearchList(pagination, map);
 			
 			model.addAttribute("pagination", pagination);
 			model.addAttribute("searchList", searchList);
 			
-			if(searchList.isEmpty()) {
+			if (searchList.isEmpty()) {
 				recommendList = service.selectRecoList(memberNo);
 				model.addAttribute("recommendList", recommendList);
 			}

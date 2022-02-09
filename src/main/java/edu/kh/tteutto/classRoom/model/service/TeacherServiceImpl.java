@@ -1,6 +1,7 @@
 package edu.kh.tteutto.classRoom.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,5 +52,12 @@ public class TeacherServiceImpl implements TeacherService{
 	@Override
 	public List<OngingClass> selectOngoingClass(int epNo) {
 		return dao.selectOngoingClass(epNo);
+	}
+	
+	// 학생 신고
+	@Override
+	public int reportStudent(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

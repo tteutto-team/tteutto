@@ -230,19 +230,18 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.memberResign", memberNo);
 	}
 
-
-	// 클래스 개수 조회 + 페이지네이션
-	public int getWishListCount(int memberNo) {
-		return sqlSession.selectOne("classListMapper.getWishListCount", memberNo);
+	// 클래스 개수 조회
+	public int getWishListCount(Map<String, Object> map) {
+		return sqlSession.selectOne("classListMapper.selectClassCount", map);
 	}
 
-	// 클래스 카드 목록 조회
-	public List<ClassList> selectWishList(Pagination pagination, int memberNo) {
+	// 클래스 카드 조회
+	public List<ClassList> selectWishList(Pagination pagination, Map<String, Object> map) {
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit() ;
 		int limit = pagination.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return sqlSession.selectList("classListMapper.selectWishList", memberNo, rowBounds);
+		return sqlSession.selectList("classListMapper.selectClassCard", map, rowBounds);
 	}
 
 	/** 학생 수강 신청 목록
@@ -317,6 +316,14 @@ public class MemberDAO {
 	 */
 	public int deleteReview(int reviewNo) {
 		return sqlSession.update("memberMapper.deleteReview", reviewNo);
+	}
+
+	/** 후기 있는지 검사
+	 * @param regNo
+	 * @return result
+	 */
+	public int searchReview(int regNo) {
+		return sqlSession.selectOne("memberMapper.searchReview",regNo);
 	}
 
 
