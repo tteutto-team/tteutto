@@ -19,6 +19,7 @@ public class ClassListDAO {
 	
 	// 클래스 카드 조회 (메인 페이지)
 	public List<ClassList> selectMainList(Map<String, Object> map) {
+		System.out.println(map);
 		return sqlSession.selectList("classListMapper.selectClassCard", map);
 	}
 	

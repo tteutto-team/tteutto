@@ -1,5 +1,6 @@
 package edu.kh.tteutto.member.model.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -27,5 +28,20 @@ public class WishServiceImpl implements WishService {
 	@Override
 	public List<ClassList> selectWishList(Pagination pagination, Map<String, Object> map) {
 		return dao.selectWishList(pagination, map);
+	}
+
+	// 찜한 클래스 삽입 & 삭제
+	@Override
+	public int changeHeart(Map<String, Object> map) {
+		int heart = 0;
+		
+		try {
+			heart = dao.insertHeart(map);
+			
+		} catch (Exception e) {
+			heart = dao.deleteHeart(map);
+		}
+		
+		return heart;
 	}
 }
