@@ -931,7 +931,7 @@
  	  // 실시간톡 버튼
  	  $('#livetalk').on('click', function(){
 	 	  	if(${!empty sessionScope.loginMember}){
-			 	    var url="../chat/chatRoom";
+			 	    var url="../chat/chatRoom?classNo=${cdtr.cdt.classNo}";
 			 	    var option="width=482, height=700, top=200"
 			 	    window.open(url, "_blank", option);
 			 	  

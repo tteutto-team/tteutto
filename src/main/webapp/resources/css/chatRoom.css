@@ -1,22 +1,93 @@
         /* 채팅방 */
-        .chat_wrap{ /* width: 300px; */ padding:5px; font-size: 13px; color: #333;}
-        .chat_wrap .inner {/* background-color: #fff; */ border-radius: 5px; padding: 10px 20px; overflow-y: scroll; height: 250px;}
-        .chat_wrap .item {margin-top: 15px;}
-        .chat_wrap .item:first-child{margin-top: 0;}
-        .chat_wrap .item .box{display: inline-block; max-width: 203px; position: relative;}
-        .chat_wrap .item .box::before{content: ""; position:absolute; left: -8px; top:9px; border-top: 0px solid transparent; border-bottom: 8px solid transparent; border-right:  8px solid #f3f3f3; }
-        .chat_wrap .item .box .msg{background-color: #f3f3f3; border-radius: 10px; padding: 10px; text-align: left; font-size: 15px;}
-        .chat_wrap .item .box .time{font-size: 11px; color: #999; position: absolute; right: -75px; bottom: 0; width: 70px;}
-        .chat_wrap .item.mymsg{text-align: right;}
-        .chat_wrap .item.mymsg .box::before{left: auto; right: -8px; border-left:  8px solid #fee600; border-right: 0; }
-        .chat_wrap .item.mymsg .box .time{right: auto; left: -75px;}
-        .chat_wrap .item.mymsg .box .msg{background: #fee600;}
-        .chat_wrap .item .box{transition: all .3s ease-out; margin:0 0 0 20px; opacity: 0;}
-        .chat_wrap .item.mymsg .box{margin: 0 20px 0 0;}
-        .chat_wrap .item.on .box{margin:0; opacity: 1;}
+        .chat_wrap{ 
+        	/* width: 300px; */ 
+        	padding:5px; 
+        	font-size: 13px; 
+        	color: #333;
+        }
+        .chat_wrap .inner {
+        	/* background-color: #fff; */ 
+        	border-radius: 5px; 
+        	padding: 10px 20px; 
+        	overflow-y: scroll; 
+        	height: 300px;
+        }
+        .chat_wrap .item {
+        	margin-top: 15px;
+        }
+        .chat_wrap .item:first-child{
+        	margin-top: 0;
+        }
+        .chat_wrap .item .box{
+        	display: inline-block; 
+        	max-width: 203px; 
+        	position: relative;
+        }
+        .chat_wrap .item .box::before{
+        	content: ""; 
+        	position:absolute; 
+        	left: -8px; 
+        	top:9px; 
+        	border-top: 0px solid transparent; 
+        	border-bottom: 8px solid transparent; 
+        	border-right:  8px solid #f3f3f3; 
+        }
+        .chat_wrap .item .box .msg{
+        	background-color: #f3f3f3; 
+        	border-radius: 10px; 
+        	padding: 10px; 
+        	text-align: left; 
+        	font-size: 15px;
+        }
+        .chat_wrap .item .box .time{
+        	font-size: 11px; 
+        	color: #999; 
+        	position: absolute; 
+        	right: -75px; 
+        	bottom: 0; 
+        	width: 70px;
+        }
+        .chat_wrap .item.mymsg{
+        	text-align: right;
+        }
+        .chat_wrap .item.mymsg .box::before{
+        	left: auto; 
+        	right: -8px; 
+        	border-left:  8px solid #fee600; 
+        	border-right: 0; 
+        }
+        .chat_wrap .item.mymsg .box .time{
+        	right: auto; 
+        	left: -75px;
+        }
+        .chat_wrap .item.mymsg .box .msg{
+        	background: #fee600;
+        }
+        .chat_wrap .item .box{
+        	transition: all .3s ease-out; 
+        	margin:0 0 0 20px; 
+        	opacity: 0;
+        }
+        .chat_wrap .item.mymsg .box{
+        	margin: 0 20px 0 0;
+        }
+        .chat_wrap .item.on .box{
+        	margin:0; opacity: 1;
+        }
 
-        input[type="text"] {border:0; width: 100%; border: 1px solid #ddd; border-radius: 14px; height: 30px; padding: 20px; box-sizing: border-box; margin-top: 5px;}
-        input[type="text"]::placeholder{color: #999;}
+        input[type="text"] {
+        	border:0; 
+        	width: 100%; 
+        	border: 1px solid #ddd; 
+        	border-radius: 14px; 
+        	height: 30px; 
+        	padding: 20px; 
+        	box-sizing: border-box; 
+        	margin-top: 5px;
+        }
+        input[type="text"]::placeholder{
+        	color: #999;
+        }
 
 
         /* 채팅 info */
@@ -59,7 +130,7 @@
             padding-top: 20px;
             width: 40px;
         } */
-        .sendBtn{
+        #sendBtn{
             border: none;
             background: #bc3401;
             color: white;
