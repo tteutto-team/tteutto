@@ -51,13 +51,14 @@ public class RegisterController {
 		// 클래스 스케쥴 등록 페이지 이동
 		@RequestMapping(value="schedule/{no}", method=RequestMethod.GET)
 		public String classRegisterSchedule(HttpSession session, @PathVariable (value = "no", required = false) int no,
-											@ModelAttribute("loginMember") Member loginMember, RedirectAttributes ra) {
+											RedirectAttributes ra) {
 			
 			String path = "";
 			
 			if(session.getAttribute("loginMember") != null) { // 로그인 되있니?
 				
 				int teacherNo = service.teacherNo(no);
+				Member loginMember = (Member)session.getAttribute("loginMember");
 				
 				if(teacherNo == loginMember.getMemberNo()) { // 로그인 멤버 - 클래스 등록된 강사 일치
 					
