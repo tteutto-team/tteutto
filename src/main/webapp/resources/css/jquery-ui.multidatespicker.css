@@ -28,16 +28,9 @@ a{
 }
 
 .ui-icon{
-/* 	border: 1px solid darkgray;
-	border-radius: 5px;
-	background-color: #FFDF3E;
-	*/
 	margin-right: 10px;
 }
 
-.ui-datepicker-title{
-	/* border-bottom: 1px solid darkgray; */
-}
 
 .ui-datepicker-calendar{
 	border: 1px solid darkgray;
@@ -54,3 +47,7 @@ a{
 .ui-datepicker-calendar td{
 	text-align: center;
 }
+
+ .ui-state-disabled > span{
+ 	color: red;
+ }

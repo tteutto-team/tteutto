@@ -55,17 +55,28 @@ public class RegisterController {
 			
 			String path = "";
 			
-			if(session.getAttribute("loginMember") != null) {
+			if(session.getAttribute("loginMember") != null) { // 로그인 되있니?
 				
 				int teacherNo = service.teacherNo(no);
 				
-				if(teacherNo == loginMember.getMemberNo()) {
+				if(teacherNo == loginMember.getMemberNo()) { // 로그인 멤버 - 클래스 등록된 강사 일치
 					
 					ClassDetail cdt = service.classSelect(no);
 					
-					session.setAttribute("cdt", cdt);
-					
-					path = "class/classInsert2";	
+					if(cdt.getClassStatus() == 2) { // 클래스가 승인 됐는지 확인
+						
+						int epCount = service.checkEpCount(cdt.getClassNo());
+						
+						session.setAttribute("openCount", epCount);		
+						session.setAttribute("openClass", cdt);
+						
+						path = "class/classInsert2";	
+						
+					}else {
+						ra.addFlashAttribute("message", "아직 승인되지 않은 클래스입니다.");
+						path = "redirect:/";
+					}
+
 				}else {
 					ra.addFlashAttribute("message", "잘못된 접근 입니다.");
 					path = "redirect:/";
@@ -160,14 +171,21 @@ public class RegisterController {
 		// 클래스 스케쥴 등록
 		@RequestMapping(value="schedule", method=RequestMethod.POST)
 		public String insertClassSchedule(RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember,
+										  @ModelAttribute("openClass") ClassDetail openClass, HttpSession session,
 										  Episode episode, EpisodeSchedule episodeSd, String roadAddrPart1, String addrDetail) {
 			
 			// 주소 합치기
 			String epPlace = roadAddrPart1 + " " + addrDetail;
 			episode.setEpPlace(epPlace);
 			
-			// 테스트용 클래스 데이터 //
-			//episode.setClassNo(101);
+			// 클래스 번호 가져오기
+			episode.setClassNo(openClass.getClassNo());
+			
+			// 추가 회차 등록인지 검사용
+			int epCount = service.checkEpCount(openClass.getClassNo());
+			System.out.println(epCount);
+			
+			int result = 0; // 결과용 변수
 			
 			// 날짜 넣기
 			List<EpisodeSchedule> epsList = new ArrayList<EpisodeSchedule>();
@@ -190,28 +208,88 @@ public class RegisterController {
 				
 			}
 			
-			for(int i=0; i<schdlDt.length; i++) {
-				EpisodeSchedule eps = new EpisodeSchedule();
-				eps.setEpPrice(episodeSd.getEpPrice());
-				eps.setSchdlDt(schdlDt[i]);
-				eps.setSchdlWeek(schdlWk[i]);
-				eps.setSchdlStartTime(schdlSt[i]);
-				eps.setSchdlEndTime(schdlEt[i]);
-				eps.setSchdlTime(episodeSd.getSchdlTime());
+			if(epCount > 0) {
+				// 회차를 추가하는구나~
 				
-				epsList.add(eps);
+				if(openClass.getClassType() > 0) { // 정규면
+					for(int i=0; i<schdlDt.length; i++) {
+						EpisodeSchedule eps = new EpisodeSchedule();
+						eps.setEpPrice(episodeSd.getEpPrice());
+						eps.setSchdlDt(schdlDt[i]);
+						eps.setSchdlWeek(schdlWk[i]);
+						eps.setSchdlStartTime(schdlSt[i]);
+						eps.setSchdlEndTime(schdlEt[i]);
+						eps.setSchdlTime(episodeSd.getSchdlTime());
+						
+						epsList.add(eps);
+					}
+					
+					result = service.insertClassScheduleplus(episode, epsList, epCount);
+				}else { // 원데이면
+					for(int i=0; i<schdlDt.length; i++) {
+						EpisodeSchedule eps = new EpisodeSchedule();
+						eps.setEpPrice(episodeSd.getEpPrice());
+						eps.setSchdlDt(schdlDt[i]);
+						eps.setSchdlWeek(schdlWk[i]);
+						eps.setSchdlStartTime(schdlSt[i]);
+						eps.setSchdlEndTime(schdlEt[i]);
+						eps.setSchdlTime(episodeSd.getSchdlTime());
+						
+						epsList.add(eps);
+					}
+					
+					result = service.insertOneClassSchedule(episode, epsList, epCount);
+				}
+				
+			}else {
+				// 신규 등록 이구나~
+				epCount = 1; // 원데이용 회차변수
+				
+				if(openClass.getClassType() > 0) { // 정규면
+					for(int i=0; i<schdlDt.length; i++) {
+						EpisodeSchedule eps = new EpisodeSchedule();
+						eps.setEpPrice(episodeSd.getEpPrice());
+						eps.setSchdlDt(schdlDt[i]);
+						eps.setSchdlWeek(schdlWk[i]);
+						eps.setSchdlStartTime(schdlSt[i]);
+						eps.setSchdlEndTime(schdlEt[i]);
+						eps.setSchdlTime(episodeSd.getSchdlTime());
+						
+						epsList.add(eps);
+					}
+					
+					result = service.insertClassSchedule(episode, epsList);
+				}else { // 원데이면
+					epCount = 1;
+					
+					for(int i=0; i<schdlDt.length; i++) {
+						EpisodeSchedule eps = new EpisodeSchedule();
+						eps.setEpPrice(episodeSd.getEpPrice());
+						eps.setSchdlDt(schdlDt[i]);
+						eps.setSchdlWeek(schdlWk[i]);
+						eps.setSchdlStartTime(schdlSt[i]);
+						eps.setSchdlEndTime(schdlEt[i]);
+						eps.setSchdlTime(episodeSd.getSchdlTime());
+						
+						epsList.add(eps);
+					}
+					
+					result = service.insertOneClassSchedule(episode, epsList, epCount);
+				}
+				
 			}
-			
-			int result = service.insertClassSchedule(episode, epsList);
 			
 			if(result > 0) {
-				Util.swalSetMessage("클래스 스케쥴 등록 완료", null, "success", ra);			
-				return "redirect:/";
+				Util.swalSetMessage("클래스 스케쥴 등록 완료", null, "success", ra);	
+				session.removeAttribute("openClass");
+				session.removeAttribute("openCount");
 			}else {
-				Util.swalSetMessage("클래스 스케줄 등록 실패", "관리자에게 문의해주세요", "error", ra);			
-				return "redirect:/";
+				Util.swalSetMessage("클래스 스케줄 등록 실패", "관리자에게 문의해주세요", "error", ra);
+				session.removeAttribute("openClass");
+				session.removeAttribute("openCount");
 			}
 			
+			return "redirect:/";
 		}
 		
 		
