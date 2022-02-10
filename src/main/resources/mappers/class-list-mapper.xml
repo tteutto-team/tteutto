@@ -102,18 +102,13 @@
 			    </when>
 			    
 			    <!-- 메인 페이지 주변 -->
-			    <when test="pageKey == 'surround'">
+			    <when test="pageKey == 'location'">
 			    	AND CLASS_AREA = '서울 동작구'
 			    </when>
 			    
 			    <!-- 메인 페이지 인기 -->
 			    <when test="pageKey == 'hot'">
-			    	AND (SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
-				            JOIN EPISODE USING(CLASS_NO) 
-				            JOIN REGISTER USING(EP_NO) 
-				            JOIN REVIEW USING(REG_NO) 
-				            WHERE C.CLASS_NO = CLASS_NO) >= 4.0 
-				    ORDER BY STAR_AVG DESC
+			    	ORDER BY REG_COUNT(C.CLASS_NO) DESC
 			    </when>
 			    
 			    <!-- 메인 페이지 신규 -->
@@ -124,7 +119,7 @@
 		)
 		WHERE EP_PRICE IS NOT NULL
 		<!-- 메인 페이지, 클래스 검색 목록 검색 결과 X -->
-		<if test="pageKey == 'surround' || pageKey == 'hot' || pageKey == 'new' || result == 'no'">
+		<if test="pageKey == 'location' || pageKey == 'hot' || pageKey == 'new' || result == 'no'">
 			AND ROWNUM &lt;= 12
 		</if>
 	</select>

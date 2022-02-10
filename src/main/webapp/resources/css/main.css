@@ -191,10 +191,9 @@ tbody a {
 
 .hot-class-content {
     justify-content: space-around;
-	width: 1200px;
+	min-width: 1200px;
 	display: flex;
 }
-
 
 .left {left: -50px;}
 .right {left: 1208px;}
