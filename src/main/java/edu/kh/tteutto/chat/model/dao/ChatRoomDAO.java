@@ -45,12 +45,12 @@ public class ChatRoomDAO {
 
 
 
-	/** 채팅방 입장
-	 * @param chatRoom
-	 */
-	public void joinChatRoom(ChatRoom chatRoom) {
-		sqlSession.insert("chatMapper.joinChatRoom", chatRoom);
-	}
+//	/** 채팅방 입장
+//	 * @param chatRoom
+//	 */
+//	public void joinChatRoom(ChatRoom chatRoom) {
+//		sqlSession.insert("chatMapper.joinChatRoom", chatRoom);
+//	}
 
 
 
@@ -62,4 +62,30 @@ public class ChatRoomDAO {
 		return sqlSession.selectList("chatMapper.selectChatMessage", chatRoomNo);
 	}
 
+
+
+	/** 이미 같은 강사, 학생이 들어가있는 채팅방 번호를 조회 (없으면 0)
+	 * @param room
+	 * @return
+	 */
+	public int selectChatRoomNo(ChatRoom room) {
+		return sqlSession.selectOne("chatMapper.selectChatRoomNo", room);
+	}
+
+
+
+	/** 채팅 내용 삽입
+	 * @param cm
+	 * @return result
+	 */
+	public int insertMessage(ChatMessage cm) {
+		return sqlSession.insert("chatMapper.insertMessage", cm);
+	}
+
+
+
+
+
+
+	
 }

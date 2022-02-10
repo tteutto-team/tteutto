@@ -68,11 +68,11 @@ public class ChatRoomController {
 		
 	}
 	
-	
-	// 채팅방 입장 + 이전채팅 내역 얻어오기
+	// 강사(or학생) -> 학생(or강사)에게 채팅메세지를 보내는 순간
+	// 채팅방 DB 삽입(생성) + 이전채팅 내역 얻어오기
 	@RequestMapping("/chat/room/{chatRoomNo}")
 	public String joinChatRoom(@PathVariable("chatRoomNo") int chatRoomNo,
-								@ModelAttribute("loginMember") Member loginMember,
+								@ModelAttribute("loginMember") Member loginMember, 
 								ChatRoom chatRoom,
 								RedirectAttributes ra, Model model) {
 		
@@ -82,7 +82,8 @@ public class ChatRoomController {
 		chatRoom.setChatRoomNo(chatRoomNo);
 		chatRoom.setMemberNo(loginMember.getMemberNo());
 		
-		// 2. 채팅방 입장 + 채팅 내역(메세지) 조회하는 service 호출
+		// 2. 강사(or학생) -> 학생(or강사)에게 채팅메세지를 보내는 순간
+		// 채팅방 생성 + 채팅 내역(메세지) 조회하는 service 호출
 		List<ChatMessage> list = service.joinChatRoom(chatRoom);
 		
 		// 3. 채팅방이 존재하면 조회한 채팅 내역과 채팅 번호를 jsp로 포워드

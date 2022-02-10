@@ -1,4 +1,4 @@
-$(function(){
+/* $(function(){
     $("input[type='text']").keypress(function(e){
         if(e.keyCode == 13 && $(this).val().length){ // 엔터를 칠경우 + 입력폼에 값이 있을경우
             var _val = $(this).val();  //입력폼 값 가져오기
@@ -9,26 +9,14 @@ $(function(){
             var _tar = $(".chat_wrap .inner").append('<div class="item '+_class+'"><div class="otherName">백동현</div><div class="box"><p class="msg">'+_val+'</p><span class="read-status"> 1 </span><span class="time">'+currentTime()+'</span></div></div>');
         }
 
-        // if($(".sendBtn").click() && $("input[type='text']").val().length ){ // 입력버튼 클릭시
-        //     var _val = $("input[type='text']").val();  //입력폼 값 가져오기
-        //     var _class = $("input[type='text']").attr("class");
-        //     $("input[type='text']").val('');  // 입력폼 텍스트 없애기
-        //     // alert(_val+"   "+_class);
 
-        //     var _tar = $(".chat_wrap .inner").append('<div class="item '+_class+'"><div class="box"><p class="msg">'+_val+'</p><span class="time">'+currentTime()+'</span></div></div>');
-        // }
-
-
-        setTimeout(function(){
-            $(".chat_wrap .inner").find(".item:last").addClass("on");
-        }, 10)
-
-        // 스크롤 하단 고정
-        $(".chat_wrap .inner").scrollTop($(".chat_wrap .inner")[0].scrollHeight);
+        
     })
 
-});
+}); */
 
+
+        
 // 현재시간 함수
 var currentTime = function(){
     var date = new Date();
@@ -74,3 +62,137 @@ $(".backBtn").click(function(){
 
     location.replace(contextPath +"/chat/chatRoomList");
 });
+
+
+
+// 채팅 보내기 함수
+function sendMessage(){
+	const message = $("#inputChatting").val();
+	
+	if(message.trim().length == 0){
+		alert("내용을 입력해주세요")
+	}else{
+		
+		//자바스크립트 객체 생성
+		const obj={};
+		obj.memberNo = memberNo;
+		obj.memberEmail = memberEmail;
+		obj.memberNm = memberNm;
+		obj.msgContent = msgContent;
+		obj.chatRoomNo = chatRoomNo;
+		
+		//console.log(obj);
+		
+		// 만들어진 js 객체를 json으로 변환하여 웹소켓 객체 handleTextMessage()로 전달
+		
+		// JS 객체(obj)를 JSON 문자열로 바꿔서 보냄
+		chattingSock.send(JSON.stringify(obj))
+		
+		$("#inputChatting").val(""); //전달된 메세지 지우기
+	}
+}
+
+// 웹소켓 서버에서 전달된 메세지가 있을 경우
+chattingSock.onmessage = function(e){
+	
+	// e.data : 전달받은 메세지
+	console.log(JSON.parse(e.data));
+	
+	////////////
+	const div = $("<div>");
+	const divB = $("<div class='box'>");
+
+
+   const p = $("<p class='msg'>");
+   const spanR = $("<span class='read-status'>")
+   const span = $("<span class='time'>");
+   span.html(obj.msgDt);
+   
+
+
+   if(obj.msgContent != undefined){ // 채팅 내용 입력시
+       // XSS, 개행문자 처리
+        let chat = XSS(obj.msgContent);
+        chat = chat.replaceAll("\n", "<br>");
+        p.html(chat);
+
+   }else{ // 나가기버튼 눌렀을때 (== obj.msgContent== undefined) == 메세지가 없는 경우
+
+        p.html("<b>"+ obj.memberNm+"님이 나가셨습니다.</b>");
+
+   }
+   
+
+
+   if (obj.memberNo == memberNo) {
+      div.addClass("item mymsg");
+      div.append(divB);
+      divB.append(p);
+      divB.append(span);
+   } else {
+      div.addClass("otherName");
+      div.html(obj.memberName);
+      div.after(divB);
+      divB.append(p);
+      divB.append(spanR);
+      spanR.text("1");
+      divB.append(span);
+   }
+
+
+   $(".flex_wrap").append(div);
+   ///////////////////////
+	
+	
+	// 채팅 입력시 말풍선이 부드럽게 나타나는 효과
+	setTimeout(function(){
+	    $(".chat_wrap .inner").find(".item:last").addClass("on");
+	}, 10)
+	
+	// 스크롤 하단 고정
+	$(".chat_wrap .inner").scrollTop($(".chat_wrap .inner")[0].scrollHeight);
+
+}
+
+
+// 보내기 버튼 클릭 시 채팅 전달
+$("#sendBtn").on("click", sendMessage);
+
+
+// XSS 처리 함수 ( 위에서 쓰임 )
+function XSS(message){
+    // 입력받은 메세지를 str에 저장
+    let str = message;
+
+    // 입력받은 메세지중 &, < , >, " 이 있다면 "" 안에 있는 내용으로 바꿔주고 str에 다시 저장
+    str = str.replace(/&/g, "&amp;");
+    str = str.replace(/</g, "&lt;");
+    str = str.replace(/>/g, "&gt;");
+    str = str.replace(/"/g, "&quot;");
+
+    return str;
+}
+
+
+
+
+
+// 나가기 버튼 동작
+$("#exit-btn").on("click", function(){
+
+    if(confirm("나가시겠습니까?")){
+
+        const obj = {};
+        obj.memberNo = memberNo; /*전역변수 memberNo*/
+        obj.chatRoomNo =  chatRoomNo;
+        obj.memberName = memberName;
+
+        // object -> JSON으로 전환
+        chattingSock.send( JSON.stringify(obj) );
+
+        // 방 나가기
+        // location.replace : 해당 주소 화면으로 화면을 변경(이전 화면이 히스토리에 남지 않음)
+        location.replace(contextPath +"/chat/chatRoomList");
+
+    }
+})

@@ -8,6 +8,7 @@ public class ChatRoom {
 	private int chatTeacherSt; // 강사 상태 (0: 참여중 1: 나감)
 	private int memberNo; // 회원 번호
 	private int teacherNo; // 강사 번호
+	private int classNo;
 	
 	private String memberNm; // 채팅 상대 이름
 	private int unreadMsgCnt; // 채팅방 당 안읽은 메세지 갯수
@@ -110,13 +111,22 @@ public class ChatRoom {
 		this.chatMessage = chatMessage;
 	}
 
+	public int getClassNo() {
+		return classNo;
+	}
+
+	public void setClassNo(int classNo) {
+		this.classNo = classNo;
+	}
+
 	@Override
 	public String toString() {
 		return "ChatRoom [chatRoomNo=" + chatRoomNo + ", chatRoomSt=" + chatRoomSt + ", chatMemberSt=" + chatMemberSt
 				+ ", chatTeacherSt=" + chatTeacherSt + ", memberNo=" + memberNo + ", teacherNo=" + teacherNo
-				+ ", memberNm=" + memberNm + ", unreadMsgCnt=" + unreadMsgCnt + ", teacherNm=" + teacherNm
-				+ ", teacherImg=" + teacherImg + ", chatMessage=" + chatMessage + "]";
+				+ ", classNo=" + classNo + ", memberNm=" + memberNm + ", unreadMsgCnt=" + unreadMsgCnt + ", teacherNm="
+				+ teacherNm + ", teacherImg=" + teacherImg + ", chatMessage=" + chatMessage + "]";
 	}
+
 	
 	
 	

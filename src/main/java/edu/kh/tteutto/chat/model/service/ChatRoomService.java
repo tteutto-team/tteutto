@@ -27,5 +27,12 @@ public interface ChatRoomService {
 	 */
 	List<ChatMessage> joinChatRoom(ChatRoom chatRoom);
 
+	/** 채팅 내용 삽입
+	 * @param cm
+	 * @return result
+	 */
+	int insertMessage(ChatMessage cm);
+
+
 
 }
