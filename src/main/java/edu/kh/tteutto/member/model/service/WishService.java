@@ -19,4 +19,10 @@ public interface WishService {
 	 * @return wishList
 	 */
 	public List<ClassList> selectWishList(Pagination pagination, Map<String, Object> map);
+
+	/** 찜한 클래스 삽입 & 삭제
+	 * @param map
+	 * @return heart
+	 */
+	public int changeHeart(Map<String, Object> map);
 }

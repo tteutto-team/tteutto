@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import edu.kh.tteutto.main.model.vo.ClassList;
@@ -50,5 +52,20 @@ public class WishController {
 		model.addAttribute("wishList", wishList);
 		
 		return "member/studentWishList";
+	}
+	
+	// 찜한 클래스 삽입 & 삭제
+	@ResponseBody
+	@RequestMapping("changeHeart")
+	public int changeHeart(int classNo, 
+			@ModelAttribute("loginMember") Member loginMember) {
+		
+		int memberNo = loginMember.getMemberNo();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("classNo", classNo);
+		
+		return service.changeHeart(map);
 	}
 }

@@ -18,11 +18,11 @@
     <div id="myCarousel" class="carousel slide product-img">
         <div class="carousel-inner">
             
-            <div class="carousel-item active">
-                <img src="${contextPath}/resources/images/main/main_1.jpg">
+            <div class="carousel-item active" style="background: #DBDBDB;">
+                <img src="${contextPath}/resources/images/main/theme_1.png">
             </div>
-            <div class="carousel-item">
-                <img src="${contextPath}/resources/images/main/main_2.jpg">
+            <div class="carousel-item" style="background: #65A4D6;">
+                <img src="${contextPath}/resources/images/main/theme_2.png">
             </div>
             <div class="carousel-item">
                 <img src="${contextPath}/resources/images/main/main_3.jpg">
@@ -192,107 +192,64 @@
 
         <div class="hot-class-bottom">
         	<div class="hot-class-bottom-view">
-	        	<c:forEach begin="1" end="3" varStatus="vs">
-	        		
+        	
+	        	<c:forEach items="${surroundList}" var="classList" varStatus="vs">
 	        	
 		        	<div class="hot-class-content">
+		        	
 			        	<div class="class">
-			                <div class="image">
-			                    <img src="${contextPath}/resources/images/class/temp.jpg">
-			                    <p class="location-p">서울 강남</p>
-			                </div>
-			                <button type="button" class="btn_like">
-			                    <span class="img_emoti">좋아요</span>
-			                    <span class="ani_heart_m"></span>
-			                </button>
-			                <div class="detail-info">
-			                    <span class="category-name">카테고리</span>
-			                    <div class="class-name">[🏆BEST] 이봄의 타로 클래스 ❥ 고민으로 잠 못드는 당신을 위해</div>
-			                    <div class="grade">
-			                        <i class="fi-rr-star"></i> <span>95%</span>
-			                        <i class="fi-rr-heart"></i> <span>120</span>
-			                    </div>
-			                    
-			                    <div class="detail-info-bottom">
-			                        <img src="${contextPath}/resources/images/teacher/temp.jpg">
-			                        <span class="teacher-name">홍길동 ${vs.count }</span> 
-			                        <span class="class-price">월 15,000</span>
-			                    </div>
-			                </div>
-			            </div>
-			            <div class="class">
-			                <div class="image">
-			                    <img src="${contextPath}/resources/images/class/temp.jpg">
-			                    <p class="location-p">서울 강남</p>
-			                </div>
-			                <button type="button" class="btn_like">
-			                    <span class="img_emoti">좋아요</span>
-			                    <span class="ani_heart_m"></span>
-			                </button>
-			                <div class="detail-info">
-			                    <span class="category-name">카테고리</span>
-			                    <div class="class-name">[🏆BEST] 이봄의 타로 클래스 ❥ 고민으로 잠 못드는 당신을 위해</div>
-			                    <div class="grade">
-			                        <i class="fi-rr-star"></i> <span>95%</span>
-			                        <i class="fi-rr-heart"></i> <span>120</span>
-			                    </div>
-			                    
-			                    <div class="detail-info-bottom">
-			                        <img src="${contextPath}/resources/images/teacher/temp.jpg">
-			                        <span class="teacher-name">홍길동</span> 
-			                        <span class="class-price">월 15,000</span>
-			                    </div>
-			                </div>
-			            </div>
-			            <div class="class">
-			                <div class="image">
-			                    <img src="${contextPath}/resources/images/class/temp.jpg">
-			                    <p class="location-p">서울 강남</p>
-			                </div>
-			                <button type="button" class="btn_like">
-			                    <span class="img_emoti">좋아요</span>
-			                    <span class="ani_heart_m"></span>
-			                </button>
-			                <div class="detail-info">
-			                    <span class="category-name">카테고리</span>
-			                    <div class="class-name">[🏆BEST] 이봄의 타로 클래스 ❥ 고민으로 잠 못드는 당신을 위해</div>
-			                    <div class="grade">
-			                        <i class="fi-rr-star"></i> <span>95%</span>
-			                        <i class="fi-rr-heart"></i> <span>120</span>
-			                    </div>
-			                    
-			                    <div class="detail-info-bottom">
-			                        <img src="${contextPath}/resources/images/teacher/temp.jpg">
-			                        <span class="teacher-name">홍길동</span> 
-			                        <span class="class-price">월 15,000</span>
-			                    </div>
-			                </div>
-			            </div>
-			            <div class="class">
-			                <div class="image">
-			                    <img src="${contextPath}/resources/images/class/temp.jpg">
-			                    <p class="location-p">서울 강남</p>
-			                </div>
-			                <button type="button" class="btn_like">
-			                    <span class="img_emoti">좋아요</span>
-			                    <span class="ani_heart_m"></span>
-			                </button>
-			                <div class="detail-info">
-			                    <span class="category-name">카테고리</span>
-			                    <div class="class-name">[🏆BEST] 이봄의 타로 클래스 ❥ 고민으로 잠 못드는 당신을 위해</div>
-			                    <div class="grade">
-			                        <i class="fi-rr-star"></i> <span>95%</span>
-			                        <i class="fi-rr-heart"></i> <span>120</span>
-			                    </div>
-			                    
-			                    <div class="detail-info-bottom">
-			                        <img src="${contextPath}/resources/images/teacher/temp.jpg">
-			                        <span class="teacher-name">홍길동</span> 
-			                        <span class="class-price">월 15,000</span>
-			                    </div>
-			                </div>
-			            </div>
+							<div class="image">
+								<%-- 클래스 이미지 --%>
+								<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
+									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}'">
+								
+								<%-- 수업 등록 지역 --%>
+								<p class="location-p">${classList.classArea}</p>
+							</div>
+							
+							<%-- 클래스 찜하기 버튼 > 찜 X --%>
+							<c:if test="${classList.heartFlag == 0}">
+								<button type="button" class="btn_like" id="${classList.classNo}">
+									<span class="img_emoti">좋아요</span>
+									<span class="ani_heart_m"></span>
+								</button>
+							</c:if>
+							
+							<%-- 클래스 찜하기 버튼 > 찜 O --%>
+							<c:if test="${classList.heartFlag == 1}">
+								<button type="button" class="btn_like btn_unlike" id="${classList.classNo}">
+									<span class="img_emoti">좋아요</span>
+									<span class="ani_heart_m hi"></span>
+								</button>
+							</c:if>
+				
+							<div class="detail-info">
+								<span class="category-name">${classList.categoryName}</span> <%-- 카테고리명 --%>
+								
+								<%-- 클래스명 --%>
+								<div class="class-name">
+									<c:choose>
+										<c:when test="${classList.classType == 0}">[원데이] </c:when>
+										<c:otherwise>[${classList.episodeNo}회차] </c:otherwise>
+									</c:choose>
+									${classList.className}
+								</div>
+								
+								<div class="grade">
+		                            <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 평점 --%>
+		                            <i class="fi-rr-heart"></i> <span>${classList.heartCount}</span> <%-- 찜 개수 --%>
+		                       	</div>
+								
+								<div class="detail-info-bottom">
+									<img src="${contextPath}/resources/images/teacher/${classList.teacherImage}"> <%-- 강사 프로필 이미지 --%>
+									<span class="teacher-name">${classList.memberName}</span> <%-- 강사명 --%>
+									<span class="class-price"><fmt:formatNumber value="${classList.episodePrice}" pattern="#,###"/>원</span> <%-- 수업료 --%>
+								</div>
+							</div>
+						</div>
+			            
 		            </div>
+		            
 		        </c:forEach>
 		    </div>
 
@@ -303,7 +260,7 @@
     </div>
 
     <!-- 신규 클래스 추천 -->
-    <div class="new-class" style="display: none;">
+    <div class="new-class">
         <div class="new-class-top">
             <span class="detail">
                 신규 클래스 추천<i class="fas fa-angle-right"></i>
@@ -326,7 +283,7 @@
 					
 					<%-- 클래스 찜하기 버튼 > 찜 X --%>
 					<c:if test="${classList.heartFlag == 0}">
-						<button type="button" class="btn_like">
+						<button type="button" class="btn_like" id="${classList.classNo}">
 							<span class="img_emoti">좋아요</span>
 							<span class="ani_heart_m"></span>
 						</button>
@@ -334,7 +291,7 @@
 					
 					<%-- 클래스 찜하기 버튼 > 찜 O --%>
 					<c:if test="${classList.heartFlag == 1}">
-						<button type="button" class="btn_like btn_unlike">
+						<button type="button" class="btn_like btn_unlike" id="${classList.classNo}">
 							<span class="img_emoti">좋아요</span>
 							<span class="ani_heart_m hi"></span>
 						</button>
@@ -415,18 +372,35 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <script>
-    $('.btn_like').click(function(){
-        if($(this).hasClass('btn_unlike')){
-            $(this).removeClass('btn_unlike');
-            $(this).children('span:eq(1)').removeClass('hi');
-            $(this).children('span:eq(1)').addClass('bye');
-        }
-        else{
-            $(this).addClass('btn_unlike');
-            $(this).children('span:eq(1)').removeClass('bye');
-            $(this).children('span:eq(1)').addClass('hi');
-        }
-    });
+	<%-- 클래스 카드 찜하기 버튼 색상 변경 --%>
+	$('.btn_like').click(function() {
+		
+		const classNo = this.getAttribute("id");
+		
+		if ("${loginMember}" != "") {
+			const heartBtn = this;
+			
+			$.ajax({
+				url : "${contextPath}/member2/changeHeart", 
+				data : {"classNo" : classNo}, 
+				success : function(result) {
+					console.log(result)
+					if (result > 0) {
+					    if ($(heartBtn).hasClass('btn_unlike')) {
+					        $(heartBtn).removeClass('btn_unlike');
+					        $(heartBtn).children('span:eq(1)').removeClass('hi');
+					        $(heartBtn).children('span:eq(1)').addClass('bye');
+					    } else {
+					        $(heartBtn).addClass('btn_unlike');
+					        $(heartBtn).children('span:eq(1)').removeClass('bye');
+					        $(heartBtn).children('span:eq(1)').addClass('hi');
+					    }
+					}
+				}
+			}) 
+		
+		} else alert("로그인 후 이용 가능합니다.");
+	});
     
     /* 위치 모달 */
     // 모달 열기
