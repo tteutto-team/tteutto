@@ -10,6 +10,7 @@ import edu.kh.tteutto.classRoom.model.dao.ClassDetailDAO;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
+import edu.kh.tteutto.classRoom.model.vo.ReviewPagination;
 import edu.kh.tteutto.member.model.vo.Member;
 import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
 import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
@@ -109,7 +110,22 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 		return dao.selectThumImg(classNo);
 	}
 
+	// 후기 목록 조회
+	@Override
+	public List<ClassReview> reviewList(ReviewPagination pagination, int classNo) {
+		return dao.reviewList(pagination, classNo);
+	}
 
+	// 후기 페이징
+	@Override
+	public ReviewPagination getPagination(int pageNum, int classNo) {
+		
+		int listCount = dao.getListCount(classNo);
+		
+		return new ReviewPagination(listCount, pageNum);
+	}
+
+	
 	
 
 	
