@@ -80,14 +80,14 @@
         	
 	        	<c:forEach items="${locationList}" var="classList" varStatus="vs">
 	        		<c:if test="${vs.index % 4 == 0 }">
-	        			<div class="hot-class-content">
+	        			<div class="hot-class-content <c:if test="${vs.first}">active</c:if>">
 	        		</c:if>
 	        			<%-- 클래스 카드 --%>
 			        	<div class="class">
 							<div class="image">
 								<%-- 클래스 이미지 --%>
 								<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}'">
+									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epNo=${classList.episodeNo}'">
 								
 								<%-- 수업 등록 지역 --%>
 								<p class="location-p">${classList.classArea}</p>
@@ -163,7 +163,7 @@
         	
 	        	<c:forEach items="${hotList}" var="classList" varStatus="vs">
 	        		<c:if test="${vs.index % 4 == 0 }">
-	        			<div class="hot-class-content">
+	        			<div class="hot-class-content <c:if test="${vs.first}">active</c:if>">
 	        		</c:if>
 	        			<%-- 클래스 카드 --%>
 			        	<div class="class">
@@ -246,7 +246,7 @@
         	
 	        	<c:forEach items="${newList}" var="classList" varStatus="vs">
 	        		<c:if test="${vs.index % 4 == 0 }">
-	        			<div class="hot-class-content">
+	        			<div class="hot-class-content <c:if test="${vs.first}">active</c:if>">
 	        		</c:if>
 	        			<%-- 클래스 카드 --%>
 			        	<div class="class">
@@ -418,30 +418,80 @@
 	    
     <%-- 클래스 카드 캐러셀 --%>
     $('.prev').click(function(){
-    	const view = $(this).parent().parent().children().eq(1).children();
-    	
-    	
-    	const content = $(view).children().eq($(view).children().length-1);
-    	
-    	
-        $(view).stop().animate({'margin-left':'0'},function(){
-            $(content).prependTo(view);
-            $(view).css({'margin-left':'-1200px'});
-        	
+       
+       // 캐러셀 고정부분
+       const view = $(this).parent().parent().children().eq(1).children();
+       
+       // 캐러셀이 순환하는 내용물의 개수 (클래스 4개당 1개)
+       const contentLength = $(view).children().length;
+       
+       let temp;
+       if(contentLength == 0)    temp = 0;
+       else               temp = contentLength-1;
+       
+       const content = $(view).children().eq(temp).clone();
+       
+       
+       // 현재 active 클래스가 포함된 class-content의 인덱스
+       let cuurentIndex = $(view).children().index($(view).find(".active"));
+       
+       // active 클래스를 우선 삭제
+       $(view).children().removeClass("active");
+       
+       // active 클래스를 이전 요소에 추가
+       if(cuurentIndex > 0){
+          $(view).children().eq(cuurentIndex - 1).addClass("active");
+       }else{
+          $(view).children().eq(temp).addClass("active");
+          $(view).prepend(content);
+          $(view).css("margin-left", "-1200px")
+       }
+       
+       const offset = cuurentIndex != 0 ? (-1200 * (cuurentIndex-1)) : 0;
+       
+       $(view).stop().animate({'margin-left': offset + "px"},function(){
+          
+            if(cuurentIndex == 0){
+               $(view).stop().animate({'margin-left': (-1200 * (contentLength-1)) + "px"}, 0);
+               $(view).children().eq(0).remove()
+            }
         });
+        
+        
     });    
     
     $('.next').click(function(){
-    	const view = $(this).parent().parent().children().eq(1).children();
-    	const content = $(view).children().eq(0);
-    	
-        $(view).stop().animate({'margin-left':'-1200px'},function(){
-        	
-            $(content).appendTo(view);
-            $(view).css({'margin-left':'0px'});
-        	
+       // 캐러샐 고정부분
+       const view = $(this).parent().parent().children().eq(1).children();
+       
+       
+       // 캐러셀이 순환하는 내용물의 개수 (클래스 4개당 1개)
+       const contentLength = $(view).children().length;
+       
+       const content = $(view).children().eq(0).clone();
+       
+       // 현재 active 클래스가 포함된 class-content의 인덱스
+       const cuurentIndex = $(view).children().index($(view).find(".active"));
+       
+       // active 클래스를 우선 삭제
+       $(view).children().removeClass("active");
+       
+       // active 클래스를 다음 요소에 추가
+       if(cuurentIndex < contentLength-1){
+          $(view).children().eq(cuurentIndex + 1).addClass("active");
+       }else{
+          $(view).children().eq(0).addClass("active");
+          $(view).append(content);
+       }
+       
+       $(view).stop().animate({'margin-left': (-1200 * (cuurentIndex+1)) + "px"},function(){
+          
+            if(cuurentIndex >= contentLength-1){
+               $(view).stop().animate({'margin-left': "0px"}, 0);
+               $(view).children().eq(contentLength).remove()
+            }
         });
-    });    
+    });     
 	    
 </script>
 <c:if test="${!empty sessionScope.email}">
