@@ -93,17 +93,47 @@ FAQ
 
 -----------------------------------------------------------------------
 
+클래스 신청 관리
+ * http://localhost:8080/tteutto/admin/classManage
+
+클래스 신청 상세조회
+ * http://localhost:8080/tteutto/admin/class/{클래스번호}
+
+클래스 수정 관리
+ * http://localhost:8080/tteutto/admin/classUpdateManage
+
+클래스 수정 상세조회
+ * http://localhost:8080/tteutto/admin/classUpdate/{클래스번호}
+
 회차별 신청 관리
  * http://localhost:8080/tteutto/admin/classEpisodeManage
 
-클래스 신청 관리
- * http://localhost:8080/tteutto/admin/classManage
+회차별 신청 상세조회
+ * http://localhost:8080/tteutto/admin/classEpisode/{회차번호}?no={클래스번호}
+
+후기 관리
+ * http://localhost:8080/tteutto/admin/reviewManage
+
+유저 관리
+ * http://localhost:8080/tteutto/admin/userManage
 
 강사 신청 관리
  * http://localhost:8080/tteutto/admin/teacherManage
 
 학생 신고 관리
  * http://localhost:8080/tteutto/admin/studentReportManage
+
+클래스 신고 관리
+ * http://localhost:8080/tteutto/admin/classReportManage
+
+정산 관리
+ * http://localhost:8080/tteutto/admin/calculateManage
+
+정산 영수증 페이지
+ * http://localhost:8080/tteutto/admin/calculate/{정산번호}
+
+환불 관리
+ * http://localhost:8080/tteutto/admin/refundManage
 
 공지사항
  * http://localhost:8080/tteutto/admin/noticeManage
