@@ -73,5 +73,26 @@ public class ClassRegisterDAO {
 	public ClassDetail classSelect(int no) {
 		return sqlSession.selectOne("classMapper.classSelect", no);
 	}
+
+	
+	/** 수업 회차 추가 검사용
+	 * @param classNo
+	 * @return epCount
+	 */
+	public int checkEpCount(int classNo) {
+		return sqlSession.selectOne("classMapper.checkEpCount", classNo);
+	}
+
+	/** 원데이 회차 등록
+	 * @param episode
+	 * @param ec
+	 * @return epNo
+	 */
+	public int insertOneEpisode(Episode episode) {
+		int result = sqlSession.insert("classMapper.insertOneEpisode", episode);
+		
+		if(result > 0)  return episode.getEpNo();
+		else			return 0;
+	}
 	
 }

@@ -25,6 +25,8 @@ const date = new Date();
 
 		// 날짜 불러왔는지 체크하는 변수
 		let dateloadcheck = false;
+		// 원데이 클래스인지 체크하는 변수
+		const checkOne = $("#ep-count").text();
 
         $("#schedule-btn").on("click", function(){
             //console.log($("#mdp-demo").multiDatesPicker('getDates'));
@@ -39,7 +41,7 @@ const date = new Date();
             }
             // console.log(week2); 
             
-
+ 
             let num = 1;
             $("#schedule-table > tbody").html("");
 
@@ -56,7 +58,11 @@ const date = new Date();
 
                 dateOrder = dateVal[i].substring(6, 10) + "/" + dateVal[i].substring(0, 5);
 
-                $('#schedule-table > tbody:last').append('<tr><td class="time-td2">'+num+'일차</td><td class="time-td"><input type="text" class="tdInput" name="schdlDt" value="'+dateOrder+'" readonly></td class="time-td4" ><td><input type="text" class="tdInput" name="schdlWeek" value="'+week2[i]+'" readonly></td><td class="time-td"><select name="schdlStartTime" id="startTime'+num+'" class="time-box"></select></td><td> ~ </td><td class="time-td"><input type="text" id="endTime'+num+'" name="schdlEndTime" class="time-box" value="10:00" readonly/></td></tr>');
+				if(checkOne == '(원데이)'){
+	                $('#schedule-table > tbody:last').append('<tr><td class="time-td2">'+num+'회차</td><td class="time-td"><input type="text" class="tdInput" name="schdlDt" value="'+dateOrder+'" readonly></td class="time-td4" ><td><input type="text" class="tdInput" name="schdlWeek" value="'+week2[i]+'" readonly></td><td class="time-td"><select name="schdlStartTime" id="startTime'+num+'" class="time-box"></select></td><td> ~ </td><td class="time-td"><input type="text" id="endTime'+num+'" name="schdlEndTime" class="time-box" value="10:00" readonly/></td></tr>');					
+				}else{
+	                $('#schedule-table > tbody:last').append('<tr><td class="time-td2">'+num+'일차</td><td class="time-td"><input type="text" class="tdInput" name="schdlDt" value="'+dateOrder+'" readonly></td class="time-td4" ><td><input type="text" class="tdInput" name="schdlWeek" value="'+week2[i]+'" readonly></td><td class="time-td"><select name="schdlStartTime" id="startTime'+num+'" class="time-box"></select></td><td> ~ </td><td class="time-td"><input type="text" id="endTime'+num+'" name="schdlEndTime" class="time-box" value="10:00" readonly/></td></tr>');					
+				}
                 
                 
                 $("select#startTime" + num).append("<option value='9'>09:00</option>");
@@ -91,7 +97,7 @@ const date = new Date();
                 })      
                 
                 
-                $("#num-time").on("change input", function(){
+                $("#num-time").on("change input focus", function(){
 					let array = $("select[name=schdlStartTime]");
 					const nv = this.value;
 
@@ -133,269 +139,66 @@ const date = new Date();
 
         });
 
-
-        // 원데이 스케쥴용------------------------------------------------------
-        $("#testtest").on("click", function(){
-            //$("#schedule-val").attr("display", "none");
-            $("#schedule-val").fadeOut(500);
-            $("#ptn-multi").fadeOut(500);
-            setTimeout(function(){
-                $("#test-oneday-schedule").fadeIn(500);
-                $("#ptn-one").fadeIn(500);
-            }, 500);
-        })
-
-        $("#testtest1").on("click", function(){
-            //$("#schedule-val").attr("display", "none");
-            $("#test-oneday-schedule").fadeOut(500);
-            $("#ptn-one").fadeOut(500);
-            setTimeout(function(){
-                $("#schedule-val").fadeIn(500);
-                $("#ptn-multi").fadeIn(500);
-            }, 500);
-
-        })
-
-
-        $("#schedule-btn2").on("click", function(){
-            let dateVal = $("#mdp-demo").multiDatesPicker('getDates');
-            
-            let dateOrder = dateVal[0].substring(6, 10) + "/" + dateVal[0].substring(0, 5);
-            let dateOrder2 = dateVal[dateVal.length - 1].substring(6, 10) + "/" + dateVal[dateVal.length - 1].substring(0, 5);
-
-
-            let week2 = [];
-
-            for(i=0; i<dateVal.length; i++){
-                week2[i]= week[new Date(dateVal[i]).getDay()]
-            
-            }
-            
-            /* let scheduleDay = ""; */
-
-            $("#schedule-td1").html(dateOrder);
-            $("#schedule-td2").html(dateOrder2);
-            
-            
-
-            let num = 1;
-            $("#test-table > tbody").html("");
-            $('#test-table > tbody:last').append('<tr><td class="time-td3">개강기간</td><td class="time-td">'+dateOrder+'</td><td class="time-td4">&nbsp;~</td><td class="time-td">'+dateOrder2+'</td></tr>');
-
-
-
-            for(i= 0; i<dateVal.length; i++){
-
-                dateOrder = dateVal[i].substring(6, 10) + "/" + dateVal[i].substring(0, 5);
-                
-                if(num == 1){
-                    $('#test-table > tbody:last').append('<tr><td class="time-td2">수업일자</td><td class="time-td">'+dateOrder+'</td class="time-td4"><td>'+week2[i]+'</td><td class="time-td"><select id="startTime'+num+'" class="time-box"></select></td><td> ~ </td><td class="time-td"><select id="endTime'+num+'" class="time-box"></select></td><td><button id="plus-time'+num+'" class="plus-time" type="button">+</button></td></tr>');
-                }else{
-                    $('#test-table > tbody:last').append('<tr><td class="time-td2"></td><td class="time-td">'+dateOrder+'</td class="time-td4"><td>'+week2[i]+'</td><td class="time-td"><select id="startTime'+num+'" class="time-box"></select></td><td> ~ </td><td class="time-td"><select id="endTime'+num+'" class="time-box"></select></td><td><button id="plus-time'+num+'" class="plus-time" type="button">+</button></td></tr>');
-                }
-
-                
-                
-                $("select#startTime" + num).append("<option value='9'>09:00</option>");
-                $("select#startTime" + num).append("<option value='10'>10:00</option>");
-                $("select#startTime" + num).append("<option value='11'>11:00</option>");
-                $("select#startTime" + num).append("<option value='12'>12:00</option>");
-                $("select#startTime" + num).append("<option value='13'>13:00</option>");
-                $("select#startTime" + num).append("<option value='14'>14:00</option>");
-                $("select#startTime" + num).append("<option value='15'>15:00</option>");
-                $("select#startTime" + num).append("<option value='16'>16:00</option>");
-                $("select#startTime" + num).append("<option value='17'>17:00</option>");
-                $("select#startTime" + num).append("<option value='18'>18:00</option>");
-                $("select#startTime" + num).append("<option value='19'>19:00</option>");
-                $("select#startTime" + num).append("<option value='20'>20:00</option>");
-                $("select#startTime" + num).append("<option value='21'>21:00</option>");
-                $("select#startTime" + num).append("<option value='22'>22:00</option>");
-                $("select#startTime" + num).append("<option value='23'>23:00</option>");
-                
-                
-                $("select#endTime" + num).append("<option>10:00</option>");
-                $("select#endTime" + num).append("<option>11:00</option>");
-                $("select#endTime" + num).append("<option>12:00</option>");
-                $("select#endTime" + num).append("<option>13:00</option>");
-                $("select#endTime" + num).append("<option>14:00</option>");
-                $("select#endTime" + num).append("<option>15:00</option>");
-                $("select#endTime" + num).append("<option>16:00</option>");
-                $("select#endTime" + num).append("<option>17:00</option>");
-                $("select#endTime" + num).append("<option>18:00</option>");
-                $("select#endTime" + num).append("<option>19:00</option>");
-                $("select#endTime" + num).append("<option>20:00</option>");
-                $("select#endTime" + num).append("<option>21:00</option>");
-                $("select#endTime" + num).append("<option>22:00</option>");
-                $("select#endTime" + num).append("<option>23:00</option>");
-                
-                
-
-                // 옵션 최소시간 알아서 맞추기
-                $("select#startTime" + num).on("change", function(){
-                    //console.log(this.parentNode.nextSibling.nextSibling.firstChild);
-                    let et = this.parentNode.nextSibling.nextSibling.firstChild;
-                    $(et).children('option').remove();
-
-					let opc = 0;
-
-                    for(i=this.value; i<24; i++){
-                            opc = Number(i)+1;
-                            $(et).append('<option>'+opc+':00</option>');
-                    }
-
-                })
-
-                // 플러스 버튼
-                let plusNo = 1;
-                $("#plus-time" + num).on("click", function(e){
-                    const tr = $("<tr>");
-                    const td = $("<td>");
-                    const td2 = $("<td>");
-                    const td3 = $("<td>");
-                    const td4 = $("<td>");
-                    const td5 = $("<td>");
-                    const td6 = $("<td>");
-                    const td7 = $("<td>");
-                    /*
-                    td2.addClass("time-td"); 
-                    td4.addClass("time-td"); 
-                    */
-                    const select1 = $("<select>");
-                    const select2 = $("<select>");
-
-                    select1.attr("id", "addStartTime" + plusNo);
-                    select2.attr("id", "addEndTime" + plusNo);
-
-                    select1.addClass("time-box");
-                    select1.append("<option value='09'>09:00</option>");
-                    select1.append("<option value='10'>10:00</option>");
-                    select1.append("<option value='11'>11:00</option>");
-                    select1.append("<option value='12'>12:00</option>");
-                    select1.append("<option value='13'>13:00</option>");
-                    select1.append("<option value='14'>14:00</option>");
-                    select1.append("<option value='15'>15:00</option>");
-                    select1.append("<option value='16'>16:00</option>");
-                    select1.append("<option value='17'>17:00</option>");
-                    select1.append("<option value='18'>18:00</option>");
-                    select1.append("<option value='19'>19:00</option>");
-                    select1.append("<option value='20'>20:00</option>");
-                    select1.append("<option value='21'>21:00</option>");
-                    select1.append("<option value='22'>22:00</option>");
-                    select1.append("<option value='23'>23:00</option>");
-                    
-                    
-                    select2.addClass("time-box");
-                    select2.append("<option>10:00</option>");
-                    select2.append("<option>11:00</option>");
-                    select2.append("<option>12:00</option>");
-                    select2.append("<option>13:00</option>");
-                    select2.append("<option>14:00</option>");
-                    select2.append("<option>15:00</option>");
-                    select2.append("<option>16:00</option>");
-                    select2.append("<option>17:00</option>");
-                    select2.append("<option>18:00</option>");
-                    select2.append("<option>19:00</option>");
-                    select2.append("<option>20:00</option>");
-                    select2.append("<option>21:00</option>");
-                    select2.append("<option>22:00</option>");
-                    select2.append("<option>23:00</option>");
-                    
-
-
-                    td4.append(select1);
-                    td5.html("~");
-                    td6.append(select2);
-
-                    const minus = $("<button>");
-                    minus.html("-");
-                    minus.addClass("plus-time");
-                    minus.addClass("minus-time");
-                    minus.attr("id", "minus" + plusNo);
-                    minus.attr("type", "button");
-                    //minus.setAttribute("onclick", "remove(event);");
-                    //minus.addEventListener("click", remove);
-                    // minus.attr("onclick", "removeCols();");
-                    td7.append(minus);
-
-                    tr.append(td);
-                    tr.append(td2);
-                    tr.append(td3);
-                    tr.append(td4);
-                    tr.append(td5);
-                    tr.append(td6);
-                    tr.append(td7);
-                    
-                    
-	                 // 추가 시간 옵션 최소시간 알아서 맞추기
-	                $("select#addStartTime" + plusNo).on("change", function(){
-	                    console.log("ㄷㄷ");
-	                })
-                    
-                    // tr 추가
-                    $(this).parent().parent().after(tr);
-
-                    $(minus).on("click",function(e){
-                        e.target.parentNode.parentNode.remove();
-                    })
-
-                    plusNo = plusNo + 1;
-                })
-
-                num++;
-
-            }
-
-
-            $("#test-schedule-text").hide();
-            $("#test-schedule-text").slideDown(400);
-        })
         
 // 가격 계산스
+if(checkOne != '(원데이)'){
+	
+	$("#time-price").on("input", function(){
+	    $("#pt1").html("");
+	    $("#pt1").html($(this).val());
+	})
+	
+	$("#num-time").on("input", function(){
+	    $("#pt2").html("");
+	    $("#pt2").html("x " + $(this).val());
+	})
+	
+	$("#num-class").on("propertychange change keyup paste input", function(){
+	    $("#pt3").html("");
+	    $("#pt3").html("x " + $(this).val());
+	})
+	
+	$("#time-price, #num-time, #num-class").on("input", function(){
+	    $("#sumPrice").html("");
+	    let sum = $("#time-price").val() * $("#num-time").val() * $("#num-class").val();
+	    let per = Math.floor($("#time-price").val());
+	    $("#sumPrice").html("총 <span class='redText'>" + sum + "원</span> <br> 연결수수료 " + per + "원");
+	    $("#epPrice").val(sum);
+	})
+	
+}else{
+
+	$(".time-price-one").on("input", function(){
+	    $("#pt1").html("");
+	    $("#pt3").html("");
+	    $("#pt1").html($(this).val());
+	})
+	
+	$(".num-time-one").on("propertychange change keyup paste input", function(){
+	    $("#pt2").html("");
+	    $("#pt3").html("");
+	    $("#pt2").html("x " + $(this).val());
+	})
+	
+	$(".time-price-one, .num-time-one").on("input", function(){
+	    $("#sumPrice").html("");
+	    let sum = $(".time-price-one").val() * $(".num-time-one").val();
+	    let per = Math.floor(sum * 0.2);
+	    $("#sumPrice").html("총 <span class='redText'>" + sum + "원</span> <br> 연결수수료 " + per + "원");
+	    $("#epPrice").val(sum);
+	})
+	
+}
+
+// 가격, 시간 음수 입력 방지
 $("#time-price").on("input", function(){
-    $("#pt1").html("");
-    $("#pt1").html($(this).val());
+	$(this).val($(this).val().replace(/[^0-9]/gi,""));
 })
 
 $("#num-time").on("input", function(){
-    $("#pt2").html("");
-    $("#pt2").html("x " + $(this).val());
+	$(this).val($(this).val().replace(/[^0-9]/gi,""));
 })
 
-$("#num-class").on("propertychange change keyup paste input", function(){
-    $("#pt3").html("");
-    $("#pt3").html("x " + $(this).val());
-})
-
-$("#time-price, #num-time, #num-class").on("input", function(){
-    $("#sumPrice").html("");
-    let sum = $("#time-price").val() * $("#num-time").val() * $("#num-class").val();
-    let per = Math.floor($("#time-price").val());
-    $("#sumPrice").html("총 <span class='redText'>" + sum + "원</span> <br> 연결수수료 " + per + "원");
-    $("#epPrice").val(sum);
-})
-
-//------------------ test------------------------
-// 원데이 가격 계산스
-$("#time-price-one").on("input", function(){
-    $("#pt1").html("");
-    $("#pt3").html("");
-    $("#pt1").html($(this).val());
-})
-
-$("#num-time-one").on("input", function(){
-    $("#pt2").html("");
-    $("#pt3").html("");
-    $("#pt2").html("x " + $(this).val());
-})
-
-$("#time-price-one, #num-time-one").on("focus", function(){
-    $("#sumPrice").html("");
-    let sum = $("#time-price-one").val() * $("#num-time-one").val();
-    let per = Math.floor(sum * 0.2);
-    $("#sumPrice").html("총 <span class='redText'>" + sum + "원</span> <br> 연결수수료 " + per + "원");
-})
-
-// ------------------------------------------------
 
 
 // ---------- 주소검색 --------------
