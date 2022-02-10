@@ -224,7 +224,7 @@
 		insert into calculate values(seq_cal_no.nextval, default, null, default, #{epNo})
 	</insert>
 			
-	<!-- 강사 스케쥴 등록 (episode) -->
+	<!-- 강사 스케쥴 등록 (episode) 신규 -->
 	<insert id="insertEpisode" useGeneratedKeys="true" parameterType="Episode">
 		<selectKey order="BEFORE" resultType="_int" keyProperty="epNo">
 			SELECT SEQ_EP_NO.NEXTVAL FROM DUAL
@@ -235,7 +235,19 @@
 		)
 	</insert>
 	
-	<!-- 강사 스케쥴 등록 (ep_schedule) -->
+	<!-- 강사 스케쥴 등록 (episode) 원데이, 추가회차 -->
+	<insert id="insertOneEpisode" useGeneratedKeys="true" parameterType="Episode">
+		<selectKey order="BEFORE" resultType="_int" keyProperty="epNo">
+			SELECT SEQ_EP_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO EPISODE VALUES(
+			#{epNo}, #{epPrice}, #{classNo}, 0, #{epCount}, #{epPlace}
+		)
+	</insert>
+	
+	
+	<!-- 강사 스케쥴 등록 (ep_schedule) 정규 -->
 	<insert id="insertEpisodeSchedule" parameterType="EpisodeSchedule">
 		INSERT INTO EP_SCHEDULE VALUES(
 			SEQ_SCHDL_NO.NEXTVAL, #{schdlDt}, #{schdlWeek}, #{schdlStartTime}, #{schdlEndTime}, #{epNo}, #{schdlTime}
@@ -281,4 +293,24 @@
 		from member
 		where member_no = #{memberNo}
 	</select>
+	
+		<!-- 강사 번호 가져오기 -->
+	<select id="teacherNo" resultType="_int">
+		SELECT MEMBER_NO FROM CLASS
+		WHERE CLASS_NO = #{no}
+	</select>
+
+	<!-- 클래스 가져오기 -->
+	<select id="classSelect" resultMap="class_rm">
+		SELECT * FROM CLASS 
+		WHERE CLASS_NO = #{classNo}
+	</select>
+	
+	<!-- 수업 회차 추가인지 체크 -->
+	<select id="checkEpCount" resultType="_int">
+		SELECT NVL(MAX(EP_COUNT), 0) FROM EPISODE
+		WHERE CLASS_NO = #{classNo}
+	</select>
+	
+	
 </mapper>

@@ -154,7 +154,7 @@ crossorigin="anonymous"/>
 									
 									<%-- 클래스 찜하기 버튼 > 찜 X --%>
 									<c:if test="${classList.heartFlag == 0}">
-										<button type="button" class="btn_like">
+										<button type="button" class="btn_like" id="${classList.classNo}">
 											<span class="img_emoti">좋아요</span>
 											<span class="ani_heart_m"></span>
 										</button>
@@ -162,7 +162,7 @@ crossorigin="anonymous"/>
 									
 									<%-- 클래스 찜하기 버튼 > 찜 O --%>
 									<c:if test="${classList.heartFlag == 1}">
-										<button type="button" class="btn_like btn_unlike">
+										<button type="button" class="btn_like btn_unlike" id="${classList.classNo}">
 											<span class="img_emoti">좋아요</span>
 											<span class="ani_heart_m hi"></span>
 										</button>
@@ -241,68 +241,82 @@ crossorigin="anonymous"/>
 
 <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
 <script>
-const btn = document.querySelectorAll('.btn-select');
-const list = document.querySelectorAll('.list-member');
-
-<%-- 옵션 버튼 클릭 시 드롭다운 열고 닫기 --%>
-for (let i = 0; i < btn.length; i++) {
-	btn[i].addEventListener('click', () => {
-		
-		if (btn[i].classList.contains('on')) { <%-- 열린 상태 --%>
-		    btn[i].classList.remove('on');
+	const btn = document.querySelectorAll('.btn-select');
+	const list = document.querySelectorAll('.list-member');
+	
+	<%-- 옵션 버튼 클릭 시 드롭다운 열고 닫기 --%>
+	for (let i = 0; i < btn.length; i++) {
+		btn[i].addEventListener('click', () => {
 			
-		} else { <%-- 닫힌 상태 --%>
+			if (btn[i].classList.contains('on')) { <%-- 열린 상태 --%>
+			    btn[i].classList.remove('on');
+				
+			} else { <%-- 닫힌 상태 --%>
+				for (b of btn)
+					b.classList.remove("on");
+	
+			    btn[i].classList.add('on');
+			}
+		});
+	}
+	
+	<%-- 옵션 버튼 + 옵션 리스트 외 나머지 클릭 시 드롭다운 닫기 --%>
+	window.addEventListener("click", function(e) {
+		let flag = true;
+	
+		const nodeList = document.querySelectorAll(".btn-select, .list-member, .list-member > li");
+	
+		for (node of nodeList) {
+			if (e.target == node) {
+				flag = false;
+				break;
+			}
+		} 
+	
+		if (flag) {
 			for (b of btn)
 				b.classList.remove("on");
-
-		    btn[i].classList.add('on');
 		}
 	});
-}
-
-<%-- 옵션 버튼 + 옵션 리스트 외 나머지 클릭 시 드롭다운 닫기 --%>
-window.addEventListener("click", function(e) {
-	let flag = true;
-
-	const nodeList = document.querySelectorAll(".btn-select, .list-member, .list-member > li");
-
-	for (node of nodeList) {
-		if (e.target == node) {
-			flag = false;
-			break;
-		}
-	} 
-
-	if (flag) {
-		for (b of btn)
-			b.classList.remove("on");
+	
+	<%-- 옵션 리스트 클릭 시 버튼 텍스트 변경 및 드롭다운 닫기 --%>
+	for (let j = 0; j < list.length; j++) {
+		list[j].addEventListener('click', (event) => {
+		    if (event.target.nodeName === "BUTTON") {
+		        btn[j].innerText = event.target.innerText;
+		        $(btn[j]).prev().val(event.target.innerText);
+		        btn[j].classList.remove('on');
+		    }
+		});
 	}
-});
-
-<%-- 옵션 리스트 클릭 시 버튼 텍스트 변경 및 드롭다운 닫기 --%>
-for (let j = 0; j < list.length; j++) {
-	list[j].addEventListener('click', (event) => {
-	    if (event.target.nodeName === "BUTTON") {
-	        btn[j].innerText = event.target.innerText;
-	        $(btn[j]).prev().val(event.target.innerText);
-	        btn[j].classList.remove('on');
-	    }
+	
+	<%-- 클래스 카드 찜하기 버튼 색상 변경 --%>
+	$('.btn_like').click(function() {
+		
+		const classNo = this.getAttribute("id");
+		
+		if ("${loginMember}" != "") {
+			const heartBtn = this;
+			
+			$.ajax({
+				url : "${contextPath}/member2/changeHeart", 
+				data : {"classNo" : classNo}, 
+				success : function(result) {
+					console.log(result)
+					if (result > 0) {
+					    if ($(heartBtn).hasClass('btn_unlike')) {
+					        $(heartBtn).removeClass('btn_unlike');
+					        $(heartBtn).children('span:eq(1)').removeClass('hi');
+					        $(heartBtn).children('span:eq(1)').addClass('bye');
+					    } else {
+					        $(heartBtn).addClass('btn_unlike');
+					        $(heartBtn).children('span:eq(1)').removeClass('bye');
+					        $(heartBtn).children('span:eq(1)').addClass('hi');
+					    }
+					}
+				}
+			}) 
+		
+		} else alert("로그인 후 이용 가능합니다.");
 	});
-}
-
-<%-- 클래스 카드 찜하기 버튼 색상 변경 --%>
-$('.btn_like').click(function(){
-	
-	
-	
-    if ($(this).hasClass('btn_unlike')) {
-        $(this).removeClass('btn_unlike');
-        $(this).children('span:eq(1)').removeClass('hi');
-        $(this).children('span:eq(1)').addClass('bye');
-    } else {
-        $(this).addClass('btn_unlike');
-        $(this).children('span:eq(1)').removeClass('bye');
-        $(this).children('span:eq(1)').addClass('hi');
-    }
-});
 </script>

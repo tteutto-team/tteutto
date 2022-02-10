@@ -50,12 +50,45 @@ public class RegisterController {
 		
 		// 클래스 스케쥴 등록 페이지 이동
 		@RequestMapping(value="schedule/{no}", method=RequestMethod.GET)
-		public String classRegisterSchedule(HttpSession session, @PathVariable (value = "no", required = false) int no ) {
-			if(session.getAttribute("loginMember") != null) {
-				return "class/classInsert2";			
+		public String classRegisterSchedule(HttpSession session, @PathVariable (value = "no", required = false) int no,
+											RedirectAttributes ra) {
+			
+			String path = "";
+			
+			if(session.getAttribute("loginMember") != null) { // 로그인 되있니?
+				
+				int teacherNo = service.teacherNo(no);
+				Member loginMember = (Member)session.getAttribute("loginMember");
+				
+				if(teacherNo == loginMember.getMemberNo()) { // 로그인 멤버 - 클래스 등록된 강사 일치
+					
+					ClassDetail cdt = service.classSelect(no);
+					
+					if(cdt.getClassStatus() == 2) { // 클래스가 승인 됐는지 확인
+						
+						int epCount = service.checkEpCount(cdt.getClassNo());
+						
+						session.setAttribute("openCount", epCount);		
+						session.setAttribute("openClass", cdt);
+						
+						path = "class/classInsert2";	
+						
+					}else {
+						ra.addFlashAttribute("message", "아직 승인되지 않은 클래스입니다.");
+						path = "redirect:/";
+					}
+
+				}else {
+					ra.addFlashAttribute("message", "잘못된 접근 입니다.");
+					path = "redirect:/";
+				}
+		
 			}else {
-				return "member/login";
+				ra.addFlashAttribute("message", "로그인 후 이용해주세요.");
+				path = "member/login";
 			}
+			
+			return path;
 			
 		}
 		
@@ -93,37 +126,13 @@ public class RegisterController {
 		}
 		
 		
+
 		// 클래스 미리보기 페이지
 		@RequestMapping("preview")
-		public String classPreview(HttpSession session, ClassDetail cdt, Model model,
-								   @RequestParam(value="images", required=false) List<MultipartFile> images) {
+		public String classPreview(HttpSession session) {
 			
 			if(session.getAttribute("loginMember") != null) {
 			
-				System.out.println(cdt);
-				
-				if(images != null) {
-					List<ClassDetailImage> imgList = new ArrayList<ClassDetailImage>();
-					
-					for(int i=0; i<images.size(); i++) {
-						if(!images.get(i).getOriginalFilename().equals("")) {
-							
-							ClassDetailImage img = new ClassDetailImage();
-							
-							img.setThImgNm(Util.fileRename(images.get(i).getOriginalFilename()));
-							img.setThImgLevel(i);
-							
-							imgList.add(img);
-							
-						}
-						
-					} 				
-					
-					model.addAttribute("imgList", imgList);
-				}
-				
-				model.addAttribute("cdt", cdt);
-				
 				return "class/classDetailPreview";
 				
 			}else {
@@ -136,12 +145,13 @@ public class RegisterController {
 		@RequestMapping("save")
 		public String classSave(HttpSession session, RedirectAttributes ra,
 								String classArea1, String classArea2, ClassDetail cdt, 
-								HttpServletRequest req, HttpServletResponse resp) {
+								HttpServletRequest req, HttpServletResponse resp, String marketing) {
 			String area = classArea1 + " " + classArea2;
 			cdt.setClassArea(area);
 			
 			System.out.println(cdt);
 			
+			session.setAttribute("mark", marketing);
 			session.setAttribute("cdt", cdt);
 			
 			/*
@@ -162,14 +172,21 @@ public class RegisterController {
 		// 클래스 스케쥴 등록
 		@RequestMapping(value="schedule", method=RequestMethod.POST)
 		public String insertClassSchedule(RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember,
+										  @ModelAttribute("openClass") ClassDetail openClass, HttpSession session,
 										  Episode episode, EpisodeSchedule episodeSd, String roadAddrPart1, String addrDetail) {
 			
 			// 주소 합치기
 			String epPlace = roadAddrPart1 + " " + addrDetail;
 			episode.setEpPlace(epPlace);
 			
-			// 테스트용 클래스 데이터 //
-			episode.setClassNo(101);
+			// 클래스 번호 가져오기
+			episode.setClassNo(openClass.getClassNo());
+			
+			// 추가 회차 등록인지 검사용
+			int epCount = service.checkEpCount(openClass.getClassNo());
+			System.out.println(epCount);
+			
+			int result = 0; // 결과용 변수
 			
 			// 날짜 넣기
 			List<EpisodeSchedule> epsList = new ArrayList<EpisodeSchedule>();
@@ -192,28 +209,88 @@ public class RegisterController {
 				
 			}
 			
-			for(int i=0; i<schdlDt.length; i++) {
-				EpisodeSchedule eps = new EpisodeSchedule();
-				eps.setEpPrice(episodeSd.getEpPrice());
-				eps.setSchdlDt(schdlDt[i]);
-				eps.setSchdlWeek(schdlWk[i]);
-				eps.setSchdlStartTime(schdlSt[i]);
-				eps.setSchdlEndTime(schdlEt[i]);
-				eps.setSchdlTime(episodeSd.getSchdlTime());
+			if(epCount > 0) {
+				// 회차를 추가하는구나~
 				
-				epsList.add(eps);
+				if(openClass.getClassType() > 0) { // 정규면
+					for(int i=0; i<schdlDt.length; i++) {
+						EpisodeSchedule eps = new EpisodeSchedule();
+						eps.setEpPrice(episodeSd.getEpPrice());
+						eps.setSchdlDt(schdlDt[i]);
+						eps.setSchdlWeek(schdlWk[i]);
+						eps.setSchdlStartTime(schdlSt[i]);
+						eps.setSchdlEndTime(schdlEt[i]);
+						eps.setSchdlTime(episodeSd.getSchdlTime());
+						
+						epsList.add(eps);
+					}
+					
+					result = service.insertClassScheduleplus(episode, epsList, epCount);
+				}else { // 원데이면
+					for(int i=0; i<schdlDt.length; i++) {
+						EpisodeSchedule eps = new EpisodeSchedule();
+						eps.setEpPrice(episodeSd.getEpPrice());
+						eps.setSchdlDt(schdlDt[i]);
+						eps.setSchdlWeek(schdlWk[i]);
+						eps.setSchdlStartTime(schdlSt[i]);
+						eps.setSchdlEndTime(schdlEt[i]);
+						eps.setSchdlTime(episodeSd.getSchdlTime());
+						
+						epsList.add(eps);
+					}
+					
+					result = service.insertOneClassSchedule(episode, epsList, epCount);
+				}
+				
+			}else {
+				// 신규 등록 이구나~
+				epCount = 1; // 원데이용 회차변수
+				
+				if(openClass.getClassType() > 0) { // 정규면
+					for(int i=0; i<schdlDt.length; i++) {
+						EpisodeSchedule eps = new EpisodeSchedule();
+						eps.setEpPrice(episodeSd.getEpPrice());
+						eps.setSchdlDt(schdlDt[i]);
+						eps.setSchdlWeek(schdlWk[i]);
+						eps.setSchdlStartTime(schdlSt[i]);
+						eps.setSchdlEndTime(schdlEt[i]);
+						eps.setSchdlTime(episodeSd.getSchdlTime());
+						
+						epsList.add(eps);
+					}
+					
+					result = service.insertClassSchedule(episode, epsList);
+				}else { // 원데이면
+					epCount = 1;
+					
+					for(int i=0; i<schdlDt.length; i++) {
+						EpisodeSchedule eps = new EpisodeSchedule();
+						eps.setEpPrice(episodeSd.getEpPrice());
+						eps.setSchdlDt(schdlDt[i]);
+						eps.setSchdlWeek(schdlWk[i]);
+						eps.setSchdlStartTime(schdlSt[i]);
+						eps.setSchdlEndTime(schdlEt[i]);
+						eps.setSchdlTime(episodeSd.getSchdlTime());
+						
+						epsList.add(eps);
+					}
+					
+					result = service.insertOneClassSchedule(episode, epsList, epCount);
+				}
+				
 			}
-			
-			int result = service.insertClassSchedule(episode, epsList);
 			
 			if(result > 0) {
-				Util.swalSetMessage("클래스 스케쥴 등록 완료", null, "success", ra);			
-				return "redirect:/";
+				Util.swalSetMessage("클래스 스케쥴 등록 완료", null, "success", ra);	
+				session.removeAttribute("openClass");
+				session.removeAttribute("openCount");
 			}else {
-				Util.swalSetMessage("클래스 스케줄 등록 실패", "관리자에게 문의해주세요", "error", ra);			
-				return "redirect:/";
+				Util.swalSetMessage("클래스 스케줄 등록 실패", "관리자에게 문의해주세요", "error", ra);
+				session.removeAttribute("openClass");
+				session.removeAttribute("openCount");
 			}
 			
+			return "redirect:/";
 		}
 		
 		

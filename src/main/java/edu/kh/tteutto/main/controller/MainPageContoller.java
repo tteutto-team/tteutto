@@ -38,12 +38,12 @@ public class MainPageContoller {
 		map.put("memberNo", memberNo);
 		
 		// 내 주변 클래스 추천 목록
-		map.put("pageKey", "surround");
+		map.put("pageKey", "location");
 		
-		List<ClassList> surroundList = null;
-		surroundList = service.selectMainList(map);
+		List<ClassList> locationList = null;
+		locationList = service.selectMainList(map);
 		
-		model.addAttribute("surroundList", surroundList);
+		model.addAttribute("locationList", locationList);
 		
 		// 인기 클래스 추천 목록
 		map.put("pageKey", "hot");

@@ -34,8 +34,10 @@ main a{
 }
 
 /* 캐러셀 */
+.carousel-item {text-align: center;}
+
 .carousel-item > img{
-    width: 100%;
+    width: 1200px;
     height: 455px;
     object-fit: cover; 
 }
@@ -189,10 +191,9 @@ tbody a {
 
 .hot-class-content {
     justify-content: space-around;
-	width: 1200px;
+	min-width: 1200px;
 	display: flex;
 }
-
 
 .left {left: -50px;}
 .right {left: 1208px;}

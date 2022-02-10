@@ -587,7 +587,7 @@
                 </div>
                 <div class="review_area">
                     <div class="review_box">
-                        <div class="review_List">
+                        <%-- <div class="review_List">
                             <img src="${contextPath}/resources/images/class-detail/none_profile_img.png">
                             <div class="review_id">use**</div>
                             <div class="review_date">2021-12-31 22:28:41</div>
@@ -777,7 +777,7 @@
                                     </button>
                                 </div>
                             </form>
-                        </div>
+                        </div> --%>
 
                     </div>
                 </div>
@@ -824,10 +824,11 @@
     	
     	let heartFlag = '${heartFlag}';
     	
-    	
+    	const teacherNo = "${cdtr.cdt.memberNo}";
     </script>
     
     <script src="${contextPath}/resources/js/classDetail.js"></script>
+    <script src="${contextPath}/resources/js/classDetail2.js"></script>
 	
 	<!-- 지도 API/JS -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c2fadae20e5509a211c93e833342aa29&libraries=services,clusterer,drawing"></script>

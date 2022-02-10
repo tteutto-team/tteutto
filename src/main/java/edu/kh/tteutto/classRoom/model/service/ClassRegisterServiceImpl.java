@@ -101,5 +101,62 @@ public class ClassRegisterServiceImpl implements ClassRegisterService{
 		
 		return epNo;
 	}
+
+	// 클래스의 선생 번호 가져오기
+	@Override
+	public int teacherNo(int no) {
+		return dao.teacherNo(no);
+	}
+
+	// 클래스 가져오기
+	@Override
+	public ClassDetail classSelect(int no) {
+		return dao.classSelect(no);
+	}
+
+	// 수업 회차 추가인지 확인용
+	@Override
+	public int checkEpCount(int classNo) {
+		return dao.checkEpCount(classNo);
+	}
+
+	// 원데이 스케쥴 등록
+	@Override
+	public int insertOneClassSchedule(Episode episode, List<EpisodeSchedule> epsList, int epCount) {
+
+		int ec = epCount;
+		int result = 0;
+		
+		for(EpisodeSchedule es : epsList) {
+			episode.setEpCount(ec);
+			int epNo = dao.insertOneEpisode(episode);
+			es.setEpNo(epNo);
+			dao.insertEpisodeSchedule(es);
+			ec++;
+			result++;
+		}
+		
+		return result;
+	}
+
+	// 정규 회차 추가 등록
+	@Override
+	public int insertClassScheduleplus(Episode episode, List<EpisodeSchedule> epsList, int epCount) {
+
+		int ec = epCount + 1;
+		episode.setEpCount(epCount);
+		
+		int epNo = dao.insertOneEpisode(episode);
+		
+		if(epNo > 0) {
+			
+			for(EpisodeSchedule es : epsList) {
+				es.setEpNo(epNo);
+				dao.insertEpisodeSchedule(es);
+			}
+		}
+		
+		return epNo;
+	}
 	
 }

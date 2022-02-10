@@ -1334,6 +1334,7 @@
             .review_List img{
                 border-radius: 50%;
                 float: left;
+                width: 64px;
             }
     
             .review_id{
@@ -1453,6 +1454,7 @@
                 line-height: 28px;
                 width: 30px;
                 height: 30px;
+                cursor: pointer;
             }
     
             .page-ul > li > a{

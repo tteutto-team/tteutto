@@ -377,8 +377,18 @@ function PopUp(){
     
     //path, 이름, option
 	window.open('/tteutto/register/preview','preview','width=1200, height=1200');
-	opener.document.getElementById('summernote').value = $('#coupon').val();
-	opener.document.getElementById('titleArea').value = $('#coupon').val();
+	
+	//opener.document.getElementById('summernote').value = $('#summernote').val();
+	//opener.document.getElementById('titleArea').value = $('#className').html();
+	//opener.document.getElementByName('classLevel').value = $('#classLevel').val();
+	//opener.document.getElementById('maxPerson').value = $('#maxPerson').val();
+	//console.log(document.getElementByName('images'));
+	//console.log(document.getElementByName('images').value);
+	
+	//console.log(document.getElementById("summernote").value);
+	//console.log(document.getElementById("titleArea").value);
+	//console.log(document.getElementByName("classLevel").value);
+	//console.log(document.getElementById("maxPerson").value);
     /*
     var frmData = document.getElementById("form");
     console.log(frmData);
@@ -388,6 +398,17 @@ function PopUp(){
      
     frmData.submit() ;
     */ 
-     
+     /*
+     console.log($("input[name=images]"));
+     console.log($("input[name=images]".length));
+     console.log($(".mini-img-box").children("img").attr("src"));
+     console.log($(".mini-img-box"));
+     console.log($(".mini-img-box").length);
+     console.log($("#mini-img").children(3));
+     */
+     for(i = 1; i<$(".mini-img-box").length; i++){
+	     let e = document.getElementById("mini-img").childNodes[1].childNodes[0].src
+	     console.log(e);	
+	 }
      
 }

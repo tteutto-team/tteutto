@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
 	<jsp:include page="../common/header.jsp"/>
 	<link rel="stylesheet" href="${contextPath}/resources/css/classInsert2.css"/>
@@ -13,7 +14,7 @@
             <div><span class="redText">* </span>필수</div> 
         </div>
 
-        <div> 코딩 오지게 잘하는 비법 <span id="ep-count">(1회차)</span> </div>    
+        <div> ${openClass.className} <c:if test="${openClass.classType == 1}"><span id="ep-count">(<c:if test="${openCount > 0}">${openCount}</c:if><c:if test="${openCount == 0}">1</c:if>회차)</span></c:if> <c:if test="${openClass.classType != 1}"><span id="ep-count">(원데이)</span></c:if>       <input type="hidden" name="memberNo" value="${openClass.classNo}"/> </div>    
             
             <div>
                 <div id="c-schedule">
@@ -23,6 +24,7 @@
                         <!-- <button type="button" id="testtest" >원데이테스트용</button> -->
                         <!-- <button type="button" id="testtest1" >다회차테스트용</button> -->
                     </div>
+                    
                     <div id="schedule-val">
                         <div><input type="button" id="schedule-btn" class="btn-click" value="날짜 불러오기"></input></div>
                         <div>* 일자별 수업 날짜를 선택하여 일정을 불러온 뒤 수업시간을 선택해주세요.</div>
@@ -43,31 +45,7 @@
                             </table>
                         </div>
                     </div>
-                    <div id="test-oneday-schedule" style="display: none;">
-                        <div><button type="button" id="schedule-btn2" class="btn-click">날짜 불러오기</button></div>
-                        <div>* 수업 날짜를 선택 후 불러온뒤 가능한 수업시간을 선택해주세요.</div>
-                        <div id="test-schedule-text" style="display: none;">
-                            <table id="test-table">
-                                <thead>
-
-                                </thead>
-                                <tbody>
-<!--                                     <tr>
-                                        <td class="time-td3">개강기간</td>
-                                        <td class="time-td">00/00/0000</td>
-                                        <td>~</td><td class="time-td">00/00/0000</td>
-                                    </tr> -->
-                                    <tr>
-                                        <td class="time-td3">개강기간</td>
-                                        <td id="schedule-td1" class="time-td">00/00/0000</td>
-                                        <td class="time-td4">~&nbsp</td>
-                                        <td id="schedule-td2" class="time-td">00/00/0000</td>
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    
                 </div>
 
             </div>
@@ -77,34 +55,36 @@
                 <div class="line2">
                     <input type="text" id="roadAddrPart1"  name="roadAddrPart1" class="input-style" placeholder="서울시 구로구 구로동 100" required>
                     <input type="text" id="addrDetail"  name="addrDetail" class="input-style" placeholder="스터디카페 비버통 2층" required>
-                    <!-- <button type="button" class="btn-click" onClick="goPopup();" >주소검색</button> -->
                     <input type="button" class="btn-click" onClick="goPopup();" value="주소검색"/> 
                 </div>
                 <input type="hidden" id="epPlace1" name="epPlace1"/>
                 <input type="hidden" id="epPlace2" name="epPlace2"/>
             </div>
 			
-
+			
             <div id="c-ptn">
                 <div class="line1">
                     <div><h4>가격/시간/횟수 <span class="redText">*</span></h4></div>
                 </div>
-                <div id="ptn-multi">
-                    <div>시간당 가격</div>
-                    <div><input type="number" id="time-price" class="input-style largeSize" required> &nbsp원</div>
-                    <div>1회당 수업시간</div>
-                    <div><input type="number" id="num-time" name="schdlTime" class="input-style largeSize" required> &nbsp시간</div>
-                    <div>총 수업횟수</div>
-                    <div><input type="number" id="num-class" class="input-style largeSize" readonly required> &nbsp회</div>
-                </div>
-                <div id="ptn-one" style="display: none;">
-                    <div>시간당 가격</div>
-                    <div><input type="number" id="time-price-one" class="input-style largeSize"> &nbsp원</div>
-                    <div>수업시간</div>
-                    <div><input type="number" id="num-time-one" class="input-style largeSize"> &nbsp시간</div>
-                </div>
+                <c:if test="${openClass.classType == 1}">
+	                <div id="ptn-multi">
+	                    <div>시간당 가격</div>
+	                    <div><input type="number" id="time-price" class="input-style largeSize" required> &nbsp원</div>
+	                    <div>1회당 수업시간</div>
+	                    <div><input type="number" id="num-time" name="schdlTime" class="input-style largeSize" required> &nbsp시간</div>
+	                    <div>총 수업횟수</div>
+	                    <div><input type="number" id="num-class" class="input-style largeSize" readonly required> &nbsp회</div>
+	                </div>
+                </c:if>
+                <c:if test="${openClass.classType != 1}">
+	                <div id="ptn-multi"">
+	                    <div>시간당 가격</div>
+	                    <div><input type="number" id="time-price" class="input-style largeSize time-price-one" required min="0"> &nbsp원</div>
+	                    <div>수업시간</div>
+	                    <div><input type="number" id="num-time" class="input-style largeSize num-time-one" required min="0" max="15"> &nbsp시간</div>
+	                </div>
+                </c:if>
             </div>
-
             <div id="c-price" class="bottomLine">
                 <div class="line1">
                     <div><h4>총 수업가격</h4></div>
