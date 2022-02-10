@@ -114,6 +114,22 @@ public class ClassDetailDAO {
 		return sqlSession.selectOne("classDetailMapper.getListCount", classNo);
 	}
 
+	/** 후기 삭제
+	 * @param reviewNo
+	 * @return result
+	 */
+	public int reviewDelete(int reviewNo) {
+		return sqlSession.update("classDetailMapper.reviewDelete", reviewNo);
+	}
+
+	/** 후기 수정
+	 * @param review
+	 * @return result
+	 */
+	public int reviewUpdate(ClassReview review) {
+		return sqlSession.update("classDetailMapper.reviewUpdate", review);
+	}
+
 	
 	
 

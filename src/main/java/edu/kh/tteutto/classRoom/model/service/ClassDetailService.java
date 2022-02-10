@@ -98,6 +98,18 @@ public interface ClassDetailService {
 	 */
 	ReviewPagination getPagination(int pageNum, int classNo);
 
+	/** 후기 삭제
+	 * @param reviewNo
+	 * @return result
+	 */
+	int reviewDelete(int reviewNo);
+
+	/** 후기 수정
+	 * @param review
+	 * @return result
+	 */
+	int reviewUpdate(ClassReview review);
+
 	
 	
 

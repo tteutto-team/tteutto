@@ -559,7 +559,7 @@ $(document).ready(function(){
 
     //댓글 더읽기버튼 클릭 이벤트
 
-    $('.moreBtn').click(function(){
+    $(document).on("click", '.moreBtn', function(){
         $(this).prev().removeClass("on");
         $(this).next().show();
         $(this).hide();
@@ -567,7 +567,7 @@ $(document).ready(function(){
 
     });
 
-    $('.foldBtn').click(function(){
+    $(document).on("click", '.foldBtn', function(){
         $(this).prev().prev().addClass("on");
         $(this).prev().show();
         $(this).hide();

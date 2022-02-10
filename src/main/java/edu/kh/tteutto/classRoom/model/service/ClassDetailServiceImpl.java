@@ -14,6 +14,7 @@ import edu.kh.tteutto.classRoom.model.vo.ReviewPagination;
 import edu.kh.tteutto.member.model.vo.Member;
 import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
 import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
+import edu.kh.tteutto.common.Util;
 import edu.kh.tteutto.main.model.vo.ClassList;
 
 
@@ -124,6 +125,23 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 		
 		return new ReviewPagination(listCount, pageNum);
 	}
+
+	// 후기 삭제
+	@Override
+	public int reviewDelete(int reviewNo) {
+		return dao.reviewDelete(reviewNo);
+	}
+
+	// 후기 수정
+	@Override
+	public int reviewUpdate(ClassReview review) {
+		review.setReviewContent(Util.XSS(review.getReviewContent()));
+		review.setReviewContent(Util.changeNewLine(review.getReviewContent()));
+		
+		return dao.reviewUpdate(review);
+	}
+	
+	
 
 	
 	
