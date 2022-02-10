@@ -102,7 +102,7 @@
 			    </when>
 			    
 			    <!-- 메인 페이지 주변 -->
-			    <when test="pageKey == 'surround'">
+			    <when test="pageKey == 'location'">
 			    	AND CLASS_AREA = '서울 동작구'
 			    </when>
 			    
@@ -124,7 +124,7 @@
 		)
 		WHERE EP_PRICE IS NOT NULL
 		<!-- 메인 페이지, 클래스 검색 목록 검색 결과 X -->
-		<if test="pageKey == 'surround' || pageKey == 'hot' || pageKey == 'new' || result == 'no'">
+		<if test="pageKey == 'location' || pageKey == 'hot' || pageKey == 'new' || result == 'no'">
 			AND ROWNUM &lt;= 12
 		</if>
 	</select>
