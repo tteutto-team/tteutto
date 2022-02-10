@@ -304,7 +304,7 @@ label[for="check1"] {
 	width:700px;
 	white-space:nowrap;
 	overflow-x:scroll;
-	cursor:pointer;
+	
 }
 
 #mini-img::-webkit-scrollbar{
@@ -325,6 +325,7 @@ label[for="check1"] {
 #mini-img img{
     width: 120px;
     height: 100px;
+    cursor:pointer;
 }
 
 .img-btn{
