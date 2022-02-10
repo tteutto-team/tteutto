@@ -141,10 +141,9 @@
 		        <c:if test="${fn:length(locationList) % 4 != 0 }">
 		            </div>
         		</c:if>
-		        
 		    </div>
-
         </div>
+        
         <div class="arrow left"><i class="icon-left prev"></i></div>
         <div class="arrow right"><i class="icon-right next"></i></div>
 
@@ -224,9 +223,7 @@
 		        <c:if test="${fn:length(hotList) % 4 != 0 }">
 		            </div>
         		</c:if>
-		        
 		    </div>
-
         </div>
         <div class="arrow left"><i class="icon-left prev"></i></div>
         <div class="arrow right"><i class="icon-right next"></i></div>
@@ -302,13 +299,12 @@
 		            <c:if test="${vs.index % 4 == 3 }">
 			            </div>
 	        		</c:if>
+	        		
 		        </c:forEach>
 		        <c:if test="${fn:length(newList) % 4 != 0 }">
 		            </div>
         		</c:if>
-		        
 		    </div>
-
         </div>
         <div class="arrow left"><i class="icon-left prev"></i></div>
         <div class="arrow right"><i class="icon-right next"></i></div>
