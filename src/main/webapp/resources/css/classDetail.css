@@ -17,6 +17,9 @@
                 /* line-height: 28px; */
                 margin : 0;
             }
+            body *{
+                font-family: 'IBM Plex Sans KR', sans-serif;
+            }
             
             .classContent *{ 
                 box-sizing: revert;

@@ -186,9 +186,28 @@ public class ClassDetailController {
 		
 		List<ClassReview> data = service.reviewList(pagination, classNo);
 		
+		/*
+		 * for(ClassReview review : data) {
+		 * review.setReviewContent(Util.changeNewLine2(review.getReviewContent())); }
+		 */
+		
 		result.put("data", data);
 		result.put("pagination", pagination);
 		
 		return result;
+	}
+	
+	// 후기 삭제
+	@RequestMapping(value="reviewDelete", method=RequestMethod.GET)
+	@ResponseBody
+	public int reviewDelete(int reviewNo) {
+		return service.reviewDelete(reviewNo);
+	}
+	
+	// 후기 수정
+	@RequestMapping(value="reviewUpdate", method=RequestMethod.GET)
+	@ResponseBody
+	public int reviewUpdate(ClassReview review) {
+		return service.reviewUpdate(review);
 	}
 }
