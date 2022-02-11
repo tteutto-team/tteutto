@@ -1,6 +1,8 @@
 package edu.kh.tteutto.chat.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,9 +33,15 @@ public class ChatRoomController {
 	
 	//채팅 목록
 	@RequestMapping("/chat/chatRoomList")
-	public String selectChatRoomList(Model model) {
+	public String selectChatRoomList(@ModelAttribute("loginMember") Member loginMember,
+									@RequestParam(value="mode", required=false, defaultValue="0")  int mode, 
+									Model model) {
 		
-		List<ChatRoom> chatRoomList = service.chatRoomList();
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("mode", mode);
+		map.put("memberNo", loginMember.getMemberNo());
+		
+		List<ChatRoom> chatRoomList = service.chatRoomList(map);
 		model.addAttribute("chatRoomList", chatRoomList);
 		
 		return "chat/chatRoomList";
@@ -47,30 +57,31 @@ public class ChatRoomController {
 	@RequestMapping("/chat/chatRoom")
 	public String openChatRoom(ChatRoom room, /*커맨드객체*/
 								@ModelAttribute("loginMember") Member loginMember,
-								RedirectAttributes ra){
+								RedirectAttributes ra, Model model){
 		
 		// loginMember에서 회원 번호 얻어와 room에 추가
 		room.setMemberNo(loginMember.getMemberNo());
 		
 		//채팅방 여는 service 호출 , 생성된 방 번호 얻어오기
-		int chatRoomNo = service.openChatRoom(room);
+		Map<String, Object> map = service.openChatRoom(room);
 		
-		String path = "redirect:/chat/";
-		
+		model.addAttribute("teacherInfo", map);
+		int chatRoomNo = Integer.parseInt(String.valueOf(map.get("CHAT_ROOM_NO")));
+		// 채팅방 번호 있음 == 이전 채팅 내용이 있음 -> 채팅 내역을 조회
 		if(chatRoomNo > 0) {
-			path += "room/" + chatRoomNo; // /chat/room/1
-		}else {
-			Util.swalSetMessage("채팅방 생성 실패", null, "error", ra);
-			path += "chatRoomList";
+			
+			List<ChatMessage> list = service.selectChatMessage(chatRoomNo);
+			model.addAttribute("list", list);
 		}
+		model.addAttribute("chatRoomNo", chatRoomNo);
 		
-		return path;
+		return "chat/chatRoom";
 		
 	}
 	
 	// 강사(or학생) -> 학생(or강사)에게 채팅메세지를 보내는 순간
 	// 채팅방 DB 삽입(생성) + 이전채팅 내역 얻어오기
-	@RequestMapping("/chat/room/{chatRoomNo}")
+	/*@RequestMapping("/chat/room/{chatRoomNo}")
 	public String joinChatRoom(@PathVariable("chatRoomNo") int chatRoomNo,
 								@ModelAttribute("loginMember") Member loginMember, 
 								ChatRoom chatRoom,
@@ -102,13 +113,17 @@ public class ChatRoomController {
 		}
 		
 		
-	}
+	}*/
 	
 	
 	
-	//쪽지 목록
+	//쪽지 목록 조회
 	@RequestMapping("/chat/messageList")
 	public String selectMessageList() {
+		
+		
+		
+		
 		return "chat/messageList";
 	}
 	

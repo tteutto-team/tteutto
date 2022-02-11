@@ -34,12 +34,16 @@
 
     </div>
     <div class="modeChange">
-        <select>
-            <option>수강생모드</option>
-            <option>강사모드</option>
+        <select id="selectMode">
+	        <!-- <span style="display:none" class="modeSpan">0</span> -->
+	        <!-- mode == 0일때 수강생 -->
+            <option value="0">수강생모드</option> 
+	        <!-- <span style="display:none" class="modeSpan">1</span> -->
+	        <!-- mode == 1일때 강사 -->
+            <option value="1">강사모드</option>
         </select>
     </div>
-
+${chatRoomList}
     <!-- 채팅리스트 -->
 	    <main class="chat_romm_list">
 	        <ul>
@@ -57,16 +61,15 @@
 	        			<c:forEach var="chatRoom" items="${chatRoomList}">
 	        				<input type="hidden" value="${chatRoom.chatRoomNo}">
 				            <li>
-				                <a href="${contextPath}/chat/chatRoom">
+				                <a class="aaa" href="${contextPath}/chat/chatRoom?chatRoomNo=${chatRoom.chatRoomNo}&mode=">
 				                    <img src="${contextPath}/resources/images/class-detail/teacherProfileImg.png" class="profile-img" alt="k페이프로필사진">
 				                    <div class="talk">
-				                    	<p class="classTitle"> [ <span> ${cdtr.cdt.className}</span> ] </p>
-				                        <p class="friend-name"><span>${chatRoom.teacherNm}</span> 강사님</p>
-				                        <p class="chat-content">${chatRoom.chatMessage.msgContent}</p>
+				                        <p class="friend-name"><span>${chatRoom.memberNm}</span> 강사님</p>
+				                        <p class="chat-content">${chatRoom.recentChatContent}</p>
 				                    </div>
 				                    <div class="chat-status">
-				                        <time datetime="15:40:00+09:00">${chatRoom.chatMessage.msgDt}</time>
-				                        <span class="chat-balloon">${chatRoom.chatMessage.unreadMsgCnt}</sapn>
+				                        <time datetime="15:40:00+09:00">${chatRoom.recentMsgDt}</time>
+				                       <%--  <span class="chat-balloon">${chatRoom.chatMessage.unreadMsgCnt}</sapn> --%>
 				                    </div>
 				                </a>
 				            </li>
@@ -120,6 +123,34 @@
 
             });
         });
+        
+        //수강생모드, 강사모드 구분
+      /*   $('option').on('click', function(){
+        	$.ajax({
+                url: "../chat/chatRoomList",
+                data: {
+                	mode : $(".modeSpan").text(); // 0 수강생모드
+                },
+                type: "POST",
+                success : function(data){
+                  console.log("삭제성공")
+                  $("#fillHeart").removeClass("iconFlag");
+                  $("#emptyHeart").addClass("iconFlag");
+                  heartFlag = 0;
+                },
+                error : function(){
+                  console.log("삭제에러")		
+                }
+        } */
+        	
+        	
+		$(".aaa").on("click", function(e){
+			e.preventDefault();	
+		
+			location.href = $(this).attr("href") + $("#selectMode").val();
+		})
+        	
+       
     </script>
 </body>
 

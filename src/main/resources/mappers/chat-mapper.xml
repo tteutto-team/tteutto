@@ -11,13 +11,12 @@
 		<result property="memberNo" column="MEMBER_NO"/>
 		<result property="teacherNo" column="TEACHER_NO"/>
 		<result property="memberNm" column="MEMBER_NM"/>
-		<result property="unreadMsgCnt" column="UNREAD_MSG_CNT"/>
-		<result property="teacherNm" column="TEACHER_NM"/>
-		<result property="teacherImg" column="TEACHER_IMG"/>
-		
-		<collection property="chatMessage" resultMap="chatMessage_rm"/>
+		<result property="memberImg" column="MEMBER_IMG"/>
+		<result property="recentChatContent" column="RECENT_CHAT_CONTENT"/>
+		<result property="recentMsgDt" column="RECENT_MSG_DT"/>
 
-		
+		<result property="classNo" column="CLASS_NO"/>
+		<result property="mode" column="MODE"/>
 	</resultMap>
 	
 	<resultMap type="ChatMessage" id="chatMessage_rm">
@@ -29,24 +28,28 @@
 		<result property="chatRoomNo" column="CHAT_ROOM_NO"/>
 		<result property="memberNo" column="MEMBER_NO"/>
 		<result property="memberNm" column="MEMBER_NM"/>
+		<result property="teacherNm" column="TEACHER_NM"/>
 	</resultMap>
 	
-	<!-- 채팅방 목록조회 -->
-	<select id="chatRoomList" resultMap="chatRoom_rm">
-		SELECT CHAT_ROOM_NO, MSG_CONTENT, MSG_DT,
-	        (SELECT DISTINCT MEMBER_NM
-	            FROM CHAT_MESSAGE
-	            JOIN TEACHER ON TEACHER.MEMBER_NO = CHAT_MESSAGE.MEMBER_NO
-	            JOIN MEMBER ON TEACHER.MEMBER_NO = MEMBER.MEMBER_NO
-	            WHERE CHAT_ROOM_NO = #{chatRoomNo}) TEACHER_NM ,
-	        (SELECT DISTINCT teacher.teacher_img
-	            FROM CHAT_MESSAGE
-	            JOIN TEACHER ON TEACHER.MEMBER_NO = CHAT_MESSAGE.MEMBER_NO
-	            JOIN MEMBER ON TEACHER.MEMBER_NO = MEMBER.MEMBER_NO
-	            WHERE CHAT_ROOM_NO = #{chatRoomNo}) TEACHER_IMG ,
-	        (SELECT COUNT(MSG_ST) FROM CHAT_MESSAGE WHERE MSG_ST = 0 AND CHAT_ROOM_NO = #{chatRoomNo}) UNREAD_MSG_CNT
-		FROM CHAT_MESSAGE
-		WHERE MSG_NO IN (SELECT MAX(MSG_NO) FROM CHAT_MESSAGE WHERE CHAT_ROOM_NO = #{chatRoomNo})
+	<!-- 학생 채팅방 목록조회 -->
+	<select id="studentChatRoomList" resultMap="chatRoom_rm">
+		SELECT CHAT_ROOM_NO, MEMBER_NM, TEACHER_IMG MEMBER_IMG,
+		        RECENT_CHAT_CONTENT(C.CHAT_ROOM_NO) RECENT_CHAT_CONTENT, 
+		        TO_CHAR(RECENT_MSG_DT(C.CHAT_ROOM_NO), 'MM"월"DD"일" HH24:MI') RECENT_MSG_DT
+		FROM CHAT_ROOM C
+		JOIN MEMBER M ON(C.TEACHER_NO = M.MEMBER_NO)
+		JOIN TEACHER T ON(C.TEACHER_NO = T.MEMBER_NO)
+		WHERE C.MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 강사 채팅방 목록조회 -->
+	<select id="teacherChatRoomList" resultMap="chatRoom_rm">
+		SELECT CHAT_ROOM_NO, MEMBER_NM, MEMBER_IMG, 
+		        RECENT_CHAT_CONTENT(C.CHAT_ROOM_NO) RECENT_CHAT_CONTENT, 
+		        TO_CHAR(RECENT_MSG_DT(C.CHAT_ROOM_NO), 'MM"월"DD"일" HH24:MI') RECENT_MSG_DT
+		FROM CHAT_ROOM C
+		JOIN MEMBER M ON(C.MEMBER_NO = M.MEMBER_NO)
+		WHERE TEACHER_NO = #{memberNo}
 	</select>
 	
 	<!-- 채팅방 열기 -->
@@ -57,7 +60,7 @@
 		</selectKey>
 		
 		INSERT INTO CHAT_ROOM VALUSE
-		(#{chatRoomNo}, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, (SELECT MEMBER_NO FROM CLASS WHERE CLASS_NO=#{teacherNo}))
+		(#{chatRoomNo}, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, (SELECT MEMBER_NO FROM CLASS WHERE CLASS_NO=#{classNo}))
 	</insert>
 	
 	
@@ -76,7 +79,8 @@
 	<!-- 채팅 메세지 조회  -->
 	<select id="selectChatMessage" resultMap="chatMessage_rm">
 		SELECT MSG_CONTENT, TO_CHAR(MSG_DT, 'YYYY-MM-DD HH24:MI') MSG_DT,
-		MEMBER_NO, MEMBER_NM
+				MEMBER_NO, MEMBER_NM, 
+				(SELECT MEMBER_NM FROM CHAT_ROOM JOIN MEMBER ON(TEACHER_NO = MEMBER.MEMBER_NO) WHERE CHAT_ROOM_NO =  #{chatRoomNo}) TEACHER_NM
 		FROM CHAT_MESSAGE
 		JOIN MEMBER USING(MEMBER_NO)
 		WHERE CHAT_ROOM_NO = #{chatRoomNo}
@@ -85,18 +89,23 @@
 	
 	
 	<!-- 이미 같은 강사, 학생이 들어가있는 채팅방 번호를 조회 (없으면 0) -->
-	<select id="selectChatRoomNo" resultType="_int">
-		SELECT * FROM CHAT_ROOM
-		WHERE MEMBER_NO = #{memberNo}
-		AND TEACHER_NO = (SELECT MEMBER_NO FROM CLASS
-		                    WHERE CLASS_NO = #{classNo})
-		AND CHAT_ROOM_ST != 1
+	<select id="selectChatRoomNo" resultType="map">
+		SELECT MEMBER.MEMBER_NO, MEMBER_NM,
+		    NVL((SELECT CHAT_ROOM_NO FROM CHAT_ROOM
+		        JOIN MEMBER ON(TEACHER_NO = MEMBER.MEMBER_NO)
+		        JOIN CLASS ON(CLASS.MEMBER_NO = TEACHER_NO)
+		        WHERE CLASS_NO = ${classNo}
+		        AND CHAT_ROOM.MEMBER_NO = ${memberNo} AND CHAT_ROOM_ST != 1 ), 0) CHAT_ROOM_NO
+		FROM CLASS
+		JOIN MEMBER ON(CLASS.MEMBER_NO = MEMBER.MEMBER_NO)
+		WHERE CLASS_NO = ${classNo}
+		
 	</select>
 	
 	
 	<!-- 채팅 내용 삽입 -->
 	<insert id="insertMessage">
-		INSERT INTO CHAT_MESSAGE VALUES (SEQ_MSG_NO.NEXTVAL, #{msgContent}, DEFAULT, DEFAULT, #{chatRoomNo}, #{memberNo});
+		INSERT INTO CHAT_MESSAGE VALUES (SEQ_MSG_NO.NEXTVAL, #{msgContent}, DEFAULT, DEFAULT, #{chatRoomNo}, #{memberNo})
 	</insert>
 	
 

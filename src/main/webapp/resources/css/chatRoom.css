@@ -42,7 +42,7 @@
         .chat_wrap .item .box .time{
         	font-size: 11px; 
         	color: #999; 
-        	position: absolute; 
+        	/* position: absolute; */ 
         	right: -75px; 
         	bottom: 0; 
         	width: 70px;
@@ -118,9 +118,9 @@
             cursor: pointer;
         }
 
-        .flex_wrap{
+        /* .flex_wrap{
             display: flex;
-        }
+        } */
 
         /* .tteuttoProfile{
             display: flex;

@@ -1,6 +1,7 @@
 package edu.kh.tteutto.chat.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,38 +20,27 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 
 	// 채팅방 목록조회
 	@Override
-	public List<ChatRoom> chatRoomList() {
-		return dao.chatRoomList();
+	public List<ChatRoom> chatRoomList(Map<String, Integer> map) {
+		return dao.chatRoomList(map);
 	}
 
-	// 채팅방 열기
+	// 강사번호, 강사명, 이전 채팅 기록이 있으면 채팅방 번호 조회
 	@Override
-	public int openChatRoom(ChatRoom room) {
+	public Map<String, Object>  openChatRoom(ChatRoom room) {
 		
-		// 이미 같은 강사, 학생이 들어가있는 채팅방 번호를 조회 (없으면 0)
-		int chatRoomNo = dao.selectChatRoomNo(room);
-		
-		if(chatRoomNo > 0) {
-			return chatRoomNo;
-			
+		if(room.getChatRoomNo() > 0) {
+			return dao.selectChatRoomNo2(room);
 		}else {
-			int result = dao.openChatRoom(room);
-			
-			if(result > 0 ) { //성공
-				return room.getChatRoomNo();
-			
-			}else { //실패
-				return 0;
-			}
+			return dao.selectChatRoomNo(room);
 		}
 		
 	}
 
-	// 채팅방 입장 + 채팅 내역(메세지) 조회
+	// 채팅 내역(메세지) 조회
 	@Override
-	public List<ChatMessage> joinChatRoom(ChatRoom chatRoom) {
+	public List<ChatMessage> selectChatMessage(int chatRoomNo) {
 		// 1. 파라미터로 전달받은 방번호와 일치하는 방이 DB에 있는지 검사
-				int result = dao.existsChatRoom(chatRoom.getChatRoomNo());
+				int result = dao.existsChatRoom(chatRoomNo);
 				
 				// 2-1. 방이 있는 경우 
 				if( result > 0) {
@@ -63,7 +53,7 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 //					
 					
 					// 2-1-2. 해당 방번호와 일치하는 모든 메세지를 CHAT_MESSAGE 테이블에서 조회
-					return dao.selectChatMessage(chatRoom.getChatRoomNo());
+					return dao.selectChatMessage(chatRoomNo);
 					
 				}else { // 2-2. 방이 없는 경우
 					return null;
