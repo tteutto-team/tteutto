@@ -210,4 +210,26 @@ public class ClassDetailController {
 	public int reviewUpdate(ClassReview review) {
 		return service.reviewUpdate(review);
 	}
+	
+	// 신고하기
+	@RequestMapping(value="report", method=RequestMethod.GET)
+	@ResponseBody
+	public int report(int memberNo, String reportContent, int episodeNo) {
+		
+		reportContent = Util.XSS(reportContent);
+		reportContent = Util.changeNewLine(reportContent);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("registerNo", 0);
+		map.put("memberNo", memberNo);
+		map.put("reportContent", reportContent);
+		map.put("episodeNo", episodeNo);
+		
+		int result = service.report(map);
+		
+		System.out.println(map);
+		
+		return result;
+	}
 }

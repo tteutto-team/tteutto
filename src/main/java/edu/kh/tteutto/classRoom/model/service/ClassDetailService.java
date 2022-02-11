@@ -110,6 +110,12 @@ public interface ClassDetailService {
 	 */
 	int reviewUpdate(ClassReview review);
 
+	/** 후기 신고하기
+	 * @param map
+	 * @return result
+	 */
+	int report(Map<String, Object> map);
+
 	
 	
 

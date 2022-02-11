@@ -130,6 +130,14 @@ public class ClassDetailDAO {
 		return sqlSession.update("classDetailMapper.reviewUpdate", review);
 	}
 
+	/** 후기 신고하기
+	 * @param map
+	 * @return result
+	 */
+	public int report(Map<String, Object> map) {
+		return sqlSession.insert("classDetailMapper.report", map);
+	}
+
 	
 	
 
