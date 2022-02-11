@@ -12,8 +12,11 @@
 integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" 
 crossorigin="anonymous"/>
 
+<!-- 브이월드 -->
+<link rel="stylesheet" href="http://openlayers.org/en/latest/css/ol.css" type="text/css">
+
 <main>
-	<div class="searchList">
+	<div class="classList">
 		<c:choose>
 			<c:when test="${empty searchList}">
 				<%-- 검색 결과가 없을 때의 화면 --%>
@@ -25,12 +28,12 @@ crossorigin="anonymous"/>
 				</div>
 				
 				<c:forEach items="${recommendList}" var="classList">					
-				<%-- 클래스 카드 --%>
+					<%-- 클래스 카드 --%>
 					<div class="class">
 						<div class="image">
 							<%-- 클래스 이미지 --%>
 							<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-							onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}'">
+							onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epNo=${classList.episodeNo}'">
 							
 							<%-- 수업 등록 지역 --%>
 							<p class="location-p">${classList.classArea}</p>
@@ -77,7 +80,52 @@ crossorigin="anonymous"/>
 					
 					<%-- 옵션 선택 --%>
 					<form action="" method="get" name="optionForm">
+						<div class="price">
+							<div class="price-chk">
+		                    	<input type="checkbox" name="price" value="1" id="price1">
+		                    	<label for="price1"></label>
+		                    	<label for="price1" class="label prevent-dragging">1만 원 미만</label>
+							</div>
+							
+							<div class="price-chk">
+		                    	<input type="checkbox" name="price" value="2" id="price2">
+		                    	<label for="price2"></label>
+				            	<label for="price2" class="label prevent-dragging">1만 원 ~ 3만 원</label>
+							</div>
+							
+							<div class="price-chk">
+		                    	<input type="checkbox" name="price" value="3" id="price3">
+		                    	<label for="price3"></label>
+				            	<label for="price3" class="label prevent-dragging">3만 원 ~ 5만 원</label>
+							</div>
+							
+							<div class="price-chk">
+		                    	<input type="checkbox" name="price" value="4" id="price4">
+		                    	<label for="price4"></label>
+				            	<label for="price4" class="label prevent-dragging">5만 원 ~ 10만 원</label>
+							</div>
+							
+							<div class="price-chk">
+					            <input type="checkbox" name="price" value="5" id="price5">
+					            <label for="price5"></label>
+					            <label for="price5" class="label prevent-dragging">10만 원 초과</label>
+							</div>
+	                    </div>
+						
 						<div class="select">
+				            <!-- 브이월드 행정구역도를 이용한 셀렉트 박스 구현... 공간정보를 기반으로 하고 있어서 국가공간정보포털보다 느림 -->
+	                        <article class="cont-select">
+	                        	<select id="sido_code" name="area1" class="select-style btn-select" style="appearance:none; font-size:15px; font-family: 'IBM Plex Sans KR', sans-serif;">
+	                            	<option class="list-member">선택</option>
+	                        	</select>
+	                        </article>
+	                        
+	                        <article class="cont-select">	
+	                        	<select id="sigoon_code" name="area2" class="select-style btn-select" style="appearance:none; font-size:15px; font-family: 'IBM Plex Sans KR', sans-serif;">
+	                            	<option class="list-member">선택</option>
+	                        	</select>
+	                        </article>
+	                        
 				            <article class="cont-select">
 				                <input type="hidden" name="classType">
 				                <button class="btn-select" type="button">수업 형태</button>
@@ -99,102 +147,62 @@ crossorigin="anonymous"/>
 				                </ul>
 				            </article>
 						</div>
-			             
-			            <div>
-				            <input type="checkbox" name="classDay" value="월">월
-				            <input type="checkbox" name="classDay" value="화">화
-				            <input type="checkbox" name="classDay" value="수">수
-				            <input type="checkbox" name="classDay" value="목">목
-				            <input type="checkbox" name="classDay" value="금">금
-				            <input type="checkbox" name="classDay" value="토">토
-				            <input type="checkbox" name="classDay" value="일">일
-			            </div>
-			            
-			            <div>
-				            <input type="checkbox" name="classPrice" value="1">1만원대
-				            <input type="checkbox" name="classPrice" value="2">2만원대
-				            <input type="checkbox" name="classPrice" value="3">3만원대
-				            <input type="checkbox" name="classPrice" value="4">4만원대
-				            <input type="checkbox" name="classPrice" value="5">5만원대
-			            </div>
-			            
-			            <div class="bottomLine" style="clear: both;">
-			                <div class="line1 h4-height"><h4>수업등록지역 <span class="redText">*</span></h4></div>
-			                <div class="line2">
-			                    <!-- 브이월드 행정구역도를 이용한 셀렉트 박스 구현... 공간정보를 기반으로 하고 있어서 국가공간정보포털보다 느림 -->
-			                    <!-- <form id="nsdiSearchForm" action="#" class="form_data" onsubmit="return false;search();"> -->
-			                        <select id="sido_code" name="area1" class="select-style btn-select" required>
-			                            <option class="list-member">선택</option>
-			                        </select>
-			                        <select id="sigoon_code" name="area2" class="select-style btn-select" required>
-			                            <option class="list-member">선택</option>
-			                        </select>
-			                        <input type="hidden" id="classArea1" name="classArea1" value=""/>
-			                        <input type="hidden" id="classArea2" name="classArea2" value=""/>
-			                    <!-- </form> -->
-			                </div>        
-           				</div>
 					</form>
 			            
 		            <%-- 클래스 목록 --%>
-		            <div class="new-class">
-						<div class="new-class-bottom">
-		
-							<c:forEach items="${searchList}" var="classList">					
-							<%-- 클래스 카드 --%>
-								<div class="class">
-									<div class="image">
-										<%-- 클래스 이미지 --%>
-										<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-										onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}'">
-										
-										<%-- 수업 등록 지역 --%>
-										<p class="location-p">${classList.classArea}</p>
-									</div>
-									
-									<%-- 클래스 찜하기 버튼 > 찜 X --%>
-									<c:if test="${classList.heartFlag == 0}">
-										<button type="button" class="btn_like" id="${classList.classNo}">
-											<span class="img_emoti">좋아요</span>
-											<span class="ani_heart_m"></span>
-										</button>
-									</c:if>
-									
-									<%-- 클래스 찜하기 버튼 > 찜 O --%>
-									<c:if test="${classList.heartFlag == 1}">
-										<button type="button" class="btn_like btn_unlike" id="${classList.classNo}">
-											<span class="img_emoti">좋아요</span>
-											<span class="ani_heart_m hi"></span>
-										</button>
-									</c:if>
-						
-									<div class="detail-info">
-										<span class="category-name">${classList.categoryName}</span> <%-- 카테고리명 --%>
-										
-										<%-- 클래스명 --%>
-										<div class="class-name">
-											<c:choose>
-												<c:when test="${classList.classType == 0}">[원데이] </c:when>
-												<c:otherwise>[${classList.episodeNo}회차] </c:otherwise>
-											</c:choose>
-											${classList.className}
-										</div>
-										
-										<div class="grade">
-				                            <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 평점 --%>
-				                            <i class="fi-rr-heart"></i> <span>${classList.heartCount}</span> <%-- 찜 개수 --%>
-			                        	</div>
-										
-										<div class="detail-info-bottom">
-											<img src="${contextPath}/resources/images/teacher/${classList.teacherImage}"> <%-- 강사 프로필 이미지 --%>
-											<span class="teacher-name">${classList.memberName}</span> <%-- 강사명 --%>
-											<span class="class-price"><fmt:formatNumber value="${classList.episodePrice}" pattern="#,###"/>원</span> <%-- 수업료 --%>
-										</div>
-									</div>
+					<c:forEach items="${searchList}" var="classList">					
+						<%-- 클래스 카드 --%>
+						<div class="class">
+							<div class="image">
+								<%-- 클래스 이미지 --%>
+								<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
+								onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epNo=${classList.episodeNo}'">
+								
+								<%-- 수업 등록 지역 --%>
+								<p class="location-p">${classList.classArea}</p>
+							</div>
+							
+							<%-- 클래스 찜하기 버튼 > 찜 X --%>
+							<c:if test="${classList.heartFlag == 0}">
+								<button type="button" class="btn_like" id="${classList.classNo}">
+									<span class="img_emoti">좋아요</span>
+									<span class="ani_heart_m"></span>
+								</button>
+							</c:if>
+							
+							<%-- 클래스 찜하기 버튼 > 찜 O --%>
+							<c:if test="${classList.heartFlag == 1}">
+								<button type="button" class="btn_like btn_unlike" id="${classList.classNo}">
+									<span class="img_emoti">좋아요</span>
+									<span class="ani_heart_m hi"></span>
+								</button>
+							</c:if>
+				
+							<div class="detail-info">
+								<span class="category-name">${classList.categoryName}</span> <%-- 카테고리명 --%>
+								
+								<%-- 클래스명 --%>
+								<div class="class-name">
+									<c:choose>
+										<c:when test="${classList.classType == 0}">[원데이] </c:when>
+										<c:otherwise>[${classList.episodeNo}회차] </c:otherwise>
+									</c:choose>
+									${classList.className}
 								</div>
-							</c:forEach>
+								
+								<div class="grade">
+		                            <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 평점 --%>
+		                            <i class="fi-rr-heart"></i> <span>${classList.heartCount}</span> <%-- 찜 개수 --%>
+	                        	</div>
+								
+								<div class="detail-info-bottom">
+									<img src="${contextPath}/resources/images/teacher/${classList.teacherImage}"> <%-- 강사 프로필 이미지 --%>
+									<span class="teacher-name">${classList.memberName}</span> <%-- 강사명 --%>
+									<span class="class-price"><fmt:formatNumber value="${classList.episodePrice}" pattern="#,###"/>원</span> <%-- 수업료 --%>
+								</div>
+							</div>
 						</div>
-					</div>
+					</c:forEach>
 				</div>
 			</c:otherwise>
 		</c:choose>
@@ -236,6 +244,9 @@ crossorigin="anonymous"/>
         </c:if>
 	</div>
 </main>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="${contextPath}/resources/js/vworld.js"></script>
 
 <jsp:include page="../common/footer.jsp"/>
 
@@ -286,23 +297,26 @@ crossorigin="anonymous"/>
 		        btn[j].innerText = event.target.innerText;
 		        $(btn[j]).prev().val(event.target.innerText);
 		        btn[j].classList.remove('on');
+		        
+		        <%-- input type='hidden'은 value가 변해도 change 이벤트가 발생하지 않기 때문에 강제 발생 --%>
+		        $(btn[j]).prev().change();
 		    }
 		});
 	}
 	
 	<%-- 클래스 카드 찜하기 버튼 색상 변경 --%>
 	$('.btn_like').click(function() {
-		
 		const classNo = this.getAttribute("id");
 		
 		if ("${loginMember}" != "") {
 			const heartBtn = this;
 			
 			$.ajax({
-				url : "${contextPath}/member2/changeHeart", 
+				url : "${contextPath}/member/changeHeart", 
 				data : {"classNo" : classNo}, 
 				success : function(result) {
-					console.log(result)
+					console.log(result);
+					
 					if (result > 0) {
 					    if ($(heartBtn).hasClass('btn_unlike')) {
 					        $(heartBtn).removeClass('btn_unlike');
@@ -318,5 +332,19 @@ crossorigin="anonymous"/>
 			}) 
 		
 		} else alert("로그인 후 이용 가능합니다.");
+	});
+	
+	<%-- 클래스 목록 옵션 변경 --%>
+	$('[name=optionForm] input').on("change", function() {
+		const formData = new FormData($('[name=optionForm]')[0]);
+		
+		$.ajax({
+			url : "${contextPath}/main/changeOption", 
+			data : formData, 
+			type : "post",
+			dataType : "json", 
+		 	contentType: false,
+		 	processData: false
+		})
 	});
 </script>

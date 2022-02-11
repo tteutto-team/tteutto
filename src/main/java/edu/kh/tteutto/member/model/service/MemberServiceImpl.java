@@ -378,16 +378,32 @@ public class MemberServiceImpl implements MemberService{
 		return result;
 	}
 	
-	// 클래스 개수 조회 + 페이지네이션
+	// 클래스 개수 조회
+	@Override
 	public Pagination getPagination(Map<String, Object> map, int page) {
 		int wishListCount = dao.getWishListCount(map);
 		return new Pagination(wishListCount, page);
 	}
-	
-	// 클래스 카드 목록 조회
+
+	// 클래스 카드 조회
 	@Override
 	public List<ClassList> selectWishList(Pagination pagination, Map<String, Object> map) {
 		return dao.selectWishList(pagination, map);
+	}
+
+	// 찜한 클래스 삽입 & 삭제
+	@Override
+	public int changeHeart(Map<String, Object> map) {
+		int heart = 0;
+		
+		try {
+			heart = dao.insertHeart(map);
+			
+		} catch (Exception e) {
+			heart = dao.deleteHeart(map);
+		}
+		
+		return heart;
 	}
 
 	// 학생 수강신청 목록 조회
@@ -476,6 +492,12 @@ public class MemberServiceImpl implements MemberService{
 		int listCount = dao.reviewCount(memberNo);
 		
 		return new Pagination(listCount, cp);
+	}
+
+	// 강사 신청 이미 했는지 체크
+	@Override
+	public int teacherSt(int memberNo) {
+		return dao.teacherSt(memberNo);
 	}
 	
 

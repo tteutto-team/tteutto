@@ -236,13 +236,13 @@
             
             <!-- 네비바 -->
             <div class="classDetailContainer">
-                <img id="mainImage" class="classMainImage" src="${contextPath}/resources/images/class-detail/temp3.jpg" id="mainImg">
+                <img id="mainImage" class="classMainImage" src="${contextPath}/resources/images/class-detail/temp3.jpg" id="mainImg" style="float:left; width:85%;">
                 <div id="sideImage" class="sideImg">
                     <img class="sideImgStyle" src="${contextPath}/resources/images/class-detail/temp3.jpg" id="sideImg1">
                     <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/temp6.jpg" id="sideImg2">
                     <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/temp5.jpg" id="sideImg3">
-                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/temp5.jpg" id="sideImg4">
-                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/temp5.jpg" id="sideImg5">
+                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/temp7.jpg" id="sideImg4">
+                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/temp8.jpg"id="sideImg5">
                 </div> 
 
             </div>
@@ -258,13 +258,14 @@
             
             <!-- 내용1 : 강의소개 -->
             <div id="section1" class="scroll"></div>
-            <div class="section1"  data-aos="fade-up">
+            <div class="section1">
                 <div class="introClass" style="margin-top: 100px;"> 
-                   	<div id="summernote"></div>
                 </div>
-
+                   	<div id="summernote"></div>
+			
                 <!-- 지도부분 -->
                     
+				<!--
                 <div class="introClass"> 
                     <p data-aos="fade-up">클래스 장소</p> 
                 </div>
@@ -274,9 +275,10 @@
                 </div>
                 <div id="place_map" data-aos="fade-up"><div id="map" style="width:100%;height:100%;"></div></div>
                 
-            </div>
+            </div>-->
 
             <!-- 내용2 : 강사소개 -->
+            <!--
             <div id="section2"  class="scroll"></div>
             <div class="section2" >
                 <div class="teacherProfile" data-aos="flip-up">
@@ -294,7 +296,8 @@
                 <div class="profileText" data-aos="flip-up" >
                     <p>안녕하세요. ㅇㅇ클래스 강사 ㅇㅇㅇ입니다. <br> 
                         목숨을 사는가 싶이 살았으며 그들의 그림자는 천고에 사라지지 않는 것이다 이것은 현저하게 일월과 같은 예가 되려니와 그와 같지 못하다 할지라도 창공에 반짝이는 뭇 별과 같이 산야에 피어나는 군영과 같이 이상은 실로 인간의</p>
-                </div>
+                </div>-->
+                
                 <!-- <div class="profileText2">
                     <p>
                         <span id="qa1">
@@ -319,6 +322,7 @@
                 </div> -->
             </div>
             
+            <%-- 
             <!-- 내용3 : 수강생통계 -->
             <div id="section3"  class="scroll"></div>
             <div class="section3" >
@@ -360,7 +364,7 @@
                     <!-- 성별차트 -->
                     <div id="genderChart"  data-aos="fade-up" style="display: none;"></div>
                 </div>
-            </div>
+            </div>--%>
 
             <!-- 내용4 : 환불정책 -->
             <div id="section4"  class="scroll"></div>
@@ -625,7 +629,7 @@
     </div>
     
 <jsp:include page="../common/footer.jsp"/>
-    
+<%--     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- 차트 라이브러리 js -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -644,7 +648,7 @@
     
     <!-- 결제 api -->
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-    
+     --%>
     
     <script>
 	

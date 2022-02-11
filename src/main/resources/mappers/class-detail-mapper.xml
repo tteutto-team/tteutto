@@ -267,7 +267,7 @@
 	
 	<!-- 후기 목록 조회 -->
 	<select id="reviewList" resultMap="classReview_rm">
-		SELECT RE_STAR, RE_CONTENT, RE_DT, RE_ST, SUBSTR(MEMBER_NM, 1, 1) MEMBER_NM, NVL(MEMBER_IMG, 'temp.png') MEMBER_IMG, MEMBER_NO
+		SELECT RE_STAR, RE_CONTENT, RE_DT, RE_ST, SUBSTR(MEMBER_NM, 1, 1) MEMBER_NM, NVL(MEMBER_IMG, 'temp.png') MEMBER_IMG, MEMBER_NO, RE_NO
 		FROM REVIEW
 		JOIN REGISTER USING(REG_NO)
 		JOIN MEMBER USING(MEMBER_NO)
@@ -284,4 +284,22 @@
         JOIN EPISODE USING(EP_NO)
 		WHERE CLASS_NO = #{classNo} AND RE_ST = 0
 	</select>
+	
+	<!-- 후기 삭제 -->
+	<update id="reviewDelete">
+		UPDATE REVIEW SET RE_ST = 1 WHERE RE_NO = #{reviewNo}
+	</update>
+	
+	<!-- 후기 수정 -->
+	<update id="reviewUpdate">
+		UPDATE REVIEW SET RE_CONTENT = #{reviewContent}, RE_STAR = #{reviewStar} WHERE RE_NO = #{reviewNo}
+	</update>
+	
+	<!-- 후기 신고 -->
+	<insert id="report" useGeneratedKeys="true" parameterType="hashmap">
+		<selectKey order="BEFORE" resultType="_int" keyProperty="registerNo">
+			SELECT REG_NO FROM REGISTER WHERE MEMBER_NO = #{memberNo} AND EP_NO = #{episodeNo}
+		</selectKey>
+		INSERT INTO REPORT VALUES(SEQ_REPORT_NO.NEXTVAL, 1, #{reportContent}, 0, #{registerNo}, SYSDATE)
+	</insert>
 </mapper>

@@ -13,6 +13,9 @@
 		<result property="memberName" column="MEMBER_NM"/>
 		<result property="categoryDetailName" column="CT_DETAIL_NM"/>
 		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="themeNo" column="THEME_NO"/>
+		<result property="themeImage" column="THEME_IMG"/>
+		<result property="themeColor" column="THEME_COLOR"/>
 		<result property="episodeNo" column="EP_NO"/>
 		<result property="starAverage" column="STAR_AVG"/>
 		<result property="heartFlag" column="HEART_FLAG"/>
@@ -56,7 +59,7 @@
 	<select id="selectClassCard" resultMap="classList_rm">
 		SELECT * FROM (
 		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, OPEN_EP_NO(C.CLASS_NO) EP_NO, CLASS_NM, 
-		    TH_IMG_NM, CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, 
+		    TH_IMG_NM, CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, THEME_NO, 
 		    OPEN_PRICE(C.CLASS_NO) EP_PRICE, 
 		        NVL((SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
 		            JOIN EPISODE USING(CLASS_NO) 
@@ -71,6 +74,8 @@
 		    JOIN TEACHER USING(MEMBER_NO) 
 		    JOIN MEMBER USING(MEMBER_NO) 
 		    LEFT JOIN CT_DETAIL USING(CT_DETAIL_NO) 
+		    LEFT JOIN CLASS_THEME CTH ON(C.CLASS_NO = CTH.CLASS_NO) 
+    		LEFT JOIN THEME USING(THEME_NO) 
 		    WHERE TH_IMG_LEVEL = 0 AND MEMBER_ST = 0 
 			<choose>
 		    	<!-- 클래스 검색 목록 -->
@@ -99,6 +104,11 @@
 			    <!-- 찜한 클래스 -->
 			    <when test="pageKey == 'wish'">
 			    	AND C.CLASS_NO IN (SELECT CLASS_NO FROM CLASS_WISH WHERE MEMBER_NO = ${memberNo})
+			    </when>
+			    
+			    <!-- 클래스 테마 목록 -->
+			    <when test="pageKey == 'theme'">
+			    	AND THEME_ST = 3 AND SYSDATE BETWEEN THEME_START_DT AND THEME_END_DT AND THEME_NO = ${themeNo}
 			    </when>
 			    
 			    <!-- 메인 페이지 주변 -->
@@ -133,4 +143,9 @@
 	<delete id="deleteHeart">
 		DELETE FROM CLASS_WISH WHERE MEMBER_NO = ${memberNo} AND CLASS_NO = ${classNo}
 	</delete>
+	
+	<!-- 클래스 테마 이미지 조회 -->
+	<select id="selectThemeImage" resultMap="classList_rm">
+		SELECT THEME_NO, THEME_IMG, THEME_COLOR FROM THEME
+	</select>
 </mapper>

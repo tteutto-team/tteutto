@@ -33,4 +33,15 @@ public interface ClassListService {
 	 * @return recommendList
 	 */
 	List<ClassList> selectRecoList(Map<String, Object> map);
+
+	/** 클래스 테마 이미지 조회
+	 * @return themeImage
+	 */
+	List<ClassList> selectThemeImage();
+	
+	/** 클래스 카드 조회 (클래스 테마 목록)
+	 * @param map
+	 * @return
+	 */
+	List<ClassList> selectThemeList(Map<String, Object> map);
 }

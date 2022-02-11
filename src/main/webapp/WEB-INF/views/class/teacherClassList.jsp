@@ -8,6 +8,8 @@
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 <link rel="stylesheet" href="${contextPath}/resources/css/teacherClassList.css"/>
 
+${pagination}
+
 <div class="container">
         <main>
             <div class="left">
@@ -55,7 +57,7 @@
 	                        </div>
 					
 					<c:forEach items="${episodeList}" var="episode" varStatus="episodeStatus">
-						<c:if test="${!empty episode.classNo}">
+						<c:if test="${!empty episode.classNo && classOne.classNo == episode.classNo}">
 	                        <div class="invisible-div"  id="epsode_${episode.epNo}">
 		                        <div class="column">${episode.epCount}</div>
 		                        <div class="column">${episode.date}</div>
@@ -102,31 +104,42 @@
 					</c:forEach>	<!-- classList end -->
                 </div>	<!-- table end -->
                 
-                <!-- 페이지네이션 -->
-                <div class="page-number">
-                    <ul class="page-ul">
-                        <li>
-                            <a href="#"><i class="fas fa-angle-double-left"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fas fa-angle-left"></i></a>
-                        </li>
-                        
-                        <li style="border-radius: 50%; background-color: #FFDF3E;">
-                            <a style="color: white;">1</a>
-                        </li>
-                        <li>
-                            <a href="#">2</a>
-                        </li>
-                        
-                        <li>
-                            <a href="#"><i class="fas fa-angle-right"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fas fa-angle-double-right"></i></a>
-                        </li>
-                    </ul>
-                </div>
+                <%-- 페이지네이션 --%>
+				<c:if test="${pagination.maxPage > 1}">
+			        <div class="page-number">
+			            <ul class="page-ul">
+			            	<c:if test="${pagination.startPage != 1}">
+				            	<%-- 이전 리스트로 이동 --%>
+				                <li><a href="#"><i class="fas fa-angle-double-left"></i></a></li>
+				                <%-- 이전 페이지로 이동 --%>
+				                <li><a href="#"><i class="fas fa-angle-left"></i></a></li>
+			                </c:if>
+			                
+			                <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" step="1"  var="i">
+			                	<c:choose>
+			                		<c:when test="${i == pagination.currentPage}">
+						                <%-- 선택된 페이지 --%>
+						                <li style="border-radius: 50%; background-color: #FFDF3E;">
+						                    <a style="color: white;">${i}</a></li>
+					                </c:when>
+					                
+					                <c:otherwise>
+						                <%-- 선택되지 않은 페이지 --%>
+						                <li><a href="?page=${i}">${i}</a></li>
+					                </c:otherwise>
+				                </c:choose>
+			                </c:forEach>
+			                
+			                <c:if test="${pagination.endPage != pagination.maxPage}">
+				                <%-- 다음 페이지로 이동 --%>
+				                <li><a href="#"><i class="fas fa-angle-right"></i></a></li>
+				                <%-- 다음 리스트로 이동 --%>
+				                <li><a href="#"><i class="fas fa-angle-double-right"></i></a></li>
+			                </c:if>
+			            </ul>
+			        </div>
+		        </c:if>
+                
             </div> <!-- div-table end -->
         </main>
 

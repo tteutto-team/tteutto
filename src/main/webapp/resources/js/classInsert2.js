@@ -19,6 +19,26 @@ const date = new Date();
             addDisabledDates: dateArr,
           
         })
+		
+		$(".ui-icon-circle-triangle-e").text(">");
+		$(".ui-icon-circle-triangle-w").text("<");
+
+		$(".ui-icon-circle-triangle-w").on("click", function(){
+			setTimeOut(arrow, 200);
+				
+		})
+		
+				
+		$(".ui-icon-circle-triangle-e").on("click", function(){
+			setTimeOut(arrow, 200);
+		})	
+		
+		function arrow(){
+			$(".ui-icon-circle-triangle-w").text("<");
+			$(".ui-icon-circle-triangle-e").text(">");
+		}	
+		
+	
 
         // const startDate = Math.abs(Math.floor((new Date().getTime() - new Date("2022-01-26").getTime())/1000/60/60/24));
         // const endDate = Math.abs(Math.floor((new Date().getTime() - new Date("2022-02-04").getTime())/1000/60/60/24));
@@ -238,3 +258,4 @@ function dlc(){
 		return false;
 	}
 }
+
