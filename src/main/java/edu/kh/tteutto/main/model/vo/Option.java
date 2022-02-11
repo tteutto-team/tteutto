@@ -1,14 +1,13 @@
 package edu.kh.tteutto.main.model.vo;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Option {
 	private List<String> price;
-	private String classSort;
-	private String classType;
 	private String sido;
 	private String sigoon;
+	private String classType;
+	private String classSort;
 	
 	public Option() {}
 
@@ -18,22 +17,6 @@ public class Option {
 
 	public void setPrice(List<String> price) {
 		this.price = price;
-	}
-
-	public String getClassSort() {
-		return classSort;
-	}
-
-	public void setClassSort(String classSort) {
-		this.classSort = classSort;
-	}
-
-	public String getClassType() {
-		return classType;
-	}
-
-	public void setClassType(String classType) {
-		this.classType = classType;
 	}
 
 	public String getSido() {
@@ -52,13 +35,25 @@ public class Option {
 		this.sigoon = sigoon;
 	}
 
-	@Override
-	public String toString() {
-		return "Option [price=" + price + ", classSort=" + classSort + ", classType=" + classType + ", sido=" + sido
-				+ ", sigoon=" + sigoon + "]";
+	public String getClassType() {
+		return classType;
 	}
 
-	
-	
-	
+	public void setClassType(String classType) {
+		this.classType = classType;
+	}
+
+	public String getClassSort() {
+		return classSort;
+	}
+
+	public void setClassSort(String classSort) {
+		this.classSort = classSort;
+	}
+
+	@Override
+	public String toString() {
+		return "Option [price=" + price + ", sido=" + sido + ", sigoon=" + sigoon + ", classType=" + classType
+				+ ", classSort=" + classSort + "]";
+	}
 }

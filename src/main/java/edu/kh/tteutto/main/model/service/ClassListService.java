@@ -41,7 +41,7 @@ public interface ClassListService {
 	
 	/** 클래스 카드 조회 (클래스 테마 목록)
 	 * @param map
-	 * @return
+	 * @return themeList
 	 */
 	List<ClassList> selectThemeList(Map<String, Object> map);
 }
