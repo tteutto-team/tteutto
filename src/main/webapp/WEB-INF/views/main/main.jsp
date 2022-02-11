@@ -18,19 +18,12 @@
 <div class="carosel">
     <div id="myCarousel" class="carousel slide product-img">
         <div class="carousel-inner">
-            
-            <div class="carousel-item active" style="background: #DBDBDB;">
-                <img src="${contextPath}/resources/images/main/theme_1.png">
-            </div>
-            <div class="carousel-item" style="background: #65A4D6;">
-                <img src="${contextPath}/resources/images/main/theme_2.png">
-            </div>
-            <div class="carousel-item">
-                <img src="${contextPath}/resources/images/main/main_3.jpg">
-            </div>
-            <div class="carousel-item">
-                <img src="${contextPath}/resources/images/main/main_4.jpg">
-            </div>
+        	<c:forEach items="${themeImage}" var="classList" varStatus="vs">
+	            <div class="carousel-item <c:if test="${vs.first}">active</c:if>" style="background: ${classList.themeColor};"> <!-- 컬럼 추가하기 -->
+	                <img src="${contextPath}/resources/images/main/${classList.themeImage}" 
+	                onclick="location.href='/tteutto/main/themeList?themeNo=${classList.themeNo}'">
+	            </div>
+            </c:forEach>
         </div>
 
         <a class="carousel-control-prev" href="#myCarousel" data-slide="prev" style="left: 30px;">
@@ -72,10 +65,13 @@
             </span>
           
             <span class="location modal-open-btn" style="cursor: pointer;">
-                <i class=" fi-rr-marker"></i> <p id="location">서울 동작구</p>
+                <i class=" fi-rr-marker"></i> 
+	            <p id="location">서울 동작구</p>
             </span>
+            
+            <div class="balloon">여기를 누르면<br> 현재 위치로 자동 설정됩니다.</div>
         </div>
-
+        
         <div class="hot-class-bottom">
         	<div class="hot-class-bottom-view">
         	

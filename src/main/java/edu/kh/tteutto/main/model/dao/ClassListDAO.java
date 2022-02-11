@@ -41,4 +41,14 @@ public class ClassListDAO {
 	public List<ClassList> selectRecoList(Map<String, Object> map) {
 		return sqlSession.selectList("classListMapper.selectClassCard", map);
 	}
+
+	// 클래스 테마 이미지 조회
+	public List<ClassList> selectThemeImage() {
+		return sqlSession.selectList("classListMapper.selectThemeImage");
+	}
+	
+	// 클래스 카드 조회 (클래스 테마 목록)
+	public List<ClassList> selectThemeList(Map<String, Object> map) {
+		return sqlSession.selectList("classListMapper.selectClassCard", map);
+	}
 }

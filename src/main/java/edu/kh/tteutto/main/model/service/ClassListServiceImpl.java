@@ -40,4 +40,16 @@ public class ClassListServiceImpl implements ClassListService {
 	public List<ClassList> selectRecoList(Map<String, Object> map) {
 		return dao.selectRecoList(map);
 	}
+
+	// 클래스 테마 이미지 조회
+	@Override
+	public List<ClassList> selectThemeImage() {
+		return dao.selectThemeImage();
+	}
+	
+	// 클래스 카드 조회 (클래스 테마 목록)
+	@Override
+	public List<ClassList> selectThemeList(Map<String, Object> map) {
+		return dao.selectThemeList(map);
+	}
 }

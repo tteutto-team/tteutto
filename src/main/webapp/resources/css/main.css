@@ -40,6 +40,7 @@ main a{
     width: 1200px;
     height: 455px;
     object-fit: cover; 
+    cursor: pointer;
 }
 
 /* 카테고리 */
@@ -151,6 +152,33 @@ tbody a {
 
 .location p{
     display: inline-block;
+}
+
+.modal-open-btn:hover + .balloon {display: block;}
+
+.balloon {
+	display: none;
+	position: absolute;
+	top: -75px;
+    right: -12px;
+	padding-top: 12px;
+	border-radius: 10px;
+	width: 180px;
+	height: 60px;
+	background: #F0F0F0;
+	font-size: 12px;
+	text-align: center;
+}
+
+.balloon:after {
+	border-top: 10px solid #F0F0F0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 0px solid transparent;
+	content: "";
+	position: absolute;
+	top: 60px;
+	right: 38px;
 }
 
 .hot-class {
