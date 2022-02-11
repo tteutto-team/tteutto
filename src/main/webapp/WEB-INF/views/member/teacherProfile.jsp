@@ -6,7 +6,7 @@
     <main>
         <div class="left">
             <div class="box">
-                <img src="${contextPath}/resources/images/profile/${loginMember.memberImg}">
+                <img src="${contextPath}/resources/images/teacher/profile/${loginMember.teacherImg}">
             </div>
             <div class="name">${teacher.memberNm}</div>
             <div class="introduce">${teacher.teacherIntro}</div>
@@ -24,7 +24,7 @@
             </div>
             <div class="profile_content">
                 <div class="profile_area">
-                    <div class="profile_img" id="img__cover" style="background-image:url('${contextPath}/resources/images/profile/${loginMember.memberImg}')">
+                    <div class="profile_img" id="img__cover" style="background-image:url('${contextPath}/resources/images/teacher/profile/${loginMember.teacherImg}')">
                         <!-- <img class="camera" src="https://front-img.taling.me/Content/Images/Tutor/Images/btn_pfimg.png">
                         <input type="file" id="picture" name="picture"> -->
                     </div>
@@ -57,10 +57,10 @@
                     
                        	<c:forEach items="${careerList}" var="career" varStatus="status">
 	                        <div id="record_area">
-	                            <input type="text" class="profile_input talent" value="${career.careerContent}" disabled>
+	                            <input type="text" class="profile_input" value="${career.careerContent}" disabled>
 	                            <div class="upload_area" id="career_${career.careerNo}">
 	                                <div class="upload_img">
-	                                    <img class="preview img_img" src="${contextPath}${career.imgPath}${career.imgName}">
+	                                    <img class="preview img_img_not_update" src="${contextPath}${career.imgPath}${career.imgName}">
 	                                    <input type="file" class="profile_file talent_img" disabled>
 	                                </div>
 	                                <div class='close_record' onclick='close_record_function(this,0)'>삭제</div>

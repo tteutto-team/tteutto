@@ -569,8 +569,17 @@ public class MemberController {
 		List<Sns> snsList = service.selectTeacherSns(memberNo);
 		
 //		System.out.println("careerList : "+ careerList);
-//		System.out.println("teacher:" + teacher);
-		loginMember.setTeacherImg(teacher.getMemberImg());
+		System.out.println("teacher:" + teacher);
+		loginMember.setTeacherImg(teacher.getTeacherImg());
+		
+		String birth = teacher.getMemberBirth().split(" ")[0];
+		
+		String[] birthArray = birth.split("-");
+	
+		String teacherBirth = birthArray[0] + "년 " + birthArray[1] + "월 " + birthArray[2] + "일 ";
+		
+		teacher.setMemberBirth(teacherBirth);
+		
 		
 		List<Integer> snsDivList = new ArrayList<Integer>();
 		snsDivList.add(1);
@@ -650,8 +659,11 @@ public class MemberController {
 		for(int i = 0; i < profileInput.size(); i++) {
 			if(profileInput.get(0).equals("0")) {
 				profileInput.remove(i);
+				
 			}
 		}
+		
+		System.out.println("snsList : " + snsList);
 		
 		// 웹 접근 경로(webPath), 서버 저장 경로(serverPath)
 		String webPath = "/resources/images/teacher/profile/"; // (DB에 저장되는 경로)
@@ -659,18 +671,28 @@ public class MemberController {
 		
 		int result = 0;
 		
-		// 이력을 수정하지 않았을 경우
+		// 이력(권장사항)을 추가/수정하지 않았을 경우
 		if(profileInput.size() == 0) {
 			result = service.teacherProfileUpdate2(teacher, phone, snsList);
-		} else {	// 이력을 수정했을 경우
+		} 
+		
+		// 이력을 수정했을 경우
+		else {
+			
+			for(int i=0; i<images.size(); i++) {
+				System.out.println("images: " + images.get(i).getOriginalFilename());
+				System.out.println("profileInput: " + profileInput.get(i));
+			}
+			
 			result = service.teacherProfileUpdate(teacher, phone, snsList, profileInput, images, webPath, serverPath);
+			System.out.println("수정 result: " + result);
 		}
 		
 		if(result > 0) {
-			
 			return "redirect:teacherProfile";
 		} else {	// 에러일 경우
-			return "redirect:teacherProfile";
+			Util.swalSetMessage("error", "관리자에게 문의해주세요.", "error", ra);		
+			return "error";
 		}
 	}
 	
@@ -685,9 +707,9 @@ public class MemberController {
 		
 		int result = service.teacherProfiledelete(id, webPath, serverPath);
 		
-		if(result > 0) {
-			
-		}
+//		if(result > 0) {
+//			
+//		}
 		
 		return result;
 	}
@@ -742,8 +764,6 @@ public class MemberController {
 			sns.setSnsDiv(2);
 			snsList.add(sns);
 		}
-		
-
 		
 		int result = service.teacherRegisterInsert(teacher, images, image, careerContent, snsList, serverPath, serverPath2 );
 		

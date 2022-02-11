@@ -49,19 +49,31 @@ function close_record_function(el,num) {
 // 저장하기
 $("#save").on("click", function(){
 
-    if(confirm("수정한 정보를 저장하시겠습니까?")){
-        if(teacherProfileValidate()){
-            $("#signUp").submit();
+    swal({
+        title: "수정한 정보를 저장하시겠습니까?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+
+          if(teacherProfileValidate()){
+            $("#signUp").submit()
+                swal("수정되었습니다.", {
+                    icon: "success",
+            });
+          } 
+        } else {
+          swal("취소되었습니다.");
         }
-    }else{
-        alert("수정이 취소되었습니다.");
-    }
+      });
 });
 
 // 강사 정보 수정 유효성 검사 
 function teacherProfileValidate() {
 
-    const input = $(".talent");  // 설명
+    const input = $(".talent");  // 이력 설명
     const img = $(".img_img"); // 파일 업로드
     
     const offset = $('#check').offset();
@@ -78,7 +90,7 @@ function teacherProfileValidate() {
         return false;
     }
 
-    else if(input.val().trim() == ""){
+    else if(input.length != 0 && input.val().trim() == ""){
         alert("이력 설명 칸을 입력해주세요.");
         
         $('html').animate({scrollTop : offset.top}, 400);
@@ -86,16 +98,16 @@ function teacherProfileValidate() {
         return false;
     }
 
-    else if(img.attr("src").charAt(0)=="h" ){
+    else if(img.length != 0  && img.attr("src").charAt(0)=="h" ){
         alert("이력 칸의 이미지를 첨부해주세요.");
         $('html').animate({scrollTop : offset.top}, 400);
         return false;
     }
 
     else{
-        // 빈 이력은 없애기
+        // 빈 이력 칸은 없애기
         for(let i=0; i < input.length; i++){
-            if(input.eq(i).val().trim() == "" && 
+            if(input.eq(i).val().trim().length == 0 && 
                 img.eq(i).attr("src")== "https://front-img.taling.me/Content/app3/img/bg/bg-add-img-grey-115px@2x.png"){
                 input.eq(i).parent().remove();
             }

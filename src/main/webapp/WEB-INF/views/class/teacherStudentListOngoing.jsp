@@ -12,7 +12,7 @@
         <main>
             <div class="left">
                 <div class="box">
-                    <img src="${contextPath}/resources/images/profile/${loginMember.memberImg}">
+                    <img src="${contextPath}/resources/images/teacher/profile/${loginMember.teacherImg}">
                 </div>
                 <div class="name">${loginMember.memberNm}</div>
                 <div class="introduce">안녕하세요. 만나서 반갑습니다.</div>
