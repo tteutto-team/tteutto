@@ -1,6 +1,7 @@
 package edu.kh.tteutto.chat.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,16 @@ public class ChatRoomDAO {
 	private SqlSessionTemplate sqlSession;
 
 	/** 채팅방 목록조회
+	 * @param map 
 	 * @return chatRoomList
 	 */
-	public List<ChatRoom> chatRoomList() {
-		return sqlSession.selectList("chatMapper.chatRoomList");
+	public List<ChatRoom> chatRoomList(Map<String, Integer> map) {
+		if(map.get("mode") == 0) {
+			return sqlSession.selectList("chatMapper.studentChatRoomList", map);
+		}else {
+			return sqlSession.selectList("chatMapper.teacherChatRoomList", map);
+		}
+		
 	}
 
 	
@@ -68,10 +75,14 @@ public class ChatRoomDAO {
 	 * @param room
 	 * @return
 	 */
-	public int selectChatRoomNo(ChatRoom room) {
+	public Map<String, Object> selectChatRoomNo(ChatRoom room) {
 		return sqlSession.selectOne("chatMapper.selectChatRoomNo", room);
 	}
 
+	public Map<String, Object> selectChatRoomNo2(ChatRoom room) {
+		return sqlSession.selectOne("chatMapper.selectChatRoomNo2", room);
+	}
+	
 
 
 	/** 채팅 내용 삽입

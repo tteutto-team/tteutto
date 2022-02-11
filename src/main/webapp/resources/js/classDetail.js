@@ -105,10 +105,11 @@ $(".modal").click(function (e) {
     				    merchant_uid : 'merchant_' + new Date().getTime(),
     				    name : '주문명:결제테스트'/*클래스 제목*/,
     				    amount : payAmount/*상품 가격*/, 
-    				    buyer_name : '구매자이름',
+    				    buyer_name : loginMemberName,
     				    buyer_tel : '010-1234-5678'/*구매자 연락처*/,
     				    
     				}, function(rsp) {
+						console.log(rsp);
     					var result = '';
     				    if ( rsp.success ) {
 							

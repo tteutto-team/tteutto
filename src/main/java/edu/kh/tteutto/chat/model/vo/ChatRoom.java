@@ -8,129 +8,179 @@ public class ChatRoom {
 	private int chatTeacherSt; // 강사 상태 (0: 참여중 1: 나감)
 	private int memberNo; // 회원 번호
 	private int teacherNo; // 강사 번호
-	private int classNo;
 	
 	private String memberNm; // 채팅 상대 이름
-	private int unreadMsgCnt; // 채팅방 당 안읽은 메세지 갯수
+	private String memberImg; // 수강생/강사 이미지
+	private String recentChatContent; // 최근 메세지
+	private String recentMsgDt; // 최근 메세지 전송 일자
 	
-	private String teacherNm; // 수강생 모드일 경우 채팅상대(강사)이름
-	private String teacherImg; // 수강생 모드일 경우 채팅상대(강사) 이미지
+	private int classNo;
 	
-	private ChatMessage chatMessage; 
+	private int mode; // 수강생, 강사 모드 구분 (0: 수강생, 1: 강사)
+	
+	
 	
 	public ChatRoom() {
 		// TODO Auto-generated constructor stub
 	}
 
+
+
 	public int getChatRoomNo() {
 		return chatRoomNo;
 	}
+
+
 
 	public void setChatRoomNo(int chatRoomNo) {
 		this.chatRoomNo = chatRoomNo;
 	}
 
+
+
 	public int getChatRoomSt() {
 		return chatRoomSt;
 	}
+
+
 
 	public void setChatRoomSt(int chatRoomSt) {
 		this.chatRoomSt = chatRoomSt;
 	}
 
+
+
 	public int getChatMemberSt() {
 		return chatMemberSt;
 	}
+
+
 
 	public void setChatMemberSt(int chatMemberSt) {
 		this.chatMemberSt = chatMemberSt;
 	}
 
+
+
 	public int getChatTeacherSt() {
 		return chatTeacherSt;
 	}
+
+
 
 	public void setChatTeacherSt(int chatTeacherSt) {
 		this.chatTeacherSt = chatTeacherSt;
 	}
 
+
+
 	public int getMemberNo() {
 		return memberNo;
 	}
+
+
 
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
 
+
+
 	public int getTeacherNo() {
 		return teacherNo;
 	}
+
+
 
 	public void setTeacherNo(int teacherNo) {
 		this.teacherNo = teacherNo;
 	}
 
+
+
 	public String getMemberNm() {
 		return memberNm;
 	}
+
+
 
 	public void setMemberNm(String memberNm) {
 		this.memberNm = memberNm;
 	}
 
-	public int getUnreadMsgCnt() {
-		return unreadMsgCnt;
-	}
 
-	public void setUnreadMsgCnt(int unreadMsgCnt) {
-		this.unreadMsgCnt = unreadMsgCnt;
-	}
 
-	public String getTeacherNm() {
-		return teacherNm;
-	}
-
-	public void setTeacherNm(String teacherNm) {
-		this.teacherNm = teacherNm;
-	}
-
-	public String getTeacherImg() {
-		return teacherImg;
-	}
-
-	public void setTeacherImg(String teacherImg) {
-		this.teacherImg = teacherImg;
+	public String getMemberImg() {
+		return memberImg;
 	}
 
 
-	public ChatMessage getChatMessage() {
-		return chatMessage;
+
+	public void setMemberImg(String memberImg) {
+		this.memberImg = memberImg;
 	}
 
-	public void setChatMessage(ChatMessage chatMessage) {
-		this.chatMessage = chatMessage;
+
+
+	public String getRecentChatContent() {
+		return recentChatContent;
 	}
+
+
+
+	public void setRecentChatContent(String recentChatContent) {
+		this.recentChatContent = recentChatContent;
+	}
+
+
+
+	public String getRecentMsgDt() {
+		return recentMsgDt;
+	}
+
+
+
+	public void setRecentMsgDt(String recentMsgDt) {
+		this.recentMsgDt = recentMsgDt;
+	}
+
+
 
 	public int getClassNo() {
 		return classNo;
 	}
 
+
+
 	public void setClassNo(int classNo) {
 		this.classNo = classNo;
 	}
+
+
+
+	public int getMode() {
+		return mode;
+	}
+
+
+
+	public void setMode(int mode) {
+		this.mode = mode;
+	}
+
+
 
 	@Override
 	public String toString() {
 		return "ChatRoom [chatRoomNo=" + chatRoomNo + ", chatRoomSt=" + chatRoomSt + ", chatMemberSt=" + chatMemberSt
 				+ ", chatTeacherSt=" + chatTeacherSt + ", memberNo=" + memberNo + ", teacherNo=" + teacherNo
-				+ ", classNo=" + classNo + ", memberNm=" + memberNm + ", unreadMsgCnt=" + unreadMsgCnt + ", teacherNm="
-				+ teacherNm + ", teacherImg=" + teacherImg + ", chatMessage=" + chatMessage + "]";
+				+ ", memberNm=" + memberNm + ", memberImg=" + memberImg + ", recentChatContent=" + recentChatContent
+				+ ", recentMsgDt=" + recentMsgDt + ", classNo=" + classNo + ", mode=" + mode + "]";
 	}
 
 	
-	
-	
-	
+
+
 	
 	
 }

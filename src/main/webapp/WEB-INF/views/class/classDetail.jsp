@@ -87,10 +87,10 @@
                             [<span id="buyEp">${cdtr.ep.epCount}회차</span>] ${cdtr.cdt.className}
                         </p> 
                         <span>${cdtr.member.memberNm} 강사</span> 
+                       	<span style="display:none" id="epNoSpan">${cdtr.epSchedule[0].epNo}</span>
                         <c:choose>
                         	<c:when test="${cdtr.cdt.classType == 0}">
 	                        	<span id="buyClassDate"></span>
-	                        	<span style="display:none" id="epNoSpan"></span>
 	                        </c:when>
 	                        <c:otherwise>
 	                        	<span id="buyClassDate">${cdtr.epSchedule[0].schdlDt}  (${cdtr.epSchedule[0].schdlWeek})  <br> ~ ${cdtr.epSchedule[ fn:length(cdtr.epSchedule)-1].schdlDt}  (${cdtr.epSchedule[fn:length(cdtr.epSchedule)-1].schdlWeek})</span>
@@ -372,8 +372,9 @@
                 <img class="classMainImage" src="${contextPath}/resources/images/class-detail/${thumImgList[0].thImgNm}" id="mainImg">
             </div>
                 <div class="sideImg">
-                <c:forEach var="imgList" items="${thumImgList}" varStatus="vs">
-                    <img class="sideImgStyle" src="${contextPath}/resources/images/class-detail/${imgList.thImgNm}" id="sideImg1">
+                	<img class="sideImgStyle" src="${contextPath}/resources/images/class-detail/${thumImgList[0].thImgNm}" id="sideImg1">
+                <c:forEach var="imgList" items="${thumImgList}" varStatus="vs" begin="1" >
+                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/${imgList.thImgNm}" id="sideImg2">
                 </c:forEach>
                 </div> 
 
@@ -951,7 +952,7 @@
         });
       }
  	  
- 	 Kakao.init("7600de820cee45bf01f"); //어플의 Javascript Key 값 
+ /* 	 Kakao.init("78e4a93e20f860122fd8a26c9c05dbe7"); //어플의 Javascript Key 값 
  	 function sendLinkCustom() { 
  		 debugger; Kakao.Link.sendCustom({ templateId : 53911 //숫자값 
  		 }); } try { function sendLinkDefault() { 
@@ -986,13 +987,13 @@
  						}) } ; 
  						window.kakaoDemoCallback && window.kakaoDemoCallback() 
  				
- 		 	} catch (e) { window.kakaoDemoException && window.kakaoDemoException(e) }
+ 		 	} catch (e) { window.kakaoDemoException && window.kakaoDemoException(e) } */
 
  	  
  	  //트위터 공유하기
  	  function shareTwitter() {
 	    var sendText = "뜨또"; // 전달할 텍스트
-	    var sendUrl = "http://localhost:8080/tteutto/"; // 전달할 URL
+	    var sendUrl = "http://kh-aclass.xyz:8080/tteutto/class/classDetail?classNo=${cdtr.cdt.classNo}"; // 전달할 URL
 	    window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
 	  }
  	  

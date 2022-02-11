@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -21,6 +22,7 @@ import edu.kh.tteutto.member.model.vo.Member;
 //웹소켓 관련 요청/응답 코드 작성하는 클래스 ( bean으로 등록함)
 public class ChatWebsocketHandler extends TextWebSocketHandler{
 
+	@Autowired
 	private ChatRoomService service;
 	
 	private Set<WebSocketSession> sessions = Collections.synchronizedSet(new HashSet<WebSocketSession>());
@@ -47,14 +49,14 @@ public class ChatWebsocketHandler extends TextWebSocketHandler{
 		ObjectMapper objectMapper = new ObjectMapper();
 		ChatMessage cm = objectMapper.readValue(message.getPayload(), ChatMessage.class);
 		
-		//System.out.println("변경된 cm : " + cm);
+		System.out.println("변경된 cm : " + cm);
 		
 		// 채팅 내용 DB에 저장 
 		int result = service.insertMessage(cm);
 		
 		// 채팅방 생성내용 DB에 삽입... 컨트롤러에서? 웹소켓에서..?... (chatRoomController 에 joinChatRoom)
 		// 여기서 채팅방 생성내용을 DB에 삽입해야하는데 --- INSERT INTO CHAT_ROOM VALUSE (#{chatRoomNo}, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, (SELECT MEMBER_NO FROM CLASS WHERE CLASS_NO=#{teacherNo}))
-		// memberNo, chatRoomNo을 어떻게 받아오지?..
+		// memberNo를 어떻게 받아오지?..
 		
 		if(result > 0) {
 			
@@ -62,15 +64,16 @@ public class ChatWebsocketHandler extends TextWebSocketHandler{
 			// sessions: 웹소켓 요청을 보낸 모든 클라이언트의 세션정보가 담김
 			for(WebSocketSession wss : sessions) {
 				
-				
+				System.out.println(wss.getAttributes());
 				int chatRoomNo = (Integer)wss.getAttributes().get("chatRoomNo");
-	
+				
 				// 메세지에 있는 방번호 , 채팅방에 있으면서 같은 방번호를 갖고있는 회원의 경우
 				if(chatRoomNo == cm.getChatRoomNo()) {
 					
 					// 얻어온 데이터를 모두에게 뿌림
 					wss.sendMessage(new TextMessage(message.getPayload()));
 				}
+				
 			}
 		}
 	}

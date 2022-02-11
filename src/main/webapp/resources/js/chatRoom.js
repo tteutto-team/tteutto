@@ -67,16 +67,17 @@ $(".backBtn").click(function(){
 
 // 채팅 보내기 함수
 function sendMessage(){
-	const message = $("#inputChatting").val();
+	const msgContent = $("#inputChatting").val();
 	
-	if(message.trim().length == 0){
+	if(msgContent.trim().length == 0){
 		alert("내용을 입력해주세요")
 	}else{
 		
 		//자바스크립트 객체 생성
 		const obj={};
 		obj.memberNo = memberNo;
-		obj.memberEmail = memberEmail;
+		obj.otherMemberNo = otherMemberNo;
+		/*obj.memberEmail = memberEmail;*/
 		obj.memberNm = memberNm;
 		obj.msgContent = msgContent;
 		obj.chatRoomNo = chatRoomNo;
@@ -129,13 +130,13 @@ chattingSock.onmessage = function(e){
       div.append(divB);
       divB.append(p);
       divB.append(span);
+      
    } else {
+		
       div.addClass("otherName");
       div.html(obj.memberName);
       div.after(divB);
       divB.append(p);
-      divB.append(spanR);
-      spanR.text("1");
       divB.append(span);
    }
 

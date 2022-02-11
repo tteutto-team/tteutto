@@ -50,7 +50,7 @@
 	<div class="chat_title">
 		<img src="https://trello-members.s3.amazonaws.com/5f6847b648dcd038f65b8551/6798ec30c2f40b27b3656649306bd860/original.png">
 		<div class="chat_title1">
-			<span>백동현</span>강사님께 문의하기
+			<span>${teacherInfo.MEMBER_NM}</span>강사님께 문의하기
 		</div>
 		<div class="chat_title2">뜨겁게 또시작, 뜨또!</div>
 
@@ -73,40 +73,85 @@
                     <img src="https://trello.com/1/cards/61ea68649279785e229eb2dd/attachments/61eac69be448bf64cd927411/previews/61eac69ce448bf64cd927465/download/TTEUTTO_ver.3_%28favicon%29.png" style="width: 25px; border-radius: 5px;">
                 </div> 
                 -->
-				<c:forEach items="${list}" var="msg">
-
-					<%-- message가 null인 경우 / null이 아닌 경우를 구분하기 --%>
-					<%-- choos문 안에 다른거(주석) 넣으면 오류남 --%>
-					<c:choose>
-						<c:when test="${!empty msg.msgContent}">
-							<c:set var="msgContent" value="${msg.msgContent}" />
-						</c:when>
-						<c:otherwise>
-							<c:set var="msgContent"
-								value="<b>${msg.memberNm} 님이 나가셨습니다.</b>" />
-						</c:otherwise>
-					</c:choose>
-
-					<c:if test="${msg.memberNo == loginMember.memberNo }">
-						<div class="item mymsg">
-							<div class="box">
-								<p class="msg">${msgContent}</p>
-								<span class="time">${msg.msgDt}</span>
-							</div>
-						</div>
-					</c:if>
-
-					<c:if test="${msg.memberNo != loginMember.memberNo }">
-						<div class="otherName">${msg.memberNm}</div>
-						<div class="box">
-							<p class="msg">${msgContent}</p>
-							<span class="read-status"> 1 </span> 
-							<span class="time">${msg.msgDt}</span>
-						</div>
-					</c:if>
-
-				</c:forEach>
-
+                
+                <c:if test="${!empty list}">
+                
+                	<div class="item on">
+                	
+                	<c:forEach items="${list}" var="msg">
+	                		<%-- message가 null인 경우 / null이 아닌 경우를 구분하기 --%>
+							<%-- choos문 안에 다른거(주석) 넣으면 오류남 --%>
+							<c:choose>
+								<c:when test="${!empty msg.msgContent}">
+									<c:set var="msgContent" value="${msg.msgContent}" />
+								</c:when>
+								<c:otherwise>
+									<c:set var="msgContent"
+										value="<b>${msg.memberNm} 님이 나가셨습니다.</b>" />
+								</c:otherwise>
+							</c:choose>
+							
+							<c:if test="${msg.memberNo == loginMember.memberNo }">
+								<div class="item mymsg">
+									<div class="box">
+										<p class="msg">${msgContent}</p>
+										<!-- <span class="read-status"> 1 </span>  -->
+										<span class="time">${msg.msgDt}</span>
+									</div>
+								</div>
+							</c:if>
+		
+							<c:if test="${msg.memberNo != loginMember.memberNo }">
+								<div class="otherName">${msg.memberNm}</div>
+								<div class="box">
+									<p class="msg">${msgContent}</p>
+									<span class="time">${msg.msgDt}</span>
+								</div>
+							</c:if>
+						</c:forEach>
+                	</div>
+                </c:if>
+                
+                <c:if test="${empty list}">
+                
+	                <div class="item">
+	                
+						<c:forEach items="${list}" var="msg">
+		
+							<%-- message가 null인 경우 / null이 아닌 경우를 구분하기 --%>
+							<%-- choos문 안에 다른거(주석) 넣으면 오류남 --%>
+							<c:choose>
+								<c:when test="${!empty msg.msgContent}">
+									<c:set var="msgContent" value="${msg.msgContent}" />
+								</c:when>
+								<c:otherwise>
+									<c:set var="msgContent"
+										value="<b>${msg.memberNm} 님이 나가셨습니다.</b>" />
+								</c:otherwise>
+							</c:choose>
+		
+							<c:if test="${msg.memberNo == loginMember.memberNo }">
+								<div class="item mymsg">
+									<div class="box">
+										<p class="msg">${msgContent}</p>
+										<span class="time">${msg.msgDt}</span>
+									</div>
+								</div>
+							</c:if>
+		
+							<c:if test="${msg.memberNo != loginMember.memberNo }">
+								<div class="box">
+									<div class="otherName">${msg.memberNm}</div>
+									<p class="msg">${msgContent}</p>
+									<span class="read-status"> 1 </span> 
+									<span class="time">${msg.msgDt}</span>
+								</div>
+							</c:if>
+		
+						</c:forEach>
+	
+	                </div>
+                </c:if>
 				<%-- 				
 				<div class="item on">
 
@@ -160,7 +205,8 @@
 
 		// 세션에 있는 값 전역 변수 선언
 		const memberNo = "${loginMember.memberNo}";
-		const memberEmail = "${loginMember.memberEmail}";
+		const otherMemberNo = "${teacherInfo.MEMBER_NO}";
+		/* const memberEmail = "${loginMember.memberEmail}"; */
 		const memberNm = "${loginMember.memberNm}";
 		const chatRoomNo = "${chatRoomNo}"; // 세션에 있는거임! 
 
