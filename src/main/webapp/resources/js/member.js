@@ -101,7 +101,7 @@ document.getElementById("pw1").addEventListener("input", function(){
         signUpCheckObj.pw1 = true;
 
     }else{
-        checkPw1.innerHTML = "<i class='fas fa-exclamation-triangle'></i> 유효하지 않은 비밀번호 입니다.";
+        checkPw1.innerHTML = "<i class='fas fa-exclamation-triangle'></i> 문자, 숫자, 특수문자 각 최소 1개, 8~16자리 입력해주세요.";
         checkPw1.style.color = "red";
         signUpCheckObj.pw1 = false;
     }
