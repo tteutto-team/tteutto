@@ -18,7 +18,7 @@ crossorigin="anonymous"/>
 <main>
 	<div class="classList">
 		<c:choose>
-			<c:when test="${empty searchList}">
+			<c:when test="${empty classList}">
 				<%-- 검색 결과가 없을 때의 화면 --%>
 				<div class="no">
 					<div class="announce">
@@ -76,7 +76,20 @@ crossorigin="anonymous"/>
 			<c:otherwise>
 				<%-- 검색 결과가 있을 때의 화면 --%>
 				<div class="yes">
-					<h1 class="title"><span>'${param.search}'</span>에 대한 클래스 검색 결과</h1> <%-- 검색 키워드 --%>
+					<h1 class="title">
+						<c:choose>
+							<c:when test="${type == 'hot'}">
+								<span>hot</span>
+							</c:when>
+							<c:when test="${type == 'new'}">
+								<span>new</span>
+							</c:when>
+							<c:otherwise>
+								<span>'${param.search}'</span> <%-- 검색 키워드 --%>
+								에 대한 클래스 검색 결과
+							</c:otherwise>
+						</c:choose>
+					</h1>
 					
 					<%-- 옵션 선택 --%>
 					<form action="" method="get" name="optionForm">
@@ -136,21 +149,23 @@ crossorigin="anonymous"/>
 				                </ul>
 				            </article>
 				            
-				            <article class="cont-select">
-				                <input type="hidden" name="classSort">
-				                <button class="btn-select" type="button">정렬</button>
-				                <ul class="list-member">
-				                    <li><button type="button">인기순</button></li>
-				                    <li><button type="button">별점 높은 순</button></li>
-				                    <li><button type="button">찜 많은 순</button></li>
-				                    <li><button type="button">후기 많은 순</button></li>
-				                </ul>
-				            </article>
+				            <c:if test="${type != 'hot' && type != 'new'}">
+					            <article class="cont-select">
+					                <input type="hidden" name="classSort">
+					                <button class="btn-select" type="button">정렬</button>
+					                <ul class="list-member">
+					                    <li><button type="button">인기순</button></li>
+					                    <li><button type="button">별점 높은 순</button></li>
+					                    <li><button type="button">찜 많은 순</button></li>
+					                    <li><button type="button">후기 많은 순</button></li>
+					                </ul>
+					            </article>
+				            </c:if>
 						</div>
 					</form>
 			            
 		            <%-- 클래스 목록 --%>
-					<c:forEach items="${searchList}" var="classList">					
+					<c:forEach items="${classList}" var="classList">					
 						<%-- 클래스 카드 --%>
 						<div class="class">
 							<div class="image">
@@ -333,35 +348,6 @@ crossorigin="anonymous"/>
 		} else alert("로그인 후 이용 가능합니다.");
 	});
 	
-	// 이게 뭐지?
-	function btnLikeFn(e) {
-		const classNo = e.target.getAttribute("id");
-		
-		if ("${loginMember}" != "") {
-			const heartBtn = e.target;
-			
-			$.ajax({
-				url : "${contextPath}/member/changeHeart", 
-				data : {"classNo" : classNo}, 
-				success : function(result) {
-					if (result > 0) {
-					    if ($(heartBtn).hasClass('btn_unlike')) {
-					        $(heartBtn).removeClass('btn_unlike');
-					        $(heartBtn).children('span:eq(1)').removeClass('hi');
-					        $(heartBtn).children('span:eq(1)').addClass('bye');
-					        
-					    } else {
-					        $(heartBtn).addClass('btn_unlike');
-					        $(heartBtn).children('span:eq(1)').removeClass('bye');
-					        $(heartBtn).children('span:eq(1)').addClass('hi');
-					    }
-					}
-				}
-			}) 
-		
-		} else alert("로그인 후 이용 가능합니다.");
-	}
-	
 	<%-- 클래스 목록 옵션 변경 --%>
 	$('[name=optionForm] input, [name=optionForm] select').on("change", function() {
 		const formData = new FormData($('[name=optionForm]')[0]);
@@ -379,7 +365,7 @@ crossorigin="anonymous"/>
 		 	success : function(result) {
 		 		$(".yes > .class").remove(); <%-- 기존 클래스 카드 삭제 --%>
 		 		
-		 		for (let classList of result.searchList) {
+		 		for (let classList of result.classList) {
 		 			<%-- 클래스 카드 --%>
 			 		const classCard = $('<div class="class">');
 			 		
@@ -402,14 +388,13 @@ crossorigin="anonymous"/>
 					let imgEmoti;
 					let aniHeartM;
 					
-					// ???
-					<%-- 찜 O --%>
+					<%-- 찜 X --%>
 					if (classList.heartFlag == 0) {
 						btnLike = $('<button type="button" class="btn_like">').attr('id',classList.classNo);
 						imgEmoti = $('<span class="img_emoti">').text('좋아요');
 						aniHeartM = $('<span class="ani_heart_m">');
 					
-					<%-- 찜 X --%>
+					<%-- 찜 O --%>
 					} else {
 						btnLike = $('<button type="button" class="btn_like btn_unlike">').attr('id',classList.classNo);
 						imgEmoti = $('<span class="img_emoti">').text('좋아요');
@@ -490,7 +475,7 @@ crossorigin="anonymous"/>
 					const classPrice = $('<span class="class-price">').text(classList.episodePrice.toLocaleString('ko-KR') + "원")
 					
 					detailInfoBottom.append(teacherImg,teacherName,classPrice);
-					teacherImg.after(" "); teacherName.after(" "); teacherName.after(" "); // ???
+					teacherImg.after(" "); teacherName.after(" "); classPrice.after(" ");
 					detailInfo.append(detailInfoBottom);
 					
 					classCard.append(detailInfo);
