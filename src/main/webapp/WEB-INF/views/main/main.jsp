@@ -365,7 +365,7 @@
 			const heartBtn = this;
 			
 			$.ajax({
-				url : "${contextPath}/member2/changeHeart", 
+				url : "${contextPath}/member/changeHeart", 
 				data : {"classNo" : classNo}, 
 				success : function(result) {
 					console.log(result)
