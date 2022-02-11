@@ -243,9 +243,9 @@
 	</update>
 	
 	<!-- 강사 sns 삽입 -->
-	<update id="teacherSnsInsert" parameterType="Sns">
-		INSERT INTO SNS VALUES(SEQ_SNS_NO.NEXTVAL, #{snsLink}, #{memberNo}, #{snsDiv})
-	</update>
+	<insert id="teacherSnsInsert" parameterType="Sns">
+		INSERT INTO SNS VALUES(SEQ_SNS_NO.NEXTVAL, #{snsLink}, #{memberNo}, #{snsDiv}, '?')
+	</insert>
 
 	<!-- 강사 이력 이미지 조회 -->
 	<select id="selectImgName" resultType="string">

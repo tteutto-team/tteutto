@@ -59,8 +59,8 @@ public class TeacherServiceImpl implements TeacherService{
 	
 	// 진행중인 클래스 목록 조회
 	@Override
-	public List<OngingClass> selectOngoingClass(int epNo) {
-		return dao.selectOngoingClass(epNo);
+	public List<OngingClass> selectOngoingClass(Pagination pagination, int epNo) {
+		return dao.selectOngoingClass(pagination, epNo);
 	}
 	
 	// 학생 신고
@@ -83,8 +83,8 @@ public class TeacherServiceImpl implements TeacherService{
 	
 	// 클래스 교육 예정
 	@Override
-	public List<Member> studentListExpect(int epNo) {
-		return dao.studentListExpect(epNo);
+	public List<Member> studentListExpect(Pagination pagination, int epNo) {
+		return dao.studentListExpect(pagination, epNo);
 	}
 	
 	// 수강 거절
@@ -103,20 +103,18 @@ public class TeacherServiceImpl implements TeacherService{
 		return dao.selectTeacher(memberNo);
 	}
 	
+	// 학생 수 조회(수강 예정)
+	@Override
+	public Pagination studentListCount(int epNo, int page) {
+		int count = dao.studentListCount(epNo);
+		return new Pagination(count, page);
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// 학생 수 조회(진행 중)
+	@Override
+	public Pagination selectOngoingClassListCount(int epNo, int page) {
+		int count = dao.selectOngoingClassListCount(epNo).size();
+		return new Pagination(count, page);
+	}
 	
 }

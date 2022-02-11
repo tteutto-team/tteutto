@@ -209,7 +209,7 @@
 		delete from episode where ep_no = #{epNo}
 	</delete>
 
-	<!-- 진행중인 클래스 목록 조회 -->
+	<!-- 진행중인 클래스 학생 목록 조회 -->
 	<select id="selectOngoingClass" resultMap="ongoing_class_rm">
 		SELECT DISTINCT C.CLASS_NO CLASS_NO, C.CLASS_NM CLASS_NM, E.EP_COUNT EP_COUNT, M.MEMBER_NO AS STUDENT_NO, M.MEMBER_NM AS STUDENT_NM, M.MEMBER_GENDER
 		, (SELECT COUNT(*) 
@@ -276,6 +276,13 @@
 		where member_no = #{memberNo}
 	</select>
 	
+	<!-- 교육 예정 클래스 학생 명수 조회-->
+	<select id="studentListExpectCount" resultMap="member_rm">
+		select count(*)
+		from register
+		where reg_st != 1 and pay_st != 1 and ep_no = #{epNo}
+	</select>
+	
 	<!-- 교육 예정 클래스 학생 목록 조회-->
 	<select id="studentListExpect" resultMap="member_rm">
 		select member_no, reg_nm as member_nm
@@ -301,7 +308,7 @@
 		where member_no = #{memberNo}
 	</select>
 	
-		<!-- 강사 번호 가져오기 -->
+	<!-- 강사 번호 가져오기 -->
 	<select id="teacherNo" resultType="_int">
 		SELECT MEMBER_NO FROM CLASS
 		WHERE CLASS_NO = #{no}

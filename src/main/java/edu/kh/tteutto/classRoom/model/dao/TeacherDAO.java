@@ -52,8 +52,13 @@ public class TeacherDAO {
 	}
 
 	// 진행 중인 클래스 학생 목록 조회
-	public List<OngingClass> selectOngoingClass(int epNo) {
-		return sqlSession.selectList("classMapper.selectOngoingClass", epNo);
+	public List<OngingClass> selectOngoingClass(Pagination pagination, int epNo) {
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit() ;
+		int limit = pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return sqlSession.selectList("classMapper.selectOngoingClass", epNo, rowBounds);
 	}
 
 	// 학생 신고
@@ -72,8 +77,13 @@ public class TeacherDAO {
 	}
 
 	// 클래스 교육 예정
-	public List<Member> studentListExpect(int epNo) {
-		return sqlSession.selectList("classMapper.studentListExpect", epNo);
+	public List<Member> studentListExpect(Pagination pagination, int epNo) {
+
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit() ;
+		int limit = pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return sqlSession.selectList("classMapper.studentListExpect", epNo, rowBounds);
 	}
 
 	// 수강 거절
@@ -94,6 +104,16 @@ public class TeacherDAO {
 	// 클래스 목록 개수 조회
 	public int selectClassListCount(int memberNo) {
 		return sqlSession.selectOne("classMapper.selectClassListCount", memberNo);
+	}
+
+	// 학생 수 조회(수강 예정)
+	public int studentListCount(int epNo) {
+		return sqlSession.selectOne("classMapper.studentListExpectCount", epNo);
+	}
+
+	// 학생 수 조회(진행 중)
+	public List<OngingClass> selectOngoingClassListCount(int epNo) {
+		return sqlSession.selectList("classMapper.selectOngoingClass", epNo);
 	}
 	
 

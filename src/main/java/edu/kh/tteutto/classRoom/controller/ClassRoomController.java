@@ -57,18 +57,18 @@ public class ClassRoomController {
 			
 			// 페이지네이션
 			Pagination pagination = service.selectClassListCount(memberNo, page);
-			pagination.setLimit(10);
+			pagination.setLimit(5);
 			pagination.setPageSize(5);
 			
 			// 클래스 목록 조회(1회차 클래스)
 			List<ClassDetail> classList = service.selectClassList(pagination, memberNo);
 			
-			System.out.println("??" + classList);
+//			System.out.println("??" + classList);
 			
 			// 에피소드 조회(클래스 회차 조회)
 			List<EpisodeClass> episodeList = service.selectClassEpisode(memberNo);
 			
-			System.out.println("회차 조회: " + episodeList);
+//			System.out.println("회차 조회: " + episodeList);
 			
 			model.addAttribute("pagination", pagination);
 			
@@ -188,12 +188,20 @@ public class ClassRoomController {
 	
 	
 	// 학생 관리(수강 예정)
-	@RequestMapping(value="studentListExpect/{epNo}", method=RequestMethod.GET)
+	@RequestMapping("studentListExpect/{epNo}")
 	public String studentListExpect(@ModelAttribute("loginMember") Member loginMember, Model model,RedirectAttributes ra,
-					@RequestParam(value = "pageNo", required = false, defaultValue = "1") int pageNo, @PathVariable("epNo") int epNo) {
+					@RequestParam(value = "page", required = false, defaultValue = "1") int page, @PathVariable("epNo") int epNo) {
 		
-		List<Member> studentList = service.studentListExpect(epNo);
+		// 페이지네이션
+		Pagination pagination =  service.studentListCount(epNo, page);
+		pagination.setLimit(10);
+		pagination.setPageSize(5);
 		
+		// 학생 목록 조회
+		List<Member> studentList = service.studentListExpect(pagination, epNo);
+		
+		
+		model.addAttribute("pagination", pagination);
 		model.addAttribute("studentList", studentList);
 		model.addAttribute("epNo", epNo);
 		
@@ -217,10 +225,18 @@ public class ClassRoomController {
 	
 	
 	// 학생 관리(진행 중)
-	@RequestMapping(value="studentListOngoing", method=RequestMethod.GET)
-	public String studentListOngoing(int epNo, Model model) {
+	@RequestMapping("studentListOngoing")
+	public String studentListOngoing(int epNo, Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 
-		List<OngingClass> ongoingClassList = service.selectOngoingClass(epNo);
+		// 페이지네이션
+		Pagination pagination =  service.selectOngoingClassListCount(epNo, page);
+		pagination.setLimit(10);
+		pagination.setPageSize(5);
+		
+		// 학생 목록 조회
+		List<OngingClass> ongoingClassList = service.selectOngoingClass(pagination, epNo);
+		
+		model.addAttribute("pagination", pagination);
 		
 		for(OngingClass c : ongoingClassList) {
 			
