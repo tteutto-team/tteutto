@@ -51,6 +51,11 @@ public class ChatWebsocketHandler extends TextWebSocketHandler{
 		
 		System.out.println("변경된 cm : " + cm);
 		
+		if(cm.getChatRoomNo() == 0) {
+			service.insertChatRoom(cm);
+		}
+		System.out.println("확인 후 cm : " + cm);
+		
 		// 채팅 내용 DB에 저장 
 		int result = service.insertMessage(cm);
 		
@@ -60,21 +65,25 @@ public class ChatWebsocketHandler extends TextWebSocketHandler{
 		
 		if(result > 0) {
 			
-		
 			// sessions: 웹소켓 요청을 보낸 모든 클라이언트의 세션정보가 담김
 			for(WebSocketSession wss : sessions) {
-				
 				System.out.println(wss.getAttributes());
-				int chatRoomNo = (Integer)wss.getAttributes().get("chatRoomNo");
-				
+				//int chatRoomNo = (Integer)wss.getAttributes().get("chatRoomNo");
+				int loginMemberNo = ((Member)wss.getAttributes().get("loginMember")).getMemberNo();
+				System.out.println(loginMemberNo);
 				// 메세지에 있는 방번호 , 채팅방에 있으면서 같은 방번호를 갖고있는 회원의 경우
-				if(chatRoomNo == cm.getChatRoomNo()) {
+				//if(chatRoomNo == cm.getChatRoomNo()) {
+				if(loginMemberNo == cm.getMemberNo() || loginMemberNo == cm.getOtherMemberNo() ) {
 					
 					// 얻어온 데이터를 모두에게 뿌림
-					wss.sendMessage(new TextMessage(message.getPayload()));
+					wss.sendMessage(new TextMessage(new Gson().toJson(cm)));
 				}
 				
 			}
+			
+			
+			
+			
 		}
 	}
 

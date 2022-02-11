@@ -36,7 +36,7 @@
         	background-color: #f3f3f3; 
         	border-radius: 10px; 
         	padding: 10px; 
-        	text-align: left; 
+        	text-align: left;
         	font-size: 15px;
         }
         .chat_wrap .item .box .time{
@@ -211,10 +211,10 @@
         .inputBtn{
             display: flex;
         }
-
+/* 
         .msg{
             display: flex;
-        }
+        } */
 
         /* 상대방 이름 */
         .otherName{

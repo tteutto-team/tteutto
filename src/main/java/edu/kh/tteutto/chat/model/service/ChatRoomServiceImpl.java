@@ -27,13 +27,7 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 	// 강사번호, 강사명, 이전 채팅 기록이 있으면 채팅방 번호 조회
 	@Override
 	public Map<String, Object>  openChatRoom(ChatRoom room) {
-		
-		if(room.getChatRoomNo() > 0) {
-			return dao.selectChatRoomNo2(room);
-		}else {
-			return dao.selectChatRoomNo(room);
-		}
-		
+		return dao.selectChatRoomNo(room);
 	}
 
 	// 채팅 내역(메세지) 조회
@@ -72,6 +66,26 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 		return dao.insertMessage(cm);
 	}
 
+	// 채팅방 정보 조회
+	@Override
+	public ChatRoom selectChatRoom(int chatRoomNo) {
+		return dao.selectChatRoom(chatRoomNo);
+	}
+
+	// 채팅방 생성
+	@Override
+	public int insertChatRoom(ChatMessage cm) {
+		int chatRoomNo = dao.checkChatRoomNo(cm);
+		System.out.println("chatRoomNo :: " + chatRoomNo);
+		if(chatRoomNo == 0) {
+			return dao.insertChatRoom(cm);
+		}else {
+			cm.setChatRoomNo(chatRoomNo);
+			return chatRoomNo;
+		}
+	}
+
+	
 	
 
 	

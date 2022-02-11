@@ -40,10 +40,9 @@
             <option value="0">수강생모드</option> 
 	        <!-- <span style="display:none" class="modeSpan">1</span> -->
 	        <!-- mode == 1일때 강사 -->
-            <option value="1">강사모드</option>
+            <option value="1" <c:if test="${param.mode ==1}">selected</c:if>>강사모드</option>
         </select>
     </div>
-${chatRoomList}
     <!-- 채팅리스트 -->
 	    <main class="chat_romm_list">
 	        <ul>
@@ -64,8 +63,17 @@ ${chatRoomList}
 				                <a class="aaa" href="${contextPath}/chat/chatRoom?chatRoomNo=${chatRoom.chatRoomNo}&mode=">
 				                    <img src="${contextPath}/resources/images/class-detail/teacherProfileImg.png" class="profile-img" alt="k페이프로필사진">
 				                    <div class="talk">
-				                        <p class="friend-name"><span>${chatRoom.memberNm}</span> 강사님</p>
-				                        <p class="chat-content">${chatRoom.recentChatContent}</p>
+				                    <c:choose>
+				                    	<c:when test="${param.mode ==1}">
+				                    		<p class="friend-name"><span>${chatRoom.memberNm}</span> 학생</p>
+				                    		<p class="chat-content">${chatRoom.recentChatContent}</p>
+				                    	</c:when>
+				                    	<c:otherwise>
+				                    		<p class="friend-name"><span>${chatRoom.memberNm}</span> 강사님</p>
+				                    		<p class="chat-content">${chatRoom.recentChatContent}</p>
+				                    		
+				                    	</c:otherwise>
+				                    </c:choose>
 				                    </div>
 				                    <div class="chat-status">
 				                        <time datetime="15:40:00+09:00">${chatRoom.recentMsgDt}</time>
@@ -125,23 +133,9 @@ ${chatRoomList}
         });
         
         //수강생모드, 강사모드 구분
-      /*   $('option').on('click', function(){
-        	$.ajax({
-                url: "../chat/chatRoomList",
-                data: {
-                	mode : $(".modeSpan").text(); // 0 수강생모드
-                },
-                type: "POST",
-                success : function(data){
-                  console.log("삭제성공")
-                  $("#fillHeart").removeClass("iconFlag");
-                  $("#emptyHeart").addClass("iconFlag");
-                  heartFlag = 0;
-                },
-                error : function(){
-                  console.log("삭제에러")		
-                }
-        } */
+     	$("#selectMode").on("change", function(){
+     		 location.href="${contextPath}/chat/chatRoomList?mode=1";
+     	});
         	
         	
 		$(".aaa").on("click", function(e){
@@ -150,7 +144,6 @@ ${chatRoomList}
 			location.href = $(this).attr("href") + $("#selectMode").val();
 		})
         	
-       
     </script>
 </body>
 

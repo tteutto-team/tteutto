@@ -15,7 +15,8 @@
 
 }); */
 
-
+// 스크롤 하단 고정
+	$(".chat_wrap .inner").scrollTop($(".chat_wrap .inner")[0].scrollHeight);
         
 // 현재시간 함수
 var currentTime = function(){
@@ -99,13 +100,14 @@ chattingSock.onmessage = function(e){
 	// e.data : 전달받은 메세지
 	console.log(JSON.parse(e.data));
 	
+	const obj = JSON.parse(e.data);
+	
 	////////////
 	const div = $("<div>");
 	const divB = $("<div class='box'>");
 
 
    const p = $("<p class='msg'>");
-   const spanR = $("<span class='read-status'>")
    const span = $("<span class='time'>");
    span.html(obj.msgDt);
    
@@ -130,18 +132,21 @@ chattingSock.onmessage = function(e){
       div.append(divB);
       divB.append(p);
       divB.append(span);
-      
+      $(".flex_wrap > .on").append(div);
    } else {
 		
       div.addClass("otherName");
-      div.html(obj.memberName);
+      div.html(obj.memberNm);
+      $(".flex_wrap > .on").append(div);
+     
       div.after(divB);
       divB.append(p);
       divB.append(span);
    }
 
+   
 
-   $(".flex_wrap").append(div);
+   
    ///////////////////////
 	
 	
@@ -160,10 +165,14 @@ chattingSock.onmessage = function(e){
 $("#sendBtn").on("click", sendMessage);
 
 
+// 엔터 쳤을 때 
+
+
+
 // XSS 처리 함수 ( 위에서 쓰임 )
-function XSS(message){
+function XSS(msgContent){
     // 입력받은 메세지를 str에 저장
-    let str = message;
+    let str = msgContent;
 
     // 입력받은 메세지중 &, < , >, " 이 있다면 "" 안에 있는 내용으로 바꿔주고 str에 다시 저장
     str = str.replace(/&/g, "&amp;");

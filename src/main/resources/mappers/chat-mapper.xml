@@ -17,6 +17,7 @@
 
 		<result property="classNo" column="CLASS_NO"/>
 		<result property="mode" column="MODE"/>
+		<result property="teacherNm" column="TEACHER_NM"/>
 	</resultMap>
 	
 	<resultMap type="ChatMessage" id="chatMessage_rm">
@@ -54,14 +55,14 @@
 	
 	<!-- 채팅방 열기 -->
 	<!-- useGeneratedKeys, <selectKey> 사용 -->
-	<insert id="openChatRoom" useGeneratedKeys="true">
+	<!-- <insert id="openChatRoom" useGeneratedKeys="true">
 		<selectKey order="BEFORE" resultType="_int" keyProperty="chatRoomNo">
 			SELECT CHAT_ROOM_NO.NEXTVAL FROM DUAL
 		</selectKey>
 		
 		INSERT INTO CHAT_ROOM VALUSE
 		(#{chatRoomNo}, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, (SELECT MEMBER_NO FROM CLASS WHERE CLASS_NO=#{classNo}))
-	</insert>
+	</insert> -->
 	
 	
 	<!-- 채팅방 존재 여부 확인 -->
@@ -108,7 +109,28 @@
 		INSERT INTO CHAT_MESSAGE VALUES (SEQ_MSG_NO.NEXTVAL, #{msgContent}, DEFAULT, DEFAULT, #{chatRoomNo}, #{memberNo})
 	</insert>
 	
-
+	<!-- 채팅방 정보 조회 -->
+	<select id="selectChatRoom" resultMap="chatRoom_rm">
+		SELECT CHAT_ROOM_NO, M1.MEMBER_NO, M1.MEMBER_NM, TEACHER_NO, M2.MEMBER_NM TEACHER_NM 
+		FROM CHAT_ROOM CR
+		JOIN MEMBER M1 ON(CR.MEMBER_NO = M1.MEMBER_NO)
+		JOIN MEMBER M2 ON(TEACHER_NO = M2.MEMBER_NO)
+		WHERE CHAT_ROOM_NO = ${chatRoomNo}
+	</select>
 	
+	
+	<!-- 채팅방 생성 -->
+	<insert id="insertChatRoom" useGeneratedKeys="true">
+		<selectKey order="BEFORE" resultType="_int" keyProperty="chatRoomNo">
+			SELECT SEQ_CHAT_ROOM_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO CHAT_ROOM VALUES(#{chatRoomNo}, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{otherMemberNo})
+	</insert>
+	
+	<!-- 채팅방 번호 확인 -->
+	<select id="checkChatRoomNo" resultType="_int">
+		SELECT NVL(MIN(CHAT_ROOM_NO), 0) CHAT_ROOM_NO FROM CHAT_ROOM
+		WHERE MEMBER_NO = #{memberNo} AND TEACHER_NO = #{otherMemberNo}
+	</select>
 	
 </mapper>
