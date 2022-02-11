@@ -19,7 +19,7 @@
     <div id="myCarousel" class="carousel slide product-img">
         <div class="carousel-inner">
         	<c:forEach items="${themeImage}" var="classList" varStatus="vs">
-	            <div class="carousel-item <c:if test="${vs.first}">active</c:if>" style="background: ${classList.themeColor};"> <!-- 컬럼 추가하기 -->
+	            <div class="carousel-item <c:if test="${vs.first}">active</c:if>" style="background: ${classList.themeColor};">
 	                <img src="${contextPath}/resources/images/main/${classList.themeImage}" 
 	                onclick="location.href='/tteutto/main/themeList?themeNo=${classList.themeNo}'">
 	            </div>
