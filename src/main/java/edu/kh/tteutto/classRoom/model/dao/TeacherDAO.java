@@ -3,6 +3,7 @@ package edu.kh.tteutto.classRoom.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeClass;
 import edu.kh.tteutto.classRoom.model.vo.OngingClass;
 import edu.kh.tteutto.classRoom.model.vo.Receipt;
+import edu.kh.tteutto.main.model.vo.Pagination;
 import edu.kh.tteutto.member.model.vo.Member;
 
 @Repository
@@ -20,8 +22,13 @@ public class TeacherDAO {
 	private SqlSessionTemplate sqlSession;
 	
 	// 클래스 조회
-	public List<ClassDetail> selectClassList(int memberNo) {
-		return sqlSession.selectList("classMapper.selectClassList", memberNo);
+	public List<ClassDetail> selectClassList(Pagination pagination, int memberNo) {
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit() ;
+		int limit = pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return sqlSession.selectList("classMapper.selectClassList", memberNo, rowBounds);
 	}
 
 	// 회차별 클래스 조회
@@ -82,6 +89,11 @@ public class TeacherDAO {
 	// 강사 여부 조회
 	public String selectTeacher(int memberNo) {
 		return sqlSession.selectOne("classMapper.selectTeacher", memberNo);
+	}
+
+	// 클래스 목록 개수 조회
+	public int selectClassListCount(int memberNo) {
+		return sqlSession.selectOne("classMapper.selectClassListCount", memberNo);
 	}
 	
 

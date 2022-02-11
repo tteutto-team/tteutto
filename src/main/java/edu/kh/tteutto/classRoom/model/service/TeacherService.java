@@ -7,15 +7,17 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeClass;
 import edu.kh.tteutto.classRoom.model.vo.OngingClass;
 import edu.kh.tteutto.classRoom.model.vo.Receipt;
+import edu.kh.tteutto.main.model.vo.Pagination;
 import edu.kh.tteutto.member.model.vo.Member;
 
 public interface TeacherService {
 
 	/** 클래스 목록 조회
+	 * @param pagination 
 	 * @param memberNo
 	 * @return classList
 	 */
-	List<ClassDetail> selectClassList(int memberNo);
+	List<ClassDetail> selectClassList(Pagination pagination, int memberNo);
 
 	/** 회차별 클래스 목록 조회
 	 * @param memberNo
@@ -83,5 +85,6 @@ public interface TeacherService {
 	 */
 	String selectTeacher(int memberNo);
 
+	Pagination selectClassListCount(int memberNo, int page);
 	
 }

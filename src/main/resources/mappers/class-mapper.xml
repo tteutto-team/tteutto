@@ -139,8 +139,15 @@
 		</foreach>
 	</insert>
 	
+	<!-- 강사 페이지 - 1회차 클래스 개수  -->
+	<select id="selectClassListCount" resultType="_int">
+		SELECT COUNT(*) FROM CLASS
+		JOIN EPISODE A USING (CLASS_NO)
+		JOIN EP_SCHEDULE B USING (EP_NO)
+		WHERE MEMBER_NO = #{memberNo} AND EP_COUNT = 1
+	</select>
 	
-	<!-- 강사 페이지  -->
+	<!-- 강사 페이지 - 1회차 클래스 조회  -->
 	<select id="selectClassList" resultMap="class_rm">
 		SELECT CLASS_NO, CLASS_NM FROM CLASS
 		JOIN EPISODE A USING (CLASS_NO)
