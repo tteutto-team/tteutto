@@ -817,7 +817,7 @@
     	const loginMemberName = '${loginMember.memberNm}';
     	const loginMemberPno = '${loginMember.memberPno}';
     	
-    	//const epNo = $("#epNoSpan").text();
+    	const epNo = "${param.epNo}";
     	
     	// 최대인원 변수선언
     	const classMaxPerson = '${cdtr.cdt.classMaxPerson}';

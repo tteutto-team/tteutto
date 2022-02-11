@@ -141,7 +141,11 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 		return dao.reviewUpdate(review);
 	}
 	
-	
+	// 후기 신고하기
+	@Override
+	public int report(Map<String, Object> map) {
+		return dao.report(map);
+	}
 
 	
 	
