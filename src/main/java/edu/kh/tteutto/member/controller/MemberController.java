@@ -592,6 +592,12 @@ public class MemberController {
 			}
 		}
 		
+		if(snsList.size()==0) {
+			snsDivList.remove(snsDivList.indexOf(1));
+			snsDivList.remove(snsDivList.indexOf(2));
+			snsDivList.remove(snsDivList.indexOf(3));
+		}
+		
 		model.addAttribute("snsDivList", snsDivList);
 		model.addAttribute("snsList", snsList);
 		model.addAttribute("careerList", careerList);
