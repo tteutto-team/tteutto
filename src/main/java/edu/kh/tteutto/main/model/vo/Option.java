@@ -4,17 +4,19 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Option {
-	private String price;
+	private List<String> price;
 	private String classSort;
 	private String classType;
+	private String sido;
+	private String sigoon;
 	
 	public Option() {}
 
-	public String getPrice() {
+	public List<String> getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(List<String> price) {
 		this.price = price;
 	}
 
@@ -34,8 +36,29 @@ public class Option {
 		this.classType = classType;
 	}
 
+	public String getSido() {
+		return sido;
+	}
+
+	public void setSido(String sido) {
+		this.sido = sido;
+	}
+
+	public String getSigoon() {
+		return sigoon;
+	}
+
+	public void setSigoon(String sigoon) {
+		this.sigoon = sigoon;
+	}
+
 	@Override
 	public String toString() {
-		return "Option [price=" + price + ", classSort=" + classSort + ", classType=" + classType + "]";
+		return "Option [price=" + price + ", classSort=" + classSort + ", classType=" + classType + ", sido=" + sido
+				+ ", sigoon=" + sigoon + "]";
 	}
+
+	
+	
+	
 }

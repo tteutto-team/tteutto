@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
 import edu.kh.tteutto.main.model.service.ClassListService;
 import edu.kh.tteutto.main.model.vo.ClassList;
 import edu.kh.tteutto.main.model.vo.Option;
@@ -81,13 +83,44 @@ public class ClassListContoller {
 	// 클래스 검색 목록 옵션
 	@ResponseBody
 	@RequestMapping("changeOption")
-	public String changeOption(Option option) {
+	public String changeOption(Option option, String search, HttpSession session, 
+			@RequestParam(value="page", required=false, defaultValue="1") int page) {
+		
+		int memberNo = 0;
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		
+		if (loginMember != null)
+			memberNo = loginMember.getMemberNo();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("price", option.getPrice());
+		map.put("classSort", option.getClassSort());
+		map.put("classType", option.getClassType());
+		map.put("search", search);
+		map.put("pageKey", "search");
+		map.put("optionFlag", 1);
+		map.put("memberNo", memberNo);
+		
+		if(!option.getSido().equals("선택") && !option.getSigoon().equals("선택")) {
+			map.put("classArea", option.getSido() + " " + option.getSigoon());
+		}else {
+			map.put("classArea", "");
+		}
+		
+		System.out.println(map);
+		
+		Pagination pagination = service.getPagination(map, page);
+		pagination.setLimit(12);
+		pagination.setPageSize(5);
+		
+		List<ClassList> searchList = service.selectSearchList(pagination, map);
 		
 		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("pagination", pagination);
+		result.put("searchList", searchList);
 		
-		
-		System.out.println(option);
-		return null;
+		return new Gson().toJson(result);
 	}
 	
 	// 클래스 테마 목록

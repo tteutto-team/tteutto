@@ -12,12 +12,13 @@
 }
 
 .classList .themeImage > img {
+	object-fit: none;
 	position: absolute;
-    width: 98%;
-    margin: auto;
+    top: -80px;
     left: 0;
     right: 0;
-    top: -80px;
+    width: 98%;
+    margin: auto;
 }
 
 /* ----- 옵션 선택 --------------------------------------------- */
