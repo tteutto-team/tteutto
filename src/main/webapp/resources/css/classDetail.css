@@ -1537,3 +1537,8 @@
                 border: none;
                 cursor: pointer;
             }
+
+            .swal-content__textarea{
+                resize: none;
+                height: 150px;
+            }

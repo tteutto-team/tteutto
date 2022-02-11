@@ -17,7 +17,6 @@ import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
 import edu.kh.tteutto.common.Util;
 import edu.kh.tteutto.main.model.vo.ClassList;
 
-
 @Service
 public class ClassDetailServiceImpl implements ClassDetailService{
 
@@ -141,7 +140,11 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 		return dao.reviewUpdate(review);
 	}
 	
-	
+	// 후기 신고하기
+	@Override
+	public int report(Map<String, Object> map) {
+		return dao.report(map);
+	}
 
 	
 	

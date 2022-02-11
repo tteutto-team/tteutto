@@ -49,7 +49,7 @@ function reviewList(pageNum) {
 
 					if (teacherNo == loginMemberNo) {
 						const reviewDeclare = $("<div class='review_declare'>");
-						reviewDeclare.append("<button type='button' class='reviewDeclareBtn'>신고하기</button>");
+						reviewDeclare.append("<button type='button' class='reviewDeclareBtn' onclick='report("+ re.memberNo +")'>신고하기</button>");
 
 						reviewList.append(reviewDeclare);
 					}
@@ -107,7 +107,6 @@ function updateShow(el, reviewNo) {
 	reviewText = $(el).parent().prev().children("p").html().replaceAll("<br>", "\r\n");
 	star = $(el).parent().parent().children(".review_star").html();
 
-	console.log(star);
 	$(el).parent().prev().remove();
 	$(el).parent().before("<textarea class='review_content'>" + reviewText + "</textarea>");
 	$(el).parent().prev().css({ "display": "block", "width": "600px", "resize": "none", "min-height": "22px" });
@@ -246,3 +245,50 @@ $(document).on("click", ".starUpdate", function () {
 	$(this).nextAll().attr("src", "" + contextPath + "/resources/images/class-detail/star2.png");
 
 })
+
+function report(memberNo){
+	swal({
+		title: '신고하시겠습니까?',
+		icon: 'warning',
+		dangerMode: true,
+		buttons: {
+			cancel: {
+				text: "취소",
+				visible: true,
+				value: false
+			},
+			confirm: {
+				text: "신고",
+			}
+		},
+		content: {
+			element: "textarea",
+			style: {"resize":"none"}
+		}
+	}).then((result) => {
+		if(result){
+			$.ajax({
+				url: "report",
+				data: {
+					"memberNo": memberNo,
+					"reportContent": $(".swal-content__textarea").val(),
+					"episodeNo": epNo
+				},
+				success: function(result){
+					if(result > 0){
+						swal({
+							title: '신고 완료되었습니다.',
+							icon: 'success',
+							buttons: {
+								confirm: {
+									text: "확인",
+									value: true
+								}
+							}
+						})
+					}
+				}
+			})
+		}
+	})
+}

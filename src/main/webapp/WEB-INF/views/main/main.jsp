@@ -70,6 +70,7 @@
             <span class="detail">
                 주변 클래스 추천<i class="fas fa-angle-right"></i>
             </span>
+          
             <span class="location modal-open-btn" style="cursor: pointer;">
                 <i class=" fi-rr-marker"></i> <p id="location">서울 동작구</p>
             </span>
@@ -312,35 +313,6 @@
     </div>
 
 </main>
-
-	<!-- 위치 모달 -->
-<!--         <div id="modal" class="location-setting modal">
-            <div class="modal-content">
-                <form action="#" method="post">
-                    <div class="modal-title">
-                        <h2>위치 설정</h2>
-                    </div>
-    
-                    <div class="modal-location">
-                        <p>'서울 종로구'</p>
-                    </div>
-                    <div class="modal_location_search">
-                    	<input type=text id="locationSearch" name="locationSearch">
-                    	<button type="button" id="locationSearchBtn">찾기</button>	
-                    </div>
-                    <div style="border: 1px solid #ccc; height: 300px;"><div id="map" style="width:100%;height:100%;"></div></div>
-
-                    
-
-                    <div id="modal-btn">
-                        <button id="locationClick" type="button">설정</button>
-                        <button type="button" id="modal-close-btn" class="modal-close-btn">취소</button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="modal-layer"></div>
-        </div> -->
         
 <jsp:include page="../common/footer.jsp"/>
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -386,31 +358,7 @@
 		} else alert("로그인 후 이용 가능합니다.");
 	});
     
-    /* 위치 모달 */
-    // 모달 열기
-    $(".modal-open-btn").click(function () {
-    	
-    	// 위치
-        if($(this).hasClass("location")){
-            $(".location-setting").fadeIn(100);
-            $(".location-setting").css("display", "flex");
-        }
-    	
-        relayout();
-    });
-
-    // 모달 닫기 버튼
-    $(".modal-close-btn").click(function () {
-        $(".modal").fadeOut(100);
-    });
-
-    // 모달 밖에 클릭시 모달 닫기
-    $(".modal").click(function (e) {
-        if($(e.target).hasClass('modal-layer')) {
-            $(".modal").fadeOut(100);
-        }
-
-    });
+   
 	    
     <%-- 클래스 카드 캐러셀 --%>
     $('.prev').click(function(){
