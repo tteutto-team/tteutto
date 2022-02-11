@@ -306,7 +306,7 @@ crossorigin="anonymous"/>
 		        $(btn[j]).prev().val(event.target.innerText);
 		        btn[j].classList.remove('on');
 		        
-		        // input type='hidden'은 value가 변해도 change 이벤트가 발생하지 않기 때문에 강제 발생
+		        <%-- input type='hidden'은 value가 변해도 change 이벤트가 발생하지 않기 때문에 강제 발생 --%>
 		        $(btn[j]).prev().change();
 		    }
 		});
@@ -314,7 +314,6 @@ crossorigin="anonymous"/>
 	
 	<%-- 클래스 카드 찜하기 버튼 색상 변경 --%>
 	$('.btn_like').click(function() {
-		
 		const classNo = this.getAttribute("id");
 		
 		if ("${loginMember}" != "") {
@@ -324,7 +323,8 @@ crossorigin="anonymous"/>
 				url : "${contextPath}/member/changeHeart", 
 				data : {"classNo" : classNo}, 
 				success : function(result) {
-					console.log(result)
+					console.log(result);
+					
 					if (result > 0) {
 					    if ($(heartBtn).hasClass('btn_unlike')) {
 					        $(heartBtn).removeClass('btn_unlike');
@@ -342,25 +342,17 @@ crossorigin="anonymous"/>
 		} else alert("로그인 후 이용 가능합니다.");
 	});
 	
-	<%--  --%>
+	<%-- 클래스 목록 옵션 변경 --%>
 	$('[name=optionForm] input').on("change", function() {
-		
 		const formData = new FormData($('[name=optionForm]')[0]);
-		
-		/*for (var pair of formData.entries()) {
-		  console.log(pair[0]+ ', ' + pair[1]);
-		}*/
 		
 		$.ajax({
 			url : "${contextPath}/main/changeOption", 
 			data : formData, 
-			dataType : "json", 
 			type : "post",
+			dataType : "json", 
 		 	contentType: false,
-		 	processData: false,
-			success : function(result) {
-				console.log(result);
-			}
+		 	processData: false
 		})
 	});
 </script>
