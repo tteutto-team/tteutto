@@ -71,7 +71,7 @@
                 주변 클래스 추천<i class="fas fa-angle-right"></i>
             </span>
             <span class="location modal-open-btn" style="cursor: pointer;">
-                <i class=" fi-rr-marker"></i> <p id="location">서울 종로구</p>
+                <i class=" fi-rr-marker"></i> <p id="location">서울 동작구</p>
             </span>
         </div>
 
@@ -314,7 +314,7 @@
 </main>
 
 	<!-- 위치 모달 -->
-        <div id="modal" class="location-setting modal">
+<!--         <div id="modal" class="location-setting modal">
             <div class="modal-content">
                 <form action="#" method="post">
                     <div class="modal-title">
@@ -340,7 +340,7 @@
             </div>
 
             <div class="modal-layer"></div>
-        </div>
+        </div> -->
         
 <jsp:include page="../common/footer.jsp"/>
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>

@@ -131,27 +131,7 @@ crossorigin="anonymous"/>
 				                </ul>
 				            </article>
 				            
-				            <article class="cont-select">
-				                <input type="hidden" name="classSort">
-				                <button class="btn-select" type="button">정렬</button>
-				                <ul class="list-member">
-				                    <li><button type="button">인기순</button></li>
-				                    <li><button type="button">별점 높은 순</button></li>
-				                    <li><button type="button">찜 많은 순</button></li>
-				                    <li><button type="button">후기 많은 순</button></li>
-				                </ul>
-				            </article>
-				            
-				            <article class="cont-select">
-				                <input type="hidden" name="classSort">
-				                <button class="btn-select" type="button">정렬</button>
-				                <ul class="list-member">
-				                    <li><button type="button">인기순</button></li>
-				                    <li><button type="button">별점 높은 순</button></li>
-				                    <li><button type="button">찜 많은 순</button></li>
-				                    <li><button type="button">후기 많은 순</button></li>
-				                </ul>
-				            </article>
+				            <!-- 여기에 넣어줘 !!!!! -->
 						</div>
 					</form>
 			            

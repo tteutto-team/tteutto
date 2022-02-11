@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -80,8 +81,27 @@ public class ClassListContoller {
 	// 클래스 검색 목록 옵션
 	@ResponseBody
 	@RequestMapping("changeOption")
-	public String changeOption(Option option ) {
+	public String changeOption(Option option) {
+		
+		
+		
+		
 		System.out.println(option);
 		return null;
 	}
+	
+	// 찜한 클래스 삽입 & 삭제
+//	@ResponseBody
+//	@RequestMapping("changeHeart")
+//	public int changeHeart(int classNo, 
+//			@ModelAttribute("loginMember") Member loginMember) {
+//		
+//		int memberNo = loginMember.getMemberNo();
+//		
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("memberNo", memberNo);
+//		map.put("classNo", classNo);
+//		
+//		return service.changeHeart(map);
+//	}
 }
