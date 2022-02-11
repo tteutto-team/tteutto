@@ -170,7 +170,7 @@
 							<div class="image">
 								<%-- 클래스 이미지 --%>
 								<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}'">
+									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epNo=${classList.episodeNo}'">
 								
 								<%-- 수업 등록 지역 --%>
 								<p class="location-p">${classList.classArea}</p>
@@ -251,7 +251,7 @@
 							<div class="image">
 								<%-- 클래스 이미지 --%>
 								<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}'">
+									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epNo=${classList.episodeNo}'">
 								
 								<%-- 수업 등록 지역 --%>
 								<p class="location-p">${classList.classArea}</p>
@@ -357,8 +357,6 @@
 		
 		} else alert("로그인 후 이용 가능합니다.");
 	});
-    
-   
 	    
     <%-- 클래스 카드 캐러셀 --%>
     $('.prev').click(function(){
