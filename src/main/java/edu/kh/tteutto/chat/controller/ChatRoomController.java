@@ -61,18 +61,31 @@ public class ChatRoomController {
 		
 		// loginMember에서 회원 번호 얻어와 room에 추가
 		room.setMemberNo(loginMember.getMemberNo());
+		int chatRoomNo = 0;
 		
-		//채팅방 여는 service 호출 , 생성된 방 번호 얻어오기
-		Map<String, Object> map = service.openChatRoom(room);
-		
-		model.addAttribute("teacherInfo", map);
-		int chatRoomNo = Integer.parseInt(String.valueOf(map.get("CHAT_ROOM_NO")));
-		// 채팅방 번호 있음 == 이전 채팅 내용이 있음 -> 채팅 내역을 조회
-		if(chatRoomNo > 0) {
-			
+		// 채팅방 번호가 있음 == 기존에 존재하던 채팅방
+		if(room.getChatRoomNo() > 0) {
+			ChatRoom cr = service.selectChatRoom(room.getChatRoomNo());
+			chatRoomNo = room.getChatRoomNo();
 			List<ChatMessage> list = service.selectChatMessage(chatRoomNo);
 			model.addAttribute("list", list);
+			model.addAttribute("cr", cr);
+			
+		}else {
+			// 채팅방 번호는 없고 클래스 번호가 있음. 
+			//-> 학생이 상세페이지에서 실시간 채팅 버튼을 누른 경우
+			Map<String, Object> map = service.openChatRoom(room);
+			model.addAttribute("teacherInfo", map); // 강사 정보 조회
+			
+			int crNo = Integer.parseInt(String.valueOf(map.get("CHAT_ROOM_NO")));
+			// 채팅방 번호 있음 == 이전 채팅 내용이 있음 -> 채팅 내역을 조회
+			if(crNo > 0) {
+				List<ChatMessage> list = service.selectChatMessage(crNo);
+				model.addAttribute("list", list);
+			}
+			
 		}
+			
 		model.addAttribute("chatRoomNo", chatRoomNo);
 		
 		return "chat/chatRoom";

@@ -10,6 +10,9 @@
 클래스 검색 목록
  * http://localhost:8080/tteutto/main/searchList
  
+클래스 테마 목록
+ * http://localhost:8080/tteutto/main/themeList
+ 
 클래스 상세
 * http://localhost:8080/tteutto/class/classDetail?classNo=1000 (승인된 클래스만 조회)
 
