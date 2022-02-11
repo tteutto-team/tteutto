@@ -70,8 +70,9 @@
             <span class="detail">
                 주변 클래스 추천<i class="fas fa-angle-right"></i>
             </span>
-            <span class="location" style="cursor: pointer;">
-                <i class=" fi-rr-marker"></i> <p id="location">서울 종로구</p>
+          
+            <span class="location modal-open-btn" style="cursor: pointer;">
+                <i class=" fi-rr-marker"></i> <p id="location">서울 동작구</p>
             </span>
         </div>
 
@@ -312,7 +313,6 @@
     </div>
 
 </main>
-
         
 <jsp:include page="../common/footer.jsp"/>
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -330,7 +330,6 @@
 <script>
 	<%-- 클래스 카드 찜하기 버튼 색상 변경 --%>
 	$('.btn_like').click(function() {
-		
 		const classNo = this.getAttribute("id");
 		
 		if ("${loginMember}" != "") {
@@ -340,7 +339,8 @@
 				url : "${contextPath}/member/changeHeart", 
 				data : {"classNo" : classNo}, 
 				success : function(result) {
-					console.log(result)
+					console.log(result);
+					
 					if (result > 0) {
 					    if ($(heartBtn).hasClass('btn_unlike')) {
 					        $(heartBtn).removeClass('btn_unlike');

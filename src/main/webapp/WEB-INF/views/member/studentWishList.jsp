@@ -124,7 +124,6 @@
 	
 	<%-- 클래스 카드 찜하기 버튼 색상 변경 --%>
 	$('.btn_like').click(function() {
-		
 		const classNo = this.getAttribute("id");
 		
 		if ("${loginMember}" != "") {
@@ -134,7 +133,8 @@
 				url : "${contextPath}/member/changeHeart", 
 				data : {"classNo" : classNo}, 
 				success : function(result) {
-					console.log(result)
+					console.log(result);
+					
 					if (result > 0) {
 					    if ($(heartBtn).hasClass('btn_unlike')) {
 					        $(heartBtn).removeClass('btn_unlike');
