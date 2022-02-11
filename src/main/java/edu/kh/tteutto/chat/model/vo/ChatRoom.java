@@ -9,7 +9,8 @@ public class ChatRoom {
 	private int memberNo; // 회원 번호
 	private int teacherNo; // 강사 번호
 	
-	private String memberNm; // 채팅 상대 이름
+	private String memberNm; 
+	private String teacherNm; 
 	private String memberImg; // 수강생/강사 이미지
 	private String recentChatContent; // 최근 메세지
 	private String recentMsgDt; // 최근 메세지 전송 일자
@@ -170,13 +171,29 @@ public class ChatRoom {
 
 
 
+	public String getTeacherNm() {
+		return teacherNm;
+	}
+
+
+
+	public void setTeacherNm(String teacherNm) {
+		this.teacherNm = teacherNm;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "ChatRoom [chatRoomNo=" + chatRoomNo + ", chatRoomSt=" + chatRoomSt + ", chatMemberSt=" + chatMemberSt
 				+ ", chatTeacherSt=" + chatTeacherSt + ", memberNo=" + memberNo + ", teacherNo=" + teacherNo
-				+ ", memberNm=" + memberNm + ", memberImg=" + memberImg + ", recentChatContent=" + recentChatContent
-				+ ", recentMsgDt=" + recentMsgDt + ", classNo=" + classNo + ", mode=" + mode + "]";
+				+ ", memberNm=" + memberNm + ", teacherNm=" + teacherNm + ", memberImg=" + memberImg
+				+ ", recentChatContent=" + recentChatContent + ", recentMsgDt=" + recentMsgDt + ", classNo=" + classNo
+				+ ", mode=" + mode + "]";
 	}
+
+
+
 
 	
 

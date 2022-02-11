@@ -79,11 +79,6 @@ public class ChatRoomDAO {
 		return sqlSession.selectOne("chatMapper.selectChatRoomNo", room);
 	}
 
-	public Map<String, Object> selectChatRoomNo2(ChatRoom room) {
-		return sqlSession.selectOne("chatMapper.selectChatRoomNo2", room);
-	}
-	
-
 
 	/** 채팅 내용 삽입
 	 * @param cm
@@ -91,6 +86,35 @@ public class ChatRoomDAO {
 	 */
 	public int insertMessage(ChatMessage cm) {
 		return sqlSession.insert("chatMapper.insertMessage", cm);
+	}
+
+
+
+	/** 채팅방 정보 조회
+	 * @param chatRoomNo
+	 * @return cr
+	 */
+	public ChatRoom selectChatRoom(int chatRoomNo) {
+		return sqlSession.selectOne("chatMapper.selectChatRoom", chatRoomNo);
+	}
+
+
+	/** 채팅방 생성
+	 * @param cm
+	 * @return result
+	 */
+	public int insertChatRoom(ChatMessage cm) {
+		return sqlSession.insert("chatMapper.insertChatRoom", cm);
+	}
+
+
+
+	/** 채팅방 번호 확인
+	 * @param cm
+	 * @return chatRoomNo
+	 */
+	public int checkChatRoomNo(ChatMessage cm) {
+		return sqlSession.selectOne("chatMapper.checkChatRoomNo", cm);
 	}
 
 

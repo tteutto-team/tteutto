@@ -36,6 +36,19 @@ public interface ChatRoomService {
 	 */
 	List<ChatMessage> selectChatMessage(int chatRoomNo);
 
+	
+	/** 채팅방 정보 조회
+	 * @param chatRoomNo
+	 * @return cr
+	 */
+	ChatRoom selectChatRoom(int chatRoomNo);
+
+	/** 채팅방 생성
+	 * @param cm
+	 * @return result
+	 */
+	int insertChatRoom(ChatMessage cm);
+
 
 
 }

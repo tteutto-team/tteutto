@@ -45,24 +45,42 @@
         <div class="chat_title1">뜨또에 문의하기</div>
         <div class="chat_title2">뜨겁게 또시작, 뜨또!</div> -->
 	
-	<button id="exit-btn">나가기</button>
+<!-- 	<button id="exit-btn">나가기</button> -->
 
-	<div class="chat_title">
-		<img src="https://trello-members.s3.amazonaws.com/5f6847b648dcd038f65b8551/6798ec30c2f40b27b3656649306bd860/original.png">
-		<div class="chat_title1">
-			<span>${teacherInfo.MEMBER_NM}</span>강사님께 문의하기
-		</div>
-		<div class="chat_title2">뜨겁게 또시작, 뜨또!</div>
-
-	</div>
-	<div>
-		<div class="chatSubTitle">
-			수업 일정과 강의 내용에 대해 문의해보세요. <br>(연락처 문의 또는 직접 알려주는 것은 불가)
-		</div>
-	</div>
+	<c:choose>
+		<c:when test="${!empty teacherInfo || loginMember.memberNo == cr.memberNo}">
+			<div class="chat_title">
+				<img src="https://trello-members.s3.amazonaws.com/5f6847b648dcd038f65b8551/6798ec30c2f40b27b3656649306bd860/original.png">
+				<div class="chat_title1">
+					<c:if test="${!empty teacherInfo}"><span>${teacherInfo.MEMBER_NM}</span>강사님께 문의하기</c:if>
+					<c:if test="${empty teacherInfo}"><span>${cr.teacherNm}</span>강사님께 문의하기</c:if>
+				</div>
+				<div class="chat_title2">뜨겁게 또시작, 뜨또!</div>
+			</div>
+			<div>
+				<div class="chatSubTitle">
+					수업 일정과 강의 내용에 대해 문의해보세요. <br>(연락처 문의 또는 직접 알려주는 것은 불가)
+				</div>
+			</div>
+		</c:when>
+		
+		<c:otherwise>
+			<div class="chat_title">
+				<img src="https://trello-members.s3.amazonaws.com/5f6847b648dcd038f65b8551/6798ec30c2f40b27b3656649306bd860/original.png">
+				<div class="chat_title1">
+					<c:if test="${empty teacherInfo}"><span>${cr.memberNm}</span>수강생의 문의 내역</c:if>
+				</div>
+				<div class="chat_title2">뜨겁게 또시작, 뜨또!</div>
+			</div>
+			<div>
+				<div class="chatSubTitle">
+					수강생의 문의 내역에 답장부탁드립니다. <br>(연락처 문의 또는 직접 알려주는 것은 불가)
+				</div>
+			</div>
+		</c:otherwise>
+	</c:choose>
 
 	
-
 
 	<div class="chat_wrap">
 		<div class="inner">
@@ -143,7 +161,6 @@
 								<div class="box">
 									<div class="otherName">${msg.memberNm}</div>
 									<p class="msg">${msgContent}</p>
-									<span class="read-status"> 1 </span> 
 									<span class="time">${msg.msgDt}</span>
 								</div>
 							</c:if>
@@ -204,11 +221,25 @@
 		// == contextPath + /chat
 
 		// 세션에 있는 값 전역 변수 선언
-		const memberNo = "${loginMember.memberNo}";
-		const otherMemberNo = "${teacherInfo.MEMBER_NO}";
+		let memberNo = "${loginMember.memberNo}";
+		let otherMemberNo = "${teacherInfo.MEMBER_NO}"; // 강사 번호
+		if(otherMemberNo == ""){
+			
+			if(memberNo == "${cr.memberNo}"){
+				memberNo = "${cr.memberNo}"; // 로그인 학생 번호
+				otherMemberNo = "${cr.teacherNo}"; // 상대 강사 번호
+				
+			}else{
+				memberNo = "${cr.teacherNo}"; 
+				otherMemberNo = "${cr.memberNo}"; 
+				
+			}
+			
+		}
+		
 		/* const memberEmail = "${loginMember.memberEmail}"; */
 		const memberNm = "${loginMember.memberNm}";
-		const chatRoomNo = "${chatRoomNo}"; // 세션에 있는거임! 
+		let chatRoomNo = "${chatRoomNo}"; // 세션에 있는거임! 
 
 		const contextPath = "${contextPath}";
 	</script>
