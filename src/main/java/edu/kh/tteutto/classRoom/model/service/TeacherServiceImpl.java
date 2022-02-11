@@ -11,6 +11,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeClass;
 import edu.kh.tteutto.classRoom.model.vo.OngingClass;
 import edu.kh.tteutto.classRoom.model.vo.Receipt;
+import edu.kh.tteutto.main.model.vo.Pagination;
 import edu.kh.tteutto.member.model.vo.Member;
 
 @Service
@@ -19,10 +20,17 @@ public class TeacherServiceImpl implements TeacherService{
 	@Autowired
 	private TeacherDAO dao;
 	
+	// 클래스 목록 개수 조회
+	@Override
+	public Pagination selectClassListCount(int memberNo, int page) {
+		int count = dao.selectClassListCount(memberNo);
+		return new Pagination(count, page);
+	}
+	
 	// 클래스 목록 조회
 	@Override
-	public List<ClassDetail> selectClassList(int memberNo) {
-		return dao.selectClassList(memberNo);
+	public List<ClassDetail> selectClassList(Pagination pagination, int memberNo) {
+		return dao.selectClassList(pagination, memberNo);
 	}
 	
 	// 회차별 클래스 목록 조회
@@ -94,4 +102,21 @@ public class TeacherServiceImpl implements TeacherService{
 	public String selectTeacher(int memberNo) {
 		return dao.selectTeacher(memberNo);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

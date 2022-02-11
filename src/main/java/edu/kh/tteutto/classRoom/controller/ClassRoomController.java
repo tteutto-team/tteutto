@@ -28,6 +28,8 @@ import edu.kh.tteutto.classRoom.model.vo.EpisodeClass;
 import edu.kh.tteutto.classRoom.model.vo.OngingClass;
 import edu.kh.tteutto.classRoom.model.vo.Receipt;
 import edu.kh.tteutto.common.Util;
+import edu.kh.tteutto.main.model.service.ClassListService;
+import edu.kh.tteutto.main.model.vo.Pagination;
 import edu.kh.tteutto.member.model.vo.Member;
 
 @Controller
@@ -38,23 +40,37 @@ public class ClassRoomController {
 	@Autowired
 	private TeacherService service;
 	
-	// 클래스 목록
-	@RequestMapping(value = "classList/{memNo}", method = RequestMethod.GET)
+	// 클래스 목록 classList/{memberNo}?page=1
+	@RequestMapping("classList/{memNo}")
 	public String classList(@ModelAttribute("loginMember") Member loginMember, Model model, RedirectAttributes ra, 
-							@RequestParam(value = "pageNo", required = false, defaultValue = "1") int pageNo, @PathVariable("memNo") int memNo) {
+							@RequestParam(value = "page", required = false, defaultValue = "1") int page, @PathVariable("memNo") int memNo) {
 		
 		String teacherOK = service.selectTeacher(loginMember.getMemberNo());
 		
-		if(memNo == loginMember.getMemberNo() && teacherOK.equals("Y")) {
-			int memberNo = loginMember.getMemberNo();
+//		if(memNo == loginMember.getMemberNo() && teacherOK.equals("Y")) {
+		if(true) {
+//			int memberNo = loginMember.getMemberNo();
+			int memberNo = 3;
 			
-			// 클래스 목록 조회
-			List<ClassDetail> classList = service.selectClassList(memberNo);
+			// 클래스 목록 개수 조회(1회차 클래스)
+//			int classListCount = service.selectClassListCount(memberNo);
+			
+			// 페이지네이션
+			Pagination pagination = service.selectClassListCount(memberNo, page);
+			pagination.setLimit(10);
+			pagination.setPageSize(5);
+			
+			// 클래스 목록 조회(1회차 클래스)
+			List<ClassDetail> classList = service.selectClassList(pagination, memberNo);
 			
 			System.out.println("??" + classList);
 			
 			// 에피소드 조회(클래스 회차 조회)
 			List<EpisodeClass> episodeList = service.selectClassEpisode(memberNo);
+			
+			System.out.println("회차 조회: " + episodeList);
+			
+			model.addAttribute("pagination", pagination);
 			
 			for(int i=0; i < episodeList.size(); i++) {
 				
@@ -68,7 +84,6 @@ public class ClassRoomController {
 				episodeList.get(i).setDate(date1);
 				
 				// 정산 여부 설정
-				
 				// 오늘날짜 yyyyMMdd로 생성
 				String todayfm = new SimpleDateFormat("yyyyMMdd").format(new Date(System.currentTimeMillis()));
 				
@@ -91,7 +106,6 @@ public class ClassRoomController {
 					
 					if(endCompare > 0) {	// 수업이 아직 안끝났을 경우 (현재 날짜 < 끝 날짜)
 						episodeList.get(i).setCalStatus(-2);	// 정산 신청 버튼 X
-						
 					}
 					
 					// 수업이 끝났을 경우 && 미정산인 경우
@@ -122,14 +136,16 @@ public class ClassRoomController {
 				} catch (ParseException e) {
 					e.printStackTrace();
 				} 
-			}
+			}	// end for
 			
 			model.addAttribute("loginMember", loginMember);
 			model.addAttribute("classList", classList);
 			model.addAttribute("episodeList", episodeList);
 			
 			return "class/teacherClassList";
-		} else {
+		} // end if
+		
+		else {
 			Util.swalSetMessage("접근 불가능 합니다.", "해당 클래스의 강사님만 이용 가능합니다.", "error", ra);
 			return "redirect:/member/login";
 		}
