@@ -69,8 +69,8 @@ public class ClassListContoller {
 		} else {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("search", search);
-			map.put("memberNo", memberNo);
 			map.put("pageKey", "search");
+			map.put("memberNo", memberNo);
 			map.put("result", "no");
 			
 			recommendList = service.selectRecoList(map);
@@ -80,10 +80,10 @@ public class ClassListContoller {
 		return "main/classList";
 	}
 	
-	// 클래스 검색 목록 옵션
+	// 클래스 목록 옵션
 	@ResponseBody
 	@RequestMapping("changeOption")
-	public String changeOption(Option option, String search, HttpSession session, 
+	public String changeOption(HttpSession session, Option option, String search, 
 			@RequestParam(value="page", required=false, defaultValue="1") int page) {
 		
 		int memberNo = 0;
@@ -94,29 +94,25 @@ public class ClassListContoller {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("price", option.getPrice());
-		map.put("classSort", option.getClassSort());
 		map.put("classType", option.getClassType());
+		map.put("classSort", option.getClassSort());
 		map.put("search", search);
 		map.put("pageKey", "search");
 		map.put("optionFlag", 1);
 		map.put("memberNo", memberNo);
 		
-		if(!option.getSido().equals("선택") && !option.getSigoon().equals("선택")) {
+		if (!option.getSido().equals("선택") && !option.getSigoon().equals("선택"))
 			map.put("classArea", option.getSido() + " " + option.getSigoon());
-		}else {
+		else
 			map.put("classArea", "");
-		}
-		
-		System.out.println(map);
 		
 		Pagination pagination = service.getPagination(map, page);
 		pagination.setLimit(12);
 		pagination.setPageSize(5);
 		
 		List<ClassList> searchList = service.selectSearchList(pagination, map);
-		
-		
 		Map<String, Object> result = new HashMap<String, Object>();
+		
 		result.put("pagination", pagination);
 		result.put("searchList", searchList);
 		
