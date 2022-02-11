@@ -19,7 +19,7 @@
     <div id="myCarousel" class="carousel slide product-img">
         <div class="carousel-inner">
         	<c:forEach items="${themeImage}" var="classList" varStatus="vs">
-	            <div class="carousel-item <c:if test="${vs.first}">active</c:if>" style="background: ${classList.themeColor};"> <!-- 컬럼 추가하기 -->
+	            <div class="carousel-item <c:if test="${vs.first}">active</c:if>" style="background: ${classList.themeColor};">
 	                <img src="${contextPath}/resources/images/main/${classList.themeImage}" 
 	                onclick="location.href='/tteutto/main/themeList?themeNo=${classList.themeNo}'">
 	            </div>
@@ -119,7 +119,7 @@
 								</div>
 								
 								<div class="grade">
-		                            <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 평점 --%>
+		                            <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 별점 --%>
 		                            <i class="fi-rr-heart"></i> <span>${classList.heartCount}</span> <%-- 찜 개수 --%>
 		                       	</div>
 								
@@ -201,7 +201,7 @@
 								</div>
 								
 								<div class="grade">
-		                            <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 평점 --%>
+		                            <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 별점 --%>
 		                            <i class="fi-rr-heart"></i> <span>${classList.heartCount}</span> <%-- 찜 개수 --%>
 		                       	</div>
 								
@@ -282,7 +282,7 @@
 								</div>
 								
 								<div class="grade">
-		                            <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 평점 --%>
+		                            <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 별점 --%>
 		                            <i class="fi-rr-heart"></i> <span>${classList.heartCount}</span> <%-- 찜 개수 --%>
 		                       	</div>
 								
@@ -324,7 +324,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <script>
-	<%-- 클래스 카드 찜하기 버튼 색상 변경 --%>
+	<%-- 클래스 카드 찜하기 버튼 기능 및 색상 변경 --%>
 	$('.btn_like').click(function() {
 		const classNo = this.getAttribute("id");
 		
@@ -335,13 +335,12 @@
 				url : "${contextPath}/member/changeHeart", 
 				data : {"classNo" : classNo}, 
 				success : function(result) {
-					console.log(result);
-					
 					if (result > 0) {
 					    if ($(heartBtn).hasClass('btn_unlike')) {
 					        $(heartBtn).removeClass('btn_unlike');
 					        $(heartBtn).children('span:eq(1)').removeClass('hi');
 					        $(heartBtn).children('span:eq(1)').addClass('bye');
+					        
 					    } else {
 					        $(heartBtn).addClass('btn_unlike');
 					        $(heartBtn).children('span:eq(1)').removeClass('bye');

@@ -191,7 +191,7 @@ crossorigin="anonymous"/>
 								</div>
 								
 								<div class="grade">
-		                            <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 평점 --%>
+		                            <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 별점 --%>
 		                            <i class="fi-rr-heart"></i> <span>${classList.heartCount}</span> <%-- 찜 개수 --%>
 	                        	</div>
 								
@@ -304,7 +304,7 @@ crossorigin="anonymous"/>
 		});
 	}
 	
-	<%-- 클래스 카드 찜하기 버튼 색상 변경 --%>
+	<%-- 클래스 카드 찜하기 버튼 기능 및 색상 변경 --%>
 	$('.btn_like').click(function() {
 		const classNo = this.getAttribute("id");
 		
@@ -315,13 +315,12 @@ crossorigin="anonymous"/>
 				url : "${contextPath}/member/changeHeart", 
 				data : {"classNo" : classNo}, 
 				success : function(result) {
-					console.log(result);
-					
 					if (result > 0) {
 					    if ($(heartBtn).hasClass('btn_unlike')) {
 					        $(heartBtn).removeClass('btn_unlike');
 					        $(heartBtn).children('span:eq(1)').removeClass('hi');
 					        $(heartBtn).children('span:eq(1)').addClass('bye');
+					        
 					    } else {
 					        $(heartBtn).addClass('btn_unlike');
 					        $(heartBtn).children('span:eq(1)').removeClass('bye');
@@ -334,9 +333,41 @@ crossorigin="anonymous"/>
 		} else alert("로그인 후 이용 가능합니다.");
 	});
 	
+	// 이게 뭐지?
+	function btnLikeFn(e) {
+		const classNo = e.target.getAttribute("id");
+		
+		if ("${loginMember}" != "") {
+			const heartBtn = e.target;
+			
+			$.ajax({
+				url : "${contextPath}/member/changeHeart", 
+				data : {"classNo" : classNo}, 
+				success : function(result) {
+					if (result > 0) {
+					    if ($(heartBtn).hasClass('btn_unlike')) {
+					        $(heartBtn).removeClass('btn_unlike');
+					        $(heartBtn).children('span:eq(1)').removeClass('hi');
+					        $(heartBtn).children('span:eq(1)').addClass('bye');
+					        
+					    } else {
+					        $(heartBtn).addClass('btn_unlike');
+					        $(heartBtn).children('span:eq(1)').removeClass('bye');
+					        $(heartBtn).children('span:eq(1)').addClass('hi');
+					    }
+					}
+				}
+			}) 
+		
+		} else alert("로그인 후 이용 가능합니다.");
+	}
+	
 	<%-- 클래스 목록 옵션 변경 --%>
-	$('[name=optionForm] input').on("change", function() {
+	$('[name=optionForm] input, [name=optionForm] select').on("change", function() {
 		const formData = new FormData($('[name=optionForm]')[0]);
+		formData.append("search", "${param.search}");
+		formData.append("sido", $("#sido_code > option:selected").text());
+		formData.append("sigoon", $("#sigoon_code > option:selected").text());
 		
 		$.ajax({
 			url : "${contextPath}/main/changeOption", 
@@ -344,7 +375,131 @@ crossorigin="anonymous"/>
 			type : "post",
 			dataType : "json", 
 		 	contentType: false,
-		 	processData: false
+		 	processData: false,
+		 	success : function(result) {
+		 		$(".yes > .class").remove(); <%-- 기존 클래스 카드 삭제 --%>
+		 		
+		 		for (let classList of result.searchList) {
+		 			<%-- 클래스 카드 --%>
+			 		const classCard = $('<div class="class">');
+			 		
+			 		const imgDiv = $('<div class="image">');
+			 		
+			 		<%-- 클래스 이미지 --%>
+			 		const img = $('<img>');
+			 		img.attr("src", "${contextPath}/resources/images/class-detail/" + classList.thumbnailImageName);
+			 		img.attr("onclick", "location.href='/tteutto/class/classDetail?classNo=" + classList.classNo 
+			 							+ "&epNo=" + classList.episodeNo + "'");
+			 		
+			 		<%-- 수업 등록 지역 --%>
+			 		const locationP = $('<p class="location-p">').text(classList.classArea);
+			 		
+					imgDiv.append(img, locationP);
+					classCard.append(imgDiv);
+			 		
+					<%-- 클래스 찜하기 버튼 --%>
+					let btnLike;
+					let imgEmoti;
+					let aniHeartM;
+					
+					// ???
+					<%-- 찜 O --%>
+					if (classList.heartFlag == 0) {
+						btnLike = $('<button type="button" class="btn_like">').attr('id',classList.classNo);
+						imgEmoti = $('<span class="img_emoti">').text('좋아요');
+						aniHeartM = $('<span class="ani_heart_m">');
+					
+					<%-- 찜 X --%>
+					} else {
+						btnLike = $('<button type="button" class="btn_like btn_unlike">').attr('id',classList.classNo);
+						imgEmoti = $('<span class="img_emoti">').text('좋아요');
+						aniHeartM = $('<span class="ani_heart_m hi">');
+					}
+					
+					btnLike.append(imgEmoti, aniHeartM);
+					
+					<%-- 클래스 찜하기 버튼 이벤트 --%>
+					$(btnLike).click(function() {
+						const classNo = this.getAttribute("id");
+						
+						if ("${loginMember}" != "") {
+							const heartBtn = this;
+							
+							$.ajax({
+								url : "${contextPath}/member/changeHeart", 
+								data : {"classNo" : classNo}, 
+								success : function(result) {
+									if (result > 0) {
+									    if ($(heartBtn).hasClass('btn_unlike')) {
+									        $(heartBtn).removeClass('btn_unlike');
+									        $(heartBtn).children('span:eq(1)').removeClass('hi');
+									        $(heartBtn).children('span:eq(1)').addClass('bye');
+									        
+									    } else {
+									        $(heartBtn).addClass('btn_unlike');
+									        $(heartBtn).children('span:eq(1)').removeClass('bye');
+									        $(heartBtn).children('span:eq(1)').addClass('hi');
+									    }
+									}
+								}
+							}) 
+						
+						} else alert("로그인 후 이용 가능합니다.");
+					});
+					
+					classCard.append(btnLike);
+					
+					const detailInfo = $('<div class="detail-info">');
+					
+					<%-- 카테고리명 --%>
+					const category = $('<span class="category-name">').text(classList.categoryName);
+					detailInfo.append(category);
+					
+					<%-- 클래스명 --%>
+					const className = $('<div class="class-name">')
+					
+					if (classList.classType == 0)
+						className.text("[원데이] " + classList.className);
+					else
+						className.text("["+ classList.episodeNo + "회차] " + classList.className)
+						
+					detailInfo.append(className);
+					
+					<%-- 별점, 찜 개수 --%>
+					const grade = $('<div class="grade">');
+					const starI = $('<i class="fi-rr-star">');
+					const star = $('<span>').text(classList.starAverage.toFixed(1));
+					
+					const heartI = $('<i class="fi-rr-heart">'); 
+					const heart = $('<span>').text(classList.heartCount);
+					
+					grade.append(starI, star, heartI, heart);
+					starI.after(" "); star.after(" "); heartI.after(" "); heart.after(" ");
+					
+					detailInfo.append(grade);
+					
+					const detailInfoBottom = $('<div class="detail-info-bottom">');
+					
+					<%-- 강사 프로필 이미지 --%>
+					const teacherImg = $('<img src="${contextPath}/resources/images/teacher/' + classList.teacherImage + '">');
+					
+					<%-- 강사명 --%>
+					const teacherName = $('<span class="teacher-name">').text(classList.memberName);
+					
+					<%-- 수업료 --%>
+					const classPrice = $('<span class="class-price">').text(classList.episodePrice.toLocaleString('ko-KR') + "원")
+					
+					detailInfoBottom.append(teacherImg,teacherName,classPrice);
+					teacherImg.after(" "); teacherName.after(" "); teacherName.after(" "); // ???
+					detailInfo.append(detailInfoBottom);
+					
+					classCard.append(detailInfo);
+					
+					<%-- 화면에 클래스 카드 추가 --%>
+					$(".yes").append(classCard);
+					classCard.after(" ");
+		 		}
+		 	}
 		})
 	});
 </script>

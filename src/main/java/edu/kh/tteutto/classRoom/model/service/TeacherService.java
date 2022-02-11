@@ -44,10 +44,11 @@ public interface TeacherService {
 	int deletClass(String epNo);
 
 	/** 진행중인 클래스 목록 조회
+	 * @param pagination 
 	 * @param epNo
 	 * @return ongoingClassList
 	 */
-	List<OngingClass> selectOngoingClass(int epNo);
+	List<OngingClass> selectOngoingClass(Pagination pagination, int epNo);
 
 	/** 학생 신고
 	 * @param map
@@ -68,10 +69,11 @@ public interface TeacherService {
 	List<ClassDetail> existingClassList(int memberNo);
 
 	/** 클래스 교육 예정
+	 * @param pagination 
 	 * @param epNo
 	 * @return studentList
 	 */
-	List<Member> studentListExpect(int epNo);
+	List<Member> studentListExpect(Pagination pagination, int epNo);
 
 	/** 수강 거절
 	 * @param map
@@ -85,6 +87,23 @@ public interface TeacherService {
 	 */
 	String selectTeacher(int memberNo);
 
+	/** 페이지네이션
+	 * @param memberNo
+	 * @param page
+	 * @return
+	 */
 	Pagination selectClassListCount(int memberNo, int page);
+
+	/** 학생 수 조회 (교육 예정)
+	 * @param epNo
+	 * @param page 
+	 */
+	Pagination studentListCount(int epNo, int page);
+
+	/** 학생 수 조회 (진행중)
+	 * @param epNo
+	 * @param page
+	 */
+	Pagination selectOngoingClassListCount(int epNo, int page);
 	
 }

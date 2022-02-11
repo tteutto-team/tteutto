@@ -160,22 +160,22 @@ public class MemberServiceImpl implements MemberService{
 			// 강사 소개 업데이트
 			int result2 = dao.teacherIntroduceUpdate(teacher);
 			
-			if(result2 > 0) {
+			if(result2 > 0 && snsList.size() != 0) {
 				// sns 삭제
-				int result3 = dao.teacherSnsDelete(teacher.getMemberNo());
+				dao.teacherSnsDelete(teacher.getMemberNo());
 				
-				if(result3 > 0) {
-					// sns 삽입
-					for(Sns sns : snsList) {
-						sns.setMemberNo(teacher.getMemberNo());
-						result4 = dao.teacherSnsInsert(sns);
-					}
+				// sns 삽입
+				for(Sns sns : snsList) {
+					sns.setMemberNo(teacher.getMemberNo());
+					result4 = dao.teacherSnsInsert(sns);
 				}
+				
+			} else {
+				result4 = 1;
 			}
 		}
 
 		if(result4 > 0) {
-			
 			// images에 담겨있는 파일 정보 중 업로드된 파일 정보를 imgList에 옮겨 담기
 			List<Career> imgList = new ArrayList<Career>();
 			
@@ -235,14 +235,12 @@ public class MemberServiceImpl implements MemberService{
 			
 			if(result2 > 0) {
 				// sns 삭제
-				int result3 = dao.teacherSnsDelete(teacher.getMemberNo());
+				dao.teacherSnsDelete(teacher.getMemberNo());
 				
-				if(result3 > 0) {
-					// sns 삽입
-					for(Sns sns : snsList) {
-						sns.setMemberNo(teacher.getMemberNo());
-						result = dao.teacherSnsInsert(sns);
-					}
+				// sns 삽입
+				for(Sns sns : snsList) {
+					sns.setMemberNo(teacher.getMemberNo());
+					result = dao.teacherSnsInsert(sns);
 				}
 			}
 		}

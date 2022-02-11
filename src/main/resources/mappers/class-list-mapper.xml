@@ -51,6 +51,37 @@
 			    	 AND C.CLASS_NO IN (SELECT CLASS_NO FROM CLASS_WISH WHERE MEMBER_NO = ${memberNo})
 			    </when>
 		    </choose>
+		    <!-- 클래스 목록 옵션 -->
+		    <if test="optionFlag == 1">
+		    	<!-- 가격대 -->
+			    <if test="price != null">
+			    	AND (
+			    	<foreach collection="price" item="p" separator=" OR ">
+				    	<choose> 
+				    		<when test="p == 1">OPEN_PRICE(C.CLASS_NO) &lt; 10000</when>
+				    		<when test="p == 2">OPEN_PRICE(C.CLASS_NO) BETWEEN 10000 AND 29999</when>
+				    		<when test="p == 3">OPEN_PRICE(C.CLASS_NO) BETWEEN 30000 AND 49999</when>
+				    		<when test="p == 4">OPEN_PRICE(C.CLASS_NO) BETWEEN 50000 AND 99999</when>
+				    		<when test="p == 5">OPEN_PRICE(C.CLASS_NO) >= 100000</when>
+				    	</choose>
+			    	</foreach>
+			    	) 
+			    </if>
+			    <!-- 지역 -->
+			    <if test="classArea != ''">
+			    	AND CLASS_AREA = #{classArea} 
+			    </if>
+			    <!-- 수업 형태 -->
+			    <if test="classType != ''">
+				    <if test="classType != '전체'">
+				    	AND CLASS_TYPE = 
+				    	<choose>
+				    		<when test="classType == '원데이'">0 </when>
+				    		<when test="classType == '정규'">1 </when>
+				    	</choose>
+				    </if>
+			    </if>
+			</if>
 		)
 		WHERE EP_PRICE IS NOT NULL
 	</select>
@@ -59,7 +90,7 @@
 	<select id="selectClassCard" resultMap="classList_rm">
 		SELECT * FROM (
 		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, OPEN_EP_NO(C.CLASS_NO) EP_NO, CLASS_NM, 
-		    TH_IMG_NM, CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, THEME_NO, 
+		    TH_IMG_NM, CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, <if test="pageKey == 'theme'">THEME_IMG,</if>
 		    OPEN_PRICE(C.CLASS_NO) EP_PRICE, 
 		        NVL((SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
 		            JOIN EPISODE USING(CLASS_NO) 
@@ -83,7 +114,6 @@
 				    <choose>
 				    	<when test="search == '원데이'">AND CLASS_TYPE = 0 </when>
 				    	<when test="search == '정규'">AND CLASS_TYPE = 1 </when>
-				    	
 				    	<!-- 클래스 검색 목록 검색 결과 X -->
 					    <when test="result == 'no'">
 					    	AND (SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
@@ -93,39 +123,73 @@
 						            WHERE C.CLASS_NO = CLASS_NO) >= 4.0 
 						    ORDER BY STAR_AVG DESC
 					    </when>
-					    
 				    	<otherwise>
 						    AND ((CLASS_AREA LIKE '%${search}%' OR CLASS_NM LIKE '%${search}%' 
 						    OR CT_NM LIKE '%${search}%' OR MEMBER_NM LIKE '%${search}%' OR CT_DETAIL_NM LIKE '%${search}%'))
 				    	</otherwise>
 				    </choose>
 			    </when>
-			    
 			    <!-- 찜한 클래스 -->
 			    <when test="pageKey == 'wish'">
 			    	AND C.CLASS_NO IN (SELECT CLASS_NO FROM CLASS_WISH WHERE MEMBER_NO = ${memberNo})
 			    </when>
-			    
-			    <!-- 클래스 테마 목록 -->
-			    <when test="pageKey == 'theme'">
-			    	AND THEME_ST = 3 AND SYSDATE BETWEEN THEME_START_DT AND THEME_END_DT AND THEME_NO = ${themeNo}
-			    </when>
-			    
 			    <!-- 메인 페이지 주변 -->
 			    <when test="pageKey == 'location'">
 			    	AND CLASS_AREA = '서울 동작구'
 			    </when>
-			    
 			    <!-- 메인 페이지 인기 -->
 			    <when test="pageKey == 'hot'">
 			    	ORDER BY REG_COUNT(C.CLASS_NO) DESC
 			    </when>
-			    
 			    <!-- 메인 페이지 신규 -->
 			    <when test="pageKey == 'new'">
 			    	ORDER BY NEW_EP_NO(C.CLASS_NO) DESC
 			    </when>
+			    <!-- 클래스 테마 목록 -->
+			    <when test="pageKey == 'theme'">
+			    	AND THEME_ST = 3 AND SYSDATE BETWEEN THEME_START_DT AND THEME_END_DT AND THEME_NO = ${themeNo}
+			    </when>
 		    </choose>
+		    <!-- 클래스 목록 옵션 -->
+   		    <if test="optionFlag == 1">
+   		    	<!-- 가격대 -->
+			    <if test="price != null">
+			    	AND (
+			    	<foreach collection="price" item="p" separator=" OR ">
+				    	<choose> 
+				    		<when test="p == 1">OPEN_PRICE(C.CLASS_NO) &lt; 10000</when>
+				    		<when test="p == 2">OPEN_PRICE(C.CLASS_NO) BETWEEN 10000 AND 29999</when>
+				    		<when test="p == 3">OPEN_PRICE(C.CLASS_NO) BETWEEN 30000 AND 49999</when>
+				    		<when test="p == 4">OPEN_PRICE(C.CLASS_NO) BETWEEN 50000 AND 99999</when>
+				    		<when test="p == 5">OPEN_PRICE(C.CLASS_NO) >= 100000</when>
+				    	</choose>
+			    	</foreach>
+			    	)
+			    </if>
+			    <!-- 지역 -->
+			    <if test="classArea != ''">
+			    	AND CLASS_AREA = #{classArea} 
+			    </if>
+		    	<!-- 수업 형태 -->
+			    <if test="classType != ''">
+				    <if test="classType != '전체'">
+				    	AND CLASS_TYPE = 
+				    	<choose>
+				    		<when test="classType == '원데이'">0 </when>
+				    		<when test="classType == '정규'">1 </when>
+				    	</choose>
+				    </if>
+			    </if>
+			    <!-- 정렬 -->
+			    <if test="classSort != ''">
+			    	<choose>
+			    		<when test="classSort == '인기순'">ORDER BY REG_COUNT(C.CLASS_NO) DESC</when>
+			    		<when test="classSort == '별점 높은 순'">ORDER BY STAR_AVG DESC</when>
+			    		<when test="classSort == '찜 많은 순'">ORDER BY HEART_COUNT DESC</when>
+			    		<when test="classSort == '후기 많은 순'">ORDER BY REVIEW_COUNT(C.CLASS_NO) DESC</when>
+			    	</choose>
+			    </if>
+			</if>
 		)
 		WHERE EP_PRICE IS NOT NULL
 		<!-- 메인 페이지, 클래스 검색 목록 검색 결과 X -->
@@ -133,7 +197,7 @@
 			AND ROWNUM &lt;= 12
 		</if>
 	</select>
-	
+
 	<!-- 찜한 클래스 삽입 -->
 	<insert id="insertHeart">
 		INSERT INTO CLASS_WISH VALUES(${memberNo}, ${classNo})

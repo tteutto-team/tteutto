@@ -8,13 +8,11 @@
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 <link rel="stylesheet" href="${contextPath}/resources/css/teacherClassList.css"/>
 
-${pagination}
-
 <div class="container">
         <main>
             <div class="left">
                 <div class="box">
-                    <img src="${contextPath}/resources/images/teacher/profile/${teacher.teacherImg}">
+                    <img src="${contextPath}/resources/images/teacher/profile/${loginMember.teacherImg}">
                 </div>
                 <div class="name">${loginMember.memberNm}</div>
                 <div class="introduce">안녕하세요. 만나서 반갑습니다.</div>
