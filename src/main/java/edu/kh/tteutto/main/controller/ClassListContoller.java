@@ -75,7 +75,7 @@ public class ClassListContoller {
 			model.addAttribute("recommendList", recommendList);
 		}
 		
-		return "main/searchList";
+		return "main/classList";
 	}
 	
 	// 클래스 검색 목록 옵션
@@ -90,18 +90,26 @@ public class ClassListContoller {
 		return null;
 	}
 	
-	// 찜한 클래스 삽입 & 삭제
-//	@ResponseBody
-//	@RequestMapping("changeHeart")
-//	public int changeHeart(int classNo, 
-//			@ModelAttribute("loginMember") Member loginMember) {
-//		
-//		int memberNo = loginMember.getMemberNo();
-//		
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		map.put("memberNo", memberNo);
-//		map.put("classNo", classNo);
-//		
-//		return service.changeHeart(map);
-//	}
+	// 클래스 테마 목록
+	@RequestMapping("themeList")
+	public String themeList(HttpSession session, Model model, int themeNo) {
+		
+		int memberNo = 0;
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		
+		if (loginMember != null)
+			memberNo = loginMember.getMemberNo();
+		
+		List<ClassList> themeList = null;
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("themeNo", themeNo);
+		map.put("pageKey", "theme");
+		
+		themeList = service.selectThemeList(map);
+		model.addAttribute("themeList", themeList);
+		
+		return "main/themeList";
+	}
 }

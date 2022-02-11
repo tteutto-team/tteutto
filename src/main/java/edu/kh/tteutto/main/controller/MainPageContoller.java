@@ -61,6 +61,10 @@ public class MainPageContoller {
 		
 		model.addAttribute("newList", newList);
 		
+		// 클래스 테마 이미지
+		List<ClassList> themeImage = service.selectThemeImage();
+		model.addAttribute("themeImage", themeImage);
+		
 		return "main/main";
 	}
 }

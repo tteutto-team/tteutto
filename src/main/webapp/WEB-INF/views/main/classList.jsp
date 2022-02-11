@@ -15,9 +15,8 @@ crossorigin="anonymous"/>
 <!-- 브이월드 -->
 <link rel="stylesheet" href="http://openlayers.org/en/latest/css/ol.css" type="text/css">
 
-
 <main>
-	<div class="searchList">
+	<div class="classList">
 		<c:choose>
 			<c:when test="${empty searchList}">
 				<%-- 검색 결과가 없을 때의 화면 --%>
@@ -114,6 +113,19 @@ crossorigin="anonymous"/>
 	                    </div>
 						
 						<div class="select">
+				            <!-- 브이월드 행정구역도를 이용한 셀렉트 박스 구현... 공간정보를 기반으로 하고 있어서 국가공간정보포털보다 느림 -->
+	                        <article class="cont-select">
+	                        	<select id="sido_code" name="area1" class="select-style btn-select" style="appearance:none; font-size:15px; font-family: 'IBM Plex Sans KR', sans-serif;">
+	                            	<option class="list-member">선택</option>
+	                        	</select>
+	                        </article>
+	                        
+	                        <article class="cont-select">	
+	                        	<select id="sigoon_code" name="area2" class="select-style btn-select" style="appearance:none; font-size:15px; font-family: 'IBM Plex Sans KR', sans-serif;">
+	                            	<option class="list-member">선택</option>
+	                        	</select>
+	                        </article>
+	                        
 				            <article class="cont-select">
 				                <input type="hidden" name="classType">
 				                <button class="btn-select" type="button">수업 형태</button>
@@ -134,80 +146,63 @@ crossorigin="anonymous"/>
 				                    <li><button type="button">후기 많은 순</button></li>
 				                </ul>
 				            </article>
-				            
-				            <!-- 브이월드 행정구역도를 이용한 셀렉트 박스 구현... 공간정보를 기반으로 하고 있어서 국가공간정보포털보다 느림 -->
-	                        <article class="cont-select">
-	                        	<select id="sido_code" name="area1" class="select-style btn-select" style="appearance:none; font-size:15px; font-family: 'IBM Plex Sans KR', sans-serif;">
-	                            	<option class="list-member">선택</option>
-	                        	</select>
-	                        </article>	
-	                        <article class="cont-select">	
-	                        	<select id="sigoon_code" name="area2" class="select-style btn-select" style="appearance:none; font-size:15px; font-family: 'IBM Plex Sans KR', sans-serif;">
-	                            	<option class="list-member">선택</option>
-	                        	</select>
-	                        </article>
 						</div>
 					</form>
 			            
 		            <%-- 클래스 목록 --%>
-		            <div class="new-class">
-						<div class="new-class-bottom">
-		
-							<c:forEach items="${searchList}" var="classList">					
-								<%-- 클래스 카드 --%>
-								<div class="class">
-									<div class="image">
-										<%-- 클래스 이미지 --%>
-										<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-										onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epNo=${classList.episodeNo}'">
-										
-										<%-- 수업 등록 지역 --%>
-										<p class="location-p">${classList.classArea}</p>
-									</div>
-									
-									<%-- 클래스 찜하기 버튼 > 찜 X --%>
-									<c:if test="${classList.heartFlag == 0}">
-										<button type="button" class="btn_like" id="${classList.classNo}">
-											<span class="img_emoti">좋아요</span>
-											<span class="ani_heart_m"></span>
-										</button>
-									</c:if>
-									
-									<%-- 클래스 찜하기 버튼 > 찜 O --%>
-									<c:if test="${classList.heartFlag == 1}">
-										<button type="button" class="btn_like btn_unlike" id="${classList.classNo}">
-											<span class="img_emoti">좋아요</span>
-											<span class="ani_heart_m hi"></span>
-										</button>
-									</c:if>
-						
-									<div class="detail-info">
-										<span class="category-name">${classList.categoryName}</span> <%-- 카테고리명 --%>
-										
-										<%-- 클래스명 --%>
-										<div class="class-name">
-											<c:choose>
-												<c:when test="${classList.classType == 0}">[원데이] </c:when>
-												<c:otherwise>[${classList.episodeNo}회차] </c:otherwise>
-											</c:choose>
-											${classList.className}
-										</div>
-										
-										<div class="grade">
-				                            <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 평점 --%>
-				                            <i class="fi-rr-heart"></i> <span>${classList.heartCount}</span> <%-- 찜 개수 --%>
-			                        	</div>
-										
-										<div class="detail-info-bottom">
-											<img src="${contextPath}/resources/images/teacher/${classList.teacherImage}"> <%-- 강사 프로필 이미지 --%>
-											<span class="teacher-name">${classList.memberName}</span> <%-- 강사명 --%>
-											<span class="class-price"><fmt:formatNumber value="${classList.episodePrice}" pattern="#,###"/>원</span> <%-- 수업료 --%>
-										</div>
-									</div>
+					<c:forEach items="${searchList}" var="classList">					
+						<%-- 클래스 카드 --%>
+						<div class="class">
+							<div class="image">
+								<%-- 클래스 이미지 --%>
+								<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
+								onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epNo=${classList.episodeNo}'">
+								
+								<%-- 수업 등록 지역 --%>
+								<p class="location-p">${classList.classArea}</p>
+							</div>
+							
+							<%-- 클래스 찜하기 버튼 > 찜 X --%>
+							<c:if test="${classList.heartFlag == 0}">
+								<button type="button" class="btn_like" id="${classList.classNo}">
+									<span class="img_emoti">좋아요</span>
+									<span class="ani_heart_m"></span>
+								</button>
+							</c:if>
+							
+							<%-- 클래스 찜하기 버튼 > 찜 O --%>
+							<c:if test="${classList.heartFlag == 1}">
+								<button type="button" class="btn_like btn_unlike" id="${classList.classNo}">
+									<span class="img_emoti">좋아요</span>
+									<span class="ani_heart_m hi"></span>
+								</button>
+							</c:if>
+				
+							<div class="detail-info">
+								<span class="category-name">${classList.categoryName}</span> <%-- 카테고리명 --%>
+								
+								<%-- 클래스명 --%>
+								<div class="class-name">
+									<c:choose>
+										<c:when test="${classList.classType == 0}">[원데이] </c:when>
+										<c:otherwise>[${classList.episodeNo}회차] </c:otherwise>
+									</c:choose>
+									${classList.className}
 								</div>
-							</c:forEach>
+								
+								<div class="grade">
+		                            <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 평점 --%>
+		                            <i class="fi-rr-heart"></i> <span>${classList.heartCount}</span> <%-- 찜 개수 --%>
+	                        	</div>
+								
+								<div class="detail-info-bottom">
+									<img src="${contextPath}/resources/images/teacher/${classList.teacherImage}"> <%-- 강사 프로필 이미지 --%>
+									<span class="teacher-name">${classList.memberName}</span> <%-- 강사명 --%>
+									<span class="class-price"><fmt:formatNumber value="${classList.episodePrice}" pattern="#,###"/>원</span> <%-- 수업료 --%>
+								</div>
+							</div>
 						</div>
-					</div>
+					</c:forEach>
 				</div>
 			</c:otherwise>
 		</c:choose>
@@ -352,9 +347,4 @@ crossorigin="anonymous"/>
 		 	processData: false
 		})
 	});
-	
-
-
-
-	
 </script>
