@@ -122,6 +122,7 @@ select {
 }
 
 /*radio checkbox 디자인*/
+/*
 input[type='radio'],
 input[type='radio']:checked {
   appearance: none;
@@ -140,6 +141,33 @@ input[type='radio'] {
 input[type='radio']:checked {
   background-color: #FFDF3E;
 }
+*/
+
+input[type='radio'] + label {
+  width: 14px;
+  height: 14px;
+  border-radius: 100%;
+  
+  position: relative;
+  top: 7px;
+  margin-right: 5px;
+	
+  background-color: white;
+  border: 1px solid darkgray;
+} 
+
+input[type='radio']:checked + label {
+  width: 14px;
+  height: 14px;
+  border-radius: 100%;
+  
+  position: relative;
+  top: 7px;
+  margin-right: 5px;
+
+  background-color: #FFDF3E;
+}
+
 
 /*checkbox*/
 input[id="check1"] + label {

@@ -12,6 +12,10 @@
 integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" 
 crossorigin="anonymous"/>
 
+<!-- 브이월드 -->
+<link rel="stylesheet" href="http://openlayers.org/en/latest/css/ol.css" type="text/css">
+
+
 <main>
 	<div class="searchList">
 		<c:choose>
@@ -131,7 +135,17 @@ crossorigin="anonymous"/>
 				                </ul>
 				            </article>
 				            
-				            <!-- 여기에 넣어줘 !!!!! -->
+				            <!-- 브이월드 행정구역도를 이용한 셀렉트 박스 구현... 공간정보를 기반으로 하고 있어서 국가공간정보포털보다 느림 -->
+	                        <article class="cont-select">
+	                        	<select id="sido_code" name="area1" class="select-style btn-select" style="appearance:none; font-size:15px; font-family: 'IBM Plex Sans KR', sans-serif;">
+	                            	<option class="list-member">선택</option>
+	                        	</select>
+	                        </article>	
+	                        <article class="cont-select">	
+	                        	<select id="sigoon_code" name="area2" class="select-style btn-select" style="appearance:none; font-size:15px; font-family: 'IBM Plex Sans KR', sans-serif;">
+	                            	<option class="list-member">선택</option>
+	                        	</select>
+	                        </article>
 						</div>
 					</form>
 			            
@@ -236,6 +250,9 @@ crossorigin="anonymous"/>
 	</div>
 </main>
 
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="${contextPath}/resources/js/vworld.js"></script>
+
 <jsp:include page="../common/footer.jsp"/>
 
 <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
@@ -335,4 +352,9 @@ crossorigin="anonymous"/>
 		 	processData: false
 		})
 	});
+	
+
+
+
+	
 </script>

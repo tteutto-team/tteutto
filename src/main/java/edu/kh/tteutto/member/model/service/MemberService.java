@@ -157,18 +157,23 @@ public interface MemberService {
 	 */
 	int memberResign(int memberNo);
 
-	/** 클래스 개수 조회 + 페이지네이션
+	/** 클래스 개수 조회
 	 * @param page
 	 * @return pagination
 	 */
 	public Pagination getPagination(Map<String, Object> map, int page);
 	
-	/** 클래스 카드 목록 조회
-	 * @param memberNo
+	/** 클래스 카드 조회
+	 * @param map
 	 * @return wishList
 	 */
 	public List<ClassList> selectWishList(Pagination pagination, Map<String, Object> map);
 
+	/** 찜한 클래스 삽입 & 삭제
+	 * @param map
+	 * @return heart
+	 */
+	public int changeHeart(Map<String, Object> map);
 
 	/** 학생 수강신청 목록
 	 * @param memberNo
@@ -270,6 +275,13 @@ public interface MemberService {
 	 * @return pagination
 	 */
 	Pagination reviewPagination(int memberNo, int cp);
+
+
+	/** 강사 신청 이미 했는지 체크
+	 * @param memberNo
+	 * @return teacherSt
+	 */
+	int teacherSt(int memberNo);
 
 
 
