@@ -17,7 +17,6 @@ import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
 import edu.kh.tteutto.common.Util;
 import edu.kh.tteutto.main.model.vo.ClassList;
 
-
 @Service
 public class ClassDetailServiceImpl implements ClassDetailService{
 
