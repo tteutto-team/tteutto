@@ -412,3 +412,12 @@ function PopUp(){
 	 }
      
 }
+
+// 참여인원 음수,기호 방지
+$("#maxPerson").on("input", function(){
+	$(this).val($(this).val().replace(/[^0-9]/gi,""));
+})
+
+$("#minPerson").on("input", function(){
+	$(this).val($(this).val().replace(/[^0-9]/gi,""));
+})

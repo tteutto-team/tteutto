@@ -66,7 +66,19 @@ public class RegisterController {
 					
 					if(cdt.getClassStatus() == 2) { // 클래스가 승인 됐는지 확인
 						
+						
 						int epCount = service.checkEpCount(cdt.getClassNo());
+						
+						if(session.getAttribute("openClass") != null) {
+							session.removeAttribute("openClass");
+							session.removeAttribute("openCount");
+							System.out.println("지우");
+						}
+						if(session.getAttribute("openCount") != null) {
+							session.removeAttribute("openClass");
+							session.removeAttribute("openCount");
+							System.out.println("한지우");
+						}
 						
 						session.setAttribute("openCount", epCount);		
 						session.setAttribute("openClass", cdt);

@@ -453,32 +453,47 @@ public class MemberController {
 		}
 
 
-	// 찜한 클래스
-	@RequestMapping("studentWishList")
-	public String studentWishList(Model model, 
-			@ModelAttribute("loginMember") Member loginMember, 
-			@RequestParam(value="page", required=false, defaultValue="1") int page) {
+		// 찜한 클래스
+		@RequestMapping("studentWishList")
+		public String studentWishList(Model model, 
+				@ModelAttribute("loginMember") Member loginMember, 
+				@RequestParam(value="page", required=false, defaultValue="1") int page) {
+			
+			int memberNo = loginMember.getMemberNo();
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("memberNo", memberNo);
+			map.put("pageKey", "wish");
+			
+			Pagination pagination = null;
+			List<ClassList> wishList = null;
+			
+			pagination = service.getPagination(map, page);
+			pagination.setLimit(9);
+			pagination.setPageSize(5);
+			
+			wishList = service.selectWishList(pagination, map);
+			
+			model.addAttribute("pagination", pagination);
+			model.addAttribute("wishList", wishList);
+			
+			return "member/studentWishList";
+		}
 		
-		int memberNo = loginMember.getMemberNo();
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("memberNo", memberNo);
-		map.put("pageKey", "wish");
-		
-		Pagination pagination = null;
-		List<ClassList> wishList = null;
-		
-		pagination = service.getPagination(map, page);
-		pagination.setLimit(9);
-		pagination.setPageSize(5);
-		
-		wishList = service.selectWishList(pagination, map);
-		
-		model.addAttribute("pagination", pagination);
-		model.addAttribute("wishList", wishList);
-		
-		return "member/studentWishList";
-	}
+		// 찜한 클래스 삽입 & 삭제
+		@ResponseBody
+		@RequestMapping("changeHeart")
+		public int changeHeart(int classNo, 
+				@ModelAttribute("loginMember") Member loginMember) {
+			
+			int memberNo = loginMember.getMemberNo();
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("memberNo", memberNo);
+			map.put("classNo", classNo);
+			
+			return service.changeHeart(map);
+		}
 
 	// 학생 프로필 페이지 이동
 	@RequestMapping(value = "studentProfile", method = RequestMethod.GET)
@@ -689,9 +704,21 @@ public class MemberController {
 	
 	// 강사 신청 페이지 이동
 	@RequestMapping(value = "teacherRegister", method = RequestMethod.GET)
-	public String teacherRegister(HttpSession session) {
-		if(session.getAttribute("loginMember") != null) {
-			return "member/teacherRegister";			
+	public String teacherRegister(HttpSession session, RedirectAttributes ra) {
+		if(session.getAttribute("loginMember") != null) { // 로그인 안되있으면
+			
+			Member loginMember = (Member)session.getAttribute("loginMember");
+			
+			int teacherSt = service.teacherSt(loginMember.getMemberNo());
+			System.out.println(teacherSt);
+			
+			if(teacherSt >= 0) { // 강사 신청을 이미 했다면
+				ra.addFlashAttribute("message", "이미 강사 신청이 진행중입니다.");
+				return "member/login";
+			}else {
+				return "member/teacherRegister";			
+			}
+			
 		}else {
 			return "member/login";
 		}

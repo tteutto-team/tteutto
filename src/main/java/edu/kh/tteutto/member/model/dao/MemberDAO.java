@@ -244,6 +244,16 @@ public class MemberDAO {
 		return sqlSession.selectList("classListMapper.selectClassCard", map, rowBounds);
 	}
 
+	// 찜한 클래스 등록
+	public int insertHeart(Map<String, Object> map) {
+		return sqlSession.insert("classListMapper.insertHeart", map);
+	}
+
+	// 찜한 클래스 삭제
+	public int deleteHeart(Map<String, Object> map) {
+		return sqlSession.delete("classListMapper.deleteHeart", map);
+	}
+
 	/** 학생 수강 신청 목록
 	 * @param memberNo
 	 * @param pagination 
@@ -365,6 +375,10 @@ public class MemberDAO {
 
 	public int reviewCount(int memberNo) {
 		return sqlSession.selectOne("memberMapper.reviewCount", memberNo);
+	}
+
+	public int teacherSt(int memberNo) {
+		return sqlSession.selectOne("memberMapper.teacherSt", memberNo);
 	}
 
 
