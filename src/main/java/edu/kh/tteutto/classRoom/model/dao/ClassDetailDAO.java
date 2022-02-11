@@ -3,6 +3,7 @@ package edu.kh.tteutto.classRoom.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,6 +14,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeSchedule;
+import edu.kh.tteutto.classRoom.model.vo.ReviewPagination;
 import edu.kh.tteutto.member.model.vo.Member;
 import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
 import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
@@ -86,6 +88,54 @@ public class ClassDetailDAO {
 	// 클래스 썸네일 이미지 조회
 	public List<ThumnailImg> selectThumImg(int classNo) {
 		return sqlSession.selectList("classDetailMapper.selectThumImg",classNo);
+	}
+
+	/** 후기 목록 조회
+	 * @param pagination 
+	 * @param classNo
+	 * @return data
+	 */
+	public List<ClassReview> reviewList(ReviewPagination pagination, int classNo) {
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		int limit = pagination.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		
+		return sqlSession.selectList("classDetailMapper.reviewList", classNo, rowBounds);
+	}
+
+	/** 후기 목록 카운트
+	 * @param classNo 
+	 * @return listCount
+	 */
+	public int getListCount(int classNo) {
+		return sqlSession.selectOne("classDetailMapper.getListCount", classNo);
+	}
+
+	/** 후기 삭제
+	 * @param reviewNo
+	 * @return result
+	 */
+	public int reviewDelete(int reviewNo) {
+		return sqlSession.update("classDetailMapper.reviewDelete", reviewNo);
+	}
+
+	/** 후기 수정
+	 * @param review
+	 * @return result
+	 */
+	public int reviewUpdate(ClassReview review) {
+		return sqlSession.update("classDetailMapper.reviewUpdate", review);
+	}
+
+	/** 후기 신고하기
+	 * @param map
+	 * @return result
+	 */
+	public int report(Map<String, Object> map) {
+		return sqlSession.insert("classDetailMapper.report", map);
 	}
 
 	

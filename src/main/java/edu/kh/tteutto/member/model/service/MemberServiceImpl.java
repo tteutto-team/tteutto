@@ -392,8 +392,8 @@ public class MemberServiceImpl implements MemberService{
 
 	// 학생 수강신청 목록 조회
 	@Override
-	public List<ClassRegister> studentClassList(int memberNo) {
-		return dao.studentClassList(memberNo);
+	public List<ClassRegister> studentClassList(int memberNo, Pagination pagination) {
+		return dao.studentClassList(memberNo, pagination);
 	}
 
 	// 학생 클래스 신고
@@ -410,8 +410,8 @@ public class MemberServiceImpl implements MemberService{
 
 	// 학생 작성한 후기 목록 조회
 	@Override
-	public List<ClassReview> studentCommentList(int memberNo) {
-		return dao.studentCommentList(memberNo);
+	public List<ClassReview> studentCommentList(int memberNo, Pagination pagination) {
+		return dao.studentCommentList(memberNo, pagination);
 	}
 
 	// 학생 후기 수정
@@ -448,6 +448,34 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int searchReview(int regNo) {
 		return dao.searchReview(regNo);
+	}
+
+	// 신고 있는지 검사
+	@Override
+	public int searchReport(int regNo) {
+		return dao.searchReport(regNo);
+	}
+
+	// 환불 신청을 이미 했는지 검사
+	@Override
+	public int checkRefund(int regNo) {
+		return dao.checkRefund(regNo);
+	}
+
+	// 내 수강신청 목록 카운트
+	@Override
+	public Pagination registerPagination(int memberNo, int cp) {
+		int listCount = dao.registerCount(memberNo);
+		
+		return new Pagination(listCount, cp);
+	}
+
+	// 내 후기목록 카운트
+	@Override
+	public Pagination reviewPagination(int memberNo, int cp) {
+		int listCount = dao.reviewCount(memberNo);
+		
+		return new Pagination(listCount, cp);
 	}
 	
 

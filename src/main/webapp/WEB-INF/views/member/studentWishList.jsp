@@ -35,7 +35,7 @@
 	                        
 	                        <%-- 클래스 찜하기 버튼 > 찜 X --%>
 	                        <c:if test="${classList.heartFlag == 0}">
-		                        <button type="button" class="btn_like">
+		                        <button type="button" class="btn_like" id="${classList.classNo}">
 		                            <span class="img_emoti">좋아요</span>
 		                            <span class="ani_heart_m"></span>
 		                        </button>
@@ -43,7 +43,7 @@
 	                        
 	                        <%-- 클래스 찜하기 버튼 > 찜 X --%>
 	                        <c:if test="${classList.heartFlag == 1}">
-		                        <button type="button" class="btn_like btn_unlike">
+		                        <button type="button" class="btn_like btn_unlike" id="${classList.classNo}">
 		                            <span class="img_emoti">좋아요</span>
 		                            <span class="ani_heart_m hi"></span>
 		                        </button>
@@ -122,16 +122,33 @@
 <script>
 	$(".left > .list > div:nth-of-type(4)").addClass("selected");
 	
-    $('.btn_like').click(function(){
-        if($(this).hasClass('btn_unlike')){
-            $(this).removeClass('btn_unlike');
-            $(this).children('span:eq(1)').removeClass('hi');
-            $(this).children('span:eq(1)').addClass('bye');
-        }
-        else{
-            $(this).addClass('btn_unlike');
-            $(this).children('span:eq(1)').removeClass('bye');
-            $(this).children('span:eq(1)').addClass('hi');
-        }
-    });
+	<%-- 클래스 카드 찜하기 버튼 색상 변경 --%>
+	$('.btn_like').click(function() {
+		
+		const classNo = this.getAttribute("id");
+		
+		if ("${loginMember}" != "") {
+			const heartBtn = this;
+			
+			$.ajax({
+				url : "${contextPath}/member/changeHeart", 
+				data : {"classNo" : classNo}, 
+				success : function(result) {
+					console.log(result)
+					if (result > 0) {
+					    if ($(heartBtn).hasClass('btn_unlike')) {
+					        $(heartBtn).removeClass('btn_unlike');
+					        $(heartBtn).children('span:eq(1)').removeClass('hi');
+					        $(heartBtn).children('span:eq(1)').addClass('bye');
+					    } else {
+					        $(heartBtn).addClass('btn_unlike');
+					        $(heartBtn).children('span:eq(1)').removeClass('bye');
+					        $(heartBtn).children('span:eq(1)').addClass('hi');
+					    }
+					}
+				}
+			}) 
+		
+		} else alert("로그인 후 이용 가능합니다.");
+	});
 </script>

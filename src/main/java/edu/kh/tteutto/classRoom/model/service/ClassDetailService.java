@@ -9,6 +9,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
+import edu.kh.tteutto.classRoom.model.vo.ReviewPagination;
 import edu.kh.tteutto.member.model.vo.Member;
 import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
 import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
@@ -82,6 +83,38 @@ public interface ClassDetailService {
 	 * @return thumnailImg
 	 */
 	List<ThumnailImg> selectThumImg(int classNo);
+
+	/** 후기 목록 조회
+	 * @param pagination 
+	 * @param classNo
+	 * @return data
+	 */
+	List<ClassReview> reviewList(ReviewPagination pagination, int classNo);
+
+	/** 후기 페이징
+	 * @param pageNum
+	 * @param classNo 
+	 * @return pagination
+	 */
+	ReviewPagination getPagination(int pageNum, int classNo);
+
+	/** 후기 삭제
+	 * @param reviewNo
+	 * @return result
+	 */
+	int reviewDelete(int reviewNo);
+
+	/** 후기 수정
+	 * @param review
+	 * @return result
+	 */
+	int reviewUpdate(ClassReview review);
+
+	/** 후기 신고하기
+	 * @param map
+	 * @return result
+	 */
+	int report(Map<String, Object> map);
 
 	
 	

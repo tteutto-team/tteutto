@@ -25,5 +25,39 @@ public interface ClassRegisterService {
 	 * @return
 	 */
 	int insertClassSchedule(Episode episode, List<EpisodeSchedule> epsList);
+
+	/** 클래스의 선생 번호 가져오기
+	 * @param no
+	 * @return teacherNo
+	 */
+	int teacherNo(int no);
+
+	/** 클래스 가져오기
+	 * @param no
+	 * @return cdt
+	 */
+	ClassDetail classSelect(int no);
+
+	/** 추가 회차 등록인지 체크
+	 * @param classNo
+	 * @return epCount
+	 */
+	int checkEpCount(int classNo);
+
+	/** 클래스 원데이 스케쥴 추가
+	 * @param episode
+	 * @param epsList
+	 * @param epCount 
+	 * @return result
+	 */
+	int insertOneClassSchedule(Episode episode, List<EpisodeSchedule> epsList, int epCount);
+
+	/** 정규 재 오픈
+	 * @param episode
+	 * @param epsList
+	 * @param epCount
+	 * @return result
+	 */
+	int insertClassScheduleplus(Episode episode, List<EpisodeSchedule> epsList, int epCount);
 	
 }

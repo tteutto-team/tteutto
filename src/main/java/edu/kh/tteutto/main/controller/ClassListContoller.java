@@ -11,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.tteutto.main.model.service.ClassListService;
 import edu.kh.tteutto.main.model.vo.ClassList;
+import edu.kh.tteutto.main.model.vo.Option;
 import edu.kh.tteutto.main.model.vo.Pagination;
 import edu.kh.tteutto.member.model.vo.Member;
 
@@ -73,5 +75,13 @@ public class ClassListContoller {
 		}
 		
 		return "main/searchList";
+	}
+	
+	// 클래스 검색 목록 옵션
+	@ResponseBody
+	@RequestMapping("changeOption")
+	public String changeOption(Option option ) {
+		System.out.println(option);
+		return null;
 	}
 }

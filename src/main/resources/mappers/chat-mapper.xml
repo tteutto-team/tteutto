@@ -57,7 +57,7 @@
 		</selectKey>
 		
 		INSERT INTO CHAT_ROOM VALUSE
-		(#{chatRoomNo}, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{teacherNo})
+		(#{chatRoomNo}, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, (SELECT MEMBER_NO FROM CLASS WHERE CLASS_NO=#{teacherNo}))
 	</insert>
 	
 	
@@ -68,19 +68,38 @@
 		AND CHAT_ROOM_ST = 0
 	</select>
 	
-	<!-- 채팅방 입장 --> <!-- teacherNo 컬럼이 필요한가... -->
-	<insert id="joinChatRoom">
-		INSERT INTO CHAT_ROOM VALUES(#{chatRoomNo}, DEFAULT, DEFAULT, DEFAULT, #{memberNo})
-	</insert>
+	<!-- 채팅방 입장 --> 
+<!-- 	<insert id="joinChatRoom">
+		INSERT INTO CHAT_ROOM VALUES(SEQ_CHAT_ROOM_NO.NEXTVAL, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{teacherNo})
+	</insert> -->
 	
 	<!-- 채팅 메세지 조회  -->
 	<select id="selectChatMessage" resultMap="chatMessage_rm">
-		SELECT MESSAGE, TO_CHAR(MSG_DT, 'YYYY-MM-DD HH24:MI') MSG_DT,
+		SELECT MSG_CONTENT, TO_CHAR(MSG_DT, 'YYYY-MM-DD HH24:MI') MSG_DT,
 		MEMBER_NO, MEMBER_NM
 		FROM CHAT_MESSAGE
 		JOIN MEMBER USING(MEMBER_NO)
 		WHERE CHAT_ROOM_NO = #{chatRoomNo}
 		ORDER BY MSG_NO
 	</select>
+	
+	
+	<!-- 이미 같은 강사, 학생이 들어가있는 채팅방 번호를 조회 (없으면 0) -->
+	<select id="selectChatRoomNo" resultType="_int">
+		SELECT * FROM CHAT_ROOM
+		WHERE MEMBER_NO = #{memberNo}
+		AND TEACHER_NO = (SELECT MEMBER_NO FROM CLASS
+		                    WHERE CLASS_NO = #{classNo})
+		AND CHAT_ROOM_ST != 1
+	</select>
+	
+	
+	<!-- 채팅 내용 삽입 -->
+	<insert id="insertMessage">
+		INSERT INTO CHAT_MESSAGE VALUES (SEQ_MSG_NO.NEXTVAL, #{msgContent}, DEFAULT, DEFAULT, #{chatRoomNo}, #{memberNo});
+	</insert>
+	
+
+	
 	
 </mapper>

@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+
 import edu.kh.tteutto.common.Util;
 import edu.kh.tteutto.main.model.vo.ClassList;
 import edu.kh.tteutto.member.model.vo.Member;
@@ -28,6 +30,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
+import edu.kh.tteutto.classRoom.model.vo.ReviewPagination;
 import edu.kh.tteutto.classRoom.model.vo.Teacher;
 import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
 import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
@@ -172,4 +175,61 @@ public class ClassDetailController {
 		return ageChart;
 	}
 	
+	// 후기 목록 조회
+	@ResponseBody
+	@RequestMapping(value="reviewList")
+	public Map<String, Object> reviewList(int classNo, int pageNum) {
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		ReviewPagination pagination = service.getPagination(pageNum, classNo);
+		
+		List<ClassReview> data = service.reviewList(pagination, classNo);
+		
+		/*
+		 * for(ClassReview review : data) {
+		 * review.setReviewContent(Util.changeNewLine2(review.getReviewContent())); }
+		 */
+		
+		result.put("data", data);
+		result.put("pagination", pagination);
+		
+		return result;
+	}
+	
+	// 후기 삭제
+	@RequestMapping(value="reviewDelete", method=RequestMethod.GET)
+	@ResponseBody
+	public int reviewDelete(int reviewNo) {
+		return service.reviewDelete(reviewNo);
+	}
+	
+	// 후기 수정
+	@RequestMapping(value="reviewUpdate", method=RequestMethod.GET)
+	@ResponseBody
+	public int reviewUpdate(ClassReview review) {
+		return service.reviewUpdate(review);
+	}
+	
+	// 신고하기
+	@RequestMapping(value="report", method=RequestMethod.GET)
+	@ResponseBody
+	public int report(int memberNo, String reportContent, int episodeNo) {
+		
+		reportContent = Util.XSS(reportContent);
+		reportContent = Util.changeNewLine(reportContent);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("registerNo", 0);
+		map.put("memberNo", memberNo);
+		map.put("reportContent", reportContent);
+		map.put("episodeNo", episodeNo);
+		
+		int result = service.report(map);
+		
+		System.out.println(map);
+		
+		return result;
+	}
 }

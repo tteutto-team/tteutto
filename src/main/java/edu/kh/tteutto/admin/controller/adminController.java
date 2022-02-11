@@ -721,6 +721,10 @@ public class adminController {
 		
 		List<AdminReview> data = service.reviewList();
 		
+		for(AdminReview review : data) {
+			review.setReviewContent(Util.changeNewLine2(review.getReviewContent()));
+		}
+		
 		return data;
 	}
 	

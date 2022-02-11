@@ -25,7 +25,7 @@ crossorigin="anonymous"/>
 				</div>
 				
 				<c:forEach items="${recommendList}" var="classList">					
-				<%-- 클래스 카드 --%>
+					<%-- 클래스 카드 --%>
 					<div class="class">
 						<div class="image">
 							<%-- 클래스 이미지 --%>
@@ -77,6 +77,38 @@ crossorigin="anonymous"/>
 					
 					<%-- 옵션 선택 --%>
 					<form action="" method="get" name="optionForm">
+						<div class="price">
+							<div class="price-chk">
+		                    	<input type="checkbox" name="price" value="1" id="price1">
+		                    	<label for="price1"></label>
+		                    	<label for="price1" class="label prevent-dragging">1만 원 미만</label>
+							</div>
+							
+							<div class="price-chk">
+		                    	<input type="checkbox" name="price" value="2" id="price2">
+		                    	<label for="price2"></label>
+				            	<label for="price2" class="label prevent-dragging">1만 원 ~ 3만 원</label>
+							</div>
+							
+							<div class="price-chk">
+		                    	<input type="checkbox" name="price" value="3" id="price3">
+		                    	<label for="price3"></label>
+				            	<label for="price3" class="label prevent-dragging">3만 원 ~ 5만 원</label>
+							</div>
+							
+							<div class="price-chk">
+		                    	<input type="checkbox" name="price" value="4" id="price4">
+		                    	<label for="price4"></label>
+				            	<label for="price4" class="label prevent-dragging">5만 원 ~ 10만 원</label>
+							</div>
+							
+							<div class="price-chk">
+					            <input type="checkbox" name="price" value="5" id="price5">
+					            <label for="price5"></label>
+					            <label for="price5" class="label prevent-dragging">10만 원 초과</label>
+							</div>
+	                    </div>
+						
 						<div class="select">
 				            <article class="cont-select">
 				                <input type="hidden" name="classType">
@@ -98,42 +130,29 @@ crossorigin="anonymous"/>
 				                    <li><button type="button">후기 많은 순</button></li>
 				                </ul>
 				            </article>
+				            
+				            <article class="cont-select">
+				                <input type="hidden" name="classSort">
+				                <button class="btn-select" type="button">정렬</button>
+				                <ul class="list-member">
+				                    <li><button type="button">인기순</button></li>
+				                    <li><button type="button">별점 높은 순</button></li>
+				                    <li><button type="button">찜 많은 순</button></li>
+				                    <li><button type="button">후기 많은 순</button></li>
+				                </ul>
+				            </article>
+				            
+				            <article class="cont-select">
+				                <input type="hidden" name="classSort">
+				                <button class="btn-select" type="button">정렬</button>
+				                <ul class="list-member">
+				                    <li><button type="button">인기순</button></li>
+				                    <li><button type="button">별점 높은 순</button></li>
+				                    <li><button type="button">찜 많은 순</button></li>
+				                    <li><button type="button">후기 많은 순</button></li>
+				                </ul>
+				            </article>
 						</div>
-			             
-			            <div>
-				            <input type="checkbox" name="classDay" value="월">월
-				            <input type="checkbox" name="classDay" value="화">화
-				            <input type="checkbox" name="classDay" value="수">수
-				            <input type="checkbox" name="classDay" value="목">목
-				            <input type="checkbox" name="classDay" value="금">금
-				            <input type="checkbox" name="classDay" value="토">토
-				            <input type="checkbox" name="classDay" value="일">일
-			            </div>
-			            
-			            <div>
-				            <input type="checkbox" name="classPrice" value="1">1만원대
-				            <input type="checkbox" name="classPrice" value="2">2만원대
-				            <input type="checkbox" name="classPrice" value="3">3만원대
-				            <input type="checkbox" name="classPrice" value="4">4만원대
-				            <input type="checkbox" name="classPrice" value="5">5만원대
-			            </div>
-			            
-			            <div class="bottomLine" style="clear: both;">
-			                <div class="line1 h4-height"><h4>수업등록지역 <span class="redText">*</span></h4></div>
-			                <div class="line2">
-			                    <!-- 브이월드 행정구역도를 이용한 셀렉트 박스 구현... 공간정보를 기반으로 하고 있어서 국가공간정보포털보다 느림 -->
-			                    <!-- <form id="nsdiSearchForm" action="#" class="form_data" onsubmit="return false;search();"> -->
-			                        <select id="sido_code" name="area1" class="select-style btn-select" required>
-			                            <option class="list-member">선택</option>
-			                        </select>
-			                        <select id="sigoon_code" name="area2" class="select-style btn-select" required>
-			                            <option class="list-member">선택</option>
-			                        </select>
-			                        <input type="hidden" id="classArea1" name="classArea1" value=""/>
-			                        <input type="hidden" id="classArea2" name="classArea2" value=""/>
-			                    <!-- </form> -->
-			                </div>        
-           				</div>
 					</form>
 			            
 		            <%-- 클래스 목록 --%>
@@ -141,7 +160,7 @@ crossorigin="anonymous"/>
 						<div class="new-class-bottom">
 		
 							<c:forEach items="${searchList}" var="classList">					
-							<%-- 클래스 카드 --%>
+								<%-- 클래스 카드 --%>
 								<div class="class">
 									<div class="image">
 										<%-- 클래스 이미지 --%>
@@ -154,7 +173,7 @@ crossorigin="anonymous"/>
 									
 									<%-- 클래스 찜하기 버튼 > 찜 X --%>
 									<c:if test="${classList.heartFlag == 0}">
-										<button type="button" class="btn_like">
+										<button type="button" class="btn_like" id="${classList.classNo}">
 											<span class="img_emoti">좋아요</span>
 											<span class="ani_heart_m"></span>
 										</button>
@@ -162,7 +181,7 @@ crossorigin="anonymous"/>
 									
 									<%-- 클래스 찜하기 버튼 > 찜 O --%>
 									<c:if test="${classList.heartFlag == 1}">
-										<button type="button" class="btn_like btn_unlike">
+										<button type="button" class="btn_like btn_unlike" id="${classList.classNo}">
 											<span class="img_emoti">좋아요</span>
 											<span class="ani_heart_m hi"></span>
 										</button>
@@ -241,68 +260,107 @@ crossorigin="anonymous"/>
 
 <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
 <script>
-const btn = document.querySelectorAll('.btn-select');
-const list = document.querySelectorAll('.list-member');
-
-<%-- 옵션 버튼 클릭 시 드롭다운 열고 닫기 --%>
-for (let i = 0; i < btn.length; i++) {
-	btn[i].addEventListener('click', () => {
-		
-		if (btn[i].classList.contains('on')) { <%-- 열린 상태 --%>
-		    btn[i].classList.remove('on');
+	const btn = document.querySelectorAll('.btn-select');
+	const list = document.querySelectorAll('.list-member');
+	
+	<%-- 옵션 버튼 클릭 시 드롭다운 열고 닫기 --%>
+	for (let i = 0; i < btn.length; i++) {
+		btn[i].addEventListener('click', () => {
 			
-		} else { <%-- 닫힌 상태 --%>
+			if (btn[i].classList.contains('on')) { <%-- 열린 상태 --%>
+			    btn[i].classList.remove('on');
+				
+			} else { <%-- 닫힌 상태 --%>
+				for (b of btn)
+					b.classList.remove("on");
+	
+			    btn[i].classList.add('on');
+			}
+		});
+	}
+	
+	<%-- 옵션 버튼 + 옵션 리스트 외 나머지 클릭 시 드롭다운 닫기 --%>
+	window.addEventListener("click", function(e) {
+		let flag = true;
+	
+		const nodeList = document.querySelectorAll(".btn-select, .list-member, .list-member > li");
+	
+		for (node of nodeList) {
+			if (e.target == node) {
+				flag = false;
+				break;
+			}
+		} 
+	
+		if (flag) {
 			for (b of btn)
 				b.classList.remove("on");
-
-		    btn[i].classList.add('on');
 		}
 	});
-}
-
-<%-- 옵션 버튼 + 옵션 리스트 외 나머지 클릭 시 드롭다운 닫기 --%>
-window.addEventListener("click", function(e) {
-	let flag = true;
-
-	const nodeList = document.querySelectorAll(".btn-select, .list-member, .list-member > li");
-
-	for (node of nodeList) {
-		if (e.target == node) {
-			flag = false;
-			break;
-		}
-	} 
-
-	if (flag) {
-		for (b of btn)
-			b.classList.remove("on");
+	
+	<%-- 옵션 리스트 클릭 시 버튼 텍스트 변경 및 드롭다운 닫기 --%>
+	for (let j = 0; j < list.length; j++) {
+		list[j].addEventListener('click', (event) => {
+		    if (event.target.nodeName === "BUTTON") {
+		        btn[j].innerText = event.target.innerText;
+		        $(btn[j]).prev().val(event.target.innerText);
+		        btn[j].classList.remove('on');
+		        
+		        // input type='hidden'은 value가 변해도 change 이벤트가 발생하지 않기 때문에 강제 발생
+		        $(btn[j]).prev().change();
+		    }
+		});
 	}
-});
-
-<%-- 옵션 리스트 클릭 시 버튼 텍스트 변경 및 드롭다운 닫기 --%>
-for (let j = 0; j < list.length; j++) {
-	list[j].addEventListener('click', (event) => {
-	    if (event.target.nodeName === "BUTTON") {
-	        btn[j].innerText = event.target.innerText;
-	        $(btn[j]).prev().val(event.target.innerText);
-	        btn[j].classList.remove('on');
-	    }
+	
+	<%-- 클래스 카드 찜하기 버튼 색상 변경 --%>
+	$('.btn_like').click(function() {
+		
+		const classNo = this.getAttribute("id");
+		
+		if ("${loginMember}" != "") {
+			const heartBtn = this;
+			
+			$.ajax({
+				url : "${contextPath}/member/changeHeart", 
+				data : {"classNo" : classNo}, 
+				success : function(result) {
+					console.log(result)
+					if (result > 0) {
+					    if ($(heartBtn).hasClass('btn_unlike')) {
+					        $(heartBtn).removeClass('btn_unlike');
+					        $(heartBtn).children('span:eq(1)').removeClass('hi');
+					        $(heartBtn).children('span:eq(1)').addClass('bye');
+					    } else {
+					        $(heartBtn).addClass('btn_unlike');
+					        $(heartBtn).children('span:eq(1)').removeClass('bye');
+					        $(heartBtn).children('span:eq(1)').addClass('hi');
+					    }
+					}
+				}
+			}) 
+		
+		} else alert("로그인 후 이용 가능합니다.");
 	});
-}
-
-<%-- 클래스 카드 찜하기 버튼 색상 변경 --%>
-$('.btn_like').click(function(){
 	
-	
-	
-    if ($(this).hasClass('btn_unlike')) {
-        $(this).removeClass('btn_unlike');
-        $(this).children('span:eq(1)').removeClass('hi');
-        $(this).children('span:eq(1)').addClass('bye');
-    } else {
-        $(this).addClass('btn_unlike');
-        $(this).children('span:eq(1)').removeClass('bye');
-        $(this).children('span:eq(1)').addClass('hi');
-    }
-});
+	<%--  --%>
+	$('[name=optionForm] input').on("change", function() {
+		
+		const formData = new FormData($('[name=optionForm]')[0]);
+		
+		/*for (var pair of formData.entries()) {
+		  console.log(pair[0]+ ', ' + pair[1]);
+		}*/
+		
+		$.ajax({
+			url : "${contextPath}/main/changeOption", 
+			data : formData, 
+			dataType : "json", 
+			type : "post",
+		 	contentType: false,
+		 	processData: false,
+			success : function(result) {
+				console.log(result);
+			}
+		})
+	});
 </script>

@@ -411,4 +411,71 @@
 		RE_ST = 1
 		WHERE RE_NO = #{reviewNo}
 	</update>
+	
+	<!-- 클래스가 이미 후기가 작성됐는지 -->
+	<select id="searchReview" resultType="_int">
+		SELECT COUNT(*) FROM REVIEW
+		WHERE REG_NO = #{regNo}
+	</select>
+	
+	<!-- 클래스가 이미 신고가 됐는지 -->
+	<select id="searchReport" resultType="_int">
+		SELECT COUNT(*) FROM REPORT
+		WHERE REG_NO = #{regNo}
+	</select>
+	
+	<!-- 환불 신청 -->
+	<insert id="refundClass" parameterType="ClassRefund">
+		INSERT INTO REFUND 
+		SELECT SEQ_REFUND_NO.NEXTVAL, SYSDATE, NULL, "진행률", (1 - "진행률" * 0.01 ) * EP_PRICE "환불금액", 0, ${regNo}
+		FROM (
+		
+		    SELECT ((SELECT COUNT(*) FROM EPISODE
+		            JOIN EP_SCHEDULE USING(EP_NO)
+		            WHERE EP_NO = #{epNo}<![CDATA[
+		            AND SCHDL_DT < SYSDATE)  / 
+		            
+		            (SELECT COUNT(*) FROM EPISODE
+		            JOIN EP_SCHEDULE USING(EP_NO)
+		            WHERE EP_NO =]]> #{epNo}) * 100) "진행률",
+		            
+		            EP_PRICE
+		    FROM EPISODE
+		    WHERE EP_NO = #{epNo}
+		)
+		
+	</insert>
+	
+	<!-- 환불 신청이 이미 됐는지 확인 -->
+	<select id="checkRefund" resultType="_int">
+		SELECT COUNT(*) FROM REFUND
+		WHERE REG_NO = #{regNo}
+	</select>
+	
+		
+	<!-- 수강신청 목록 개수 -->
+	<select id="registerCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM(
+		    SELECT REG_NO, EP_NO, CLASS_NO 번호, MEMBER_NM 강사명, MEMBER_NO, CLASS_NM 클래스명, CLASS_ST 클래스상태, REFUND_ST 환불상태, REFUND_MONEY 환불금액
+		    FROM CLASS C
+		    JOIN EPISODE EP USING(CLASS_NO)
+		    JOIN REGISTER R USING(EP_NO)
+		    LEFT JOIN REFUND USING(REG_NO)
+		    JOIN MEMBER M ON(C.MEMBER_NO = M.MEMBER_NO)
+		    WHERE R.MEMBER_NO = #{memberNo})
+	</select>
+	
+	<!-- 후기신청 목록 개수 -->
+	<select id="reviewCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM REVIEW
+		    JOIN REGISTER R USING(REG_NO)
+		    JOIN EPISODE USING(EP_NO)
+		    JOIN CLASS C USING(CLASS_NO)
+		    JOIN MEMBER M ON(C.MEMBER_NO = M.MEMBER_NO)
+		    WHERE R.MEMBER_NO = #{memberNo}
+		    AND RE_ST = 0
+	</select>
+	
 </mapper>

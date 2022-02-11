@@ -30,4 +30,14 @@ public class WishDAO {
 		
 		return sqlSession.selectList("classListMapper.selectClassCard", map, rowBounds);
 	}
+
+	// 찜한 클래스 등록
+	public int insertHeart(Map<String, Object> map) {
+		return sqlSession.insert("classListMapper.insertHeart", map);
+	}
+
+	// 찜한 클래스 삭제
+	public int deleteHeart(Map<String, Object> map) {
+		return sqlSession.delete("classListMapper.deleteHeart", map);
+	}
 }
