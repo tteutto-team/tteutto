@@ -10,16 +10,57 @@
 
 <div id="right">
 	<div>
-		지역 : ${classOne.classArea} <br>
-		수업 형태 : <c:if test="${classOne.classType == 0}">원데이</c:if>
-					<c:if test="${classOne.classType == 1 }">정규</c:if> <br>
-		수업 참여 인원 : ${classOne.classPerson} <br>
-		수업 최소 인원 : ${classOne.classMinPerson} <br>
-		수업 최대 인원 : ${classOne.classMaxPerson} <br>
-		클래스 이름 : ${classOne.className} <br>
-		수업 소개 : ${classOne.classIntro} <br>
-		난이도 : ${classOne.classLevel} <br>
-		카테고리 : ${classOne.categoryName} - ${classOne.categoryDetailName} <br>
+		<div class="wrap">
+			<div>클래스 이름</div>
+			<div>${classOne.className}</div>
+		</div>
+		<div class="wrap">
+			<div>지역</div>
+			<div>${classOne.classArea}</div>
+		</div>
+		<div class="wrap">
+			<div>수업 형태</div>
+			<div><c:if test="${classOne.classType == 0}">원데이</c:if>
+					<c:if test="${classOne.classType == 1 }">정규</c:if></div>
+		</div>
+		<div class="wrap">
+			<div>수업 참여 인원</div>
+			<div>${classOne.classPerson}</div>
+		</div>
+		<div class="wrap">
+			<div>수업 최소 인원</div>
+			<div>${classOne.classMinPerson}</div>
+		</div>
+		<div class="wrap">
+			<div>수업 최대 인원</div>
+			<div>${classOne.classMaxPerson}</div>
+		</div>
+		<div class="wrap">
+			<div>수업 소개</div>
+			<div>${classOne.classIntro}</div>
+		</div>
+		<div class="wrap">
+			<div>난이도</div>
+			<div>${classOne.classLevel}</div>
+		</div>
+		<div class="wrap">
+			<div>카테고리</div>
+			<div>${classOne.categoryName} - ${classOne.categoryDetailName}</div>
+		</div>
+		<div class="wrap">
+			<div>썸네일 사진</div>
+			<div>
+				<c:if test="${!empty classOne.thumbnailImg}">
+					<c:forEach var="img" items="${classOne.thumbnailImg}">
+						${img} <br>
+					</c:forEach>
+				</c:if>
+			</div>
+		</div>
+		
+		
+		
+		
 		
 		<c:if test="${!empty classOne.thumbnailImg}">
 			<c:forEach var="img" items="${classOne.thumbnailImg}">

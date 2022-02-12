@@ -75,9 +75,11 @@ public class NoteWebsocketHandler extends TextWebSocketHandler {
 					
 					if(loginMemberNo == cm.getMemberNo()) {
 						
-						int count = service.selectNoteNotice(cm);
+						int count = service.selectNoteAlarm(cm);
+						int count2 = service. selectChatAlarm(cm);
+						int sum = count + count2;
 						
-						wss.sendMessage(new TextMessage(new Gson().toJson(count)));
+						wss.sendMessage(new TextMessage(new Gson().toJson(sum)));
 					}
 				}
 			}
