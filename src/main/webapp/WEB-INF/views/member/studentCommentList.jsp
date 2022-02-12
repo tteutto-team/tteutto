@@ -165,7 +165,7 @@
                         <input id="review-reviewNo" type="hidden" name="reviewNo"/>
                     </div>
 
-                    <div class="score">
+                    <div id="changeStar" class="score">
                         평점 : 
                         <!-- <i class="fas fa-star"></i> -->
                         <i class="far fa-star"><span>1</span></i>
@@ -203,6 +203,43 @@
     $(".review-modal-btn").click(function (e) {
         $("#review-modal").fadeIn(100);
         $("#review-modal").css("display", "flex");
+        
+        const star = e.target.parentNode.childNodes[1].innerText;
+        
+        // 별점
+        if(star == 1){
+        	$("#changeStar").html();
+        	$("#changeStar").html('<i class="fas fa-star"><span>1</span></i><i class="far fa-star"><span>2</span></i><i class="far fa-star"><span>3</span></i><i class="far fa-star"><span>4</span></i><i class="far fa-star"><span>5</span></i>');
+        	const star = e.target.childNodes[0].innerText;
+        	$("#reviewStar").val(1);
+        }else if(star == 2){
+        	$("#changeStar").html();
+        	$("#changeStar").html('<i class="fas fa-star"><span>1</span></i><i class="fas fa-star"><span>2</span></i><i class="far fa-star"><span>3</span></i><i class="far fa-star"><span>4</span></i><i class="far fa-star"><span>5</span></i>');
+        	const star = e.target.childNodes[0].innerText;
+        	$("#reviewStar").val(2);
+        }else if(star == 3){
+        	$("#changeStar").html();
+        	$("#changeStar").html('<i class="fas fa-star"><span>1</span></i><i class="fas fa-star"><span>2</span></i><i class="fas fa-star"><span>3</span></i><i class="far fa-star"><span>4</span></i><i class="far fa-star"><span>5</span></i>');
+        	const star = e.target.childNodes[0].innerText;
+        	$("#reviewStar").val(3);
+        }else if(star == 4){
+        	$("#changeStar").html();
+        	$("#changeStar").html('<i class="fas fa-star"><span>1</span></i><i class="fas fa-star"><span>2</span></i><i class="fas fa-star"><span>3</span></i><i class="fas fa-star"><span>4</span></i><i class="far fa-star"><span>5</span></i>');
+        	const star = e.target.childNodes[0].innerText;
+        	$("#reviewStar").val(4);
+        }else if(star == 5){
+        	$("#changeStar").html();
+        	$("#changeStar").html('<i class="fas fa-star"><span>1</span></i><i class="fas fa-star"><span>2</span></i><i class="fas fa-star"><span>3</span></i><i class="fas fa-star"><span>4</span></i><i class="fas fa-star"><span>5</span></i>');
+        	const star = e.target.childNodes[0].innerText;
+        	$("#reviewStar").val(5);
+        }else{
+        	$("#changeStar").html();
+        	$("#changeStar").html('<i class="fas fa-star"><span>1</span></i><i class="far fa-star"><span>2</span></i><i class="far fa-star"><span>3</span></i><i class="far fa-star"><span>4</span></i><i class="far fa-star"><span>5</span></i>');
+        	const star = e.target.childNodes[0].innerText;
+        	$("#reviewStar").val(1);
+        }
+        
+        
         
         const reviewNo = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[1].innerText;
         const classNm = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[3].innerText;
@@ -253,10 +290,10 @@
     	
     	const star = e.target.childNodes[0].innerText;
     	$("#reviewStar").val(star);
-    	checkStar = true;
+    	//checkStar = true;
     });
 
-    
+    /*
     // 별점은 꼭 눌러라
     function starClick(){
     	if(checkStar != true){
@@ -264,7 +301,7 @@
     		return false;
     	}
     }
-    
+    */
     
     // 후기 삭제
     $(".review-delete-btn").on("click", function(e){

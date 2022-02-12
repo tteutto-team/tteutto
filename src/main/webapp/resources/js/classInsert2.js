@@ -178,12 +178,13 @@ if(checkOne != '(원데이)'){
 	    $("#pt3").html("x " + $(this).val());
 	})
 	
-	$("#time-price, #num-time, #num-class").on("input", function(){
+	$("#time-price, #num-time, #num-class").on("input change keyup focus", function(){
 	    $("#sumPrice").html("");
 	    let sum = $("#time-price").val() * $("#num-time").val() * $("#num-class").val();
 	    let per = Math.floor($("#time-price").val());
 	    $("#sumPrice").html("총 <span class='redText'>" + sum + "원</span> <br> 연결수수료 " + per + "원");
 	    $("#epPrice").val(sum);
+	    $("#susuryo").val(per);
 	})
 	
 }else{
@@ -200,12 +201,13 @@ if(checkOne != '(원데이)'){
 	    $("#pt2").html("x " + $(this).val());
 	})
 	
-	$(".time-price-one, .num-time-one").on("input", function(){
+	$(".time-price-one, .num-time-one").on("input change keyup focus", function(){
 	    $("#sumPrice").html("");
 	    let sum = $(".time-price-one").val() * $(".num-time-one").val();
 	    let per = Math.floor(sum * 0.2);
 	    $("#sumPrice").html("총 <span class='redText'>" + sum + "원</span> <br> 연결수수료 " + per + "원");
 	    $("#epPrice").val(sum);
+	    $("#susuryo").val(per);
 	})
 	
 }
