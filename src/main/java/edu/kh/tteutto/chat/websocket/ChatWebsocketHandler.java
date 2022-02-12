@@ -77,7 +77,16 @@ public class ChatWebsocketHandler extends TextWebSocketHandler{
 					
 					// 얻어온 데이터를 모두에게 뿌림
 					wss.sendMessage(new TextMessage(new Gson().toJson(cm)));
+					
 				}
+				
+				// 채팅 알림
+				if(loginMemberNo == cm.getOtherMemberNo()) {
+					int count = service.sendAlarm(cm);
+					
+					wss.sendMessage(new TextMessage(new Gson().toJson(count)));
+				}
+				
 				
 			}
 			

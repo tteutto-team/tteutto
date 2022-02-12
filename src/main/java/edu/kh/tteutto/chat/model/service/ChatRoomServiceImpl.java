@@ -92,6 +92,12 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 	public List<ChatNote> selectMessageList(int memberNo) {
 		return dao.selectMessageList(memberNo);
 	}
+
+	// 채팅 알림 
+	@Override
+	public int sendAlarm(ChatMessage cm) {
+		return dao.sendAlarm(cm);
+	}
 	
 	
 
