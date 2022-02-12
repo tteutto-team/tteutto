@@ -76,16 +76,23 @@ crossorigin="anonymous"/>
 			<c:otherwise>
 				<%-- 검색 결과가 있을 때의 화면 --%>
 				<div class="yes">
+					<%-- 클래스 목록 제목 --%>
 					<h1 class="title">
 						<c:choose>
+							<%-- 인기 클래스 목록 --%>
 							<c:when test="${type == 'hot'}">
-								<span>hot</span>
+								<span>인기 클래스 추천</span>
 							</c:when>
+							
+							<%-- 신규 클래스 목록 --%>
 							<c:when test="${type == 'new'}">
-								<span>new</span>
+								<span>신규 클래스 추천</span>
 							</c:when>
+							
+							<%-- 클래스 검색 목록 --%>
 							<c:otherwise>
-								<span>'${param.search}'</span> <%-- 검색 키워드 --%>
+								<%-- 검색 키워드 --%>
+								<span>'${param.search}'</span>
 								에 대한 클래스 검색 결과
 							</c:otherwise>
 						</c:choose>
@@ -149,6 +156,7 @@ crossorigin="anonymous"/>
 				                </ul>
 				            </article>
 				            
+				            <%-- 인기, 신규 클래스 목록일 때 정렬 조건 미노출 --%>
 				            <c:if test="${type != 'hot' && type != 'new'}">
 					            <article class="cont-select">
 					                <input type="hidden" name="classSort">
@@ -226,7 +234,7 @@ crossorigin="anonymous"/>
 		<c:if test="${pagination.maxPage > 1}">
 	        <div class="page-number">
 	            <ul class="page-ul">
-	            	<c:if test="${pagination.startPage != 1}">
+	            	<c:if test="${pagination.currentPage != 1}"> <!-- current -->
 		            	<%-- 이전 리스트로 이동 --%>
 		                <li><a href="#"><i class="fas fa-angle-double-left"></i></a></li>
 		                <%-- 이전 페이지로 이동 --%>
@@ -248,7 +256,7 @@ crossorigin="anonymous"/>
 		                </c:choose>
 	                </c:forEach>
 	                
-	                <c:if test="${pagination.endPage != pagination.maxPage}">
+	                <c:if test="${pagination.currentPage != pagination.maxPage}"> <!-- current -->
 		                <%-- 다음 페이지로 이동 --%>
 		                <li><a href="#"><i class="fas fa-angle-right"></i></a></li>
 		                <%-- 다음 리스트로 이동 --%>
@@ -355,7 +363,6 @@ crossorigin="anonymous"/>
 		formData.append("sido", $("#sido_code > option:selected").text());
 		formData.append("sigoon", $("#sigoon_code > option:selected").text());
 		formData.append("type", "${type}");
-
 		
 		$.ajax({
 			url : "${contextPath}/main/changeOption", 

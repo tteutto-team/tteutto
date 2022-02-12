@@ -90,7 +90,7 @@
 	<select id="selectClassCard" resultMap="classList_rm">
 		SELECT * FROM (
 		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, OPEN_EP_NO(C.CLASS_NO) EP_NO, CLASS_NM, 
-		    TH_IMG_NM, CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, <if test="pageKey == 'theme'">THEME_IMG,</if>
+		    TH_IMG_NM, CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, <if test="pageKey == 'theme'">THEME_IMG, </if>
 		    OPEN_PRICE(C.CLASS_NO) EP_PRICE, 
 		        NVL((SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
 		            JOIN EPISODE USING(CLASS_NO) 
@@ -148,7 +148,6 @@
 			    	</choose>
 			    </if>
 			</if>
-			
 			<!-- 클래스 검색 목록 -->
     		<if test="pageKey == 'search'">
 			    <choose>
@@ -170,10 +169,6 @@
 			    </choose>
 		    </if>
 			<choose>
-			    <!-- 찜한 클래스 -->
-			    <when test="pageKey == 'wish'">
-			    	AND C.CLASS_NO IN (SELECT CLASS_NO FROM CLASS_WISH WHERE MEMBER_NO = ${memberNo})
-			    </when>
 			    <!-- 메인 페이지 주변 -->
 			    <when test="pageKey == 'location'">
 			    	AND CLASS_AREA = '서울 동작구'
@@ -189,6 +184,10 @@
 			    <!-- 클래스 테마 목록 -->
 			    <when test="pageKey == 'theme'">
 			    	AND THEME_ST = 3 AND SYSDATE BETWEEN THEME_START_DT AND THEME_END_DT AND THEME_NO = ${themeNo}
+			    </when>
+			    <!-- 찜한 클래스 -->
+			    <when test="pageKey == 'wish'">
+			    	AND C.CLASS_NO IN (SELECT CLASS_NO FROM CLASS_WISH WHERE MEMBER_NO = ${memberNo})
 			    </when>
 		    </choose>
 		)
