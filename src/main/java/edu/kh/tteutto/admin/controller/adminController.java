@@ -549,6 +549,8 @@ public class adminController {
 		
 		List<AdminCalcRefund> data = service.refundList();
 		
+		System.out.println(data);
+		
 		return data;
 	} 
 	

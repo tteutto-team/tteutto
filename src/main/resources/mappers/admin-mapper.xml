@@ -159,7 +159,7 @@
 		<result property="refundMoney" column="REFUND_MONEY"/>	
 		<result property="refundStatus" column="REFUND_STATUS"/>
 		<result property="studentName" column="STUDENT_NM"/>
-		<result property="className" column="CLASS_NAME"/>
+		<result property="className" column="CLASS_NM"/>
 		<result property="episodeCount" column="EP_COUNT"/>
 		<result property="memberNo" column="MEMBER_NO"/>
 	</resultMap>
