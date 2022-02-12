@@ -284,6 +284,17 @@ public interface MemberService {
 	int teacherSt(int memberNo);
 
 
+	/** 강사 이미지 수정
+	 * @param loginTeacherImg 
+	 * @param memberNo
+	 * @param teacherImage
+	 * @param webPath
+	 * @param serverPath
+	 * @return teacherImgName
+	 */
+	String teacherImgUpdate(String loginTeacherImg, int memberNo, MultipartFile teacherImage, String webPath, String serverPath);
+
+
 
 
 

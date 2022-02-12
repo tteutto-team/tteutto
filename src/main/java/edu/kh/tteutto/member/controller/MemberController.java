@@ -425,6 +425,8 @@ public class MemberController {
 			pagination = service.registerPagination(memberNo ,cp);
 			
 			register = service.studentClassList(memberNo, pagination);
+
+			System.out.println(register);
 			
 			model.addAttribute("register", register);
 			model.addAttribute("pagination", pagination);
@@ -499,7 +501,7 @@ public class MemberController {
 	@RequestMapping(value = "studentProfile", method = RequestMethod.GET)
 	public String studentProfile(@ModelAttribute("loginMember") Member loginMember, Model model) {
 		
-		System.out.println("로그인 한 회원정보 : "+ loginMember.getMemberImg());
+//		System.out.println("로그인 한 회원정보 : "+ loginMember.getMemberImg());
 		
 		String brith = loginMember.getMemberBirth().substring(0, 10);
 		String[] brithArray = brith.split("-");
@@ -521,17 +523,23 @@ public class MemberController {
 		member.setMemberNm(name);
 		member.setMemberPno(phone);
 		
+//		System.out.println("?" + image.getSize() );
+//		System.out.println("??" + image.getName() );
+//		System.out.println("???" + image.getOriginalFilename() );
+		
 		if(image.getSize() != 0) {
 			// 웹 접근 경로(webPath), 서버 저장 경로(serverPath)
 			String webPath = "/resources/images/profile/"; // (DB에 저장되는 경로)
 			String serverPath = session.getServletContext().getRealPath(webPath);
 			member.setMemberImg(Util.fileRename( image.getOriginalFilename() )); // 변경된 파일명
-			
+			loginMember.setMemberImg(member.getMemberImg());
 			try {
 				image.transferTo(new File(serverPath + "/" + member.getMemberImg()));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		} else {
+			member.setMemberImg(null);
 		}
 		
 		int result = service.studentProfileUpdate(member);
@@ -539,9 +547,9 @@ public class MemberController {
 		if(result > 0 ) {	// 성공
 			loginMember.setMemberNm(name);
 			loginMember.setMemberPno(phone);
-			loginMember.setMemberImg(member.getMemberImg());
 			return "redirect:studentProfile";
 		} else { // 실패
+			Util.swalSetMessage("error", "관리자에게 문의해주세요.", "error", ra);
 			return "redirect:studentProfile";
 		}
 	}
@@ -633,13 +641,29 @@ public class MemberController {
 	// 강사 프로필 업데이트
 	@RequestMapping(value = "teacherProfileUpdate", method = RequestMethod.POST)
 	public String teacherProfileUpdate( @ModelAttribute("loginMember") Member loginMember,
-										String phone, String introduce, @RequestParam(value = "profileInput", required=false, defaultValue="0") List<String> profileInput,
+										String phone, String introduce, 
+										@RequestParam(value="teacherImage", required=false, defaultValue="0") MultipartFile teacherImage,
+										@RequestParam(value = "profileInput", required=false, defaultValue="0") List<String> profileInput,
 										String instagram, String blog, String youtube, HttpSession session,
 										@RequestParam(value="profileImg", required=false, defaultValue="0") List<MultipartFile> images/*업로드 파일*/,
 										RedirectAttributes ra) {
 		
 		int memberNo = loginMember.getMemberNo();
 //		int memberNo = 3;
+		
+		Teacher teacher = new Teacher();
+		
+		if(teacherImage.getSize() != 0) {
+			String webPath = "/resources/images/teacher/profile/"; // (DB에 저장되는 경로)
+			String serverPath = session.getServletContext().getRealPath(webPath);
+			
+//			System.out.println("teacherImage : " + teacherImage);
+			
+			String teacherImgName = service.teacherImgUpdate(loginMember.getTeacherImg(), memberNo, teacherImage, webPath, serverPath);
+			
+//			System.out.println("teacherImgName : " + teacherImgName);
+			loginMember.setTeacherImg(teacherImgName);
+		}
 		
 		List<Sns> snsList = new ArrayList<Sns>();
 		
@@ -665,7 +689,6 @@ public class MemberController {
 			snsList.add(sns);
 		}
 		
-		Teacher teacher = new Teacher();
 		teacher.setMemberNo(memberNo);
 		teacher.setTeacherIntro(introduce);
 		
@@ -694,10 +717,10 @@ public class MemberController {
 		// 이력을 수정했을 경우
 		else {
 			
-			for(int i=0; i<images.size(); i++) {
-				System.out.println("images: " + images.get(i).getOriginalFilename());
-				System.out.println("profileInput: " + profileInput.get(i));
-			}
+//			for(int i=0; i<images.size(); i++) {
+//				System.out.println("images: " + images.get(i).getOriginalFilename());
+//				System.out.println("profileInput: " + profileInput.get(i));
+//			}
 			
 			result = service.teacherProfileUpdate(teacher, phone, snsList, profileInput, images, webPath, serverPath);
 			System.out.println("수정 result: " + result);
@@ -741,8 +764,7 @@ public class MemberController {
 			System.out.println(teacherSt);
 			
 			if(teacherSt >= 0) { // 강사 신청을 이미 했다면
-				ra.addFlashAttribute("message", "이미 강사 신청이 진행중입니다.");
-				return "member/login";
+				return "member/teacherProfile";
 			}else {
 				return "member/teacherRegister";			
 			}
@@ -854,70 +876,78 @@ public class MemberController {
 	
 	// 학생 - 강사 채팅방 생성
 	@RequestMapping("insertChatRoom")
-	public String insertChatRoom(@ModelAttribute("loginMember") Member loginMember, ChatRoom chatRoom) {
+	@ResponseBody()
+	public int insertChatRoom(@ModelAttribute("loginMember") Member loginMember, int teacherNo) {
 		
+		
+		ChatRoom chatRoom = new ChatRoom();
 		chatRoom.setMemberNo(loginMember.getMemberNo());
+		chatRoom.setTeacherNo(teacherNo);
 	
 		int check = service.checkChatRoom(chatRoom);
 		
 		if(check == 0) {
-			int result = service.insertChatRoom(chatRoom);			
+			service.insertChatRoom(chatRoom);
+		}	
+		
+		return check;
+		
+	}
+
+
+	// 클래스 환불 신청
+	@RequestMapping("refundClass")
+	public String refundClass(ClassRefund refund, RedirectAttributes ra) {
+
+		// 환불이 이미 신청되었는지 검사
+		int check = service.checkRefund(refund.getRegNo());
+		System.out.println(refund);
+		
+		if(check > 0) {
+			ra.addFlashAttribute("message", "이미 환불 신청을 하였습니다.");
+		}else {
+			
+			int result = service.refundClass(refund);
+			
+			if(result > 0) {
+				ra.addFlashAttribute("message", "환불 신청이 완료되었습니다.");			
+			}else {
+				ra.addFlashAttribute("message", "환불 신청 중 문제가 발생했습니다.");
+			}
+			
+		}
+
+		return "redirect:/member/studentClassList";
+	}
+	
+	// 학생 후기 삭제
+	@RequestMapping("deleteReview")
+	public String deleteReview(int reviewNo, RedirectAttributes ra) {
+
+		int result = service.deleteReview(reviewNo);
+		
+		if(result > 0) {
+			ra.addFlashAttribute("message", "후기가 삭제되었습니다.");			
 		}
 		
 		return "redirect:/member/studentClassList";
 	}
 	
-	// 클래스 환불 신청
-		@RequestMapping("refundClass")
-		public String refundClass(ClassRefund refund, RedirectAttributes ra) {
-
-			// 환불이 이미 신청되었는지 검사
-			int check = service.checkRefund(refund.getRegNo());
-			
-			if(check > 0) {
-				System.out.println("이놈아저씨");
-				ra.addFlashAttribute("message", "이미 환불 신청을 하였습니다.");
-			}else {
-				
-				int result = service.refundClass(refund);
-				
-				if(result > 0) {
-					ra.addFlashAttribute("message", "환불 신청이 완료되었습니다.");			
-				}
-				
-			}
-
-			return "redirect:/member/studentClassList";
-		}
-		
-		// 학생 후기 삭제
-		@RequestMapping("deleteReview")
-		public String deleteReview(int reviewNo, RedirectAttributes ra) {
-
-			int result = service.deleteReview(reviewNo);
-			
-			if(result > 0) {
-				ra.addFlashAttribute("message", "후기가 삭제되었습니다.");			
-			}
-			
-			return "redirect:/member/studentClassList";
-		}
-		
-		// 클래스에 후기가 작성되었는지 ajax로 검사
-		@RequestMapping("searchReview")
-		@ResponseBody
-		public int searchReview(int regNo) {
-			int result = service.searchReview(regNo);
-			System.out.println(result);
-			return result;
-		}
-		
-		// 클래스에 신고가 작성되었는지 ajax로 검사
-		@RequestMapping("searchReport")
-		@ResponseBody
-		public int searchReport(int regNo) {
-			return service.searchReport(regNo);
-		}
+	// 클래스에 후기가 작성되었는지 ajax로 검사
+	@RequestMapping("searchReview")
+	@ResponseBody
+	public int searchReview(int regNo) {
+		int result = service.searchReview(regNo);
+		System.out.println(result);
+		return result;
+	}
+	
+	// 클래스에 신고가 작성되었는지 ajax로 검사
+	@RequestMapping("searchReport")
+	@ResponseBody
+	public int searchReport(int regNo) {
+		return service.searchReport(regNo);
+	}
 	
 	
 }

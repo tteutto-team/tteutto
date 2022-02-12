@@ -9,7 +9,26 @@ public class ClassRefund {
 	private int refundMoney;
 	private int refundStatus;
 	private int regNo;
+	private int epNo;
 	
+	public ClassRefund() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	public int getEpNo() {
+		return epNo;
+	}
+
+
+
+	public void setEpNo(int epNo) {
+		this.epNo = epNo;
+	}
+
+
+
 	public int getRefundNo() {
 		return refundNo;
 	}
@@ -52,14 +71,17 @@ public class ClassRefund {
 	public void setRegNo(int regNo) {
 		this.regNo = regNo;
 	}
-	
+
+
+
 	@Override
 	public String toString() {
 		return "ClassRefund [refundNo=" + refundNo + ", refundReqDt=" + refundReqDt + ", refundFinDt=" + refundFinDt
 				+ ", classProgress=" + classProgress + ", refundMoney=" + refundMoney + ", refundStatus=" + refundStatus
-				+ ", regNo=" + regNo + "]";
+				+ ", regNo=" + regNo + ", epNo=" + epNo + "]";
 	}
 	
+
 	
 	
 }

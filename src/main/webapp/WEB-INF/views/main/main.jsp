@@ -149,7 +149,7 @@
     <!-- 인기 클래스 추천 -->
     <div class="hot-class">
         <div class="hot-class-top">
-            <span class="detail">
+            <span class="detail" onclick="location.href='main/hotClass'">
                 인기 클래스 추천<i class="fas fa-angle-right"></i>
             </span>
         </div>
@@ -230,7 +230,7 @@
     <!-- 신규 클래스 추천 -->
     <div class="hot-class">
         <div class="hot-class-top">
-            <span class="detail">
+            <span class="detail" onclick="location.href='main/newClass'">
                 신규 클래스 추천<i class="fas fa-angle-right"></i>
             </span>
         </div>

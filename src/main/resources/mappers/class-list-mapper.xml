@@ -90,7 +90,7 @@
 	<select id="selectClassCard" resultMap="classList_rm">
 		SELECT * FROM (
 		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, OPEN_EP_NO(C.CLASS_NO) EP_NO, CLASS_NM, 
-		    TH_IMG_NM, CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, <if test="pageKey == 'theme'">THEME_IMG,</if>
+		    TH_IMG_NM, CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, <if test="pageKey == 'theme'">THEME_IMG, </if>
 		    OPEN_PRICE(C.CLASS_NO) EP_PRICE, 
 		        NVL((SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
 		            JOIN EPISODE USING(CLASS_NO) 
@@ -108,48 +108,6 @@
 		    LEFT JOIN CLASS_THEME CTH ON(C.CLASS_NO = CTH.CLASS_NO) 
     		LEFT JOIN THEME USING(THEME_NO) 
 		    WHERE TH_IMG_LEVEL = 0 AND MEMBER_ST = 0 
-			<choose>
-		    	<!-- 클래스 검색 목록 -->
-	    		<when test="pageKey == 'search'">
-				    <choose>
-				    	<when test="search == '원데이'">AND CLASS_TYPE = 0 </when>
-				    	<when test="search == '정규'">AND CLASS_TYPE = 1 </when>
-				    	<!-- 클래스 검색 목록 검색 결과 X -->
-					    <when test="result == 'no'">
-					    	AND (SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
-						            JOIN EPISODE USING(CLASS_NO) 
-						            JOIN REGISTER USING(EP_NO) 
-						            JOIN REVIEW USING(REG_NO) 
-						            WHERE C.CLASS_NO = CLASS_NO) >= 4.0 
-						    ORDER BY STAR_AVG DESC
-					    </when>
-				    	<otherwise>
-						    AND ((CLASS_AREA LIKE '%${search}%' OR CLASS_NM LIKE '%${search}%' 
-						    OR CT_NM LIKE '%${search}%' OR MEMBER_NM LIKE '%${search}%' OR CT_DETAIL_NM LIKE '%${search}%'))
-				    	</otherwise>
-				    </choose>
-			    </when>
-			    <!-- 찜한 클래스 -->
-			    <when test="pageKey == 'wish'">
-			    	AND C.CLASS_NO IN (SELECT CLASS_NO FROM CLASS_WISH WHERE MEMBER_NO = ${memberNo})
-			    </when>
-			    <!-- 메인 페이지 주변 -->
-			    <when test="pageKey == 'location'">
-			    	AND CLASS_AREA = '서울 동작구'
-			    </when>
-			    <!-- 메인 페이지 인기 -->
-			    <when test="pageKey == 'hot'">
-			    	ORDER BY REG_COUNT(C.CLASS_NO) DESC
-			    </when>
-			    <!-- 메인 페이지 신규 -->
-			    <when test="pageKey == 'new'">
-			    	ORDER BY NEW_EP_NO(C.CLASS_NO) DESC
-			    </when>
-			    <!-- 클래스 테마 목록 -->
-			    <when test="pageKey == 'theme'">
-			    	AND THEME_ST = 3 AND SYSDATE BETWEEN THEME_START_DT AND THEME_END_DT AND THEME_NO = ${themeNo}
-			    </when>
-		    </choose>
 		    <!-- 클래스 목록 옵션 -->
    		    <if test="optionFlag == 1">
    		    	<!-- 가격대 -->
@@ -190,11 +148,55 @@
 			    	</choose>
 			    </if>
 			</if>
+			<!-- 클래스 검색 목록 -->
+    		<if test="pageKey == 'search'">
+			    <choose>
+			    	<when test="search == '원데이'">AND CLASS_TYPE = 0 </when>
+			    	<when test="search == '정규'">AND CLASS_TYPE = 1 </when>
+			    	<!-- 클래스 검색 목록 검색 결과 X -->
+				    <when test="result == 'no'">
+				    	AND (SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
+					            JOIN EPISODE USING(CLASS_NO) 
+					            JOIN REGISTER USING(EP_NO) 
+					            JOIN REVIEW USING(REG_NO) 
+					            WHERE C.CLASS_NO = CLASS_NO) >= 4.0 
+					    ORDER BY STAR_AVG DESC
+				    </when>
+			    	<otherwise>
+					    AND ((CLASS_AREA LIKE '%${search}%' OR CLASS_NM LIKE '%${search}%' 
+					    OR CT_NM LIKE '%${search}%' OR MEMBER_NM LIKE '%${search}%' OR CT_DETAIL_NM LIKE '%${search}%'))
+			    	</otherwise>
+			    </choose>
+		    </if>
+			<choose>
+			    <!-- 메인 페이지 주변 -->
+			    <when test="pageKey == 'location'">
+			    	AND CLASS_AREA = '서울 동작구'
+			    </when>
+			    <!-- 메인 페이지 인기 -->
+			    <when test="pageKey == 'hot'">
+			    	ORDER BY REG_COUNT(C.CLASS_NO) DESC
+			    </when>
+			    <!-- 메인 페이지 신규 -->
+			    <when test="pageKey == 'new'">
+			    	ORDER BY NEW_EP_NO(C.CLASS_NO) DESC
+			    </when>
+			    <!-- 클래스 테마 목록 -->
+			    <when test="pageKey == 'theme'">
+			    	AND THEME_ST = 3 AND SYSDATE BETWEEN THEME_START_DT AND THEME_END_DT AND THEME_NO = ${themeNo}
+			    </when>
+			    <!-- 찜한 클래스 -->
+			    <when test="pageKey == 'wish'">
+			    	AND C.CLASS_NO IN (SELECT CLASS_NO FROM CLASS_WISH WHERE MEMBER_NO = ${memberNo})
+			    </when>
+		    </choose>
 		)
 		WHERE EP_PRICE IS NOT NULL
 		<!-- 메인 페이지, 클래스 검색 목록 검색 결과 X -->
-		<if test="pageKey == 'location' || pageKey == 'hot' || pageKey == 'new' || result == 'no'">
-			AND ROWNUM &lt;= 12
+		<if test="type != 'hot' and type != 'new'">
+			<if test="pageKey == 'location' || pageKey == 'hot' || pageKey == 'new' || result == 'no'">
+				AND ROWNUM &lt;= 12
+			</if>
 		</if>
 	</select>
 

@@ -58,7 +58,7 @@ public class ClassListContoller {
 			searchList = service.selectSearchList(pagination, map);
 			
 			model.addAttribute("pagination", pagination);
-			model.addAttribute("searchList", searchList);
+			model.addAttribute("classList", searchList);
 			
 			if (searchList.isEmpty()) {
 				map.put("result", "no");
@@ -83,7 +83,7 @@ public class ClassListContoller {
 	// 클래스 목록 옵션
 	@ResponseBody
 	@RequestMapping("changeOption")
-	public String changeOption(HttpSession session, Option option, String search, 
+	public String changeOption(HttpSession session, Option option, String search, String type,
 			@RequestParam(value="page", required=false, defaultValue="1") int page) {
 		
 		int memberNo = 0;
@@ -100,6 +100,7 @@ public class ClassListContoller {
 		map.put("pageKey", "search");
 		map.put("optionFlag", 1);
 		map.put("memberNo", memberNo);
+		map.put("type", type);
 		
 		if (!option.getSido().equals("선택") && !option.getSigoon().equals("선택"))
 			map.put("classArea", option.getSido() + " " + option.getSigoon());
@@ -114,7 +115,7 @@ public class ClassListContoller {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
 		result.put("pagination", pagination);
-		result.put("searchList", searchList);
+		result.put("classList", searchList);
 		
 		return new Gson().toJson(result);
 	}
@@ -140,5 +141,53 @@ public class ClassListContoller {
 		model.addAttribute("themeList", themeList);
 		
 		return "main/themeList";
+	}
+	
+	// 인기 클래스 목록
+	@RequestMapping("hotClass")
+	public String hotClass(HttpSession session, Model model) {
+		
+		int memberNo = 0;
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		
+		if (loginMember != null)
+			memberNo = loginMember.getMemberNo();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("pageKey", "hot");
+		map.put("type", "hot");
+		
+		List<ClassList> hotList = null;
+		hotList = service.selectMainList(map);
+		
+		model.addAttribute("classList", hotList);
+		model.addAttribute("type", "hot");
+		
+		return "main/classList";
+	}
+	
+	// 신규 클래스 목록
+	@RequestMapping("newClass")
+	public String newClass(HttpSession session, Model model) {
+		
+		int memberNo = 0;
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		
+		if (loginMember != null)
+			memberNo = loginMember.getMemberNo();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("pageKey", "new");
+		map.put("type", "new");
+		
+		List<ClassList> newList = null;
+		newList = service.selectMainList(map);
+		
+		model.addAttribute("classList", newList);
+		model.addAttribute("type", "new");
+		
+		return "main/classList";
 	}
 }
