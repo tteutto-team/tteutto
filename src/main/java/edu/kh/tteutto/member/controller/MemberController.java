@@ -657,11 +657,11 @@ public class MemberController {
 			String webPath = "/resources/images/teacher/profile/"; // (DB에 저장되는 경로)
 			String serverPath = session.getServletContext().getRealPath(webPath);
 			
-			System.out.println("teacherImage : " + teacherImage);
+//			System.out.println("teacherImage : " + teacherImage);
 			
 			String teacherImgName = service.teacherImgUpdate(loginMember.getTeacherImg(), memberNo, teacherImage, webPath, serverPath);
 			
-			System.out.println("teacherImgName : " + teacherImgName);
+//			System.out.println("teacherImgName : " + teacherImgName);
 			loginMember.setTeacherImg(teacherImgName);
 		}
 		
