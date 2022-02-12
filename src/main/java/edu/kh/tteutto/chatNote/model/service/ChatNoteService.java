@@ -10,5 +10,11 @@ public interface ChatNoteService {
 	 */
 	int sendNote(ChatNote cm);
 
+	/** 쪽지 알림 갯수
+	 * @param cm
+	 * @return count
+	 */
+	int selectNoteNotice(ChatNote cm);
+
 
 }

@@ -235,5 +235,17 @@
 	
 			const contextPath = "${contextPath}";
 		</script> -->
+		<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+
+		<script type="text/javascript">
+			let noteSock = new SockJS("<c:url value='/note' />");
+		
+		
+			noteSock.onmessage = function(e) {
+				const obj = JSON.parse(e.data);
+			
+				$(".alert").html(obj);
+			}
+		</script>
 	</body>
 </html>
