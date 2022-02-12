@@ -13,61 +13,20 @@ body{
 	min-height: 750px;
 	background-color: white;
 	border: 1px solid #989696;
+}
+
+.wrap{
+	margin: 0 50px;
+	padding: 30px 0;
 	display: flex;
-	flex-direction: column;
-	align-items: center;
-	
+	flex-wrap: wrap;
+	border-bottom: 1px solid #ddd;
+}
+.wrap > div:first-of-type{
+	width: 300px;
 }
 
-#right > div > h2{
-	align-self: baseline;
-    padding: 30px 50px; 
+.wrap > div:last-of-type{
+	flex: 1 1 0;
 }
 
-#table_id_wrapper {
-	width: 1000px;
-	
-}
-
-#table_id th {
-	border: 1px solid #ddd;
-}
-
-#table_id{
-	padding-top: 20px;
-	width: 100%;
-}
-
-thead tr > th:last-of-type{
-	width: 90px;
-	padding-right: 0 !important;
-}
-
-tbody td{
-	text-align: center;
-}
-
-tbody a{
-	display: block;
-}
-
-tbody a:hover{
-	text-decoration: underline;
-}
-
-/* 버튼 디자인  */
-tbody tr > td:last-of-type{
-	margin: 0;
-	width: 120px;
-}
-
-tbody tr > td:last-of-type > button{
-	margin: 0 5px;
-	width: 40px;
-}
-
-.paginate_button.current{
-	width: 30px;
-	height: 30px;
-	padding: 3px !important;
-}

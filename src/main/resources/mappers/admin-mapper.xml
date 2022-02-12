@@ -653,8 +653,12 @@
 	</update>
 	
 	<!-- 쪽지 알림 갯수 -->
-	<select id="selectNoteNote" resultType="_int">
+	<select id="selectNoteAlarm" resultType="_int">
 		SELECT COUNT(*) FROM NOTE WHERE MEMBER_NO = #{memberNo} AND NOTE_ST = 0
+	</select>
+	
+	<select id="selectChatAlarm" resultType="_int">
+		SELECT COUNT(*) FROM CHAT_MESSAGE WHERE MSG_ST = 0 AND OTHER_MEMBER_NO = #{memberNo}
 	</select>
 	
 </mapper>

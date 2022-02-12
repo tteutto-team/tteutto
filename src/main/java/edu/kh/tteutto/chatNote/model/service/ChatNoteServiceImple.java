@@ -20,9 +20,13 @@ public class ChatNoteServiceImple implements ChatNoteService {
 	
 	// 쪽지 알림 갯수
 	@Override
-	public int selectNoteNotice(ChatNote cm) {
-		return dao.selectNoteNote(cm);
+	public int selectNoteAlarm(ChatNote cm) {
+		return dao.selectNoteAlarm(cm);
 	}
 	
-	
+	// 채팅 알림 갯수
+	@Override
+	public int selectChatAlarm(ChatNote cm) {
+		return dao.selectChatAlarm(cm);
+	}
 }
