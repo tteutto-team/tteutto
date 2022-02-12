@@ -453,10 +453,10 @@
                         클래스 강사 <br> '
                         <span id="teacherNickname">${tIntro.memberNm}</span>
                         ' 입니다. <br>
-                        <c:if test="${!empty tIntro.snsId}">
+                        <c:if test="${!empty tIntro.snsLink}">
 	                        <img src="${contextPath}/resources/images/class-detail/instaIcon.png">
 	                        <span id="instaId" data-aos="fade-up">
-	                            @ ${tIntro.snsId}
+	                            <a href="#">${tIntro.snsLink}</a>
 	                        </span>
                         </c:if>
                     </p>
@@ -786,11 +786,14 @@
             
         </div>
         
-        <div class="btnLiveChat">
-            <button type="button" style="bottom: 20px;" id="livetalk">
-                실시간 톡
-            </button>
-        </div>
+        
+        <c:if test="${cdtr.cdt.memberNo != loginMember.memberNo}">
+	        <div class="btnLiveChat">
+	            <button type="button" style="bottom: 20px;" id="livetalk">
+	                실시간 톡
+	            </button>
+	        </div>
+        </c:if>
         
     </div>
     
@@ -868,6 +871,19 @@
         });
 
     });
+    
+    
+    // 본인이 개설한 클래스일 경우
+    // 신청하기 버튼 눌렀을 때
+    // 얼럿. 본인이 개설한 클래스는 신청하실 수 없습니다.
+/*     $(".registerBtn").on('click', function(){
+    	if(teacherNo == loginMemberNo}){
+    		swal({'icon' : 'info',
+	       		  'title' : '본인이 개설한 클래스는 신청하실 수 없습니다.'
+	       		  });
+    	}
+    })
+     */
     
     
  // 찜하기 - 빈하트 클릭시 

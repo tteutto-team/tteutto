@@ -218,7 +218,7 @@
 	
 	<!-- 강사 소개 조회  -->
 	<select id="selectTeacher" resultMap="teacherIntro_rm">
-		select c.class_no,  TEACHER_IMG, TEACHER_INTRO, MEMBER_NM, sns_id FROM TEACHER T
+		select c.class_no,  TEACHER_IMG, TEACHER_INTRO, MEMBER_NM, sns_link FROM TEACHER T
 		JOIN MEMBER M ON M.MEMBER_NO = T.MEMBER_NO 
 		join class c on c.member_no = m.member_no
 		join sns s on s.member_no = m.member_no

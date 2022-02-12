@@ -204,5 +204,36 @@
 				}
 			});
 		</script>
+		
+		<!-- 알림용 웹소켓 -->
+<!-- 		<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+		<script>
+			// /alarm 이라는 요청 주소로 통신할 수 있는  WebSocket 객체 생성
+			let alarmSock = new SockJS("<c:url value='/alarm' />");
+			// == contextPath + /alarm
+	
+			// 세션에 있는 값 전역 변수 선언
+			let memberNo = "${loginMember.memberNo}";
+			let otherMemberNo = "${teacherInfo.MEMBER_NO}"; // 강사 번호
+			if(otherMemberNo == ""){
+				
+				if(memberNo == "${cr.memberNo}"){
+					memberNo = "${cr.memberNo}"; // 로그인 학생 번호
+					otherMemberNo = "${cr.teacherNo}"; // 상대 강사 번호
+					
+				}else{
+					memberNo = "${cr.teacherNo}"; 
+					otherMemberNo = "${cr.memberNo}"; 
+					
+				}
+				
+			}
+			
+			/* const memberEmail = "${loginMember.memberEmail}"; */
+			const memberNm = "${loginMember.memberNm}";
+			let chatRoomNo = "${chatRoomNo}"; // 세션에 있는거임! 
+	
+			const contextPath = "${contextPath}";
+		</script> -->
 	</body>
 </html>

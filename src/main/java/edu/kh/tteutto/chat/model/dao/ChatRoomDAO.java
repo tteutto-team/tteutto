@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import edu.kh.tteutto.chat.model.vo.ChatMessage;
 import edu.kh.tteutto.chat.model.vo.ChatRoom;
+import edu.kh.tteutto.chatNote.model.vo.ChatNote;
 
 @Repository
 public class ChatRoomDAO {
@@ -115,6 +116,16 @@ public class ChatRoomDAO {
 	 */
 	public int checkChatRoomNo(ChatMessage cm) {
 		return sqlSession.selectOne("chatMapper.checkChatRoomNo", cm);
+	}
+
+
+
+	/** 쪽지 조회
+	 * @param memberNo
+	 * @return chatNote
+	 */
+	public List<ChatNote> selectMessageList(int memberNo) {
+		return sqlSession.selectList("chatMapper.selectMessageList", memberNo);
 	}
 
 
