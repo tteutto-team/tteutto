@@ -156,6 +156,7 @@ public class ClassListContoller {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
 		map.put("pageKey", "hot");
+		map.put("type", "hot");
 		
 		List<ClassList> hotList = null;
 		hotList = service.selectMainList(map);

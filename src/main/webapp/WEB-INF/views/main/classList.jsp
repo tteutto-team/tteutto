@@ -354,6 +354,8 @@ crossorigin="anonymous"/>
 		formData.append("search", "${param.search}");
 		formData.append("sido", $("#sido_code > option:selected").text());
 		formData.append("sigoon", $("#sigoon_code > option:selected").text());
+		formData.append("type", "${type}");
+
 		
 		$.ajax({
 			url : "${contextPath}/main/changeOption", 
@@ -363,6 +365,8 @@ crossorigin="anonymous"/>
 		 	contentType: false,
 		 	processData: false,
 		 	success : function(result) {
+		 		console.log(result)
+		 		
 		 		$(".yes > .class").remove(); <%-- 기존 클래스 카드 삭제 --%>
 		 		
 		 		for (let classList of result.classList) {
