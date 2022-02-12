@@ -52,11 +52,11 @@
 				<c:if test="${pagination.maxPage > 1}">
 			        <div class="page-number">
 			            <ul class="page-ul">
-			            	<c:if test="${pagination.startPage != 1}">
+			            	<c:if test="${pagination.currentPage != 1}">
 				            	<%-- 이전 리스트로 이동 --%>
-				                <li><a href="#"><i class="fas fa-angle-double-left"></i></a></li>
+				                <li><a href="${contextPage}/tteutto/teacher/studentListExpect/${epNo}?page=1"><i class="fas fa-angle-double-left"></i></a></li>
 				                <%-- 이전 페이지로 이동 --%>
-				                <li><a href="#"><i class="fas fa-angle-left"></i></a></li>
+				                <li><a href="${contextPage}/tteutto/teacher/studentListExpect/${epNo}?page=${pagination.prevPage}"><i class="fas fa-angle-left"></i></a></li>
 			                </c:if>
 			                
 			                <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" step="1"  var="i">
@@ -76,9 +76,9 @@
 			                
 			                <c:if test="${pagination.endPage != pagination.maxPage}">
 				                <%-- 다음 페이지로 이동 --%>
-				                <li><a href="#"><i class="fas fa-angle-right"></i></a></li>
+				                <li><a href="${contextPage}/tteutto/teacher/studentListExpect/${epNo}?page=${pagination.nextPage}"><i class="fas fa-angle-right"></i></a></li>
 				                <%-- 다음 리스트로 이동 --%>
-				                <li><a href="#"><i class="fas fa-angle-double-right"></i></a></li>
+				                <li><a href="${contextPage}/tteutto/teacher/studentListExpect/${epNo}?page=${pagination.maxPage}"><i class="fas fa-angle-double-right"></i></a></li>
 			                </c:if>
 			            </ul>
 			        </div>

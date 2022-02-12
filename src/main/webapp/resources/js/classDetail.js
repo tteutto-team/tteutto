@@ -47,6 +47,8 @@ for (let j = 0; j < list.length; j++) {
 
 
 
+
+
 /* 별점 선택 */
 const rBtn = document.querySelectorAll('.review-btn-select');
 const rList = document.querySelectorAll('.review-list-date');

@@ -47,10 +47,10 @@ public class ClassRoomController {
 		
 		String teacherOK = service.selectTeacher(loginMember.getMemberNo());
 		
-//		if(memNo == loginMember.getMemberNo() && teacherOK.equals("Y")) {
-		if(true) {
-//			int memberNo = loginMember.getMemberNo();
-			int memberNo = 3;
+		if(memNo == loginMember.getMemberNo() && teacherOK.equals("Y")) {
+//		if(true) {
+			int memberNo = loginMember.getMemberNo();
+//			int memberNo = 3;
 			
 			// 클래스 목록 개수 조회(1회차 클래스)
 //			int classListCount = service.selectClassListCount(memberNo);
@@ -225,7 +225,7 @@ public class ClassRoomController {
 	
 	
 	// 학생 관리(진행 중)
-	@RequestMapping("studentListOngoing")
+	@RequestMapping("studentListOngoing/{epNo}")
 	public String studentListOngoing(int epNo, Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 
 		// 페이지네이션

@@ -498,7 +498,49 @@ public class MemberServiceImpl implements MemberService{
 		return dao.teacherSt(memberNo);
 	}
 	
+	// 강사 이미지 수정
+	@Override
+	public String teacherImgUpdate(String loginTeacherImg, int memberNo, MultipartFile teacherImage, String webPath, String serverPath) {
+		
+		boolean result = false;
+		int result2 = 0;
 
+		// 새로운 이미지 이름 변경
+		String imgName = Util.fileRename( teacherImage.getOriginalFilename() );
+		
+		// 기존 이미지 삭제
+		//현재 게시판에 존재하는 파일객체를 만듬
+		String fileName = serverPath + loginTeacherImg;
+		File file = new File(fileName);
+		
+		if(file.exists()) { // 파일이 존재하면
+			result = file.delete(); // 파일 삭제
+		}
+		
+		// 이미지 업데이트
+		// 변경된 파일명
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("memberNo", Integer.toString(memberNo));
+		map.put("imgName", imgName);
+		result2 = dao.teacherImgUpdate(map);
+		
+		if(result2 > 0) {
+			
+			try {
+				teacherImage.transferTo(new File(serverPath + "/" + imgName));
+			} catch (Exception e) {
+				e.printStackTrace();
+				// 파일 변환이 실패할 경우
+				// 사용자 정의 예외 발생
+			}
+			
+			return imgName;
+		} else {
+			return null;
+		}
+		
+	}
 
 	
 }

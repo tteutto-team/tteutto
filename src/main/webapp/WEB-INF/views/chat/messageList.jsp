@@ -33,34 +33,37 @@
         </div>
 
     </div>
-    <div class="modeChange">
+    <!-- <div class="modeChange">
         <select>
             <option>수강생모드</option>
             <option>강사모드</option>
         </select>
-    </div>
+    </div> -->
 
     <!-- 채팅리스트 -->
     <main class="chat_romm_list">
         <ul>
-            <li>
+        	<c:forEach items="${chatNoteList}" var="noteList">
+        		<li>
+	                <a href="#">
+	                    <img src="${contextPath}/resources/images/chat/messageicon.png" class="profile-img" alt="k페이프로필사진">
+	                    <div class="talk">
+	                        <p class="friend-name">뜨또</p>
+	                        <p class="chat-content">${noteList.noteContent}</p> 
+	                    </div>
+	                    <!-- <div class="chat-status">
+	                        <time datetime="15:40:00+09:00">오후 3:40</time> 
+	                         <span class="chat-balloon">N</sapn> 
+	                    </div> -->
+	                </a>
+            	</li>
+        	</c:forEach>
+            <%-- <li>
                 <a href="#">
                     <img src="${contextPath}/resources/images/chat/messageicon.png" class="profile-img" alt="k페이프로필사진">
                     <div class="talk">
                         <p class="friend-name">뜨또</p>
-                        <p class="chat-content">[뜨또] 오픈예정 클래스 결과 및 유보 안내 <br><br>
-                            안녕하세요, <span>홍길동</span>님.<br>
-                            개설해 주신 [<span> 일러스트레이터 1분만에 되기</span>] 클래스 유보에 대해 안내드립니다.<br>
-                            
-                            저희 뜨또는 준비물까지 챙겨주는 온라인 클래스 플랫폼으로, 수요조사 공개된 클래스에 대하여 뜨또 이용약관 및 커뮤니티 정책, 관련 법령에 위배되는 콘텐츠의 포함여부를 검토하고 있습니다. <br>
-                            이번에 만들어주신 페이지 내용 중 일부가 위의 기준에 부적합하여 유보 처리를 진행하였습니다. <br><br>
-                            
-                            수요조사는 언제든 다시 도전이 가능하므로, 위의 링크를 참고하여 마음껏 재도전해주셔도 좋습니다.<br>
-                            뜨또는 사랑하는 일을 하며 살고 있는 <span>홍길동</span>님을 항상 응원합니다!<br><br>
-                            
-                            감사합니다.<br>
-                            뜨또 드림<br>
-                        </p>
+                        <p class="chat-content"></p> 
                     </div>
                     <div class="chat-status">
                         <time datetime="15:40:00+09:00">오후 3:40</time>
@@ -92,7 +95,7 @@
                         <time datetime="10:15:00+09:00">오전 10:15</time>
                     </div>
                 </a>
-            </li>
+            </li> --%>
 
 
             

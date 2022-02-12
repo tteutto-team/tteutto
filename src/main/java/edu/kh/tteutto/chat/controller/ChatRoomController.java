@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import edu.kh.tteutto.chat.model.service.ChatRoomService;
 import edu.kh.tteutto.chat.model.vo.ChatMessage;
 import edu.kh.tteutto.chat.model.vo.ChatRoom;
+import edu.kh.tteutto.chatNote.model.vo.ChatNote;
 import edu.kh.tteutto.common.Util;
 import edu.kh.tteutto.member.model.vo.Member;
 
@@ -132,9 +133,13 @@ public class ChatRoomController {
 	
 	//쪽지 목록 조회
 	@RequestMapping("/chat/messageList")
-	public String selectMessageList() {
+	public String selectMessageList(@ModelAttribute("loginMember") Member loginMember, Model model) {
 		
+		int memberNo = loginMember.getMemberNo();
 		
+		List<ChatNote> chatNoteList = service.selectMessageList(memberNo);
+		
+		model.addAttribute("chatNoteList", chatNoteList);
 		
 		
 		return "chat/messageList";

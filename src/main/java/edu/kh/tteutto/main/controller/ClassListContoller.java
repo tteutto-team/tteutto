@@ -166,4 +166,28 @@ public class ClassListContoller {
 		
 		return "main/classList";
 	}
+	
+	// 신규 클래스 목록
+	@RequestMapping("newClass")
+	public String newClass(HttpSession session, Model model) {
+		
+		int memberNo = 0;
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		
+		if (loginMember != null)
+			memberNo = loginMember.getMemberNo();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("pageKey", "new");
+		map.put("type", "new");
+		
+		List<ClassList> newList = null;
+		newList = service.selectMainList(map);
+		
+		model.addAttribute("classList", newList);
+		model.addAttribute("type", "new");
+		
+		return "main/classList";
+	}
 }

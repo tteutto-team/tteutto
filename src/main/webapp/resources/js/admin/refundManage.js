@@ -18,6 +18,7 @@ function createTable() {
 					{ 
 						data: null,
 						render: function (data, type, row) {
+							console.log(data);
 							return data.className + '-' + data.episodeCount + '회차';
 						}
 					},
