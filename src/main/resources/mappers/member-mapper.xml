@@ -75,6 +75,7 @@
 		<result property="refundStatus" column="REFUND_ST"/>
 		<result property="refundMoney" column="REFUND_MONEY"/>
 		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="dtTerm" column="DT_TERM"/>
 	</resultMap>
 	
 	<resultMap type="ClassReport" id="classReport_rm">
@@ -342,9 +343,9 @@
 	<!-- 학생 수강 신청목록 -->
 	<select id="studentClassList" resultMap="classRegister_rm">
 		SELECT A.*,
-	    (SELECT MIN(SCHDL_DT) || ' ~ ' || MAX(SCHDL_DT) 
+	    (SELECT SUBSTR(MIN(SCHDL_DT), 1, 10) || ' ~ ' || SUBSTR(MAX(SCHDL_DT), 1, 10) 
 	            FROM EP_SCHEDULE
-	            WHERE EP_NO = A.EP_NO)
+	            WHERE EP_NO = A.EP_NO) DT_TERM
 		FROM(
 		    SELECT REG_NO, EP_NO, MEMBER_NM, MEMBER_NO, CLASS_NO, CLASS_NM, CLASS_ST, REFUND_ST, REFUND_MONEY
 		    FROM CLASS C
@@ -427,7 +428,7 @@
 	<!-- 환불 신청 -->
 	<insert id="refundClass" parameterType="ClassRefund">
 		INSERT INTO REFUND 
-		SELECT SEQ_REFUND_NO.NEXTVAL, SYSDATE, NULL, "진행률", (1 - "진행률" * 0.01 ) * EP_PRICE "환불금액", 0, ${regNo}
+		SELECT SEQ_REFUND_NO.NEXTVAL, SYSDATE, NULL, "진행률", (1 - "진행률" * 0.01 ) * EP_PRICE "환불금액", 0, #{regNo}
 		FROM (
 		
 		    SELECT ((SELECT COUNT(*) FROM EPISODE

@@ -22,6 +22,7 @@ public class ClassRegister {
 	private int refundStatus; // 환불상태
 	private int refundMoney; // 환불금액
 	private int memberNo; // 회원번호
+	private String dtTerm; // 수강기간
 	
 	public ClassRegister() {
 		// TODO Auto-generated constructor stub
@@ -29,6 +30,20 @@ public class ClassRegister {
 	
 	
 	
+
+	public String getDtTerm() {
+		return dtTerm;
+	}
+
+
+
+
+	public void setDtTerm(String dtTerm) {
+		this.dtTerm = dtTerm;
+	}
+
+
+
 
 	public String getMemberNm() {
 		return memberNm;
@@ -171,8 +186,10 @@ public class ClassRegister {
 				+ ", payStauts=" + payStauts + ", regStatus=" + regStatus + ", epNo=" + epNo + ", memberNm=" + memberNm
 				+ ", classNo=" + classNo + ", className=" + className + ", classStatus=" + classStatus
 				+ ", scheduleDate=" + scheduleDate + ", refundStatus=" + refundStatus + ", refundMoney=" + refundMoney
-				+ ", memberNo=" + memberNo + "]";
+				+ ", memberNo=" + memberNo + ", dtTerm=" + dtTerm + "]";
 	}
+
+
 
 
 	
