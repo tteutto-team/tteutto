@@ -743,8 +743,7 @@ public class MemberController {
 			System.out.println(teacherSt);
 			
 			if(teacherSt >= 0) { // 강사 신청을 이미 했다면
-				ra.addFlashAttribute("message", "이미 강사 신청이 진행중입니다.");
-				return "member/login";
+				return "member/teacherProfile";
 			}else {
 				return "member/teacherRegister";			
 			}
