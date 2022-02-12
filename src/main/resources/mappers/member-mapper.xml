@@ -188,6 +188,7 @@
 		FROM CERTIFIED
 		WHERE MEMBER_EMAIL = #{memberEmail}
 		AND CERT_CD = #{certCd}
+		AND MEMBER_PW IS NOT NULL
 	</select>
 	
 	<!-- 비밀번호 변경 -->
