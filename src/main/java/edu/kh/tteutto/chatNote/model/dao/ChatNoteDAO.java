@@ -20,5 +20,13 @@ public class ChatNoteDAO {
 	public int sendNote(ChatNote cm) {
 		return sqlSession.insert("adminMapper.sendNote", cm);
 	}
+
+	/** 쪽지 알림 갯수
+	 * @param cm
+	 * @return count
+	 */
+	public int selectNoteNote(ChatNote cm) {
+		return sqlSession.selectOne("adminMapper.selectNoteNote", cm);
+	}
 	
 }

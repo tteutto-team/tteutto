@@ -18,7 +18,11 @@ public class ChatNoteServiceImple implements ChatNoteService {
 		return dao.sendNote(cm);
 	}
 	
-	
+	// 쪽지 알림 갯수
+	@Override
+	public int selectNoteNotice(ChatNote cm) {
+		return dao.selectNoteNote(cm);
+	}
 	
 	
 }

@@ -652,4 +652,9 @@
 		UPDATE REVIEW SET RE_ST = 1 WHERE RE_NO = #{reviewNo}
 	</update>
 	
+	<!-- 쪽지 알림 갯수 -->
+	<select id="selectNoteNote" resultType="_int">
+		SELECT COUNT(*) FROM NOTE WHERE MEMBER_NO = #{memberNo} AND NOTE_ST = 0
+	</select>
+	
 </mapper>
