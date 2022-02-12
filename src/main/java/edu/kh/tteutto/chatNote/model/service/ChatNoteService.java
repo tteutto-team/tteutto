@@ -14,7 +14,13 @@ public interface ChatNoteService {
 	 * @param cm
 	 * @return count
 	 */
-	int selectNoteNotice(ChatNote cm);
+	int selectNoteAlarm(ChatNote cm);
+
+	/** 채팅 알림 갯수
+	 * @param cm
+	 * @return count2
+	 */
+	int selectChatAlarm(ChatNote cm);
 
 
 }

@@ -75,27 +75,6 @@
 		<p>
 			<span>이용약관, 개인정보 처리방침</span> 내용을 확인하였고 이에 동의합니다.
 		</p>
-
-		<a href="#" class="sns">
-			<div>
-				<img style="background-color: #20c702;"
-					src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/naver_logo.png">
-				<span>네이버로 시작하기</span>
-			</div>
-		</a> <a href="#" class="sns">
-			<div>
-				<img style="background-color: #f9e000;"
-					src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/kakao_logo.png">
-				<span>카카오로 시작하기</span>
-			</div>
-		</a> <a href="#" class="sns">
-			<div>
-				<img style="background-color: #f8f9fd;"
-					src="https://d2v80xjmx68n4w.cloudfront.net/assets/icon/google_logo.png">
-				<span>구글로 시작하기</span>
-			</div>
-		</a>
-
 	</main>
 </div>
 

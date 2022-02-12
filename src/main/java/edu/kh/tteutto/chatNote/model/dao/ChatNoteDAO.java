@@ -25,8 +25,16 @@ public class ChatNoteDAO {
 	 * @param cm
 	 * @return count
 	 */
-	public int selectNoteNote(ChatNote cm) {
-		return sqlSession.selectOne("adminMapper.selectNoteNote", cm);
+	public int selectNoteAlarm(ChatNote cm) {
+		return sqlSession.selectOne("adminMapper.selectNoteAlarm", cm);
+	}
+
+	/** 채팅 알림 갯수
+	 * @param cm
+	 * @return count
+	 */
+	public int selectChatAlarm(ChatNote cm) {
+		return sqlSession.selectOne("adminMapper.selectChatAlarm", cm);
 	}
 	
 }

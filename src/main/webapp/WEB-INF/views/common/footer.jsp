@@ -100,3 +100,14 @@
 	</script>
 </c:if>
 
+<script type="text/javascript">
+$.ajax({
+	url: "${contextPath}/chatNote/alarm",
+	type: "get",
+	success: function(result){
+		if(result >= 0){
+			$(".alert").html(result);
+		}
+	}
+})
+</script>
