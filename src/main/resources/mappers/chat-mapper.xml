@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="chatMapper">
 	
+	<!-- 채팅방 VO -->
 	<resultMap type="ChatRoom" id="chatRoom_rm">
 		<id property="chatRoomNo" column="CHAT_ROOM_NO"/>
 		
@@ -20,6 +21,7 @@
 		<result property="teacherNm" column="TEACHER_NM"/>
 	</resultMap>
 	
+	<!-- 채팅메세지 VO -->
 	<resultMap type="ChatMessage" id="chatMessage_rm">
 		<id property="msgNo" column="MSG_NO"/>
 		
@@ -31,6 +33,17 @@
 		<result property="memberNm" column="MEMBER_NM"/>
 		<result property="teacherNm" column="TEACHER_NM"/>
 	</resultMap>
+	
+	<!-- 쪽지 VO -->
+	<resultMap type="ChatNote" id="chatNote_rm">
+		<id property="noteNo" column="NOTE_NO"/>
+		
+		<result property="noteContent" column="NOTE_CONTENT"/>
+		<result property="noteStatus" column="NOTE_ST"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+	</resultMap>
+	
+	
 	
 	<!-- 학생 채팅방 목록조회 -->
 	<select id="studentChatRoomList" resultMap="chatRoom_rm">
@@ -131,6 +144,12 @@
 	<select id="checkChatRoomNo" resultType="_int">
 		SELECT NVL(MIN(CHAT_ROOM_NO), 0) CHAT_ROOM_NO FROM CHAT_ROOM
 		WHERE MEMBER_NO = #{memberNo} AND TEACHER_NO = #{otherMemberNo}
+	</select>
+	
+	<!-- 쪽지 조회 -->
+	<select id="selectMessageList" resultMap="chatNote_rm">
+		SELECT NOTE_CONTENT, NOTE_ST, MEMBER_NO FROM NOTE
+		WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
 </mapper>

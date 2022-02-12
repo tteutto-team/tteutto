@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import edu.kh.tteutto.chat.model.dao.ChatRoomDAO;
 import edu.kh.tteutto.chat.model.vo.ChatMessage;
 import edu.kh.tteutto.chat.model.vo.ChatRoom;
+import edu.kh.tteutto.chatNote.model.vo.ChatNote;
 import edu.kh.tteutto.common.Util;
 
 @Service
@@ -84,6 +85,15 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 			return chatRoomNo;
 		}
 	}
+
+	
+	// 쪽지 조회
+	@Override
+	public List<ChatNote> selectMessageList(int memberNo) {
+		return dao.selectMessageList(memberNo);
+	}
+	
+	
 
 	
 	

@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 
 import edu.kh.tteutto.chat.model.vo.ChatMessage;
 import edu.kh.tteutto.chat.model.vo.ChatRoom;
+import edu.kh.tteutto.chatNote.model.vo.ChatNote;
 
 public interface ChatRoomService {
 
@@ -48,6 +49,12 @@ public interface ChatRoomService {
 	 * @return result
 	 */
 	int insertChatRoom(ChatMessage cm);
+
+	/** 쪽지 조회
+	 * @param memberNo
+	 * @return chatNote
+	 */
+	List<ChatNote> selectMessageList(int memberNo);
 
 
 

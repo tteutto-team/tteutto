@@ -101,6 +101,7 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 	// 강사 소개 조회
 	@Override
 	public TeacherIntro selectTeacher(int classNo) {
+		
 		return dao.selectTeacher(classNo);
 	}
 
