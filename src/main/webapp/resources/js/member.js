@@ -159,7 +159,7 @@ $("#birth").on("input", function(){
 	if(inputBirth.length == 0){
 		$("#checkBirth").text("");
 		signUpCheckObj.birth = false;
-	}else if(regExp.test(inputBirth)){
+	}else if(regExp.test(inputBirth) && inputBirth.length == 6){
 		$("#checkBirth").text("유효한 생일 입니다.").css("color", "green");
 		signUpCheckObj.birth = true;
 	}else{
