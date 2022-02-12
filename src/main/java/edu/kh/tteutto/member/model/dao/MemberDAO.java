@@ -120,7 +120,9 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.updateCert", certified);
 	}
 
-
+	
+	
+	
 	/** 강사 정보 수정 - 전화번호
 	 * @param map1
 	 * @return result1
@@ -379,6 +381,14 @@ public class MemberDAO {
 
 	public int teacherSt(int memberNo) {
 		return sqlSession.selectOne("memberMapper.teacherSt", memberNo);
+	}
+
+	/** 강사 이미지 수정
+	 * @param map
+	 * @return result
+	 */
+	public int teacherImgUpdate(Map<String, String> map) {
+		return sqlSession.update("memberMapper.teacherImgUpdate", map);
 	}
 
 
