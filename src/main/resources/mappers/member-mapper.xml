@@ -482,7 +482,7 @@
 		    AND RE_ST = 0
 	</select>
 	
-
+	<!-- 강사 이미지 수정 -->
 	<update id="teacherImgUpdate">
 		update teacher set teacher_img = #{imgName}
 		where member_no = #{memberNo}
