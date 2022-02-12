@@ -56,6 +56,13 @@ public interface ChatRoomService {
 	 */
 	List<ChatNote> selectMessageList(int memberNo);
 
+	/** 채팅 알림
+	 * @param cm
+	 * @return count
+	 */
+	int sendAlarm(ChatMessage cm);
+
+
 
 
 }

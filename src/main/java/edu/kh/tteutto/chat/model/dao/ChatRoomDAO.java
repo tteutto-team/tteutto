@@ -130,6 +130,12 @@ public class ChatRoomDAO {
 
 
 
+	public int sendAlarm(ChatMessage cm) {
+		return sqlSession.selectOne("chatMapper.sendAlarm", cm);
+	}
+
+
+
 
 
 

@@ -119,7 +119,7 @@
 	
 	<!-- 채팅 내용 삽입 -->
 	<insert id="insertMessage">
-		INSERT INTO CHAT_MESSAGE VALUES (SEQ_MSG_NO.NEXTVAL, #{msgContent}, DEFAULT, DEFAULT, #{chatRoomNo}, #{memberNo})
+		INSERT INTO CHAT_MESSAGE VALUES (SEQ_MSG_NO.NEXTVAL, #{msgContent}, DEFAULT, DEFAULT, #{chatRoomNo}, #{memberNo}, #{otherMemberNo})
 	</insert>
 	
 	<!-- 채팅방 정보 조회 -->
@@ -152,4 +152,8 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
+	<!-- 채팅알림 -->
+	<select id="sendAlarm" resultType="_int">
+		SELECT COUNT(*) FROM CHAT_MESSAGE WHERE OHTER_MEMBER_NO = #{otherMemberNo} AND MSG_ST = 0
+	</select>
 </mapper>
