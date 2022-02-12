@@ -334,5 +334,11 @@ public class RegisterController {
 			return "redirect:/";
 		}
 		
+		/*
+		@RequestMapping("uploadFile")
+		public String summernote() {
+			
+		}
+		*/
 
 }

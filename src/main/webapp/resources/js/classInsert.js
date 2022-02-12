@@ -200,13 +200,14 @@ $(document).ready(function() {
         //placeholder: '작성 예시 <br><br>간단한 클래스 소개'        
         //focus: true,
         lang: "ko-KR",
-		/*
+		
+		
 		callbacks: {
-			onImageUpload : function(files){
+			onImageUpload : function(files, editor){
 				sendFile(files[0],this);
 			}
 		}
-		*/
+		
 
     });
 });
@@ -229,8 +230,33 @@ function sendFile(file, editor){
 			$(editor).summernote("insertImage",data.url);
 		}
 	});
-}*/
+}
+*/
 
+function sendFile(file, editor) {
+    data = new FormData()
+    data.append("img", file)
+
+    $.ajax({
+      data: data,
+      type: "POST",
+      url: "uploadFile",
+      cache: false,
+      contentType: false,
+      enctype: "multipart/form-data",
+      processData: false,
+      success: function (result) {
+        $(editor).summernote('editor.insertImage', ""+contextPath+"/resources/images/board/"+result+"");
+
+      const img = $("img");
+
+      if(img.outerWidth() > 800){
+        img.css("width", "800px");
+      }
+      
+      },
+    })
+  }
 
 
 

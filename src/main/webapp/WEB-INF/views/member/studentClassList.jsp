@@ -63,7 +63,7 @@
 			                        <div class="column">${rg.classStatus}</div>
 			                        <div class="column">${rg.dtTerm}</div>
 			                        <div class="column">
-			                        	<c:if test="${empty rg.refundStatus}">-</c:if>
+			                        	<c:if test="${rg.refundStatus == -1}">-</c:if>
 			                        	<c:if test="${rg.refundStatus == 0}">접수완료</c:if>
 			                        	<c:if test="${rg.refundStatus == 1}">승인</c:if>
 			                        	<c:if test="${rg.refundStatus == 2}">거절</c:if>
