@@ -129,10 +129,10 @@ chattingSock.onmessage = function(e){
 
    if (obj.memberNo == memberNo) {
       div.addClass("item mymsg");
+      $(".flex_wrap > .on").append(div);
       div.append(divB);
       divB.append(p);
       divB.append(span);
-      $(".flex_wrap > .on").append(div);
    } else {
 		
       div.addClass("otherName");
@@ -152,7 +152,7 @@ chattingSock.onmessage = function(e){
 	
 	// 채팅 입력시 말풍선이 부드럽게 나타나는 효과
 	setTimeout(function(){
-	    $(".chat_wrap .inner").find(".item:last").addClass("on");
+	    $(".chat_wrap .inner").find(".box:last").addClass("on");
 	}, 10)
 	
 	// 스크롤 하단 고정
@@ -163,6 +163,13 @@ chattingSock.onmessage = function(e){
 
 // 보내기 버튼 클릭 시 채팅 전달
 $("#sendBtn").on("click", sendMessage);
+
+//엔터키 눌렀을 시 채팅 전달
+function enterkey() {
+	if (window.event.keyCode == 13) {
+		sendMessage();
+    }
+}
 
 
 // 엔터 쳤을 때 

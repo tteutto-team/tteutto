@@ -5,8 +5,12 @@ const list = document.querySelectorAll('.list-date');
 for (let i = 0; i < btn.length; i++) {
    btn[i].addEventListener('click', () => {
        btn[i].classList.toggle('on');
+       
+
    });
 }
+
+
 
 for (let j = 0; j < list.length; j++) {
    list[j].addEventListener('click', (event) => {
@@ -36,6 +40,7 @@ for (let j = 0; j < list.length; j++) {
 				$("#buyBtnId").off("click");
 				
 			}
+			
         }
         
 
@@ -329,26 +334,14 @@ AOS.init();
 
         }(window, window.jQuery));
 
-    // 날짜 셀렉트박스 영역밖 클릭시 닫힘 - 안돼
+/*    // 날짜 셀렉트박스 영역밖 클릭시 닫힘 - 안돼
     $(document).mouseup(function(e){
-        var listDate = $("list-date");
+        var listDate = $(".list-date button");
         if(listDate.has(e.target).length ===0)
             listDate.hide();
     
-    });
+    });*/
 
-    // // 사이드 이미지 마우스 호버시 이벤트 (css로..)
-    // $('.sideImgStyle').hover(function(){
-
-    //     $(this).css("opacity", 1).css("transition-duration", "0.7s");
-
-    // });
-
-    // $('.sideImgStyle').mouseleave(function(){
-
-    //     $(this).css("opacity", 0.5).css("transition-duration", "0.7s");
-
-    // });
 
     // 사이드 이미지 클릭시 
     $('.sideImgStyle').click(function(){
@@ -365,13 +358,6 @@ AOS.init();
         $('#mainImg').css("opacity",0).animate({opacity : 1}, 300)
     });
 
-    
-    // 네비바 메뉴 클릭시 selected 스타일속성
-    // $('.navList').click(function(){
-        
-    //     $(this).siblings().removeClass("selected");
-    //     $(this).addClass("selected");
-    // });
 
 $(document).ready(function(){
 	$("#classAge").trigger("click");
