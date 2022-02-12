@@ -83,7 +83,7 @@ public class ClassListContoller {
 	// 클래스 목록 옵션
 	@ResponseBody
 	@RequestMapping("changeOption")
-	public String changeOption(HttpSession session, Option option, String search, String type,
+	public String changeOption(HttpSession session, String search, Option option, String type, 
 			@RequestParam(value="page", required=false, defaultValue="1") int page) {
 		
 		int memberNo = 0;
@@ -96,16 +96,19 @@ public class ClassListContoller {
 		map.put("price", option.getPrice());
 		map.put("classType", option.getClassType());
 		map.put("classSort", option.getClassSort());
-		map.put("search", search);
-		map.put("pageKey", "search");
 		map.put("optionFlag", 1);
-		map.put("memberNo", memberNo);
+		map.put("search", search);
 		map.put("type", type);
+		map.put("memberNo", memberNo);
+		map.put("pageKey", "search");
 		
-		if (!option.getSido().equals("선택") && !option.getSigoon().equals("선택"))
-			map.put("classArea", option.getSido() + " " + option.getSigoon());
-		else
-			map.put("classArea", "");
+		if (!option.getSido().equals("선택")) map.put("classArea1", option.getSido());
+		else map.put("classArea1", "");
+		
+		if (!option.getSigoon().equals("선택")) map.put("classArea2", option.getSigoon());
+		else map.put("classArea2", "");
+		
+		System.out.println(map);
 		
 		Pagination pagination = service.getPagination(map, page);
 		pagination.setLimit(12);

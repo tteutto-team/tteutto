@@ -68,8 +68,11 @@
 			    	) 
 			    </if>
 			    <!-- 지역 -->
-			    <if test="classArea != ''">
-			    	AND CLASS_AREA = #{classArea} 
+			    <if test="classArea1 != ''">
+			    	AND CLASS_AREA LIKE '%'||#{classArea1}||'%' 
+			    	<if test="classArea2 != ''">
+			    		AND CLASS_AREA LIKE '%'||#{classArea2}||'%' 
+			    	</if>
 			    </if>
 			    <!-- 수업 형태 -->
 			    <if test="classType != ''">
@@ -125,8 +128,11 @@
 			    	)
 			    </if>
 			    <!-- 지역 -->
-			    <if test="classArea != ''">
-			    	AND CLASS_AREA LIKE '%'||#{classArea}||'%' 
+			    <if test="classArea1 != ''">
+			    	AND CLASS_AREA LIKE '%'||#{classArea1}||'%' 
+			    	<if test="classArea2 != ''">
+			    		AND CLASS_AREA LIKE '%'||#{classArea2}||'%' 
+			    	</if>
 			    </if>
 		    	<!-- 수업 형태 -->
 			    <if test="classType != ''">
