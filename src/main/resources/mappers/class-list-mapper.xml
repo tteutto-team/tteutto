@@ -180,11 +180,17 @@
 			<choose>
 			    <!-- 메인 페이지 주변 -->
 			    <when test="pageKey == 'location'">
-			    	AND CLASS_AREA = '서울 동작구'
+			    	AND CLASS_AREA = (
+				        SELECT CLASS_AREA FROM (
+				            SELECT COUNT(*) COUNT FROM CLASS GROUP BY CLASS_AREA 
+				            ORDER BY COUNT DESC)
+				        WHERE ROWNUM = 1
+				    )
 			    </when>
 			    <!-- 메인 페이지 인기 -->
 			    <when test="pageKey == 'hot'">
 			    	ORDER BY REG_COUNT(C.CLASS_NO) DESC
+			    	
 			    </when>
 			    <!-- 메인 페이지 신규 -->
 			    <when test="pageKey == 'new'">

@@ -66,7 +66,7 @@
           
             <span class="location modal-open-btn" style="cursor: pointer;">
                 <i class=" fi-rr-marker"></i> 
-	            <p id="location">서울 동작구</p>
+	            <p id="location">${classList.classArea}</p>
             </span>
             
             <div class="balloon">여기를 누르면<br> 현재 위치로 자동 설정됩니다.</div>

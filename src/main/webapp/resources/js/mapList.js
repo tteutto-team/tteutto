@@ -18,7 +18,7 @@ $(".location").on("click", function(){
 			        if (status === kakao.maps.services.Status.OK) {
 			            location =result[0].address.region_1depth_name + " " + result[0].address.region_2depth_name;
 			            $("#location").text(location);
-			            console.log($("#location").text());
+
 			        }
 			    }
 		    	geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
