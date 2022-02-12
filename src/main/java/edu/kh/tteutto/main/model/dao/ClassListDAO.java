@@ -31,7 +31,7 @@ public class ClassListDAO {
 	// 클래스 카드 조회 (클래스 검색 목록)
 	public List<ClassList> selectSearchList(Pagination pagination, Map<String, Object> map) {
 		
-		if(!map.get("type").equals("hot") && !map.get("type").equals("new")) {
+		if(map.get("type") != null && !map.get("type").equals("hot") && !map.get("type").equals("new")) {
 			int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit() ;
 			int limit = pagination.getLimit();
 			RowBounds rowBounds = new RowBounds(offset, limit);
