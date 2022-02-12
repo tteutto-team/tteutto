@@ -380,7 +380,9 @@ public class MemberDAO {
 	}
 
 	public int teacherSt(int memberNo) {
-		return sqlSession.selectOne("memberMapper.teacherSt", memberNo);
+		int result = sqlSession.selectOne("memberMapper.teacherSt", memberNo);
+		System.out.println(result);
+		return result;
 	}
 
 	/** 강사 이미지 수정

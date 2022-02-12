@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.JsonObject;
+
 import edu.kh.tteutto.classRoom.model.service.ClassRegisterService;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailImage;
@@ -71,11 +73,9 @@ public class RegisterController {
 						
 						if(session.getAttribute("openClass") != null) {
 							session.removeAttribute("openClass");
-							session.removeAttribute("openCount");
 							System.out.println("지우");
 						}
 						if(session.getAttribute("openCount") != null) {
-							session.removeAttribute("openClass");
 							session.removeAttribute("openCount");
 							System.out.println("한지우");
 						}
@@ -161,8 +161,6 @@ public class RegisterController {
 			String area = classArea1 + " " + classArea2;
 			cdt.setClassArea(area);
 			
-			System.out.println(cdt);
-			
 			session.setAttribute("mark", marketing);
 			session.setAttribute("cdt", cdt);
 			
@@ -178,8 +176,39 @@ public class RegisterController {
 			
 			ra.addFlashAttribute("message", "임시저장이 완료되었습니다.");
 			
-			return "class/classInsert1";
+			return "redirect:/";
 		}
+		
+		
+		// 임시저장 스케쥴
+		@RequestMapping("save2")
+		public String scheduleSave(HttpSession session, RedirectAttributes ra, HttpServletResponse resp,
+								HttpServletRequest req, int epPrice,
+								@RequestParam(value="timePrice", required=false, defaultValue="0") int timePrice, 
+								@RequestParam(value="timePrice2", required=false, defaultValue="0") int timePrice2, 
+								@RequestParam(value="sumClass", required=false, defaultValue="0") int sumClass,
+								 String roadAddrPart1, String addrDetail, 
+								@RequestParam(value="schdlTime", required=false, defaultValue="0") int schdlTime,
+								@RequestParam(value="schdlTime2", required=false, defaultValue="0") int schdlTime2,
+								@RequestParam(value="susuryo", required=false, defaultValue="0") int susuryo
+								) {
+			
+			session.setAttribute("timePrice", timePrice);
+			session.setAttribute("timePrice2", timePrice2);
+			session.setAttribute("sumClass", sumClass);
+			session.setAttribute("epPrice", epPrice);
+			session.setAttribute("roadAddrPart1", roadAddrPart1);
+			session.setAttribute("addrDetail", addrDetail);
+			session.setAttribute("schdlTime", schdlTime);
+			session.setAttribute("schdlTime2", schdlTime2);
+			session.setAttribute("susuryo", susuryo);
+			
+			
+			ra.addFlashAttribute("message", "임시저장이 완료되었습니다.");
+			
+			return "redirect:/";
+		}
+		
 		
 		// 클래스 스케쥴 등록
 		@RequestMapping(value="schedule", method=RequestMethod.POST)
@@ -305,5 +334,11 @@ public class RegisterController {
 			return "redirect:/";
 		}
 		
-		
+		/*
+		@RequestMapping("uploadFile")
+		public String summernote() {
+			
+		}
+		*/
+
 }

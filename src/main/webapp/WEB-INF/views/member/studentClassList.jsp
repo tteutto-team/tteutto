@@ -61,24 +61,33 @@
 			                        <div class="column">${rg.regNo}</div>
 			                        <div class="column">${rg.className}</div>
 			                        <div class="column">${rg.classStatus}</div>
-			                        <div class="column">${rg.scheduleDate}</div>
-			                        <div class="column">${rg.refundStatus}</div>
-			                        <div class="column">${rg.refundMoney}</div>
+			                        <div class="column">${rg.dtTerm}</div>
+			                        <div class="column">
+			                        	<c:if test="${rg.refundStatus == -1}">-</c:if>
+			                        	<c:if test="${rg.refundStatus == 0}">접수완료</c:if>
+			                        	<c:if test="${rg.refundStatus == 1}">승인</c:if>
+			                        	<c:if test="${rg.refundStatus == 2}">거절</c:if>
+			                        </div>
+			                        <div class="column">
+			                        	<c:if test="${empty refundMoney}">-</c:if>
+			                        	<c:if test="${!empty refundMoney}">${rg.refundMoney}</c:if>
+			                        </div>
 			                        <div class="column slide">
 			                            <i class="fas fa-angle-down"></i>
 			                        </div>
 			                    </div>
 			                    <div class="invisible">
 			                        <div class="invisible-btn">
-			                        	<form action="${contextPath}/member/insertChatRoom" method="POST">
-				                            <button type="submit" onclick="window.open('${contextPath}/chat/chatRoomList', '_blank', 'width=482, height=700, top=200');"><i class="far fa-comment"></i> 채팅</button>
-				                            <input type="hidden" name="teacherNo" value="${rg.memberNo}">
-			                        	</form>
+			                        	
+				                        <button class="chat-btn" type="button"><i class="far fa-comment"></i> 채팅</button>
+				                        <div style="display:none;">${rg.memberNo}</div>
+				                        
 			                            <button class="review-modal-btn"><i class="fas fa-pen"></i> 후기</button>
 			                            <button class="report-modal-btn"><i class="fas fa-exclamation-triangle"></i> 신고</button>
-			                            <form action="${contextPath}/member/refundClass" method="POST">
+			                            <form action="${contextPath}/member/refundClass" class="refundCheck" method="POST" onsubmit="return refundCheck();">
 			                            	<button class="refund-btn"><i class="fas fa-wallet"></i> 환불</button>
 			                            	<input type="hidden" name="regNo" value="${rg.regNo}">
+			                            	<input type="hidden" name="epNo" value="${rg.epNo}">
 										</form>			                            	
 			                            <div style="display:none;">${rg.memberNm}</div>
 			                            <div style="display:none;">${rg.epNo}</div>
@@ -328,6 +337,7 @@
     	}
     }
     
+    /*
     //환불 눌렀을 때
     $(".refund-btn").on("click", function(e){
     		
@@ -345,6 +355,45 @@
 						alert("이미 환불 신청이 요청되었습니다.");
 						
 					}
+                },
+
+                error : function(){}
+
+            });
+    	
+    });*/
+    
+    function refundCheck(){
+    	if(confirm("정말로 환불 신청을 하시겠습니까?")){
+    		
+    	}else{
+    		return false;
+    	}
+    }
+    
+    //채팅 눌렀을 때
+    $(".chat-btn").on("click", function(e){
+    		
+    	const teacherNo = e.target.parentNode.childNodes[3].innerText;
+    	console.log(teacherNo);
+    	
+    		$.ajax({
+                url : "insertChatRoom",      
+                data : {"teacherNo" : teacherNo},  
+                type : "POST",               
+                success : function(result){
+                	/*
+					let chatUrl = 'tteutto/chat/chatRoomList';
+					if(result > 0){
+						console.log("ㅇㅇ")
+						window.open(chatUrl, '_blank', 'width=482, height=700, top=200');
+					}else{
+						console.log("ㅇㅏ")
+						window.open(chatUrl, '_blank', 'width=482, height=700, top=200');
+						
+					}*/
+					let chatUrl = '/tteutto/chat/chatRoomList';
+                	window.open(chatUrl, '_blank', 'width=482, height=700, top=200');
                 },
 
                 error : function(){}

@@ -425,6 +425,8 @@ public class MemberController {
 			pagination = service.registerPagination(memberNo ,cp);
 			
 			register = service.studentClassList(memberNo, pagination);
+
+			System.out.println(register);
 			
 			model.addAttribute("register", register);
 			model.addAttribute("pagination", pagination);
@@ -762,8 +764,7 @@ public class MemberController {
 			System.out.println(teacherSt);
 			
 			if(teacherSt >= 0) { // 강사 신청을 이미 했다면
-				ra.addFlashAttribute("message", "이미 강사 신청이 진행중입니다.");
-				return "member/login";
+				return "member/teacherProfile";
 			}else {
 				return "member/teacherRegister";			
 			}
@@ -875,70 +876,78 @@ public class MemberController {
 	
 	// 학생 - 강사 채팅방 생성
 	@RequestMapping("insertChatRoom")
-	public String insertChatRoom(@ModelAttribute("loginMember") Member loginMember, ChatRoom chatRoom) {
+	@ResponseBody()
+	public int insertChatRoom(@ModelAttribute("loginMember") Member loginMember, int teacherNo) {
 		
+		
+		ChatRoom chatRoom = new ChatRoom();
 		chatRoom.setMemberNo(loginMember.getMemberNo());
+		chatRoom.setTeacherNo(teacherNo);
 	
 		int check = service.checkChatRoom(chatRoom);
 		
 		if(check == 0) {
-			int result = service.insertChatRoom(chatRoom);			
+			service.insertChatRoom(chatRoom);
+		}	
+		
+		return check;
+		
+	}
+
+
+	// 클래스 환불 신청
+	@RequestMapping("refundClass")
+	public String refundClass(ClassRefund refund, RedirectAttributes ra) {
+
+		// 환불이 이미 신청되었는지 검사
+		int check = service.checkRefund(refund.getRegNo());
+		System.out.println(refund);
+		
+		if(check > 0) {
+			ra.addFlashAttribute("message", "이미 환불 신청을 하였습니다.");
+		}else {
+			
+			int result = service.refundClass(refund);
+			
+			if(result > 0) {
+				ra.addFlashAttribute("message", "환불 신청이 완료되었습니다.");			
+			}else {
+				ra.addFlashAttribute("message", "환불 신청 중 문제가 발생했습니다.");
+			}
+			
+		}
+
+		return "redirect:/member/studentClassList";
+	}
+	
+	// 학생 후기 삭제
+	@RequestMapping("deleteReview")
+	public String deleteReview(int reviewNo, RedirectAttributes ra) {
+
+		int result = service.deleteReview(reviewNo);
+		
+		if(result > 0) {
+			ra.addFlashAttribute("message", "후기가 삭제되었습니다.");			
 		}
 		
 		return "redirect:/member/studentClassList";
 	}
 	
-	// 클래스 환불 신청
-		@RequestMapping("refundClass")
-		public String refundClass(ClassRefund refund, RedirectAttributes ra) {
-
-			// 환불이 이미 신청되었는지 검사
-			int check = service.checkRefund(refund.getRegNo());
-			
-			if(check > 0) {
-				System.out.println("이놈아저씨");
-				ra.addFlashAttribute("message", "이미 환불 신청을 하였습니다.");
-			}else {
-				
-				int result = service.refundClass(refund);
-				
-				if(result > 0) {
-					ra.addFlashAttribute("message", "환불 신청이 완료되었습니다.");			
-				}
-				
-			}
-
-			return "redirect:/member/studentClassList";
-		}
-		
-		// 학생 후기 삭제
-		@RequestMapping("deleteReview")
-		public String deleteReview(int reviewNo, RedirectAttributes ra) {
-
-			int result = service.deleteReview(reviewNo);
-			
-			if(result > 0) {
-				ra.addFlashAttribute("message", "후기가 삭제되었습니다.");			
-			}
-			
-			return "redirect:/member/studentClassList";
-		}
-		
-		// 클래스에 후기가 작성되었는지 ajax로 검사
-		@RequestMapping("searchReview")
-		@ResponseBody
-		public int searchReview(int regNo) {
-			int result = service.searchReview(regNo);
-			System.out.println(result);
-			return result;
-		}
-		
-		// 클래스에 신고가 작성되었는지 ajax로 검사
-		@RequestMapping("searchReport")
-		@ResponseBody
-		public int searchReport(int regNo) {
-			return service.searchReport(regNo);
-		}
+	// 클래스에 후기가 작성되었는지 ajax로 검사
+	@RequestMapping("searchReview")
+	@ResponseBody
+	public int searchReview(int regNo) {
+		int result = service.searchReview(regNo);
+		System.out.println(result);
+		return result;
+	}
+	
+	// 클래스에 신고가 작성되었는지 ajax로 검사
+	@RequestMapping("searchReport")
+	@ResponseBody
+	public int searchReport(int regNo) {
+		return service.searchReport(regNo);
+	}
 	
 	
 }

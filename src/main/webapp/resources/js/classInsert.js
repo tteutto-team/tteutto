@@ -197,10 +197,70 @@ $(document).ready(function() {
         height: 400,
         width: 750,
         minHeight: 400,    
-        lang: "ko-KR"
-        //placeholder: '작성 예시 <br><br>간단한 클래스 소개'
+        //placeholder: '작성 예시 <br><br>간단한 클래스 소개'        
+        //focus: true,
+        lang: "ko-KR",
+		
+		
+		callbacks: {
+			onImageUpload : function(files, editor){
+				sendFile(files[0],this);
+			}
+		}
+		
+
     });
 });
+
+/*
+// 썸머노트 이미지
+function sendFile(file, editor){
+	var data = new FormData();
+	data.append("file", file);
+	console.log(file);
+	$.ajax({
+		data : data,
+		type : "POST",
+		url : "SummerNoteImageFile",
+		contentType : false,
+		processData : false,
+		success : function(data){
+			console.log(data);
+			console.log(editor);
+			$(editor).summernote("insertImage",data.url);
+		}
+	});
+}
+*/
+
+function sendFile(file, editor) {
+    data = new FormData()
+    data.append("img", file)
+
+    $.ajax({
+      data: data,
+      type: "POST",
+      url: "uploadFile",
+      cache: false,
+      contentType: false,
+      enctype: "multipart/form-data",
+      processData: false,
+      success: function (result) {
+        $(editor).summernote('editor.insertImage', ""+contextPath+"/resources/images/board/"+result+"");
+
+      const img = $("img");
+
+      if(img.outerWidth() > 800){
+        img.css("width", "800px");
+      }
+      
+      },
+    })
+  }
+
+
+
+
 
 
 // 제목 글자수
