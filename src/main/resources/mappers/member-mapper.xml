@@ -265,7 +265,10 @@
 	
 	<!-- 학생 정보 수정  -->
 	<update id="studentProfileUpdate">
-		UPDATE MEMBER SET MEMBER_NM=#{memberNm}, MEMBER_PNO= #{memberPno}, MEMBER_IMG = #{memberImg}
+		UPDATE MEMBER SET MEMBER_NM=#{memberNm}, MEMBER_PNO= #{memberPno}
+		<if test="memberImg != null">
+		, MEMBER_IMG = #{memberImg}
+    	</if>
 		WHERE MEMBER_NO=#{memberNo}
 	</update>
 	
@@ -479,11 +482,18 @@
 		    AND RE_ST = 0
 	</select>
 	
+
+	<update id="teacherImgUpdate">
+		update teacher set teacher_img = #{imgName}
+		where member_no = #{memberNo}
+	</update>
+
 	<!-- 강사가 이미 신청되었는지 확인 -->
 	<select id="teacherSt" resultType="_int">
 		SELECT NVL(TEACHER_ST, -1) TEACHER_ST FROM MEMBER
 		LEFT JOIN TEACHER USING(MEMBER_NO)
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
+
 	
 </mapper>

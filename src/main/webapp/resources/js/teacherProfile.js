@@ -25,9 +25,9 @@ function close_record_function(el,num) {
                 dataType : "json",
                 success : function(result){
                     if(result > 0){
-                        alert("성공");
+                        // alert("성공");
                     } else{
-                        alert("실패");
+                        // alert("실패");
                     }
                 },
 
@@ -126,6 +126,22 @@ function loadImg(input) {
         reader.onload = function(e) {
             var image = e.target.result;
             $(input).prev().attr("src", image);
+        }
+        reader.readAsDataURL(input.files[0]);
+	} 
+}
+
+
+// 이미지 파일을 첨부 했을 경우 미리 보기가 가능하도록 하는 함수
+function loadImg(input) {
+
+	// 매개변수 input == 클릭된 input 요소
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var image = e.target.result;
+
+            $("#img__cover").css({"background-image": "url("+image+")"});
         }
         reader.readAsDataURL(input.files[0]);
 	} 
