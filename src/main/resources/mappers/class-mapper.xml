@@ -112,6 +112,15 @@
 		<result property="teacherEnroll" column="TEACHER_ENROLL" />
 		<result property="memberKey" column="MEMBER_KEY" />
 	</resultMap>
+	
+	<!-- 소개이미지 -->
+	<resultMap type="IntroImg" id="introImg_rm">
+		<id property="introImgNo" column="INTRO_IMG_NO" />
+		
+		<result property="IntroImgName" column="INTRO_IMG_NAME" />
+		<result property="classNo" column="CLASS_NO" />
+	</resultMap>
+
 
 	<!-- 클래스 등록 -->
 	<insert id="classInsert" useGeneratedKeys="true" parameterType="ClassDetail">
@@ -326,5 +335,16 @@
 		WHERE CLASS_NO = #{classNo}
 	</select>
 	
+	<!-- 클래스 시퀀스 번호 -->
+	<select id="seqClassNo" resultType="_int">
+		SELECT SEQ_CLASS_NO.NEXTVAL FROM DUAL
+	</select>
+	
+	<!-- 썸머노트 이미지 db저장 -->
+	<insert id="insertIntroImg">
+		INSERT INTO INTRO_IMG VALUES(
+			SEQ_INTRO_IMG_NO, #{introImgName}, #{classNo}
+		)
+	</insert>
 	
 </mapper>

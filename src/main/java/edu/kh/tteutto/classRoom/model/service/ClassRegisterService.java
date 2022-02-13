@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.Episode;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeSchedule;
+import edu.kh.tteutto.classRoom.model.vo.IntroImg;
 
 public interface ClassRegisterService {
 
@@ -15,9 +16,10 @@ public interface ClassRegisterService {
 	 * @param serverPath 
 	 * @param webPath 
 	 * @param images 
+	 * @param introImg 
 	 * @return
 	 */
-	int classInsert(ClassDetail cdt, List<MultipartFile> images, String webPath, String serverPath);
+	int classInsert(ClassDetail cdt, List<MultipartFile> images, String webPath, String serverPath, List<IntroImg> introImg);
 
 	/** 스케쥴 등록
 	 * @param episode
@@ -59,5 +61,7 @@ public interface ClassRegisterService {
 	 * @return result
 	 */
 	int insertClassScheduleplus(Episode episode, List<EpisodeSchedule> epsList, int epCount);
-	
+
+
+
 }

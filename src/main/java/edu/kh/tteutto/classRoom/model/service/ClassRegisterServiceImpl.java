@@ -15,6 +15,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailImage;
 import edu.kh.tteutto.classRoom.model.vo.Episode;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeSchedule;
+import edu.kh.tteutto.classRoom.model.vo.IntroImg;
 import edu.kh.tteutto.common.Util;
 import edu.kh.tteutto.member.model.dao.MemberDAO;
 import edu.kh.tteutto.member.model.vo.Sns;
@@ -31,7 +32,7 @@ public class ClassRegisterServiceImpl implements ClassRegisterService{
 
 	// 클래스 등록
 	@Override
-	public int classInsert(ClassDetail cdt, List<MultipartFile> images, String webPath, String serverPath) {
+	public int classInsert(ClassDetail cdt, List<MultipartFile> images, String webPath, String serverPath, List<IntroImg> introImg) {
 		
 		// XSS , 개행문자
 		cdt.setClassIntro(Util.XSS(cdt.getClassIntro()));
@@ -75,6 +76,14 @@ public class ClassRegisterServiceImpl implements ClassRegisterService{
 	
 				}
 			}	
+		}
+		
+		// 썸머노트 이미지 DB등록
+		if(!introImg.isEmpty()) {
+			for(IntroImg it : introImg){
+				it.setClassNo(classNo);
+				dao.InsertIntroImg(it);
+			}
 		}
 		
 	}
@@ -158,5 +167,6 @@ public class ClassRegisterServiceImpl implements ClassRegisterService{
 		
 		return epNo;
 	}
-	
+
+
 }

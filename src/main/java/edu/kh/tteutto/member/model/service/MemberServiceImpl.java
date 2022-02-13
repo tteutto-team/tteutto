@@ -542,5 +542,11 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 
-	
+
+	// 후기 작성전에 강의가 끝났는지 체크
+	@Override
+	public int overDateReview(int epNo) {
+		return dao.overDateReview(epNo);
+	}
+
 }
