@@ -295,10 +295,6 @@ public interface MemberService {
 	String teacherImgUpdate(String loginTeacherImg, int memberNo, MultipartFile teacherImage, String webPath, String serverPath);
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 6f405353ddb8a6a57a59366c74cdd27858f84713
 	/** 비밀번호 변경2
 	 * @param member
 	 * @return result
