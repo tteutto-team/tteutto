@@ -404,7 +404,7 @@
     
     function chatRoom(el, classNo){
     	const teacherNo = el.parentNode.childNodes[3].innerText;
-    	console.log(teacherNo);
+    	//console.log(teacherNo);
     	
     		$.ajax({
                 url : "insertChatRoom",      
