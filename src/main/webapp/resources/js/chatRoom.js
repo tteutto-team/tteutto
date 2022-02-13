@@ -96,7 +96,7 @@ function sendMessage(){
 
 // 웹소켓 서버에서 전달된 메세지가 있을 경우
 chattingSock.onmessage = function(e){
-	
+	console.log(e);
 	// e.data : 전달받은 메세지
 	console.log(JSON.parse(e.data));
 	
@@ -129,10 +129,11 @@ chattingSock.onmessage = function(e){
 
    if (obj.memberNo == memberNo) {
       div.addClass("item mymsg");
-      $(".flex_wrap > .on").append(div);
       div.append(divB);
       divB.append(p);
       divB.append(span);
+      $(".flex_wrap > .on").append(div);
+
    } else {
 		
       div.addClass("otherName");
