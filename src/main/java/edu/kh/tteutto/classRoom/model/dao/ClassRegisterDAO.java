@@ -98,11 +98,10 @@ public class ClassRegisterDAO {
 
 	/** 썸머노트 이미지 DB저장
 	 * @param it
-	 */
-	public void InsertIntroImg(IntroImg it) {
-		sqlSession.insert("classMapper.insertIntroImg, it");
+	 */ 
+	public int InsertIntroImg(IntroImg it) {
+		return sqlSession.insert("classMapper.insertIntroImg", it);
 		
 	}
-
 	
 }

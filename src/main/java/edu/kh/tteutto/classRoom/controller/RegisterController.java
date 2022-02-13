@@ -114,16 +114,18 @@ public class RegisterController {
 			return "class/jusoPopup";
 		}
 		
+		
 		// 클래스 등록
 		@RequestMapping(value="class", method=RequestMethod.POST)
 		public String classInsert(RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember,
 								  ClassDetail cdt, String classArea1, String classArea2,
 								  @RequestParam(value="images", required=false) List<MultipartFile> images, 
-								  HttpSession session, 
-								  @RequestParam(value="introImgName", required=false, defaultValue="null") String introImgName){
-			
+								  HttpSession session, @RequestParam(value="introImgName", required=false, defaultValue="null") String introImgName 
+								  ){
+
 			// 소개 이미지 받아오기
 			String[] intro = introImgName.split(",");
+			
 			List<IntroImg> introImg = new ArrayList<IntroImg>();
 			
 			if(introImgName != null) {
@@ -135,6 +137,9 @@ public class RegisterController {
 				}
 				
 			}
+			
+			System.out.println(introImg);
+		
 
 			// 시군 추가
 			String area = classArea1 + " " + classArea2;
@@ -158,7 +163,24 @@ public class RegisterController {
 			
 		}
 		
-		
+		/*
+		@RequestMapping(value="class", method=RequestMethod.POST)
+		public String classInsert(RedirectAttributes ra, @RequestParam(value="images", required=false) List<MultipartFile> images,
+								  String classArea1, String classArea2, 
+								  @RequestParam(value="introImgName", required=false, defaultValue="null") String introImgName,
+								  ClassDetail cdt) {
+			
+			System.out.println(images);
+			System.out.println(classArea1 + "  hhhh  " + classArea2);
+			System.out.println(introImgName);
+			System.out.println(cdt);
+			
+			
+			ra.addFlashAttribute("message", "아직 승인되지 않은 클래스입니다.");
+			return "redirect:/";
+			
+		}
+		*/
 
 		// 클래스 미리보기 페이지
 		@RequestMapping("preview")
@@ -183,17 +205,8 @@ public class RegisterController {
 			cdt.setClassArea(area);
 			
 			session.setAttribute("mark", marketing);
-			session.setAttribute("cdt", cdt);
+			session.setAttribute("tempClass", cdt);
 			
-			/*
-			Cookie cookie = new Cookie("classLevel", cdt.getClassLevel());
-			
-			cookie.setMaxAge(60 * 60 * 24 * 30);
-			
-			cookie.setPath(req.getContextPath());
-			
-			resp.addCookie(cookie);
-			*/
 			
 			ra.addFlashAttribute("message", "임시저장이 완료되었습니다.");
 			
@@ -366,6 +379,11 @@ public class RegisterController {
 			int classNo = (Integer)session.getAttribute("classNo");
 			//System.out.println(classNo);
 			//System.out.println(file);
+			/*
+			 * int classNo = (int)session.getAttribute("classNo");
+			 * System.out.println(classNo);
+			 */
+			System.out.println(file);
 			
 			String webPath = "/resources/images/class/"; // (DB에 저장되는 경로)
 		      

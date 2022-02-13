@@ -34,7 +34,7 @@ crossorigin="anonymous"/>
 						<div class="image">
 							<%-- 클래스 이미지 --%>
 							<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-							onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epNo=${classList.episodeNo}'">
+							onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeNo}'">
 							
 							<%-- 수업 등록 지역 --%>
 							<p class="location-p">${classList.classArea}</p>
@@ -185,7 +185,7 @@ crossorigin="anonymous"/>
 							<div class="image">
 								<%-- 클래스 이미지 --%>
 								<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-								onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epNo=${classList.episodeNo}'">
+								onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeNo}'">
 								
 								<%-- 수업 등록 지역 --%>
 								<p class="location-p">${classList.classArea}</p>
@@ -335,25 +335,30 @@ crossorigin="anonymous"/>
 	
 	<%-- 클래스 카드 찜하기 버튼 기능 및 색상 변경 --%>
 	$('.btn_like').click(function() {
-		const classNo = this.getAttribute("id");
+		const classNo = this.getAttribute('id');
 		
-		if ("${loginMember}" != "") {
+		if ('${loginMember}' != "") {
 			const heartBtn = this;
 			
 			$.ajax({
 				url : "${contextPath}/member/changeHeart", 
 				data : {"classNo" : classNo}, 
 				success : function(result) {
+					
+					const temp = $(heartBtn).next().find('.fi-rr-heart').next();
+					
 					if (result > 0) {
 					    if ($(heartBtn).hasClass('btn_unlike')) {
 					        $(heartBtn).removeClass('btn_unlike');
 					        $(heartBtn).children('span:eq(1)').removeClass('hi');
 					        $(heartBtn).children('span:eq(1)').addClass('bye');
+					        temp.text( Number(temp.text()) - 1 );
 					        
 					    } else {
 					        $(heartBtn).addClass('btn_unlike');
 					        $(heartBtn).children('span:eq(1)').removeClass('bye');
 					        $(heartBtn).children('span:eq(1)').addClass('hi');
+					        temp.text( Number(temp.text()) + 1 );
 					    }
 					}
 				}
@@ -392,7 +397,7 @@ crossorigin="anonymous"/>
 			 		const img = $('<img>');
 			 		img.attr("src", "${contextPath}/resources/images/class-detail/" + classList.thumbnailImageName);
 			 		img.attr("onclick", "location.href='/tteutto/class/classDetail?classNo=" + classList.classNo 
-			 							+ "&epNo=" + classList.episodeNo + "'");
+			 							+ "&epCount=" + classList.episodeNo + "'");
 			 		
 			 		<%-- 수업 등록 지역 --%>
 			 		const locationP = $('<p class="location-p">').text(classList.classArea);

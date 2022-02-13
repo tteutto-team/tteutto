@@ -16,7 +16,7 @@
 		<result property="themeNo" column="THEME_NO"/>
 		<result property="themeImage" column="THEME_IMG"/>
 		<result property="themeColor" column="THEME_COLOR"/>
-		<result property="episodeNo" column="EP_NO"/>
+		<result property="episodeNo" column="EP_NO"/>  <!-- EP_NO 아니고 EP_COUNT인데 지금 바꾸면 헷깔릴까봐 그냥 씀 -->
 		<result property="starAverage" column="STAR_AVG"/>
 		<result property="heartFlag" column="HEART_FLAG"/>
 		<result property="heartCount" column="HEART_COUNT"/>
@@ -26,7 +26,7 @@
 	<!-- 클래스 개수 조회 -->
 	<select id="selectClassCount" resultType="_int">
 		SELECT COUNT(*) FROM (
-		    SELECT C.CLASS_NO, OPEN_PRICE(C.CLASS_NO) EP_PRICE 
+		    SELECT C.CLASS_NO, OPEN_PRICE(C.CLASS_NO) EP_PRICE
 		    FROM CLASS C 
 		    JOIN THUMBNAIL_IMG T ON(C.CLASS_NO = T.CLASS_NO) 
 		    JOIN CLASS_CATEGORY ON(CATG_NO = CT_NO) 
@@ -92,9 +92,11 @@
 	<!-- 클래스 카드 조회 -->
 	<select id="selectClassCard" resultMap="classList_rm">
 		SELECT * FROM (
-		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, OPEN_EP_NO(C.CLASS_NO) EP_NO, CLASS_NM, 
+		    SELECT C.CLASS_NO, CLASS_AREA, CLASS_TYPE, OPEN_EP_COUNT(C.CLASS_NO) EP_NO, CLASS_NM, 
 		    TH_IMG_NM, CT_NM, TEACHER_IMG, MEMBER_NM, CT_DETAIL_NM, <if test="pageKey == 'theme'">THEME_IMG, </if>
+		    
 		    OPEN_PRICE(C.CLASS_NO) EP_PRICE, 
+		    
 		        NVL((SELECT ROUND(AVG(RE_STAR), 1) FROM CLASS 
 		            JOIN EPISODE USING(CLASS_NO) 
 		            JOIN REGISTER USING(EP_NO) 
@@ -192,7 +194,7 @@
 			    	</if>
 			    	<!-- 현재 위치 설정 -->
 			    	<if test="location != null">
-			    		AND CLASS_AREA LIKE #{loc}||'%'
+			    		AND CLASS_AREA LIKE #{location}||'%'
 			    	</if>
 			    </when>
 			    <!-- 메인 페이지 인기 -->

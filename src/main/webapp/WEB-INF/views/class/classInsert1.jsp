@@ -10,17 +10,17 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 	
     <section id="classInsert">
-    	<form action="${contextPath}/register/class" enctype="multipart/form-data" id="form" name="form" method="POST" onsubmit="return checkInput();">
+    	<form action="${contextPath}/register/class" enctype="multipart/form-data" id="form" name="form" method="post" onsubmit="return checkInput();">
         <div class="fixWidth">
             <div id="register_header">
-                <div>클래스 등록<input type="hidden" name="classNo" value="${classNo}"/></div>
+                <div>클래스 등록<%-- <input type="hidden" name="classNo" value="${classNo}"/> --%></div>
                 <div><span class="redText">* </span>필수</div> 
             </div>
             <div class="bottomLine">
                 <div class="line1 h4-height"><h4>수업난이도 <span class="redText">*</span></h4></div>
                 <div id="c-level"  class="line2">
                     <c:choose>
-                    	<c:when test="${empty sessionScope.cdt}">
+                    	<c:when test="${empty sessionScope.tempClass}">
                    		 	<div><input id="radio1" type="radio" name="classLevel" value="하" style="display:none;" required> <label for="radio1"></label>하</div>
                    		 	
                     		<div><input id="radio2" type="radio" name="classLevel" value="중" style="display:none;" required><label for="radio2"></label>중</div>
@@ -29,12 +29,12 @@
                     		
                     	</c:when>
                     	<c:otherwise>
-       	                    <c:if test="${sessionScope.cdt.classLevel == '하'}"><div><input id="radio1" type="radio" name="classLevel" value="하" checked style="display:none;" required><label for="radio1"></label>하</div></c:if>
-		                    <c:if test="${sessionScope.cdt.classLevel != '하'}"><div><input id="radio1" type="radio" name="classLevel" value="하" style="display:none;" required><label for="radio1"></label>하</div></c:if>
-		                    <c:if test="${sessionScope.cdt.classLevel == '중'}"><div><input id="radio2" type="radio" name="classLevel" value="중" checked style="display:none;" required><label for="radio2"></label>중</div></c:if>
-		                    <c:if test="${sessionScope.cdt.classLevel != '중'}"><div><input id="radio2" type="radio" name="classLevel" value="중" style="display:none;" required><label for="radio2"></label>중</div></c:if>
-		                    <c:if test="${sessionScope.cdt.classLevel == '상'}"><div><input id="radio3" type="radio" name="classLevel" value="상" checked style="display:none;" required><label for="radio3"></label>상</div></c:if>
-		                    <c:if test="${sessionScope.cdt.classLevel != '상'}"><div><input id="radio3" type="radio" name="classLevel" value="상" style="display:none;" required><label for="radio3"></label>상</div></c:if>
+       	                    <c:if test="${sessionScope.tempClass.classLevel == '하'}"><div><input id="radio1" type="radio" name="classLevel" value="하" checked style="display:none;" required><label for="radio1"></label>하</div></c:if>
+		                    <c:if test="${sessionScope.tempClass.classLevel != '하'}"><div><input id="radio1" type="radio" name="classLevel" value="하" style="display:none;" required><label for="radio1"></label>하</div></c:if>
+		                    <c:if test="${sessionScope.tempClass.classLevel == '중'}"><div><input id="radio2" type="radio" name="classLevel" value="중" checked style="display:none;" required><label for="radio2"></label>중</div></c:if>
+		                    <c:if test="${sessionScope.tempClass.classLevel != '중'}"><div><input id="radio2" type="radio" name="classLevel" value="중" style="display:none;" required><label for="radio2"></label>중</div></c:if>
+		                    <c:if test="${sessionScope.tempClass.classLevel == '상'}"><div><input id="radio3" type="radio" name="classLevel" value="상" checked style="display:none;" required><label for="radio3"></label>상</div></c:if>
+		                    <c:if test="${sessionScope.tempClass.classLevel != '상'}"><div><input id="radio3" type="radio" name="classLevel" value="상" style="display:none;" required><label for="radio3"></label>상</div></c:if>
                     	</c:otherwise>
                     </c:choose>
                 </div>
@@ -79,15 +79,15 @@
                 <div>
                     <div>
                     	<c:choose>
-                       	<c:when test="${empty sessionScope.cdt}">
+                       	<c:when test="${empty sessionScope.tempClass}">
                    		 	<input id="radio4" type="radio" name="classType" value="0" style="display:none;" required><label for="radio4"></label>원데이 클래스&nbsp;&nbsp;&nbsp;
 	                        <input id="radio5" type="radio" name="classType" value="1" style="display:none;" required><label for="radio5"></label>정규 수업
                     	</c:when>
                     	<c:otherwise>
-       	                    <c:if test="${sessionScope.cdt.classType == '0'}"><input id="radio4" type="radio" name="classType" value="0" style="display:none;" checked required><label for="radio4"></label>원데이 클래스&nbsp;&nbsp;&nbsp;</c:if>
-		                    <c:if test="${sessionScope.cdt.classType != '0'}"><input id="radio4" type="radio" name="classType" value="0" style="display:none;" required><label for="radio4"></label>원데이 클래스&nbsp;&nbsp;&nbsp;</c:if>
-		                    <c:if test="${sessionScope.cdt.classType == '1'}"><input id="radio5" type="radio" name="classType" value="1" style="display:none;" checked required><label for="radio5"></label>정규 수업</c:if>
-		                    <c:if test="${sessionScope.cdt.classType != '1'}"><input id="radio5" type="radio" name="classType" value="1" style="display:none;" required><label for="radio5"></label>정규 수업</c:if>
+       	                    <c:if test="${sessionScope.tempClass.classType == '0'}"><input id="radio4" type="radio" name="classType" value="0" style="display:none;" checked required><label for="radio4"></label>원데이 클래스&nbsp;&nbsp;&nbsp;</c:if>
+		                    <c:if test="${sessionScope.tempClass.classType != '0'}"><input id="radio4" type="radio" name="classType" value="0" style="display:none;" required><label for="radio4"></label>원데이 클래스&nbsp;&nbsp;&nbsp;</c:if>
+		                    <c:if test="${sessionScope.tempClass.classType == '1'}"><input id="radio5" type="radio" name="classType" value="1" style="display:none;" checked required><label for="radio5"></label>정규 수업</c:if>
+		                    <c:if test="${sessionScope.tempClass.classType != '1'}"><input id="radio5" type="radio" name="classType" value="1" style="display:none;" required><label for="radio5"></label>정규 수업</c:if>
                     	</c:otherwise>
                     	</c:choose>
                     </div>
@@ -98,7 +98,7 @@
                 <div class="line1 div-height"><h4>수업참여인원 <span class="redText">*</span></h4></div>
                 <div class="div-height">
                 	<c:choose>
-                       	<c:when test="${empty sessionScope.cdt}">
+                       	<c:when test="${empty sessionScope.tempClass}">
                    		 	<input type="radio" id="solo-class" name="classPerson" value="1" style="display:none;" required><label for="solo-class"></label>1:1 수업&nbsp;&nbsp;&nbsp;
                     		<input type="radio" id="group-class" name="classPerson" value="0" style="display:none;" required><label for="group-class"></label>그룹수업
                     		<div id="group-input" style="display: none;"><input id="minPerson" type="number" name="classMinPerson" class="input-style" value="0"> &nbsp명~&nbsp <input id="maxPerson" type="number" name="classMaxPerson" class="input-style" value="0">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
@@ -106,16 +106,16 @@
                     		</p>
                     	</c:when>
                     	<c:otherwise>
-       	                    <c:if test="${sessionScope.cdt.classPerson == '1'}"><input type="radio" id="solo-class" name="classPerson" value="1" style="display:none;" required checked><label for="solo-class"></label>1:1 수업&nbsp;&nbsp;&nbsp;</c:if>
-		                    <c:if test="${sessionScope.cdt.classPerson != '1'}"><input type="radio" id="solo-class" name="classPerson" value="1" style="display:none;" required><label for="solo-class"></label>1:1 수업&nbsp;&nbsp;&nbsp;</c:if>
-		                    <c:if test="${sessionScope.cdt.classPerson == '0'}"><input type="radio" id="group-class" name="classPerson" value="0" style="display:none;" required checked><label for="group-class"></label>그룹수업</c:if>
-		                    <c:if test="${sessionScope.cdt.classPerson != '0'}"><input type="radio" id="group-class" name="classPerson" value="0" style="display:none;" required><label for="group-class"></label>그룹수업</c:if>
-		                    <c:if test="${sessionScope.cdt.classPerson == '0'}">
-                           		<div id="group-input" style="display: none;"><input id="minPerson" type="number" name="classMinPerson" class="input-style" value="${sessionScope.cdt.classMinPerson}"> &nbsp명~&nbsp <input id="maxPerson" type="number" name="classMaxPerson" class="input-style" value="${sessionScope.cdt.classMaxPerson}">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
+       	                    <c:if test="${sessionScope.tempClass.classPerson == '1'}"><input type="radio" id="solo-class" name="classPerson" value="1" style="display:none;" required checked><label for="solo-class"></label>1:1 수업&nbsp;&nbsp;&nbsp;</c:if>
+		                    <c:if test="${sessionScope.tempClass.classPerson != '1'}"><input type="radio" id="solo-class" name="classPerson" value="1" style="display:none;" required><label for="solo-class"></label>1:1 수업&nbsp;&nbsp;&nbsp;</c:if>
+		                    <c:if test="${sessionScope.tempClass.classPerson == '0'}"><input type="radio" id="group-class" name="classPerson" value="0" style="display:none;" required checked><label for="group-class"></label>그룹수업</c:if>
+		                    <c:if test="${sessionScope.tempClass.classPerson != '0'}"><input type="radio" id="group-class" name="classPerson" value="0" style="display:none;" required><label for="group-class"></label>그룹수업</c:if>
+		                    <c:if test="${sessionScope.tempClass.classPerson == '0'}">
+                           		<div id="group-input" style="display: none;"><input id="minPerson" type="number" name="classMinPerson" class="input-style" value="${sessionScope.tempClass.classMinPerson}"> &nbsp명~&nbsp <input id="maxPerson" type="number" name="classMaxPerson" class="input-style" value="${sessionScope.tempClass.classMaxPerson}">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
        		             		ex) 일대일 수업을 원하는 경우, 채팅으로 문의 주세요.
             	        		</p>
                     		</c:if>
-		                    <c:if test="${sessionScope.cdt.classPerson != '0'}">
+		                    <c:if test="${sessionScope.tempClass.classPerson != '0'}">
 		                    	<div id="group-input" style="display: none;"><input id="minPerson" type="number" name="classMinPerson" class="input-style" value="0"> &nbsp명~&nbsp <input id="maxPerson" type="number" name="classMaxPerson" class="input-style" value="0">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
        		             		ex) 일대일 수업을 원하는 경우, 채팅으로 문의 주세요.
             	        		</p>
@@ -137,7 +137,7 @@
                             * 예시 : 미국주식, 내 손으로 직접 투자하자 / 4회만에 내 손으로 만든 영상, 유튜브에 업로드❤<br>
                         </div>
                     </div>
-                    <input type="text" id="titleArea" name="className" class="input-style" style="width: 750px;" required value=" ${sessionScope.cdt.className}">&nbsp&nbsp<span id="titleText-count">0</span><span id="titleText-max">/50</span>
+                    <input type="text" id="titleArea" name="className" class="input-style" style="width: 750px;" required value=" ${sessionScope.tempClass.className}">&nbsp&nbsp<span id="titleText-count">0</span><span id="titleText-max">/50</span>
                 </div>
             </div>
             <div id="cover-img" class="bottomLine">
@@ -233,7 +233,7 @@
                     		<li>스타트업을 시작하기 위해 반응형 APP Design이 필요한 분</li>
                     	</ul>
                     	--%>
-                    	 ${sessionScope.cdt.classIntro}
+                    	 ${sessionScope.tempClass.classIntro}
                     </textarea>
                 </div>
             </div>
@@ -260,7 +260,7 @@
             </div> -->
             <div id="next-btn">
                 <button type="button" id="priview-btn" class="btn-click" style="background-color: #3a3424; color: white;" onclick="PopUp();">미리보기</button>
-                <button id="save-btn" class="btn-click" style="background-color: #3a3424; color: white;" onclick="javascript: form.action='${contextPath}/register/save';">임시저장</button>
+                <%-- <button id="save-btn" class="btn-click" style="background-color: #3a3424; color: white;" onclick="javascript: form.action='${contextPath}/register/save';">임시저장</button> --%>
                 <button id="submit_btn" class="btn-click" style="background-color: #FFDF3E;">승인요청</button>
             </div>
             <div id="summerImg"></div>
