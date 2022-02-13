@@ -82,9 +82,8 @@ crossorigin="anonymous"/>
 						<c:choose>
 							<%-- 주변 클래스 목록 --%>
 							<c:when test="${type == 'location'}">
-								<%-- <span>'${classList.classArea}'</span> --%>
-								<span>'${param.location}'</span>
-								의 클래스 추천
+								<%-- 지역 키워드 --%>
+								<span>'${param.location}'</span>의 클래스 추천
 							</c:when>
 							
 							<%-- 인기 클래스 목록 --%>
@@ -100,8 +99,7 @@ crossorigin="anonymous"/>
 							<%-- 클래스 검색 목록 --%>
 							<c:otherwise>
 								<%-- 검색 키워드 --%>
-								<span>'${param.search}'</span>
-								에 대한 클래스 검색 결과
+								<span>'${param.search}'</span>에 대한 클래스 검색 결과
 							</c:otherwise>
 						</c:choose>
 					</h1>

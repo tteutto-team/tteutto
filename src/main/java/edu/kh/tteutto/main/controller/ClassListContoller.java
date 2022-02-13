@@ -84,19 +84,18 @@ public class ClassListContoller {
 	@ResponseBody
 	@RequestMapping("changeOption")
 	public String changeOption(HttpSession session, String search, Option option, String type, 
-			@RequestParam(value="page", required=false, defaultValue="1") int page,
-			@RequestParam(value="location", required=false) String location) {
+			@RequestParam(value="location", required=false) String location, 
+			@RequestParam(value="page", required=false, defaultValue="1") int page) {
 		
-		if(location != null) {
-			session.setAttribute("location", location);
-			// 전달 받은 값에 location이 있으면 세션에 올림
-		}
 		
 		int memberNo = 0;
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		
 		if (loginMember != null)
 			memberNo = loginMember.getMemberNo();
+		
+		if (location != null)
+			session.setAttribute("location", location);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("price", option.getPrice());
@@ -154,7 +153,8 @@ public class ClassListContoller {
 	
 	// 주변 클래스 목록
 	@RequestMapping("locationClass")
-	public String locationClass(HttpSession session, Model model, @RequestParam(value="location", required=false) String location) {
+	public String locationClass(HttpSession session, Model model, 
+			@RequestParam(value="location", required=false) String location) {
 		
 		int memberNo = 0;
 		Member loginMember = (Member)session.getAttribute("loginMember");
@@ -166,12 +166,10 @@ public class ClassListContoller {
 		map.put("memberNo", memberNo);
 		map.put("pageKey", "location");
 		map.put("type", "location");
-		map.put("loc", location); // 전달받은 지역 (없으면 null))
+		map.put("location", location);
 		
 		List<ClassList> locationList = null;
 		locationList = service.selectMainList(map);
-		System.out.println(map);
-		System.out.println(locationList);
 		
 		model.addAttribute("classList", locationList);
 		model.addAttribute("type", "location");
