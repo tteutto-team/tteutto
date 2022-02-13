@@ -180,23 +180,24 @@
 			<choose>
 			    <!-- 메인 페이지 주변 -->
 			    <when test="pageKey == 'location'">
-			    	<if test="loc == null">
+			    	<!-- Default : 클래스 등록이 가장 많은 지역 -->
+			    	<if test="location == null">
 				    	AND CLASS_AREA = (
 					        SELECT CLASS_AREA FROM (
-					            SELECT CLASS_AREA, COUNT(*) COUNT FROM CLASS GROUP BY CLASS_AREA 
+					            SELECT CLASS_AREA, COUNT(*) COUNT FROM CLASS 
+					            GROUP BY CLASS_AREA 
 					            ORDER BY COUNT DESC)
 					        WHERE ROWNUM = 1
 					    )
 			    	</if>
-			    	<if test="loc!= null">
-			    		AND CLASS_AREA LIKE #{loc} || '%'
+			    	<!-- 현재 위치 설정 -->
+			    	<if test="location != null">
+			    		AND CLASS_AREA LIKE #{loc}||'%'
 			    	</if>
-			    	
 			    </when>
 			    <!-- 메인 페이지 인기 -->
 			    <when test="pageKey == 'hot'">
 			    	ORDER BY REG_COUNT(C.CLASS_NO) DESC
-			    	
 			    </when>
 			    <!-- 메인 페이지 신규 -->
 			    <when test="pageKey == 'new'">

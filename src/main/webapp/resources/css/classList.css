@@ -28,8 +28,10 @@
    	margin-top: 25px;
    	margin-bottom: 50px;
     padding: 20px;
-    border: 1px solid red;
-	width: 80%;
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+    box-shadow: 3px 2px 5px 2px #0000001a;
+	width: 98%;
     text-align: center;
 }
 

@@ -14,6 +14,9 @@
 <link href="${contextPath}/resources/icon/css/uicons-regular-rounded.css" rel="stylesheet">
 <link rel="stylesheet" href="${contextPath}/resources/css/main.css"/>
 
+<!-- 애니메이션 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
 <!-- 캐러셀 -->
 <div class="carosel">
     <div id="myCarousel" class="carousel slide product-img">
@@ -69,7 +72,7 @@
 	            <p id="location">${classList.classArea}</p>
             </span>
             
-            <div class="balloon">여기를 누르면<br> 현재 위치로 자동 설정됩니다.</div>
+            <div class="balloon animate__animated animate__bounce">여기를 누르면<br> 현재 위치로 자동 설정됩니다.</div>
         </div>
         
         <div class="hot-class-bottom">
