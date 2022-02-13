@@ -83,8 +83,11 @@ public class ChatWebsocketHandler extends TextWebSocketHandler{
 				// 채팅 알림
 				if(loginMemberNo == cm.getOtherMemberNo()) {
 					int count = service.sendAlarm(cm);
+					int count2 = service.sendAlarm2(cm);
 					
-					wss.sendMessage(new TextMessage(new Gson().toJson(count)));
+					int sum = (count + count2);
+					
+					wss.sendMessage(new TextMessage(new Gson().toJson(sum)));
 				}
 				
 				

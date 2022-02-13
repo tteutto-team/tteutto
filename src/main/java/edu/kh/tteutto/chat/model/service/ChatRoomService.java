@@ -62,6 +62,12 @@ public interface ChatRoomService {
 	 */
 	int sendAlarm(ChatMessage cm);
 
+	/** 채팅알림2
+	 * @param cm
+	 * @return count2
+	 */
+	int sendAlarm2(ChatMessage cm);
+
 
 
 

@@ -156,4 +156,9 @@
 	<select id="sendAlarm" resultType="_int">
 		SELECT COUNT(*) FROM CHAT_MESSAGE WHERE OHTER_MEMBER_NO = #{otherMemberNo} AND MSG_ST = 0
 	</select>
+	
+	<!-- 채팅 알림2 -->
+	<select id="sendAlarm2">
+		SELECT COUNT(*) FROM NOTE WHERE MEMBER_NO = #{otherMemberNo} AND NOTE_ST = 0
+	</select>
 </mapper>
