@@ -54,13 +54,14 @@ list.addEventListener('click', (event) => {
 function reportReq(btn){
     let className = $("#class-episode-name").text();
     let studentName = btn.parent().parent().prev().children().eq(1).text();
-    $(".modal-classname-student").text(className + " / " + studentName);
+    $(".detail-reason").val("");
+    $(".modal-classname-student").text(className + " / " + studentName).attr("id", btn.parent().parent().prev().children().eq(1).attr("id"));
 }
 
 function reportSubmit(){
 
     let reportText = $(".detail-reason");
-    let memberNo = $(".studentName").attr("id");
+    let memberNo = $(".modal-classname-student").attr("id");
 
     if(reportText.val().trim().length == 0){
         swal({"title" : "신고 내용을 입력해주세요.", "icon" : "error"});

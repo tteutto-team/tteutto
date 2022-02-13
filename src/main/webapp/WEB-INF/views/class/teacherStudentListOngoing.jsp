@@ -52,7 +52,7 @@
 	                    </div>
 	                    <div class="invisible">
 	                        <div class="invisible-btn" id="student_${ongoingClass.studentNo}">
-	                            <button><i class="far fa-comment"></i> 채팅</button>
+	                            <button onclick="window.open('${contextPath}/chat/chatRoom?classNo=${ongoingClassList[0].classNo}&studentNo=${ongoingClass.studentNo}','채팅창 목록','width=482,height=700,location=no,status=no,scrollbars=yes');"><i class="far fa-comment"></i> 채팅</button>
 	                            <button class="modal-open-btn report"><i class="fas fa-exclamation-triangle"></i> 신고</button>
 	                        </div>
 	                    </div>

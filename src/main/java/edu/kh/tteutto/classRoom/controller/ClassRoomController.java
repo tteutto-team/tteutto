@@ -107,12 +107,12 @@ public class ClassRoomController {
 					int startCompare = startDate.compareTo(today); 
 					int endCompare = endDate.compareTo(today); 
 					
-					if(endCompare > 0) {	// 수업이 아직 안끝났을 경우 (현재 날짜 < 끝 날짜)
+					if(endCompare >= 0) {	// 수업이 아직 안끝났을 경우 (현재 날짜 < 끝 날짜)
 						episodeList.get(i).setCalStatus(-2);	// 정산 신청 버튼 X
 					}
 					
 					// 수업이 끝났을 경우 && 미정산인 경우
-					else if(endCompare <= 0 && episodeList.get(i).getCalStatus() == -1 ) {
+					else if(endCompare < 0 && episodeList.get(i).getCalStatus() == -1 ) {
 						// 현재 날짜 > 끝 날짜 
 						episodeList.get(i).setCalStatus(-1);	// 정산 신청 버튼 나오게 해야함
 					} 
