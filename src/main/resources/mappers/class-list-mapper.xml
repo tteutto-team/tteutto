@@ -192,7 +192,7 @@
 			    	</if>
 			    	<!-- 현재 위치 설정 -->
 			    	<if test="location != null">
-			    		AND CLASS_AREA LIKE #{loc}||'%'
+			    		AND CLASS_AREA LIKE #{location}||'%'
 			    	</if>
 			    </when>
 			    <!-- 메인 페이지 인기 -->
