@@ -163,7 +163,7 @@ public class MemberController {
 	@RequestMapping("checkCert")
 	public int checkCert(String inputCertify, String inputEmail) {
 		
-		System.out.println(inputCertify + " / " +inputEmail);
+		//System.out.println(inputCertify + " / " +inputEmail);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("inputEmail", inputEmail);
 		map.put("inputCertify", inputCertify);
@@ -217,7 +217,7 @@ public class MemberController {
 		if (loginMember != null) {
 			model.addAttribute("loginMember", loginMember);
 			
-			System.out.println("loginMemberEmail"  + loginMember.getMemberEmail());
+			//System.out.println("loginMemberEmail"  + loginMember.getMemberEmail());
 			
 			Cookie cookie = new Cookie("saveId", loginMember.getMemberEmail());
 
@@ -425,8 +425,8 @@ public class MemberController {
 	@RequestMapping(value="changePw2", method=RequestMethod.POST)
 	public String changePw2(@ModelAttribute("loginMember") Member loginMember ,Member member, RedirectAttributes ra) {
 		
-		System.out.println("loginMember: " + loginMember);
-		System.out.println("loginMember: " + loginMember.getMemberNo());
+		//System.out.println("loginMember: " + loginMember);
+		//System.out.println("loginMember: " + loginMember.getMemberNo());
 		
 		member.setMemberNo(loginMember.getMemberNo());
 		
@@ -437,7 +437,7 @@ public class MemberController {
 		
 		int result2 = service.changePw2(member);
 		
-		System.out.println("result2: " + result2);
+		//System.out.println("result2: " + result2);
 		
 		if(result2 == 1) { // 성공
 			title = "비밀번호 변경 성공";
@@ -472,7 +472,7 @@ public class MemberController {
 			
 			register = service.studentClassList(memberNo, pagination);
 
-			System.out.println(register);
+			//System.out.println(register);
 			
 			model.addAttribute("register", register);
 			model.addAttribute("pagination", pagination);
@@ -638,7 +638,7 @@ public class MemberController {
 		List<Sns> snsList = service.selectTeacherSns(memberNo);
 		
 //		System.out.println("careerList : "+ careerList);
-		System.out.println("teacher:" + teacher);
+		//System.out.println("teacher:" + teacher);
 		loginMember.setTeacherImg(teacher.getTeacherImg());
 		
 		String birth = teacher.getMemberBirth().split(" ")[0];
@@ -747,7 +747,7 @@ public class MemberController {
 			}
 		}
 		
-		System.out.println("snsList : " + snsList);
+		//System.out.println("snsList : " + snsList);
 		
 		// 웹 접근 경로(webPath), 서버 저장 경로(serverPath)
 		String webPath = "/resources/images/teacher/profile/"; // (DB에 저장되는 경로)
@@ -769,7 +769,7 @@ public class MemberController {
 //			}
 			
 			result = service.teacherProfileUpdate(teacher, phone, snsList, profileInput, images, webPath, serverPath);
-			System.out.println("수정 result: " + result);
+			//System.out.println("수정 result: " + result);
 		}
 		
 		if(result > 0) {
@@ -806,7 +806,7 @@ public class MemberController {
 			Member loginMember = (Member)session.getAttribute("loginMember");
 			
 			int teacherSt = service.teacherSt(loginMember.getMemberNo());
-			System.out.println(teacherSt);
+			//System.out.println(teacherSt);
 			
 			if(teacherSt > 0) { // 강사 신청을 이미 했다면
 				return "member/teacherProfile";
@@ -949,7 +949,7 @@ public class MemberController {
 
 		// 환불이 이미 신청되었는지 검사
 		int check = service.checkRefund(refund.getRegNo());
-		System.out.println(refund);
+		//System.out.println(refund);
 		
 		if(check > 0) {
 			ra.addFlashAttribute("message", "이미 환불 신청을 하였습니다.");
@@ -986,7 +986,7 @@ public class MemberController {
 		
 		int result = service.searchReview(regNo);
 		int result2 = service.overDateReview(epNo);
-		System.out.println(result);
+		//System.out.println(result);
 		if(result2 > 0) {
 			alert = 2;
 		}
@@ -995,7 +995,7 @@ public class MemberController {
 			alert = 1;				
 		}
 		
-		System.out.println(alert);
+		//System.out.println(alert);
 		return alert;
 	}
 	
