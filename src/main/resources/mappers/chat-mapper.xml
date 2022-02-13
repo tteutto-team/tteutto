@@ -154,7 +154,7 @@
 	
 	<!-- 채팅알림 -->
 	<select id="sendAlarm" resultType="_int">
-		SELECT COUNT(*) FROM CHAT_MESSAGE WHERE OHTER_MEMBER_NO = #{otherMemberNo} AND MSG_ST = 0
+		SELECT COUNT(*) FROM CHAT_MESSAGE WHERE OTHER_MEMBER_NO = #{otherMemberNo} AND MSG_ST = 0
 	</select>
 	
 	<!-- 채팅 알림2 -->
