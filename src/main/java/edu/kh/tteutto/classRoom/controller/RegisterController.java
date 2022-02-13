@@ -77,11 +77,11 @@ public class RegisterController {
 						
 						if(session.getAttribute("openClass") != null) {
 							session.removeAttribute("openClass");
-							System.out.println("지우");
+							//System.out.println("지우");
 						}
 						if(session.getAttribute("openCount") != null) {
 							session.removeAttribute("openCount");
-							System.out.println("한지우");
+							//System.out.println("한지우");
 						}
 						
 						session.setAttribute("openCount", epCount);		
@@ -248,7 +248,7 @@ public class RegisterController {
 			
 			// 추가 회차 등록인지 검사용
 			int epCount = service.checkEpCount(openClass.getClassNo());
-			System.out.println(epCount);
+			//System.out.println(epCount);
 			
 			int result = 0; // 결과용 변수
 			
@@ -364,8 +364,8 @@ public class RegisterController {
 								HttpSession session) {
 			
 			int classNo = (int)session.getAttribute("classNo");
-			System.out.println(classNo);
-			System.out.println(file);
+			//System.out.println(classNo);
+			//System.out.println(file);
 			
 			String webPath = "/resources/images/class/"; // (DB에 저장되는 경로)
 		      

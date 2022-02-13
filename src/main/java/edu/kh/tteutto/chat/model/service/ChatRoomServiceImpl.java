@@ -106,6 +106,12 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 	}
 
 	
+	// 채팅 알림2
+	@Override
+	public int sendAlarm2(ChatMessage cm) {
+		return dao.sendAlarm2(cm);
+	}
+	
 	
 
 	

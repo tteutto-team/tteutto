@@ -72,9 +72,14 @@
 						<c:otherwise>
 							<ul class="login">
 								<c:choose>
+									<%-- 관리자 로그인 시 관리자 페이지로 이동 --%>
+									<c:when test="${sessionScope.loginMember.memberGrade == 1}">
+										<li><a href="${contextPath}/admin/classManage">관리자 페이지</a></li>
+									</c:when>
+									
 									<%-- 강사 미등록 시 강사 신청 페이지로 이동 --%>
 									<c:when test="${sessionScope.loginMember.teacherEnroll == 'N'}">
-										<li><a href="${contextPath}/member/teacherRegister" >강사 신청하기</a></li>
+										<li><a href="${contextPath}/member/teacherRegister">강사 신청하기</a></li>
 									</c:when>
 									
 									<%-- 강사 등록 시 클래스 등록 페이지로 이동 --%>
@@ -87,7 +92,7 @@
 								<li><a href="${contextPath}/member/studentWishList"><i class="icon-heart"></i></a></li>
 								
 								<%-- 1:1 채팅 / 쪽지 팝업창 열기 --%>
-								<li><a href="#none" onclick="window.open('${contextPath}/chat/chatRoomList', '_blank', 'width=482, height=700, top=200');"><i class="icon-chat" id="chat">
+								<li><a href="#none" onclick="clearAlarm();"><i class="icon-chat" id="chat">
 									<%-- 알림 표시 --%>
 									<span class="alert"></span>
 								</i></a></li>
@@ -214,7 +219,7 @@
 			chattingSock.onmessage = function(e) {
 				const obj = JSON.parse(e.data);
 			
-				$(".alert").html(obj);
+				$(".alert").html(obj.sum);
 			}
 		</script>
 		<script type="text/javascript">
@@ -224,8 +229,9 @@
 			noteSock.onmessage = function(e) {
 				const obj = JSON.parse(e.data);
 			
-				$(".alert").html(obj);
+				$(".alert").html(obj.sum);
 			}
+			
 			
 			
 		</script>

@@ -334,7 +334,7 @@ $("#sido_code").on("change", function(){
 	const st = $("#sido_code option:checked").text();
 	
     $('#classArea1').val(st);
-    console.log($('#classArea1').val());
+    //console.log($('#classArea1').val());
 })
 
 
@@ -343,7 +343,7 @@ $("#sigoon_code").on("change", function(){
 	const st = $("#sigoon_code option:checked").text();
 	
     $('#classArea2').val(st);
-    console.log($('#classArea2').val());
+    //console.log($('#classArea2').val());
 })
 
 
@@ -359,7 +359,7 @@ $("#img-plus-btn").on("click", function(){
 
 // 썸네일 이미지 바꾸기
 function loadImg(input, num){
-	console.log(input);
+	//console.log(input);
 	if(index == 0){
 		$("#mini-img").css("height", "150px");
 	}
@@ -506,7 +506,7 @@ function PopUp(){
      */
      for(i = 1; i<$(".mini-img-box").length; i++){
 	     let e = document.getElementById("mini-img").childNodes[1].childNodes[0].src
-	     console.log(e);	
+	     //console.log(e);	
 	 }
      
 }

@@ -130,6 +130,10 @@ public class ChatRoomDAO {
 
 
 
+	/** 채팅알람1
+	 * @param cm
+	 * @return count
+	 */
 	public int sendAlarm(ChatMessage cm) {
 		return sqlSession.selectOne("chatMapper.sendAlarm", cm);
 	}
@@ -138,6 +142,14 @@ public class ChatRoomDAO {
 
 	public Map<String, Object> openChatRoom2(Map map1) {
 		return sqlSession.selectOne("chatMapper.selectChatRoomNo2", map1);
+	}
+	
+	/** 채팅알람2
+	 * @param cm
+	 * @return count2
+	 */
+	public int sendAlarm2(ChatMessage cm) {
+		return sqlSession.selectOne("chatMapper.sendAlarm2", cm);
 	}
 
 

@@ -76,6 +76,7 @@
 		<result property="refundMoney" column="REFUND_MONEY"/>
 		<result property="memberNo" column="MEMBER_NO"/>
 		<result property="dtTerm" column="DT_TERM"/>
+		<result property="epSt" column="EP_ST"/>
 	</resultMap>
 	
 	<resultMap type="ClassReport" id="classReport_rm">
@@ -358,7 +359,7 @@
 	            FROM EP_SCHEDULE
 	            WHERE EP_NO = A.EP_NO) DT_TERM
 		FROM(
-		    SELECT REG_NO, EP_NO, MEMBER_NM, MEMBER_NO, CLASS_NO, CLASS_NM, CLASS_ST, NVL(REFUND_ST, -1) REFUND_ST, REFUND_MONEY
+		    SELECT REG_NO, EP_NO, MEMBER_NM, MEMBER_NO, CLASS_NO, CLASS_NM, CLASS_ST, NVL(REFUND_ST, -1) REFUND_ST, NVL(REFUND_MONEY, -1) REFUND_MONEY, EP_ST(CLASS_NO, EP_NO) EP_ST
 		    FROM CLASS C
 		    JOIN EPISODE EP USING(CLASS_NO)
 		    JOIN REGISTER R USING(EP_NO)

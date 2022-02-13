@@ -16,7 +16,7 @@
 
             <div class="right">
                 <div class="title">
-                    <p><span>000</span>님의 클래스 목록</p>
+                    <p><span>${sessionScope.loginMember.memberNm}</span>님의 클래스 목록</p>
                 </div>
 
                 <div class="table">
@@ -50,17 +50,17 @@
                         </div>
                     </div>
                     --%>
-                    
+                    <%--
                     <c:choose>
-                    	<c:when test="${empty register}">
-                    		<div>응 공부안하면 그만이야~</div>
-                    	</c:when>
-                    	<c:otherwise>
+                    	 <c:when test="${empty register}">
+                    		
+                    	</c:when> --%>
+                    	<%-- <c:if test="${!empty register}"> --%>
 		                    <c:forEach items="${register}" var="rg">
 			                    <div class="row">
 			                        <div class="column">${rg.regNo}</div>
 			                        <div class="column"><a href="${contextPath}/class/classDetail?classNo=${rg.classNo}&epNo=${rg.epNo}">${rg.className}</a></div>
-			                        <div class="column">${rg.classStatus}</div>
+			                        <div class="column">${rg.epSt}</div>
 			                        <div class="column">${rg.dtTerm}</div>
 			                        <div class="column">
 			                        	<c:if test="${rg.refundStatus == -1}">-</c:if>
@@ -69,8 +69,8 @@
 			                        	<c:if test="${rg.refundStatus == 2}">거절</c:if>
 			                        </div>
 			                        <div class="column">
-			                        	<c:if test="${empty rg.refundMoney}">-</c:if>
-			                        	<c:if test="${!empty rg.refundMoney}">${rg.refundMoney}</c:if>
+			                        	<c:if test="${rg.refundMoney == -1 }">-</c:if>
+			                        	<c:if test="${rg.refundMoney > 0}">${rg.refundMoney}</c:if>
 			                        </div>
 			                        <div class="column slide">
 			                            <i class="fas fa-angle-down"></i>
@@ -94,8 +94,8 @@
 			                        </div>
 			                    </div>
 		                    </c:forEach>	
-                    	</c:otherwise>
-                    </c:choose>
+                    	<%-- </c:if> --%>
+                    <%-- </c:choose> --%>
                     
 
                 </div>
@@ -404,7 +404,7 @@
     
     function chatRoom(el, classNo){
     	const teacherNo = el.parentNode.childNodes[3].innerText;
-    	console.log(teacherNo);
+    	//console.log(teacherNo);
     	
     		$.ajax({
                 url : "insertChatRoom",      
