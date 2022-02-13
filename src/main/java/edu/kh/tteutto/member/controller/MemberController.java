@@ -216,7 +216,9 @@ public class MemberController {
 
 		if (loginMember != null) {
 			model.addAttribute("loginMember", loginMember);
-
+			
+			System.out.println("loginMemberEmail"  + loginMember.getMemberEmail());
+			
 			Cookie cookie = new Cookie("saveId", loginMember.getMemberEmail());
 
 			if (save != null) {
@@ -407,6 +409,50 @@ public class MemberController {
 		
 		
 		ra.addFlashAttribute("title", title);
+		ra.addFlashAttribute("text", text);
+		ra.addFlashAttribute("icon", icon);
+		
+		return path;
+	}
+	
+	// 학생 페이지 - 비밀번호 변경
+	@RequestMapping(value= "changePw2", method=RequestMethod.GET)
+	public String changePw2() {
+		return "member/changePw2";
+	}
+	
+	// 비밀번호 변경
+	@RequestMapping(value="changePw2", method=RequestMethod.POST)
+	public String changePw2(@ModelAttribute("loginMember") Member loginMember ,Member member, RedirectAttributes ra) {
+		
+		System.out.println("loginMember: " + loginMember);
+		System.out.println("loginMember: " + loginMember.getMemberNo());
+		
+		member.setMemberNo(loginMember.getMemberNo());
+		
+		String title = "";
+		String text = "";
+		String icon = "";
+		String path = "";
+		
+		int result2 = service.changePw2(member);
+		
+		System.out.println("result2: " + result2);
+		
+		if(result2 == 1) { // 성공
+			title = "비밀번호 변경 성공";
+			icon = "success"; 
+			path = "redirect:/member/studentProfile";
+			
+		} else { // 실패
+			title = "비밀번호 변경 실패";
+			text = "관리자에 문의해주세요";
+			icon = "error";
+			path = "redirect:/";
+		}
+			
+		ra.addFlashAttribute("title", title);
+		ra.addFlashAttribute("text", text);
 		ra.addFlashAttribute("icon", icon);
 		
 		return path;
@@ -558,8 +604,8 @@ public class MemberController {
 	@RequestMapping(value = "resign", method = RequestMethod.GET)
 	public String memberResign( @ModelAttribute("loginMember") Member loginMember, RedirectAttributes ra, SessionStatus status) {
 		
-		int memberNo = loginMember.getMemberNo();
-//		int memberNo = 3;
+//		int memberNo = loginMember.getMemberNo();
+		int memberNo = 1;
 
 		String path = null;
 		
@@ -571,10 +617,10 @@ public class MemberController {
 			path="/";
 		} else if(result == -1) {
 			Util.swalSetMessage("탈퇴 실패", "수강 중이거나 수강예정인 강의가 있습니다. 관리자에게 문의해주세요.", "error", ra);
-			path = "resign";
+			path = "/";
 		} else {
-		Util.swalSetMessage("탈퇴 실패", "관리자에게 문의해주세요.", "error", ra);
-		path = "resign";
+			Util.swalSetMessage("탈퇴 실패", "관리자에게 문의해주세요.", "error", ra);
+			path = "/";
 		}
 		
 		return "redirect:" + path;

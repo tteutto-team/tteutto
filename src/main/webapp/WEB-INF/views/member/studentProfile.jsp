@@ -37,7 +37,7 @@
                 </div>
                 <div class="profile_area">
                     <div class="label_title">비밀번호</div>
-                    <div class="label_content"><a href="${contextPath}/member/changePw" class="pw_change btn_shadow">비밀번호 변경하기</a></div>
+                    <div class="label_content"><a href="${contextPath}/member/changePw2" class="pw_change btn_shadow">비밀번호 변경하기</a></div>
                 </div>
                 <div class="profile_area">
                     <div class="label_title">전화번호</div>
