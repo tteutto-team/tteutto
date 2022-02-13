@@ -17,6 +17,7 @@ public interface ClassRegisterService {
 	 * @param webPath 
 	 * @param images 
 	 * @param introImg 
+	 * @param introImg 
 	 * @return
 	 */
 	int classInsert(ClassDetail cdt, List<MultipartFile> images, String webPath, String serverPath, List<IntroImg> introImg);

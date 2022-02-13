@@ -118,7 +118,7 @@
 	<resultMap type="IntroImg" id="introImg_rm">
 		<id property="introImgNo" column="INTRO_IMG_NO" />
 		
-		<result property="IntroImgName" column="INTRO_IMG_NAME" />
+		<result property="introImgName" column="INTRO_IMG_NM" />
 		<result property="classNo" column="CLASS_NO" />
 	</resultMap>
 
@@ -336,15 +336,16 @@
 		WHERE CLASS_NO = #{classNo}
 	</select>
 	
-	<!-- 클래스 시퀀스 번호 -->
+	<!-- 클래스 시퀀스 번호 
 	<select id="seqClassNo" resultType="_int">
 		SELECT SEQ_CLASS_NO.NEXTVAL FROM DUAL
 	</select>
+	-->
 	
 	<!-- 썸머노트 이미지 db저장 -->
 	<insert id="insertIntroImg">
 		INSERT INTO INTRO_IMG VALUES(
-			SEQ_INTRO_IMG_NO, #{introImgName}, #{classNo}
+			SEQ_INTRO_IMG_NO.NEXTVAL, #{introImgName}, #{classNo}
 		)
 	</insert>
 	
@@ -353,7 +354,7 @@
 	    select e.ep_count ep_count, c.class_nm class_nm, c.class_no class_no
 	    from episode e
 	    join class c on(e.class_no = c.class_no)
-	    where ep_no =#{epNo}
+	    where ep_no = #{epNo}
 	</select>
 	
 </mapper>
