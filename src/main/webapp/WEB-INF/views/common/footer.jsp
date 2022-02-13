@@ -101,13 +101,25 @@
 </c:if>
 
 <script type="text/javascript">
-$.ajax({
-	url: "${contextPath}/chatNote/alarm",
-	type: "get",
-	success: function(result){
-		if(result >= 0){
-			$(".alert").html(result);
+	$.ajax({
+		url: "${contextPath}/chatNote/alarm",
+		type: "get",
+		success: function (result) {
+			if (result >= 0) {
+				$(".alert").html(result);
+			}
 		}
-	}
-})
+	})
+
+	function clearAlarm() {
+			$.ajax({
+				url: "${contextPath}/chatNote/clearAlarm",
+				type: "get",
+				success: function (result) {
+					console.log(result);
+					$(".alert").html(0);
+					window.open('${contextPath}/chat/chatRoomList', '_blank', 'width=482, height=700, top=200');
+				}
+			})
+		}
 </script>

@@ -161,4 +161,14 @@
 	<select id="sendAlarm2">
 		SELECT COUNT(*) FROM NOTE WHERE MEMBER_NO = #{otherMemberNo} AND NOTE_ST = 0
 	</select>
+	
+	<!-- 채팅 알람 삭제 -->
+	<update id="clearChatAlarm">
+		UPDATE CHAT_MESSAGE SET MSG_ST = 1 WHERE OTHER_MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 쪽지 알람 삭제 -->
+	<update id="clearNoteAlarm">
+		UPDATE NOTE SET NOTE_ST = 1 WHERE MEMBER_NO = #{memberNo}
+	</update>
 </mapper>
