@@ -96,11 +96,10 @@ function sendMessage(){
 
 // 웹소켓 서버에서 전달된 메세지가 있을 경우
 chattingSock.onmessage = function(e){
-	
 	// e.data : 전달받은 메세지
-	console.log(JSON.parse(e.data));
 	
 	const obj = JSON.parse(e.data);
+    console.log(obj.cm.msgContent);
 	
 	////////////
 	const div = $("<div>");
@@ -109,34 +108,35 @@ chattingSock.onmessage = function(e){
 
    const p = $("<p class='msg'>");
    const span = $("<span class='time'>");
-   span.html(obj.msgDt);
+   span.html(obj.cm.msgDt);
    
 
 
-   if(obj.msgContent != undefined){ // 채팅 내용 입력시
+   if(obj.cm.msgContent != undefined){ // 채팅 내용 입력시
        // XSS, 개행문자 처리
-        let chat = XSS(obj.msgContent);
+        let chat = XSS(obj.cm.msgContent);
         chat = chat.replaceAll("\n", "<br>");
         p.html(chat);
 
    }else{ // 나가기버튼 눌렀을때 (== obj.msgContent== undefined) == 메세지가 없는 경우
 
-        p.html("<b>"+ obj.memberNm+"님이 나가셨습니다.</b>");
+        p.html("<b>"+ obj.cm.memberNm+"님이 나가셨습니다.</b>");
 
    }
    
 
 
-   if (obj.memberNo == memberNo) {
+   if (obj.cm.memberNo == memberNo) {
       div.addClass("item mymsg");
-      $(".flex_wrap > .on").append(div);
       div.append(divB);
       divB.append(p);
       divB.append(span);
+      $(".flex_wrap > .on").append(div);
+
    } else {
 		
       div.addClass("otherName");
-      div.html(obj.memberNm);
+      div.html(obj.cm.memberNm);
       $(".flex_wrap > .on").append(div);
      
       div.after(divB);
@@ -152,7 +152,7 @@ chattingSock.onmessage = function(e){
 	
 	// 채팅 입력시 말풍선이 부드럽게 나타나는 효과
 	setTimeout(function(){
-	    $(".chat_wrap .inner").find(".box:last").addClass("on");
+	    $(".chat_wrap .inner").find(".item:last").addClass("on");
 	}, 10)
 	
 	// 스크롤 하단 고정

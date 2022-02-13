@@ -1,7 +1,9 @@
 package edu.kh.tteutto.chat.websocket;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,17 +77,25 @@ public class ChatWebsocketHandler extends TextWebSocketHandler{
 				//if(chatRoomNo == cm.getChatRoomNo()) {
 				if(loginMemberNo == cm.getMemberNo() || loginMemberNo == cm.getOtherMemberNo() ) {
 					
-					// 얻어온 데이터를 모두에게 뿌림
-					wss.sendMessage(new TextMessage(new Gson().toJson(cm)));
+					Map<String, Object> map = new HashMap<String, Object>();
 					
+					
+					
+					// 얻어온 데이터를 모두에게 뿌림
+					map.put("cm", cm);
+					
+					// 채팅 알림
+					if(loginMemberNo == cm.getOtherMemberNo()) {
+						int count = service.sendAlarm(cm);
+						int count2 = service.sendAlarm2(cm);
+						
+						int sum = (count + count2);
+						map.put("sum", sum);
+						
+					}
+					wss.sendMessage(new TextMessage(new Gson().toJson(map)));
 				}
 				
-				// 채팅 알림
-				if(loginMemberNo == cm.getOtherMemberNo()) {
-					int count = service.sendAlarm(cm);
-					
-					wss.sendMessage(new TextMessage(new Gson().toJson(count)));
-				}
 				
 				
 			}

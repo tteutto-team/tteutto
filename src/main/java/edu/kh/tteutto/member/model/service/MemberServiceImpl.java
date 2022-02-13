@@ -276,12 +276,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int memberResign(int memberNo) {
 		
-		if(dao.selectmemberResign(memberNo) > 0) {	// 수강중이거나 수강예정인 강사가 아닐 경우
+		if(dao.selectmemberResign(memberNo) == 0) {	// 수강중이거나 수강예정인 강사가 아닐 경우
 			return dao.memberResign(memberNo);	// 수강중이거나 수강예정인 강사일 경우
 		} else {
 			return -1;
 		}
-		
 	}
 
 	// 강사 신청
@@ -540,6 +539,17 @@ public class MemberServiceImpl implements MemberService{
 			return null;
 		}
 		
+	}
+	
+	// 비밀번호 변경
+	@Override
+	public int changePw2(Member member) {
+		
+		String encPw = encoder.encode(member.getMemberPw());
+		
+		member.setMemberPw(encPw);
+		
+		return dao.changePw2(member);
 	}
 
 

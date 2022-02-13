@@ -393,6 +393,14 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.teacherImgUpdate", map);
 	}
 
+	/** 비밀번호 변경
+	 * @param member
+	 * @return result
+	 */
+	public int changePw2(Member member) {
+		return sqlSession.update("memberMapper.changePw2", member);
+	}
+
 
 
 	/** 후기가 작성하기 전에 강의가 끝났는지 체크
