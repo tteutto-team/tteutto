@@ -214,7 +214,7 @@
 			chattingSock.onmessage = function(e) {
 				const obj = JSON.parse(e.data);
 			
-				$(".alert").html(obj);
+				$(".alert").html(obj.sum);
 			}
 		</script>
 		<script type="text/javascript">
@@ -224,7 +224,7 @@
 			noteSock.onmessage = function(e) {
 				const obj = JSON.parse(e.data);
 			
-				$(".alert").html(obj);
+				$(".alert").html(obj.sum);
 			}
 			
 			
