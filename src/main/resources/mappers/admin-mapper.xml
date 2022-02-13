@@ -159,7 +159,7 @@
 		<result property="refundMoney" column="REFUND_MONEY"/>	
 		<result property="refundStatus" column="REFUND_STATUS"/>
 		<result property="studentName" column="STUDENT_NM"/>
-		<result property="className" column="CLASS_NAME"/>
+		<result property="className" column="CLASS_NM"/>
 		<result property="episodeCount" column="EP_COUNT"/>
 		<result property="memberNo" column="MEMBER_NO"/>
 	</resultMap>
@@ -651,5 +651,14 @@
 	<update id="reviewDeny">
 		UPDATE REVIEW SET RE_ST = 1 WHERE RE_NO = #{reviewNo}
 	</update>
+	
+	<!-- 쪽지 알림 갯수 -->
+	<select id="selectNoteAlarm" resultType="_int">
+		SELECT COUNT(*) FROM NOTE WHERE MEMBER_NO = #{memberNo} AND NOTE_ST = 0
+	</select>
+	
+	<select id="selectChatAlarm" resultType="_int">
+		SELECT COUNT(*) FROM CHAT_MESSAGE WHERE MSG_ST = 0 AND OTHER_MEMBER_NO = #{memberNo}
+	</select>
 	
 </mapper>

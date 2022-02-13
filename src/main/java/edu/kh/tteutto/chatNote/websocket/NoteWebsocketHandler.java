@@ -11,9 +11,11 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import edu.kh.tteutto.chatNote.model.service.ChatNoteService;
 import edu.kh.tteutto.chatNote.model.vo.ChatNote;
+import edu.kh.tteutto.member.model.vo.Member;
 
 public class NoteWebsocketHandler extends TextWebSocketHandler {
 	
@@ -58,10 +60,28 @@ public class NoteWebsocketHandler extends TextWebSocketHandler {
 			
 			System.out.println("변경된 cm : " + cm);
 			
+			int result = 0;
+			
 			if(cm.getFlag() == 0) {
 				// 쪽지 보내기
-				int result = service.sendNote(cm);
+				result = service.sendNote(cm);
 				
+			}
+			
+			if(result > 0) {
+				for(WebSocketSession wss : sessions) {
+					
+					int loginMemberNo = ((Member)wss.getAttributes().get("loginMember")).getMemberNo();
+					
+					if(loginMemberNo == cm.getMemberNo()) {
+						
+						int count = service.selectNoteAlarm(cm);
+						int count2 = service. selectChatAlarm(cm);
+						int sum = count + count2;
+						
+						wss.sendMessage(new TextMessage(new Gson().toJson(sum)));
+					}
+				}
 			}
 			
 			

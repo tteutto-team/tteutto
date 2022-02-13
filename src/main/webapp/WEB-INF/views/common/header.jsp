@@ -89,7 +89,7 @@
 								<%-- 1:1 채팅 / 쪽지 팝업창 열기 --%>
 								<li><a href="#none" onclick="window.open('${contextPath}/chat/chatRoomList', '_blank', 'width=482, height=700, top=200');"><i class="icon-chat" id="chat">
 									<%-- 알림 표시 --%>
-									<span class="alert">2</span>
+									<span class="alert"></span>
 								</i></a></li>
 								
 								<%-- 프로필 모달창 열기 --%>
@@ -205,35 +205,29 @@
 			});
 		</script>
 		
-		<!-- 알림용 웹소켓 -->
-<!-- 		<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-		<script>
-			// /alarm 이라는 요청 주소로 통신할 수 있는  WebSocket 객체 생성
-			let alarmSock = new SockJS("<c:url value='/alarm' />");
-			// == contextPath + /alarm
-	
-			// 세션에 있는 값 전역 변수 선언
-			let memberNo = "${loginMember.memberNo}";
-			let otherMemberNo = "${teacherInfo.MEMBER_NO}"; // 강사 번호
-			if(otherMemberNo == ""){
-				
-				if(memberNo == "${cr.memberNo}"){
-					memberNo = "${cr.memberNo}"; // 로그인 학생 번호
-					otherMemberNo = "${cr.teacherNo}"; // 상대 강사 번호
-					
-				}else{
-					memberNo = "${cr.teacherNo}"; 
-					otherMemberNo = "${cr.memberNo}"; 
-					
-				}
-				
+		<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+
+		<script type="text/javascript">
+			let chattingSock = new SockJS("<c:url value='/chat' />");
+		
+		
+			chattingSock.onmessage = function(e) {
+				const obj = JSON.parse(e.data);
+			
+				$(".alert").html(obj);
+			}
+		</script>
+		<script type="text/javascript">
+			let noteSock = new SockJS("<c:url value='/note' />");
+		
+		
+			noteSock.onmessage = function(e) {
+				const obj = JSON.parse(e.data);
+			
+				$(".alert").html(obj);
 			}
 			
-			/* const memberEmail = "${loginMember.memberEmail}"; */
-			const memberNm = "${loginMember.memberNm}";
-			let chatRoomNo = "${chatRoomNo}"; // 세션에 있는거임! 
-	
-			const contextPath = "${contextPath}";
-		</script> -->
+			
+		</script>
 	</body>
 </html>

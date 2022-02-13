@@ -14,6 +14,14 @@ function checkInput(){
 		document.getElementById("titleArea").scrollIntoView();
 		return false;
 	}
+	
+	const img = $(".note-editable img");
+	
+	for(let i=0; i< img.length; i++ ){
+		//console.log(img.eq(i).attr("src"));
+		$("#summerImg").append('<input type="hidden" name="introImgName" value="'+img.eq(i).attr("src").replace(contextPath, "")+'"/>');
+	}
+	
 }
 
 
@@ -190,6 +198,7 @@ $("#ct1").on("change", function(){
 
 })
 
+let leng = 0;
 
 // 썸머노트
 $(document).ready(function() {
@@ -206,6 +215,27 @@ $(document).ready(function() {
 			onImageUpload : function(files, editor){
 				sendFile(files[0],this);
 			}
+			/*
+			,
+			onChange : function(contents, $editable){
+				const img = $(".note-editable img");
+				
+				$("#summerImg").html("");
+				if(img.length != leng){
+					
+					for(let i=0; i< img.length; i++ ){
+						//console.log(img.eq(i).attr("src"));
+						$("#summerImg").append('<input type="hidden" name="IntroImgName" value="'+img.eq(i).attr("src").replace(contextPath, "")+'"/>');
+					}
+					
+				}
+				
+				leng = img.length;
+				
+			}
+			*/
+			
+			
 		}
 		
 
@@ -235,7 +265,8 @@ function sendFile(file, editor){
 
 function sendFile(file, editor) {
     data = new FormData()
-    data.append("img", file)
+    data.append("file", file)
+    
 
     $.ajax({
       data: data,
@@ -246,7 +277,7 @@ function sendFile(file, editor) {
       enctype: "multipart/form-data",
       processData: false,
       success: function (result) {
-        $(editor).summernote('editor.insertImage', ""+contextPath+"/resources/images/board/"+result+"");
+        $(editor).summernote('editor.insertImage', ""+contextPath+"/resources/images/class/"+result+"");
 
       const img = $("img");
 
@@ -258,6 +289,13 @@ function sendFile(file, editor) {
     })
   }
 
+
+// 이미지 저장
+function summer(){
+	
+	
+	
+}
 
 
 

@@ -10,10 +10,10 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 	
     <section id="classInsert">
-    	<form action="${contextPath}/register/class" enctype="multipart/form-data" id="form" name="form" method="post" onsubmit="return checkInput();">
+    	<form action="${contextPath}/register/class" enctype="multipart/form-data" id="form" name="form" method="POST" onsubmit="return checkInput();">
         <div class="fixWidth">
             <div id="register_header">
-                <div>클래스 등록</div>
+                <div>클래스 등록<input type="hidden" name="classNo" value="${classNo}"/></div>
                 <div><span class="redText">* </span>필수</div> 
             </div>
             <div class="bottomLine">
@@ -261,8 +261,9 @@
             <div id="next-btn">
                 <button type="button" id="priview-btn" class="btn-click" style="background-color: #3a3424; color: white;" onclick="PopUp();">미리보기</button>
                 <button id="save-btn" class="btn-click" style="background-color: #3a3424; color: white;" onclick="javascript: form.action='${contextPath}/register/save';">임시저장</button>
-                <button class="btn-click" style="background-color: #FFDF3E;">승인요청</button>
+                <button id="submit_btn" class="btn-click" style="background-color: #FFDF3E;">승인요청</button>
             </div>
+            <div id="summerImg"></div>
         </div>
         </form>
 
@@ -277,5 +278,10 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     
     <script src="${contextPath}/resources/js/classInsert.js"></script>
+    
+    <script>
+    	const contextPath = "${contextPath}";
+    	const classNo = "${classNo}";
+    </script>
 </body>
 </html>

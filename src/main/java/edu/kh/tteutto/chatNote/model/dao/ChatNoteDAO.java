@@ -20,5 +20,21 @@ public class ChatNoteDAO {
 	public int sendNote(ChatNote cm) {
 		return sqlSession.insert("adminMapper.sendNote", cm);
 	}
+
+	/** 쪽지 알림 갯수
+	 * @param cm
+	 * @return count
+	 */
+	public int selectNoteAlarm(ChatNote cm) {
+		return sqlSession.selectOne("adminMapper.selectNoteAlarm", cm);
+	}
+
+	/** 채팅 알림 갯수
+	 * @param cm
+	 * @return count
+	 */
+	public int selectChatAlarm(ChatNote cm) {
+		return sqlSession.selectOne("adminMapper.selectChatAlarm", cm);
+	}
 	
 }

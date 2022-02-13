@@ -798,7 +798,6 @@ public class MemberController {
 		return result;
 	}
 	
-	
 	// 강사 신청 페이지 이동
 	@RequestMapping(value = "teacherRegister", method = RequestMethod.GET)
 	public String teacherRegister(HttpSession session, RedirectAttributes ra) {
@@ -809,10 +808,13 @@ public class MemberController {
 			int teacherSt = service.teacherSt(loginMember.getMemberNo());
 			System.out.println(teacherSt);
 			
-			if(teacherSt >= 0) { // 강사 신청을 이미 했다면
+			if(teacherSt > 0) { // 강사 신청을 이미 했다면
 				return "member/teacherProfile";
+			}else if(teacherSt == 0){
+				ra.addFlashAttribute("message", "이미 강사신청을 하였습니다. 관리자의 승인을 기다려주세요.");
+				return "redirect:/";			
 			}else {
-				return "member/teacherRegister";			
+				return "member/teacherRegister";							
 			}
 			
 		}else {
@@ -968,24 +970,33 @@ public class MemberController {
 	
 	// 학생 후기 삭제
 	@RequestMapping("deleteReview")
-	public String deleteReview(int reviewNo, RedirectAttributes ra) {
+	@ResponseBody
+	public int deleteReview(int reviewNo, RedirectAttributes ra) {
 
 		int result = service.deleteReview(reviewNo);
 		
-		if(result > 0) {
-			ra.addFlashAttribute("message", "후기가 삭제되었습니다.");			
-		}
-		
-		return "redirect:/member/studentClassList";
+		return result;
 	}
 	
 	// 클래스에 후기가 작성되었는지 ajax로 검사
 	@RequestMapping("searchReview")
 	@ResponseBody
-	public int searchReview(int regNo) {
+	public int searchReview(int regNo, int epNo) {
+		int alert = 0; 
+		
 		int result = service.searchReview(regNo);
+		int result2 = service.overDateReview(epNo);
 		System.out.println(result);
-		return result;
+		if(result2 > 0) {
+			alert = 2;
+		}
+		
+		if(result > 0) {
+			alert = 1;				
+		}
+		
+		System.out.println(alert);
+		return alert;
 	}
 	
 	// 클래스에 신고가 작성되었는지 ajax로 검사

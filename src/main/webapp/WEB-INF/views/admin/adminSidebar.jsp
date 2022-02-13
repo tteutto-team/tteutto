@@ -35,7 +35,6 @@
 			location.href="${contextPath}";
 		</script>
 	</c:if> --%>
-
 	<aside id="left">
 		<div class="logo">
 			<img src="${contextPath}/resources/images/common/TTEUTTO ver.2.png">
