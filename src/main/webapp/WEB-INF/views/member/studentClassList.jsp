@@ -59,7 +59,7 @@
 		                    <c:forEach items="${register}" var="rg">
 			                    <div class="row">
 			                        <div class="column">${rg.regNo}</div>
-			                        <div class="column">${rg.className}</div>
+			                        <div class="column"><a href="${contextPath}/class/classDetail?classNo=${rg.classNo}&epNo=${rg.epNo}">${rg.className}</a></div>
 			                        <div class="column">${rg.classStatus}</div>
 			                        <div class="column">${rg.dtTerm}</div>
 			                        <div class="column">
@@ -69,8 +69,8 @@
 			                        	<c:if test="${rg.refundStatus == 2}">거절</c:if>
 			                        </div>
 			                        <div class="column">
-			                        	<c:if test="${empty refundMoney}">-</c:if>
-			                        	<c:if test="${!empty refundMoney}">${rg.refundMoney}</c:if>
+			                        	<c:if test="${empty rg.refundMoney}">-</c:if>
+			                        	<c:if test="${!empty rg.refundMoney}">${rg.refundMoney}</c:if>
 			                        </div>
 			                        <div class="column slide">
 			                            <i class="fas fa-angle-down"></i>
@@ -79,7 +79,7 @@
 			                    <div class="invisible">
 			                        <div class="invisible-btn">
 			                        	
-				                        <button class="chat-btn" type="button"><i class="far fa-comment"></i> 채팅</button>
+				                        <button class="chat-btn" type="button" onclick="chatRoom(this, ${rg.classNo})"><i class="far fa-comment"></i> 채팅</button>
 				                        <div style="display:none;">${rg.memberNo}</div>
 				                        
 			                            <button class="review-modal-btn"><i class="fas fa-pen"></i> 후기</button>
@@ -216,14 +216,19 @@
     $(".review-modal-btn").click(function (e) {
     	
     	const regNo = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[1].innerText;
+    	const epNo = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[1].innerText;
     	
     	$.ajax({
             url : "searchReview",      
-            data : {"regNo" : regNo},  
+            data : {"regNo" : regNo, "epNo" : epNo},  
             type : "POST",               
             success : function(result){
-        		if(result > 0){
-        			alert("이미 이 클래스에 대한 후기를 작성했습니다.");
+        		if(result != '0'){
+        			if(result == 1){
+        				alert("이미 후기가 작성되었습니다.");
+        			}else{
+        				alert("강의가 끝난 후 후기를 작성할 수 있습니다.");
+        			}
         			
         		}else{
         			
@@ -372,7 +377,7 @@
     }
     
     //채팅 눌렀을 때
-    $(".chat-btn").on("click", function(e){
+/*     $(".chat-btn").on("click", function(e){
     		
     	const teacherNo = e.target.parentNode.childNodes[3].innerText;
     	console.log(teacherNo);
@@ -382,25 +387,40 @@
                 data : {"teacherNo" : teacherNo},  
                 type : "POST",               
                 success : function(result){
-                	/*
-					let chatUrl = 'tteutto/chat/chatRoomList';
+                	
 					if(result > 0){
-						console.log("ㅇㅇ")
-						window.open(chatUrl, '_blank', 'width=482, height=700, top=200');
-					}else{
-						console.log("ㅇㅏ")
-						window.open(chatUrl, '_blank', 'width=482, height=700, top=200');
+						let chatUrl = '${contextPath}/chat/chatRoom?classNo=';
+	                	window.open(chatUrl, '_blank', 'width=482, height=700, top=200');
 						
-					}*/
-					let chatUrl = '/tteutto/chat/chatRoomList';
-                	window.open(chatUrl, '_blank', 'width=482, height=700, top=200');
+					}
+					
                 },
 
                 error : function(){}
 
             });
     	
-    });
+    }); */
     
+    function chatRoom(el, classNo){
+    	const teacherNo = el.parentNode.childNodes[3].innerText;
+    	console.log(teacherNo);
+    	
+    		$.ajax({
+                url : "insertChatRoom",      
+                data : {"teacherNo" : teacherNo},  
+                type : "POST",               
+                success : function(result){
+                	
+						let chatUrl = '${contextPath}/chat/chatRoom?classNo='+classNo;
+	                	window.open(chatUrl, '_blank', 'width=482, height=700, top=200');
+						
+					
+                },
+
+                error : function(){}
+
+            });
+    }
 
 </script>
