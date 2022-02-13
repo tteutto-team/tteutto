@@ -295,7 +295,6 @@ public interface MemberService {
 	String teacherImgUpdate(String loginTeacherImg, int memberNo, MultipartFile teacherImage, String webPath, String serverPath);
 
 
-
 	/** 비밀번호 변경2
 	 * @param member
 	 * @return result
