@@ -79,6 +79,11 @@ crossorigin="anonymous"/>
 					<%-- 클래스 목록 제목 --%>
 					<h1 class="title">
 						<c:choose>
+							<%-- 주변 클래스 목록 --%>
+							<c:when test="${type == 'location'}">
+								<span>주변 클래스 추천</span>
+							</c:when>
+							
 							<%-- 인기 클래스 목록 --%>
 							<c:when test="${type == 'hot'}">
 								<span>인기 클래스 추천</span>
@@ -477,7 +482,7 @@ crossorigin="anonymous"/>
 					const detailInfoBottom = $('<div class="detail-info-bottom">');
 					
 					<%-- 강사 프로필 이미지 --%>
-					const teacherImg = $('<img src="${contextPath}/resources/images/teacher/' + classList.teacherImage + '">');
+					const teacherImg = $('<img src="${contextPath}/resources/images/teacher/profile/' + classList.teacherImage + '">');
 					
 					<%-- 강사명 --%>
 					const teacherName = $('<span class="teacher-name">').text(classList.memberName);
