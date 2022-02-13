@@ -11,7 +11,7 @@
 					<li><a href="${contextPath}/notice/noticeList">공지사항</a></li>
 					<li><a href="${contextPath}/notice/faq">FAQ</a></li>
 					<li><a href="${contextPath}/notice/terms">이용약관</a></li>
-					<li><a href="#" target="_blank"><strong>개인정보 처리방침</strong></a></li>
+					<li><a href="${contextPath}"><strong>개인정보 처리방침</strong></a></li>
 				</ul>
 			</div>
 		</div>

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
@@ -81,7 +82,9 @@ crossorigin="anonymous"/>
 						<c:choose>
 							<%-- 주변 클래스 목록 --%>
 							<c:when test="${type == 'location'}">
-								<span>주변 클래스 추천</span>
+								<%-- <span>'${classList.classArea}'</span> --%>
+								<span>'${param.location}'</span>
+								의 클래스 추천
 							</c:when>
 							
 							<%-- 인기 클래스 목록 --%>
