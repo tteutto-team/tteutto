@@ -34,10 +34,32 @@ $(".location").on("click", function(){
 									"location" : location},
 							dataType : "json", 
 							success : function(result) {
+								console.log(result)
+								
 								// 기존 클래스 카드 삭제
 								$('.hot-class-bottom-view:eq(0)').empty();
-		 		
+		 						
+		 						// 현재 접근 중인 classList의 인덱스를 저장하는 변수
+		 						let classListIndex = 0;
+		 						
+		 						// 캐러셀에서 클래스 카드 4개당 1화면으로 묶기위한 div 요소를 저장할 변수
+		 						let classContent;
+		 						
 						 		for (let classList of result.classList) {
+							
+									// 캐러셀에서 클래스 카드 4개당 1화면으로 묶기 위한 조건식
+									if(classListIndex % 4 == 0){
+										classContent = $('<div class="hot-class-content">');
+										
+										// 제일 첫 바퀴인 경우 화면에 보이지게 하기위한 클래스인 active 추가
+										if(classListIndex == 0){
+											classContent.addClass("active");
+										}
+										
+										
+									}
+							
+							
 						 			// 클래스 카드 
 							 		const classCard = $('<div class="class">');
 							 		
@@ -152,10 +174,24 @@ $(".location").on("click", function(){
 									
 									classCard.append(detailInfo);
 									
-									// 화면에 클래스 카드 추가 
-									$('.hot-class-bottom-view:eq(0)').append(classCard);
+									// classContent에 클래스 카드 추가 
+									classContent.append(classCard)
 									classCard.after(" ");
+									console.log(classContent)									
+			
+									// 하나의 classContent에 4개의 클래스 카드를 추가한 경우 화면에 추가
+									if(classListIndex % 4 == 3){
+										$('.hot-class-bottom-view:eq(0)').append(classContent);
+									}						
+									
+									classListIndex++; // 인덱스 값 증가
 								}
+								
+								// for문이 끝났는데도 classContent에 클래스 카드가 4개가 되지 않아 화면에 추가되지 못한 경우 
+								if(classListIndex % 4 != 0){
+									$('.hot-class-bottom-view:eq(0)').append(classContent);
+								}		
+								
 							}
 						})
 			        }

@@ -167,6 +167,7 @@ public class ClassListContoller {
 		map.put("pageKey", "location");
 		map.put("type", "location");
 		map.put("location", location);
+		map.put("optionFlag", 1);
 		
 		List<ClassList> locationList = null;
 		locationList = service.selectMainList(map);
