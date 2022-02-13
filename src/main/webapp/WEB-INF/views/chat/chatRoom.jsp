@@ -222,8 +222,11 @@
 
 		// 세션에 있는 값 전역 변수 선언
 		let memberNo = "${loginMember.memberNo}";
-		let otherMemberNo = ""; // 강사 번호
-		otherMemberNo = "${teacherInfo.MEMBER_NO}"; // 강사 번호
+		let teacherNo = "${teacherNo}";
+		let studentNo = "${studentNo}";
+		let mode = -1;
+		/* let otherMemberNo = ""; // 강사 번호
+		otherMemberNo = "${teacherInfo.MEMBER_NO}"; // 강사 번호 */
 		
 		
 		
@@ -234,7 +237,7 @@
 		} */
 		
 		
-		if(otherMemberNo == ""){
+/* 		if(otherMemberNo == ""){
 			
 			if(memberNo == "${cr.memberNo}"){
 				memberNo = "${cr.memberNo}"; // 로그인 학생 번호
@@ -247,13 +250,19 @@
 			}
 			
 		}
-		
+ */		
 		/* const memberEmail = "${loginMember.memberEmail}"; */
 		const memberNm = "${loginMember.memberNm}";
 		let chatRoomNo = "${chatRoomNo}"; // 세션에 있는거임! 
 
 		const contextPath = "${contextPath}";
 	</script>
+	
+	<c:if test="${!empty param.mode}">
+		<script type="text/javascript">
+			mode = "${param.mode}";
+		</script>
+	</c:if>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

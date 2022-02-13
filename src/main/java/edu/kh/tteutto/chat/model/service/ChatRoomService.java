@@ -73,6 +73,24 @@ public interface ChatRoomService {
 	 */
 	int sendAlarm2(ChatMessage cm);
 
+	/** 채팅 방 번호 조회
+	 * @param map
+	 * @return chatRoomNo
+	 */
+	int selectChatRoomNo(Map<String, Object> map);
+
+	/** 채팅 방 카운트
+	 * @param map
+	 * @return count
+	 */
+	int countChatRoomNo(Map<String, Object> map);
+
+	/** 채팅 상대방 조회
+	 * @param cm
+	 * @return result
+	 */
+	int selectOtherMember(ChatMessage cm);
+
 
 
 

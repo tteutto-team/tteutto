@@ -77,11 +77,13 @@ function sendMessage(){
 		//자바스크립트 객체 생성
 		const obj={};
 		obj.memberNo = memberNo;
-		obj.otherMemberNo = otherMemberNo;
+		obj.teacherNo = teacherNo;
+        obj.studentNo = studentNo;
 		/*obj.memberEmail = memberEmail;*/
 		obj.memberNm = memberNm;
 		obj.msgContent = msgContent;
 		obj.chatRoomNo = chatRoomNo;
+        obj.mode = mode;
 		
 		//console.log(obj);
 		
