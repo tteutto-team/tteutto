@@ -42,4 +42,24 @@ public class chatNoteController {
 		
 		return sum;
 	}
+	
+	
+	@RequestMapping(value="clearAlarm", method=RequestMethod.GET)
+	@ResponseBody
+	public int clearAlarm(HttpSession session) {
+		Member member = (Member)session.getAttribute("loginMember");
+		
+		int result = 0;
+		
+		System.out.println(member.getMemberNo());
+		
+		if(member != null) {
+			int memberNo = member.getMemberNo();
+			
+			result = service.clearAlarm(memberNo);
+		}
+		
+		
+		return result;
+	}
 }
