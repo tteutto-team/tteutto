@@ -62,6 +62,11 @@ public interface ChatRoomService {
 	 */
 	int sendAlarm(ChatMessage cm);
 
+	/** 채팅방 생성2
+	 * @param map1
+	 * @return result
+	 */
+	Map<String, Object> openChatRoom2(Map<String, Object> map1);
 	/** 채팅알림2
 	 * @param cm
 	 * @return count2

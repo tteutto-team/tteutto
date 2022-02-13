@@ -222,7 +222,18 @@
 
 		// 세션에 있는 값 전역 변수 선언
 		let memberNo = "${loginMember.memberNo}";
-		let otherMemberNo = "${teacherInfo.MEMBER_NO}"; // 강사 번호
+		let otherMemberNo = ""; // 강사 번호
+		otherMemberNo = "${teacherInfo.MEMBER_NO}"; // 강사 번호
+		
+		
+		
+		/* if(${param.studentNo !=0 }){
+			otherMemberNo = "${param.studentNo}"; // 강사 번호
+		} else{
+			otherMemberNo = "${teacherInfo.MEMBER_NO}"; // 강사 번호
+		} */
+		
+		
 		if(otherMemberNo == ""){
 			
 			if(memberNo == "${cr.memberNo}"){

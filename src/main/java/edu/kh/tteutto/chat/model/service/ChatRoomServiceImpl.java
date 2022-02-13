@@ -99,6 +99,12 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 		return dao.sendAlarm(cm);
 	}
 	
+	@Override
+	public Map<String, Object> openChatRoom2(Map map1) {
+		System.out.println("map: " + dao.openChatRoom2(map1));
+		return dao.openChatRoom2(map1);
+	}
+
 	
 	// 채팅 알림2
 	@Override

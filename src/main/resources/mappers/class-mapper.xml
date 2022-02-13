@@ -77,6 +77,7 @@
 		<result property="epSt" column="EP_ST" />
 		<result property="epCount" column="EP_COUNT" />
 		<result property="epPlace" column="EP_PLACE" />
+		<result property="classNm" column="CLASS_NM" />
 	</resultMap>
 	
 	<!-- 스케쥴 -->
@@ -286,7 +287,7 @@
 	</select>
 	
 	<!-- 교육 예정 클래스 학생 명수 조회-->
-	<select id="studentListExpectCount" resultMap="member_rm">
+	<select id="studentListExpectCount" resultType="_int">
 		select count(*)
 		from register
 		where reg_st != 1 and pay_st != 1 and ep_no = #{epNo}
@@ -346,5 +347,13 @@
 			SEQ_INTRO_IMG_NO, #{introImgName}, #{classNo}
 		)
 	</insert>
+	
+	<!-- 클래스 정보 조회 -->
+	<select id="selectClass" resultMap="ep_rm">
+	    select e.ep_count ep_count, c.class_nm class_nm, c.class_no class_no
+	    from episode e
+	    join class c on(e.class_no = c.class_no)
+	    where ep_no =#{epNo}
+	</select>
 	
 </mapper>

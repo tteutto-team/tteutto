@@ -58,13 +58,13 @@ public class ChatRoomController {
 	@RequestMapping("/chat/chatRoom")
 	public String openChatRoom(ChatRoom room, /*커맨드객체*/
 								@ModelAttribute("loginMember") Member loginMember,
-								RedirectAttributes ra, Model model){
+								RedirectAttributes ra, Model model, @RequestParam(value="studentNo", defaultValue = "0", required = false) int studentNo){
 		
 		// loginMember에서 회원 번호 얻어와 room에 추가
-		room.setMemberNo(loginMember.getMemberNo());
+		room.setMemberNo(loginMember.getMemberNo());	// 보내는 사람
 		int chatRoomNo = 0;
 		
-		// 채팅방 번호가 있음 == 기존에 존재하던 채팅방
+		// 채팅방 번호가 있음 == 기존에 존재하던 채팅방	// 헤더에서 채팅
 		if(room.getChatRoomNo() > 0) {
 			ChatRoom cr = service.selectChatRoom(room.getChatRoomNo());
 			chatRoomNo = room.getChatRoomNo();
@@ -72,13 +72,36 @@ public class ChatRoomController {
 			model.addAttribute("list", list);
 			model.addAttribute("cr", cr);
 			
-		}else {
+		}
+		
+		// 채팅방 번호가 없음
+		else if(room.getClassNo() > 0) {	// 채팅 버튼 클릭시(상세, 강사)
+			
 			// 채팅방 번호는 없고 클래스 번호가 있음. 
 			//-> 학생이 상세페이지에서 실시간 채팅 버튼을 누른 경우
-			Map<String, Object> map = service.openChatRoom(room);
-			model.addAttribute("teacherInfo", map); // 강사 정보 조회
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			
+			System.out.println("studentNo : " + studentNo);
+			
+			if(studentNo > 0) {	// 강사가 학생한테
+				
+				Map<String, Object> map1 = new HashMap<String, Object>();
+				map1.put("classNo", room.getClassNo());
+				map1.put("studentNo", studentNo);
+				map1.put("teacherNo", loginMember.getMemberNo());
+				
+				map = service.openChatRoom2(map1);
+				model.addAttribute("teacherInfo", map); // 학생 정보 조회
+				
+			} else {	// 학생이 강사한테
+				map = service.openChatRoom(room);
+				model.addAttribute("teacherInfo", map); // 강사 정보 조회
+			}
 			
 			int crNo = Integer.parseInt(String.valueOf(map.get("CHAT_ROOM_NO")));
+			
 			// 채팅방 번호 있음 == 이전 채팅 내용이 있음 -> 채팅 내역을 조회
 			if(crNo > 0) {
 				List<ChatMessage> list = service.selectChatMessage(crNo);
@@ -86,7 +109,7 @@ public class ChatRoomController {
 			}
 			
 		}
-			
+		
 		model.addAttribute("chatRoomNo", chatRoomNo);
 		
 		return "chat/chatRoom";

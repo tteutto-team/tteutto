@@ -26,7 +26,7 @@
                 <div class="profile_area">
                     <div class="profile_img" id="img__cover" style="background-image:url('${contextPath}/resources/images/teacher/profile/${loginMember.teacherImg}')">
                         <img class="camera" src="https://front-img.taling.me/Content/Images/Tutor/Images/btn_pfimg.png">
-                        <input type="file" id="picture" name="teacherImage" onchange='loadImg(this)'>
+                        <input type="file" id="picture" name="teacherImage" onchange='loadImg_Img(this)'>
                     </div>
                 </div>
                 <div class="profile_area">

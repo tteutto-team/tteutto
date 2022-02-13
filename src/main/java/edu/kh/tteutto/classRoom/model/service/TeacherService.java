@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
+import edu.kh.tteutto.classRoom.model.vo.Episode;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeClass;
 import edu.kh.tteutto.classRoom.model.vo.OngingClass;
 import edu.kh.tteutto.classRoom.model.vo.Receipt;
@@ -105,5 +106,11 @@ public interface TeacherService {
 	 * @param page
 	 */
 	Pagination selectOngoingClassListCount(int epNo, int page);
+
+	/** 클래스 조회
+	 * @param epNo
+	 * @return episode
+	 */
+	Episode selectClass(int epNo);
 	
 }

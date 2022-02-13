@@ -55,3 +55,9 @@ function reject(memberNo, el){
         }
       });
 }
+
+// 강사 -> 학생 채팅
+function chatting(epNo){
+    // window.open( contextPath+"/chat/chatRoom?classNo="+epNo);
+    OpenWin_variety(contextPath+"/chat/chatRoom?classNo="+epNo,'채팅창 목록',482,700,200,0);
+}

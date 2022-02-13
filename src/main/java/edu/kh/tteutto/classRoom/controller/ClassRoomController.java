@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 
 import edu.kh.tteutto.classRoom.model.service.TeacherService;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
+import edu.kh.tteutto.classRoom.model.vo.Episode;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeClass;
 import edu.kh.tteutto.classRoom.model.vo.OngingClass;
 import edu.kh.tteutto.classRoom.model.vo.Receipt;
@@ -51,6 +52,8 @@ public class ClassRoomController {
 //		if(true) {
 			int memberNo = loginMember.getMemberNo();
 //			int memberNo = 3;
+			
+			System.out.println("??" + loginMember.getMemberNo());
 			
 			// 클래스 목록 개수 조회(1회차 클래스)
 //			int classListCount = service.selectClassListCount(memberNo);
@@ -188,9 +191,9 @@ public class ClassRoomController {
 	
 	
 	// 학생 관리(수강 예정)
-	@RequestMapping("studentListExpect/{epNo}")
+	@RequestMapping("studentListExpect")
 	public String studentListExpect(@ModelAttribute("loginMember") Member loginMember, Model model,RedirectAttributes ra,
-					@RequestParam(value = "page", required = false, defaultValue = "1") int page, @PathVariable("epNo") int epNo) {
+					@RequestParam(value = "page", required = false, defaultValue = "1") int page, @RequestParam("epNo") int epNo) {
 		
 		// 페이지네이션
 		Pagination pagination =  service.studentListCount(epNo, page);
@@ -200,7 +203,10 @@ public class ClassRoomController {
 		// 학생 목록 조회
 		List<Member> studentList = service.studentListExpect(pagination, epNo);
 		
+		// 클래스 명, 회차 조회
+		Episode episodeInfo = service.selectClass(epNo);
 		
+		model.addAttribute("episodeInfo", episodeInfo);
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("studentList", studentList);
 		model.addAttribute("epNo", epNo);
@@ -225,8 +231,8 @@ public class ClassRoomController {
 	
 	
 	// 학생 관리(진행 중)
-	@RequestMapping("studentListOngoing/{epNo}")
-	public String studentListOngoing(int epNo, Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+	@RequestMapping("studentListOngoing")
+	public String studentListOngoing(@RequestParam(value = "epNo") int epNo, Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 
 		// 페이지네이션
 		Pagination pagination =  service.selectOngoingClassListCount(epNo, page);
@@ -242,7 +248,7 @@ public class ClassRoomController {
 			
 			if(c.getMemberGender() != null && c.getMemberGender().equals("M") ) {
 				c.setMemberGender("남자");
-			} else if(c.getMemberGender() != null && c.getMemberGender().equals("W")) {
+			} else if(c.getMemberGender() != null && c.getMemberGender().equals("F")) {
 				c.setMemberGender("여자");
 			}
 			
@@ -258,6 +264,11 @@ public class ClassRoomController {
 	@ResponseBody
 	@RequestMapping(value="reportStudent", method=RequestMethod.POST)
 	public int reportStudent(String epNo, String memberNo, String reportText) {
+		
+		System.out.println("epNo : " + epNo);
+		System.out.println("memberNo : " + memberNo);
+		System.out.println("reportText : " + reportText);
+		
 		
 		Map<String, String> map = new HashMap<String, String>();
 		
@@ -296,7 +307,5 @@ public class ClassRoomController {
 		return rList;
 	}
 	
-	
-
 	
 }
