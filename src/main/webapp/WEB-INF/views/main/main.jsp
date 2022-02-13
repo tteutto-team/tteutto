@@ -87,7 +87,7 @@
 							<div class="image">
 								<%-- 클래스 이미지 --%>
 								<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epNo=${classList.episodeNo}'">
+									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeNo}'">
 								
 								<%-- 수업 등록 지역 --%>
 								<p class="location-p">${classList.classArea}</p>
@@ -169,7 +169,7 @@
 							<div class="image">
 								<%-- 클래스 이미지 --%>
 								<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epNo=${classList.episodeNo}'">
+									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeNo}'">
 								
 								<%-- 수업 등록 지역 --%>
 								<p class="location-p">${classList.classArea}</p>
@@ -250,7 +250,7 @@
 							<div class="image">
 								<%-- 클래스 이미지 --%>
 								<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epNo=${classList.episodeNo}'">
+									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeNo}'">
 								
 								<%-- 수업 등록 지역 --%>
 								<p class="location-p">${classList.classArea}</p>
