@@ -60,7 +60,7 @@
     <!-- 주변 클래스 추천 -->
     <div class="hot-class">
         <div class="hot-class-top">
-            <span class="detail">
+            <span class="detail" onclick="location.href='main/locationClass'">
                 주변 클래스 추천<i class="fas fa-angle-right"></i>
             </span>
           
@@ -311,6 +311,10 @@
 </main>
         
 <jsp:include page="../common/footer.jsp"/>
+
+<script>
+	const contextPath = "${contextPath}";
+</script>
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <!-- 부트스트랩 케러셀 -->

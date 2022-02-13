@@ -75,7 +75,7 @@
 			    	</if>
 			    </if>
 			    <!-- 수업 형태 -->
-			    <if test="classType != ''">
+			    <if test="classType != null">
 				    <if test="classType != '전체'">
 				    	AND CLASS_TYPE = 
 				    	<choose>
@@ -135,7 +135,7 @@
 			    	</if>
 			    </if>
 		    	<!-- 수업 형태 -->
-			    <if test="classType != ''">
+			    <if test="classType != null">
 				    <if test="classType != '전체'">
 				    	AND CLASS_TYPE = 
 				    	<choose>
@@ -182,7 +182,7 @@
 			    <when test="pageKey == 'location'">
 			    	AND CLASS_AREA = (
 				        SELECT CLASS_AREA FROM (
-				            SELECT COUNT(*) COUNT FROM CLASS GROUP BY CLASS_AREA 
+				            SELECT CLASS_AREA, COUNT(*) COUNT FROM CLASS GROUP BY CLASS_AREA 
 				            ORDER BY COUNT DESC)
 				        WHERE ROWNUM = 1
 				    )
@@ -208,7 +208,7 @@
 		)
 		WHERE EP_PRICE IS NOT NULL
 		<!-- 메인 페이지, 클래스 검색 목록 검색 결과 X -->
-		<if test="type != 'hot' and type != 'new'">
+		<if test="type != 'location' and type != 'hot' and type != 'new'">
 			<if test="pageKey == 'location' || pageKey == 'hot' || pageKey == 'new' || result == 'no'">
 				AND ROWNUM &lt;= 12
 			</if>

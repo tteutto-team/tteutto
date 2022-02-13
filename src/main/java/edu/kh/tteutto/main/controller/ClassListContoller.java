@@ -146,6 +146,30 @@ public class ClassListContoller {
 		return "main/themeList";
 	}
 	
+	// 주변 클래스 목록
+	@RequestMapping("locationClass")
+	public String locationClass(HttpSession session, Model model) {
+		
+		int memberNo = 0;
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		
+		if (loginMember != null)
+			memberNo = loginMember.getMemberNo();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("pageKey", "location");
+		map.put("type", "location");
+		
+		List<ClassList> locationList = null;
+		locationList = service.selectMainList(map);
+		
+		model.addAttribute("classList", locationList);
+		model.addAttribute("type", "location");
+		
+		return "main/classList";
+	}
+	
 	// 인기 클래스 목록
 	@RequestMapping("hotClass")
 	public String hotClass(HttpSession session, Model model) {
