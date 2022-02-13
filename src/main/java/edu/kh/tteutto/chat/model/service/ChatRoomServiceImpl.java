@@ -76,14 +76,7 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 	// 채팅방 생성
 	@Override
 	public int insertChatRoom(ChatMessage cm) {
-		int chatRoomNo = dao.checkChatRoomNo(cm);
-		System.out.println("chatRoomNo :: " + chatRoomNo);
-		if(chatRoomNo == 0) {
-			return dao.insertChatRoom(cm);
-		}else {
-			cm.setChatRoomNo(chatRoomNo);
-			return chatRoomNo;
-		}
+		return dao.insertChatRoom(cm);
 	}
 
 	
@@ -112,8 +105,23 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 		return dao.sendAlarm2(cm);
 	}
 	
+	// 채팅 방 번호 조회
+	@Override
+	public int selectChatRoomNo(Map<String, Object> map) {
+		return dao.selectChatRoomNo3(map);
+	}
 	
+	// 채팅 방 카운트
+	@Override
+	public int countChatRoomNo(Map<String, Object> map) {
+		return dao.countChatRoomNo(map);
+	}
 
+	// 채팅 상대방 조회
+	@Override
+	public int selectOtherMember(ChatMessage cm) {
+		return dao.selectOtherMember(cm);
+	}
 	
 	
 	

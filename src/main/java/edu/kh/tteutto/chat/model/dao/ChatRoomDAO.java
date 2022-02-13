@@ -154,6 +154,36 @@ public class ChatRoomDAO {
 
 
 
+	/** 채팅 방 번호 조회
+	 * @param map
+	 * @return chatRoomNo
+	 */
+	public int selectChatRoomNo3(Map<String, Object> map) {
+		return sqlSession.selectOne("chatMapper.selectChatRoomNo3", map);
+	}
+
+
+
+	/** 채팅 방 카운트
+	 * @param map
+	 * @return count
+	 */
+	public int countChatRoomNo(Map<String, Object> map) {
+		return sqlSession.selectOne("chatMapper.countChatRoomNo", map);
+	}
+
+
+
+	/** 채팅 상대방 조회
+	 * @param cm
+	 * @return result
+	 */
+	public int selectOtherMember(ChatMessage cm) {
+		return sqlSession.selectOne("chatMapper.selectOtherMember", cm);
+	}
+
+
+
 
 
 
