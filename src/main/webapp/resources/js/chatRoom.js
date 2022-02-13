@@ -152,7 +152,7 @@ chattingSock.onmessage = function(e){
 	
 	// 채팅 입력시 말풍선이 부드럽게 나타나는 효과
 	setTimeout(function(){
-	    $(".chat_wrap .inner").find(".box:last").addClass("on");
+	    $(".chat_wrap .inner").find(".item:last").addClass("on");
 	}, 10)
 	
 	// 스크롤 하단 고정
