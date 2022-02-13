@@ -16,7 +16,7 @@
 
             <div class="right">
                 <div class="title">
-                    <p><span>000</span>님이 작성한 후기</p>
+                    <p><span>${sessionScope.loginMember.memberNm}</span>님이 작성한 후기</p>
                 </div>
 
                 <div class="table">
@@ -52,12 +52,12 @@
                         </div>
                     </div>
                     --%>
-
+<%-- 
 					<c:choose>
 						<c:when test="${empty review}">
-							<div>응 후기안쓰면 그만이야~</div>
+							
 						</c:when>
-						<c:otherwise>
+						<c:otherwise> --%>
 							<c:forEach items="${review}" var="rv">
 			                    <div class="row">
 			                        <div class="column">${rv.reviewNo}</div>
@@ -113,8 +113,8 @@
 			                        </div>
 			                    </div>
 		                    </c:forEach>
-						</c:otherwise>
-					</c:choose>
+						<%-- </c:otherwise>
+					</c:choose> --%>
 
 
                 </div>
