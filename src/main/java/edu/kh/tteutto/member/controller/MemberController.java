@@ -983,19 +983,19 @@ public class MemberController {
 	@ResponseBody
 	public int searchReview(int regNo, int epNo) {
 		int alert = 0; 
-		
+		System.out.println(epNo);
 		int result = service.searchReview(regNo);
 		int result2 = service.overDateReview(epNo);
-		//System.out.println(result);
+		System.out.println(result2);
 		if(result2 > 0) {
 			alert = 2;
 		}
-		
+		System.out.println(alert);
 		if(result > 0) {
 			alert = 1;				
 		}
-		
-		//System.out.println(alert);
+		System.out.println(alert);
+
 		return alert;
 	}
 	
