@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
+import edu.kh.tteutto.classRoom.model.vo.Episode;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeClass;
 import edu.kh.tteutto.classRoom.model.vo.OngingClass;
 import edu.kh.tteutto.classRoom.model.vo.Receipt;
@@ -114,6 +115,11 @@ public class TeacherDAO {
 	// 학생 수 조회(진행 중)
 	public List<OngingClass> selectOngoingClassListCount(int epNo) {
 		return sqlSession.selectList("classMapper.selectOngoingClass", epNo);
+	}
+
+	// 클래스 정보 조회
+	public Episode selectClass(int epNo) {
+		return sqlSession.selectOne("classMapper.selectClass", epNo);
 	}
 	
 

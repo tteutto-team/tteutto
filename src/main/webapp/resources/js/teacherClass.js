@@ -34,7 +34,7 @@
             sendPost(contextPath+"/teacher/studentListOngoing", "epNo", epNo);
             
         } else{ // 진행 예정 클래스
-            sendPost(contextPath+"/teacher/studentListOngoing", "epNo", epNo);
+            sendPost(contextPath+"/teacher/studentListExpect", "epNo", epNo);
         }
     }
 

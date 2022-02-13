@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import edu.kh.tteutto.classRoom.model.dao.TeacherDAO;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
+import edu.kh.tteutto.classRoom.model.vo.Episode;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeClass;
 import edu.kh.tteutto.classRoom.model.vo.OngingClass;
 import edu.kh.tteutto.classRoom.model.vo.Receipt;
@@ -115,6 +116,12 @@ public class TeacherServiceImpl implements TeacherService{
 	public Pagination selectOngoingClassListCount(int epNo, int page) {
 		int count = dao.selectOngoingClassListCount(epNo).size();
 		return new Pagination(count, page);
+	}
+
+	// 클래스 정보 조회
+	@Override
+	public Episode selectClass(int epNo) {
+		return dao.selectClass(epNo);
 	}
 	
 }

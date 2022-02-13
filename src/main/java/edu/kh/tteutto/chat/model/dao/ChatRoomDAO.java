@@ -136,6 +136,12 @@ public class ChatRoomDAO {
 
 
 
+	public Map<String, Object> openChatRoom2(Map map1) {
+		return sqlSession.selectOne("chatMapper.selectChatRoomNo2", map1);
+	}
+
+
+
 
 
 

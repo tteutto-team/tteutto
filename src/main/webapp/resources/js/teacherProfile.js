@@ -133,7 +133,7 @@ function loadImg(input) {
 
 
 // 이미지 파일을 첨부 했을 경우 미리 보기가 가능하도록 하는 함수
-function loadImg(input) {
+function loadImg_Img(input) {
 
 	// 매개변수 input == 클릭된 input 요소
     if (input.files && input.files[0]) {

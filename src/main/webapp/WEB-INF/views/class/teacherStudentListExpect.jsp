@@ -2,6 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.servletContext.contextPath}"/>
 
+<style>
+	.row{
+		height: 55px;
+	}
+	
+	.page-a{
+		height : 28px;
+		padding-top:5px;
+	}
+	
+</style>
+
 <jsp:include page="../common/header.jsp"/>
 
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
@@ -26,7 +38,7 @@
 
             <div class="right">
             	<div class="right-top">
-	                <p><span id="class-episode-name">'클래스1'</span> 학생 목록 <span id="class-status">(교육 예정)</span></p>
+	                <p><span id="class-episode-name">${episodeInfo.classNm} - ${episodeInfo.epCount}</span> 학생 목록 <span id="class-status">(교육 예정)</span></p>
             	</div>
 
                 <div class="table">
@@ -41,7 +53,7 @@
 	                    <div class="row">
 	                        <div class="column">${status.count}</div>
 	                        <div class="column">${student.memberNm}</div>
-	                        <div class="column"><button class="modal-open-btn">채팅</button></div>
+	                        <div class="column"><button class="modal-open-btn" onclick="window.open('${contextPath}/chat/chatRoom?classNo=${episodeInfo.classNo}&studentNo=${student.memberNo}','채팅창 목록','width=482,height=700,location=no,status=no,scrollbars=yes');">채팅</button></div>
 	                        <div class="column"><button class="reject modal-open-btn" onclick="reject(${student.memberNo}, this)">수강 거절</button></div>
 	                    </div>
 					</c:forEach>
@@ -54,9 +66,9 @@
 			            <ul class="page-ul">
 			            	<c:if test="${pagination.currentPage != 1}">
 				            	<%-- 이전 리스트로 이동 --%>
-				                <li><a href="${contextPage}/tteutto/teacher/studentListExpect/${epNo}?page=1"><i class="fas fa-angle-double-left"></i></a></li>
+				                <li><a class="page-a" href="${contextPage}/tteutto/teacher/studentListExpect?epNo=${epNo}&page=1"><i class="fas fa-angle-double-left"></i></a></li>
 				                <%-- 이전 페이지로 이동 --%>
-				                <li><a href="${contextPage}/tteutto/teacher/studentListExpect/${epNo}?page=${pagination.prevPage}"><i class="fas fa-angle-left"></i></a></li>
+				                <li><a class="page-a" href="${contextPage}/tteutto/teacher/studentListExpect?epNo=${epNo}&page=${pagination.prevPage}"><i class="fas fa-angle-left"></i></a></li>
 			                </c:if>
 			                
 			                <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" step="1"  var="i">
@@ -69,16 +81,16 @@
 					                
 					                <c:otherwise>
 						                <%-- 선택되지 않은 페이지 --%>
-						                <li><a href="?page=${i}">${i}</a></li>
+						                <li><a href="?epNo=${epNo}&page=${i}">${i}</a></li>
 					                </c:otherwise>
 				                </c:choose>
 			                </c:forEach>
 			                
-			                <c:if test="${pagination.endPage != pagination.maxPage}">
+			                <c:if test="${pagination.currentPage != pagination.maxPage}">
 				                <%-- 다음 페이지로 이동 --%>
-				                <li><a href="${contextPage}/tteutto/teacher/studentListExpect/${epNo}?page=${pagination.nextPage}"><i class="fas fa-angle-right"></i></a></li>
+				                <li><a class="page-a" href="${contextPage}/tteutto/teacher/studentListExpect?epNo=${epNo}&page=${pagination.nextPage}"><i class="fas fa-angle-right"></i></a></li>
 				                <%-- 다음 리스트로 이동 --%>
-				                <li><a href="${contextPage}/tteutto/teacher/studentListExpect/${epNo}?page=${pagination.maxPage}"><i class="fas fa-angle-double-right"></i></a></li>
+				                <li><a class="page-a" href="${contextPage}/tteutto/teacher/studentListExpect?epNo=${epNo}&page=${pagination.maxPage}"><i class="fas fa-angle-double-right"></i></a></li>
 			                </c:if>
 			            </ul>
 			        </div>
