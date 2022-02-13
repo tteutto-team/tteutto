@@ -357,7 +357,7 @@
 		    JOIN REGISTER R USING(EP_NO)
 		    LEFT JOIN REFUND USING(REG_NO)
 		    JOIN MEMBER M ON(C.MEMBER_NO = M.MEMBER_NO)
-		    WHERE R.MEMBER_NO = #{memberNo}) A
+		    WHERE R.MEMBER_NO = #{memberNo} AND REG_ST = 0) A
 	</select>
 	
 	<!-- 학생 작성 후기목록 조회 -->
@@ -496,5 +496,11 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
 
+	<!-- 후기 쓰기전에 강의가 끝났는지 -->
+	<select id="overDateReview" resultType="_int">
+		SELECT COUNT(*) FROM EP_SCHEDULE
+		WHERE EP_NO = #{epNo}
+		AND SCHDL_DT > SYSDATE
+	</select>
 	
 </mapper>

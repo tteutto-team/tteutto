@@ -395,6 +395,14 @@ public class MemberDAO {
 
 
 
+	/** 후기가 작성하기 전에 강의가 끝났는지 체크
+	 * @param epNo
+	 * @return result2
+	 */
+	public int overDateReview(int epNo) {
+		return sqlSession.selectOne("memberMapper.overDateReview", epNo);
+	}
+
 	
 	
 

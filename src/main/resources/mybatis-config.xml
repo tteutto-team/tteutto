@@ -36,6 +36,7 @@
 		<typeAlias type="edu.kh.tteutto.member.model.vo.Certified" alias="Certified" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.Teacher" alias="Teacher" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.Episode" alias="Episode" />
+		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.IntroImg" alias="IntroImg" />
 		
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassDetail" alias="ClassDetail" />
 		<typeAlias type="edu.kh.tteutto.classRoom.model.vo.ClassDetailImage" alias="ClassDetailImage" />	

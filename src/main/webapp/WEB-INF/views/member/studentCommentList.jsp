@@ -308,14 +308,19 @@
     	if(confirm("정말로 후기를 삭제하시겠습니까?")){
     		
     		const reviewNo = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[1].innerText;
-    		console.log(reviewNo);
     		
     		$.ajax({
                 url : "deleteReview",      
                 data : {"reviewNo" : reviewNo},  
                 type : "POST",               
                 success : function(result){
-            		console.log("성공!");
+            		e.target.parentNode.parentNode.previousSibling.previousSibling.remove();
+            		e.target.parentNode.parentNode.remove();
+                	alert("후기가 삭제되었습니다.");
+                	//console.log(e.target.parentNode.parentNode);
+                	//console.log(e.target.parentNode.parentNode.previousSibling.previousSibling);
+
+            		
                 },
 
                 error : function(){}

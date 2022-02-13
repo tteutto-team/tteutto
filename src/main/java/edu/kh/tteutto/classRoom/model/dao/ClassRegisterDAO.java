@@ -10,6 +10,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailImage;
 import edu.kh.tteutto.classRoom.model.vo.Episode;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeSchedule;
+import edu.kh.tteutto.classRoom.model.vo.IntroImg;
 
 @Repository
 public class ClassRegisterDAO {
@@ -94,5 +95,14 @@ public class ClassRegisterDAO {
 		if(result > 0)  return episode.getEpNo();
 		else			return 0;
 	}
+
+	/** 썸머노트 이미지 DB저장
+	 * @param it
+	 */
+	public void InsertIntroImg(IntroImg it) {
+		sqlSession.insert("classMapper.insertIntroImg, it");
+		
+	}
+
 	
 }
