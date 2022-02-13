@@ -260,7 +260,7 @@
             </div> -->
             <div id="next-btn">
                 <button type="button" id="priview-btn" class="btn-click" style="background-color: #3a3424; color: white;" onclick="PopUp();">미리보기</button>
-                <%-- <button id="save-btn" class="btn-click" style="background-color: #3a3424; color: white;" onclick="javascript: form.action='${contextPath}/register/save';">임시저장</button> --%>
+                <button id="save-btn" class="btn-click" style="background-color: #3a3424; color: white;" onclick="javascript: form.action='${contextPath}/register/save';">임시저장</button>
                 <button id="submit_btn" class="btn-click" style="background-color: #FFDF3E;">승인요청</button>
             </div>
             <div id="summerImg"></div>
