@@ -82,6 +82,7 @@ public class ChatWebsocketHandler extends TextWebSocketHandler{
 					
 					
 					// 얻어온 데이터를 모두에게 뿌림
+					map.put("cm", cm);
 					
 					// 채팅 알림
 					if(loginMemberNo == cm.getOtherMemberNo()) {
@@ -89,11 +90,10 @@ public class ChatWebsocketHandler extends TextWebSocketHandler{
 						int count2 = service.sendAlarm2(cm);
 						
 						int sum = (count + count2);
-						map.put("cm", cm);
 						map.put("sum", sum);
 						
-						wss.sendMessage(new TextMessage(new Gson().toJson(map)));
 					}
+					wss.sendMessage(new TextMessage(new Gson().toJson(map)));
 				}
 				
 				
