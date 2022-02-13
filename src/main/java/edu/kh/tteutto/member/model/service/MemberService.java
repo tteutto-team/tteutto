@@ -295,6 +295,7 @@ public interface MemberService {
 	String teacherImgUpdate(String loginTeacherImg, int memberNo, MultipartFile teacherImage, String webPath, String serverPath);
 
 
+
 	/** 비밀번호 변경2
 	 * @param member
 	 * @return result
@@ -303,6 +304,11 @@ public interface MemberService {
 
 
 
+	/** 후기 작성전에 강의가 끝났는지 체크
+	 * @param epNo
+	 * @return result2
+	 */
+	int overDateReview(int epNo);
 
 
 	

@@ -54,7 +54,9 @@
                         <path fill="#FFF" fill-rule="evenodd" d="M20.007 3H3.993A.992.992 0 003 3.993v16.013c0 .549.444.993.993.993h8.621v-6.97h-2.347v-2.716h2.347V9.308c0-2.324 1.42-3.589 3.494-3.589.993 0 1.847.072 2.096.106v2.43h-1.44c-1.125 0-1.344.54-1.344 1.328v1.733h2.689l-.349 2.723h-2.34V21h4.587a.992.992 0 00.993-.993V3.993A.992.992 0 0020.007 3"></path>
                     </svg>
                 </div>
-                <div class="linkCopy">
+                <!-- http://115.90.212.22:8080
+                	http://kh-aclass.xyz:8080 -->
+                <div class="linkCopy" onclick="copy('http://localhost:8080/${contextPath}/class/classDetail?classNo=${cdtr.cdt.classNo}&epNo=${param.epNo}');">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M14 8a1 1 0 011-1h3a5 5 0 110 10h-3a1 1 0 110-2h3a3 3 0 100-6h-3a1 1 0 01-1-1zm-4 8a1 1 0 01-1 1H6A5 5 0 116 7h3a1 1 0 110 2H6a3 3 0 100 6h3a1 1 0 011 1zm-3-4a1 1 0 011-1h8a1 1 0 110 2H8a1 1 0 01-1-1z" fill="#1B1C1D"></path>
                     </svg>
@@ -856,9 +858,19 @@
 			       		  'title' : '회차 선택 후 신청해주세요.'
 			       		  });
         		}else{
+        			
+        			// 해당클래스의 강사번호와 로그인번호가 같을 경우
+        			// 본인 클래스이므로 신청 못함
+        			if(${cdtr.cdt.memberNo== loginMember.memberNo}){
+        				swal({'icon' : 'info',
+        		       		  'title' : '본인이 개설한 클래스는 신청할 수 없습니다.'
+        		       		  });
+        			}else{
+        				
+	          		  $(".buyModal").fadeIn();
+        			}
         		
         		 
-	          	  $(".buyModal").fadeIn();
         		}
         	}else{
         		alert("로그인 후 진행해주세요.");
@@ -873,17 +885,6 @@
     });
     
     
-    // 본인이 개설한 클래스일 경우
-    // 신청하기 버튼 눌렀을 때
-    // 얼럿. 본인이 개설한 클래스는 신청하실 수 없습니다.
-/*     $(".registerBtn").on('click', function(){
-    	if(teacherNo == loginMemberNo}){
-    		swal({'icon' : 'info',
-	       		  'title' : '본인이 개설한 클래스는 신청하실 수 없습니다.'
-	       		  });
-    	}
-    })
-     */
     
     
  // 찜하기 - 빈하트 클릭시 
@@ -963,8 +964,12 @@
  	  
  	  //카카오 공유하기
  	  function sendLinkCustom() {
-        Kakao.init("78e4a93e20f860122fd8a26c9c05dbe7");
-        Kakao.Link.sendCustom({
+ 		 try{
+	        Kakao.init("78e4a93e20f860122fd8a26c9c05dbe7");
+ 			 
+ 		 }catch(e){};
+
+ 		 Kakao.Link.sendCustom({
             templateId: 70472
         });
       }
@@ -1018,6 +1023,16 @@
  	  function shareFacebook() {
 		    var sendUrl = "http://kh-aclass.xyz:8080/tteutto/class/classDetail?classNo=${cdtr.cdt.classNo}"; // 전달할 URL
 		    window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+		}
+ 	  
+ 	  //링크 복사하기
+ 	  function copy(val) {
+		  var dummy = document.createElement("textarea");
+		  document.body.appendChild(dummy);
+		  dummy.value = val;
+		  dummy.select();
+		  document.execCommand("copy");
+		  document.body.removeChild(dummy);
 		}
  
     </script>

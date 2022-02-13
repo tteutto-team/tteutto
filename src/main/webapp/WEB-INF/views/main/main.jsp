@@ -60,13 +60,13 @@
     <!-- 주변 클래스 추천 -->
     <div class="hot-class">
         <div class="hot-class-top">
-            <span class="detail">
+            <span class="detail" onclick="location.href='main/locationClass'">
                 주변 클래스 추천<i class="fas fa-angle-right"></i>
             </span>
           
             <span class="location modal-open-btn" style="cursor: pointer;">
                 <i class=" fi-rr-marker"></i> 
-	            <p id="location">서울 동작구</p>
+	            <p id="location">${classList.classArea}</p>
             </span>
             
             <div class="balloon">여기를 누르면<br> 현재 위치로 자동 설정됩니다.</div>
@@ -124,7 +124,7 @@
 		                       	</div>
 								
 								<div class="detail-info-bottom">
-									<img src="${contextPath}/resources/images/teacher/${classList.teacherImage}"> <%-- 강사 프로필 이미지 --%>
+									<img src="${contextPath}/resources/images/teacher/profile/${classList.teacherImage}"> <%-- 강사 프로필 이미지 --%>
 									<span class="teacher-name">${classList.memberName}</span> <%-- 강사명 --%>
 									<span class="class-price"><fmt:formatNumber value="${classList.episodePrice}" pattern="#,###"/>원</span> <%-- 수업료 --%>
 								</div>
@@ -206,7 +206,7 @@
 		                       	</div>
 								
 								<div class="detail-info-bottom">
-									<img src="${contextPath}/resources/images/teacher/${classList.teacherImage}"> <%-- 강사 프로필 이미지 --%>
+									<img src="${contextPath}/resources/images/teacher/profile/${classList.teacherImage}"> <%-- 강사 프로필 이미지 --%>
 									<span class="teacher-name">${classList.memberName}</span> <%-- 강사명 --%>
 									<span class="class-price"><fmt:formatNumber value="${classList.episodePrice}" pattern="#,###"/>원</span> <%-- 수업료 --%>
 								</div>
@@ -287,7 +287,7 @@
 		                       	</div>
 								
 								<div class="detail-info-bottom">
-									<img src="${contextPath}/resources/images/teacher/${classList.teacherImage}"> <%-- 강사 프로필 이미지 --%>
+									<img src="${contextPath}/resources/images/teacher/profile/${classList.teacherImage}"> <%-- 강사 프로필 이미지 --%>
 									<span class="teacher-name">${classList.memberName}</span> <%-- 강사명 --%>
 									<span class="class-price"><fmt:formatNumber value="${classList.episodePrice}" pattern="#,###"/>원</span> <%-- 수업료 --%>
 								</div>
@@ -311,6 +311,10 @@
 </main>
         
 <jsp:include page="../common/footer.jsp"/>
+
+<script>
+	const contextPath = "${contextPath}";
+</script>
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <!-- 부트스트랩 케러셀 -->

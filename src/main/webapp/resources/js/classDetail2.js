@@ -63,11 +63,14 @@ function reviewList(pageNum) {
 
 				const pageNumber = $("<div class='page-number'>");
 				const pageUl = $("<ul class='page-ul'>");
+				console.log(result.pagination.startPage);
+				console.log(result.pagination.endPage);
+				console.log(result.pagination.prevPage);
 				if (result.pagination.startPage != 1) {
 					const li1 = $("<li>");
-					li1.append("<a onclick='reviewList(1);'><i class='fas fa-angle-double-left'></i></a>");
+					li1.append("<a onclick='reviewList(1);'>&lt;&lt;</a>");
 					const li2 = $("<li>");
-					li2.append('<a onclick="reviewList(' + result.pagination.prevPage + ');"><i class="fas fa-angle-left"></i></a>');
+					li2.append('<a onclick="reviewList(' + result.pagination.prevPage + ');">&lt;</a>');
 					pageUl.append(li1, li2);
 				}
 
@@ -85,9 +88,9 @@ function reviewList(pageNum) {
 
 				if (result.pagination.endPage != result.pagination.maxPage) {
 					const li1 = $("<li>");
-					li1.append("<a onclick='reviewList(" + result.pagination.nextPage + ");'><i class='fas fa-angle-right'></i></a>");
+					li1.append("<a onclick='reviewList(" + result.pagination.nextPage + ");'>&gt;</a>");
 					const li2 = $("<li>");
-					li2.append('<a onclick="reviewList(' + result.pagination.maxPage + ');"><i class="fas fa-angle-double-right"></i></a>');
+					li2.append('<a onclick="reviewList(' + result.pagination.maxPage + ');">&gt;&gt;</a>');
 					pageUl.append(li1, li2);
 				}
 				pageNumber.append(pageUl);

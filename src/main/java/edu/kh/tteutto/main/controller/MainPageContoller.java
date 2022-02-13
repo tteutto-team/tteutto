@@ -37,7 +37,7 @@ public class MainPageContoller {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberNo", memberNo);
 		
-		// 내 주변 클래스 추천 목록
+		// 주변 클래스 추천 목록
 		map.put("pageKey", "location");
 		
 		List<ClassList> locationList = null;

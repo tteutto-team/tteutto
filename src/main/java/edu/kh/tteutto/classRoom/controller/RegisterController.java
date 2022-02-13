@@ -1,4 +1,6 @@
 package edu.kh.tteutto.classRoom.controller;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailImage;
 import edu.kh.tteutto.classRoom.model.vo.Episode;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeSchedule;
+import edu.kh.tteutto.classRoom.model.vo.IntroImg;
 import edu.kh.tteutto.common.Util;
 import edu.kh.tteutto.member.model.service.MemberService;
 import edu.kh.tteutto.member.model.vo.Member;
@@ -42,8 +45,9 @@ public class RegisterController {
 
 		// 클래스 등록 페이지 이동
 		@RequestMapping(value="class", method=RequestMethod.GET)
-		public String classRegister(HttpSession session) {
+		public String classRegister(HttpSession session, Model model) {
 			if(session.getAttribute("loginMember") != null) {
+				
 				return "class/classInsert1";			
 			}else {
 				return "member/login";
@@ -115,8 +119,23 @@ public class RegisterController {
 		public String classInsert(RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember,
 								  ClassDetail cdt, String classArea1, String classArea2,
 								  @RequestParam(value="images", required=false) List<MultipartFile> images, 
-								  HttpSession session){
+								  HttpSession session, 
+								  @RequestParam(value="introImgName", required=false, defaultValue="null") String introImgName){
 			
+			// 소개 이미지 받아오기
+			String[] intro = introImgName.split(",");
+			List<IntroImg> introImg = new ArrayList<IntroImg>();
+			
+			if(introImgName != null) {
+				
+				for(int i=0; i<intro.length; i++) {
+					IntroImg it = new IntroImg();
+					it.setIntroImgName(intro[i]);
+					introImg.add(it);
+				}
+				
+			}
+
 			// 시군 추가
 			String area = classArea1 + " " + classArea2;
 			cdt.setClassArea(area);
@@ -125,7 +144,9 @@ public class RegisterController {
 			String webPath = "/resources/images/class/"; // (DB에 저장되는 경로)
 			String serverPath = session.getServletContext().getRealPath(webPath);
 
-			int result = service.classInsert(cdt, images, webPath, serverPath);
+			int result = service.classInsert(cdt, images, webPath, serverPath, introImg);
+			
+			//service.introInsert(introImg);
 			
 			if(result > 0) {
 				Util.swalSetMessage("클래스 신청 완료", "관리자 승인을 기다려주세요.", "success", ra);			
@@ -214,7 +235,9 @@ public class RegisterController {
 		@RequestMapping(value="schedule", method=RequestMethod.POST)
 		public String insertClassSchedule(RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember,
 										  @ModelAttribute("openClass") ClassDetail openClass, HttpSession session,
-										  Episode episode, EpisodeSchedule episodeSd, String roadAddrPart1, String addrDetail) {
+										  Episode episode, EpisodeSchedule episodeSd, String roadAddrPart1, 
+										  String addrDetail ) {
+			
 			
 			// 주소 합치기
 			String epPlace = roadAddrPart1 + " " + addrDetail;
@@ -334,11 +357,32 @@ public class RegisterController {
 			return "redirect:/";
 		}
 		
-		/*
+		// 썸머노트 이미지 저장
 		@RequestMapping("uploadFile")
-		public String summernote() {
+		@ResponseBody()
+		public String summernote(@RequestParam(value="file", required=false) List<MultipartFile> file,
+								HttpSession session) {
+			
+			int classNo = (int)session.getAttribute("classNo");
+			System.out.println(classNo);
+			System.out.println(file);
+			
+			String webPath = "/resources/images/class/"; // (DB에 저장되는 경로)
+		      
+		    String serverPath = session.getServletContext().getRealPath(webPath);
+		     
+		    String fileName = Util.fileRename(file.get(0).getOriginalFilename());
+		    
+		    try {
+				file.get(0)
+				.transferTo(new File(serverPath + "/" + fileName));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		    return fileName;
 			
 		}
-		*/
+		
 
 }

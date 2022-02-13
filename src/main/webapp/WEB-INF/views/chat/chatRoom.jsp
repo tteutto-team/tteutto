@@ -205,7 +205,7 @@
 
 	<div class="inputBtn">
 
-		<input type="text" class="mymsg" id="inputChatting"
+		<input type="text" class="mymsg" id="inputChatting" onkeyup="enterkey()"
 			placeholder="메시지 입력(개인 연락처 입력 불가 : 전화번호, 카톡, 페이스북등)">
 		<button type="button" id="sendBtn">전송</button>
 	</div>

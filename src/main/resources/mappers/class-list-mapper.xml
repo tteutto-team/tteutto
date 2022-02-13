@@ -68,11 +68,14 @@
 			    	) 
 			    </if>
 			    <!-- 지역 -->
-			    <if test="classArea != ''">
-			    	AND CLASS_AREA = #{classArea} 
+			    <if test="classArea1 != ''">
+			    	AND CLASS_AREA LIKE '%'||#{classArea1}||'%' 
+			    	<if test="classArea2 != ''">
+			    		AND CLASS_AREA LIKE '%'||#{classArea2}||'%' 
+			    	</if>
 			    </if>
 			    <!-- 수업 형태 -->
-			    <if test="classType != ''">
+			    <if test="classType != null">
 				    <if test="classType != '전체'">
 				    	AND CLASS_TYPE = 
 				    	<choose>
@@ -125,11 +128,14 @@
 			    	)
 			    </if>
 			    <!-- 지역 -->
-			    <if test="classArea != ''">
-			    	AND CLASS_AREA = #{classArea} 
+			    <if test="classArea1 != ''">
+			    	AND CLASS_AREA LIKE '%'||#{classArea1}||'%' 
+			    	<if test="classArea2 != ''">
+			    		AND CLASS_AREA LIKE '%'||#{classArea2}||'%' 
+			    	</if>
 			    </if>
 		    	<!-- 수업 형태 -->
-			    <if test="classType != ''">
+			    <if test="classType != null">
 				    <if test="classType != '전체'">
 				    	AND CLASS_TYPE = 
 				    	<choose>
@@ -137,15 +143,6 @@
 				    		<when test="classType == '정규'">1 </when>
 				    	</choose>
 				    </if>
-			    </if>
-			    <!-- 정렬 -->
-			    <if test="classSort != ''">
-			    	<choose>
-			    		<when test="classSort == '인기순'">ORDER BY REG_COUNT(C.CLASS_NO) DESC</when>
-			    		<when test="classSort == '별점 높은 순'">ORDER BY STAR_AVG DESC</when>
-			    		<when test="classSort == '찜 많은 순'">ORDER BY HEART_COUNT DESC</when>
-			    		<when test="classSort == '후기 많은 순'">ORDER BY REVIEW_COUNT(C.CLASS_NO) DESC</when>
-			    	</choose>
 			    </if>
 			</if>
 			<!-- 클래스 검색 목록 -->
@@ -168,14 +165,32 @@
 			    	</otherwise>
 			    </choose>
 		    </if>
+		    <!-- 클래스 목록 옵션 -->
+   		    <if test="optionFlag == 1">
+			    <!-- 정렬 -->
+			    <if test="classSort != ''">
+			    	<choose>
+			    		<when test="classSort == '인기순'">ORDER BY REG_COUNT(C.CLASS_NO) DESC</when>
+			    		<when test="classSort == '별점 높은 순'">ORDER BY STAR_AVG DESC</when>
+			    		<when test="classSort == '찜 많은 순'">ORDER BY HEART_COUNT DESC</when>
+			    		<when test="classSort == '후기 많은 순'">ORDER BY REVIEW_COUNT(C.CLASS_NO) DESC</when>
+			    	</choose>
+			    </if>
+			</if>
 			<choose>
 			    <!-- 메인 페이지 주변 -->
 			    <when test="pageKey == 'location'">
-			    	AND CLASS_AREA = '서울 동작구'
+			    	AND CLASS_AREA = (
+				        SELECT CLASS_AREA FROM (
+				            SELECT CLASS_AREA, COUNT(*) COUNT FROM CLASS GROUP BY CLASS_AREA 
+				            ORDER BY COUNT DESC)
+				        WHERE ROWNUM = 1
+				    )
 			    </when>
 			    <!-- 메인 페이지 인기 -->
 			    <when test="pageKey == 'hot'">
 			    	ORDER BY REG_COUNT(C.CLASS_NO) DESC
+			    	
 			    </when>
 			    <!-- 메인 페이지 신규 -->
 			    <when test="pageKey == 'new'">
@@ -193,7 +208,7 @@
 		)
 		WHERE EP_PRICE IS NOT NULL
 		<!-- 메인 페이지, 클래스 검색 목록 검색 결과 X -->
-		<if test="type != 'hot' and type != 'new'">
+		<if test="type != 'location' and type != 'hot' and type != 'new'">
 			<if test="pageKey == 'location' || pageKey == 'hot' || pageKey == 'new' || result == 'no'">
 				AND ROWNUM &lt;= 12
 			</if>
