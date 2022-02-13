@@ -429,6 +429,7 @@
 	<select id="searchReview" resultType="_int">
 		SELECT COUNT(*) FROM REVIEW
 		WHERE REG_NO = #{regNo}
+		AND RE_ST != 1
 	</select>
 	
 	<!-- 클래스가 이미 신고가 됐는지 -->

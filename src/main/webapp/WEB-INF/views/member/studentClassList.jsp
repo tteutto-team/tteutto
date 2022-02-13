@@ -216,7 +216,9 @@
     $(".review-modal-btn").click(function (e) {
     	
     	const regNo = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[1].innerText;
-    	const epNo = e.target.parentNode.parentNode.previousSibling.previousSibling.childNodes[1].innerText;
+    	const epNo = e.target.parentNode.childNodes[13].innerText;
+    	//console.log(epNo);
+    	
     	
     	$.ajax({
             url : "searchReview",      
