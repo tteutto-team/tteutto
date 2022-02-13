@@ -154,7 +154,27 @@ tbody a {
     display: inline-block;
 }
 
-.modal-open-btn:hover + .balloon {display: block;}
+.modal-open-btn:hover + .balloon {
+
+  display: inline-block;
+  margin: 0 0.5rem;
+
+  animation: zoomIn; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 0.35s; /* don't forget to set a duration! */
+
+	
+	}
+
+/* This only changes this particular animation duration */
+.animate__animated.animate__bounce {
+  --animate-duration: 0.35s;
+}
+
+/* This changes all the animations globally */
+:root {
+  --animate-duration: 800ms;
+  --animate-delay: 0.35s;
+}
 
 .balloon {
 	display: none;
