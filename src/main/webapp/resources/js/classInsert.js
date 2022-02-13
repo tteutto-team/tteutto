@@ -290,14 +290,6 @@ function sendFile(file, editor) {
   }
 
 
-// 이미지 저장
-function summer(){
-	
-	
-	
-}
-
-
 
 
 
@@ -404,7 +396,8 @@ function loadImg(input, num){
 		reader.readAsDataURL(input.files[0]);
 		reader.onload = function(e) {
 		$("#img-insert").children("img").attr("src", e.target.result);
-		$("#mini-img").children("div").eq(num).children("img").attr("src", e.target.result);
+		//$("#mini-img").children("div").eq(num).children("img").attr("src", e.target.result);
+		$("#mini-img > div:last-child > img").attr("src", e.target.result);
 		//document.getElementById("why").setAttribute("src", e.target.result);
 		index = index + 1;
 		
