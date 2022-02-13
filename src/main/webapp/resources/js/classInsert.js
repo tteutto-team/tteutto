@@ -351,10 +351,11 @@ $("#sigoon_code").on("change", function(){
 var index = 0;
 $("#img-plus-btn").on("click", function(){
 	// 현재 클릭된 요소가 .boardImg 중 몇 번째 인덱스인지 반환
-	$("[type=file]").eq(index).click();
+	//$("[type=file]").eq(index).click();
 	// 타입이 file인 요소 중 몇번째 인덱스 요소를 선택하여 클릭해라
 	//document.getElementById("why").setAttribute("src", "hhhhh");
-	
+	console.log($("#img-file-box > input:last-child"));
+	$("#img-file-box > input:last-child").click();
 })
 
 // 썸네일 이미지 바꾸기
@@ -404,8 +405,8 @@ $("#img-del-btn").on("click", function(){
 	if(index == 0){
 		
 	}else{
-		document.querySelector("#mini-img > div:last-of-type").remove();
-		document.querySelector("#img-file-box > input:last-of-type").remove();
+		document.querySelector("#mini-img > div::last-child").remove();
+		document.querySelector("#img-file-box > input::last-child").remove();
 		index = index - 1;
 		if(index == 0){
 			checkImage = false;
@@ -511,7 +512,7 @@ function PopUp(){
      
 }
 
-// 참여인원 음수,기호 방지
+// 참여인원 음수,기호 방지, 맥스 초과 방지
 $("#maxPerson").on("input", function(){
 	$(this).val($(this).val().replace(/[^0-9]/gi,""));
 })
@@ -519,3 +520,15 @@ $("#maxPerson").on("input", function(){
 $("#minPerson").on("input", function(){
 	$(this).val($(this).val().replace(/[^0-9]/gi,""));
 })
+
+
+$("#minPerson").on("change keyup", function(){
+	let max = $("#maxPerson").val();
+	let min = $("#minPerson").val();
+	
+	if( parseInt(min) >= parseInt(max) ){
+		$(this).val(max);
+	}else{
+	}
+})
+

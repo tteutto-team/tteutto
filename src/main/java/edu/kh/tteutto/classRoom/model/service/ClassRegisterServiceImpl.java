@@ -78,13 +78,20 @@ public class ClassRegisterServiceImpl implements ClassRegisterService{
 			}	
 		}
 		
+		System.out.println("introImg : " + introImg);
+		
 		// 썸머노트 이미지 DB등록
 		if(!introImg.isEmpty()) {
 			for(IntroImg it : introImg){
 				it.setClassNo(classNo);
-				dao.InsertIntroImg(it);
+				System.out.println(it);
+				int result3 = dao.InsertIntroImg(it);
+				System.out.println("result : " + result3);
+
 			}
 		}
+		
+		
 		
 	}
 		

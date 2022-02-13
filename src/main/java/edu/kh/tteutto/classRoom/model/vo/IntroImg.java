@@ -2,9 +2,9 @@ package edu.kh.tteutto.classRoom.model.vo;
 
 public class IntroImg {
 
-	private int classNo;
-	private String introImgName;
 	private int introImgNo;
+	private String introImgName;
+	private int classNo;
 
 	public IntroImg() {
 		// TODO Auto-generated constructor stub
