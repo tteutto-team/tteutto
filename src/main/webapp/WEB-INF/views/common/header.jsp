@@ -72,9 +72,14 @@
 						<c:otherwise>
 							<ul class="login">
 								<c:choose>
+									<%-- 관리자 로그인 시 관리자 페이지로 이동 --%>
+									<c:when test="${sessionScope.loginMember.memberGrade == 1}">
+										<li><a href="${contextPath}/member/admin/classManage">관리자 페이지</a></li>
+									</c:when>
+									
 									<%-- 강사 미등록 시 강사 신청 페이지로 이동 --%>
 									<c:when test="${sessionScope.loginMember.teacherEnroll == 'N'}">
-										<li><a href="${contextPath}/member/teacherRegister" >강사 신청하기</a></li>
+										<li><a href="${contextPath}/member/teacherRegister">강사 신청하기</a></li>
 									</c:when>
 									
 									<%-- 강사 등록 시 클래스 등록 페이지로 이동 --%>
