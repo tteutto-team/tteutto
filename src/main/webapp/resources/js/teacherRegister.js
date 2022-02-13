@@ -69,9 +69,10 @@ document.getElementById("register_record_add").addEventListener("click", functio
 
 // 이력 닫기
 function close_record_function(el) {
+	//console.log($(el).parent().children("div").children("img").attr("src"));
     if(confirm("이력칸을 닫으시겠습니까?")){
-    	if($(el).parent().children("div").children("img").attr("src").length > 0 ){
-    		carImg--;
+    	if($(el).parent().children("div").children("img").attr("src") != "https://front-img.taling.me/Content/app3/img/bg/bg-add-img-grey-115px@2x.png"){
+				carImg--;
 		}
 	
     	$(el).parent().parent().remove();
