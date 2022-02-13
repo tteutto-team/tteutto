@@ -75,7 +75,7 @@
 			    	</if>
 			    </if>
 			    <!-- 수업 형태 -->
-			    <if test="classType != null">
+			    <if test="classType != null and classType != ''">
 				    <if test="classType != '전체'">
 				    	AND CLASS_TYPE = 
 				    	<choose>
@@ -135,7 +135,7 @@
 			    	</if>
 			    </if>
 		    	<!-- 수업 형태 -->
-			    <if test="classType != null">
+			    <if test="classType != null and classType !=''">
 				    <if test="classType != '전체'">
 				    	AND CLASS_TYPE = 
 				    	<choose>
@@ -180,12 +180,18 @@
 			<choose>
 			    <!-- 메인 페이지 주변 -->
 			    <when test="pageKey == 'location'">
-			    	AND CLASS_AREA = (
-				        SELECT CLASS_AREA FROM (
-				            SELECT CLASS_AREA, COUNT(*) COUNT FROM CLASS GROUP BY CLASS_AREA 
-				            ORDER BY COUNT DESC)
-				        WHERE ROWNUM = 1
-				    )
+			    	<if test="loc == null">
+				    	AND CLASS_AREA = (
+					        SELECT CLASS_AREA FROM (
+					            SELECT CLASS_AREA, COUNT(*) COUNT FROM CLASS GROUP BY CLASS_AREA 
+					            ORDER BY COUNT DESC)
+					        WHERE ROWNUM = 1
+					    )
+			    	</if>
+			    	<if test="loc!= null">
+			    		AND CLASS_AREA LIKE #{loc} || '%'
+			    	</if>
+			    	
 			    </when>
 			    <!-- 메인 페이지 인기 -->
 			    <when test="pageKey == 'hot'">

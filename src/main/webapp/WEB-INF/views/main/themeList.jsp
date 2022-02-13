@@ -56,7 +56,7 @@ crossorigin="anonymous"/>
 	                     	</div>
 					
 					<div class="detail-info-bottom">
-						<img src="${contextPath}/resources/images/teacher/${classList.teacherImage}"> <%-- 강사 프로필 이미지 --%>
+						<img src="${contextPath}/resources/images/teacher/profile/${classList.teacherImage}"> <%-- 강사 프로필 이미지 --%>
 						<span class="teacher-name">${classList.memberName}</span> <%-- 강사명 --%>
 						<span class="class-price"><fmt:formatNumber value="${classList.episodePrice}" pattern="#,###"/>원</span> <%-- 수업료 --%>
 					</div>

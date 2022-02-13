@@ -1,3 +1,13 @@
+$(function(){
+	$(".detail").eq(0).attr("onclick", "location.href='main/locationClass?location=서울 강남구'")
+ 	$("#location").text("서울 강남구");	
+});
+
+
+
+
+
+
 $(".location").on("click", function(){
 	var geocoder = new kakao.maps.services.Geocoder();
 	let location ="";
@@ -19,11 +29,14 @@ $(".location").on("click", function(){
 			            location =result[0].address.region_1depth_name + " " + result[0].address.region_2depth_name;
 			            $("#location").text(location);
 
+						$(".detail").eq(0).attr("onclick", "location.href='main/locationClass?location="+location+"'")
+
 						$.ajax({
 							url : contextPath + "/main/changeOption",
 							data : {"sido" : result[0].address.region_1depth_name, 
 									"sigoon" : result[0].address.region_2depth_name, 
-									"type" : "location"},
+									"type" : "location",
+									"location" : location},
 							dataType : "json", 
 							success : function(result) {
 								// 기존 클래스 카드 삭제
