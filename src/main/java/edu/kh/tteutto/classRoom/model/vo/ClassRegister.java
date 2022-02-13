@@ -23,6 +23,7 @@ public class ClassRegister {
 	private int refundMoney; // 환불금액
 	private int memberNo; // 회원번호
 	private String dtTerm; // 수강기간
+	private String epSt;
 	
 	public ClassRegister() {
 		// TODO Auto-generated constructor stub
@@ -30,6 +31,20 @@ public class ClassRegister {
 	
 	
 	
+
+	public String getEpSt() {
+		return epSt;
+	}
+
+
+
+
+	public void setEpSt(String epSt) {
+		this.epSt = epSt;
+	}
+
+
+
 
 	public String getDtTerm() {
 		return dtTerm;
