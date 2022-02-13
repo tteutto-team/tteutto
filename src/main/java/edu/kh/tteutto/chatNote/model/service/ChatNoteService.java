@@ -22,5 +22,11 @@ public interface ChatNoteService {
 	 */
 	int selectChatAlarm(ChatNote cm);
 
+	/** 알람 삭제
+	 * @param memberNo
+	 * @return result
+	 */
+	int clearAlarm(int memberNo);
+
 
 }

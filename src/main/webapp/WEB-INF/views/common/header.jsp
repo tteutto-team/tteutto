@@ -87,7 +87,7 @@
 								<li><a href="${contextPath}/member/studentWishList"><i class="icon-heart"></i></a></li>
 								
 								<%-- 1:1 채팅 / 쪽지 팝업창 열기 --%>
-								<li><a href="#none" onclick="window.open('${contextPath}/chat/chatRoomList', '_blank', 'width=482, height=700, top=200');"><i class="icon-chat" id="chat">
+								<li><a href="#none" onclick="clearAlarm();"><i class="icon-chat" id="chat">
 									<%-- 알림 표시 --%>
 									<span class="alert"></span>
 								</i></a></li>
@@ -226,6 +226,7 @@
 			
 				$(".alert").html(obj);
 			}
+			
 			
 			
 		</script>
