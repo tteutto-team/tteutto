@@ -359,4 +359,10 @@
 	    where ep_no = #{epNo}
 	</select>
 	
+	
+	<select id="classUse" resultType="_int">
+		SELECT COUNT(*) FROM CLASS
+		WHERE CLASS_NO = #{no} AND CLASS_ST = 2
+	</select>
+	
 </mapper>
