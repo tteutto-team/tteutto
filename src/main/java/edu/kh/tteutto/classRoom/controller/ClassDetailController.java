@@ -53,10 +53,6 @@ public class ClassDetailController {
 	@RequestMapping("classDetail")
 	public String selectClassDetail(int classNo, Model model, RedirectAttributes ra, HttpSession session, int epCount) {
 
-		ClassDetailRight cdtr = service.selectClassDetail(classNo);
-		//클래스 후기평점 조회
-		ClassReview crev = service.selectReviewAvg(classNo);
-		
 		
 		//클래스 찜하기 플래그
 		int memberNo = 0;
@@ -69,6 +65,11 @@ public class ClassDetailController {
 		
 		map.put("memberNo", memberNo);
 		map.put("classNo", classNo);
+		map.put("epCount", epCount);
+		
+		ClassDetailRight cdtr = service.selectClassDetail(map);
+		//클래스 후기평점 조회
+		ClassReview crev = service.selectReviewAvg(classNo);
 		
 		int heartFlag =  service.selectWishFlag(map);
 		

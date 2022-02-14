@@ -26,14 +26,15 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 
 	// 클래스 상세페이지 조회(결제박스만)
 	@Override
-	public ClassDetailRight selectClassDetail(int classNo) {
+	public ClassDetailRight selectClassDetail(Map<String, Integer> map) {
 		
-		ClassDetailRight cdtr = dao.selectClassDetail(classNo);
+		ClassDetailRight cdtr = dao.selectClassDetail(map);
 		
+		map.put("classType", cdtr.getCdt().getClassType());
 		
 		if( cdtr != null && cdtr.getCdt() != null) {
 			
-			cdtr.setEpSchedule(dao.selectEpisodeSchedule(classNo));
+			cdtr.setEpSchedule(dao.selectEpisodeSchedule(map));
 		
 		}
 		

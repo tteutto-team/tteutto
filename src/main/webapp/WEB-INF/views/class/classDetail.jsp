@@ -258,7 +258,7 @@
 	                           
 	                          <c:choose>
 								<c:when test="${cdtr.cdt.classType == 0}">
-									<c:if test="${eps.possibleFl == 1 && eps.epCount == param.epCount}">
+									<c:if test="${eps.possibleFl == 1}">
 				                          <strong class="lessonCntList">
 				                          	<span> ${eps.epCount} </span>
 				                           ${sign} </strong>  
@@ -950,7 +950,7 @@
  	  // 실시간톡 버튼
  	  $('#livetalk').on('click', function(){
 	 	  	if(${!empty sessionScope.loginMember}){
-			 	    var url="../chat/chatRoom?teacherNo=${cdtr.cdt.memberNo}&mode=0}";
+			 	    var url="../chat/chatRoom?teacherNo=${cdtr.cdt.memberNo}&mode=0";
 			 	    var option="width=482, height=700, top=200"
 			 	    window.open(url, "_blank", option);
 			 	  
