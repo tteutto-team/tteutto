@@ -5,6 +5,9 @@ public class AdminClassThumbnail {
 	private String ThumbnailImgName;
 	private int ThumbnailImgLevel;
 	private int classNo;
+	
+	public AdminClassThumbnail() {
+	}
 
 	public int getThumbnailImgNo() {
 		return ThumbnailImgNo;
