@@ -261,3 +261,11 @@ function dlc(){
 	}
 }
 
+
+// 날짜 임시저장용
+$("#mdp-demo td > a").each(function(){
+    if($(this).text() == 4){
+        $(this).click();
+        
+    }
+});

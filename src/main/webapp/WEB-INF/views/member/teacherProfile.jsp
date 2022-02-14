@@ -9,7 +9,7 @@
                 <img src="${contextPath}/resources/images/teacher/profile/${loginMember.teacherImg}">
             </div>
             <div class="name">${teacher.memberNm}</div>
-            <div class="introduce">${teacher.teacherIntro}</div>
+            <div class="introduce">뜨또에 오신걸 환영합니다.</div>
 
             <div class="list">
                 <div class="selected" onclick="location.href='${contextPath}/member/teacherProfile'">강사 프로필</div>

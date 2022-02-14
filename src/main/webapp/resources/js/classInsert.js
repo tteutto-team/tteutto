@@ -567,7 +567,34 @@ $("#minPerson").on("change keyup", function(){
 	
 	if( parseInt(min) >= parseInt(max) ){
 		$(this).val(max);
+		$("#alertPerson").html("최소인원은 최대인원을 초과할 수 없습니다!");
 	}else{
+		$("#alertPerson").html("");
 	}
 })
+
+// 1:1 그룹 클릭시
+$("#solo-class").on("click", function(){
+	$("#maxPerson").val(0);
+	$("#minPerson").val(0);
+})
+
+
+
+// 시군 임시저장
+$("#sido_code > option").each(function(){
+
+    if($(this).val() == 26){
+        $(this).prop("selected", true)
+        $("#sido_code").change();
+        
+        $("#sigoon_code > option").each(function(){
+
+            if($(this).val() == 26290){
+                $(this).prop("selected", true)
+                //$("#sigoon_code").change();
+            }
+        });
+    }
+});
 

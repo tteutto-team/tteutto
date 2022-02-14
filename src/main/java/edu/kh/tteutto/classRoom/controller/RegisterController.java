@@ -36,7 +36,7 @@ import edu.kh.tteutto.member.model.service.MemberService;
 import edu.kh.tteutto.member.model.vo.Member;
 
 @Controller
-@SessionAttributes({ "loginMember", "openClass" })
+@SessionAttributes({ "loginMember"})
 @RequestMapping(value="register/*")
 public class RegisterController {
 	
@@ -63,45 +63,53 @@ public class RegisterController {
 			
 			if(session.getAttribute("loginMember") != null) { // 로그인 되있니?
 				
-				int teacherNo = service.teacherNo(no);
-				Member loginMember = (Member)session.getAttribute("loginMember");
-				
-				if(teacherNo == loginMember.getMemberNo()) { // 로그인 멤버 - 클래스 등록된 강사 일치
+				int classUse = service.classUse(no); // 존재하는 클래스인지 
+				if(classUse > 0) {
 					
-					ClassDetail cdt = service.classSelect(no);
+					int teacherNo = service.teacherNo(no);
+					Member loginMember = (Member)session.getAttribute("loginMember");
 					
-					if(cdt.getClassStatus() == 2) { // 클래스가 승인 됐는지 확인
+					if(teacherNo == loginMember.getMemberNo()) { // 로그인 멤버 - 클래스 등록된 강사 일치
 						
+						ClassDetail cdt = service.classSelect(no);
 						
-						int epCount = service.checkEpCount(cdt.getClassNo());
-						
-						if(session.getAttribute("openClass") != null) {
-							session.removeAttribute("openClass");
-							//System.out.println("지우");
+						if(cdt.getClassStatus() == 2) { // 클래스가 승인 됐는지 확인
+							
+							
+							int epCount = service.checkEpCount(cdt.getClassNo());
+							
+							if(session.getAttribute("openClass") != null) {
+								session.removeAttribute("openClass");
+								//System.out.println("지우");
+							}
+							if(session.getAttribute("openCount") != null) {
+								session.removeAttribute("openCount");
+								//System.out.println("한지우");
+							}
+							
+							session.setAttribute("openCount", epCount);		
+							session.setAttribute("openClass", cdt);
+							
+							path = "class/classInsert2";	
+							
+						}else {
+							ra.addFlashAttribute("message", "아직 승인되지 않은 클래스입니다.");
+							path = "redirect:/";
 						}
-						if(session.getAttribute("openCount") != null) {
-							session.removeAttribute("openCount");
-							//System.out.println("한지우");
-						}
-						
-						session.setAttribute("openCount", epCount);		
-						session.setAttribute("openClass", cdt);
-						
-						path = "class/classInsert2";	
-						
+	
 					}else {
-						ra.addFlashAttribute("message", "아직 승인되지 않은 클래스입니다.");
+						ra.addFlashAttribute("message", "잘못된 접근 입니다.");
 						path = "redirect:/";
 					}
-
+			
 				}else {
-					ra.addFlashAttribute("message", "잘못된 접근 입니다.");
-					path = "redirect:/";
+					ra.addFlashAttribute("message", "로그인 후 이용해주세요.");
+					path = "member/login";
 				}
-		
+
 			}else {
-				ra.addFlashAttribute("message", "로그인 후 이용해주세요.");
-				path = "member/login";
+				ra.addFlashAttribute("message", "존재하지 않는 클래스입니다.");
+				path = "redirect:/";
 			}
 			
 			return path;
@@ -247,10 +255,12 @@ public class RegisterController {
 		// 클래스 스케쥴 등록
 		@RequestMapping(value="schedule", method=RequestMethod.POST)
 		public String insertClassSchedule(RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember,
-										  @ModelAttribute("openClass") ClassDetail openClass, HttpSession session,
+										  HttpSession session,
 										  Episode episode, EpisodeSchedule episodeSd, String roadAddrPart1, 
 										  String addrDetail ) {
-			
+			// openClass 값 가져오기			
+			ClassDetail openClass = (ClassDetail)session.getAttribute("openClass");
+			//System.out.println(openClass);
 			
 			// 주소 합치기
 			String epPlace = roadAddrPart1 + " " + addrDetail;
@@ -376,7 +386,7 @@ public class RegisterController {
 		public String summernote(@RequestParam(value="file", required=false) List<MultipartFile> file,
 								HttpSession session) {
 			
-			int classNo = (Integer)session.getAttribute("classNo");
+			//int classNo = (Integer)session.getAttribute("classNo");
 			//System.out.println(classNo);
 			//System.out.println(file);
 			/*

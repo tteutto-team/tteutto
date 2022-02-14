@@ -3,8 +3,6 @@ $(".modal-open-btn").click(function () {
     // 신고
     if($(this).hasClass("report")){
         reportReq($(this));
-        $(".report-request").fadeIn(100);
-        $(".report-request").css("display", "flex");
     }
 });
 
@@ -52,10 +50,32 @@ list.addEventListener('click', (event) => {
 
 // 신고 버튼 클릭 시
 function reportReq(btn){
-    let className = $("#class-episode-name").text();
-    let studentName = btn.parent().parent().prev().children().eq(1).text();
-    $(".detail-reason").val("");
-    $(".modal-classname-student").text(className + " / " + studentName).attr("id", btn.parent().parent().prev().children().eq(1).attr("id"));
+
+    let memberNo = btn.parent().parent().prev().children().eq(1).attr("id");
+
+    // 신고 가능 여부 조회
+    $.ajax({
+        url: contextPath + "/teacher/selectReportStudent",
+        data: {"epNo" : epNo, "memberNo" : memberNo},
+        type : "POST",
+        dataType: "JSON",
+        success: function(count){
+            if(count > 0){
+                swal({"title" : "이미 신고가 접수되었습니다.", "icon" : "error"});
+            } else{
+                $(".report-request").fadeIn(100);
+                $(".report-request").css("display", "flex");
+                let className = $("#class-episode-name").text();
+                let studentName = btn.parent().parent().prev().children().eq(1).text();
+                $(".detail-reason").val("");
+                $(".modal-classname-student").text(className + " / " + studentName).attr("id", btn.parent().parent().prev().children().eq(1).attr("id"));
+            }
+        }
+        
+    })
+
+
+
 }
 
 function reportSubmit(){
@@ -76,7 +96,7 @@ function reportSubmit(){
                 if(result > 0){
                     $(".modal").fadeOut(100);
                     swal({"title" : "신고가 접수되었습니다.", "icon" : "success"});
-
+                    
                 } else{
                     swal({
                         title: "신고에 문제가 생겼습니다.",

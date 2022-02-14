@@ -112,5 +112,23 @@ public interface TeacherService {
 	 * @return episode
 	 */
 	Episode selectClass(int epNo);
+
+	/** 학생 신고 여부 조회
+	 * @param map
+	 * @return count
+	 */
+	int selectReportStudent(Map<String, String> map);
+
+	/** 에피소드 번호의 강사 번호 조회
+	 * @param epNo
+	 * @return epNoMember
+	 */
+	int selectEpisodeMemberNo(int epNo);
+
+	/** 에피소드 진행 상태 조회(진행중 / 교육 예정)
+	 * @param epNo
+	 * @return epNoMember
+	 */
+	String selectEpisodeState(int epNo);
 	
 }

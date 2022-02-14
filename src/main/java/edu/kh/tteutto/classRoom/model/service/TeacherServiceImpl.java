@@ -124,4 +124,22 @@ public class TeacherServiceImpl implements TeacherService{
 		return dao.selectClass(epNo);
 	}
 	
+	// 신고 횟수 조회
+	@Override
+	public int selectReportStudent(Map<String, String> map) {
+		return dao.selectReportStudent(map);
+	}
+	
+	// 에피소드 번호의 강사 번호 조회
+	@Override
+	public int selectEpisodeMemberNo(int epNo) {
+		return dao.selectEpisodeMemberNo(epNo);
+	}
+	
+	// 에피소드 진행 상태 조회(진행중 / 교육 예정)
+	@Override
+	public String selectEpisodeState(int epNo) {
+		return dao.selectEpisodeState(epNo);
+	}
+	
 }

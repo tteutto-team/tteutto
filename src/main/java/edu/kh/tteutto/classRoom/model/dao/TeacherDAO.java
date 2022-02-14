@@ -121,6 +121,21 @@ public class TeacherDAO {
 	public Episode selectClass(int epNo) {
 		return sqlSession.selectOne("classMapper.selectClass", epNo);
 	}
+
+	// 신고 횟수 조회
+	public int selectReportStudent(Map<String, String> map) {
+		return sqlSession.selectOne("classMapper.selectReportStudent", map);
+	}
+
+	// 에피소드 번호의 강사 번호 조회
+	public int selectEpisodeMemberNo(int epNo) {
+		return sqlSession.selectOne("classMapper.selectEpisodeMemberNo", epNo);
+	}
+
+	// 에피소드 진행 상태 조회(진행중 / 교육 예정)
+	public String selectEpisodeState(int epNo) {
+		return sqlSession.selectOne("classMapper.selectEpisodeState", epNo);
+	}
 	
 
 }
