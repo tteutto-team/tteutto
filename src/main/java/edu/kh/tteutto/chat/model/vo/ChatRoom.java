@@ -19,6 +19,7 @@ public class ChatRoom {
 	
 	private int mode; // 수강생, 강사 모드 구분 (0: 수강생, 1: 강사)
 	
+	private int msgSt; // 메세지 읽음 상태 (0:안읽음, 1:읽음)
 	
 	
 	public ChatRoom() {
@@ -182,6 +183,20 @@ public class ChatRoom {
 	}
 
 
+	
+	
+
+	public int getMsgSt() {
+		return msgSt;
+	}
+
+
+
+	public void setMsgSt(int msgSt) {
+		this.msgSt = msgSt;
+	}
+
+
 
 	@Override
 	public String toString() {
@@ -189,8 +204,11 @@ public class ChatRoom {
 				+ ", chatTeacherSt=" + chatTeacherSt + ", memberNo=" + memberNo + ", teacherNo=" + teacherNo
 				+ ", memberNm=" + memberNm + ", teacherNm=" + teacherNm + ", memberImg=" + memberImg
 				+ ", recentChatContent=" + recentChatContent + ", recentMsgDt=" + recentMsgDt + ", classNo=" + classNo
-				+ ", mode=" + mode + "]";
+				+ ", mode=" + mode + ", msgSt=" + msgSt + "]";
 	}
+
+
+
 
 
 

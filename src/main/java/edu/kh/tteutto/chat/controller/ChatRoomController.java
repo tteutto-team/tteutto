@@ -106,11 +106,13 @@ public class ChatRoomController {
             map1.put("memberNo", memberNo);
             
             map = service.openChatRoom2(map1);
+            System.out.println(map);
             model.addAttribute("teacherInfo", map); // 학생 정보 조회
          }
          
       }
       
+      System.out.println(chatRoomNo2);
       model.addAttribute("chatRoomNo", chatRoomNo2);
       model.addAttribute("teacherNo", teacherNo);
       model.addAttribute("studentNo", studentNo);
