@@ -48,7 +48,7 @@
    
    
    <!-- 학생 채팅방 목록조회 -->
-   <!-- <select id="studentChatRoomList" resultMap="chatRoom_rm">
+   <select id="studentChatRoomList" resultMap="chatRoom_rm">
       SELECT CHAT_ROOM_NO, MEMBER_NM, TEACHER_IMG MEMBER_IMG,
               RECENT_CHAT_CONTENT(C.CHAT_ROOM_NO) RECENT_CHAT_CONTENT, 
               TO_CHAR(RECENT_MSG_DT(C.CHAT_ROOM_NO), 'MM"월"DD"일" HH24:MI') RECENT_MSG_DT
@@ -57,18 +57,8 @@
       JOIN TEACHER T ON(C.TEACHER_NO = T.MEMBER_NO)
       WHERE C.MEMBER_NO = #{memberNo}
       ORDER BY RECENT_MSG_DT DESC
-   </select> -->
-   <select id="studentChatRoomList" resultMap="chatRoom_rm">
-       SELECT DISTINCT c.CHAT_ROOM_NO, MEMBER_NM, TEACHER_IMG MEMBER_IMG,
-              RECENT_CHAT_CONTENT(C.CHAT_ROOM_NO) RECENT_CHAT_CONTENT, 
-              TO_CHAR(RECENT_MSG_DT(C.CHAT_ROOM_NO), 'MM"월"DD"일" HH24:MI') RECENT_MSG_DT, m.MSG_ST
-      FROM CHAT_ROOM C
-      JOIN MEMBER M ON(C.TEACHER_NO = M.MEMBER_NO)
-      JOIN TEACHER T ON(C.TEACHER_NO = T.MEMBER_NO)
-      inner join chat_message m on(c.chat_room_no = m.chat_room_no)
-      WHERE C.MEMBER_NO = #{memberNo}
-      ORDER BY RECENT_MSG_DT DESC
-   </select>
+   </select> 
+
    
    <!-- 강사 채팅방 목록조회 -->
    <select id="teacherChatRoomList" resultMap="chatRoom_rm">
