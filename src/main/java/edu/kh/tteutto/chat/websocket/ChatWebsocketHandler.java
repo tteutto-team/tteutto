@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.socket.CloseStatus;
@@ -48,18 +50,39 @@ public class ChatWebsocketHandler extends TextWebSocketHandler{
 		// 전송된 데이터확인
 		//System.out.println("전달 받은 내용 : " + message.getPayloadLength());
 		
+		int result = 0;
 		ObjectMapper objectMapper = new ObjectMapper();
 		ChatMessage cm = objectMapper.readValue(message.getPayload(), ChatMessage.class);
 		
 		System.out.println("변경된 cm : " + cm);
 		
-		if(cm.getChatRoomNo() == 0) {
+		if(cm.getTeacherNo() > 0 || cm.getStudentNo() > 0) {
+			int count = service.countChatRoomNo2(cm);
+			
+			if(count > 0) {
+				cm.setChatRoomNo(service.selectChatRoomNo2(cm));
+			}
+			
+		}
+		
+		if(cm.getChatRoomNo() <= 0) {
 			service.insertChatRoom(cm);
 		}
 		System.out.println("확인 후 cm : " + cm);
 		
-		// 채팅 내용 DB에 저장 
-		int result = service.insertMessage(cm);
+		// 채팅 내용 DB에 저장
+		
+		if(cm.getMode() >= 0) {
+			int number = service.selectOtherMember(cm);
+			
+			if(cm.getMode() == 0) {
+				cm.setTeacherNo(number);
+			}else{
+				cm.setStudentNo(number);
+			}
+		}
+		System.out.println("asdfasdf : " + cm);
+		result = service.insertMessage(cm);
 		
 		// 채팅방 생성내용 DB에 삽입... 컨트롤러에서? 웹소켓에서..?... (chatRoomController 에 joinChatRoom)
 		// 여기서 채팅방 생성내용을 DB에 삽입해야하는데 --- INSERT INTO CHAT_ROOM VALUSE (#{chatRoomNo}, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, (SELECT MEMBER_NO FROM CLASS WHERE CLASS_NO=#{teacherNo}))

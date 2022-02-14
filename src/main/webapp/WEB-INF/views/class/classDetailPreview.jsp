@@ -239,10 +239,10 @@
                 <img id="mainImage" class="classMainImage" src="${contextPath}/resources/images/class-detail/temp3.jpg" id="mainImg" style="float:left; width:85%;">
                 <div id="sideImage" class="sideImg">
                     <img class="sideImgStyle" src="${contextPath}/resources/images/class-detail/temp3.jpg" id="sideImg1">
-                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/temp6.jpg" id="sideImg2">
-                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/temp5.jpg" id="sideImg3">
-                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/temp7.jpg" id="sideImg4">
-                    <img class="sideImgStyle blind" src="${contextPath}/resources/images/class-detail/temp8.jpg"id="sideImg5">
+                    <img class="sideImgStyle blind" src="" id="sideImg2" style="display:none;">
+                    <img class="sideImgStyle blind" src="" id="sideImg3" style="display:none;">
+                    <img class="sideImgStyle blind" src="" id="sideImg4" style="display:none;">
+                    <img class="sideImgStyle blind" src="" id="sideImg5" style="display:none;">
                 </div> 
 
             </div>
@@ -652,21 +652,48 @@
     
     <script>
 	
+    
     // 부모창에서 팝업창으로 데이터 가져오기
     //앞은 자식꺼 // 뒤는 부모꺼
     $('#summernote').html(opener.document.getElementById('summernote').value);
     $('#className').html(opener.document.getElementById('titleArea').value);
     $('#maxPerson').html(opener.document.getElementById('maxPerson').value);
     $('#classLevel').html(opener.$('input[name="classLevel"]:checked').val());
+	
+    window.onload = function(){
+		if($("#maxPerson").html() == '0'){
+			$("#maxPerson").parent().html("1:1수업");
+		}else{
+		};
+	}
+    
+    
+	//이미지 바꾸기
+	$(".sideImgStyle").on("click", function(e){
+		const src = e.target.src;
+		$(".sideImgStyle").addClass("blind");
+		e.target.classList.remove("blind");
+		$("#mainImage").attr("src", src);
+	});
+    
+    
+	// 부모창에서 등록한 이미지 불러오기d
+	$("#mainImage").attr("src", opener.document.getElementById("mini-img").childNodes[1].childNodes[1].src);
+	$("#sideImg1").attr("src", opener.document.getElementById("mini-img").childNodes[1].childNodes[1].src);
+	$("#sideImg2").attr("src", opener.document.getElementById("mini-img").childNodes[2].childNodes[1].src);
+	$("#sideImg2").removeAttr("style");
+	$("#sideImg3").attr("src", opener.document.getElementById("mini-img").childNodes[3].childNodes[1].src);
+	$("#sideImg3").removeAttr("style");
+	$("#sideImg4").attr("src", opener.document.getElementById("mini-img").childNodes[4].childNodes[1].src);
+	$("#sideImg4").removeAttr("style");
+	$("#sideImg5").attr("src", opener.document.getElementById("mini-img").childNodes[5].childNodes[1].src);
+	$("#sideImg5").removeAttr("style");
 
-	// 부모창에서 등록한 이미지 불러오기
-	$("#mainImage").attr("src", opener.document.getElementById("mini-img").childNodes[1].childNodes[0].src);
-	$("#sideImg1").attr("src", opener.document.getElementById("mini-img").childNodes[1].childNodes[0].src);
-	$("#sideImg2").attr("src", opener.document.getElementById("mini-img").childNodes[2].childNodes[0].src);
-	$("#sideImg3").attr("src", opener.document.getElementById("mini-img").childNodes[3].childNodes[0].src);
-	$("#sideImg4").attr("src", opener.document.getElementById("mini-img").childNodes[4].childNodes[0].src);
-	$("#sideImg5").attr("src", opener.document.getElementById("mini-img").childNodes[5].childNodes[0].src);
+	//
+	
 
+
+	
     // 구매하기 모달창
     $(document).ready(function(){
 

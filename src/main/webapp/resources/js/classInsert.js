@@ -290,14 +290,6 @@ function sendFile(file, editor) {
   }
 
 
-// 이미지 저장
-function summer(){
-	
-	
-	
-}
-
-
 
 
 
@@ -354,24 +346,37 @@ $("#img-plus-btn").on("click", function(){
 	//$("[type=file]").eq(index).click();
 	// 타입이 file인 요소 중 몇번째 인덱스 요소를 선택하여 클릭해라
 	//document.getElementById("why").setAttribute("src", "hhhhh");
-	console.log($("#img-file-box > input:last-child"));
+	//console.log($("#img-file-box > input:last-child"));
+	//console.log(index);
+	$("#img-file-box > input:last-child").val("");
 	$("#img-file-box > input:last-child").click();
 })
 
 // 썸네일 이미지 바꾸기
 function loadImg(input, num){
+	//console.log(input.files);
+	//console.log(input.files[0]);
+	
 	//console.log(input);
 	if(index == 0){
 		$("#mini-img").css("height", "150px");
 	}
+	
+
 
 	if (input.files && input.files[0]) {
 		
 		// div, img와 클릭이벤트 추가
 		const dv = $("<div>");
+		const dv2 = $("<div>");
 		const im = $("<img>");
+		dv2.addClass("deleteImg");
+		dv2.append("❌");
+		$(dv).append(dv2);
+		
 		dv.append(im);
 		dv.addClass("mini-img-box");
+
 		$("#mini-img").append(dv);
 		
 		$(dv).on("click", function(){
@@ -379,21 +384,53 @@ function loadImg(input, num){
 			$("#img-insert").children("img").attr("src", src);
 		})
 		
+		$(dv2).on("click", function(e){
+			e.stopPropagation(); 
+			
+			const tumnailImg = $("#why").attr("src");
+			const thisImg = e.target.nextSibling.src;
+			//console.log("지금이미지" + thisImg);
+			//console.log("섬네일" + tumnailImg);
+			//console.log(e.target.parentNode.parentNode.childNodes[1].childNodes[1].src);
+			
+			if(tumnailImg == thisImg){
+				if(e.target.parentNode.parentNode.childNodes[1].childNodes[1].src.length > 0){
+					$("#why").attr("src", e.target.parentNode.parentNode.childNodes[1].childNodes[1].src);
+				}
+			}
+			
+			index = index - 1;
+			if(index == 0){
+				checkImage = false;
+				$("input[name=images]").val("");
+				$("#mini-img").css("height", "17px");
+				$("#why").attr("src", "https://cdn.epnc.co.kr/news/photo/202107/212199_212130_3942.jpg");
+			}
+		
+			
+			$("#img-file-box > input:last-child").remove();
+			e.target.parentNode.remove();
+			
+		})
+		
 		/*$("#mini-img").append('<div id="m'+index+'" class="mini-img-box"><img><div>');*/
 		var reader = new FileReader();
 		reader.readAsDataURL(input.files[0]);
 		reader.onload = function(e) {
 		$("#img-insert").children("img").attr("src", e.target.result);
-		$("#mini-img").children("div").eq(num).children("img").attr("src", e.target.result);
+		//$("#mini-img").children("div").eq(num).children("img").attr("src", e.target.result);
+		$("#mini-img > div:last-child > img").attr("src", e.target.result);
 		//document.getElementById("why").setAttribute("src", e.target.result);
 		index = index + 1;
-		
+
 		// input 추가
 		$("#img-file-box").append('<input type="file" name="images" onchange="loadImg(this,'+index+')">');
 		
 		checkImage = true;
 
 		}
+	}else{
+		//console.log("응~");
 	}
 
 	
@@ -405,8 +442,10 @@ $("#img-del-btn").on("click", function(){
 	if(index == 0){
 		
 	}else{
-		document.querySelector("#mini-img > div::last-child").remove();
-		document.querySelector("#img-file-box > input::last-child").remove();
+		$("#mini-img > div:last-child").remove();
+		$("#img-file-box > input:last-child").remove();
+		let pre = $("#mini-img > div:last-child > img").attr("src");
+		$("#img-insert").children("img").attr("src", pre);
 		index = index - 1;
 		if(index == 0){
 			checkImage = false;

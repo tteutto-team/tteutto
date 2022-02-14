@@ -1,188 +1,231 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="chatMapper">
-	
-	<!-- 채팅방 VO -->
-	<resultMap type="ChatRoom" id="chatRoom_rm">
-		<id property="chatRoomNo" column="CHAT_ROOM_NO"/>
-		
-		<result property="chatRoomSt" column="CHAT_ROOM_ST"/>
-		<result property="chatMemberSt" column="CHAT_MEMBER_ST"/>
-		<result property="chatTeacherSt" column="CHAT_TEACHER_ST"/>
-		<result property="memberNo" column="MEMBER_NO"/>
-		<result property="teacherNo" column="TEACHER_NO"/>
-		<result property="memberNm" column="MEMBER_NM"/>
-		<result property="memberImg" column="MEMBER_IMG"/>
-		<result property="recentChatContent" column="RECENT_CHAT_CONTENT"/>
-		<result property="recentMsgDt" column="RECENT_MSG_DT"/>
+   
+   <!-- 채팅방 VO -->
+   <resultMap type="ChatRoom" id="chatRoom_rm">
+      <id property="chatRoomNo" column="CHAT_ROOM_NO"/>
+      
+      <result property="chatRoomSt" column="CHAT_ROOM_ST"/>
+      <result property="chatMemberSt" column="CHAT_MEMBER_ST"/>
+      <result property="chatTeacherSt" column="CHAT_TEACHER_ST"/>
+      <result property="memberNo" column="MEMBER_NO"/>
+      <result property="teacherNo" column="TEACHER_NO"/>
+      <result property="memberNm" column="MEMBER_NM"/>
+      <result property="memberImg" column="MEMBER_IMG"/>
+      <result property="recentChatContent" column="RECENT_CHAT_CONTENT"/>
+      <result property="recentMsgDt" column="RECENT_MSG_DT"/>
 
-		<result property="classNo" column="CLASS_NO"/>
-		<result property="mode" column="MODE"/>
-		<result property="teacherNm" column="TEACHER_NM"/>
-	</resultMap>
-	
-	<!-- 채팅메세지 VO -->
-	<resultMap type="ChatMessage" id="chatMessage_rm">
-		<id property="msgNo" column="MSG_NO"/>
-		
-		<result property="msgContent" column="MSG_CONTENT"/>
-		<result property="msgDt" column="MSG_DT"/>
-		<result property="msgSt" column="MSG_ST"/>
-		<result property="chatRoomNo" column="CHAT_ROOM_NO"/>
-		<result property="memberNo" column="MEMBER_NO"/>
-		<result property="memberNm" column="MEMBER_NM"/>
-		<result property="teacherNm" column="TEACHER_NM"/>
-	</resultMap>
-	
-	<!-- 쪽지 VO -->
-	<resultMap type="ChatNote" id="chatNote_rm">
-		<id property="noteNo" column="NOTE_NO"/>
-		
-		<result property="noteContent" column="NOTE_CONTENT"/>
-		<result property="noteStatus" column="NOTE_ST"/>
-		<result property="memberNo" column="MEMBER_NO"/>
-	</resultMap>
-	
-	
-	
-	<!-- 학생 채팅방 목록조회 -->
-	<select id="studentChatRoomList" resultMap="chatRoom_rm">
-		SELECT CHAT_ROOM_NO, MEMBER_NM, TEACHER_IMG MEMBER_IMG,
-		        RECENT_CHAT_CONTENT(C.CHAT_ROOM_NO) RECENT_CHAT_CONTENT, 
-		        TO_CHAR(RECENT_MSG_DT(C.CHAT_ROOM_NO), 'MM"월"DD"일" HH24:MI') RECENT_MSG_DT
-		FROM CHAT_ROOM C
-		JOIN MEMBER M ON(C.TEACHER_NO = M.MEMBER_NO)
-		JOIN TEACHER T ON(C.TEACHER_NO = T.MEMBER_NO)
-		WHERE C.MEMBER_NO = #{memberNo}
-	</select>
-	
-	<!-- 강사 채팅방 목록조회 -->
-	<select id="teacherChatRoomList" resultMap="chatRoom_rm">
-		SELECT CHAT_ROOM_NO, MEMBER_NM, MEMBER_IMG, 
-		        RECENT_CHAT_CONTENT(C.CHAT_ROOM_NO) RECENT_CHAT_CONTENT, 
-		        TO_CHAR(RECENT_MSG_DT(C.CHAT_ROOM_NO), 'MM"월"DD"일" HH24:MI') RECENT_MSG_DT
-		FROM CHAT_ROOM C
-		JOIN MEMBER M ON(C.MEMBER_NO = M.MEMBER_NO)
-		WHERE TEACHER_NO = #{memberNo}
-	</select>
-	
-	<!-- 채팅방 열기 -->
-	<!-- useGeneratedKeys, <selectKey> 사용 -->
-	<!-- <insert id="openChatRoom" useGeneratedKeys="true">
-		<selectKey order="BEFORE" resultType="_int" keyProperty="chatRoomNo">
-			SELECT CHAT_ROOM_NO.NEXTVAL FROM DUAL
-		</selectKey>
-		
-		INSERT INTO CHAT_ROOM VALUSE
-		(#{chatRoomNo}, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, (SELECT MEMBER_NO FROM CLASS WHERE CLASS_NO=#{classNo}))
-	</insert> -->
-	
-	
-	<!-- 채팅방 존재 여부 확인 -->
-	<select id="existsChatRoom" resultType="_int">
-		SELECT COUNT(*) FROM CHAT_ROOM
-		WHERE CHAT_ROOM_NO = #{chatRoomNo}
-		AND CHAT_ROOM_ST = 0
-	</select>
-	
-	<!-- 채팅방 입장 --> 
-<!-- 	<insert id="joinChatRoom">
-		INSERT INTO CHAT_ROOM VALUES(SEQ_CHAT_ROOM_NO.NEXTVAL, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{teacherNo})
-	</insert> -->
-	
-	<!-- 채팅 메세지 조회  -->
-	<select id="selectChatMessage" resultMap="chatMessage_rm">
-		SELECT MSG_CONTENT, TO_CHAR(MSG_DT, 'YYYY-MM-DD HH24:MI') MSG_DT,
-				MEMBER_NO, MEMBER_NM, 
-				(SELECT MEMBER_NM FROM CHAT_ROOM JOIN MEMBER ON(TEACHER_NO = MEMBER.MEMBER_NO) WHERE CHAT_ROOM_NO =  #{chatRoomNo}) TEACHER_NM
-		FROM CHAT_MESSAGE
-		JOIN MEMBER USING(MEMBER_NO)
-		WHERE CHAT_ROOM_NO = #{chatRoomNo}
-		ORDER BY MSG_NO
-	</select>
-	
-	
-	<!-- 이미 같은 강사, 학생이 들어가있는 채팅방 번호를 조회 (없으면 0) -->
-	<select id="selectChatRoomNo" resultType="map">
-		SELECT MEMBER.MEMBER_NO, MEMBER_NM,
-		    NVL((SELECT CHAT_ROOM_NO FROM CHAT_ROOM
-		        JOIN MEMBER ON(TEACHER_NO = MEMBER.MEMBER_NO)
-		        JOIN CLASS ON(CLASS.MEMBER_NO = TEACHER_NO)
-		        WHERE CLASS_NO = ${classNo}
-		        AND CHAT_ROOM.MEMBER_NO = ${memberNo} AND CHAT_ROOM_ST != 1 ), 0) CHAT_ROOM_NO
-		FROM CLASS
-		JOIN MEMBER ON(CLASS.MEMBER_NO = MEMBER.MEMBER_NO)
-		WHERE CLASS_NO = ${classNo}
-		
-	</select>
-	
-	<!-- 이미 같은 강사, 학생이 들어가있는 채팅방 번호를 조회 (없으면 0) -->
-	<select id="selectChatRoomNo2" resultType="map">
-	    SELECT MEMBER.MEMBER_NO, MEMBER_NM,
-        NVL( ( SELECT CHAT_ROOM_NO 
-            FROM CHAT_ROOM
-            WHERE MEMBER_NO = ${teacherNo}
-            AND TEACHER_NO = ${studentNo} AND CHAT_ROOM_ST != 1 ), 0) CHAT_ROOM_NO
-	    FROM MEMBER
-	    JOIN REGISTER ON(REGISTER.MEMBER_NO = MEMBER.MEMBER_NO)
-	    JOIN EPISODE ON(EPISODE.EP_NO = REGISTER.EP_NO)
-	    JOIN CLASS ON(CLASS.CLASS_NO = EPISODE.CLASS_NO)
-	    WHERE REGISTER.MEMBER_NO = ${studentNo} AND CLASS.CLASS_NO = ${classNo}
-	</select>
-	
-	
-	<!-- 채팅 내용 삽입 -->
-	<insert id="insertMessage">
-		INSERT INTO CHAT_MESSAGE VALUES (SEQ_MSG_NO.NEXTVAL, #{msgContent}, DEFAULT, DEFAULT, #{chatRoomNo}, #{memberNo}, #{otherMemberNo})
-	</insert>
-	
-	<!-- 채팅방 정보 조회 -->
-	<select id="selectChatRoom" resultMap="chatRoom_rm">
-		SELECT CHAT_ROOM_NO, M1.MEMBER_NO, M1.MEMBER_NM, TEACHER_NO, M2.MEMBER_NM TEACHER_NM 
-		FROM CHAT_ROOM CR
-		JOIN MEMBER M1 ON(CR.MEMBER_NO = M1.MEMBER_NO)
-		JOIN MEMBER M2 ON(TEACHER_NO = M2.MEMBER_NO)
-		WHERE CHAT_ROOM_NO = ${chatRoomNo}
-	</select>
-	
-	
-	<!-- 채팅방 생성 -->
-	<insert id="insertChatRoom" useGeneratedKeys="true">
-		<selectKey order="BEFORE" resultType="_int" keyProperty="chatRoomNo">
-			SELECT SEQ_CHAT_ROOM_NO.NEXTVAL FROM DUAL
-		</selectKey>
-		INSERT INTO CHAT_ROOM VALUES(#{chatRoomNo}, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{otherMemberNo})
-	</insert>
-	
-	<!-- 채팅방 번호 확인 -->
-	<select id="checkChatRoomNo" resultType="_int">
-		SELECT NVL(MIN(CHAT_ROOM_NO), 0) CHAT_ROOM_NO FROM CHAT_ROOM
-		WHERE MEMBER_NO = #{memberNo} AND TEACHER_NO = #{otherMemberNo}
-	</select>
-	
-	<!-- 쪽지 조회 -->
-	<select id="selectMessageList" resultMap="chatNote_rm">
-		SELECT NOTE_CONTENT, NOTE_ST, MEMBER_NO FROM NOTE
-		WHERE MEMBER_NO = #{memberNo}
-	</select>
-	
-	<!-- 채팅알림 -->
-	<select id="sendAlarm" resultType="_int">
-		SELECT COUNT(*) FROM CHAT_MESSAGE WHERE OTHER_MEMBER_NO = #{otherMemberNo} AND MSG_ST = 0
-	</select>
-	
-	<!-- 채팅 알림2 -->
-	<select id="sendAlarm2" resultType="_int">
-		SELECT COUNT(*) FROM NOTE WHERE MEMBER_NO = #{otherMemberNo} AND NOTE_ST = 0
-	</select>
-	
-	<!-- 채팅 알람 삭제 -->
-	<update id="clearChatAlarm">
-		UPDATE CHAT_MESSAGE SET MSG_ST = 1 WHERE OTHER_MEMBER_NO = #{memberNo}
-	</update>
-	
-	<!-- 쪽지 알람 삭제 -->
-	<update id="clearNoteAlarm">
-		UPDATE NOTE SET NOTE_ST = 1 WHERE MEMBER_NO = #{memberNo}
-	</update>
+      <result property="classNo" column="CLASS_NO"/>
+      <result property="mode" column="MODE"/>
+      <result property="teacherNm" column="TEACHER_NM"/>
+   </resultMap>
+   
+   <!-- 채팅메세지 VO -->
+   <resultMap type="ChatMessage" id="chatMessage_rm">
+      <id property="msgNo" column="MSG_NO"/>
+      
+      <result property="msgContent" column="MSG_CONTENT"/>
+      <result property="msgDt" column="MSG_DT"/>
+      <result property="msgSt" column="MSG_ST"/>
+      <result property="chatRoomNo" column="CHAT_ROOM_NO"/>
+      <result property="memberNo" column="MEMBER_NO"/>
+      <result property="memberNm" column="MEMBER_NM"/>
+      <result property="teacherNm" column="TEACHER_NM"/>
+      <result property="studentNo" column="STUDENT_NO"/>
+      <result property="teacherNo" column="TEACHER_NO"/>
+   </resultMap>
+   
+   <!-- 쪽지 VO -->
+   <resultMap type="ChatNote" id="chatNote_rm">
+      <id property="noteNo" column="NOTE_NO"/>
+      
+      <result property="noteContent" column="NOTE_CONTENT"/>
+      <result property="noteStatus" column="NOTE_ST"/>
+      <result property="memberNo" column="MEMBER_NO"/>
+   </resultMap>
+   
+   
+   
+   <!-- 학생 채팅방 목록조회 -->
+   <select id="studentChatRoomList" resultMap="chatRoom_rm">
+      SELECT CHAT_ROOM_NO, MEMBER_NM, TEACHER_IMG MEMBER_IMG,
+              RECENT_CHAT_CONTENT(C.CHAT_ROOM_NO) RECENT_CHAT_CONTENT, 
+              TO_CHAR(RECENT_MSG_DT(C.CHAT_ROOM_NO), 'MM"월"DD"일" HH24:MI') RECENT_MSG_DT
+      FROM CHAT_ROOM C
+      JOIN MEMBER M ON(C.TEACHER_NO = M.MEMBER_NO)
+      JOIN TEACHER T ON(C.TEACHER_NO = T.MEMBER_NO)
+      WHERE C.MEMBER_NO = #{memberNo}
+   </select>
+   
+   <!-- 강사 채팅방 목록조회 -->
+   <select id="teacherChatRoomList" resultMap="chatRoom_rm">
+      SELECT CHAT_ROOM_NO, MEMBER_NM, MEMBER_IMG, 
+              RECENT_CHAT_CONTENT(C.CHAT_ROOM_NO) RECENT_CHAT_CONTENT, 
+              TO_CHAR(RECENT_MSG_DT(C.CHAT_ROOM_NO), 'MM"월"DD"일" HH24:MI') RECENT_MSG_DT
+      FROM CHAT_ROOM C
+      JOIN MEMBER M ON(C.MEMBER_NO = M.MEMBER_NO)
+      WHERE TEACHER_NO = #{memberNo}
+   </select>
+   
+   <!-- 채팅방 열기 -->
+   <!-- useGeneratedKeys, <selectKey> 사용 -->
+   <!-- <insert id="openChatRoom" useGeneratedKeys="true">
+      <selectKey order="BEFORE" resultType="_int" keyProperty="chatRoomNo">
+         SELECT CHAT_ROOM_NO.NEXTVAL FROM DUAL
+      </selectKey>
+      
+      INSERT INTO CHAT_ROOM VALUSE
+      (#{chatRoomNo}, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, (SELECT MEMBER_NO FROM CLASS WHERE CLASS_NO=#{classNo}))
+   </insert> -->
+   
+   
+   <!-- 채팅방 존재 여부 확인 -->
+   <select id="existsChatRoom" resultType="_int">
+      SELECT COUNT(*) FROM CHAT_ROOM
+      WHERE CHAT_ROOM_NO = #{chatRoomNo}
+      AND CHAT_ROOM_ST = 0
+   </select>
+   
+   <!-- 채팅방 입장 --> 
+<!--    <insert id="joinChatRoom">
+      INSERT INTO CHAT_ROOM VALUES(SEQ_CHAT_ROOM_NO.NEXTVAL, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{teacherNo})
+   </insert> -->
+   
+   <!-- 채팅 메세지 조회  -->
+   <select id="selectChatMessage" resultMap="chatMessage_rm">
+      SELECT MSG_CONTENT, TO_CHAR(MSG_DT, 'YYYY-MM-DD HH24:MI') MSG_DT,
+            MEMBER_NO, MEMBER_NM, 
+            (SELECT MEMBER_NM FROM CHAT_ROOM JOIN MEMBER ON(TEACHER_NO = MEMBER.MEMBER_NO) WHERE CHAT_ROOM_NO =  #{chatRoomNo}) TEACHER_NM
+      FROM CHAT_MESSAGE
+      JOIN MEMBER USING(MEMBER_NO)
+      WHERE CHAT_ROOM_NO = #{chatRoomNo}
+      ORDER BY MSG_NO
+   </select>
+   
+   
+   <!-- 이미 같은 강사, 학생이 들어가있는 채팅방 번호를 조회 (없으면 0) -->
+   <select id="selectChatRoomNo" resultType="map">
+      SELECT MEMBER.MEMBER_NO, MEMBER_NM,
+          NVL((SELECT CHAT_ROOM_NO FROM CHAT_ROOM
+              JOIN MEMBER ON(TEACHER_NO = MEMBER.MEMBER_NO)
+              JOIN CLASS ON(CLASS.MEMBER_NO = TEACHER_NO)
+              WHERE CLASS_NO = ${classNo}
+              AND CHAT_ROOM.MEMBER_NO = ${memberNo} AND CHAT_ROOM_ST != 1 ), 0) CHAT_ROOM_NO
+      FROM CLASS
+      JOIN MEMBER ON(CLASS.MEMBER_NO = MEMBER.MEMBER_NO)
+      WHERE CLASS_NO = ${classNo}
+      
+   </select>
+   
+   <!-- 이미 같은 강사, 학생이 들어가있는 채팅방 번호를 조회 (없으면 0) -->
+   <select id="selectChatRoomNo2" resultType="map">
+       SELECT MEMBER_NM FROM MEMBER
+       <if test="studentNo > 0">
+       WHERE MEMBER_NO = ${studentNo}
+       </if>
+       <if test="teacherNo > 0">
+       WHERE MEMBER_NO = ${teacherNo}
+       </if>
+   </select>
+   
+   
+   <!-- 채팅 내용 삽입 -->
+   <insert id="insertMessage">
+      <if test="studentNo > 0">
+         INSERT INTO CHAT_MESSAGE VALUES (SEQ_MSG_NO.NEXTVAL, #{msgContent}, DEFAULT, DEFAULT, #{chatRoomNo}, #{memberNo}, #{studentNo})
+      </if>
+      <if test="teacherNo > 0">
+         INSERT INTO CHAT_MESSAGE VALUES (SEQ_MSG_NO.NEXTVAL, #{msgContent}, DEFAULT, DEFAULT, #{chatRoomNo}, #{memberNo}, #{teacherNo})
+      </if>
+      <!-- <if test="studentNo > 0 and teacherNo > 0">
+         INSERT INTO CHAT_MESSAGE VALUES (SEQ_MSG_NO.NEXTVAL, #{msgContent}, DEFAULT, DEFAULT, #{chatRoomNo}, #{memberNo}, #{teacherNo})
+      </if> -->
+         
+   </insert>
+   
+   <!-- 채팅방 정보 조회 -->
+   <select id="selectChatRoom" resultMap="chatRoom_rm">
+      SELECT CHAT_ROOM_NO, M1.MEMBER_NO, M1.MEMBER_NM, TEACHER_NO, M2.MEMBER_NM TEACHER_NM 
+      FROM CHAT_ROOM CR
+      JOIN MEMBER M1 ON(CR.MEMBER_NO = M1.MEMBER_NO)
+      JOIN MEMBER M2 ON(TEACHER_NO = M2.MEMBER_NO)
+      WHERE CHAT_ROOM_NO = ${chatRoomNo}
+   </select>
+   
+   
+   <!-- 채팅방 생성 -->
+   <insert id="insertChatRoom" useGeneratedKeys="true">
+      <selectKey order="BEFORE" resultType="_int" keyProperty="chatRoomNo">
+         SELECT SEQ_CHAT_ROOM_NO.NEXTVAL FROM DUAL
+      </selectKey>
+      <if test="studentNo > 0">
+         INSERT INTO CHAT_ROOM VALUES(#{chatRoomNo}, DEFAULT, DEFAULT, DEFAULT, #{studentNo}, #{memberNo})
+      </if>
+      <if test="teacherNo > 0">
+         INSERT INTO CHAT_ROOM VALUES(#{chatRoomNo}, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{teacherNo})
+      </if>
+   </insert>
+   
+   <!-- 채팅방 번호 확인 -->
+   <select id="checkChatRoomNo" resultType="_int">
+      SELECT NVL(MIN(CHAT_ROOM_NO), 0) CHAT_ROOM_NO FROM CHAT_ROOM
+      WHERE MEMBER_NO = #{memberNo} AND TEACHER_NO = #{otherMemberNo}
+   </select>
+   
+   <!-- 쪽지 조회 -->
+   <select id="selectMessageList" resultMap="chatNote_rm">
+      SELECT NOTE_CONTENT, NOTE_ST, MEMBER_NO FROM NOTE
+      WHERE MEMBER_NO = #{memberNo}
+   </select>
+   
+   <!-- 채팅알림 -->
+   <select id="sendAlarm" resultType="_int">
+      SELECT COUNT(*) FROM CHAT_MESSAGE WHERE OTHER_MEMBER_NO = #{otherMemberNo} AND MSG_ST = 0
+   </select>
+   
+   <!-- 채팅 알림2 -->
+   <select id="sendAlarm2" resultType="_int">
+      SELECT COUNT(*) FROM NOTE WHERE MEMBER_NO = #{otherMemberNo} AND NOTE_ST = 0
+   </select>
+   
+   <!-- 채팅 알람 삭제 -->
+   <update id="clearChatAlarm">
+      UPDATE CHAT_MESSAGE SET MSG_ST = 1 WHERE OTHER_MEMBER_NO = #{memberNo}
+   </update>
+   
+   <!-- 쪽지 알람 삭제 -->
+   <update id="clearNoteAlarm">
+      UPDATE NOTE SET NOTE_ST = 1 WHERE MEMBER_NO = #{memberNo}
+   </update>
+   
+   <select id="selectChatRoomNo3" resultType="_int">
+      SELECT CHAT_ROOM_NO FROM CHAT_ROOM
+      <if test="studentNo > 0">
+         WHERE MEMBER_NO = #{studentNo} AND TEACHER_NO = #{memberNo}
+      </if>
+      <if test="teacherNo > 0">
+         WHERE TEACHER_NO = #{teacherNo} AND MEMBER_NO = #{memberNo}
+      </if>
+   </select>
+   
+   <select id="countChatRoomNo" resultType="_int">
+      SELECT COUNT(*) FROM CHAT_ROOM
+      <if test="studentNo > 0">
+         WHERE MEMBER_NO = #{studentNo} AND TEACHER_NO = #{memberNo}
+      </if>
+      <if test="teacherNo > 0">
+         WHERE TEACHER_NO = #{teacherNo} AND MEMBER_NO = #{memberNo}
+      </if>
+   </select>
+   
+   <select id="selectOtherMember" resultType="_int">
+      <if test="mode == 0">
+         SELECT TEACHER_NO FROM CHAT_ROOM WHERE CHAT_ROOM_NO = #{chatRoomNo} AND MEMBER_NO = #{memberNo}
+      </if>
+      <if test="mode == 1">
+         SELECT MEMBER_NO STUDENT_NO FROM CHAT_ROOM WHERE CHAT_ROOM_NO = #{chatRoomNo} AND TEACHER_NO = #{memberNo}
+      </if>
+   </select>
+   
 </mapper>
