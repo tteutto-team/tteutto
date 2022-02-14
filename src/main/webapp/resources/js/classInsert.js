@@ -324,7 +324,8 @@ $("#titleArea").on("input focus change", function(){
 $("#sido_code").on("change", function(){
 	
 	const st = $("#sido_code option:checked").text();
-	
+	const si = $("#sido_code option:selected").val();
+	$("#sidoVal").val(si);
     $('#classArea1').val(st);
     //console.log($('#classArea1').val());
 })
@@ -333,7 +334,8 @@ $("#sido_code").on("change", function(){
 $("#sigoon_code").on("change", function(){
 	
 	const st = $("#sigoon_code option:checked").text();
-	
+	const si = $("#sigoon_code option:selected").val();
+	$("#sigoonVal").val(si);
     $('#classArea2').val(st);
     //console.log($('#classArea2').val());
 })
@@ -582,19 +584,44 @@ $("#solo-class").on("click", function(){
 
 
 // 시군 임시저장
-$("#sido_code > option").each(function(){
+ window.onload = function(){
+	$("#sido_code > option").each(function(){	
+	const sv = $("#sidoVal").val();
+	const sgv = $("#sigoonVal").val(); 
 
-    if($(this).val() == 26){
+	// val에 저장된 값을 가져와서 넣어주면 된다
+    if($(this).val() == sv){
         $(this).prop("selected", true)
         $("#sido_code").change();
         
         $("#sigoon_code > option").each(function(){
-
-            if($(this).val() == 26290){
-                $(this).prop("selected", true)
+			setTimeout(function(){
+				//if($("#sigoon_code").val() == sgv){
+				$("#sigoon_code").val(sgv);	
+                $("#sigoon_code").prop("selected", true);
                 //$("#sigoon_code").change();
-            }
+            //}
+				
+		}, 200);
+
+            
         });
     }
-});
+	});
+	
+	
+	// 임시저장 카테고리
+	$("#ct1").val(ctNo);
+	$("#ct1").change();
+	setTimeout(function(){
+		$("#ct2").val(ctdNo);
+		$("#ct2").change();
+	}, 200);
+  
+}
 
+
+
+// 이미지를 서버에 그냥 무지성으로 저장하고
+// file에 넣고 개수만큼 div를 만들고 img src를 변경하게
+// 하면 완성?

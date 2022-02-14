@@ -13,6 +13,7 @@ public class ClassRegister {
 	private int regStatus; // 수강신청상태
 	
 	private int epNo; //회차번호
+	private int epCount; //회차카운트
 	
 	private String memberNm; // 강사명
 	private int classNo; // 클래스번호
@@ -31,6 +32,20 @@ public class ClassRegister {
 	
 	
 	
+
+	public int getEpCount() {
+		return epCount;
+	}
+
+
+
+
+	public void setEpCount(int epCount) {
+		this.epCount = epCount;
+	}
+
+
+
 
 	public String getEpSt() {
 		return epSt;
@@ -198,11 +213,12 @@ public class ClassRegister {
 	@Override
 	public String toString() {
 		return "ClassRegister [regNo=" + regNo + ", regNm=" + regNm + ", regPhoneNo=" + regPhoneNo + ", payDt=" + payDt
-				+ ", payStauts=" + payStauts + ", regStatus=" + regStatus + ", epNo=" + epNo + ", memberNm=" + memberNm
-				+ ", classNo=" + classNo + ", className=" + className + ", classStatus=" + classStatus
-				+ ", scheduleDate=" + scheduleDate + ", refundStatus=" + refundStatus + ", refundMoney=" + refundMoney
-				+ ", memberNo=" + memberNo + ", dtTerm=" + dtTerm + "]";
+				+ ", payStauts=" + payStauts + ", regStatus=" + regStatus + ", epNo=" + epNo + ", epCount=" + epCount
+				+ ", memberNm=" + memberNm + ", classNo=" + classNo + ", className=" + className + ", classStatus="
+				+ classStatus + ", scheduleDate=" + scheduleDate + ", refundStatus=" + refundStatus + ", refundMoney="
+				+ refundMoney + ", memberNo=" + memberNo + ", dtTerm=" + dtTerm + ", epSt=" + epSt + "]";
 	}
+
 
 
 

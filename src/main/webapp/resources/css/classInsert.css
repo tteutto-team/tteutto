@@ -472,7 +472,11 @@ h4{
 }
 
 
-
+.note-editable > ul{
+	margin: inherit;
+	padding: inherit;
+	list-style-type: disc;
+}
 
 
 
