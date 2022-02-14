@@ -30,11 +30,16 @@
         
         let epNo = $(this).parent().parent().attr("id").split("_")[1];
 
+        console.log(epNo);
+
         if($(this).hasClass("0")){  // 진행중인 클래스
-            sendPost(contextPath+"/teacher/studentListOngoing", "epNo", epNo);
+            location.href = contextPath + "/teacher/studentListOngoing?epNo="+epNo;
+            
+            // sendPost(contextPath+"/teacher/studentListOngoing", "epNo", epNo);
             
         } else{ // 진행 예정 클래스
-            sendPost(contextPath+"/teacher/studentListExpect", "epNo", epNo);
+            location.href = contextPath + "/teacher/studentListExpect?epNo="+epNo;
+            // sendPost(contextPath+"/teacher/studentListExpect", "epNo", epNo);
         }
     }
 
@@ -123,7 +128,7 @@ $(".existing-class-select").on("click", function(){
     for(let name of liList){
         if($(name).text().trim() == select){
             let id = $(name).attr("id");
-            location.href = contextPath + "/register/schedule/"+id;
+            location.href = contextPath + "/register/schedule?no="+id;
         }
     }
 
@@ -299,7 +304,6 @@ function calculate(epNo, el){
             if(result > 0){
 
                 let div = $(el).parent();
-                $(el).remove();
                 div.append("<div class='column'>요청 완료</div>");
 
                 swal("정산 신청이 되었습니다.", {

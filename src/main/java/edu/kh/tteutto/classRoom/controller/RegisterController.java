@@ -55,8 +55,8 @@ public class RegisterController {
 		}
 		
 		// 클래스 스케쥴 등록 페이지 이동
-		@RequestMapping(value="schedule/{no}", method=RequestMethod.GET)
-		public String classRegisterSchedule(HttpSession session, @PathVariable (value = "no", required = false) int no,
+		@RequestMapping(value="schedule", method=RequestMethod.GET)
+		public String classRegisterSchedule(HttpSession session, @RequestParam(value = "no", required = false) int no,
 											RedirectAttributes ra) {
 			
 			String path = "";
@@ -80,12 +80,17 @@ public class RegisterController {
 							
 							if(session.getAttribute("openClass") != null) {
 								session.removeAttribute("openClass");
-								//System.out.println("지우");
+//								System.out.println("지우");
+								
 							}
 							if(session.getAttribute("openCount") != null) {
 								session.removeAttribute("openCount");
-								//System.out.println("한지우");
+//								System.out.println("한지우");
+								
 							}
+							
+							
+							System.out.println("이동: " + loginMember.getMemberNo());
 							
 							session.setAttribute("openCount", epCount);		
 							session.setAttribute("openClass", cdt);
@@ -125,12 +130,14 @@ public class RegisterController {
 		
 		// 클래스 등록
 		@RequestMapping(value="class", method=RequestMethod.POST)
-		public String classInsert(RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember,
+		public String classInsert(RedirectAttributes ra,
 								  ClassDetail cdt, String classArea1, String classArea2,
 								  @RequestParam(value="images", required=false) List<MultipartFile> images, 
 								  HttpSession session, @RequestParam(value="introImgName", required=false, defaultValue="null") String introImgName 
 								  ){
 
+			Member loginMember = (Member)session.getAttribute("loginMember");
+			
 			// 소개 이미지 받아오기
 			String[] intro = introImgName.split(",");
 			
@@ -256,10 +263,11 @@ public class RegisterController {
 		
 		// 클래스 스케쥴 등록
 		@RequestMapping(value="schedule", method=RequestMethod.POST)
-		public String insertClassSchedule(RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember,
+		public String insertClassSchedule(RedirectAttributes ra,
 										  HttpSession session,
 										  Episode episode, EpisodeSchedule episodeSd, String roadAddrPart1, 
 										  String addrDetail ) {
+			
 			// openClass 값 가져오기			
 			ClassDetail openClass = (ClassDetail)session.getAttribute("openClass");
 			//System.out.println(openClass);
@@ -373,6 +381,9 @@ public class RegisterController {
 				Util.swalSetMessage("클래스 스케쥴 등록 완료", null, "success", ra);	
 				session.removeAttribute("openClass");
 				session.removeAttribute("openCount");
+				
+				System.out.println(session.getAttribute("loginMember"));
+				
 			}else {
 				Util.swalSetMessage("클래스 스케줄 등록 실패", "관리자에게 문의해주세요", "error", ra);
 				session.removeAttribute("openClass");
