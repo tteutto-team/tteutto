@@ -376,7 +376,7 @@ public class RegisterController {
 		public String summernote(@RequestParam(value="file", required=false) List<MultipartFile> file,
 								HttpSession session) {
 			
-			int classNo = (Integer)session.getAttribute("classNo");
+			//int classNo = (Integer)session.getAttribute("classNo");
 			//System.out.println(classNo);
 			//System.out.println(file);
 			/*
