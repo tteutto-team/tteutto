@@ -56,7 +56,7 @@
                 </div>
                 <!-- http://115.90.212.22:8080
                 	http://kh-aclass.xyz:8080 -->
-                <div class="linkCopy" onclick="copy('http://localhost:8080/${contextPath}/class/classDetail?classNo=${cdtr.cdt.classNo}&epNo=${param.epNo}');">
+                <div class="linkCopy" onclick="copy('http://localhost:8080/${contextPath}/class/classDetail?classNo=${cdtr.cdt.classNo}&epNo=${param.epCount}');">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M14 8a1 1 0 011-1h3a5 5 0 110 10h-3a1 1 0 110-2h3a3 3 0 100-6h-3a1 1 0 01-1-1zm-4 8a1 1 0 01-1 1H6A5 5 0 116 7h3a1 1 0 110 2H6a3 3 0 100 6h3a1 1 0 011 1zm-3-4a1 1 0 011-1h8a1 1 0 110 2H8a1 1 0 01-1-1z" fill="#1B1C1D"></path>
                     </svg>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="buyClassName flexStyle2">
                         <p class="buyClassTitle">
-                            [<span id="buyEp">${cdtr.ep.epCount}회차</span>] ${cdtr.cdt.className}
+                            [<span id="buyEp">${param.epCount}회차</span>] ${cdtr.cdt.className}
                         </p> 
                         <span>${cdtr.member.memberNm} 강사</span> 
                        	<span style="display:none" id="epNoSpan">${cdtr.epSchedule[0].epNo}</span>
@@ -156,7 +156,7 @@
                                 <strong id="naviClassName">[
                                 <c:choose>
                                 	<c:when test="${cdtr.cdt.classType == 1}">
-	                                	<span>${cdtr.ep.epCount}회차</span>
+	                                	<span>${param.epCount}회차</span>
                                 	</c:when>
 									<c:otherwise>
 										<span>원데이</span>
