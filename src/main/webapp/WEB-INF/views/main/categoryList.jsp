@@ -6,28 +6,101 @@
 <jsp:include page="../common/header.jsp" />
 
 <link rel="stylesheet" href="${contextPath}/resources/css/studentWishList.css" />
+<link rel="stylesheet" href="${contextPath}/resources/css/classList.css"/>
 <!-- icon -->
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 <link href="${contextPath}/resources/icon/css/uicons-regular-rounded.css" rel="stylesheet">
 
 <div class="container">
         <main>
-            <jsp:include page="../common/studentMypageSidebar.jsp"></jsp:include>
+            <jsp:include page="categorySidebar.jsp"></jsp:include>
 
             <div class="right">
-                <div class="title">
-                    <p><span>${sessionScope.loginMember.memberNm}</span> 님의 찜한 클래스</p>
+                <div class="title classList">
+ 					<%-- 옵션 선택 --%>
+					<form action="" method="get" name="optionForm">
+						<div class="price">
+							<div class="price-chk">
+		                    	<input type="checkbox" name="price" value="1" id="price1">
+		                    	<label for="price1"></label>
+		                    	<label for="price1" class="label prevent-dragging">1만 원 미만</label>
+							</div>
+							
+							<div class="price-chk">
+		                    	<input type="checkbox" name="price" value="2" id="price2">
+		                    	<label for="price2"></label>
+				            	<label for="price2" class="label prevent-dragging">1만 원 ~ 3만 원</label>
+							</div>
+							
+							<div class="price-chk">
+		                    	<input type="checkbox" name="price" value="3" id="price3">
+		                    	<label for="price3"></label>
+				            	<label for="price3" class="label prevent-dragging">3만 원 ~ 5만 원</label>
+							</div>
+							
+							<div class="price-chk">
+		                    	<input type="checkbox" name="price" value="4" id="price4">
+		                    	<label for="price4"></label>
+				            	<label for="price4" class="label prevent-dragging">5만 원 ~ 10만 원</label>
+							</div>
+							
+							<div class="price-chk">
+					            <input type="checkbox" name="price" value="5" id="price5">
+					            <label for="price5"></label>
+					            <label for="price5" class="label prevent-dragging">10만 원 초과</label>
+							</div>
+	                    </div>
+						
+						<div class="select">
+				            <!-- 브이월드 행정구역도를 이용한 셀렉트 박스 구현... 공간정보를 기반으로 하고 있어서 국가공간정보포털보다 느림 -->
+	                        <article class="cont-select">
+	                        	<select id="sido_code" name="area1" class="select-style btn-select" style="appearance:none; font-size:15px; font-family: 'IBM Plex Sans KR', sans-serif;">
+	                            	<option class="list-member">선택</option>
+	                        	</select>
+	                        </article>
+	                        
+	                        <article class="cont-select">	
+	                        	<select id="sigoon_code" name="area2" class="select-style btn-select" style="appearance:none; font-size:15px; font-family: 'IBM Plex Sans KR', sans-serif;">
+	                            	<option class="list-member">선택</option>
+	                        	</select>
+	                        </article>
+	                        
+				            <article class="cont-select">
+				                <input type="hidden" name="classType">
+				                <button class="btn-select" type="button">수업 형태</button>
+				                <ul class="list-member">
+				                    <li><button type="button">전체</button></li>
+				                    <li><button type="button">원데이</button></li>
+				                    <li><button type="button">정규</button></li>
+				                </ul>
+				            </article>
+				            
+				            <%-- 인기, 신규 클래스 목록일 때 정렬 조건 미노출 --%>
+				            <c:if test="${type != 'hot' && type != 'new'}">
+					            <article class="cont-select">
+					                <input type="hidden" name="classSort">
+					                <button class="btn-select" type="button">정렬</button>
+					                <ul class="list-member">
+					                    <li><button type="button">인기순</button></li>
+					                    <li><button type="button">별점 높은 순</button></li>
+					                    <li><button type="button">찜 많은 순</button></li>
+					                    <li><button type="button">후기 많은 순</button></li>
+					                </ul>
+					            </article>
+				            </c:if>
+						</div>
+					</form>
                 </div>
 
                 <div class="list-wrap">
             		
-            		<c:forEach items="${wishList}" var="classList">
+            		<c:forEach items="${classList}" var="classList">
             			<%-- 클래스 카드 --%>
 	                    <div class="class">
 	                        <div class="image">
 	                        	<%-- 클래스 이미지 --%>
 	                            <img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-	                            onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeCount}'">
+	                            onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeNo}'">
 	                            
 	                            <%-- 수업 등록 지역 --%>
 	                            <p class="location-p">${classList.classArea}</p>
@@ -56,7 +129,7 @@
 								<div class="class-name">
 									<c:choose>
 										<c:when test="${classList.classType == 0}">[원데이] </c:when>
-										<c:otherwise>[${classList.episodeCount}회차] </c:otherwise>
+										<c:otherwise>[${classList.episodeNo}회차] </c:otherwise>
 									</c:choose>
 									${classList.className}
 								</div>
