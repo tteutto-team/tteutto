@@ -45,7 +45,6 @@
         <ul>
         	<c:forEach items="${chatNoteList}" var="noteList">
         		<li>
-	                <a href="#">
 	                    <img src="${contextPath}/resources/images/chat/messageicon.png" class="profile-img" alt="k페이프로필사진">
 	                    <div class="talk">
 	                        <p class="friend-name">뜨또</p>
@@ -55,7 +54,6 @@
 	                        <time datetime="15:40:00+09:00">오후 3:40</time> 
 	                         <span class="chat-balloon">N</sapn> 
 	                    </div> -->
-	                </a>
             	</li>
         	</c:forEach>
             <%-- <li>
