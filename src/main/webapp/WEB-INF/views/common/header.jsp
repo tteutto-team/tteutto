@@ -8,7 +8,6 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		
 		<!-- favicon -->
 		<link rel="apple-touch-icon" sizes="57x57" href="${contextPath}/resources/images/favicon/apple-icon-57x57.png">
 		<link rel="apple-touch-icon" sizes="60x60" href="${contextPath}/resources/images/favicon/apple-icon-60x60.png">
@@ -79,8 +78,7 @@
 									
 									<%-- 강사 미등록 시 강사 신청 페이지로 이동 --%>
 									<c:when test="${sessionScope.loginMember.teacherEnroll == 'N'}">
-										<li><a href="${contextPath}/member/teacherRegister" 
-										class="teacher-register">강사 신청하기</a></li>
+										<li><a href="${contextPath}/member/teacherRegister">강사 신청하기</a></li>
 									</c:when>
 									
 									<%-- 강사 등록 시 클래스 등록 페이지로 이동 --%>
@@ -151,8 +149,7 @@
 												
 												<%-- 강사 등록 시 강사 페이지 열기 --%>
 												<c:otherwise>
-													<div><a href="${contextPath}/member/teacherProfile" target="_blank" 
-													class="teacher-register">강사 페이지 열기</a></div>
+													<div><a href="${contextPath}/member/teacherProfile" target="_blank">강사 페이지 열기</a></div>
 												</c:otherwise>
 											</c:choose>
 											
@@ -210,15 +207,6 @@
 					icon.classList.add("icon-open");
 				}
 			});
-			
-			for(t of document.getElementsByClassName("teacher-register")){
-				console.log(t)
-				
-				//.addEventListener()
-				
-			}
-			
-			
 		</script>
 		
 		<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
