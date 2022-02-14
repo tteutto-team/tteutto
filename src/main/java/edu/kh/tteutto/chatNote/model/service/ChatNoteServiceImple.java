@@ -34,10 +34,19 @@ public class ChatNoteServiceImple implements ChatNoteService {
 	@Override
 	public int clearAlarm(int memberNo) {
 		
-		int result = dao.clearChatAlarm(memberNo);
+		int result = 0;
 		
-		result = dao.clearNoteAlarm(memberNo);
+		int count = dao.countChatAlarm(memberNo);
 		
+		if(count > 0) {
+			result = dao.clearChatAlarm(memberNo);
+		}
+		
+		count = dao.countNoteAlarm(memberNo);
+		
+		if(count > 0) {
+			result = dao.clearNoteAlarm(memberNo);
+		}
 		
 		return result;
 	}

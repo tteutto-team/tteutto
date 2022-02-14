@@ -52,5 +52,21 @@ public class ChatNoteDAO {
 	public int clearNoteAlarm(int memberNo) {
 		return sqlSession.update("chatMapper.clearNoteAlarm", memberNo);
 	}
+
+	/** 채팅 알림 존재 여부 조회
+	 * @param memberNo
+	 * @return
+	 */
+	public int countChatAlarm(int memberNo) {
+		return sqlSession.selectOne("chatMapper.countChatAlarm", memberNo);
+	}
+
+	/** 쪽지 알림 존재 여부 조회
+	 * @param memberNo
+	 * @return
+	 */
+	public int countNoteAlarm(int memberNo) {
+		return sqlSession.selectOne("chatMapper.countNoteAlarm", memberNo);
+	}
 	
 }
