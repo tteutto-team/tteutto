@@ -232,7 +232,7 @@ public class AdminServiceImpl implements AdminService{
 		
 		int result = dao.reportAgreeDeny(adminReport);
 		
-		if(adminReport.getReportStatus() == 2) { // 승인되었을 때 count 증가
+		if(adminReport.getReportStatus() == 1) { // 승인되었을 때 count 증가
 			adminReport.setReportCount(adminReport.getReportCount() + 1);
 			
 			if(adminReport.getReportDiv() == 1 && adminReport.getReportCount() >= 3) {

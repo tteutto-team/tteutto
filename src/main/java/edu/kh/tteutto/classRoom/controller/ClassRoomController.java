@@ -297,8 +297,8 @@ public class ClassRoomController {
 	@RequestMapping(value="ExistingClassList", method=RequestMethod.POST)
 	public String ExistingClassList(@ModelAttribute("loginMember") Member loginMember ) {
 		
-//		List<ClassDetail> classList= service.existingClassList(loginMember.getMemberNo());
-		List<ClassDetail> classList= service.existingClassList(4);
+		List<ClassDetail> classList= service.existingClassList(loginMember.getMemberNo());
+//		List<ClassDetail> classList= service.existingClassList(4);
 		
 		Gson gson = new Gson();
 		String rList = gson.toJson(classList);

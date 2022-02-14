@@ -225,4 +225,29 @@ public class ClassListContoller {
 		
 		return "main/classList";
 	}
+	
+	// 카테고리 클래스 목록
+	@RequestMapping("category")
+	public String categoryList(HttpSession session, Model model, int ctNo, 
+			@RequestParam(value="ctDetailNo", required=false, defaultValue="0") int ctDetailNo) {
+		
+		int memberNo = 0;
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		
+		if (loginMember != null)
+			memberNo = loginMember.getMemberNo();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberNo", memberNo);
+		map.put("pageKey", "category");
+		map.put("ctNo", ctNo);
+		map.put("ctDetailNo", ctDetailNo);
+		
+		List<ClassList> categoryList = null;
+		categoryList = service.selectMainList(map);
+		
+		model.addAttribute("classList", categoryList);
+		
+		return "main/categoryList";
+	}
 }

@@ -19,7 +19,7 @@ crossorigin="anonymous"/>
 <main>
 	<div class="classList">
 		<c:choose>
-			<c:when test="${empty classList}">
+			<c:when test="${empty classList && empty param.location}">
 				<%-- 검색 결과가 없을 때의 화면 --%>
 				<div class="no">
 					<div class="announce">
@@ -34,7 +34,7 @@ crossorigin="anonymous"/>
 						<div class="image">
 							<%-- 클래스 이미지 --%>
 							<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-							onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeNo}'">
+							onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeCount}'">
 							
 							<%-- 수업 등록 지역 --%>
 							<p class="location-p">${classList.classArea}</p>
@@ -185,7 +185,7 @@ crossorigin="anonymous"/>
 							<div class="image">
 								<%-- 클래스 이미지 --%>
 								<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-								onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeNo}'">
+								onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeCount}'">
 								
 								<%-- 수업 등록 지역 --%>
 								<p class="location-p">${classList.classArea}</p>
@@ -214,7 +214,7 @@ crossorigin="anonymous"/>
 								<div class="class-name">
 									<c:choose>
 										<c:when test="${classList.classType == 0}">[원데이] </c:when>
-										<c:otherwise>[${classList.episodeNo}회차] </c:otherwise>
+										<c:otherwise>[${classList.episodeCount}회차] </c:otherwise>
 									</c:choose>
 									${classList.className}
 								</div>
@@ -397,7 +397,7 @@ crossorigin="anonymous"/>
 			 		const img = $('<img>');
 			 		img.attr("src", "${contextPath}/resources/images/class-detail/" + classList.thumbnailImageName);
 			 		img.attr("onclick", "location.href='/tteutto/class/classDetail?classNo=" + classList.classNo 
-			 							+ "&epCount=" + classList.episodeNo + "'");
+			 							+ "&epCount=" + classList.episodeCount + "'");
 			 		
 			 		<%-- 수업 등록 지역 --%>
 			 		const locationP = $('<p class="location-p">').text(classList.classArea);
@@ -468,7 +468,7 @@ crossorigin="anonymous"/>
 					if (classList.classType == 0)
 						className.text("[원데이] " + classList.className);
 					else
-						className.text("["+ classList.episodeNo + "회차] " + classList.className)
+						className.text("["+ classList.episodeCount + "회차] " + classList.className)
 						
 					detailInfo.append(className);
 					

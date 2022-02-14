@@ -354,8 +354,8 @@ $("#img-plus-btn").on("click", function(){
 
 // 썸네일 이미지 바꾸기
 function loadImg(input, num){
-	console.log(input.files);
-	console.log(input.files[0]);
+	//console.log(input.files);
+	//console.log(input.files[0]);
 	
 	//console.log(input);
 	if(index == 0){
@@ -386,6 +386,28 @@ function loadImg(input, num){
 		
 		$(dv2).on("click", function(e){
 			e.stopPropagation(); 
+			
+			const tumnailImg = $("#why").attr("src");
+			const thisImg = e.target.nextSibling.src;
+			//console.log("지금이미지" + thisImg);
+			//console.log("섬네일" + tumnailImg);
+			//console.log(e.target.parentNode.parentNode.childNodes[1].childNodes[1].src);
+			
+			if(tumnailImg == thisImg){
+				if(e.target.parentNode.parentNode.childNodes[1].childNodes[1].src.length > 0){
+					$("#why").attr("src", e.target.parentNode.parentNode.childNodes[1].childNodes[1].src);
+				}
+			}
+			
+			index = index - 1;
+			if(index == 0){
+				checkImage = false;
+				$("input[name=images]").val("");
+				$("#mini-img").css("height", "17px");
+				$("#why").attr("src", "https://cdn.epnc.co.kr/news/photo/202107/212199_212130_3942.jpg");
+			}
+		
+			
 			$("#img-file-box > input:last-child").remove();
 			e.target.parentNode.remove();
 			
@@ -400,7 +422,7 @@ function loadImg(input, num){
 		$("#mini-img > div:last-child > img").attr("src", e.target.result);
 		//document.getElementById("why").setAttribute("src", e.target.result);
 		index = index + 1;
-		
+
 		// input 추가
 		$("#img-file-box").append('<input type="file" name="images" onchange="loadImg(this,'+index+')">');
 		

@@ -234,6 +234,7 @@
 		LEFT JOIN REPORT RP ON (RP.REG_NO = R.REG_NO)
 		LEFT JOIN CLASS C ON(E.CLASS_NO=C.CLASS_NO)
 		WHERE E.EP_NO = #{epNo}
+		order by STUDENT_NM
 	</select>
 	
 	<!-- 정산 신청 -->
@@ -298,6 +299,7 @@
 		select member_no, reg_nm as member_nm
 		from register
 		where reg_st != 1 and pay_st != 1 and ep_no = #{epNo}
+		order by member_nm
 	</select>
 	
 	<!-- 수강 거절 -->

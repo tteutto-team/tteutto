@@ -98,7 +98,7 @@ public class ChatWebsocketHandler extends TextWebSocketHandler{
 				System.out.println(loginMemberNo);
 				// 메세지에 있는 방번호 , 채팅방에 있으면서 같은 방번호를 갖고있는 회원의 경우
 				//if(chatRoomNo == cm.getChatRoomNo()) {
-				if(loginMemberNo == cm.getMemberNo() || loginMemberNo == cm.getOtherMemberNo() ) {
+				if(loginMemberNo == cm.getMemberNo() || loginMemberNo == cm.getStudentNo() || loginMemberNo == cm.getTeacherNo() ) {
 					
 					Map<String, Object> map = new HashMap<String, Object>();
 					
