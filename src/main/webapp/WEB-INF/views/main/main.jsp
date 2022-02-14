@@ -42,39 +42,29 @@
     <!-- 카테고리 -->
     <table class="category">
         <tr>
-            <!-- 
-            <td> <a class="category-div"><i class="fi-rr-camera"></i><p>공예/디자인</p></a></td>
-            <td> <a class="category-div"><i class="fi-rr-computer"></i><p>요리</p></a></td>
-            <td> <a class="category-div"><i class="fi-rr-cupcake"></i><p>뷰티/헬스</p></a></td>
-            <td> <a class="category-div"><i class="fi-rr-scissors"></i><p>사진/영상</p></a></td>
-            <td> <a class="category-div"><i class="fi-rr-brush"></i><p>커리어</p></a></td>
-            <td> <a class="category-div"><i class="fi-rr-flower-bouquet"></i><p>음악</p></a></td>
-             -->
-             
-            <td> <a class="category-div" style="background-image:url('${contextPath}/resources/images/main/design.png')"><p>공예/디자인</p></a></td>
-            <td> <a class="category-div" style="background-image:url('${contextPath}/resources/images/main/cooking.png')"><p>요리</p></a></td>
-            <td> <a class="category-div" style="background-image:url('${contextPath}/resources/images/main/beauty.png')"><p>뷰티/헬스</p></a></td>
-            <td> <a class="category-div" style="background-image:url('${contextPath}/resources/images/main/video.png')"><p>사진/영상</p></a></td>
-            <td> <a class="category-div" style="background-image:url('${contextPath}/resources/images/main/career.png')"><p>커리어</p></a></td>
-            <td> <a class="category-div" style="background-image:url('${contextPath}/resources/images/main/music.png')"><p>음악</p></a></td>
+            <td> <a href="${contextPath}/main/category?ctNo=1" class="category-div" style="background-image:url('${contextPath}/resources/images/main/design.png')"><p>공예/디자인</p></a></td>
+            <td> <a href="${contextPath}/main/category?ctNo=2" class="category-div" style="background-image:url('${contextPath}/resources/images/main/cooking.png')"><p>요리</p></a></td>
+            <td> <a href="${contextPath}/main/category?ctNo=3" class="category-div" style="background-image:url('${contextPath}/resources/images/main/beauty.png')"><p>뷰티/헬스</p></a></td>
+            <td> <a href="${contextPath}/main/category?ctNo=4" class="category-div" style="background-image:url('${contextPath}/resources/images/main/video.png')"><p>사진/영상</p></a></td>
+            <td> <a href="${contextPath}/main/category?ctNo=5" class="category-div" style="background-image:url('${contextPath}/resources/images/main/career.png')"><p>커리어</p></a></td>
+            <td> <a href="${contextPath}/main/category?ctNo=6" class="category-div" style="background-image:url('${contextPath}/resources/images/main/music.png')"><p>음악</p></a></td>
         </tr>
     </table>
 
     <!-- 주변 클래스 추천 -->
     <div class="hot-class">
         <div class="hot-class-top">
-            <span class="detail" onclick="location.href='main/locationClass'">
+            <span class="detail" onclick="location.href='main/locationClass?location=${locationList[0].classArea}'">
                 주변 클래스 추천<i class="fas fa-angle-right"></i>
             </span>
           
             <span class="location modal-open-btn" style="cursor: pointer;">
                 <i class=" fi-rr-marker"></i> 
-	            <p id="location">${classList.classArea}</p>
+	            <p id="location">${locationList[0].classArea}</p>
             </span>
             
             <div class="balloon animate__animated animate__bounce">여기를 누르면<br> 현재 위치로 자동 설정됩니다.</div>
         </div>
-        
         <div class="hot-class-bottom">
         	<div class="hot-class-bottom-view">
         	
@@ -87,7 +77,7 @@
 							<div class="image">
 								<%-- 클래스 이미지 --%>
 								<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeNo}'">
+									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeCount}'">
 								
 								<%-- 수업 등록 지역 --%>
 								<p class="location-p">${classList.classArea}</p>
@@ -116,7 +106,7 @@
 								<div class="class-name">
 									<c:choose>
 										<c:when test="${classList.classType == 0}">[원데이] </c:when>
-										<c:otherwise>[${classList.episodeNo}회차] </c:otherwise>
+										<c:otherwise>[${classList.episodeCount}회차] </c:otherwise>
 									</c:choose>
 									${classList.className}
 								</div>
@@ -169,7 +159,7 @@
 							<div class="image">
 								<%-- 클래스 이미지 --%>
 								<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeNo}'">
+									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeCount}'">
 								
 								<%-- 수업 등록 지역 --%>
 								<p class="location-p">${classList.classArea}</p>
@@ -198,7 +188,7 @@
 								<div class="class-name">
 									<c:choose>
 										<c:when test="${classList.classType == 0}">[원데이] </c:when>
-										<c:otherwise>[${classList.episodeNo}회차] </c:otherwise>
+										<c:otherwise>[${classList.episodeCount}회차] </c:otherwise>
 									</c:choose>
 									${classList.className}
 								</div>
@@ -250,7 +240,7 @@
 							<div class="image">
 								<%-- 클래스 이미지 --%>
 								<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeNo}'">
+									onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeCount}'">
 								
 								<%-- 수업 등록 지역 --%>
 								<p class="location-p">${classList.classArea}</p>
@@ -279,7 +269,7 @@
 								<div class="class-name">
 									<c:choose>
 										<c:when test="${classList.classType == 0}">[원데이] </c:when>
-										<c:otherwise>[${classList.episodeNo}회차] </c:otherwise>
+										<c:otherwise>[${classList.episodeCount}회차] </c:otherwise>
 									</c:choose>
 									${classList.className}
 								</div>

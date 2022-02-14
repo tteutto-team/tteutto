@@ -1,8 +1,3 @@
-$(function(){
-	$(".detail").eq(0).attr("onclick", "location.href='main/locationClass?location=서울 강남구'")
- 	$("#location").text("서울 강남구");	
-});
-
 $(".location").on("click", function(){
 	var geocoder = new kakao.maps.services.Geocoder();
 	let location ="";
@@ -34,8 +29,6 @@ $(".location").on("click", function(){
 									"location" : location},
 							dataType : "json", 
 							success : function(result) {
-								console.log(result)
-								
 								// 기존 클래스 카드 삭제
 								$('.hot-class-bottom-view:eq(0)').empty();
 		 						

@@ -25,7 +25,7 @@ crossorigin="anonymous"/>
 				<div class="image">
 					<%-- 클래스 이미지 --%>
 					<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-					onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeNo}'">
+					onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeCount}'">
 					
 					<%-- 수업 등록 지역 --%>
 					<p class="location-p">${classList.classArea}</p>
@@ -49,11 +49,20 @@ crossorigin="anonymous"/>
 	
 				<div class="detail-info">
 					<span class="category-name">${classList.categoryName}</span> <%-- 카테고리명 --%>
-					<div class="class-name">${classList.className}</div> <%-- 클래스명 --%>
+					
+					<%-- 클래스명 --%>
+					<div class="class-name">
+						<c:choose>
+							<c:when test="${classList.classType == 0}">[원데이] </c:when>
+							<c:otherwise>[${classList.episodeCount}회차] </c:otherwise>
+						</c:choose>
+						${classList.className}
+					</div>
+								
 					<div class="grade">
-	                          <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 별점 --%>
-	                          <i class="fi-rr-heart"></i> <span>${classList.heartCount}</span> <%-- 찜 개수 --%>
-	                     	</div>
+                        <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 별점 --%>
+                        <i class="fi-rr-heart"></i> <span>${classList.heartCount}</span> <%-- 찜 개수 --%>
+                   	</div>
 					
 					<div class="detail-info-bottom">
 						<img src="${contextPath}/resources/images/teacher/profile/${classList.teacherImage}"> <%-- 강사 프로필 이미지 --%>

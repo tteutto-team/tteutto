@@ -16,7 +16,7 @@ public class ClassList {
 	private String themeImage;			// 테마이미지
 	private String themeColor;			// 테마컬러
 	
-	private int episodeNo;		// 회차번호
+	private int episodeCount;	// 회차카운트
 	private double starAverage;	// 별점평균
 	private int heartCount;		// 찜개수
 	private int heartFlag;		// 찜여부
@@ -128,12 +128,12 @@ public class ClassList {
 		this.themeColor = themeColor;
 	}
 
-	public int getEpisodeNo() {
-		return episodeNo;
+	public int getEpisodeCount() {
+		return episodeCount;
 	}
 
-	public void setEpisodeNo(int episodeNo) {
-		this.episodeNo = episodeNo;
+	public void setEpisodeCount(int episodeCount) {
+		this.episodeCount = episodeCount;
 	}
 
 	public double getStarAverage() {
@@ -174,7 +174,7 @@ public class ClassList {
 				+ ", className=" + className + ", thumbnailImageName=" + thumbnailImageName + ", categoryName="
 				+ categoryName + ", teacherImage=" + teacherImage + ", memberName=" + memberName
 				+ ", categoryDetailName=" + categoryDetailName + ", memberNo=" + memberNo + ", themeNo=" + themeNo
-				+ ", themeImage=" + themeImage + ", themeColor=" + themeColor + ", episodeNo=" + episodeNo
+				+ ", themeImage=" + themeImage + ", themeColor=" + themeColor + ", episodeCount=" + episodeCount
 				+ ", starAverage=" + starAverage + ", heartCount=" + heartCount + ", heartFlag=" + heartFlag
 				+ ", episodePrice=" + episodePrice + "]";
 	}
