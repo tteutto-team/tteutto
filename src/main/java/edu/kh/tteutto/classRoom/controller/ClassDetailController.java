@@ -51,7 +51,7 @@ public class ClassDetailController {
 
 	// 클래스 상세 페이지 조회(결제박스만)
 	@RequestMapping("classDetail")
-	public String selectClassDetail(int classNo, Model model, RedirectAttributes ra, HttpSession session, int epNo) {
+	public String selectClassDetail(int classNo, Model model, RedirectAttributes ra, HttpSession session, int epCount) {
 
 		ClassDetailRight cdtr = service.selectClassDetail(classNo);
 		//클래스 후기평점 조회
@@ -182,6 +182,8 @@ public class ClassDetailController {
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		
+		int count = service.reviewCount(classNo);
+		
 		ReviewPagination pagination = service.getPagination(pageNum, classNo);
 		
 		List<ClassReview> data = service.reviewList(pagination, classNo);
@@ -191,6 +193,7 @@ public class ClassDetailController {
 		 * review.setReviewContent(Util.changeNewLine2(review.getReviewContent())); }
 		 */
 		
+		result.put("count", count);
 		result.put("data", data);
 		result.put("pagination", pagination);
 		

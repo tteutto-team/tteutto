@@ -32,6 +32,8 @@
 
 <script>
 	let noteSock = new SockJS("<c:url value='/note' />");
+	
+	const contextPath = "${contextPath}";
  
 </script>
 <script src="${contextPath}/resources/js/admin/classManage.js"></script>

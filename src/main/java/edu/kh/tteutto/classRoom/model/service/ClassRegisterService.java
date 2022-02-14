@@ -63,6 +63,12 @@ public interface ClassRegisterService {
 	 */
 	int insertClassScheduleplus(Episode episode, List<EpisodeSchedule> epsList, int epCount);
 
+	/** 존재하는 클래스인지
+	 * @param no
+	 * @return result
+	 */
+	int classUse(int no);
+
 
 
 }

@@ -16,6 +16,7 @@ function reviewList(pageNum) {
 		dataType: "JSON",
 		success: function (result) {
 			$(".review_box").empty();
+			$("#reviewCtn").html(result.count);
 			if (result.data.length > 0) {
 				for (let re of result.data) {
 					const reviewList = $("<div class='review_List'>");
@@ -98,7 +99,8 @@ function reviewList(pageNum) {
 
 				i = 0;
 			} else {
-				console.log("작성된 후기가 존재하지 않습니다.");
+				$(".review_area").css("margin", "0 20px");
+				$(".review_box").append("작성된 후기가 존재하지 않습니다.");
 
 			}
 		}

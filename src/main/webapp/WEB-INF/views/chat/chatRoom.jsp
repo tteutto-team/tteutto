@@ -132,40 +132,9 @@
                 
                 <c:if test="${empty list}">
                 
-                   <div class="item">
+                   <div class="item on">
                    
-                  <c:forEach items="${list}" var="msg">
-      
-                     <%-- message가 null인 경우 / null이 아닌 경우를 구분하기 --%>
-                     <%-- choos문 안에 다른거(주석) 넣으면 오류남 --%>
-                     <c:choose>
-                        <c:when test="${!empty msg.msgContent}">
-                           <c:set var="msgContent" value="${msg.msgContent}" />
-                        </c:when>
-                        <c:otherwise>
-                           <c:set var="msgContent"
-                              value="<b>${msg.memberNm} 님이 나가셨습니다.</b>" />
-                        </c:otherwise>
-                     </c:choose>
-      
-                     <c:if test="${msg.memberNo == loginMember.memberNo }">
-                        <div class="item mymsg">
-                           <div class="box">
-                              <p class="msg">${msgContent}</p>
-                              <span class="time">${msg.msgDt}</span>
-                           </div>
-                        </div>
-                     </c:if>
-      
-                     <c:if test="${msg.memberNo != loginMember.memberNo }">
-                        <div class="box">
-                           <div class="otherName">${msg.memberNm}</div>
-                           <p class="msg">${msgContent}</p>
-                           <span class="time">${msg.msgDt}</span>
-                        </div>
-                     </c:if>
-      
-                  </c:forEach>
+                  
    
                    </div>
                 </c:if>

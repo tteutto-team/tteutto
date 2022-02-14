@@ -147,6 +147,10 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 		return dao.report(map);
 	}
 
+	@Override
+	public int reviewCount(int classNo) {
+		return dao.getListCount(classNo);
+	}
 	
 	
 

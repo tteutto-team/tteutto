@@ -175,5 +175,11 @@ public class ClassRegisterServiceImpl implements ClassRegisterService{
 		return epNo;
 	}
 
+	// 클래스 존재하는지
+	@Override
+	public int classUse(int no) {
+		return dao.classUse(no);
+	}
+
 
 }
