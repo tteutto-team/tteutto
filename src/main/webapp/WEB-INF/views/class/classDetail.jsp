@@ -285,16 +285,20 @@
 	                        <article class="onedaySelect">
 	                            <button class="btn-select">회차를 선택해주세요.</button>
 	                            <ul class="list-date">
-	                            	<c:forEach var="eps" items="${cdtr.epSchedule}">
+	                            	<c:forEach var="eps" items="${cdtr.epSchedule}" varStatus="vs">
 	                            		<c:if test="${eps.possibleFl == 1}">
 		                                	<li>
 		                                		<button type="button">
 		                                			<span>${eps.epCount}회차</span> - <span><fmt:formatNumber value="${eps.epPrice}" groupingUsed="true" /></span>원
 		                                			<span style="display:none">${eps.schdlDt} (${eps.schdlWeek}) ${eps.schdlStartTime} ~ ${eps.schdlEndTime}</span>
 		                                			<span style="display:none">${eps.epNo}</span>
-		                                			<span> ( ${eps.registerStudentCnt} / ${cdtr.cdt.classMaxPerson} )</span>
+		                                			<span>( ${eps.registerStudentCnt} / ${cdtr.cdt.classMaxPerson} )</span>
 		                                		</button>
 	                                		</li>
+	                            		</c:if>
+	                            		
+	                            		<c:if test="${vs.first && eps.registerStudentCnt == cdtr.cdt.classMaxPerson}">
+	                            			<c:set var="soldout" value="1"/>
 	                            		</c:if>
 	                            	</c:forEach>
 	                            </ul>
@@ -352,12 +356,25 @@
                     </button>
                 </div> 
                 <div class="buyBtn" id="buyBtnId">
-                <c:if test="${cdtr.cdt.classMaxPerson == cdtr.epSchedule[0].registerStudentCnt }">
+                
+                		<c:if test="${cdtr.cdt.classType == 1}">
+                			<c:if test="${cdtr.cdt.classMaxPerson == cdtr.epSchedule[0].registerStudentCnt }">
+	                		 	<div id="registerBtn">신청마감</div>
+	                		 </c:if>
+	                		 <c:if test="${cdtr.cdt.classMaxPerson != cdtr.epSchedule[0].registerStudentCnt }">
+                				<div id="registerBtn">신청하기</div>
+                			</c:if> 
+                		</c:if>
+                		<c:if test="${cdtr.cdt.classType == 0}">
+                			<div id="registerBtn">신청하기</div>
+                		</c:if>
+               
+                <%-- <c:if test="${cdtr.cdt.classMaxPerson == cdtr.epSchedule[0].registerStudentCnt }">
 		                    <div id="registerBtn">신청마감</div>
                 </c:if>
                 <c:if test="${cdtr.cdt.classMaxPerson != cdtr.epSchedule[0].registerStudentCnt }">
                 			<div id="registerBtn">신청하기</div>
-                </c:if>
+                </c:if> --%>
 		                    <!-- <div><span>남은 시간 : </span>2022-02-12 10:00 </div> -->
                 </div>
 

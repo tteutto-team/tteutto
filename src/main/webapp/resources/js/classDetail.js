@@ -29,14 +29,49 @@ for (let j = 0; j < list.length; j++) {
            document.getElementById("buyClassDate").innerText = event.target.childNodes[5].innerText;
            document.getElementById("epNoSpan").innerText = event.target.childNodes[7].innerText;
            
+           
            // 신청하기 버튼
-           if(event.target.childNodes[9].innerText < classMaxPerson  ){
+           if(event.target.childNodes[9].innerText.split(/[()/]/g)[1].trim() < classMaxPerson){
+//           if(event.target.childNodes[9].innerText < classMaxPerson  ){
 				console.log(event.target.childNodes[9].innerText);
+				console.log(event.target.childNodes[9].innerText.split(/[()/]/g)[1].trim());
+				
+				$("#registerBtn").text("신청하기");
+				$("#registerBtn").parent().css("background-color", "#FFDF3E");
+				
+				$("#buyBtnId").on("click", function(){
+					if(loginMemberNo != ''){
+        	
+		        		if($(".btn-select").text() == '회차를 선택해주세요.'){
+		        			swal({'icon' : 'info',
+					       		  'title' : '회차 선택 후 신청해주세요.'
+					       		  });
+		        		}else{
+		        			
+		        			// 해당클래스의 강사번호와 로그인번호가 같을 경우
+		        			// 본인 클래스이므로 신청 못함
+		        			if(teacherNo == loginMemberNo){
+		        				swal({'icon' : 'info',
+		        		       		  'title' : '본인이 개설한 클래스는 신청할 수 없습니다.'
+		        		       		  });
+		        			}else{
+		        				
+			          		  $(".buyModal").fadeIn();
+		        			}
+		        		
+		        		 
+		        		}
+		        	}else{
+		        		alert("로그인 후 진행해주세요.");
+		        		$(location).attr("href", contextPath + "/member/login");
+		        	}
 					
 					
+				});
 	
 			}else{
 				$("#registerBtn").text("신청마감");
+				$("#registerBtn").parent().css("background-color", "#ff5f3f");
 				$("#buyBtnId").off("click");
 				
 			}
