@@ -214,7 +214,7 @@
                         </div>
                     </div>
                     <textarea id="summernote" name="classIntro" required>
-                    	<%--
+                    	
                     	<p style="font-size:20px; font-weight: 500; color: #bbb;">📝소개 EX)</p>
                     	
                     	<p style="font-size:25px; font-weight: 600;">간단한 클래스 소개</p>
@@ -235,8 +235,8 @@
                     		<li>UX디자인 분석/휴리스틱 분석에 대한 학습이 필요하신분</li>
                     		<li>스타트업을 시작하기 위해 반응형 APP Design이 필요한 분</li>
                     	</ul>
-                    	--%>
-                    	 ${sessionScope.tempClass.classIntro}
+                    
+                    	<%--  ${sessionScope.tempClass.classIntro} --%>
                     </textarea>
                 </div>
             </div>
@@ -267,6 +267,11 @@
                 <button id="submit_btn" class="btn-click" style="background-color: #FFDF3E;">승인요청</button>
             </div>
             <div id="summerImg"></div>
+            <c:if test="${!empty sidoVal}"><input type="hidden" id="sidoVal" name="sidoVal" value="${sidoVal}"/>;</c:if> 
+            <c:if test="${!empty sigoonVal}"><input type="hidden" id="sigoonVal" name="sigoonVal" value="${sigoonVal}"/>;</c:if> 
+            <c:if test="${empty sidoVal}"><input type="hidden" id="sidoVal" name="sidoVal"/>;</c:if> 
+            <c:if test="${empty sigoonVal}"><input type="hidden" id="sigoonVal" name="sigoonVal"/>;</c:if> 
+            
         </div>
         </form>
 
@@ -285,6 +290,8 @@
     <script>
     	const contextPath = "${contextPath}";
     	const classNo = "${classNo}";
+    	const ctNo = "${tempClass.categoryNo}";
+    	const ctdNo = "${tempClass.categoryDetailNo}";
     </script>
 </body>
 </html>

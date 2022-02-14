@@ -59,7 +59,7 @@
 		                    <c:forEach items="${register}" var="rg">
 			                    <div class="row">
 			                        <div class="column">${rg.regNo}</div>
-			                        <div class="column"><a href="${contextPath}/class/classDetail?classNo=${rg.classNo}&epNo=${rg.epNo}">${rg.className}</a></div>
+			                        <div class="column"><a href="${contextPath}/class/classDetail?classNo=${rg.classNo}&epCount=${rg.epCount}">${rg.className}</a></div>
 			                        <div class="column">${rg.epSt}</div>
 			                        <div class="column">${rg.dtTerm}</div>
 			                        <div class="column">
@@ -414,7 +414,7 @@
                 type : "POST",               
                 success : function(result){
                 	
-						let chatUrl = '${contextPath}/chat/chatRoom?classNo='+classNo;
+						let chatUrl = '${contextPath}/chat/chatRoom?teacherNo='+teacherNo+'&mode=0';
 	                	window.open(chatUrl, '_blank', 'width=482, height=700, top=200');
 						
 					

@@ -423,10 +423,12 @@ public class MemberController {
 	
 	// 비밀번호 변경
 	@RequestMapping(value="changePw2", method=RequestMethod.POST)
-	public String changePw2(@ModelAttribute("loginMember") Member loginMember ,Member member, RedirectAttributes ra) {
+	public String changePw2(HttpSession session, Member member, RedirectAttributes ra) {
 		
 		//System.out.println("loginMember: " + loginMember);
 		//System.out.println("loginMember: " + loginMember.getMemberNo());
+		
+		Member loginMember = (Member)session.getAttribute("loginMember");
 		
 		member.setMemberNo(loginMember.getMemberNo());
 		
@@ -461,7 +463,9 @@ public class MemberController {
 	// 학생 마이페이지 클래스 목록 이동
 		@RequestMapping(value = "studentClassList", method = RequestMethod.GET)
 		public String studentClassList(@RequestParam(value="cp", required=false, defaultValue="1") int cp,
-									   @ModelAttribute("loginMember") Member loginMember, Model model) {
+				HttpSession session, Model model) {
+			
+			Member loginMember = (Member)session.getAttribute("loginMember");
 			
 			int memberNo = loginMember.getMemberNo();
 			
@@ -483,8 +487,10 @@ public class MemberController {
 		// 학생 마이페이지 후기 목록 이동
 		@RequestMapping(value = "studentCommentList", method = RequestMethod.GET)
 		public String studentCommentList(@RequestParam(value="cp", required=false, defaultValue="1") int cp,
-				   						 @ModelAttribute("loginMember") Member loginMember,
-				   						 Model model) {
+				HttpSession session, Model model) {
+			
+			Member loginMember = (Member)session.getAttribute("loginMember");
+			
 			Pagination pagination = null;
 			List<ClassReview> review = null;
 			
@@ -503,9 +509,10 @@ public class MemberController {
 
 		// 찜한 클래스
 		@RequestMapping("studentWishList")
-		public String studentWishList(Model model, 
-				@ModelAttribute("loginMember") Member loginMember, 
+		public String studentWishList(Model model, HttpSession session,
 				@RequestParam(value="page", required=false, defaultValue="1") int page) {
+			
+			Member loginMember = (Member)session.getAttribute("loginMember");
 			
 			int memberNo = loginMember.getMemberNo();
 			
@@ -545,7 +552,9 @@ public class MemberController {
 
 	// 학생 프로필 페이지 이동
 	@RequestMapping(value = "studentProfile", method = RequestMethod.GET)
-	public String studentProfile(@ModelAttribute("loginMember") Member loginMember, Model model) {
+	public String studentProfile(HttpSession session, Model model) {
+		
+		Member loginMember = (Member)session.getAttribute("loginMember");
 		
 //		System.out.println("로그인 한 회원정보 : "+ loginMember.getMemberImg());
 		
@@ -560,9 +569,11 @@ public class MemberController {
 	
 	// 학생 프로필 수정
 	@RequestMapping(value = "studentProfileUpdate", method = RequestMethod.POST)
-	public String studentProfileUpdate(@ModelAttribute("loginMember") Member loginMember, String name, String phone,
+	public String studentProfileUpdate(String name, String phone,
 										HttpSession session, RedirectAttributes ra, Model model, 
 										@RequestParam(value="profileImg", required=false, defaultValue="0") MultipartFile image/*업로드 파일*/) {
+		
+		Member loginMember = (Member)session.getAttribute("loginMember");
 		
 		Member member = new Member();
 		member.setMemberNo(loginMember.getMemberNo());
@@ -602,7 +613,9 @@ public class MemberController {
 	
 	// 회원 탈퇴
 	@RequestMapping(value = "resign", method = RequestMethod.GET)
-	public String memberResign( @ModelAttribute("loginMember") Member loginMember, RedirectAttributes ra, SessionStatus status) {
+	public String memberResign( HttpSession session, RedirectAttributes ra, SessionStatus status) {
+		
+		Member loginMember = (Member)session.getAttribute("loginMember");
 		
 		int memberNo = loginMember.getMemberNo();
 
@@ -627,8 +640,10 @@ public class MemberController {
 
 	// 강사 프로필 페이지 이동
 	@RequestMapping(value = "teacherProfile", method = RequestMethod.GET)
-	public String teacherProfile(@ModelAttribute("loginMember") Member loginMember, Model model) {
+	public String teacherProfile(HttpSession session, Model model) {
 
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		
 		int memberNo = loginMember.getMemberNo();
 //		int memberNo = 3;
 
@@ -648,7 +663,7 @@ public class MemberController {
 		String teacherBirth = birthArray[0] + "년 " + birthArray[1] + "월 " + birthArray[2] + "일 ";
 		
 		teacher.setMemberBirth(teacherBirth);
-		
+		teacher.setTeacherIntro(Util.changeNewLine2(teacher.getTeacherIntro()));
 		
 		List<Integer> snsDivList = new ArrayList<Integer>();
 		snsDivList.add(1);
@@ -686,13 +701,14 @@ public class MemberController {
 	
 	// 강사 프로필 업데이트
 	@RequestMapping(value = "teacherProfileUpdate", method = RequestMethod.POST)
-	public String teacherProfileUpdate( @ModelAttribute("loginMember") Member loginMember,
-										String phone, String introduce, 
+	public String teacherProfileUpdate( String phone, String introduce, 
 										@RequestParam(value="teacherImage", required=false, defaultValue="0") MultipartFile teacherImage,
 										@RequestParam(value = "profileInput", required=false, defaultValue="0") List<String> profileInput,
 										String instagram, String blog, String youtube, HttpSession session,
 										@RequestParam(value="profileImg", required=false, defaultValue="0") List<MultipartFile> images/*업로드 파일*/,
 										RedirectAttributes ra) {
+		
+		Member loginMember = (Member)session.getAttribute("loginMember");
 		
 		int memberNo = loginMember.getMemberNo();
 //		int memberNo = 3;
@@ -824,9 +840,11 @@ public class MemberController {
 	
 	// 강사 신청
 	@RequestMapping(value = "teacherRegister", method=RequestMethod.POST)
-	public String teacherRegisterInsert(RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember, 
+	public String teacherRegisterInsert(RedirectAttributes ra,
 										Teacher teacher, String instagram, String blog, String youtube, String careerContent,
 										MultipartFile image, List<MultipartFile> images, HttpSession session) {
+		
+		Member loginMember = (Member)session.getAttribute("loginMember");
 		
 		// 로그인 맴버 가져오기
 		teacher.setMemberNo(loginMember.getMemberNo());
@@ -925,8 +943,9 @@ public class MemberController {
 	// 학생 - 강사 채팅방 생성
 	@RequestMapping("insertChatRoom")
 	@ResponseBody()
-	public int insertChatRoom(@ModelAttribute("loginMember") Member loginMember, int teacherNo) {
+	public int insertChatRoom(HttpSession session, int teacherNo) {
 		
+		Member loginMember = (Member)session.getAttribute("loginMember");
 		
 		ChatRoom chatRoom = new ChatRoom();
 		chatRoom.setMemberNo(loginMember.getMemberNo());

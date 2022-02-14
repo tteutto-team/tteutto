@@ -208,13 +208,15 @@ public class RegisterController {
 		@RequestMapping("save")
 		public String classSave(HttpSession session, RedirectAttributes ra,
 								String classArea1, String classArea2, ClassDetail cdt, 
-								HttpServletRequest req, HttpServletResponse resp, String marketing) {
+								HttpServletRequest req, HttpServletResponse resp, String marketing,
+								int sidoVal, int sigoonVal) {
 			String area = classArea1 + " " + classArea2;
 			cdt.setClassArea(area);
 			
 			session.setAttribute("mark", marketing);
 			session.setAttribute("tempClass", cdt);
-			
+			session.setAttribute("sidoVal", sidoVal);
+			session.setAttribute("sigoonVal", sigoonVal);
 			
 			ra.addFlashAttribute("message", "임시저장이 완료되었습니다.");
 			

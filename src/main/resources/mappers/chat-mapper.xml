@@ -241,4 +241,12 @@
       </if>
    </select>
    
+   <select id="countChatAlarm" resultType="_int">
+   		SELECT COUNT(*) FROM CHAT_MESSAGE WHERE OTHER_MEMBER_NO = #{memberNo}
+   </select>
+   
+   <select id="countNoteAlarm" resultType="_int">
+   		SELECT COUNT(*) FROM NOTE WHERE MEMBER_NO = #{memberNo}
+   </select>
+   
 </mapper>
