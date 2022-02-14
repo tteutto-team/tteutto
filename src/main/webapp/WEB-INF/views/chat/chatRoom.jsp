@@ -261,6 +261,7 @@
    <c:if test="${!empty param.mode}">
       <script type="text/javascript">
          mode = "${param.mode}";
+         console.log("${param.mode}");
       </script>
    </c:if>
 

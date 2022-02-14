@@ -49,10 +49,10 @@ function agree(reportNo,  reportContent, reportTargetNo, reportCount, reportDiv)
 			let reportStatus;
 
 			if(result.value){
-				reportStatus = 2;
+				reportStatus = 1;
 				
 			}else{
-				reportStatus = 3;
+				reportStatus = 2;
 			}
 
 			$.ajax({
