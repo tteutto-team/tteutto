@@ -135,7 +135,11 @@
         
         //수강생모드, 강사모드 구분
      	$("#selectMode").on("change", function(){
+     		if($("#selectMode").val() == 1){
      		 location.href="${contextPath}/chat/chatRoomList?mode=1";
+     		}else{
+     		 location.href="${contextPath}/chat/chatRoomList?mode=0";
+     		}
      	});
         	
         	

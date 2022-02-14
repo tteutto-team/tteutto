@@ -182,6 +182,8 @@ public class ClassDetailController {
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		
+		int count = service.reviewCount(classNo);
+		
 		ReviewPagination pagination = service.getPagination(pageNum, classNo);
 		
 		List<ClassReview> data = service.reviewList(pagination, classNo);
@@ -191,6 +193,7 @@ public class ClassDetailController {
 		 * review.setReviewContent(Util.changeNewLine2(review.getReviewContent())); }
 		 */
 		
+		result.put("count", count);
 		result.put("data", data);
 		result.put("pagination", pagination);
 		
