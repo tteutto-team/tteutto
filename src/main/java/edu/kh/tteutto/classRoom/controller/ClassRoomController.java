@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,17 +45,15 @@ public class ClassRoomController {
 	
 	// 클래스 목록 classList/{memberNo}?page=1
 	@RequestMapping("classList/{memNo}")
-	public String classList(@ModelAttribute("loginMember") Member loginMember, Model model, RedirectAttributes ra, 
+	public String classList(Model model, RedirectAttributes ra, HttpSession session,
 							@RequestParam(value = "page", required = false, defaultValue = "1") int page, @PathVariable("memNo") int memNo) {
+		
+		Member loginMember = (Member)session.getAttribute("loginMember");
 		
 		String teacherOK = service.selectTeacher(loginMember.getMemberNo());
 		
 		if(memNo == loginMember.getMemberNo() && teacherOK.equals("Y")) {
-//		if(true) {
 			int memberNo = loginMember.getMemberNo();
-//			int memberNo = 3;
-			
-//			System.out.println("??" + loginMember.getMemberNo());
 			
 			// 클래스 목록 개수 조회(1회차 클래스)
 //			int classListCount = service.selectClassListCount(memberNo);
@@ -192,8 +192,10 @@ public class ClassRoomController {
 	
 	// 학생 관리(수강 예정)
 	@RequestMapping("studentListExpect")
-	public String studentListExpect(@ModelAttribute("loginMember") Member loginMember, Model model,
+	public String studentListExpect(HttpSession session, Model model,
 					@RequestParam(value = "page", required = false, defaultValue = "1") int page, @RequestParam("epNo") int epNo, RedirectAttributes ra) {
+		
+		Member loginMember = (Member)session.getAttribute("loginMember");
 		
 		int epNoMember = service.selectEpisodeMemberNo(epNo);
 		String episodeState = service.selectEpisodeState(epNo);
@@ -246,9 +248,11 @@ public class ClassRoomController {
 	
 	// 학생 관리(진행 중)
 	@RequestMapping("studentListOngoing")
-	public String studentListOngoing(@ModelAttribute("loginMember") Member loginMember, @RequestParam(value = "epNo") int epNo, 
+	public String studentListOngoing(HttpSession session, @RequestParam(value = "epNo") int epNo, 
 						Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page, RedirectAttributes ra) {
 
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		
 		int epNoMember = service.selectEpisodeMemberNo(epNo);
 		
 		String episodeState = service.selectEpisodeState(epNo);
