@@ -123,6 +123,17 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 		return dao.selectOtherMember(cm);
 	}
 	
+	// 채팅 방 카운트
+	@Override
+	public int countChatRoomNo2(ChatMessage cm) {
+		return dao.countChatRoomNo2(cm);
+	}
+	
+	// 채팅 방 번호 조회
+	@Override
+	public int selectChatRoomNo2(ChatMessage cm) {
+		return dao.selectChatRoomNo2(cm);
+	}
 	
 	
 	

@@ -184,6 +184,26 @@ public class ChatRoomDAO {
 
 
 
+	/** 채팅 방 카운트
+	 * @param cm
+	 * @return
+	 */
+	public int countChatRoomNo2(ChatMessage cm) {
+		return sqlSession.selectOne("chatMapper.countChatRoomNo", cm);
+	}
+
+
+
+	/** 채팅 방 번호 조회
+	 * @param cm
+	 * @return
+	 */
+	public int selectChatRoomNo2(ChatMessage cm) {
+		return sqlSession.selectOne("chatMapper.selectChatRoomNo3", cm);
+	}
+
+
+
 
 
 

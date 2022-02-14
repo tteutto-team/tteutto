@@ -54,6 +54,15 @@ public class ChatWebsocketHandler extends TextWebSocketHandler{
 		
 		System.out.println("변경된 cm : " + cm);
 		
+		if(cm.getTeacherNo() > 0 || cm.getStudentNo() > 0) {
+			int count = service.countChatRoomNo2(cm);
+			
+			if(count > 0) {
+				cm.setChatRoomNo(service.selectChatRoomNo2(cm));
+			}
+			
+		}
+		
 		if(cm.getChatRoomNo() <= 0) {
 			service.insertChatRoom(cm);
 		}
