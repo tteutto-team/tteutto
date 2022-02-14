@@ -7,11 +7,18 @@
 		height: 55px;
 	}
 	
-	.page-a{
+ 	.page-a{
 		height : 28px;
 		padding-top:5px;
 	}
 	
+	.icon-search:before {
+    	margin-top: 12.5px;
+	}
+	
+	.icon-open:before,.icon-close:before {
+    	margin-top: 39.5px;
+	}
 </style>
 
 <jsp:include page="../common/header.jsp"/>
@@ -27,7 +34,7 @@
                     <img src="${contextPath}/resources/images/teacher/profile/${loginMember.teacherImg}">
                 </div>
                 <div class="name">${loginMember.memberNm}</div>
-                <div class="introduce">안녕하세요. 만나서 반갑습니다.</div>
+                <div class="introduce">뜨또에 오신걸 환영합니다.</div>
 
                 <div class="list">
                     <div onclick="location.href='${contextPath}/member/teacherProfile'">강사 프로필</div>
@@ -53,7 +60,7 @@
 	                    <div class="row">
 	                        <div class="column">${status.count}</div>
 	                        <div class="column">${student.memberNm}</div>
-	                        <div class="column"><button class="modal-open-btn" onclick="window.open('${contextPath}/chat/chatRoom?classNo=${episodeInfo.classNo}&studentNo=${student.memberNo}','채팅창 목록','width=482,height=700,location=no,status=no,scrollbars=yes');">채팅</button></div>
+	                        <div class="column"><button class="modal-open-btn" onclick="window.open('${contextPath}/chat/chatRoom?classNo=${episodeInfo.classNo}&studentNo=${student.memberNo}&mode=1','채팅창 목록','width=482,height=700,location=no,status=no,scrollbars=yes');">채팅</button></div>
 	                        <div class="column"><button class="reject modal-open-btn" onclick="reject(${student.memberNo}, this)">수강 거절</button></div>
 	                    </div>
 					</c:forEach>

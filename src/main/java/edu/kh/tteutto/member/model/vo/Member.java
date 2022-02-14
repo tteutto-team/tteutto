@@ -18,11 +18,13 @@ public class Member {
 	private String memberKey;
 	private String kEmail;
 	private String teacherImg;
+	private String teacherIntro;
 	private String memberAgeGroup;
 	private int memberAgeCount;
 
 	
 	public Member() {}
+
 
 	public int getMemberNo() {
 		return memberNo;
@@ -151,6 +153,15 @@ public class Member {
 	public void setTeacherImg(String teacherImg) {
 		this.teacherImg = teacherImg;
 	}
+
+	public String getTeacherIntro() {
+		return teacherIntro;
+	}
+
+	public void setTeacherIntro(String teacherIntro) {
+		this.teacherIntro = teacherIntro;
+	}
+
 	public String getMemberAgeGroup() {
 		return memberAgeGroup;
 	}
@@ -166,7 +177,6 @@ public class Member {
 	public void setMemberAgeCount(int memberAgeCount) {
 		this.memberAgeCount = memberAgeCount;
 	}
-
-
+	
 	
 }

@@ -639,6 +639,7 @@ public class MemberController {
 //		System.out.println("careerList : "+ careerList);
 		//System.out.println("teacher:" + teacher);
 		loginMember.setTeacherImg(teacher.getTeacherImg());
+		loginMember.setTeacherIntro(teacher.getTeacherIntro());
 		
 		String birth = teacher.getMemberBirth().split(" ")[0];
 		

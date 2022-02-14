@@ -15,7 +15,7 @@
                     <img src="${contextPath}/resources/images/teacher/profile/${loginMember.teacherImg}">
                 </div>
                 <div class="name">${loginMember.memberNm}</div>
-                <div class="introduce">안녕하세요. 만나서 반갑습니다.</div>
+                <div class="introduce">뜨또에 오신걸 환영합니다.</div>
 
                 <div class="list">
                     <div onclick="location.href='${contextPath}/member/teacherProfile'">강사 프로필</div>

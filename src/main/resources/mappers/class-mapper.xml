@@ -225,8 +225,7 @@
 		, (SELECT COUNT(*) 
 		    FROM REGISTER RE 
 		    LEFT JOIN REPORT RT ON (RE.REG_NO = RT.REG_NO)
-		    WHERE RE.MEMBER_NO = M.MEMBER_NO and rt.report_no is not null) 
-		    AS REPORT_COUNT
+		    WHERE RE.MEMBER_NO = M.MEMBER_NO and rt.report_no is not null and report_st = 1) AS REPORT_COUNT
 		    
 		FROM EPISODE E
 		LEFT JOIN REGISTER R ON (E.EP_NO = R.EP_NO)
@@ -296,9 +295,10 @@
 	
 	<!-- 교육 예정 클래스 학생 목록 조회-->
 	<select id="studentListExpect" resultMap="member_rm">
-		select member_no, reg_nm as member_nm
+		select member_no, member_nm as member_nm
 		from register
-		where reg_st != 1 and pay_st != 1 and ep_no = #{epNo}
+		join member using(member_no)
+		where reg_st != 1 and pay_st != 1 and ep_no =#{epNo}
 		order by member_nm
 	</select>
 	
@@ -357,6 +357,43 @@
 	    from episode e
 	    join class c on(e.class_no = c.class_no)
 	    where ep_no = #{epNo}
+	</select>
+	
+	<!-- 신고 횟수 조회 -->
+	<select id="selectReportStudent" resultType="_int">
+		SELECT count(*)
+		FROM REGISTER RG 
+		LEFT JOIN REPORT RT ON (RG.REG_NO = RT.REG_NO)
+		WHERE RG.MEMBER_NO = #{memberNo} and rt.report_no is not null 
+			and RG.ep_no=#{epNo} and report_st != 2
+	</select>
+	
+	
+	<!-- 에피소드 번호의 강사 번호 조회 -->
+	<select id="selectEpisodeMemberNo" resultType="_int">
+		select c.member_no
+		from episode e
+		join class c on(e.class_no = c.class_no)
+		where e.ep_no = #{epNo}
+	</select>
+	
+	<!-- 에피소드 진행 상태 조회(진행중 / 교육 예정) -->
+	<select id="selectEpisodeState" resultType="string">
+	<![CDATA[
+		select case when (to_char(sysdate, 'yyyymmdd') >= t.start_date and to_char(sysdate, 'yyyymmdd') <= t.end_date) then 'on'
+            when (to_char(sysdate, 'yyyymmdd') <= t.start_date ) then 'ex'
+            else 'x'
+       end status
+	]]>
+		from 
+		    (SELECT c.member_no, e.ep_no, c.class_no, to_char(min(s.schdl_dt),'yyyymmdd') start_date, to_char(max(s.schdl_dt),'yyyymmdd') end_date
+		        FROM CLASS c
+		        LEFT JOIN episode e on c.class_no = e.class_no
+		        LEFT JOIN ep_schedule s on e.ep_no = s.ep_no
+		        LEFT JOIN REGISTER R ON E.EP_NO = R.EP_NO 
+		        WHERE e.ep_no = #{epNo}
+		        group by c.member_no, e.ep_no, c.class_no
+		        order by ep_no) t
 	</select>
 	
 	

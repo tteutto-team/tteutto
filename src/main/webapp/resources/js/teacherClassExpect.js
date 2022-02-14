@@ -33,8 +33,8 @@ function reject(memberNo, el){
             $.ajax({
                 url : contextPath + "/teacher/studentReject",
                 data : {"epNo" : epNo, "studentNo" : memberNo, "className" : className},
-                dataType : "JSON",
-                type : "GET",
+                type : "POST",
+                dataType: "JSON",
                 success : function (result){
                     if(result > 0){
                         swal({"title" : "거절되었습니다.", "icon" : "success"});
