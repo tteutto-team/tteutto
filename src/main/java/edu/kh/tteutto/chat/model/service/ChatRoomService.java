@@ -91,6 +91,18 @@ public interface ChatRoomService {
 	 */
 	int selectOtherMember(ChatMessage cm);
 
+	/** 채팅 방 카운트2
+	 * @param cm
+	 * @return
+	 */
+	int countChatRoomNo2(ChatMessage cm);
+
+	/** 채팅 방 번호 조회
+	 * @param cm
+	 * @return
+	 */
+	int selectChatRoomNo2(ChatMessage cm);
+
 
 
 
