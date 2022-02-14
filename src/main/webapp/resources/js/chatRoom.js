@@ -16,7 +16,7 @@
 }); */
 
 // 스크롤 하단 고정
-	$(".chat_wrap .inner").scrollTop($(".chat_wrap .inner")[0].scrollHeight);
+   $(".chat_wrap .inner").scrollTop($(".chat_wrap .inner")[0].scrollHeight);
         
 // 현재시간 함수
 var currentTime = function(){
@@ -68,44 +68,44 @@ $(".backBtn").click(function(){
 
 // 채팅 보내기 함수
 function sendMessage(){
-	const msgContent = $("#inputChatting").val();
-	
-	if(msgContent.trim().length == 0){
-		alert("내용을 입력해주세요")
-	}else{
-		
-		//자바스크립트 객체 생성
-		const obj={};
-		obj.memberNo = memberNo;
-		obj.teacherNo = teacherNo;
+   const msgContent = $("#inputChatting").val();
+   
+   if(msgContent.trim().length == 0){
+      alert("내용을 입력해주세요")
+   }else{
+      
+      //자바스크립트 객체 생성
+      const obj={};
+      obj.memberNo = memberNo;
+      obj.teacherNo = teacherNo;
         obj.studentNo = studentNo;
-		/*obj.memberEmail = memberEmail;*/
-		obj.memberNm = memberNm;
-		obj.msgContent = msgContent;
-		obj.chatRoomNo = chatRoomNo;
+      /*obj.memberEmail = memberEmail;*/
+      obj.memberNm = memberNm;
+      obj.msgContent = msgContent;
+      obj.chatRoomNo = chatRoomNo;
         obj.mode = mode;
-		
-		//console.log(obj);
-		
-		// 만들어진 js 객체를 json으로 변환하여 웹소켓 객체 handleTextMessage()로 전달
-		
-		// JS 객체(obj)를 JSON 문자열로 바꿔서 보냄
-		chattingSock.send(JSON.stringify(obj))
-		
-		$("#inputChatting").val(""); //전달된 메세지 지우기
-	}
+      
+      //console.log(obj);
+      
+      // 만들어진 js 객체를 json으로 변환하여 웹소켓 객체 handleTextMessage()로 전달
+      
+      // JS 객체(obj)를 JSON 문자열로 바꿔서 보냄
+      chattingSock.send(JSON.stringify(obj))
+      
+      $("#inputChatting").val(""); //전달된 메세지 지우기
+   }
 }
 
 // 웹소켓 서버에서 전달된 메세지가 있을 경우
 chattingSock.onmessage = function(e){
-	// e.data : 전달받은 메세지
-	
-	const obj = JSON.parse(e.data);
+   // e.data : 전달받은 메세지
+   
+   const obj = JSON.parse(e.data);
     console.log(obj.cm.msgContent);
-	
-	////////////
-	const div = $("<div>");
-	const divB = $("<div class='box'>");
+   
+   ////////////
+   const div = $("<div>");
+   const divB = $("<div class='box'>");
 
 
    const p = $("<p class='msg'>");
@@ -136,7 +136,7 @@ chattingSock.onmessage = function(e){
       $(".flex_wrap > .on").append(div);
 
    } else {
-		
+      
       div.addClass("otherName");
       div.html(obj.cm.memberNm);
       $(".flex_wrap > .on").append(div);
@@ -150,15 +150,15 @@ chattingSock.onmessage = function(e){
 
    
    ///////////////////////
-	
-	
-	// 채팅 입력시 말풍선이 부드럽게 나타나는 효과
-	setTimeout(function(){
-	    $(".chat_wrap .inner").find(".item:last").addClass("on");
-	}, 10)
-	
-	// 스크롤 하단 고정
-	$(".chat_wrap .inner").scrollTop($(".chat_wrap .inner")[0].scrollHeight);
+   
+   
+   // 채팅 입력시 말풍선이 부드럽게 나타나는 효과
+   setTimeout(function(){
+       $(".chat_wrap .inner").find(".item:last").addClass("on");
+   }, 10)
+   
+   // 스크롤 하단 고정
+   $(".chat_wrap .inner").scrollTop($(".chat_wrap .inner")[0].scrollHeight);
 
 }
 
@@ -168,8 +168,8 @@ $("#sendBtn").on("click", sendMessage);
 
 //엔터키 눌렀을 시 채팅 전달
 function enterkey() {
-	if (window.event.keyCode == 13) {
-		sendMessage();
+   if (window.event.keyCode == 13) {
+      sendMessage();
     }
 }
 

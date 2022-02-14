@@ -19,6 +19,26 @@ public class ChatMessage {
 	public ChatMessage() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+
+
+	public int getMode() {
+		return mode;
+	}
+
+
+
+
+
+	public void setMode(int mode) {
+		this.mode = mode;
+	}
+
+
+
+
 
 	public int getTeacherNo() {
 		return teacherNo;
@@ -108,13 +128,9 @@ public class ChatMessage {
 		this.otherMemberNo = otherMemberNo;
 	}
 
-	public int getMode() {
-		return mode;
-	}
 
-	public void setMode(int mode) {
-		this.mode = mode;
-	}
+
+
 
 	@Override
 	public String toString() {
@@ -123,5 +139,11 @@ public class ChatMessage {
 				+ ", memberNm=" + memberNm + ", teacherNm=" + teacherNm + ", teacherNo=" + teacherNo + ", studentNo="
 				+ studentNo + ", mode=" + mode + "]";
 	}
+
+
+
+
+
+
 
 }
