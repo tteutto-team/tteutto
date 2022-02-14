@@ -228,8 +228,8 @@
 		
 			noteSock.onmessage = function(e) {
 				const obj = JSON.parse(e.data);
-			
-				$(".alert").html(obj.sum);
+				
+				$(".alert").html(obj);
 			}
 			
 			

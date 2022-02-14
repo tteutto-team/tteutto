@@ -52,28 +52,18 @@
 			<div>
 				<c:if test="${!empty classOne.thumbnailImg}">
 					<c:forEach var="img" items="${classOne.thumbnailImg}">
-						${img} <br>
+						<img class='img' src="${contextPath}/resources/images/class/${img.thumbnailImgName}"> <br>
 					</c:forEach>
 				</c:if>
 			</div>
 		</div>
-		
-		
-		
-		
-		
-		<c:if test="${!empty classOne.thumbnailImg}">
-			<c:forEach var="img" items="${classOne.thumbnailImg}">
-				${img} <br>
-			</c:forEach>
-		</c:if>
-		
-			
 	</div>
 </div>
    
 
 <script>
- 
+	if($(".img").outerWidth() > "698"){
+		$(".img").css("width", "698px");
+	}
 </script>
 <script src="${contextPath}/resources/js/admin/classManage.js"></script>

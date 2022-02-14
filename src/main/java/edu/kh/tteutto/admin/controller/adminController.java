@@ -187,6 +187,8 @@ public class adminController {
 			int result = service.classStatusUpdate(classNo);
 		}
 		
+		System.out.println(classOne);
+		
 		model.addAttribute("classOne", classOne);
 		
 		return "admin/class";

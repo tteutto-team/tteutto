@@ -79,6 +79,8 @@ public class NoteWebsocketHandler extends TextWebSocketHandler {
 						int count2 = service. selectChatAlarm(cm);
 						int sum = count + count2;
 						
+						System.out.println("sum : " + sum);
+						
 						wss.sendMessage(new TextMessage(new Gson().toJson(sum)));
 					}
 				}

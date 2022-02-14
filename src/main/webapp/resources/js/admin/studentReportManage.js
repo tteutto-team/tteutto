@@ -69,7 +69,7 @@ function agree(reportNo,  reportContent, reportTargetNo, reportCount, reportDiv)
 					console.log(result);
 					if (result > 0) {
 
-						if(reportStatus == 2){
+						if(reportStatus == 1){
 							const obj = {}
 							obj.noteContent = "회원님의 누적 신고횟수는 '" + (reportCount+1) + "'회 입니다.";
 							obj.memberNo = reportTargetNo;

@@ -23,7 +23,7 @@
 		
 		<c:if test="${!empty classOne.thumbnailImg}">
 			<c:forEach var="img" items="${classOne.thumbnailImg}">
-				${img} <br>
+				${img.thumbnailImgName} <br>
 			</c:forEach>
 		</c:if>
 		

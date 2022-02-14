@@ -219,7 +219,7 @@
 	<!-- 클래스 썸네일 조회 -->
 	<select id="selectClassThumbnail" resultMap="thumbnail_rm">
 		SELECT * FROM THUMBNAIL_IMG
-		WHERE CLASS_NO = #{ClassNo}
+		WHERE CLASS_NO = #{classNo}
 	</select>
 	
 	<!-- 강사 커리어 조회 -->
@@ -295,7 +295,7 @@
 	
 	<!-- 클래스 상세 조회 -->
 	<select id="selectClass" resultMap="class_rm">
-		SELECT CLASS_AREA, CLASS_TYPE, CLASS_PERSON, CLASS_MIN_PERSON, CLASS_MAX_PERSON,
+		SELECT CLASS_AREA, CLASS_TYPE, CLASS_PERSON, CLASS_MIN_PERSON, CLASS_MAX_PERSON, CLASS_NO,
 		CLASS_NM, CLASS_INTRO, CLASS_LEVEL, CT_NM, CT_DETAIL_NM FROM CLASS
 		JOIN CLASS_CATEGORY ON(CLASS.CATG_NO = CLASS_CATEGORY.CT_NO)
 		JOIN CT_DETAIL USING(CT_DETAIL_NO)
