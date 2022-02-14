@@ -116,6 +116,12 @@ public interface ClassDetailService {
 	 */
 	int report(Map<String, Object> map);
 
+	/** 후기 갯수
+	 * @param classNo
+	 * @return count
+	 */
+	int reviewCount(int classNo);
+
 	
 	
 
