@@ -69,7 +69,8 @@ function agree(classNo, memberNo, className) {
 					if (result > 0) {
 
 						const obj = {}
-						obj.noteContent = "'" + className + "' 신청이 승인되었습니다.";
+						obj.noteContent = "'" + className + "' 신청이 승인되었습니다.<br>"
+										+ "<a href='"+ contextPath +"/register/schedule/"+ classNo +"'>회차 등록하러 가기</a>";
 						obj.memberNo = memberNo;
 						obj.flag = 0;
 

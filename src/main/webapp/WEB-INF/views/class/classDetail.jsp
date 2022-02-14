@@ -585,7 +585,7 @@
             <div class="section5" >
                 <div class="introClass"> 
                     <p class="sectionLine">
-                        수강 후기 <span id="reviewCtn"> 47 </span> 　
+                        수강 후기 <span id="reviewCtn">  </span> 　
                     </p> 
                 </div>
                 <div class="review_area">
