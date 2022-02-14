@@ -3,35 +3,58 @@ package edu.kh.tteutto.chat.model.vo;
 public class ChatMessage {
 
 	private int msgNo; // 채팅 메세지 번호
-	private String msgContent; //메세지 내용
-	private String msgDt; //메세지 전송시간
-	private int msgSt; //메시지 상태 (0: 안읽음, 1:읽음) - default : 0
+	private String msgContent; // 메세지 내용
+	private String msgDt; // 메세지 전송시간
+	private int msgSt; // 메시지 상태 (0: 안읽음, 1:읽음) - default : 0
 	private int chatRoomNo; // 채팅방 번호
 	private int memberNo; // 회원번호 (메세지 전송한 회원구분)
 	private int otherMemberNo; // 메세지를 받는 상대 회원 번호
-	
-	private String memberNm; //상대방 회원명
-	private String teacherNm; //강사님 회원명
-	
-	private String modeSpan;
-	
+
+	private String memberNm; // 상대방 회원명
+	private String teacherNm; // 강사님 회원명
+	private int teacherNo;
+	private int studentNo;
+	private int mode;
+
 	public ChatMessage() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	
 
-	public String getModeSpan() {
-		return modeSpan;
+
+
+	public int getMode() {
+		return mode;
 	}
 
 
 
-	public void setModeSpan(String modeSpan) {
-		this.modeSpan = modeSpan;
+
+
+	public void setMode(int mode) {
+		this.mode = mode;
 	}
 
 
+
+
+
+	public int getTeacherNo() {
+		return teacherNo;
+	}
+
+	public void setTeacherNo(int teacherNo) {
+		this.teacherNo = teacherNo;
+	}
+
+	public int getStudentNo() {
+		return studentNo;
+	}
+
+	public void setStudentNo(int studentNo) {
+		this.studentNo = studentNo;
+	}
 
 	public int getMsgNo() {
 		return msgNo;
@@ -89,8 +112,6 @@ public class ChatMessage {
 		this.memberNm = memberNm;
 	}
 
-	
-	
 	public String getTeacherNm() {
 		return teacherNm;
 	}
@@ -109,17 +130,20 @@ public class ChatMessage {
 
 
 
+
+
 	@Override
 	public String toString() {
 		return "ChatMessage [msgNo=" + msgNo + ", msgContent=" + msgContent + ", msgDt=" + msgDt + ", msgSt=" + msgSt
 				+ ", chatRoomNo=" + chatRoomNo + ", memberNo=" + memberNo + ", otherMemberNo=" + otherMemberNo
-				+ ", memberNm=" + memberNm + ", teacherNm=" + teacherNm + ", modeSpan=" + modeSpan + "]";
+				+ ", memberNm=" + memberNm + ", teacherNm=" + teacherNm + ", teacherNo=" + teacherNo + ", studentNo="
+				+ studentNo + ", mode=" + mode + "]";
 	}
 
 
-	
-	
-	
-	
-	
+
+
+
+
+
 }

@@ -290,14 +290,6 @@ function sendFile(file, editor) {
   }
 
 
-// 이미지 저장
-function summer(){
-	
-	
-	
-}
-
-
 
 
 
@@ -351,26 +343,40 @@ $("#sigoon_code").on("change", function(){
 var index = 0;
 $("#img-plus-btn").on("click", function(){
 	// 현재 클릭된 요소가 .boardImg 중 몇 번째 인덱스인지 반환
-	$("[type=file]").eq(index).click();
+	//$("[type=file]").eq(index).click();
 	// 타입이 file인 요소 중 몇번째 인덱스 요소를 선택하여 클릭해라
 	//document.getElementById("why").setAttribute("src", "hhhhh");
-	
+	//console.log($("#img-file-box > input:last-child"));
+	//console.log(index);
+	$("#img-file-box > input:last-child").val("");
+	$("#img-file-box > input:last-child").click();
 })
 
 // 썸네일 이미지 바꾸기
 function loadImg(input, num){
+	console.log(input.files);
+	console.log(input.files[0]);
+	
 	//console.log(input);
 	if(index == 0){
 		$("#mini-img").css("height", "150px");
 	}
+	
+
 
 	if (input.files && input.files[0]) {
 		
 		// div, img와 클릭이벤트 추가
 		const dv = $("<div>");
+		const dv2 = $("<div>");
 		const im = $("<img>");
+		dv2.addClass("deleteImg");
+		dv2.append("❌");
+		$(dv).append(dv2);
+		
 		dv.append(im);
 		dv.addClass("mini-img-box");
+
 		$("#mini-img").append(dv);
 		
 		$(dv).on("click", function(){
@@ -378,12 +384,20 @@ function loadImg(input, num){
 			$("#img-insert").children("img").attr("src", src);
 		})
 		
+		$(dv2).on("click", function(e){
+			e.stopPropagation(); 
+			$("#img-file-box > input:last-child").remove();
+			e.target.parentNode.remove();
+			
+		})
+		
 		/*$("#mini-img").append('<div id="m'+index+'" class="mini-img-box"><img><div>');*/
 		var reader = new FileReader();
 		reader.readAsDataURL(input.files[0]);
 		reader.onload = function(e) {
 		$("#img-insert").children("img").attr("src", e.target.result);
-		$("#mini-img").children("div").eq(num).children("img").attr("src", e.target.result);
+		//$("#mini-img").children("div").eq(num).children("img").attr("src", e.target.result);
+		$("#mini-img > div:last-child > img").attr("src", e.target.result);
 		//document.getElementById("why").setAttribute("src", e.target.result);
 		index = index + 1;
 		
@@ -393,6 +407,8 @@ function loadImg(input, num){
 		checkImage = true;
 
 		}
+	}else{
+		//console.log("응~");
 	}
 
 	
@@ -404,8 +420,10 @@ $("#img-del-btn").on("click", function(){
 	if(index == 0){
 		
 	}else{
-		document.querySelector("#mini-img > div:last-of-type").remove();
-		document.querySelector("#img-file-box > input:last-of-type").remove();
+		$("#mini-img > div:last-child").remove();
+		$("#img-file-box > input:last-child").remove();
+		let pre = $("#mini-img > div:last-child > img").attr("src");
+		$("#img-insert").children("img").attr("src", pre);
 		index = index - 1;
 		if(index == 0){
 			checkImage = false;
@@ -511,7 +529,7 @@ function PopUp(){
      
 }
 
-// 참여인원 음수,기호 방지
+// 참여인원 음수,기호 방지, 맥스 초과 방지
 $("#maxPerson").on("input", function(){
 	$(this).val($(this).val().replace(/[^0-9]/gi,""));
 })
@@ -519,3 +537,15 @@ $("#maxPerson").on("input", function(){
 $("#minPerson").on("input", function(){
 	$(this).val($(this).val().replace(/[^0-9]/gi,""));
 })
+
+
+$("#minPerson").on("change keyup", function(){
+	let max = $("#maxPerson").val();
+	let min = $("#minPerson").val();
+	
+	if( parseInt(min) >= parseInt(max) ){
+		$(this).val(max);
+	}else{
+	}
+})
+
