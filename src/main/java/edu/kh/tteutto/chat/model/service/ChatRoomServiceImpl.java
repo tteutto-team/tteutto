@@ -79,7 +79,16 @@ public class ChatRoomServiceImpl implements ChatRoomService{
 		int chatRoomNo = dao.checkChatRoomNo(cm);
 		System.out.println("chatRoomNo :: " + chatRoomNo);
 		if(chatRoomNo == 0) {
-			return dao.insertChatRoom(cm);
+			/*
+			 * if(cm.getModeSpan() == "강사") { int memberNo = cm.getMemberNo(); int
+			 * otherMemberNo = cm.getOtherMemberNo(); cm.setMemberNo(otherMemberNo);
+			 * cm.setOtherMemberNo(memberNo);
+			 */
+				return dao.insertChatRoom(cm);
+			/*}else {
+				return dao.insertChatRoom(cm);
+			}*/
+			
 		}else {
 			cm.setChatRoomNo(chatRoomNo);
 			return chatRoomNo;

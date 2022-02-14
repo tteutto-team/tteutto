@@ -83,6 +83,7 @@ function sendMessage(){
 		obj.msgContent = msgContent;
 		obj.chatRoomNo = chatRoomNo;
 		
+		obj.modeSpan = modeSpan;
 		//console.log(obj);
 		
 		// 만들어진 js 객체를 json으로 변환하여 웹소켓 객체 handleTextMessage()로 전달
@@ -99,7 +100,7 @@ chattingSock.onmessage = function(e){
 	// e.data : 전달받은 메세지
 	
 	const obj = JSON.parse(e.data);
-    console.log(obj.cm.msgContent);
+    console.log(obj.cm);
 	
 	////////////
 	const div = $("<div>");

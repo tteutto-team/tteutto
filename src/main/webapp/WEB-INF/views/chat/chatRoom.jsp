@@ -46,14 +46,17 @@
         <div class="chat_title2">뜨겁게 또시작, 뜨또!</div> -->
 	
 <!-- 	<button id="exit-btn">나가기</button> -->
-
+${cr}
+					${teacherInfo }
+					${crNo}
 	<c:choose>
 		<c:when test="${!empty teacherInfo || loginMember.memberNo == cr.memberNo}">
 			<div class="chat_title">
 				<img src="https://trello-members.s3.amazonaws.com/5f6847b648dcd038f65b8551/6798ec30c2f40b27b3656649306bd860/original.png">
 				<div class="chat_title1">
-					<c:if test="${!empty teacherInfo}"><span>${teacherInfo.MEMBER_NM}</span>강사님께 문의하기</c:if>
-					<c:if test="${empty teacherInfo}"><span>${cr.teacherNm}</span>강사님께 문의하기</c:if>
+					<c:if test="${!empty teacherInfo}"><span>${teacherInfo.MEMBER_NM}</span><span class="modeSpan">강사</span>님께 문의하기</c:if>
+					<c:if test="${empty teacherInfo}"><span>${cr.teacherNm}</span><span class="modeSpan">강사</span>님께dd 문의하기</c:if>
+					
 				</div>
 				<div class="chat_title2">뜨겁게 또시작, 뜨또!</div>
 			</div>
@@ -68,7 +71,7 @@
 			<div class="chat_title">
 				<img src="https://trello-members.s3.amazonaws.com/5f6847b648dcd038f65b8551/6798ec30c2f40b27b3656649306bd860/original.png">
 				<div class="chat_title1">
-					<c:if test="${empty teacherInfo}"><span>${cr.memberNm}</span>수강생의 문의 내역</c:if>
+					<c:if test="${empty teacherInfo}"><span>${cr.memberNm}</span><span class="modeSpan">수강생</span>의 문의 내역</c:if>
 				</div>
 				<div class="chat_title2">뜨겁게 또시작, 뜨또!</div>
 			</div>
@@ -210,12 +213,11 @@
 		<button type="button" id="sendBtn">전송</button>
 	</div>
 	<!-- <input type="text" class="yourmsg" placeholder="상대방 내용 입력"> -->
-	</div>
 
 	<!-- 웹소켓 -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 	<script>
+		let modeSpan = document.getElementsByClassName("modeSpan")[0].innerText;
 		// /chat 이라는 요청 주소로 통신할 수 있는  WebSocket 객체 생성
 		let chattingSock = new SockJS("<c:url value='/chat' />");
 		// == contextPath + /chat
@@ -253,7 +255,12 @@
 		let chatRoomNo = "${chatRoomNo}"; // 세션에 있는거임! 
 
 		const contextPath = "${contextPath}";
-	</script>
+	</script> 
+	<c:if test="${!empty crNo}">
+		<script type="text/javascript">
+			chatRoomNo = "${crNo}";
+		</script>
+	</c:if>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

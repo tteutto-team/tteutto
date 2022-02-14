@@ -63,6 +63,8 @@ public class ChatRoomController {
 		// loginMember에서 회원 번호 얻어와 room에 추가
 		room.setMemberNo(loginMember.getMemberNo());	// 보내는 사람
 		int chatRoomNo = 0;
+		int crNo = 0;
+		
 		
 		// 채팅방 번호가 있음 == 기존에 존재하던 채팅방	// 헤더에서 채팅
 		if(room.getChatRoomNo() > 0) {
@@ -88,6 +90,11 @@ public class ChatRoomController {
 			if(studentNo > 0) {	// 강사가 학생한테
 				
 				Map<String, Object> map1 = new HashMap<String, Object>();
+				
+				System.out.println(room.getClassNo());
+				System.out.println(studentNo);
+				System.out.println(loginMember.getMemberNo());
+				
 				map1.put("classNo", room.getClassNo());
 				map1.put("studentNo", studentNo);
 				map1.put("teacherNo", loginMember.getMemberNo());
@@ -100,7 +107,7 @@ public class ChatRoomController {
 				model.addAttribute("teacherInfo", map); // 강사 정보 조회
 			}
 			
-			int crNo = Integer.parseInt(String.valueOf(map.get("CHAT_ROOM_NO")));
+			crNo = Integer.parseInt(String.valueOf(map.get("CHAT_ROOM_NO")));
 			
 			// 채팅방 번호 있음 == 이전 채팅 내용이 있음 -> 채팅 내역을 조회
 			if(crNo > 0) {
@@ -111,6 +118,8 @@ public class ChatRoomController {
 		}
 		
 		model.addAttribute("chatRoomNo", chatRoomNo);
+		model.addAttribute("crNo", crNo);
+		
 		
 		return "chat/chatRoom";
 		

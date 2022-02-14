@@ -116,13 +116,13 @@
 		
 	</select>
 	
-	<!-- 이미 같은 강사, 학생이 들어가있는 채팅방 번호를 조회 (없으면 0) -->
+	<!-- 이미 같은 강사, 학생이 들어가있는 채팅방 번호를 조회 (없으면 0) 강사가 학생한테 첫채팅 보낼때-->
 	<select id="selectChatRoomNo2" resultType="map">
 	    SELECT MEMBER.MEMBER_NO, MEMBER_NM,
         NVL( ( SELECT CHAT_ROOM_NO 
             FROM CHAT_ROOM
-            WHERE MEMBER_NO = ${teacherNo}
-            AND TEACHER_NO = ${studentNo} AND CHAT_ROOM_ST != 1 ), 0) CHAT_ROOM_NO
+            WHERE MEMBER_NO = ${studentNo}
+            AND TEACHER_NO = ${teacherNo} AND CHAT_ROOM_ST != 1 ), 0) CHAT_ROOM_NO
 	    FROM MEMBER
 	    JOIN REGISTER ON(REGISTER.MEMBER_NO = MEMBER.MEMBER_NO)
 	    JOIN EPISODE ON(EPISODE.EP_NO = REGISTER.EP_NO)

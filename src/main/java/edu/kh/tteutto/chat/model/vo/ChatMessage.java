@@ -13,9 +13,25 @@ public class ChatMessage {
 	private String memberNm; //상대방 회원명
 	private String teacherNm; //강사님 회원명
 	
+	private String modeSpan;
+	
 	public ChatMessage() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public String getModeSpan() {
+		return modeSpan;
+	}
+
+
+
+	public void setModeSpan(String modeSpan) {
+		this.modeSpan = modeSpan;
+	}
+
+
 
 	public int getMsgNo() {
 		return msgNo;
@@ -91,12 +107,15 @@ public class ChatMessage {
 		this.otherMemberNo = otherMemberNo;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "ChatMessage [msgNo=" + msgNo + ", msgContent=" + msgContent + ", msgDt=" + msgDt + ", msgSt=" + msgSt
 				+ ", chatRoomNo=" + chatRoomNo + ", memberNo=" + memberNo + ", otherMemberNo=" + otherMemberNo
-				+ ", memberNm=" + memberNm + ", teacherNm=" + teacherNm + "]";
+				+ ", memberNm=" + memberNm + ", teacherNm=" + teacherNm + ", modeSpan=" + modeSpan + "]";
 	}
+
 
 	
 	
