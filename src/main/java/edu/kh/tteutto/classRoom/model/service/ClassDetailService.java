@@ -18,10 +18,10 @@ import edu.kh.tteutto.main.model.vo.ClassList;
 public interface ClassDetailService {
 
 	/** 클래스 상세페이지 조회
-	 * @param classNo
+	 * @param map
 	 * @return classDetailRight
 	 */
-	ClassDetailRight selectClassDetail(int classNo);
+	ClassDetailRight selectClassDetail(Map<String, Integer> map);
 
 	/** 클래스 신청 여부 조회
 	 * @param map

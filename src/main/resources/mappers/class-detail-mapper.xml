@@ -146,7 +146,7 @@
 		JOIN EPISODE ON CLASS.CLASS_NO = EPISODE.CLASS_NO
 		WHERE CLASS.CLASS_NO = #{classNo}
 		AND CLASS_ST = 2
-		AND EP_COUNT IN (SELECT MAX(EP_COUNT) FROM EPISODE WHERE EPISODE.CLASS_NO = #{classNo})
+		AND EP_COUNT = #{epCount}
 	</select>
 	
 	<!-- 클래스 상세페이지 - 회차 스케쥴 (일정) 선택 -->
@@ -173,6 +173,10 @@
 			JOIN EPISODE USING(CLASS_NO)
 			JOIN EP_SCHEDULE ES USING(EP_NO)
 			WHERE CLASS_NO = #{classNo}
+			<if test="classType == 1">
+				AND EP_COUNT = ${epCount}
+			</if>
+			
 			ORDER BY SCHDL_DT, TO_DATE(SCHDL_START_TIME, 'HH24:MI')
         ) A
 	</select>

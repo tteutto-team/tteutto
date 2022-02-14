@@ -27,15 +27,15 @@ public class ClassDetailDAO {
 	private SqlSessionTemplate sqlSession;
 
 	// 클래스 상세페이지 조회(결제박스만)
-	public ClassDetailRight selectClassDetail(int classNo) {
-		return sqlSession.selectOne("classDetailMapper.selectClassDetail", classNo);
+	public ClassDetailRight selectClassDetail(Map<String, Integer> map) {
+		return sqlSession.selectOne("classDetailMapper.selectClassDetail", map);
 	}
 
 	// 클래스 상세페이지 - 회차, 스케쥴 일정 조회
-	public List<EpisodeSchedule> selectEpisodeSchedule(int classNo) {
+	public List<EpisodeSchedule> selectEpisodeSchedule(Map<String, Integer> map) {
 		
 		
-		return sqlSession.selectList("classDetailMapper.selectEpisodeSchedule", classNo);
+		return sqlSession.selectList("classDetailMapper.selectEpisodeSchedule", map);
 	}
 
 	// 클래스 신청 여부 조회
