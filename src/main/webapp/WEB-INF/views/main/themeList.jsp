@@ -25,7 +25,7 @@ crossorigin="anonymous"/>
 				<div class="image">
 					<%-- 클래스 이미지 --%>
 					<img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-					onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epNo=${classList.episodeNo}'">
+					onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeCount}'">
 					
 					<%-- 수업 등록 지역 --%>
 					<p class="location-p">${classList.classArea}</p>
@@ -33,7 +33,7 @@ crossorigin="anonymous"/>
 				
 				<%-- 클래스 찜하기 버튼 > 찜 X --%>
 				<c:if test="${classList.heartFlag == 0}">
-					<button type="button" class="btn_like">
+					<button type="button" class="btn_like" id="${classList.classNo}">
 						<span class="img_emoti">좋아요</span>
 						<span class="ani_heart_m"></span>
 					</button>
@@ -49,11 +49,20 @@ crossorigin="anonymous"/>
 	
 				<div class="detail-info">
 					<span class="category-name">${classList.categoryName}</span> <%-- 카테고리명 --%>
-					<div class="class-name">${classList.className}</div> <%-- 클래스명 --%>
+					
+					<%-- 클래스명 --%>
+					<div class="class-name">
+						<c:choose>
+							<c:when test="${classList.classType == 0}">[원데이] </c:when>
+							<c:otherwise>[${classList.episodeCount}회차] </c:otherwise>
+						</c:choose>
+						${classList.className}
+					</div>
+								
 					<div class="grade">
-	                          <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 별점 --%>
-	                          <i class="fi-rr-heart"></i> <span>${classList.heartCount}</span> <%-- 찜 개수 --%>
-	                     	</div>
+                        <i class="fi-rr-star"></i> <span>${classList.starAverage}</span> <%-- 별점 --%>
+                        <i class="fi-rr-heart"></i> <span>${classList.heartCount}</span> <%-- 찜 개수 --%>
+                   	</div>
 					
 					<div class="detail-info-bottom">
 						<img src="${contextPath}/resources/images/teacher/profile/${classList.teacherImage}"> <%-- 강사 프로필 이미지 --%>
@@ -71,25 +80,30 @@ crossorigin="anonymous"/>
 <script>
 	<%-- 클래스 카드 찜하기 버튼 기능 및 색상 변경 --%>
 	$('.btn_like').click(function() {
-		const classNo = this.getAttribute("id");
+		const classNo = this.getAttribute('id');
 		
-		if ("${loginMember}" != "") {
+		if ('${loginMember}' != "") {
 			const heartBtn = this;
 			
 			$.ajax({
 				url : "${contextPath}/member/changeHeart", 
 				data : {"classNo" : classNo}, 
 				success : function(result) {
+					
+					const temp = $(heartBtn).next().find('.fi-rr-heart').next();
+					
 					if (result > 0) {
 					    if ($(heartBtn).hasClass('btn_unlike')) {
 					        $(heartBtn).removeClass('btn_unlike');
 					        $(heartBtn).children('span:eq(1)').removeClass('hi');
 					        $(heartBtn).children('span:eq(1)').addClass('bye');
+					        temp.text( Number(temp.text()) - 1 );
 					        
 					    } else {
 					        $(heartBtn).addClass('btn_unlike');
 					        $(heartBtn).children('span:eq(1)').removeClass('bye');
 					        $(heartBtn).children('span:eq(1)').addClass('hi');
+					        temp.text( Number(temp.text()) + 1 );
 					    }
 					}
 				}

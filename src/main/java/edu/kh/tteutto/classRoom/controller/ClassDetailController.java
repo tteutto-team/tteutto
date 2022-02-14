@@ -51,7 +51,7 @@ public class ClassDetailController {
 
 	// 클래스 상세 페이지 조회(결제박스만)
 	@RequestMapping("classDetail")
-	public String selectClassDetail(int classNo, Model model, RedirectAttributes ra, HttpSession session) {
+	public String selectClassDetail(int classNo, Model model, RedirectAttributes ra, HttpSession session, int epNo) {
 
 		ClassDetailRight cdtr = service.selectClassDetail(classNo);
 		//클래스 후기평점 조회

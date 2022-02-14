@@ -73,10 +73,10 @@ public class adminController {
 	// 회차별 신청 승인
 	@RequestMapping(value="episodeAgree", method=RequestMethod.GET)
 	@ResponseBody
-	public int episodeAgree(int classNo) {
+	public int episodeAgree(int episodeNo) {
 		
 		
-		int result = service.episodeAgree(classNo);
+		int result = service.episodeAgree(episodeNo);
 		
 		
 		return result;
@@ -85,10 +85,10 @@ public class adminController {
 	// 회차별 신청 거절
 	@RequestMapping(value="episodeDeny", method=RequestMethod.GET)
 	@ResponseBody
-	public int episodeDeny(int classNo) {
+	public int episodeDeny(int episodeNo) {
 		
 		
-		int result = service.episodeDeny(classNo);
+		int result = service.episodeDeny(episodeNo);
 		
 		
 		return result;
