@@ -258,7 +258,7 @@
 	                           
 	                          <c:choose>
 								<c:when test="${cdtr.cdt.classType == 0}">
-									<c:if test="${eps.possibleFl == 1}">
+									<c:if test="${eps.possibleFl == 1 && eps.epCount == param.epCount}">
 				                          <strong class="lessonCntList">
 				                          	<span> ${eps.epCount} </span>
 				                           ${sign} </strong>  
@@ -277,7 +277,6 @@
                          </c:forEach>
                     </div>
                     <div class="lesson-bottom-opacity"> </div>
-
                     <!-- 옵션 선택 -->
                     <!-- 원데이 클래스 날짜 선택 -->
                     <c:if test="${cdtr.cdt.classType == 0}">
@@ -951,7 +950,7 @@
  	  // 실시간톡 버튼
  	  $('#livetalk').on('click', function(){
 	 	  	if(${!empty sessionScope.loginMember}){
-			 	    var url="../chat/chatRoom?teacherNo=${cdtr.cdt.memberNo}";
+			 	    var url="../chat/chatRoom?teacherNo=${cdtr.cdt.memberNo}&mode=0}";
 			 	    var option="width=482, height=700, top=200"
 			 	    window.open(url, "_blank", option);
 			 	  

@@ -44,16 +44,15 @@
         <img src="https://trello.com/1/cards/61ea68649279785e229eb2dd/attachments/61eac69be448bf64cd927411/previews/61eac69ce448bf64cd927465/download/TTEUTTO_ver.3_%28favicon%29.png">
         <div class="chat_title1">뜨또에 문의하기</div>
         <div class="chat_title2">뜨겁게 또시작, 뜨또!</div> -->
-   
+ 
 <!--    <button id="exit-btn">나가기</button> -->
-
    <c:choose>
-      <c:when test="${!empty teacherInfo || loginMember.memberNo == cr.memberNo}">
+      <c:when test="${param.mode == 0}">
          <div class="chat_title">
             <img src="https://trello-members.s3.amazonaws.com/5f6847b648dcd038f65b8551/6798ec30c2f40b27b3656649306bd860/original.png">
             <div class="chat_title1">
-               <c:if test="${!empty teacherInfo}"><span>${teacherInfo.MEMBER_NM}</span>강사님께 문의하기</c:if>
-               <c:if test="${empty teacherInfo}"><span>${cr.teacherNm}</span>강사님께 문의하기</c:if>
+              <span>${cr.teacherNm} </span>강사님께 문의하기
+               <%-- <c:if test="${empty teacherInfo}"><span>${cr.teacherNm}</span>강사님께 문의하기</c:if> --%>
             </div>
             <div class="chat_title2">뜨겁게 또시작, 뜨또!</div>
          </div>
@@ -68,7 +67,7 @@
          <div class="chat_title">
             <img src="https://trello-members.s3.amazonaws.com/5f6847b648dcd038f65b8551/6798ec30c2f40b27b3656649306bd860/original.png">
             <div class="chat_title1">
-               <c:if test="${empty teacherInfo}"><span>${cr.memberNm}</span>수강생의 문의 내역</c:if>
+               <span>${cr.memberNm} </span>수강생의 문의내역
             </div>
             <div class="chat_title2">뜨겁게 또시작, 뜨또!</div>
          </div>
