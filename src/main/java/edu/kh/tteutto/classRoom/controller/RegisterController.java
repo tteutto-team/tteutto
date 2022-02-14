@@ -36,7 +36,7 @@ import edu.kh.tteutto.member.model.service.MemberService;
 import edu.kh.tteutto.member.model.vo.Member;
 
 @Controller
-@SessionAttributes({ "loginMember", "openClass", "openCount" })
+@SessionAttributes({ "loginMember"})
 @RequestMapping(value="register/*")
 public class RegisterController {
 	
@@ -255,10 +255,12 @@ public class RegisterController {
 		// 클래스 스케쥴 등록
 		@RequestMapping(value="schedule", method=RequestMethod.POST)
 		public String insertClassSchedule(RedirectAttributes ra, @ModelAttribute("loginMember") Member loginMember,
-										  @ModelAttribute("openClass") ClassDetail openClass, HttpSession session,
+										  HttpSession session,
 										  Episode episode, EpisodeSchedule episodeSd, String roadAddrPart1, 
 										  String addrDetail ) {
-			
+			// openClass 값 가져오기			
+			ClassDetail openClass = (ClassDetail)session.getAttribute("openClass");
+			//System.out.println(openClass);
 			
 			// 주소 합치기
 			String epPlace = roadAddrPart1 + " " + addrDetail;
