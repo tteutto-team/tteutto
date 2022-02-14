@@ -648,7 +648,7 @@ public class MemberController {
 		String teacherBirth = birthArray[0] + "년 " + birthArray[1] + "월 " + birthArray[2] + "일 ";
 		
 		teacher.setMemberBirth(teacherBirth);
-		
+		teacher.setTeacherIntro(Util.changeNewLine2(teacher.getTeacherIntro()));
 		
 		List<Integer> snsDivList = new ArrayList<Integer>();
 		snsDivList.add(1);
