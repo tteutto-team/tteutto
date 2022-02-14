@@ -43,7 +43,7 @@ public class ClassRoomController {
 	@Autowired
 	private TeacherService service;
 	
-	// 클래스 목록 classList/{memberNo}?page=1
+	// 클래스 목록 조회 classList/{memberNo}?page=1
 	@RequestMapping("classList/{memNo}")
 	public String classList(Model model, RedirectAttributes ra, HttpSession session,
 							@RequestParam(value = "page", required = false, defaultValue = "1") int page, @PathVariable("memNo") int memNo) {
@@ -52,11 +52,10 @@ public class ClassRoomController {
 		
 		String teacherOK = service.selectTeacher(loginMember.getMemberNo());
 		
+		// 주소의 회원 번호 == 로그인한 멤버 && 로그인한 회원이 강사가 맞을 때
 		if(memNo == loginMember.getMemberNo() && teacherOK.equals("Y")) {
-			int memberNo = loginMember.getMemberNo();
 			
-			// 클래스 목록 개수 조회(1회차 클래스)
-//			int classListCount = service.selectClassListCount(memberNo);
+			int memberNo = loginMember.getMemberNo();
 			
 			// 페이지네이션
 			Pagination pagination = service.selectClassListCount(memberNo, page);
@@ -70,8 +69,6 @@ public class ClassRoomController {
 			
 			// 에피소드 조회(클래스 회차 조회)
 			List<EpisodeClass> episodeList = service.selectClassEpisode(memberNo);
-			
-//			System.out.println("회차 조회: " + episodeList);
 			
 			model.addAttribute("pagination", pagination);
 			
@@ -199,6 +196,9 @@ public class ClassRoomController {
 		
 		int epNoMember = service.selectEpisodeMemberNo(epNo);
 		String episodeState = service.selectEpisodeState(epNo);
+		
+		System.out.println("epNoMember: " + epNoMember);
+		System.out.println("episodeState: " + episodeState);
 		
 		if(loginMember.getMemberNo() == epNoMember && episodeState.equals("ex")) {	
 			

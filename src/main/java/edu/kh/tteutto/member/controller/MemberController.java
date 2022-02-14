@@ -556,7 +556,7 @@ public class MemberController {
 		
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		
-//		System.out.println("로그인 한 회원정보 : "+ loginMember.getMemberImg());
+		System.out.println("로그인 한 회원정보 : "+ loginMember.getMemberNo());
 		
 		String brith = loginMember.getMemberBirth().substring(0, 10);
 		String[] brithArray = brith.split("-");
@@ -646,14 +646,18 @@ public class MemberController {
 		
 		int memberNo = loginMember.getMemberNo();
 //		int memberNo = 3;
+		
+		System.out.println("강사 프로필 이동: " + memberNo);
 
 		Teacher teacher = service.selectTeacherProfile(memberNo);
+		System.out.println("teacher: " + teacher);
 		List<Career> careerList = service.selectTeacherCareer(memberNo);
 		List<Sns> snsList = service.selectTeacherSns(memberNo);
 		
 //		System.out.println("careerList : "+ careerList);
 		//System.out.println("teacher:" + teacher);
 		loginMember.setTeacherImg(teacher.getTeacherImg());
+		
 		loginMember.setTeacherIntro(teacher.getTeacherIntro());
 		
 		String birth = teacher.getMemberBirth().split(" ")[0];

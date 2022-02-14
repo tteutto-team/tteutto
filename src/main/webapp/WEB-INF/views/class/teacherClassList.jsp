@@ -52,6 +52,7 @@
 		                        <div class="column">학생 관리</div>
 		                        <div class="column">삭제 여부</div>
 		                        <div class="column">정산</div>
+		                        <div class="column">상태</div>
 	                        </div>
 					
 					<c:forEach items="${episodeList}" var="episode" varStatus="episodeStatus">
@@ -61,7 +62,7 @@
 		                        <div class="column">${episode.date}</div>
 		                        
 		                        <c:choose>
-		                        	<c:when test="${!empty episode.studyStatus}">
+		                        	<c:when test="${episode.deleteStatus == 2 }">
 				                        <div class="column" id="${episode.studyStatus}"><button class="modal-open-btn student-management ${episode.studyStatus}" >관리</button></div>
 		                        	</c:when>
 		                        	<c:otherwise>
@@ -69,16 +70,7 @@
 		                        	</c:otherwise>
 		                        </c:choose>
 		                        
-								
-								<c:choose>
-			                        <c:when test="${episode.deleteStatus == 1}">
-				                        <div class="column">요청됨</div>
-			                        </c:when>
-			                        
-			                        <c:otherwise>
-				                        <div class="column"><button class="modal-open-btn delete">삭제 요청</button></div>
-			                        </c:otherwise>
-								</c:choose>
+		                        <div class="column"><button class="modal-open-btn delete">삭제</button></div>
 								
 								<c:choose>
 									<c:when test="${episode.calStatus == -2}">
@@ -94,6 +86,19 @@
 				                        <div class="column"><button class="modal-open-btn receipt">영수증</button></div>
 									</c:otherwise>
 								</c:choose>
+								
+								<c:choose>
+									<c:when test="${episode.deleteStatus == 0}">
+				                        <div class="column">승인 요청</div>
+				                    </c:when>
+									<c:when test="${episode.deleteStatus == 1}">
+				                        <div class="column">검토 중</div>
+				                    </c:when>
+									<c:when test="${episode.deleteStatus == 2}">
+				                        <div class="column">승인 완료</div>
+				                    </c:when>
+				                </c:choose>
+								
 								
 	                        </div>
 						</c:if>
