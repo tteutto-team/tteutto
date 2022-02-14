@@ -103,5 +103,13 @@ public class ClassRegisterDAO {
 		return sqlSession.insert("classMapper.insertIntroImg", it);
 		
 	}
+
+	/** 클래스가 존재하는지
+	 * @param no
+	 * @return classUse
+	 */
+	public int classUse(int no) {
+		return sqlSession.selectOne("classMapper.classUse", no);
+	}
 	
 }
