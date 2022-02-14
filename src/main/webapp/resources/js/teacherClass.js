@@ -121,11 +121,15 @@ $("#existing").on("click", function(){
 /* 기존 강좌 열기 클릭시 */
 $(".existing-class-select").on("click", function(){
     const liList = $(".class-no-open");
-    const select = $(".btn-select").val();
+    const select = $(".btn-select").text();
+
+// console.log(select);
+// console.log(liList);
 
     for(let name of liList){
-        if($(name).val() == select){
+        if($(name).text() == select){
             let id = $(name).attr("id");
+            // console.log(contextPath + "/register/schedule/"+id);
             location.href = contextPath + "/register/schedule/"+id;
         }
     }

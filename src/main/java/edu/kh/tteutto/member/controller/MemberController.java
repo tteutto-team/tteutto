@@ -604,8 +604,7 @@ public class MemberController {
 	@RequestMapping(value = "resign", method = RequestMethod.GET)
 	public String memberResign( @ModelAttribute("loginMember") Member loginMember, RedirectAttributes ra, SessionStatus status) {
 		
-//		int memberNo = loginMember.getMemberNo();
-		int memberNo = 1;
+		int memberNo = loginMember.getMemberNo();
 
 		String path = null;
 		
