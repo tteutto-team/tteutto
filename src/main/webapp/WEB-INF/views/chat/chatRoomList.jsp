@@ -78,7 +78,7 @@
 				                    </div>
 				                    <div class="chat-status">
 				                        <time datetime="15:40:00+09:00">${chatRoom.recentMsgDt}</time>
-				                       <%--  <span class="chat-balloon">${chatRoom.chatMessage.unreadMsgCnt}</sapn> --%>
+				                       <span class="chat-balloon">N</sapn>
 				                    </div>
 				                </a>
 				            </li>

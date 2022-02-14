@@ -46,12 +46,20 @@
         <div class="chat_title2">뜨겁게 또시작, 뜨또!</div> -->
  
 <!--    <button id="exit-btn">나가기</button> -->
+	
    <c:choose>
       <c:when test="${param.mode == 0}">
          <div class="chat_title">
             <img src="https://trello-members.s3.amazonaws.com/5f6847b648dcd038f65b8551/6798ec30c2f40b27b3656649306bd860/original.png">
             <div class="chat_title1">
-              <span>${cr.teacherNm} </span>강사님께 문의하기
+              <span>
+              	<c:if test="${!empty chatRoomNo}">
+              		${cr.teacherNm}
+              	</c:if>
+              	<c:if test="${chatRoomNo < 0}">
+              		${teacherInfo.MEMBER_NM}
+              	</c:if>
+              </span>강사님께 문의하기
                <%-- <c:if test="${empty teacherInfo}"><span>${cr.teacherNm}</span>강사님께 문의하기</c:if> --%>
             </div>
             <div class="chat_title2">뜨겁게 또시작, 뜨또!</div>
@@ -67,7 +75,14 @@
          <div class="chat_title">
             <img src="https://trello-members.s3.amazonaws.com/5f6847b648dcd038f65b8551/6798ec30c2f40b27b3656649306bd860/original.png">
             <div class="chat_title1">
-               <span>${cr.memberNm} </span>수강생의 문의내역
+               <span>
+               		<c:if test="${!empty chatRoomNo}">
+               			${cr.memberNm}
+               		</c:if>
+               		<c:if test="${chatRoomNo < 0}">
+              			${teacherInfo.MEMBER_NM}
+              		</c:if>
+               </span>수강생의 문의내역
             </div>
             <div class="chat_title2">뜨겁게 또시작, 뜨또!</div>
          </div>
