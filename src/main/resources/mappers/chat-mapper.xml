@@ -56,6 +56,7 @@
       JOIN MEMBER M ON(C.TEACHER_NO = M.MEMBER_NO)
       JOIN TEACHER T ON(C.TEACHER_NO = T.MEMBER_NO)
       WHERE C.MEMBER_NO = #{memberNo}
+      ORDER BY RECENT_MSG_DT DESC
    </select>
    
    <!-- 강사 채팅방 목록조회 -->
@@ -66,6 +67,7 @@
       FROM CHAT_ROOM C
       JOIN MEMBER M ON(C.MEMBER_NO = M.MEMBER_NO)
       WHERE TEACHER_NO = #{memberNo}
+      ORDER BY RECENT_MSG_DT DESC
    </select>
    
    <!-- 채팅방 열기 -->

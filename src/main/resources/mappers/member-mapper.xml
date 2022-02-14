@@ -69,6 +69,7 @@
 		<result property="memberNm" column="MEMBER_NM"/>
 		<result property="classNo" column="CLASS_NO"/>
 		<result property="epNo" column="EP_NO"/>
+		<result property="epCount" column="EP_COUNT"/>
 		<result property="className" column="CLASS_NM"/>
 		<result property="classStatus" column="CLASS_ST"/>
 		<result property="scheduleDate" column="SCHDL_DT"/>
@@ -359,7 +360,7 @@
 	            FROM EP_SCHEDULE
 	            WHERE EP_NO = A.EP_NO) DT_TERM
 		FROM(
-		    SELECT REG_NO, EP_NO, MEMBER_NM, MEMBER_NO, CLASS_NO, CLASS_NM, CLASS_ST, NVL(REFUND_ST, -1) REFUND_ST, NVL(REFUND_MONEY, -1) REFUND_MONEY, EP_ST(CLASS_NO, EP_NO) EP_ST
+		    SELECT REG_NO, EP_NO, EP_COUNT, MEMBER_NM, MEMBER_NO, CLASS_NO, CLASS_NM, CLASS_ST, NVL(REFUND_ST, -1) REFUND_ST, NVL(REFUND_MONEY, -1) REFUND_MONEY, EP_ST(CLASS_NO, EP_NO) EP_ST
 		    FROM CLASS C
 		    JOIN EPISODE EP USING(CLASS_NO)
 		    JOIN REGISTER R USING(EP_NO)

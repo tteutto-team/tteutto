@@ -264,6 +264,7 @@ function dlc(){
 
 // 날짜 임시저장용
 $("#mdp-demo td > a").each(function(){
+	// text에 배열로 저장된 값을 가져와서 for문으로 넣어주면 된다
     if($(this).text() == 4){
         $(this).click();
         
