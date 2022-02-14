@@ -53,7 +53,7 @@ public class ClassRoomController {
 			int memberNo = loginMember.getMemberNo();
 //			int memberNo = 3;
 			
-			System.out.println("??" + loginMember.getMemberNo());
+//			System.out.println("??" + loginMember.getMemberNo());
 			
 			// 클래스 목록 개수 조회(1회차 클래스)
 //			int classListCount = service.selectClassListCount(memberNo);
@@ -150,7 +150,7 @@ public class ClassRoomController {
 		
 		else {
 			Util.swalSetMessage("접근 불가능 합니다.", "해당 클래스의 강사님만 이용 가능합니다.", "error", ra);
-			return "redirect:/member/login";
+			return "redirect:/";
 		}
 		
 	}
@@ -192,32 +192,46 @@ public class ClassRoomController {
 	
 	// 학생 관리(수강 예정)
 	@RequestMapping("studentListExpect")
-	public String studentListExpect(@ModelAttribute("loginMember") Member loginMember, Model model,RedirectAttributes ra,
-					@RequestParam(value = "page", required = false, defaultValue = "1") int page, @RequestParam("epNo") int epNo) {
+	public String studentListExpect(@ModelAttribute("loginMember") Member loginMember, Model model,
+					@RequestParam(value = "page", required = false, defaultValue = "1") int page, @RequestParam("epNo") int epNo, RedirectAttributes ra) {
 		
-		// 페이지네이션
-		Pagination pagination =  service.studentListCount(epNo, page);
-		pagination.setLimit(10);
-		pagination.setPageSize(5);
+		int epNoMember = service.selectEpisodeMemberNo(epNo);
+		String episodeState = service.selectEpisodeState(epNo);
 		
-		// 학생 목록 조회
-		List<Member> studentList = service.studentListExpect(pagination, epNo);
+		if(loginMember.getMemberNo() == epNoMember && episodeState.equals("ex")) {	
+			
+			// 페이지네이션
+			Pagination pagination =  service.studentListCount(epNo, page);
+			pagination.setLimit(10);
+			pagination.setPageSize(5);
+			
+			// 학생 목록 조회
+			List<Member> studentList = service.studentListExpect(pagination, epNo);
+			
+			// 클래스 명, 회차 조회
+			Episode episodeInfo = service.selectClass(epNo);
+			
+			model.addAttribute("episodeInfo", episodeInfo);
+			model.addAttribute("pagination", pagination);
+			model.addAttribute("studentList", studentList);
+			model.addAttribute("epNo", epNo);
+			
+			return "class/teacherStudentListExpect";
+			
+		} else if(loginMember.getMemberNo() != epNoMember){
+			Util.swalSetMessage("접근 불가능 합니다.", "해당 클래스의 강사님만 이용 가능합니다.", "error", ra);
+			return "redirect:/";
+		} else {
+			Util.swalSetMessage("접근 불가능한 주소입니다.", "",  "error", ra);
+			return "redirect:/";
+		}
 		
-		// 클래스 명, 회차 조회
-		Episode episodeInfo = service.selectClass(epNo);
-		
-		model.addAttribute("episodeInfo", episodeInfo);
-		model.addAttribute("pagination", pagination);
-		model.addAttribute("studentList", studentList);
-		model.addAttribute("epNo", epNo);
-		
-		return "class/teacherStudentListExpect";
 	}
 	
 	// 수강 거절
 	@ResponseBody
-	@RequestMapping(value="studentReject", method=RequestMethod.GET)
-	public int rejectStudent(@ModelAttribute("loginMember") Member loginMember, String studentNo, String className, Model model, String epNo, RedirectAttributes ra) {
+	@RequestMapping(value="studentReject", method=RequestMethod.POST)
+	public int rejectStudent(@ModelAttribute("loginMember") Member loginMember, String studentNo, String className, String epNo) {
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("studentNo", studentNo);
@@ -232,31 +246,50 @@ public class ClassRoomController {
 	
 	// 학생 관리(진행 중)
 	@RequestMapping("studentListOngoing")
-	public String studentListOngoing(@RequestParam(value = "epNo") int epNo, Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+	public String studentListOngoing(@ModelAttribute("loginMember") Member loginMember, @RequestParam(value = "epNo") int epNo, 
+						Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page, RedirectAttributes ra) {
 
-		// 페이지네이션
-		Pagination pagination =  service.selectOngoingClassListCount(epNo, page);
-		pagination.setLimit(10);
-		pagination.setPageSize(5);
+		int epNoMember = service.selectEpisodeMemberNo(epNo);
 		
-		// 학생 목록 조회
-		List<OngingClass> ongoingClassList = service.selectOngoingClass(pagination, epNo);
+		String episodeState = service.selectEpisodeState(epNo);
 		
-		model.addAttribute("pagination", pagination);
 		
-		for(OngingClass c : ongoingClassList) {
+		if(loginMember.getMemberNo() == epNoMember && episodeState.equals("on")) {
 			
-			if(c.getMemberGender() != null && c.getMemberGender().equals("M") ) {
-				c.setMemberGender("남자");
-			} else if(c.getMemberGender() != null && c.getMemberGender().equals("F")) {
-				c.setMemberGender("여자");
+			// 페이지네이션
+			Pagination pagination =  service.selectOngoingClassListCount(epNo, page);
+			pagination.setLimit(10);
+			pagination.setPageSize(5);
+			
+			// 학생 목록 조회
+			List<OngingClass> ongoingClassList = service.selectOngoingClass(pagination, epNo);
+			
+			model.addAttribute("pagination", pagination);
+			
+			for(OngingClass c : ongoingClassList) {
+				
+				if(c.getMemberGender() != null && c.getMemberGender().equals("M") ) {
+					c.setMemberGender("남자");
+				} else if(c.getMemberGender() != null && c.getMemberGender().equals("F")) {
+					c.setMemberGender("여자");
+				}
+				
 			}
 			
+			model.addAttribute("epNo", epNo);
+			model.addAttribute("ongoingClassList", ongoingClassList);
+			
+			return "class/teacherStudentListOngoing";
+			
+		} else if(loginMember.getMemberNo() != epNoMember) {
+			Util.swalSetMessage("접근 불가능 합니다.", "해당 클래스의 강사님만 이용 가능합니다.", "error", ra);
+			return "redirect:/";
+		} else {
+			Util.swalSetMessage("접근 불가능한 주소입니다.", "", "error", ra);
+			return "redirect:/";
 		}
-		model.addAttribute("epNo", epNo);
-		model.addAttribute("ongoingClassList", ongoingClassList);
 		
-		return "class/teacherStudentListOngoing";
+		
 	}
 	
 	
@@ -264,11 +297,6 @@ public class ClassRoomController {
 	@ResponseBody
 	@RequestMapping(value="reportStudent", method=RequestMethod.POST)
 	public int reportStudent(String epNo, String memberNo, String reportText) {
-		
-		System.out.println("epNo : " + epNo);
-		System.out.println("memberNo : " + memberNo);
-		System.out.println("reportText : " + reportText);
-		
 		
 		Map<String, String> map = new HashMap<String, String>();
 		
@@ -281,6 +309,26 @@ public class ClassRoomController {
 		return result;
 	}
 	
+	// 학생 관리 - 신고 여부 조회
+	@ResponseBody
+	@RequestMapping(value="selectReportStudent", method=RequestMethod.POST)
+	public int selectReportStudent(String epNo, String memberNo) {
+		
+//		System.out.println("epNo: " + epNo);
+//		System.out.println("memberNo: " + memberNo);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("epNo", epNo);
+		map.put("memberNo", memberNo);
+		
+		int count = service.selectReportStudent(map);
+		
+//		System.out.println("count : " + count);
+		
+		return count;
+	}
+	
 	// 정산 신청
 	@ResponseBody
 	@RequestMapping(value="calculate", method=RequestMethod.POST)
@@ -288,7 +336,7 @@ public class ClassRoomController {
 		
 		int result = service.calculate(epNo);
 		
-		System.out.println("result " + result);
+//		System.out.println("result " + result);
 		return result;
 	}
 	
@@ -303,7 +351,7 @@ public class ClassRoomController {
 		Gson gson = new Gson();
 		String rList = gson.toJson(classList);
 		
-		System.out.println("rList " + rList);
+//		System.out.println("rList " + rList);
 		return rList;
 	}
 	

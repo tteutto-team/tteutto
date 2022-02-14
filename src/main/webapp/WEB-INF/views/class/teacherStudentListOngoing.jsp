@@ -15,7 +15,7 @@
                     <img src="${contextPath}/resources/images/teacher/profile/${loginMember.teacherImg}">
                 </div>
                 <div class="name">${loginMember.memberNm}</div>
-                <div class="introduce">안녕하세요. 만나서 반갑습니다.</div>
+                <div class="introduce">뜨또에 오신걸 환영합니다.</div>
 
                 <div class="list">
                     <div onclick="location.href='${contextPath}/member/teacherProfile'">강사 프로필</div>
@@ -52,7 +52,7 @@
 	                    </div>
 	                    <div class="invisible">
 	                        <div class="invisible-btn" id="student_${ongoingClass.studentNo}">
-	                            <button onclick="window.open('${contextPath}/chat/chatRoom?classNo=${ongoingClassList[0].classNo}&studentNo=${ongoingClass.studentNo}','채팅창 목록','width=482,height=700,location=no,status=no,scrollbars=yes');"><i class="far fa-comment"></i> 채팅</button>
+	                            <button onclick="window.open('${contextPath}/chat/chatRoom?classNo=${ongoingClassList[0].classNo}&studentNo=${ongoingClass.studentNo}&mode=1','채팅창 목록','width=482,height=700,location=no,status=no,scrollbars=yes');"><i class="far fa-comment"></i> 채팅</button>
 	                            <button class="modal-open-btn report"><i class="fas fa-exclamation-triangle"></i> 신고</button>
 	                        </div>
 	                    </div>
