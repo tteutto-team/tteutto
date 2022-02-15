@@ -291,6 +291,7 @@
 		formData.append("sigoon", $("#sigoon_code > option:selected").text());
 		formData.append("type", "${type}");
 		formData.append("ctNo", "${param.ctNo}");
+		formData.append("ctDetailNo", "${param.ctDetailNo}");
 		
 		
 		$.ajax({
