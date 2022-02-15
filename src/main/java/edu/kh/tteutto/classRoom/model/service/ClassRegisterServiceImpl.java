@@ -161,7 +161,7 @@ public class ClassRegisterServiceImpl implements ClassRegisterService{
 	public int insertClassScheduleplus(Episode episode, List<EpisodeSchedule> epsList, int epCount) {
 
 		int ec = epCount + 1;
-		episode.setEpCount(epCount);
+		episode.setEpCount(ec);
 		
 		int epNo = dao.insertOneEpisode(episode);
 		
