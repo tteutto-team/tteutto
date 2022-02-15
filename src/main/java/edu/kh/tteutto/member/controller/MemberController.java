@@ -646,17 +646,11 @@ public class MemberController {
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		
 		int memberNo = loginMember.getMemberNo();
-//		int memberNo = 3;
-		
-		//System.out.println("강사 프로필 이동: " + memberNo);
 
 		Teacher teacher = service.selectTeacherProfile(memberNo);
-		//System.out.println("teacher: " + teacher);
 		List<Career> careerList = service.selectTeacherCareer(memberNo);
 		List<Sns> snsList = service.selectTeacherSns(memberNo);
 		
-//		System.out.println("careerList : "+ careerList);
-		//System.out.println("teacher:" + teacher);
 		loginMember.setTeacherImg(teacher.getTeacherImg());
 		
 		loginMember.setTeacherIntro(teacher.getTeacherIntro());
@@ -670,23 +664,26 @@ public class MemberController {
 		teacher.setMemberBirth(teacherBirth);
 		teacher.setTeacherIntro(Util.changeNewLine2(teacher.getTeacherIntro()));
 		
-		List<Integer> snsDivList = new ArrayList<Integer>();
+		List<Integer> snsDivList = new ArrayList<Integer>();	// 초기 snsDivList = [1,2,3]
 		snsDivList.add(1);
 		snsDivList.add(2);
 		snsDivList.add(3);
 		
+		
 		for(int i=0; i < snsList.size(); i++) {
+
+			System.out.println("getSnsDiv: " + snsList.get(i).getSnsDiv());
 			
 			if(snsList.get(i).getSnsDiv() == (Integer)1) {
-				snsDivList.remove(snsDivList.indexOf(1));
+				snsDivList.remove(snsDivList.indexOf(1));	// 1이 있는 인덱스(0)를 제거
 			}
 			
 			if(snsList.get(i).getSnsDiv() == (Integer)2) {
-				snsDivList.remove(snsDivList.indexOf(2));
+				snsDivList.remove(snsDivList.indexOf(2));	// 2가 있는 인덱스(1)을 제거
 			}
 			
 			if(snsList.get(i).getSnsDiv() == (Integer)3) {
-				snsDivList.remove(snsDivList.indexOf(3));
+				snsDivList.remove(snsDivList.indexOf(3));	// 3가 있는 인덱스(2)을 제거
 			}
 		}
 		
