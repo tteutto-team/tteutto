@@ -41,6 +41,14 @@
 		<result property="memberAgeCount" column="MEMBER_AGECOUNT" />
 	</resultMap>
 	
+	<!-- 강사 sns VO -->
+	<resultMap type="Sns" id="sns_rm">
+		<id property="snsNo" column="SNS_NO"/>
+		<result property="snsLink" column="SNS_LINK"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="snsDiv" column="SNS_DIV"/>
+	</resultMap>
+	
 	<!-- episode 회차 VO -->
 	<resultMap type="EPISODE" id="ep_rm">
 		<id property="epNo" column="EP_NO" />
@@ -132,8 +140,6 @@
 	</resultMap>
 	
 	
-	
-	
 	<!-- 클래스 상세조회 (오른쪽결제박스만) -->
 	<select id="selectClassDetail" resultMap="classDetailRight_rm">
 		SELECT CLASS.CLASS_NO, CT_NM , EP_COUNT, CLASS.CLASS_NM, CLASS_LEVEL,
@@ -220,9 +226,18 @@
 		WHERE CLASS_NO = #{classNo} AND MEMBER_NO = #{memberNo}
 	</select>
 	
+	<!-- 강사 sns 조회 -->
+	<select id="selectTeacherSns" resultMap="sns_rm">
+		SELECT S.SNS_LINK, S.SNS_DIV 
+		FROM SNS S
+		JOIN CLASS C USING(MEMBER_NO)
+		WHERE CLASS_NO = #{classNo}
+		ORDER BY SNS_NO
+	</select>
+	
 	<!-- 강사 소개 조회  -->
 	<select id="selectTeacher" resultMap="teacherIntro_rm">
-		select c.class_no,  TEACHER_IMG, TEACHER_INTRO, MEMBER_NM, sns_link FROM TEACHER T
+		select distinct c.class_no,  TEACHER_IMG, TEACHER_INTRO, MEMBER_NM FROM TEACHER T
 		JOIN MEMBER M ON M.MEMBER_NO = T.MEMBER_NO 
 		join class c on c.member_no = m.member_no
 		join sns s on s.member_no = m.member_no
