@@ -414,7 +414,7 @@
             <div id="section1" class="scroll"></div>
             <div class="section1"  data-aos="fade-up">
                 <!-- <div class="introClass" style="margin-top: 100px;">  -->
-                <div style="margin-top: 100px;"> 
+                <div style="margin-top: 100px; margin-left: 12px;"> 
                    <!--  <p  >간단한 클래스 소개</p>  -->
                    <c:if test="${!empty cdt.classIntro}">
                    		<div id="summernote"></div>
@@ -1013,7 +1013,10 @@
  		 }catch(e){};
 
  		 Kakao.Link.sendCustom({
-            templateId: 70472
+            templateId: 70472,
+            templateArgs:{
+            	'url' : "${contextPath}" + "/class/classDetail?classNo=${cdtr.cdt.classNo}&epCount=${param.epCount}"
+            }
         });
       }
  	  
