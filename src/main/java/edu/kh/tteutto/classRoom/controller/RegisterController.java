@@ -292,9 +292,12 @@ public class RegisterController {
 			
 			// openClass 값 가져오기			
 			//ClassDetail openClass = (ClassDetail)session.getAttribute("openClass");
-            ClassDetail openClass = new ClassDetail();
-            openClass.setClassNo(classNo);
-			
+            //ClassDetail openClass = new ClassDetail();
+            //openClass.setClassNo(classNo);
+            
+            ClassDetail openClass = service.classSelect(classNo);
+			//System.out.println(openClass);
+            
 			// 주소 합치기
 			String epPlace = roadAddrPart1 + " " + addrDetail;
 			episode.setEpPlace(epPlace);
