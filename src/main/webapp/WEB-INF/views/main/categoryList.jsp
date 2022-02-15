@@ -303,6 +303,7 @@
 		 	processData: false,
 		 	success : function(result) {
 		 		console.log(result)
+		 		changeQueryString();
 		 		
 		 		$(".list-wrap > .class").remove(); <%-- 기존 클래스 카드 삭제 --%>
 		 		
@@ -428,4 +429,50 @@
 		 	}
 		})
 	});
+	
+	
+	// 주소창에 쿼리스트링을 추가하는 함수
+	function changeQueryString(){
+		let queryString = location.pathname;
+		
+		const arr = [];
+		
+		$("[name=price]:checked").each(function(){ 
+			arr.push("price="+$(this).val());
+		});
+		
+		if($("#sido_code > option:selected").text() != "선택"){
+			arr.push("sido="+$("#sido_code > option:selected").text());
+		}
+		
+		if($("#sigoon_code > option:selected").text() != "선택"){
+			arr.push("sigoon="+$("#sigoon_code > option:selected").text());
+		}
+		
+		if($("[name=classType]").val() != "" && $("[name=classType]").val() != "전체"){
+			arr.push("classType="+$("[name=classType]").val());
+		}
+		
+		if($("[name=classSort]").val() != ""){
+			arr.push("classSort="+$("[name=classSort]").val());
+		}
+		
+		
+		
+		if(arr.length > 0){
+			
+			queryString += "?";
+			
+			for(let i=0 ; i<arr.length ; i++){
+				if(i == 0) queryString += arr[i];
+				else queryString += "&" + arr[i];
+			}
+			
+		}
+		
+		console.log(queryString);
+		
+		history.pushState(null, null, queryString);
+		
+	}
 </script>

@@ -240,11 +240,11 @@ crossorigin="anonymous"/>
 		<c:if test="${pagination.maxPage > 1}">
 	        <div class="page-number">
 	            <ul class="page-ul">
-	            	<c:if test="${pagination.currentPage != 1}"> <!-- current -->
+	            	<c:if test="${pagination.startPage > pagination.pageSize}"> <!-- current -->
 		            	<%-- 이전 리스트로 이동 --%>
-		                <li><a href="#"><i class="fas fa-angle-double-left"></i></a></li>
+		                <li><a href="searchList?search=${param.search}&page=1"><i class="fas fa-angle-double-left"></i></a></li>
 		                <%-- 이전 페이지로 이동 --%>
-		                <li><a href="#"><i class="fas fa-angle-left"></i></a></li>
+		                <li><a href="searchList?search=${param.search}&page=${pagination.startPage-1}"><i class="fas fa-angle-left"></i></a></li>
 	                </c:if>
 	                
 	                <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" step="1"  var="i">
@@ -262,11 +262,11 @@ crossorigin="anonymous"/>
 		                </c:choose>
 	                </c:forEach>
 	                
-	                <c:if test="${pagination.currentPage != pagination.maxPage}"> <!-- current -->
+	                <c:if test="${pagination.endPage < pagination.maxPage}"> <!-- current -->
 		                <%-- 다음 페이지로 이동 --%>
-		                <li><a href="#"><i class="fas fa-angle-right"></i></a></li>
+		                <li><a href="searchList?search=${param.search}&page=${pagination.endPage+1}"><i class="fas fa-angle-right"></i></a></li>
 		                <%-- 다음 리스트로 이동 --%>
-		                <li><a href="#"><i class="fas fa-angle-double-right"></i></a></li>
+		                <li><a href="searchList?search=${param.search}&page=${pagination.maxPage}"><i class="fas fa-angle-double-right"></i></a></li>
 	                </c:if>
 	            </ul>
 	        </div>
@@ -389,128 +389,294 @@ crossorigin="anonymous"/>
 		 	success : function(result) {
 		 		console.log(result)
 		 		
-		 		$(".yes > .class").remove(); <%-- 기존 클래스 카드 삭제 --%>
+		 		// 주소창에 쿼리스트링을 추가하는 함수 호출
+		 		changeQueryString();
+
+		 		// 클래스 카드 리스트 변경 함수 호출
+		 		changeClassCardList(result.classList);
 		 		
-		 		for (let classList of result.classList) {
-		 			<%-- 클래스 카드 --%>
-			 		const classCard = $('<div class="class">');
-			 		
-			 		const imgDiv = $('<div class="image">');
-			 		
-			 		<%-- 클래스 이미지 --%>
-			 		const img = $('<img>');
-			 		img.attr("src", "${contextPath}/resources/images/class-detail/" + classList.thumbnailImageName);
-			 		img.attr("onclick", "location.href='/tteutto/class/classDetail?classNo=" + classList.classNo 
-			 							+ "&epCount=" + classList.episodeCount + "'");
-			 		
-			 		<%-- 수업 등록 지역 --%>
-			 		const locationP = $('<p class="location-p">').text(classList.classArea);
-			 		
-					imgDiv.append(img, locationP);
-					classCard.append(imgDiv);
-			 		
-					<%-- 클래스 찜하기 버튼 --%>
-					let btnLike;
-					let imgEmoti;
-					let aniHeartM;
-					
-					<%-- 찜 X --%>
-					if (classList.heartFlag == 0) {
-						btnLike = $('<button type="button" class="btn_like">').attr('id',classList.classNo);
-						imgEmoti = $('<span class="img_emoti">').text('좋아요');
-						aniHeartM = $('<span class="ani_heart_m">');
-					
-					<%-- 찜 O --%>
-					} else {
-						btnLike = $('<button type="button" class="btn_like btn_unlike">').attr('id',classList.classNo);
-						imgEmoti = $('<span class="img_emoti">').text('좋아요');
-						aniHeartM = $('<span class="ani_heart_m hi">');
-					}
-					
-					btnLike.append(imgEmoti, aniHeartM);
-					
-					<%-- 클래스 찜하기 버튼 이벤트 --%>
-					$(btnLike).click(function() {
-						const classNo = this.getAttribute("id");
-						
-						if ("${loginMember}" != "") {
-							const heartBtn = this;
-							
-							$.ajax({
-								url : "${contextPath}/member/changeHeart", 
-								data : {"classNo" : classNo}, 
-								success : function(result) {
-									if (result > 0) {
-									    if ($(heartBtn).hasClass('btn_unlike')) {
-									        $(heartBtn).removeClass('btn_unlike');
-									        $(heartBtn).children('span:eq(1)').removeClass('hi');
-									        $(heartBtn).children('span:eq(1)').addClass('bye');
-									        
-									    } else {
-									        $(heartBtn).addClass('btn_unlike');
-									        $(heartBtn).children('span:eq(1)').removeClass('bye');
-									        $(heartBtn).children('span:eq(1)').addClass('hi');
-									    }
-									}
-								}
-							}) 
-						
-						} else alert("로그인 후 이용 가능합니다.");
-					});
-					
-					classCard.append(btnLike);
-					
-					const detailInfo = $('<div class="detail-info">');
-					
-					<%-- 카테고리명 --%>
-					const category = $('<span class="category-name">').text(classList.categoryName);
-					detailInfo.append(category);
-					
-					<%-- 클래스명 --%>
-					const className = $('<div class="class-name">')
-					
-					if (classList.classType == 0)
-						className.text("[원데이] " + classList.className);
-					else
-						className.text("["+ classList.episodeCount + "회차] " + classList.className)
-						
-					detailInfo.append(className);
-					
-					<%-- 별점, 찜 개수 --%>
-					const grade = $('<div class="grade">');
-					const starI = $('<i class="fi-rr-star">');
-					const star = $('<span>').text(classList.starAverage.toFixed(1));
-					
-					const heartI = $('<i class="fi-rr-heart">'); 
-					const heart = $('<span>').text(classList.heartCount);
-					
-					grade.append(starI, star, heartI, heart);
-					starI.after(" "); star.after(" "); heartI.after(" "); heart.after(" ");
-					
-					detailInfo.append(grade);
-					
-					const detailInfoBottom = $('<div class="detail-info-bottom">');
-					
-					<%-- 강사 프로필 이미지 --%>
-					const teacherImg = $('<img src="${contextPath}/resources/images/teacher/profile/' + classList.teacherImage + '">');
-					
-					<%-- 강사명 --%>
-					const teacherName = $('<span class="teacher-name">').text(classList.memberName);
-					
-					<%-- 수업료 --%>
-					const classPrice = $('<span class="class-price">').text(classList.episodePrice.toLocaleString('ko-KR') + "원")
-					
-					detailInfoBottom.append(teacherImg,teacherName,classPrice);
-					teacherImg.after(" "); teacherName.after(" "); classPrice.after(" ");
-					detailInfo.append(detailInfoBottom);
-					
-					classCard.append(detailInfo);
-					
-					<%-- 화면에 클래스 카드 추가 --%>
-					$(".yes").append(classCard);
-					classCard.after(" ");
-		 		}
+		 		// 페이지네이션 변경 함수 호출
+		 		changePagination(result.pagination)
+		 		
 		 	}
 		})
 	});
+	
+	
+	// 주소창에 쿼리스트링을 추가하는 함수
+	function changeQueryString(){
+		
+		const arr = [];
+		
+		$("[name=price]:checked").each(function(){ 
+			arr.push("price="+$(this).val());
+		});
+		
+		if($("#sido_code > option:selected").text() != "선택"){
+			arr.push("sido="+$("#sido_code > option:selected").text());
+		}
+		
+		if($("#sigoon_code > option:selected").text() != "선택"){
+			arr.push("sigoon="+$("#sigoon_code > option:selected").text());
+		}
+		
+		if($("[name=classType]").val() != "" && $("[name=classType]").val() != "전체"){
+			arr.push("classType="+$("[name=classType]").val());
+		}
+		
+		if($("[name=classSort]").val() != ""){
+			arr.push("classSort="+$("[name=classSort]").val());
+		}
+		
+		let queryString = location.pathname;
+		if(arr.length > 0){
+			queryString += "?";
+			
+			if("${param.search}" != ""){
+				queryString += "search=${param.search}&"
+			}
+			for(let i=0 ; i<arr.length ; i++){
+				if(i == 0) queryString += arr[i];
+				else queryString += "&" + arr[i];
+			}
+		}
+		
+		console.log(queryString);
+		history.pushState(null, null, queryString);
+	}
+	
+	// 클래스 카드 리스트 변경 함수
+	function changeClassCardList(resultList){
+ 		$(".yes > .class").remove(); <%-- 기존 클래스 카드 삭제 --%>
+ 		
+ 		for (let classList of resultList) {
+ 			<%-- 클래스 카드 --%>
+	 		const classCard = $('<div class="class">');
+	 		
+	 		const imgDiv = $('<div class="image">');
+	 		
+	 		<%-- 클래스 이미지 --%>
+	 		const img = $('<img>');
+	 		img.attr("src", "${contextPath}/resources/images/class-detail/" + classList.thumbnailImageName);
+	 		img.attr("onclick", "location.href='/tteutto/class/classDetail?classNo=" + classList.classNo 
+	 							+ "&epCount=" + classList.episodeCount + "'");
+	 		
+	 		<%-- 수업 등록 지역 --%>
+	 		const locationP = $('<p class="location-p">').text(classList.classArea);
+	 		
+			imgDiv.append(img, locationP);
+			classCard.append(imgDiv);
+	 		
+			<%-- 클래스 찜하기 버튼 --%>
+			let btnLike;
+			let imgEmoti;
+			let aniHeartM;
+			
+			<%-- 찜 X --%>
+			if (classList.heartFlag == 0) {
+				btnLike = $('<button type="button" class="btn_like">').attr('id',classList.classNo);
+				imgEmoti = $('<span class="img_emoti">').text('좋아요');
+				aniHeartM = $('<span class="ani_heart_m">');
+			
+			<%-- 찜 O --%>
+			} else {
+				btnLike = $('<button type="button" class="btn_like btn_unlike">').attr('id',classList.classNo);
+				imgEmoti = $('<span class="img_emoti">').text('좋아요');
+				aniHeartM = $('<span class="ani_heart_m hi">');
+			}
+			
+			btnLike.append(imgEmoti, aniHeartM);
+			
+			<%-- 클래스 찜하기 버튼 이벤트 --%>
+			$(btnLike).click(function() {
+				const classNo = this.getAttribute("id");
+				
+				if ("${loginMember}" != "") {
+					const heartBtn = this;
+					
+					$.ajax({
+						url : "${contextPath}/member/changeHeart", 
+						data : {"classNo" : classNo}, 
+						success : function(result) {
+							if (result > 0) {
+							    if ($(heartBtn).hasClass('btn_unlike')) {
+							        $(heartBtn).removeClass('btn_unlike');
+							        $(heartBtn).children('span:eq(1)').removeClass('hi');
+							        $(heartBtn).children('span:eq(1)').addClass('bye');
+							        
+							    } else {
+							        $(heartBtn).addClass('btn_unlike');
+							        $(heartBtn).children('span:eq(1)').removeClass('bye');
+							        $(heartBtn).children('span:eq(1)').addClass('hi');
+							    }
+							}
+						}
+					}) 
+				
+				} else alert("로그인 후 이용 가능합니다.");
+			});
+			
+			classCard.append(btnLike);
+			
+			const detailInfo = $('<div class="detail-info">');
+			
+			<%-- 카테고리명 --%>
+			const category = $('<span class="category-name">').text(classList.categoryName);
+			detailInfo.append(category);
+			
+			<%-- 클래스명 --%>
+			const className = $('<div class="class-name">')
+			
+			if (classList.classType == 0)
+				className.text("[원데이] " + classList.className);
+			else
+				className.text("["+ classList.episodeCount + "회차] " + classList.className)
+				
+			detailInfo.append(className);
+			
+			<%-- 별점, 찜 개수 --%>
+			const grade = $('<div class="grade">');
+			const starI = $('<i class="fi-rr-star">');
+			const star = $('<span>').text(classList.starAverage.toFixed(1));
+			
+			const heartI = $('<i class="fi-rr-heart">'); 
+			const heart = $('<span>').text(classList.heartCount);
+			
+			grade.append(starI, star, heartI, heart);
+			starI.after(" "); star.after(" "); heartI.after(" "); heart.after(" ");
+			
+			detailInfo.append(grade);
+			
+			const detailInfoBottom = $('<div class="detail-info-bottom">');
+			
+			<%-- 강사 프로필 이미지 --%>
+			const teacherImg = $('<img src="${contextPath}/resources/images/teacher/profile/' + classList.teacherImage + '">');
+			
+			<%-- 강사명 --%>
+			const teacherName = $('<span class="teacher-name">').text(classList.memberName);
+			
+			<%-- 수업료 --%>
+			const classPrice = $('<span class="class-price">').text(classList.episodePrice.toLocaleString('ko-KR') + "원")
+			
+			detailInfoBottom.append(teacherImg,teacherName,classPrice);
+			teacherImg.after(" "); teacherName.after(" "); classPrice.after(" ");
+			detailInfo.append(detailInfoBottom);
+			
+			classCard.append(detailInfo);
+			
+			<%-- 화면에 클래스 카드 추가 --%>
+			$(".yes").append(classCard);
+			classCard.after(" ");
+ 		}
+	}
+	
+	
+	// 페이지네이션 변경 함수
+	function changePagination(pg){
+		$(".page-ul").empty();
+ 		
+ 		console.log(pg)
+ 		
+		if(pg.startPage > pg.pageSize){
+			const li1 = $('<li>');
+			const a1 = $('<a>');
+			const i1 = $('<i class="fas fa-angle-double-left">');
+			li1.append(a1);
+			a1.append(i1);
+			
+			const li2 = $('<li>');
+			const a2 = $('<a>');
+			const i2 = $('<i class="fas fa-angle-left">');
+			li2.append(a2);
+			a2.append(i2);
+			
+			if(location.search != ''){
+				a1.attr("href", location.search + '&page=1');
+				a2.attr("href", location.search + '&page=' + (pg.startPage - 1));
+			}
+			
+			$(".page-ul").append(li1, li2);
+		}
+				
+			
+ 		for(let i = pg.startPage ; i <= pg.endPage ; i++){
+ 			console.log(i)
+ 			const li = $("<li>")
+ 			const a = $("<a>").text(i);
+ 			
+ 			if(i == pg.currentPage){
+ 				li.css({'border-radius' : '50%', 'background-color' : '#FFDF3E' })
+ 				a.css("color", "white");
+ 			}else{
+ 				a.attr("href", location.search + '&page=' + i);
+ 			}
+ 			
+ 			li.append(a);
+ 			$(".page-ul").append(li);
+ 			
+ 		}
+ 		
+		
+		if(pg.endPage < pg.maxPage){
+			const li1 = $('<li>');
+			const a1 = $('<a>');
+			const i1 = $('<i class="fas fa-angle-right">');
+			li1.append(a1);
+			a1.append(i1);
+			
+			const li2 = $('<li>');
+			const a2 = $('<a>');
+			const i2 = $('<i class="fas fa-angle-double-right">');
+			li2.append(a2);
+			a2.append(i2);
+			
+			if(location.search != ''){
+				a1.attr("href", location.search + '&page=' + (pg.endPage + 1));
+				a2.attr("href", location.search + '&page=' + pg.maxPage);
+			}
+			
+			$(".page-ul").append(li1, li2);
+		}
+		
+		
+		// a태그에 이벤트 추가
+		$(".page-ul a").on("click", function(e){
+			e.preventDefault();
+			
+			const qs = $(this).attr("href");
+			console.log(qs)
+		
+			
+			if(qs != undefined){
+				$.ajax({
+					url : "${contextPath}/main/changeOption" + qs + "&page=" + $(e.target).text(), 
+					//data : formData, 
+					type : "post",
+					dataType : "json", 
+				 	//contentType: false,
+				 	//processData: false,
+				 	success : function(result) {
+				 		console.log(result)
+				 		
+				 		// 주소창에 쿼리스트링을 추가하는 함수 호출
+				 		//changeQueryString();
+
+				 		// 클래스 카드 리스트 변경 함수 호출
+				 		changeClassCardList(result.classList);
+				 		
+				 		// 페이지네이션 변경 함수 호출
+				 		changePagination(result.pagination)
+				 		
+				 	}
+				})
+			}
+		
+		})
+		
+		
+		
+	}
+	
+	
+
 </script>

@@ -111,10 +111,10 @@ public class ClassListContoller {
 			map.put("pageKey", "location");
 		}
 		
-		if (!option.getSido().equals("선택")) map.put("classArea1", option.getSido());
+		if (option.getSido() != null && !option.getSido().equals("선택")) map.put("classArea1", option.getSido());
 		else map.put("classArea1", "");
 		
-		if (!option.getSigoon().equals("선택")) map.put("classArea2", option.getSigoon());
+		if (option.getSigoon() != null && !option.getSigoon().equals("선택")) map.put("classArea2", option.getSigoon());
 		else map.put("classArea2", "");
 		
 		if (ctNo == 0) map.put("ctNo", 0);
