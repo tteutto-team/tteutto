@@ -62,10 +62,20 @@
 				            <li>
 				                <a class="aaa" href="${contextPath}/chat/chatRoom?chatRoomNo=${chatRoom.chatRoomNo}&mode=">
 				                    <c:if test="${param.mode == 0 }">
-				                    	<img src="${contextPath}/resources/images/teacher/profile/${chatRoom.memberImg }" class="profile-img" alt="k페이프로필사진">
+				                    	<c:if test="${!empty chatRoom.memberImg}">
+					                    	<img src="${contextPath}/resources/images/teacher/profile/${chatRoom.memberImg }" class="profile-img" alt="k페이프로필사진">
+				                    	</c:if>
+				                    	<c:if test="${empty chatRoom.memberImg}">
+					                    	<img src="https://trello.com/1/cards/61ea68649279785e229eb2dd/attachments/61eac6a1f7ea86892aac80df/previews/61eac6a2f7ea86892aac80fe/download/TTEUTTO_ver.4_%28favicon%29.png" class="profile-img" alt="k페이프로필사진">
+				                    	</c:if>
 				                    </c:if>
 				                    <c:if test="${param.mode == 1 }">
-				                    	<img src="${contextPath}/resources/images/profile/${chatRoom.memberImg }" class="profile-img" alt="k페이프로필사진">
+					                    <c:if test="${!empty chatRoom.memberImg}">
+					                    	<img src="${contextPath}/resources/images/profile/${chatRoom.memberImg }" class="profile-img" alt="k페이프로필사진">
+					                    </c:if>
+										<c:if test="${empty chatRoom.memberImg}">
+					                    	<img src="https://trello.com/1/cards/61ea68649279785e229eb2dd/attachments/61eac6a1f7ea86892aac80df/previews/61eac6a2f7ea86892aac80fe/download/TTEUTTO_ver.4_%28favicon%29.png" class="profile-img" alt="k페이프로필사진">
+				                    	</c:if>				                    	
 				                    </c:if>
 				                    <div class="talk">
 				                    <c:choose>
