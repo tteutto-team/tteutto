@@ -84,11 +84,20 @@
 				                        
 			                            <button class="review-modal-btn"><i class="fas fa-pen"></i> 후기</button>
 			                            <button class="report-modal-btn"><i class="fas fa-exclamation-triangle"></i> 신고</button>
-			                            <form action="${contextPath}/member/refundClass" class="refundCheck" method="POST" onsubmit="return refundCheck();">
-			                            	<button class="refund-btn"><i class="fas fa-wallet"></i> 환불</button>
-			                            	<input type="hidden" name="regNo" value="${rg.regNo}">
-			                            	<input type="hidden" name="epNo" value="${rg.epNo}">
-										</form>			                            	
+			                            <c:if test="${rg.refundStatus >= 0}">
+	   			                            <form action="${contextPath}/member/refundClass" class="refundCheck" method="POST" onsubmit="return refundCheck();">
+				                            	<div style="display: none;"><button class="refund-btn"><i class="fas fa-wallet"></i> 환불</button></div>
+				                            	<input type="hidden" name="regNo" value="${rg.regNo}">
+				                            	<input type="hidden" name="epNo" value="${rg.epNo}">
+											</form>	
+			                            </c:if>
+			                            <c:if test="${rg.refundStatus == -1}">
+				                            <form action="${contextPath}/member/refundClass" class="refundCheck" method="POST" onsubmit="return refundCheck();">
+				                            	<button class="refund-btn"><i class="fas fa-wallet"></i> 환불</button>
+				                            	<input type="hidden" name="regNo" value="${rg.regNo}">
+				                            	<input type="hidden" name="epNo" value="${rg.epNo}">
+											</form>	
+										</c:if>		                            	
 			                            <div style="display:none;">${rg.memberNm}</div>
 			                            <div style="display:none;">${rg.epNo}</div>
 			                        </div>

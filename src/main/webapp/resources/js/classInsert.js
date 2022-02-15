@@ -616,11 +616,11 @@ $("#solo-class").on("click", function(){
 	
 	
 	// 임시저장 카테고리
-	if($("#ct1").val() != 'base'){
+	if(ctNo > 0){
 		$("#ct1").val(ctNo);
 		$("#ct1").change();	
 		
-		if($("#ct2").val() != 'base'){
+		if(ctdNo > 0){
 			setTimeout(function(){
 				$("#ct2").val(ctdNo);
 				$("#ct2").change();

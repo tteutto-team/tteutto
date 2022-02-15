@@ -556,7 +556,7 @@ public class MemberController {
 		
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		
-		System.out.println("로그인 한 회원정보 : "+ loginMember.getMemberNo());
+		//System.out.println("로그인 한 회원정보 : "+ loginMember.getMemberNo());
 		
 		String brith = loginMember.getMemberBirth().substring(0, 10);
 		String[] brithArray = brith.split("-");
@@ -604,6 +604,7 @@ public class MemberController {
 		if(result > 0 ) {	// 성공
 			loginMember.setMemberNm(name);
 			loginMember.setMemberPno(phone);
+			Util.swalSetMessage("수정되었습니다!", "", "success", ra);
 			return "redirect:studentProfile";
 		} else { // 실패
 			Util.swalSetMessage("error", "관리자에게 문의해주세요.", "error", ra);
@@ -645,17 +646,11 @@ public class MemberController {
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		
 		int memberNo = loginMember.getMemberNo();
-//		int memberNo = 3;
-		
-		System.out.println("강사 프로필 이동: " + memberNo);
 
 		Teacher teacher = service.selectTeacherProfile(memberNo);
-		System.out.println("teacher: " + teacher);
 		List<Career> careerList = service.selectTeacherCareer(memberNo);
 		List<Sns> snsList = service.selectTeacherSns(memberNo);
 		
-//		System.out.println("careerList : "+ careerList);
-		//System.out.println("teacher:" + teacher);
 		loginMember.setTeacherImg(teacher.getTeacherImg());
 		
 		loginMember.setTeacherIntro(teacher.getTeacherIntro());
@@ -669,23 +664,26 @@ public class MemberController {
 		teacher.setMemberBirth(teacherBirth);
 		teacher.setTeacherIntro(Util.changeNewLine2(teacher.getTeacherIntro()));
 		
-		List<Integer> snsDivList = new ArrayList<Integer>();
+		List<Integer> snsDivList = new ArrayList<Integer>();	// 초기 snsDivList = [1,2,3]
 		snsDivList.add(1);
 		snsDivList.add(2);
 		snsDivList.add(3);
 		
+		
 		for(int i=0; i < snsList.size(); i++) {
+
+			System.out.println("getSnsDiv: " + snsList.get(i).getSnsDiv());
 			
 			if(snsList.get(i).getSnsDiv() == (Integer)1) {
-				snsDivList.remove(snsDivList.indexOf(1));
+				snsDivList.remove(snsDivList.indexOf(1));	// 1이 있는 인덱스(0)를 제거
 			}
 			
 			if(snsList.get(i).getSnsDiv() == (Integer)2) {
-				snsDivList.remove(snsDivList.indexOf(2));
+				snsDivList.remove(snsDivList.indexOf(2));	// 2가 있는 인덱스(1)을 제거
 			}
 			
 			if(snsList.get(i).getSnsDiv() == (Integer)3) {
-				snsDivList.remove(snsDivList.indexOf(3));
+				snsDivList.remove(snsDivList.indexOf(3));	// 3가 있는 인덱스(2)을 제거
 			}
 		}
 		
@@ -783,20 +781,17 @@ public class MemberController {
 		// 이력을 수정했을 경우
 		else {
 			
-//			for(int i=0; i<images.size(); i++) {
-//				System.out.println("images: " + images.get(i).getOriginalFilename());
-//				System.out.println("profileInput: " + profileInput.get(i));
-//			}
-			
 			result = service.teacherProfileUpdate(teacher, phone, snsList, profileInput, images, webPath, serverPath);
 			//System.out.println("수정 result: " + result);
 		}
 		
 		if(result > 0) {
+			loginMember.setMemberPno(phone);
+			Util.swalSetMessage("수정되었습니다!", "", "success", ra);
 			return "redirect:teacherProfile";
 		} else {	// 에러일 경우
 			Util.swalSetMessage("error", "관리자에게 문의해주세요.", "error", ra);		
-			return "error";
+			return "redirect:/";
 		}
 	}
 	
@@ -1006,7 +1001,7 @@ public class MemberController {
 	@ResponseBody
 	public int searchReview(int regNo, int epNo) {
 		int alert = 0; 
-		System.out.println(epNo);
+		//System.out.println(epNo);
 		int result = service.searchReview(regNo);
 		int result2 = service.overDateReview(epNo);
 		System.out.println(result2);

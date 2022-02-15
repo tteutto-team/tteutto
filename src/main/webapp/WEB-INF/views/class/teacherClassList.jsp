@@ -52,7 +52,7 @@
 		                        <div class="column">학생 관리</div>
 		                        <div class="column">삭제 여부</div>
 		                        <div class="column">정산</div>
-		                        <div class="column">상태</div>
+		                        <div class="column">클래스 오픈 상태</div>
 	                        </div>
 					
 					<c:forEach items="${episodeList}" var="episode" varStatus="episodeStatus">
@@ -62,7 +62,7 @@
 		                        <div class="column">${episode.date}</div>
 		                        
 		                        <c:choose>
-		                        	<c:when test="${episode.deleteStatus == 2 }">
+		                        	<c:when test="${episode.deleteStatus == 2 && !empty episode.studyStatus}">
 				                        <div class="column" id="${episode.studyStatus}"><button class="modal-open-btn student-management ${episode.studyStatus}" >관리</button></div>
 		                        	</c:when>
 		                        	<c:otherwise>
@@ -70,7 +70,15 @@
 		                        	</c:otherwise>
 		                        </c:choose>
 		                        
-		                        <div class="column"><button class="modal-open-btn delete">삭제</button></div>
+		                        
+		                        <c:choose>
+									<c:when test="${!empty episode.studyStatus}">
+				                        <div class="column"><button class="modal-open-btn delete">삭제</button></div>
+									</c:when>
+									<c:otherwise>
+			                        	<div class="column">종료된 클래스입니다.</div>
+									</c:otherwise>
+		                        </c:choose>
 								
 								<c:choose>
 									<c:when test="${episode.calStatus == -2}">
