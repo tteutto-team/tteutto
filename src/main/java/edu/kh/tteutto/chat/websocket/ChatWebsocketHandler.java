@@ -108,11 +108,12 @@ public class ChatWebsocketHandler extends TextWebSocketHandler{
 					map.put("cm", cm);
 					
 					// 채팅 알림
-					if(loginMemberNo == cm.getOtherMemberNo()) {
+					if(loginMemberNo == cm.getStudentNo() || loginMemberNo == cm.getTeacherNo()) {
 						int count = service.sendAlarm(cm);
 						int count2 = service.sendAlarm2(cm);
 						
 						int sum = (count + count2);
+						System.out.println(sum);
 						map.put("sum", sum);
 						
 					}

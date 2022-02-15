@@ -221,10 +221,12 @@
 			chattingSock.onmessage = function(e) {
 				
 				const obj = JSON.parse(e.data);
+				console.log(obj.sum);
 	
 				if(obj.sum > 0){
 					
 					$(".alert").html(obj.sum);
+					$(".alert").css("display", "block");
 				}
 			}
 		</script>
