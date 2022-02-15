@@ -105,8 +105,13 @@
 		url: "${contextPath}/chatNote/alarm",
 		type: "get",
 		success: function (result) {
-			if (result >= 0) {
+			if (result > 0) {
 				$(".alert").html(result);
+				$(".alert").css("display", "block");
+
+			}else{
+				$(".alert").html(0);
+				$(".alert").css("display","none");
 			}
 		}
 	})
