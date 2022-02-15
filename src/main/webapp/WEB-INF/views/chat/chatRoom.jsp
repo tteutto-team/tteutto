@@ -50,7 +50,7 @@
    <c:choose>
       <c:when test="${param.mode == 0}">
          <div class="chat_title">
-            <img src="https://trello-members.s3.amazonaws.com/5f6847b648dcd038f65b8551/6798ec30c2f40b27b3656649306bd860/original.png">
+            <img src="https://trello.com/1/cards/61ea68649279785e229eb2dd/attachments/61eac6a1f7ea86892aac80df/previews/61eac6a2f7ea86892aac80fe/download/TTEUTTO_ver.4_%28favicon%29.png">
             <div class="chat_title1">
               <span>
               	<c:if test="${!empty chatRoomNo}">
@@ -73,7 +73,7 @@
       
       <c:otherwise>
          <div class="chat_title">
-            <img src="https://trello-members.s3.amazonaws.com/5f6847b648dcd038f65b8551/6798ec30c2f40b27b3656649306bd860/original.png">
+            <img src="https://trello.com/1/cards/61ea68649279785e229eb2dd/attachments/61eac6a1f7ea86892aac80df/previews/61eac6a2f7ea86892aac80fe/download/TTEUTTO_ver.4_%28favicon%29.png">
             <div class="chat_title1">
                <span>
                		<c:if test="${!empty chatRoomNo}">
