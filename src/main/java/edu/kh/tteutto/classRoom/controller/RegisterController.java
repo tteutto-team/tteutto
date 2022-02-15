@@ -286,12 +286,14 @@ public class RegisterController {
 		// 클래스 스케쥴 등록
 		@RequestMapping(value="schedule", method=RequestMethod.POST)
 		public String insertClassSchedule(RedirectAttributes ra,
-										  HttpSession session, 
+										  HttpSession session, int classNo,
 										  Episode episode, EpisodeSchedule episodeSd, String roadAddrPart1, 
 										  String addrDetail ) {
 			
 			// openClass 값 가져오기			
-			ClassDetail openClass = (ClassDetail)session.getAttribute("openClass");
+			//ClassDetail openClass = (ClassDetail)session.getAttribute("openClass");
+            ClassDetail openClass = new ClassDetail();
+            openClass.setClassNo(classNo);
 			
 			// 주소 합치기
 			String epPlace = roadAddrPart1 + " " + addrDetail;

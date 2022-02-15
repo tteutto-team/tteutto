@@ -76,32 +76,32 @@
 							<c:forEach items="${snsList}" var="sns">
 								<c:if test="${sns.snsDiv == 0}">
 		                            <div class="instagram_area sns_area">
-		                                <input type="url" name="instagram" id ="instagram"class="sns_link" placeholder="인스타그램" value="${sns.snsLink}">
+		                                <input type="url" pattern="https://.*" name="instagram" id ="instagram"class="sns_link" placeholder="인스타그램" value="${sns.snsLink}">
 		                            </div>
 	                            </c:if>	
 							
 								<c:if test="${sns.snsDiv == 1}">
 		                            <div class="blog_area sns_area">
-		                                <input type="url" name="blog" id ="blog"class="sns_link" placeholder="블로그(네이버, 브런치, 티스토리 등) 주소를 입력해 주세요." value="${sns.snsLink}">
+		                                <input type="url" pattern="https://.*" name="blog" id ="blog"class="sns_link" placeholder="블로그(네이버, 브런치, 티스토리 등) 주소를 입력해 주세요." value="${sns.snsLink}">
 		                            </div>
 	                            </c:if>	
 							
 								<c:if test="${sns.snsDiv == 2}">
 		                            <div class="youtube_area sns_area">
-										<input type="url" name="youtube" id ="youtube"class="sns_link" placeholder="유튜브 주소를 입력해 주세요." value="${sns.snsLink}">
+										<input type="url" pattern="https://.*" name="youtube" id ="youtube"class="sns_link" placeholder="유튜브 주소를 입력해 주세요." value="${sns.snsLink}">
 		                            </div>
 	                            </c:if>	
 							</c:forEach>  
 	                            
 	                        <c:if test="${empty snsList}">
 	                        	<div class="instagram_area sns_area">
-                                	<input type="url" name="instagram" id ="instagram"class="sns_link" placeholder="인스타그램">
+                                	<input type="url" pattern="https://.*" name="instagram" id ="instagram"class="sns_link" placeholder="인스타그램">
 	                            </div>
 	                            <div class="blog_area sns_area">
-	                                <input type="url" name="blog" id ="blog"class="sns_link" placeholder="블로그(네이버, 브런치, 티스토리 등) 주소를 입력해 주세요.">
+	                                <input type="url" pattern="https://.*" name="blog" id ="blog"class="sns_link" placeholder="블로그(네이버, 브런치, 티스토리 등) 주소를 입력해 주세요.">
 	                            </div>
 	                            <div class="youtube_area sns_area">
-	                                <input type="url" name="youtube" id ="youtube"class="sns_link" placeholder="유튜브 주소를 입력해 주세요.">
+	                                <input type="url" pattern="https://.*" name="youtube" id ="youtube"class="sns_link" placeholder="유튜브 주소를 입력해 주세요.">
 	                            </div>
 	                        </c:if>
 	                        
@@ -109,19 +109,19 @@
 	                        <c:forEach items="${snsDivList}" var="snsDiv">
 	                        	<c:if test="${snsDiv == 0}">
 	                        		<div class="instagram_area sns_area">
-                                		<input type="url" name="instagram" id ="instagram"class="sns_link" placeholder="인스타그램">
+                                		<input type="url" pattern="https://.*" name="instagram" id ="instagram"class="sns_link" placeholder="인스타그램">
 	                            	</div>
 	                        	</c:if>
 	                        	
 	                        	<c:if test="${snsDiv == 1}">
 	                        		<div class="blog_area sns_area">
-	                                	<input type="url" name="blog" id ="blog"class="sns_link" placeholder="블로그(네이버, 브런치, 티스토리 등) 주소를 입력해 주세요.">
+	                                	<input type="url" pattern="https://.*" name="blog" id ="blog"class="sns_link" placeholder="블로그(네이버, 브런치, 티스토리 등) 주소를 입력해 주세요.">
 	                            	</div>
 	                        	</c:if>
 	                        	
 	                        	<c:if test="${snsDiv == 2}">
 		                            <div class="youtube_area sns_area">
-		                                <input type="url" name="youtube" id ="youtube"class="sns_link" placeholder="유튜브 주소를 입력해 주세요.">
+		                                <input type="url" pattern="https://.*" name="youtube" id ="youtube"class="sns_link" placeholder="유튜브 주소를 입력해 주세요.">
 		                            </div>
 	                        	</c:if>
 	                        </c:forEach>
