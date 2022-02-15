@@ -632,8 +632,8 @@ $("#solo-class").on("click", function(){
   
 }
 
-
-
-// 이미지를 서버에 그냥 무지성으로 저장하고
-// file에 넣고 개수만큼 div를 만들고 img src를 변경하게
-// 하면 완성?
+// 
+$("#solo-class").on("click", function(){
+	$("#minPerson").val(1);
+	$("#maxPerson").val(1);
+})
