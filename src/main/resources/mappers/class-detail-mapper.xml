@@ -321,4 +321,11 @@
 		</selectKey>
 		INSERT INTO REPORT VALUES(SEQ_REPORT_NO.NEXTVAL, 1, #{reportContent}, 0, #{registerNo}, SYSDATE)
 	</insert>
+	
+	
+	<!-- 강의 소개 조회 -->
+	<select id="selectClassIntro" resultMap="classDetail_rm">
+		SELECT CLASS_INTRO FROM CLASS 
+		WHERE CLASS_NO = ${classNo}
+	</select>
 </mapper>

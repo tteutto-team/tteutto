@@ -13,7 +13,7 @@
 }
 
 .chat_info {
-    background: #f8f8f8;
+    background: #FFDF3E;
     padding: 10px;
     box-shadow: 2px 0 5px grey;
 }
@@ -92,12 +92,15 @@
     padding-left: 0;
 }
 .chat_romm_list li{
-    flex-basis:5rem; /*16 브라우저 기준 80px */
+    flex-basis: 5rem;
     flex-shrink: 0;
-    margin: 0px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border-radius: 10px;
+    padding: 0 20px;
+    margin: 10px 0;
+    box-shadow: rgb(0 0 0 / 10%) 0px 2px 16px 1px;
 }
 .chat_romm_list li > a{
     /* 안에 또 다른 flex box 생성 */

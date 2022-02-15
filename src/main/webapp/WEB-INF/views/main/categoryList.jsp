@@ -15,8 +15,8 @@
         <main>
             <jsp:include page="categorySidebar.jsp"></jsp:include>
 
-            <div class="right">
-                <div class="title classList">
+            <div class="right" style="border: none;">
+                <div class="title classList" style="padding: 0px 17px 0px 17px; border: none;">
  					<%-- 옵션 선택 --%>
 					<form action="" method="get" name="optionForm">
 						<div class="price">

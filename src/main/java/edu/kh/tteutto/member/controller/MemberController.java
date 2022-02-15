@@ -756,7 +756,6 @@ public class MemberController {
 		teacher.setMemberNo(memberNo);
 		teacher.setTeacherIntro(introduce);
 		
-		
 		// 이력을 수정하지 않았을 경우
 		for(int i = 0; i < profileInput.size(); i++) {
 			if(profileInput.get(0).equals("0")) {
@@ -780,9 +779,7 @@ public class MemberController {
 		
 		// 이력을 수정했을 경우
 		else {
-			
 			result = service.teacherProfileUpdate(teacher, phone, snsList, profileInput, images, webPath, serverPath);
-			//System.out.println("수정 result: " + result);
 		}
 		
 		if(result > 0) {

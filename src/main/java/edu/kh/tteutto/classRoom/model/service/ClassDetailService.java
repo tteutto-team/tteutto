@@ -123,6 +123,11 @@ public interface ClassDetailService {
 	 */
 	int reviewCount(int classNo);
 
+	/** 강의 소개 조회
+	 * @param classNo
+	 * @return cdt
+	 */
+	ClassDetail selectClassIntro(int classNo);
 	/** 강사 sns 조회
 	 * @param classNo
 	 * @return snsList
