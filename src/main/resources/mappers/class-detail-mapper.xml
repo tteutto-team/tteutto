@@ -166,8 +166,9 @@
 				and reg_st = 0
 				and ep_no = A.EP_NO) REGISTER_STUDENT_COUNT  
 		FROM (
-			SELECT 
-				ROUND((TO_DATE(SCHDL_END_TIME, 'HH24:MI') - TO_DATE(SCHDL_START_TIME, 'HH24:MI')) * 24, 2) SCHDL_TIME,
+			SELECT CASE WHEN ROUND((TO_DATE(SCHDL_END_TIME, 'HH24:MI') - TO_DATE(SCHDL_START_TIME, 'HH24:MI')) * 24, 2) &lt; 0 THEN ROUND((TO_DATE(SCHDL_END_TIME, 'HH24:MI') - TO_DATE(SCHDL_START_TIME, 'HH24:MI')) * 24, 2) + 24
+            ELSE ROUND((TO_DATE(SCHDL_END_TIME, 'HH24:MI') - TO_DATE(SCHDL_START_TIME, 'HH24:MI')) * 24, 2)
+            END SCHDL_TIME,
 				EP_NO, 
 				EP_COUNT, 
 				CLASS_MAX_PERSON - CLASS_PERSON "REMAIN_PEOPLE_CNT", 
@@ -323,7 +324,10 @@
 	<!-- 후기 신고 -->
 	<insert id="report" useGeneratedKeys="true" parameterType="hashmap">
 		<selectKey order="BEFORE" resultType="_int" keyProperty="registerNo">
-			SELECT REG_NO FROM REGISTER WHERE MEMBER_NO = #{memberNo} AND EP_NO = #{episodeNo}
+			SELECT REG_NO FROM REGISTER
+			JOIN EPISODE ON(EPISODE.EP_NO = REGISTER.EP_NO)
+			JOIN CLASS ON(CLASS.CLASS_NO = EPISODE.CLASS_NO)
+			WHERE REGISTER.MEMBER_NO = #{memberNo} AND CLASS.CLASS_NO = #{classNo}
 		</selectKey>
 		INSERT INTO REPORT VALUES(SEQ_REPORT_NO.NEXTVAL, 1, #{reportContent}, 0, #{registerNo}, SYSDATE)
 	</insert>

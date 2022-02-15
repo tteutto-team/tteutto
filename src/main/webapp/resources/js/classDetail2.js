@@ -277,7 +277,8 @@ function report(memberNo){
 				data: {
 					"memberNo": memberNo,
 					"reportContent": $(".swal-content__textarea").val(),
-					"episodeNo": epNo
+					"classNo": classNo,
+					"epCount": epCount
 				},
 				success: function(result){
 					if(result > 0){

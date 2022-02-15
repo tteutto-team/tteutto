@@ -868,6 +868,7 @@
     	// 신청여부 조회용 변수 선언
     	const loginMemberNo = '${loginMember.memberNo}';
     	const classNo = '${param.classNo}';
+    	const epCount = '${param.epCount}';
     	
     	// 결제내역 삽입용 변수 선언
     	const loginMemberName = '${loginMember.memberNm}';
