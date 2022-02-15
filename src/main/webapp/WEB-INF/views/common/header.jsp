@@ -93,7 +93,7 @@
 								<%-- 1:1 채팅 / 쪽지 팝업창 열기 --%>
 								<li><a style="cursor: pointer;" onclick="clearAlarm();"><i class="icon-chat" id="chat">
 									<%-- 알림 표시 --%>
-									<span class="alert"></span>
+									<span class="alert" style="display : none"></span>
 								</i></a></li>
 								
 								<%-- 프로필 모달창 열기 --%>
@@ -171,42 +171,45 @@
 			const icon = document.querySelector("#icon");
 		
 			<%-- 헤더 프로필 이미지 + icon 클릭 시 모달창 열고 닫기 --%>
-			myProfile.addEventListener("click", function() {
-				if (profileModal.style.display != "block") {
-					profileModal.style.display = "block";
-					icon.classList.remove("icon-open");
-					icon.classList.add("icon-close");
-					
-				} else {
-					profileModal.style.display = "none";
-					icon.classList.remove("icon-close");
-					icon.classList.add("icon-open");
-				}  
-			});
-			
-			<%-- 모달창이 열려있을 때 헤더 프로필 이미지 + icon, 모달창 외 나머지 클릭 시 모달창 닫기 --%>
-			window.addEventListener("click", function(e) {
-				const nodeList = document.querySelectorAll("#profile-modal *");
-				const arr = Array.from(nodeList);
-				arr.push(profileModal);
+			if( myProfile != null){
 				
-				arr.push(icon);
-				arr.push(document.querySelector("#my-profile > img"));
-
-				let flag = true;  
-				for (el of arr) {
-					if (e.target == el) {
-						flag = false;
-						break;
+				myProfile.addEventListener("click", function() {
+					if (profileModal.style.display != "block") {
+						profileModal.style.display = "block";
+						icon.classList.remove("icon-open");
+						icon.classList.add("icon-close");
+						
+					} else {
+						profileModal.style.display = "none";
+						icon.classList.remove("icon-close");
+						icon.classList.add("icon-open");
+					}  
+				});
+			
+				<%-- 모달창이 열려있을 때 헤더 프로필 이미지 + icon, 모달창 외 나머지 클릭 시 모달창 닫기 --%>
+				window.addEventListener("click", function(e) {
+					const nodeList = document.querySelectorAll("#profile-modal *");
+					const arr = Array.from(nodeList);
+					arr.push(profileModal);
+					
+					arr.push(icon);
+					arr.push(document.querySelector("#my-profile > img"));
+	
+					let flag = true;  
+					for (el of arr) {
+						if (e.target == el) {
+							flag = false;
+							break;
+						}
 					}
-				}
-  
-				if (flag && profileModal.style.display == "block") {
-					profileModal.style.display = "none";
-					icon.classList.remove("icon-close");
-					icon.classList.add("icon-open");
-				}
-			});
+	  
+					if (flag && profileModal.style.display == "block") {
+						profileModal.style.display = "none";
+						icon.classList.remove("icon-close");
+						icon.classList.add("icon-open");
+					}
+				});
+			}
 		</script>
 		
 		<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
@@ -216,9 +219,13 @@
 		
 		
 			chattingSock.onmessage = function(e) {
+				
 				const obj = JSON.parse(e.data);
-			
-				$(".alert").html(obj.sum);
+	
+				if(obj.sum > 0){
+					
+					$(".alert").html(obj.sum);
+				}
 			}
 		</script>
 		<script type="text/javascript">
@@ -226,9 +233,15 @@
 		
 		
 			noteSock.onmessage = function(e) {
+					
 				const obj = JSON.parse(e.data);
+				console.log(obj);
 				
-				$(".alert").html(obj);
+				if(obj != null){
+					
+					$(".alert").html(obj);
+					$(".alert").css("display", "block");
+				}
 			}
 			
 			

@@ -118,6 +118,7 @@
 				success: function (result) {
 					console.log(result);
 					$(".alert").html(0);
+					$(".alert").css("display","none");
 					window.open('${contextPath}/chat/chatRoomList', '_blank', 'width=482, height=700, top=200');
 				}
 			})
