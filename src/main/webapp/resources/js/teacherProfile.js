@@ -81,6 +81,12 @@ function teacherProfileValidate() {
     if (!phonResult) {
         return false;
     }
+    
+    if (!goEventPage()){
+        alert("url 형식에 맞게 입력해주세요.");
+        $('html').animate({scrollTop : offset.top}, 500);
+        return false;
+    }
 
     else if ($("#introduce").val().trim().length == 0) {
         alert("강사 소개를 입력해 주세요.");
@@ -167,3 +173,23 @@ function loadImg_Img(input) {
         reader.readAsDataURL(input.files[0]);
 	} 
 }
+
+
+function goEventPage(){
+    let flag = false;
+    let snsList = $(".sns_link");
+    
+    //url 유효성 검사
+    let regex = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+    
+    for(let sns of snsList){
+        //올바른 url이 맞다면 해당 url로 이동
+        if(regex.test($(sns).val())){
+            flag = true;
+        } else{
+            flag = false;
+            return flag;
+        }
+    }
+    return flag;
+  }
