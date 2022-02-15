@@ -131,7 +131,15 @@
 						s = 24;
 					}
                     
-                    let t = s + ":00";
+					let t ='';
+						
+						if(s == 9){
+							t = '09:00';
+							
+						}else{
+							t = s + ':00';
+						}
+                    
 					et.value = t;
                 })      
                 
@@ -150,7 +158,14 @@
 							sum = 24;
 						}
 						
-						let sumtext = sum + ':00';
+						let sumtext ='';
+						
+						if(sum == 9){
+							sumtext = '09:00';
+							
+						}else{
+							sumtext = sum + ':00';
+						}
 						
 						ev.value = sumtext;
 						

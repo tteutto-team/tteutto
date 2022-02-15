@@ -57,7 +57,7 @@ public class RegisterController {
 		// 클래스 스케쥴 등록 페이지 이동
 		@RequestMapping(value="schedule", method=RequestMethod.GET)
 		public String classRegisterSchedule(HttpSession session, @RequestParam(value = "no", required = false) int no,
-											RedirectAttributes ra) {
+											RedirectAttributes ra, Model model) {
 			
 			String path = "";
 			
@@ -98,6 +98,10 @@ public class RegisterController {
 							
 							session.setAttribute("openCount", epCount);		
 							session.setAttribute("openClass", cdt);
+							
+							model.addAttribute("openCount", epCount);
+							model.addAttribute("openClass", cdt);
+							
 							
 							path = "class/classInsert2";	
 							
