@@ -112,7 +112,13 @@
                 
                 // 수업시간이 있으면 불러올때 시간 맞추기
                 const numTime = Number(9) + Number($("#num-time").val()) + ":00"; 
-                $("input[name=schdlEndTime]").val(numTime);
+                if(numTime == '9:00'){
+	                $("input[name=schdlEndTime]").val('09:00');
+	
+				}else{
+	                $("input[name=schdlEndTime]").val(numTime);
+					
+				}
                 
                 // 옵션 endTime 알아서 맞추기
                 $("select#startTime" + num).on("change focus", function(){
