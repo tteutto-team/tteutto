@@ -112,13 +112,13 @@ public class RegisterController {
 					}
 			
 				}else {
-					ra.addFlashAttribute("message", "로그인 후 이용해주세요.");
-					path = "member/login";
+					ra.addFlashAttribute("message", "존재하지 않는 클래스입니다.");
+					path = "redirect:/";
 				}
 
 			}else {
-				ra.addFlashAttribute("message", "존재하지 않는 클래스입니다.");
-				path = "redirect:/";
+				ra.addFlashAttribute("message", "로그인 후 이용해주세요.");
+				path = "member/login";
 			}
 			
 			return path;
