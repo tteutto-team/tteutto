@@ -11,6 +11,7 @@ function createTable() {
 			$('#table_id').DataTable({
 				language: lang_kor,
 				data: data,
+				displayStart: (sessionStorage.getItem("page")-1)*10,
 				order: [[4, "asc"]],
 				columns: [
 					{ data: "classNo" },

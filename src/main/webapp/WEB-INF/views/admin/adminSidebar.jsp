@@ -37,39 +37,39 @@
 	</c:if> --%>
 	<aside id="left">
 		<div class="logo">
-			<img src="${contextPath}/resources/images/common/TTEUTTO ver.2.png">
+			<img onclick="location.href='${contextPath}'" style="cursor: pointer;" src="${contextPath}/resources/images/common/TTEUTTO ver.2.png">
 			<p>뜨또 관리자 페이지</p>
 		</div>
 		<div class="admin-list">
 			<div>
-				<a href="${contextPath}/admin/classManage"><i class="far fa-circle"></i> 클래스 신청 관리</a>
-				<a href="${contextPath}/admin/classUpdateManage"><i class="far fa-circle"></i> 클래스 수정 관리</a>
-				<a href="${contextPath}/admin/classEpisodeManage"><i class="far fa-circle"></i> 회차별 신청 관리</a>
-				<a href="${contextPath}/admin/reviewManage"><i class="far fa-circle"></i> 후기 관리</a>
+				<a class="sidebar" href="${contextPath}/admin/classManage"><i class="far fa-circle"></i> 클래스 신청 관리</a>
+				<a class="sidebar" href="${contextPath}/admin/classUpdateManage"><i class="far fa-circle"></i> 클래스 수정 관리</a>
+				<a class="sidebar" href="${contextPath}/admin/classEpisodeManage"><i class="far fa-circle"></i> 회차별 신청 관리</a>
+				<a class="sidebar" href="${contextPath}/admin/reviewManage"><i class="far fa-circle"></i> 후기 관리</a>
 			</div>
 		</div>
 		<div class="admin-list">
 			<div>
-				<a href="${contextPath}/admin/userManage"><i class="far fa-circle"></i> 유저 관리</a>
-				<a href="${contextPath}/admin/teacherManage"><i class="far fa-circle"></i> 강사 신청 관리</a>
+				<a class="sidebar" href="${contextPath}/admin/userManage"><i class="far fa-circle"></i> 유저 관리</a>
+				<a class="sidebar" href="${contextPath}/admin/teacherManage"><i class="far fa-circle"></i> 강사 신청 관리</a>
 			</div>
 		</div>
 		<div class="admin-list">
 			<div>
-				<a href="${contextPath}/admin/studentReportManage"><i class="far fa-circle"></i> 학생 신고 관리</a>
-				<a href="${contextPath}/admin/classReportManage"><i class="far fa-circle"></i> 클래스 신고 관리</a>
+				<a class="sidebar" href="${contextPath}/admin/studentReportManage"><i class="far fa-circle"></i> 학생 신고 관리</a>
+				<a class="sidebar" href="${contextPath}/admin/classReportManage"><i class="far fa-circle"></i> 클래스 신고 관리</a>
 			</div>
 		</div>
 		<div class="admin-list">
 			<div>
-				<a href="${contextPath}/admin/calculateManage"><i class="far fa-circle"></i> 정산 관리</a>
-				<a href="${contextPath}/admin/refundManage"><i class="far fa-circle"></i> 환불 관리</a>
+				<a class="sidebar" href="${contextPath}/admin/calculateManage"><i class="far fa-circle"></i> 정산 관리</a>
+				<a class="sidebar" href="${contextPath}/admin/refundManage"><i class="far fa-circle"></i> 환불 관리</a>
 			</div>
 		</div>
 		<div class="admin-list">
 			<div>
-				<a href="${contextPath}/admin/noticeManage"><i class="far fa-circle"></i> 공지사항</a>
-				<a href="${contextPath}/admin/faqManage"><i class="far fa-circle"></i> FAQ</a>
+				<a class="sidebar" href="${contextPath}/admin/noticeManage"><i class="far fa-circle"></i> 공지사항</a>
+				<a class="sidebar" href="${contextPath}/admin/faqManage"><i class="far fa-circle"></i> FAQ</a>
 			</div>
 		</div>
 	</aside>
@@ -112,4 +112,16 @@
 		})
 	</script>
 </c:if>
+
+<script type="text/javascript">
+
+	$(document).on("click", ".sidebar", function(){
+		sessionStorage.setItem("page", 1);
+	})
+		
+	$(document).on("click", ".paginate_button", function(){
+		sessionStorage.setItem("page", $(this).text());
+	})
+	
+</script>
 </html>

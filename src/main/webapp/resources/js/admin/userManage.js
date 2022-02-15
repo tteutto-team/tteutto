@@ -11,6 +11,7 @@ function createTable() {
 			$('#table_id').DataTable({
 				language: lang_kor,
 				data: data,
+				displayStart: (sessionStorage.getItem("page")-1)*10,
 				order: [[0, "asc"]],
 				columns: [
 					{ data: "memberNo" },
@@ -328,8 +329,6 @@ function save(el, memberNo) {
 		teacherStatus = 100;
 	}
 
-	console.log(memberName, memberGrade, teacherEnroll, teacherStatus, memberStatus, memberBirth, memberGender, memberPhone);
-
 	Swal.fire({
 		title: '수정내용을 저장하시겠습니까?',
 		icon: 'info',
@@ -356,7 +355,6 @@ function save(el, memberNo) {
 				type: "POST",
 				success: function (result) {
 					if (result > 0) {
-						console.log("성공");
 
 						$(el).parent().parent().children("td:nth-of-type(2)").html(memberName);
 
@@ -436,7 +434,6 @@ function note(el, memberNo) {
 		cancelButtonText: '취소'
 	}).then((result) => {
 		if (result.value) {
-			console.log(result.value);
 			const obj = {}
 			obj.noteContent = result.value;
 			obj.memberNo = memberNo;

@@ -62,8 +62,12 @@
    
 
 <script>
-	if($(".img").outerWidth() > "698"){
-		$(".img").css("width", "698px");
+	const img = $("img");
+	
+	for(let i=0; i<img.length; i++){
+		if($(img[i]).outerWidth() > "697"){
+			$(img[i]).css("width", "697px");
+		}
 	}
 </script>
 <script src="${contextPath}/resources/js/admin/classManage.js"></script>

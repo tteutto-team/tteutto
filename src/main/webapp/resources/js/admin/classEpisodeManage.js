@@ -2,6 +2,8 @@ $(function () {
 	createTable();
 })
 
+console.log(sessionStorage.getItem("page"));
+
 function createTable() {
 	$.ajax({
 		url: "classEpisodeList",
@@ -11,6 +13,7 @@ function createTable() {
 			$('#table_id').DataTable({
 				language: lang_kor,
 				data: data,
+				displayStart: (sessionStorage.getItem("page")-1)*10,
 				order: [[4, "asc"]],
 				columns: [
 					{ data: "episodeNo" },
@@ -44,6 +47,7 @@ function createTable() {
 			})
 		}
 	})
+	
 }
 
 function agree(episodeNo, memberNo, className) {
