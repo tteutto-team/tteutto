@@ -475,7 +475,7 @@
             <div id="section2"  class="scroll"></div>
             <div class="section2" >
                 <div class="teacherProfile" data-aos="flip-up">
-                    <img src="${contextPath}/resources/images/teacher/${tIntro.teacherImg}">
+                    <img src="${contextPath}/resources/images/teacher/profile/${tIntro.teacherImg}">
                     <p >
                         클래스 강사 <br> '
                         <span id="teacherNickname">${tIntro.memberNm}</span>
