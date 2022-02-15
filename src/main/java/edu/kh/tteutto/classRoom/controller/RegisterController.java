@@ -82,16 +82,16 @@ public class RegisterController {
 								epCount++;
 							}
 							
-							if(session.getAttribute("openClass") != null) {
-								session.removeAttribute("openClass");
-//								System.out.println("지우");
-								
-							}
-							if(session.getAttribute("openCount") != null) {
-								session.removeAttribute("openCount");
-//								System.out.println("한지우");
-								
-							}
+//							if(session.getAttribute("openClass") != null) {
+//								session.removeAttribute("openClass");
+////								System.out.println("지우");
+//								session.setAttribute("openClass", cdt);
+//							}
+//							if(session.getAttribute("openCount") != null) {
+//								session.removeAttribute("openCount");
+////								System.out.println("한지우");
+//								session.setAttribute("openCount", epCount);		
+//							}
 							
 							
 							System.out.println("이동: " + loginMember.getMemberNo());
@@ -288,7 +288,6 @@ public class RegisterController {
 			
 			// openClass 값 가져오기			
 			ClassDetail openClass = (ClassDetail)session.getAttribute("openClass");
-			//System.out.println(openClass);
 			
 			// 주소 합치기
 			String epPlace = roadAddrPart1 + " " + addrDetail;
