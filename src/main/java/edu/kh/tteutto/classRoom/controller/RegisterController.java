@@ -396,15 +396,15 @@ public class RegisterController {
 			
 			if(result > 0) {
 				Util.swalSetMessage("클래스 스케쥴 등록 완료", null, "success", ra);	
-				session.removeAttribute("openClass");
-				session.removeAttribute("openCount");
+				//session.removeAttribute("openClass");
+				//session.removeAttribute("openCount");
 				
 				//System.out.println(session.getAttribute("loginMember"));
 				
 			}else {
 				Util.swalSetMessage("클래스 스케줄 등록 실패", "관리자에게 문의해주세요", "error", ra);
-				session.removeAttribute("openClass");
-				session.removeAttribute("openCount");
+				//session.removeAttribute("openClass");
+				//session.removeAttribute("openCount");
 			}
 			
 			return "redirect:/";
