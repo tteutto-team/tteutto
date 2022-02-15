@@ -92,11 +92,9 @@ public class ClassListContoller {
 		int memberNo = 0;
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		
-		if (loginMember != null)
+		if (loginMember != null) {
 			memberNo = loginMember.getMemberNo();
-		
-		if (location != null)
-			session.setAttribute("location", location);
+		}
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("price", option.getPrice());
@@ -107,6 +105,11 @@ public class ClassListContoller {
 		map.put("type", type);
 		map.put("memberNo", memberNo);
 		map.put("pageKey", "search");
+		
+		if (location != null) {
+			map.put("location", location);
+			map.put("pageKey", "location");
+		}
 		
 		if (!option.getSido().equals("선택")) map.put("classArea1", option.getSido());
 		else map.put("classArea1", "");

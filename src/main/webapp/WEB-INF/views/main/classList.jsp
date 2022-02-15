@@ -375,6 +375,10 @@ crossorigin="anonymous"/>
 		formData.append("sigoon", $("#sigoon_code > option:selected").text());
 		formData.append("type", "${type}");
 		
+		if("${param.location}" != ""){
+			formData.append("location", "${param.location}");
+		}
+		
 		$.ajax({
 			url : "${contextPath}/main/changeOption", 
 			data : formData, 
