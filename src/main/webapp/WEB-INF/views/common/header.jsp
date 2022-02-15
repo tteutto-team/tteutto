@@ -91,7 +91,7 @@
 								<li><a href="${contextPath}/member/studentWishList"><i class="icon-heart"></i></a></li>
 								
 								<%-- 1:1 채팅 / 쪽지 팝업창 열기 --%>
-								<li><a href="#none" onclick="clearAlarm();"><i class="icon-chat" id="chat">
+								<li><a style="cursor: pointer;" onclick="clearAlarm();"><i class="icon-chat" id="chat">
 									<%-- 알림 표시 --%>
 									<span class="alert"></span>
 								</i></a></li>

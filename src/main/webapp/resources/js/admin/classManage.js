@@ -36,8 +36,9 @@ function createTable() {
 					{
 						data: null,
 						render: function (data, type, row) {
-							return '<button onclick="agree(' + data.classNo + ', ' + data.memberNo + ', \'' + data.className + '\')">승인</button>'
-								+ '<button onclick="deny(' + data.classNo + ', ' + data.memberNo + ', \'' + data.className + '\')">거절</button>';
+							console.log(data.className.replaceAll("'", "\""))
+							return '<button onclick="agree(' + data.classNo + ', ' + data.memberNo + ', \'' + data.className.replaceAll("'", "`") + '\')">승인</button>'
+								+ '<button onclick="deny(' + data.classNo + ', ' + data.memberNo + ', \'' + data.className.replaceAll("'", "`") + '\')">거절</button>';
 						},
 						orderable: false
 					}

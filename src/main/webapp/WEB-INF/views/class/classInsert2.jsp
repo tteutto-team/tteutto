@@ -71,13 +71,14 @@
 	                    <div>시간당 가격</div>
 	                    <div><input type="number" id="time-price" name="timePrice" class="input-style largeSize" value="${timePrice}" required> &nbsp원</div>
 	                    <div>1회당 수업시간</div>
-	                    <div><input type="number" id="num-time" name="schdlTime" class="input-style largeSize" value="${schdlTime}" required> &nbsp시간</div>
+	                    <c:if test="${!empty schdlTime}"><div><input type="number" id="num-time" name="schdlTime" class="input-style largeSize" value="${schdlTime}" required> &nbsp시간</div></c:if>
+	                    <c:if test="${empty schdlTime}"><div><input type="number" id="num-time" name="schdlTime" class="input-style largeSize" value="0" required> &nbsp시간</div></c:if>
 	                    <div>총 수업횟수</div>
 	                    <div><input type="number" id="num-class" name="sumClass" class="input-style largeSize" value="${sumClass}" readonly required> &nbsp회</div>
 	                </div>
                 </c:if>
                 <c:if test="${openClass.classType != 1}">
-	                <div id="ptn-multi"">
+	                <div id="ptn-multi">
 	                    <div>시간당 가격</div>
 	                    <div><input type="number" id="time-price" name="timePrice2" class="input-style largeSize time-price-one" value="${timePrice2}" required min="0"> &nbsp원</div>
 	                    <div>수업시간</div>
@@ -140,6 +141,7 @@
     
     <script>
     	const loadDate = "${sessionScope.saveDate}";
+    	const openClass = "${sessionScope.openClass.classNo}";
     </script>
     
 </body>

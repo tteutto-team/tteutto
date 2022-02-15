@@ -36,7 +36,7 @@ import edu.kh.tteutto.member.model.service.MemberService;
 import edu.kh.tteutto.member.model.vo.Member;
 
 @Controller
-@SessionAttributes({ "loginMember"})
+@SessionAttributes({ "loginMember", "openClass", "openCount"})
 @RequestMapping(value="register/*")
 public class RegisterController {
 	
@@ -82,16 +82,16 @@ public class RegisterController {
 								epCount++;
 							}
 							
-							if(session.getAttribute("openClass") != null) {
-								session.removeAttribute("openClass");
-//								System.out.println("지우");
-								
-							}
-							if(session.getAttribute("openCount") != null) {
-								session.removeAttribute("openCount");
-//								System.out.println("한지우");
-								
-							}
+//							if(session.getAttribute("openClass") != null) {
+//								session.removeAttribute("openClass");
+////								System.out.println("지우");
+//								session.setAttribute("openClass", cdt);
+//							}
+//							if(session.getAttribute("openCount") != null) {
+//								session.removeAttribute("openCount");
+////								System.out.println("한지우");
+//								session.setAttribute("openCount", epCount);		
+//							}
 							
 							
 							System.out.println("이동: " + loginMember.getMemberNo());
@@ -288,7 +288,6 @@ public class RegisterController {
 			
 			// openClass 값 가져오기			
 			ClassDetail openClass = (ClassDetail)session.getAttribute("openClass");
-			//System.out.println(openClass);
 			
 			// 주소 합치기
 			String epPlace = roadAddrPart1 + " " + addrDetail;
@@ -397,15 +396,15 @@ public class RegisterController {
 			
 			if(result > 0) {
 				Util.swalSetMessage("클래스 스케쥴 등록 완료", null, "success", ra);	
-				session.removeAttribute("openClass");
-				session.removeAttribute("openCount");
+				//session.removeAttribute("openClass");
+				//session.removeAttribute("openCount");
 				
 				//System.out.println(session.getAttribute("loginMember"));
 				
 			}else {
 				Util.swalSetMessage("클래스 스케줄 등록 실패", "관리자에게 문의해주세요", "error", ra);
-				session.removeAttribute("openClass");
-				session.removeAttribute("openCount");
+				//session.removeAttribute("openClass");
+				//session.removeAttribute("openCount");
 			}
 			
 			return "redirect:/";

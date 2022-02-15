@@ -3,75 +3,73 @@
 
 <link rel="stylesheet" href="${contextPath}/resources/css/categorySidebar.css" />
 
-
 <div class="left">
     <div class="list">
     	<ul>
     		<li>
-    			<span id="c-1">공예/디자인</span>
+    			<div class="ct" id="c-1">공예/디자인</div>
     			<ul>
-    				<li><span id="d-1">조향/캔들/비누</span></li>
-    				<li><span id="d-2">가죽/목공/도예</span></li>
-    				<li><span id="d-3">캘리그라피</span></li>
-    				<li><span id="d-4">플라워</span></li>
-    				<li><span id="d-5">디지털드로잉</span></li>
-    				<li><span id="d-6">취미미술</span></li>
+    				<li><div class="ctdetail" id="d-1">조향/캔들/비누</div></li>
+    				<li><div class="ctdetail" id="d-2">가죽/목공/도예</div></li>
+    				<li><div class="ctdetail" id="d-3">캘리그라피</div></li>
+    				<li><div class="ctdetail" id="d-4">플라워</div></li>
+    				<li><div class="ctdetail" id="d-5">디지털드로잉</div></li>
+    				<li><div class="ctdetail" id="d-6">취미미술</div></li>
     			</ul>
     		</li>
     		
     		<li>
-    			<span id="c-2">요리</span>
+    			<div class="ct" id="c-2">요리</div>
     			<ul>
-    				<li><span id="d-7">베이킹/디저트</span></li>
-    				<li><span id="d-8">커피/차/음료</span></li>
-    				<li><span id="d-9">건강/다이어트식</span></li>
-    				<li><span id="d-10">세계요리</span></li>
+    				<li><div class="ctdetail" id="d-7">베이킹/디저트</div></li>
+    				<li><div class="ctdetail" id="d-8">커피/차/음료</div></li>
+    				<li><div class="ctdetail" id="d-9">건강/다이어트식</div></li>
+    				<li><div class="ctdetail" id="d-10">세계요리</div></li>
     			</ul>
     		</li>
     		<li>
-    			<span id="c-3">뷰티/헬스</span>
+    			<div class="ct" id="c-3">뷰티/헬스</div>
     			<ul>
-    				<li><span id="d-11">메이크업</span></li>
-    				<li><span id="d-12">퍼스널컬러</span></li>
-    				<li><span id="d-13">패션</span></li>
-    				<li><span id="d-14">pt/gx</span></li>
+    				<li><div class="ctdetail" id="d-11">메이크업</div></li>
+    				<li><div class="ctdetail" id="d-12">퍼스널컬러</div></li>
+    				<li><div class="ctdetail" id="d-13">패션</div></li>
+    				<li><div class="ctdetail" id="d-14">pt/gx</div></li>
     			</ul>
     		</li>
    			<li>
-   				<span id="c-4">사진/영상</span>
+   				<div class="ct" id="c-4">사진/영상</div>
     			<ul>
-    				<li><span id="d-15">사진</span></li>
-    				<li><span id="d-16">영상</span></li>
+    				<li><div class="ctdetail" id="d-15">사진</div></li>
+    				<li><div class="ctdetail" id="d-16">영상</div></li>
     			</ul>
     		</li>
     		<li>
-    			<span id="c-5">커리어</span>
+    			<div class="ct" id="c-5">커리어</div>
     			<ul>
-    				<li><span id="d-17">금융</span></li>
-    				<li><span id="d-18">개발</span></li>
-    				<li><span id="d-19">언어/외국어</span></li>
-    				<li><span id="d-20">주식투자</span></li>
-    				<li><span id="d-21">자격증</span></li>
+    				<li><div class="ctdetail" id="d-17">금융</div></li>
+    				<li><div class="ctdetail" id="d-18">개발</div></li>
+    				<li><div class="ctdetail" id="d-19">언어/외국어</div></li>
+    				<li><div class="ctdetail" id="d-20">주식투자</div></li>
+    				<li><div class="ctdetail" id="d-21">자격증</div></li>
     			</ul>
     		</li>
     		<li>
-    			<span id="c-6">음악</span>
+    			<div class="ct" id="c-6">음악</div>
     			<ul>
-    				<li><span id="d-22">보컬</span></li>
-    				<li><span id="d-23">악기</span></li>
-    				<li><span id="d-24">작곡/디제잉</span></li>
-    				<li><span id="d-25">댄스</span></li>
+    				<li><div class="ctdetail" id="d-22">보컬</div></li>
+    				<li><div class="ctdetail" id="d-23">악기</div></li>
+    				<li><div class="ctdetail" id="d-24">작곡/디제잉</div></li>
+    				<li><div class="ctdetail" id="d-25">댄스</div></li>
     			</ul>
     		</li>
     		<li>
-    			<span id="c-7">기타</span>
+    			<div class="ct" id="c-7">기타</div>
     		</li>
    		</ul>
     </div>
 </div>
 
 <script>
-
 	// 카테고리 화면 왼쪽에 작성된 모든 카테고리
 	const categoryList = document.querySelectorAll(".left .list span");
 	
@@ -115,6 +113,4 @@
 			}
 		}
 	}
-
 </script>
-
