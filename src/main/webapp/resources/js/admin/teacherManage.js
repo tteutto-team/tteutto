@@ -11,6 +11,7 @@ function createTable() {
 			$('#table_id').DataTable({
 				language: lang_kor,
 				data: data,
+				displayStart: (sessionStorage.getItem("page")-1)*10,
 				order: [[3, "asc"]],
 				columns: [
 					{ data: "memberNo" },
@@ -66,7 +67,8 @@ function agree(memberNo, memberName) {
 					if (result > 0) {
 
 						const obj = {}
-						obj.noteContent = "'" + memberName + "'님 강사 신청이 승인되었습니다.";
+						obj.noteContent = "'" + memberName + "'님 강사 신청이 승인되었습니다.<br>"
+											+ "재로그인해서 사용해주세요.";
 						obj.memberNo = memberNo;
 						obj.flag = 0;
 

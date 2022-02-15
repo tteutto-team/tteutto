@@ -63,7 +63,7 @@ tbody tr > td:last-of-type{
 
 tbody tr > td:last-of-type > button{
 	margin: 0 5px;
-	width: 40px;
+	width: 80px;
 }
 
 .paginate_button.current{
