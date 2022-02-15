@@ -180,6 +180,7 @@
    <select id="selectMessageList" resultMap="chatNote_rm">
       SELECT NOTE_CONTENT, NOTE_ST, MEMBER_NO FROM NOTE
       WHERE MEMBER_NO = #{memberNo}
+      ORDER BY NOTE_NO DESC
    </select>
    
    <!-- 채팅알림 -->

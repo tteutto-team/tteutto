@@ -37,7 +37,7 @@ for (let j = 0; j < list.length; j++) {
 				console.log(event.target.childNodes[9].innerText.split(/[()/]/g)[1].trim());
 				
 				$("#registerBtn").text("신청하기");
-				$("#registerBtn").parent().css("background-color", "#FFDF3E");
+				$("#registerBtn").parent().css("background-color", "#FFDF3E").css("cursor", "pointer");
 				
 				$("#buyBtnId").on("click", function(){
 					if(loginMemberNo != ''){
@@ -71,7 +71,7 @@ for (let j = 0; j < list.length; j++) {
 	
 			}else{
 				$("#registerBtn").text("신청마감");
-				$("#registerBtn").parent().css("background-color", "#ff5f3f");
+				$("#registerBtn").parent().css("background-color", "rgb(215 215 215)").css("cursor", "default");
 				$("#buyBtnId").off("click");
 				
 			}

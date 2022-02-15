@@ -13,7 +13,7 @@
 }
 
 .chat_info {
-    background: #f8f8f8;
+    background:#FFDF3E;
     padding: 10px;
     box-shadow: 2px 0 5px grey;
 }
@@ -92,13 +92,13 @@
     padding-left: 0;
 }
 .chat_romm_list li{
-    flex-basis:5rem; /*16 브라우저 기준 80px */
+    /* flex-basis: 5rem; */
     flex-shrink: 0;
-    margin: 0px;
+    margin: 9px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     border-bottom: 1px solid rgb(224, 224, 224);
+    align-items: flex-start;
 }
 .chat_romm_list li > a{
     /* 안에 또 다른 flex box 생성 */
@@ -114,7 +114,7 @@
     color: black;
 }
 .profile-img{
-    width: 1.7rem;
+    width: 59px;
     border-radius: 7px;
 }
 .chat_romm_list li .talk{
@@ -130,15 +130,22 @@
 .friend-name{
     /* 프로필명(이름) 스타일 조정 */
     font-weight: bold;
-    font-size: 0.875rem; /* 16 브라우저 기준 14px */
 }
 .chat-content{
     /* 메시지(채팅) 내용 스타일 조정 */
     color: gray;
     font-size: 0.75rem; /* 16 브라우저 기준 12px */
-
     
+}
 
+.chat-content a{
+	color: white;
+    border-radius: 16px;
+    background: #bb3401;
+    text-decoration: none;
+    padding: 6px 11px;
+    display: inline-block;
+    font-weight: 500;
 }
 .member_cnt{
     /* 그룹 채팅방 경우, 인원 수 표시 */

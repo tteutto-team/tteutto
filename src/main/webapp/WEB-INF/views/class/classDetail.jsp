@@ -287,7 +287,7 @@
 	                            <ul class="list-date">
 	                            	<c:forEach var="eps" items="${cdtr.epSchedule}" varStatus="vs">
 	                            		<c:if test="${eps.possibleFl == 1}">
-		                                	<li>
+		                                	<li data-class_text="${eps.epCount}회차 - ${eps.epPrice} 원 ( ${eps.registerStudentCnt} / ${cdtr.cdt.classMaxPerson} )">
 		                                		<button type="button">
 		                                			<span>${eps.epCount}회차</span> - <span><fmt:formatNumber value="${eps.epPrice}" groupingUsed="true" /></span>원
 		                                			<span style="display:none">${eps.schdlDt} (${eps.schdlWeek}) ${eps.schdlStartTime} ~ ${eps.schdlEndTime}</span>
@@ -411,10 +411,16 @@
             <!-- 내용1 : 강의소개 -->
             <div id="section1" class="scroll"></div>
             <div class="section1"  data-aos="fade-up">
-                <div class="introClass" style="margin-top: 100px;"> 
-                    <p  >간단한 클래스 소개</p> 
+                <!-- <div class="introClass" style="margin-top: 100px;">  -->
+                <div style="margin-top: 100px;"> 
+                   <!--  <p  >간단한 클래스 소개</p>  -->
+                   <c:if test="${!empty cdt.classIntro}">
+                   		<div id="summernote"></div>
+                   		${cdt.classIntro }
+                   </c:if>
                 </div>
-                <div> 
+                   
+ <%--                <div> 
                     <p class="subTitle">입문자분들을 위한 꿀조합 클래스입니다 :)</p>
                 </div>
                 <div>
@@ -447,11 +453,11 @@
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div> --%>
 
                 <!-- 지도부분 -->
                     
-                <div class="introClass"> 
+                <div class="introClass" style="margin-top: 80px;"> 
                     <p data-aos="fade-up">클래스 장소</p> 
                 </div>
                 <div data-aos="fade-up"> 
@@ -1050,5 +1056,9 @@
 		  document.execCommand("copy");
 		  document.body.removeChild(dummy);
 		}
+ 	  
+ 	  
+ 	  // 썸머노트 불러오기
+ 	  //$('#summernote').html(opener.document.getElementById('summernote').value);
  
     </script>
