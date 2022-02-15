@@ -36,7 +36,7 @@ import edu.kh.tteutto.member.model.service.MemberService;
 import edu.kh.tteutto.member.model.vo.Member;
 
 @Controller
-@SessionAttributes({ "loginMember"})
+@SessionAttributes({ "loginMember", "openClass", "openCount"})
 @RequestMapping(value="register/*")
 public class RegisterController {
 	
