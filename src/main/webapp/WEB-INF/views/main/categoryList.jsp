@@ -91,7 +91,6 @@
 						</div>
 					</form>
                 </div>
-
                 <div class="list-wrap">
             		
             		<c:forEach items="${classList}" var="classList">
@@ -99,8 +98,8 @@
 	                    <div class="class">
 	                        <div class="image">
 	                        	<%-- 클래스 이미지 --%>
-	                            <img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
-	                            onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeNo}'">
+	                           <img src="${contextPath}/resources/images/class-detail/${classList.thumbnailImageName}" 
+	                            onclick="location.href='/tteutto/class/classDetail?classNo=${classList.classNo}&epCount=${classList.episodeCount}'">
 	                            
 	                            <%-- 수업 등록 지역 --%>
 	                            <p class="location-p">${classList.classArea}</p>
@@ -129,7 +128,7 @@
 								<div class="class-name">
 									<c:choose>
 										<c:when test="${classList.classType == 0}">[원데이] </c:when>
-										<c:otherwise>[${classList.episodeNo}회차] </c:otherwise>
+										<c:otherwise>[${classList.episodeCount}회차] </c:otherwise>
 									</c:choose>
 									${classList.className}
 								</div>
@@ -192,8 +191,61 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="${contextPath}/resources/js/vworld.js"></script>
 <script>
 	$(".left > .list > div:nth-of-type(4)").addClass("selected");
+
+	const btn = document.querySelectorAll('.btn-select');
+	const list = document.querySelectorAll('.list-member');
+	
+	<%-- 옵션 버튼 클릭 시 드롭다운 열고 닫기 --%>
+	for (let i = 0; i < btn.length; i++) {
+		btn[i].addEventListener('click', () => {
+			
+			if (btn[i].classList.contains('on')) { <%-- 열린 상태 --%>
+			    btn[i].classList.remove('on');
+				
+			} else { <%-- 닫힌 상태 --%>
+				for (b of btn)
+					b.classList.remove("on");
+	
+			    btn[i].classList.add('on');
+			}
+		});
+	}
+	
+	<%-- 옵션 버튼 + 옵션 리스트 외 나머지 클릭 시 드롭다운 닫기 --%>
+	window.addEventListener("click", function(e) {
+		let flag = true;
+	
+		const nodeList = document.querySelectorAll(".btn-select, .list-member, .list-member > li");
+	
+		for (node of nodeList) {
+			if (e.target == node) {
+				flag = false;
+				break;
+			}
+		} 
+	
+		if (flag) {
+			for (b of btn)
+				b.classList.remove("on");
+		}
+	});	
+	<%-- 옵션 리스트 클릭 시 버튼 텍스트 변경 및 드롭다운 닫기 --%>
+	for (let j = 0; j < list.length; j++) {
+		list[j].addEventListener('click', (event) => {
+		    if (event.target.nodeName === "BUTTON") {
+		        btn[j].innerText = event.target.innerText;
+		        $(btn[j]).prev().val(event.target.innerText);
+		        btn[j].classList.remove('on');
+		        
+		        <%-- input type='hidden'은 value가 변해도 change 이벤트가 발생하지 않기 때문에 강제 발생 --%>
+		        $(btn[j]).prev().change();
+		    }
+		});
+	}	
 	
 	<%-- 클래스 카드 찜하기 버튼 기능 및 색상 변경 --%>
 	$('.btn_like').click(function() {
@@ -227,5 +279,150 @@
 			}) 
 		
 		} else alert("로그인 후 이용 가능합니다.");
+	});
+	
+	<%-- 클래스 목록 옵션 변경 --%>
+	$('[name=optionForm] input, [name=optionForm] select').on("change", function() {
+		const formData = new FormData($('[name=optionForm]')[0]);
+		formData.append("search", "${param.search}");
+		formData.append("sido", $("#sido_code > option:selected").text());
+		formData.append("sigoon", $("#sigoon_code > option:selected").text());
+		formData.append("type", "${type}");
+		formData.append("ctNo", "${param.ctNo}");
+		
+		
+		$.ajax({
+			url : "${contextPath}/main/changeOption", 
+			data : formData, 
+			type : "post",
+			dataType : "json", 
+		 	contentType: false,
+		 	processData: false,
+		 	success : function(result) {
+		 		console.log(result)
+		 		
+		 		$(".list-wrap > .class").remove(); <%-- 기존 클래스 카드 삭제 --%>
+		 		
+		 		for (let classList of result.classList) {
+		 			<%-- 클래스 카드 --%>
+			 		const classCard = $('<div class="class">');
+			 		
+			 		const imgDiv = $('<div class="image">');
+			 		
+			 		<%-- 클래스 이미지 --%>
+			 		const img = $('<img>');
+			 		img.attr("src", "${contextPath}/resources/images/class-detail/" + classList.thumbnailImageName);
+			 		img.attr("onclick", "location.href='/tteutto/class/classDetail?classNo=" + classList.classNo 
+			 							+ "&epCount=" + classList.episodeCount + "'");
+			 		
+			 		<%-- 수업 등록 지역 --%>
+			 		const locationP = $('<p class="location-p">').text(classList.classArea);
+			 		
+					imgDiv.append(img, locationP);
+					classCard.append(imgDiv);
+			 		
+					<%-- 클래스 찜하기 버튼 --%>
+					let btnLike;
+					let imgEmoti;
+					let aniHeartM;
+					
+					<%-- 찜 X --%>
+					if (classList.heartFlag == 0) {
+						btnLike = $('<button type="button" class="btn_like">').attr('id',classList.classNo);
+						imgEmoti = $('<span class="img_emoti">').text('좋아요');
+						aniHeartM = $('<span class="ani_heart_m">');
+					
+					<%-- 찜 O --%>
+					} else {
+						btnLike = $('<button type="button" class="btn_like btn_unlike">').attr('id',classList.classNo);
+						imgEmoti = $('<span class="img_emoti">').text('좋아요');
+						aniHeartM = $('<span class="ani_heart_m hi">');
+					}
+					
+					btnLike.append(imgEmoti, aniHeartM);
+					
+					<%-- 클래스 찜하기 버튼 이벤트 --%>
+					$(btnLike).click(function() {
+						const classNo = this.getAttribute("id");
+						
+						if ("${loginMember}" != "") {
+							const heartBtn = this;
+							
+							$.ajax({
+								url : "${contextPath}/member/changeHeart", 
+								data : {"classNo" : classNo}, 
+								success : function(result) {
+									if (result > 0) {
+									    if ($(heartBtn).hasClass('btn_unlike')) {
+									        $(heartBtn).removeClass('btn_unlike');
+									        $(heartBtn).children('span:eq(1)').removeClass('hi');
+									        $(heartBtn).children('span:eq(1)').addClass('bye');
+									        
+									    } else {
+									        $(heartBtn).addClass('btn_unlike');
+									        $(heartBtn).children('span:eq(1)').removeClass('bye');
+									        $(heartBtn).children('span:eq(1)').addClass('hi');
+									    }
+									}
+								}
+							}) 
+						
+						} else alert("로그인 후 이용 가능합니다.");
+					});
+					
+					classCard.append(btnLike);
+					
+					const detailInfo = $('<div class="detail-info">');
+					
+					<%-- 카테고리명 --%>
+					const category = $('<span class="category-name">').text(classList.categoryName);
+					detailInfo.append(category);
+					
+					<%-- 클래스명 --%>
+					const className = $('<div class="class-name">')
+					
+					if (classList.classType == 0)
+						className.text("[원데이] " + classList.className);
+					else
+						className.text("["+ classList.episodeCount + "회차] " + classList.className)
+						
+					detailInfo.append(className);
+					
+					<%-- 별점, 찜 개수 --%>
+					const grade = $('<div class="grade">');
+					const starI = $('<i class="fi-rr-star">');
+					const star = $('<span>').text(classList.starAverage.toFixed(1));
+					
+					const heartI = $('<i class="fi-rr-heart">'); 
+					const heart = $('<span>').text(classList.heartCount);
+					
+					grade.append(starI, star, heartI, heart);
+					starI.after(" "); star.after(" "); heartI.after(" "); heart.after(" ");
+					
+					detailInfo.append(grade);
+					
+					const detailInfoBottom = $('<div class="detail-info-bottom">');
+					
+					<%-- 강사 프로필 이미지 --%>
+					const teacherImg = $('<img src="${contextPath}/resources/images/teacher/profile/' + classList.teacherImage + '">');
+					
+					<%-- 강사명 --%>
+					const teacherName = $('<span class="teacher-name">').text(classList.memberName);
+					
+					<%-- 수업료 --%>
+					const classPrice = $('<span class="class-price">').text(classList.episodePrice.toLocaleString('ko-KR') + "원")
+					
+					detailInfoBottom.append(teacherImg,teacherName,classPrice);
+					teacherImg.after(" "); teacherName.after(" "); classPrice.after(" ");
+					detailInfo.append(detailInfoBottom);
+					
+					classCard.append(detailInfo);
+					
+					<%-- 화면에 클래스 카드 추가 --%>
+					$(".list-wrap").append(classCard);
+					classCard.after(" ");
+		 		}
+		 	}
+		})
 	});
 </script>
