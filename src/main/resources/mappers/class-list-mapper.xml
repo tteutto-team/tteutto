@@ -123,6 +123,16 @@
 		    LEFT JOIN CLASS_THEME CTH ON(C.CLASS_NO = CTH.CLASS_NO) 
     		LEFT JOIN THEME USING(THEME_NO) 
 		    WHERE TH_IMG_LEVEL = 0 AND MEMBER_ST = 0 
+		    <!-- 클래스 카테고리 목록 -->
+	    	<if test="pageKey == 'category'">
+			    <if test="ctNo != 0">
+		    	    AND CATG_NO = #{ctNo}
+			    	<if test="ctDetailNo != null and ctDetailNo != 0">
+	    				AND CT_DETAIL_NO = #{ctDetailNo}
+			    	</if>
+			    </if>
+		    </if>
+		    
 		    <!-- 클래스 목록 옵션 -->
    		    <if test="optionFlag == 1">
    		    	<!-- 가격대 -->
@@ -190,15 +200,6 @@
 			    </if>
 			</if>
 			<choose>
-				<!-- 클래스 카테고리 목록 -->
-		    	<when test="pageKey == 'category'">
-				    <if test="ctNo != 0">
-			    	    AND CATG_NO = #{ctNo}
-				    	<if test="ctDetailNo != 0">
-		    				AND CT_DETAIL_NO = #{ctDetailNo}
-				    	</if>
-				    </if>
-			    </when>
 			    <!-- 메인 페이지 주변 -->
 			    <when test="pageKey == 'location'">
 			    	<!-- Default : 클래스 등록이 가장 많은 지역 -->

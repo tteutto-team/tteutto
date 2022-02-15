@@ -85,7 +85,9 @@ public class ClassListContoller {
 	@RequestMapping("changeOption")
 	public String changeOption(HttpSession session, String search, Option option, String type, 
 			@RequestParam(value="location", required=false) String location, 
-			@RequestParam(value="page", required=false, defaultValue="1") int page) {
+			@RequestParam(value="page", required=false, defaultValue="1") int page,
+			@RequestParam(value="ctNo", required=false, defaultValue="0" ) int ctNo,
+			@RequestParam(value="ctDetailNo", required=false, defaultValue="0" ) int ctDetailNo) {
 		
 		
 		int memberNo = 0;
@@ -107,11 +109,22 @@ public class ClassListContoller {
 		map.put("memberNo", memberNo);
 		map.put("pageKey", "search");
 		
+		
 		if (!option.getSido().equals("선택")) map.put("classArea1", option.getSido());
 		else map.put("classArea1", "");
 		
 		if (!option.getSigoon().equals("선택")) map.put("classArea2", option.getSigoon());
 		else map.put("classArea2", "");
+		
+		if(ctNo == 0) map.put("ctNo", 0);
+		else {
+			map.put("ctNo", ctNo);
+			map.put("pageKey", "category");
+			if(ctDetailNo != 0) {
+				map.put("ctDetailNo", ctDetailNo);
+				
+			}
+		}
 		
 		System.out.println(map);
 		
