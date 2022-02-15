@@ -1,5 +1,108 @@
+const _btn = document.querySelector('.btn-select');
+const _list = document.querySelectorAll('.list-date > li');
+
+// 회차 선택 select
+if (_btn != null) {
+	_btn.addEventListener("click", () => {
+		_btn.classList.toggle("on");
+	})
+}
+
+
+// 회차 선택
+for (let j=0; j<_list.length; j++) {
+	_list[j].addEventListener("click", (event) => {
+		var _listTags = _list[j].getElementsByTagName('span');
+		
+		// 회차 선택 selected에 들어갈 text
+		let selectedClass = "";
+		
+		// 신청회원 text
+		let _classSelected = "";
+		for (let m=0; m<_listTags.length; m++) {
+			if (_listTags[m].style.display != "none") {
+				selectedClass += _listTags[m].innerHTML;
+			}
+			
+			
+			switch (m) {
+				case 0 :
+					document.getElementById("buyEp").innerText = _listTags[m].innerHTML;
+					break;
+				case 2: 
+					document.getElementById("epPrice").innerText = _listTags[m].innerHTML;
+					document.getElementById("epAmount").innerText = _listTags[m].innerHTML;
+					break;
+				case 4: 
+				document.getElementById("buyClassDate").innerText = _listTags[m].innerHTML;
+				break;
+				case 5: 
+					document.getElementById("epNoSpan").innerText = _listTags[m].innerHTML;
+					break;
+				case 6:
+					_classSelected = _listTags[m].innerHTML;
+					break;
+				default : break;
+			}
+		}
+		
+		_btn.innerHTML = selectedClass;
+		
+		_btn.classList.remove('on');
+		
+		// 신청하기 버튼
+		
+           if(Number(_classSelected.split(/[()/]/g)[1].trim())  < classMaxPerson){
+				
+				$("#registerBtn").text("신청하기");
+				$("#registerBtn").parent().css("background-color", "#FFDF3E").css("cursor", "pointer");
+				
+				$("#buyBtnId").on("click", function(){
+					if(loginMemberNo != ''){
+        	
+		        		if($(".btn-select").text() == '회차를 선택해주세요.'){
+		        			swal({'icon' : 'info',
+					       		  'title' : '회차 선택 후 신청해주세요.'
+					       		  });
+		        		}else{
+		        			
+		        			// 해당클래스의 강사번호와 로그인번호가 같을 경우
+		        			// 본인 클래스이므로 신청 못함
+		        			if(teacherNo == loginMemberNo){
+		        				swal({'icon' : 'info',
+		        		       		  'title' : '본인이 개설한 클래스는 신청할 수 없습니다.'
+		        		       		  });
+		        			}else{
+		        				
+			          		  $(".buyModal").fadeIn();
+		        			}
+		        		
+		        		 
+		        		}
+		        	}else{
+		        		alert("로그인 후 진행해주세요.");
+		        		$(location).attr("href", contextPath + "/member/login");
+		        	}
+					
+					
+				});
+	
+			}else{
+				console.log("end");
+				$("#registerBtn").text("신청마감");
+				$("#registerBtn").parent().css("background-color", "rgb(215 215 215)").css("cursor", "default");
+				$("#buyBtnId").off("click");
+				
+			}
+		
+		
+
+	})
+}
+
+
 /* 원데이클래스 날짜(,시간) 옵션 선택 */
-const btn = document.querySelectorAll('.btn-select');
+/*const btn = document.querySelectorAll('.btn-select');
 const list = document.querySelectorAll('.list-date');
 
 for (let i = 0; i < btn.length; i++) {
@@ -81,7 +184,7 @@ for (let j = 0; j < list.length; j++) {
 
         
    });
-}
+}*/
 
 
 

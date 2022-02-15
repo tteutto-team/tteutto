@@ -287,9 +287,12 @@
 	                            <ul class="list-date">
 	                            	<c:forEach var="eps" items="${cdtr.epSchedule}" varStatus="vs">
 	                            		<c:if test="${eps.possibleFl == 1}">
-		                                	<li data-class_text="${eps.epCount}회차 - ${eps.epPrice} 원 ( ${eps.registerStudentCnt} / ${cdtr.cdt.classMaxPerson} )">
+		                                	<li>
 		                                		<button type="button">
-		                                			<span>${eps.epCount}회차</span> - <span><fmt:formatNumber value="${eps.epPrice}" groupingUsed="true" /></span>원
+		                                			<span>${eps.epCount}회차</span>
+		                                			<span> - </span>
+		                                			<span><fmt:formatNumber value="${eps.epPrice}" groupingUsed="true" /></span>
+		                                			<span>원</span>
 		                                			<span style="display:none">${eps.schdlDt} (${eps.schdlWeek}) ${eps.schdlStartTime} ~ ${eps.schdlEndTime}</span>
 		                                			<span style="display:none">${eps.epNo}</span>
 		                                			<span>( ${eps.registerStudentCnt} / ${cdtr.cdt.classMaxPerson} )</span>
@@ -384,7 +387,6 @@
 
         <!-- 클래스 내용 -->
         <div class="classContainer" >
-            
             <div class="classDetailContainer">
             <div class="wrapperImg">
                 <img class="classMainImage" src="${contextPath}/resources/images/class-detail/${thumImgList[0].thImgNm}" id="mainImg">
@@ -417,7 +419,7 @@
                    <c:if test="${!empty cdt.classIntro}">
                    		<div id="summernote"></div>
                    		${cdt.classIntro }
-                   </c:if>
+                   </c:if> 
                 </div>
                    
  <%--                <div> 
@@ -469,6 +471,7 @@
             </div>
 
             <!-- 내용2 : 강사소개 -->
+            
             <div id="section2"  class="scroll"></div>
             <div class="section2" >
                 <div class="teacherProfile" data-aos="flip-up">
@@ -477,28 +480,30 @@
                         클래스 강사 <br> '
                         <span id="teacherNickname">${tIntro.memberNm}</span>
                         ' 입니다. <br>
-                        <c:forEach items="${snsList}" var="sns">
-	                        <c:if test="${sns.snsDiv == 0}">
-		                        <img src="${contextPath}/resources/images/class-detail/instaIcon.png">
-		                        <span id="instaId" data-aos="fade-up">
-		                            <a href="#">${sns.snsLink}</a>
-		                        </span>
-	                        </c:if>
-	                        
-	                        <c:if test="${sns.snsDiv == 1}">
-		                        <img src="${contextPath}/resources/images/class-detail/blogIcon.png">
-		                        <span id="instaId" data-aos="fade-up">
-		                            <a href="#">${sns.snsLink}</a>
-		                        </span>
-	                        </c:if>
-	                        
-	                        <c:if test="${sns.snsDiv == 2}">
-		                        <img src="${contextPath}/resources/images/class-detail/youtubeIcon.png">
-		                        <span id="instaId" data-aos="fade-up">
-		                            <a href="#">${sns.snsLink}</a>
-		                        </span>
-	                        </c:if>
-                        </c:forEach>
+                        <c:if test="${!empty snsList}">
+	                        <c:forEach items="${snsList}" var="sns">
+		                        <c:if test="${sns.snsDiv == 0}">
+			                        <img src="${contextPath}/resources/images/class-detail/instaIcon.png">
+			                        <span id="instaId" data-aos="fade-up">
+			                            <a href="#">${sns.snsLink}</a>
+			                        </span>
+		                        </c:if>
+		                        
+		                        <c:if test="${sns.snsDiv == 1}">
+			                        <img src="${contextPath}/resources/images/class-detail/blogIcon.png">
+			                        <span id="instaId" data-aos="fade-up">
+			                            <a href="#">${sns.snsLink}</a>
+			                        </span>
+		                        </c:if>
+		                        
+		                        <c:if test="${sns.snsDiv == 2}">
+			                        <img src="${contextPath}/resources/images/class-detail/youtubeIcon.png">
+			                        <span id="instaId" data-aos="fade-up">
+			                            <a href="#">${sns.snsLink}</a>
+			                        </span>
+		                        </c:if>
+	                        </c:forEach>
+                        </c:if>
                     </p>
                 </div>
                 <div class="profileText" data-aos="flip-up" >

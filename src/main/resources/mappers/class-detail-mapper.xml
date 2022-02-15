@@ -152,7 +152,9 @@
 		JOIN EPISODE ON CLASS.CLASS_NO = EPISODE.CLASS_NO
 		WHERE CLASS.CLASS_NO = #{classNo}
 		AND CLASS_ST = 2
+		AND EP_ST =2
 		AND EP_COUNT = #{epCount}
+		AND (SELECT MIN(SCHDL_DT) FROM EPISODE JOIN EP_SCHEDULE USING(EP_NO) WHERE EP_COUNT = #{epCount} AND CLASS_NO = #{classNo}) > SYSDATE
 	</select>
 	
 	<!-- 클래스 상세페이지 - 회차 스케쥴 (일정) 선택 -->
@@ -240,7 +242,7 @@
 		select distinct c.class_no,  TEACHER_IMG, TEACHER_INTRO, MEMBER_NM FROM TEACHER T
 		JOIN MEMBER M ON M.MEMBER_NO = T.MEMBER_NO 
 		join class c on c.member_no = m.member_no
-		join sns s on s.member_no = m.member_no
+		left join sns s on s.member_no = m.member_no
 		WHERE class_no = #{classNo}
 	</select>
 	
