@@ -157,7 +157,7 @@ public class RegisterController {
 				
 			}
 			
-			System.out.println(introImg);
+			//System.out.println(introImg);
 		
 
 			// 시군 추가
@@ -217,19 +217,31 @@ public class RegisterController {
 		
 		// 임시저장
 		@RequestMapping("save")
-		public String classSave(HttpSession session, RedirectAttributes ra,
+		public String classSave(HttpSession session, RedirectAttributes ra, List<MultipartFile> images,
 								String classArea1, String classArea2, ClassDetail cdt, 
 								HttpServletRequest req, HttpServletResponse resp, String marketing,
 								int sidoVal, int sigoonVal) {
 			String area = classArea1 + " " + classArea2;
 			cdt.setClassArea(area);
 			
+			
+			for(int i=0; i<images.size(); i++) {
+				if(!images.get(i).getOriginalFilename().equals("")) {
+					
+					ClassDetailImage img = new ClassDetailImage();
+					
+					//System.out.println(images.get(i).getOriginalFilename());
+					img.setThImgNm(Util.fileRename(images.get(i).getOriginalFilename()));
+					//System.out.println(img);
+				}
+			}
+			
 			session.setAttribute("mark", marketing);
 			session.setAttribute("tempClass", cdt);
 			session.setAttribute("sidoVal", sidoVal);
 			session.setAttribute("sigoonVal", sigoonVal);
 			
-			ra.addFlashAttribute("message", "임시저장이 완료되었습니다.");
+			Util.swalSetMessage("임시저장완료", null, "success", ra);
 			
 			return "redirect:/";
 		}
@@ -261,7 +273,7 @@ public class RegisterController {
 			session.setAttribute("saveDate", saveDate);
 			
 			
-			ra.addFlashAttribute("message", "임시저장이 완료되었습니다.");
+			Util.swalSetMessage("임시저장완료", null, "success", ra);
 			
 			return "redirect:/";
 		}
@@ -270,7 +282,7 @@ public class RegisterController {
 		// 클래스 스케쥴 등록
 		@RequestMapping(value="schedule", method=RequestMethod.POST)
 		public String insertClassSchedule(RedirectAttributes ra,
-										  HttpSession session,
+										  HttpSession session, 
 										  Episode episode, EpisodeSchedule episodeSd, String roadAddrPart1, 
 										  String addrDetail ) {
 			
@@ -388,7 +400,7 @@ public class RegisterController {
 				session.removeAttribute("openClass");
 				session.removeAttribute("openCount");
 				
-				System.out.println(session.getAttribute("loginMember"));
+				//System.out.println(session.getAttribute("loginMember"));
 				
 			}else {
 				Util.swalSetMessage("클래스 스케줄 등록 실패", "관리자에게 문의해주세요", "error", ra);
@@ -412,7 +424,7 @@ public class RegisterController {
 			 * int classNo = (int)session.getAttribute("classNo");
 			 * System.out.println(classNo);
 			 */
-			System.out.println(file);
+			//System.out.println(file);
 			
 			String webPath = "/resources/images/class/"; // (DB에 저장되는 경로)
 		      

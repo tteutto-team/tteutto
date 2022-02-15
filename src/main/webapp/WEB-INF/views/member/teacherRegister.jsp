@@ -77,18 +77,18 @@
 
 						<div id="input_sns">
 							<p>
-								소셜 미디어<em>(권장사항, 링크는 https:// 로 시작해야 합니다)</em>
+								소셜 미디어<em>(권장사항, 주소나 아이디를 입력해주세요.)</em>
 							</p>
 							<div class="instagram_area sns_area">
-								<input type="url" id="instagram" class="sns_link" name="instagram"
+								<input type="text" id="instagram" class="sns_link" name="instagram"
 									placeholder="인스타그램">
 							</div>
 							<div class="blog_area sns_area">
-								<input type="url" id="blog" class="sns_link" name="blog"
+								<input type="text" id="blog" class="sns_link" name="blog"
 									placeholder="블로그(네이버, 브런치, 티스토리 등) 주소를 입력해 주세요.">
 							</div>
 							<div class="youtube_area sns_area">
-								<input type="url" id="youtube" class="sns_link" name="youtube"
+								<input type="text" id="youtube" class="sns_link" name="youtube"
 									placeholder="유튜브 주소를 입력해 주세요.">
 							</div>
 						</div>
