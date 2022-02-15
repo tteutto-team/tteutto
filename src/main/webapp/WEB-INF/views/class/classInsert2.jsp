@@ -10,7 +10,7 @@
     	<form action="${contextPath}/register/schedule" id="form" name="form" method="post" role="form" onsubmit="return dlc();">
         <div class="fixWidth">
         <div id="register_header">
-            <div>스케쥴 등록</div>
+            <div>스케쥴 등록<input name="classNo" type="hidden" value="${openClass.classNo}"/></div>
             <div><span class="redText">* </span>필수</div> 
         </div>
 
