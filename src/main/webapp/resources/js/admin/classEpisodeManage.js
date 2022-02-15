@@ -38,8 +38,8 @@ function createTable() {
 					{
 						data: null,
 						render: function (data, type, row) {
-							return '<button onclick="agree(' + data.episodeNo + ', ' + data.memberNo + ', \'' + data.className.replaceAll("'", "`") + '-' + data.episodeCount + '\')">승인</button>'
-							+ '<button onclick="deny(' + data.episodeNo + ', ' + data.memberNo + ', \'' + data.className.replaceAll("'", "`") + '-' + data.episodeCount + '\')">거절</button>';
+							return '<button onclick="agree(' + data.episodeNo + ', ' + data.memberNo + ', \'' + data.className.replaceAll("'", "`").replaceAll('\"', '`') + '-' + data.episodeCount + '\')">승인</button>'
+							+ '<button onclick="deny(' + data.episodeNo + ', ' + data.memberNo + ', \'' + data.className.replaceAll("'", "`").replaceAll('\"', '`') + '-' + data.episodeCount + '\')">거절</button>';
 						},
 						orderable: false
 					}
