@@ -483,23 +483,29 @@
                         <c:if test="${!empty snsList}">
 	                        <c:forEach items="${snsList}" var="sns">
 		                        <c:if test="${sns.snsDiv == 0}">
-			                        <img src="${contextPath}/resources/images/class-detail/instaIcon.png">
 			                        <span id="instaId" data-aos="fade-up">
-			                            <a href="#">${sns.snsLink}</a>
+			                            <a href="${sns.snsLink}"  target=”_black”>
+					                        <img style="width: 17px; margin-left: 7px;" src="${contextPath}/resources/images/class-detail/instaIcon.png">
+				                            <span style="font-weight: 400; margin-left: 4px;"> 인스타그램 </span>
+			                            </a>
 			                        </span>
 		                        </c:if>
 		                        
 		                        <c:if test="${sns.snsDiv == 1}">
-			                        <img src="${contextPath}/resources/images/class-detail/blogIcon.png">
 			                        <span id="instaId" data-aos="fade-up">
-			                            <a href="#">${sns.snsLink}</a>
+			                            <a href="${sns.snsLink}"  target=”_black”>
+											<img style="width: 17px;  margin-left: 7px;" src="${contextPath}/resources/images/class-detail/blogIcon.png">
+											<span style="font-weight: 400; margin-left: 4px;"> 블로그 </span>
+										</a>
 			                        </span>
 		                        </c:if>
 		                        
 		                        <c:if test="${sns.snsDiv == 2}">
-			                        <img src="${contextPath}/resources/images/class-detail/youtubeIcon.png">
 			                        <span id="instaId" data-aos="fade-up">
-			                            <a href="#">${sns.snsLink}</a>
+			                            <a href="${sns.snsLink}"  target=”_black”>
+					                        <img style="width: 17px; margin-left: 7px;" src="${contextPath}/resources/images/class-detail/youtubeIcon.png">
+				                            <span style="font-weight: 400; margin-left: 4px;"> 유튜브 </span>
+			                            </a>
 			                        </span>
 		                        </c:if>
 	                        </c:forEach>
