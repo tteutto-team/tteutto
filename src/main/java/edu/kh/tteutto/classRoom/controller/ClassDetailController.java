@@ -86,6 +86,8 @@ public class ClassDetailController {
 		List<ThumnailImg> thumImgList = service.selectThumImg(classNo);
 		
 
+		// 클래스 강의 소개 조회
+		ClassDetail cdt = service.selectClassIntro(classNo);
 		
 		
 		String path = null;
@@ -96,11 +98,12 @@ public class ClassDetailController {
 			model.addAttribute("heartFlag", heartFlag);
 			model.addAttribute("tIntro", tIntro);
 			model.addAttribute("thumImgList", thumImgList);
+			model.addAttribute("cdt", cdt);
 			path = "class/classDetail";
 			
 		}else { // 경로로 검색시
 			
-			Util.swalSetMessage("해당 글이 존재하지 않습니다.", null, "info", ra);
+			Util.swalSetMessage("해당 글이 존재하지 않습니다.", null, "error", ra);
 			path = "redirect:../";  // 메인페이지로 리다이렉트 
 			
 		}

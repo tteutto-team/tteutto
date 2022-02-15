@@ -45,7 +45,7 @@
         <ul>
         	<c:forEach items="${chatNoteList}" var="noteList">
         		<li>
-	                    <img src="${contextPath}/resources/images/chat/messageicon.png" class="profile-img" alt="k페이프로필사진">
+	                    <img src="${contextPath}/resources/images/chat/msgIcon.png" class="profile-img" alt="k페이프로필사진">
 	                    <div class="talk">
 	                        <p class="friend-name">뜨또</p>
 	                        <p class="chat-content">${noteList.noteContent}</p> 

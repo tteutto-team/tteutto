@@ -139,7 +139,14 @@ public class ClassDetailDAO {
 		return sqlSession.insert("classDetailMapper.report", map);
 	}
 
-	/** 강사 sns 조회
+	/** 강의 소개 조회
+	 * @param classNo
+	 * @return
+	 */
+	public ClassDetail selectClassIntro(int classNo) {
+		return sqlSession.selectOne("classDetailMapper.selectClassIntro", classNo);
+	}
+		/** 강사 sns 조회
 	 * @param classNo
 	 * @return snsList
 	 */

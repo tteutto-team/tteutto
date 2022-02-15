@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.kh.tteutto.classRoom.model.dao.ClassDetailDAO;
+import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
 import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
@@ -31,9 +32,9 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 		
 		ClassDetailRight cdtr = dao.selectClassDetail(map);
 		
-		map.put("classType", cdtr.getCdt().getClassType());
 		
 		if( cdtr != null && cdtr.getCdt() != null) {
+			map.put("classType", cdtr.getCdt().getClassType());
 			
 			cdtr.setEpSchedule(dao.selectEpisodeSchedule(map));
 		
@@ -158,6 +159,13 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 	public int reviewCount(int classNo) {
 		return dao.getListCount(classNo);
 	}
+
+	
+	// 강의 소개 조회
+	@Override
+	public ClassDetail selectClassIntro(int classNo) {
+		return dao.selectClassIntro(classNo);
+	}		
 	
 	
 

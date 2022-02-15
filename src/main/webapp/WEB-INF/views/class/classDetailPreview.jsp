@@ -270,8 +270,8 @@
             <div id="section1" class="scroll"></div>
             <div class="section1">
                 <div class="introClass" style="margin-top: 100px;"> 
-                </div>
                    	<div id="summernote"></div>
+                </div>
 			
                 <!-- 지도부분 -->
                     
