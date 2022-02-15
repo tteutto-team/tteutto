@@ -28,7 +28,7 @@ function createTable() {
 					{
 						data: null,
 						render: function (data, type, row) {
-							return '<button onclick="agree(' + data.refundNo + ', \'' + data.className.replaceAll("'", "`") + '-' + data.episodeCount + '\', ' + data.memberNo + ')">승인</button>';
+							return '<button onclick="agree(' + data.refundNo + ', \'' + data.className.replaceAll("'", "`").replaceAll('\"', '`') + '-' + data.episodeCount + '\', ' + data.memberNo + ')">승인</button>';
 						},
 						orderable: false
 					}
