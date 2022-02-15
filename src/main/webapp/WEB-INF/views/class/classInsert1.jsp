@@ -101,7 +101,7 @@
                        	<c:when test="${empty sessionScope.tempClass}">
                    		 	<input type="radio" id="solo-class" name="classPerson" value="1" style="display:none;" required><label for="solo-class"></label>1:1 수업&nbsp;&nbsp;&nbsp;
                     		<input type="radio" id="group-class" name="classPerson" value="0" style="display:none;" required><label for="group-class"></label>그룹수업
-                    		<div id="group-input" style="display: none;"><input id="minPerson" type="number" name="classMinPerson" class="input-style" value="0"> &nbsp명~&nbsp <input id="maxPerson" type="number" name="classMaxPerson" class="input-style" value="0">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
+                    		<div id="group-input" style="display: none;"><input id="minPerson" type="number" name="classMinPerson" class="input-style" value="0"> &nbsp명~&nbsp <input id="maxPerson" type="number" name="classMaxPerson" class="input-style" value="1">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
                     		ex) 일대일 수업을 원하는 경우, 채팅으로 문의 주세요.
                     		</p>
                     		<p id="alertPerson" style="color: red;"></p>
