@@ -56,7 +56,7 @@
                 </div>
                 <!-- http://115.90.212.22:8080
                 	http://kh-aclass.xyz:8080 -->
-                <div class="linkCopy" onclick="copy('http://localhost:8080/${contextPath}/class/classDetail?classNo=${cdtr.cdt.classNo}&epNo=${param.epCount}');">
+                <div class="linkCopy" onclick="copy('http://localhost:8080/${contextPath}/class/classDetail?classNo=${cdtr.cdt.classNo}&epCount=${param.epCount}');">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M14 8a1 1 0 011-1h3a5 5 0 110 10h-3a1 1 0 110-2h3a3 3 0 100-6h-3a1 1 0 01-1-1zm-4 8a1 1 0 01-1 1H6A5 5 0 116 7h3a1 1 0 110 2H6a3 3 0 100 6h3a1 1 0 011 1zm-3-4a1 1 0 011-1h8a1 1 0 110 2H8a1 1 0 01-1-1z" fill="#1B1C1D"></path>
                     </svg>
