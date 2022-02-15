@@ -823,11 +823,11 @@ public class MemberController {
 			int teacherSt = service.teacherSt(loginMember.getMemberNo());
 			//System.out.println(teacherSt);
 			
-			if(teacherSt > 0) { // 강사 신청을 이미 했다면
-				return "member/teacherProfile";
-			}else if(teacherSt == 0){
+			if(teacherSt == 0 || teacherSt == 1) { // 강사 신청을 이미 했다면
 				ra.addFlashAttribute("message", "이미 강사신청을 하였습니다. 관리자의 승인을 기다려주세요.");
-				return "redirect:/";			
+				return "redirect:/";	
+			}else if(teacherSt == 2){
+				return "member/teacherProfile";
 			}else {
 				return "member/teacherRegister";							
 			}
