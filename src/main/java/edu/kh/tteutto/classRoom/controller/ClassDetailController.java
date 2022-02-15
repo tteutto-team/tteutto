@@ -226,17 +226,20 @@ public class ClassDetailController {
 	// 신고하기
 	@RequestMapping(value="report", method=RequestMethod.GET)
 	@ResponseBody
-	public int report(int memberNo, String reportContent, int episodeNo) {
+	public int report(int memberNo, String reportContent, int epCount, int classNo) {
 		
 		reportContent = Util.XSS(reportContent);
 		reportContent = Util.changeNewLine(reportContent);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
+		System.out.println("epCount: " + epCount);
+		
 		map.put("registerNo", 0);
 		map.put("memberNo", memberNo);
 		map.put("reportContent", reportContent);
-		map.put("episodeNo", episodeNo);
+		map.put("episodeCount", epCount);
+		map.put("classNo", classNo);
 		
 		int result = service.report(map);
 		
