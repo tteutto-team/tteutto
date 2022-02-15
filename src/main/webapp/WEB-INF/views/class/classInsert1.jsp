@@ -147,8 +147,9 @@
                 <div class="line1">
                     <div class="div-height"><h4>커버이미지 <span class="redText">*</span></h4></div>
                     <div class="explan" style="color: rgb(124, 124, 124);">
-                        최소 1장 등록,<br>
-                        최대 5장 등록이 가능합니다.<br>
+                        최소 1장 , 최대 5장<br> 
+                        등록이 가능합니다.<br>
+                        커버이미지는 <br>임시저장이 불가능합니다.
                     </div>
                 </div>
                 <div>

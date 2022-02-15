@@ -556,7 +556,7 @@ public class MemberController {
 		
 		Member loginMember = (Member)session.getAttribute("loginMember");
 		
-		System.out.println("로그인 한 회원정보 : "+ loginMember.getMemberNo());
+		//System.out.println("로그인 한 회원정보 : "+ loginMember.getMemberNo());
 		
 		String brith = loginMember.getMemberBirth().substring(0, 10);
 		String[] brithArray = brith.split("-");
@@ -647,10 +647,10 @@ public class MemberController {
 		int memberNo = loginMember.getMemberNo();
 //		int memberNo = 3;
 		
-		System.out.println("강사 프로필 이동: " + memberNo);
+		//System.out.println("강사 프로필 이동: " + memberNo);
 
 		Teacher teacher = service.selectTeacherProfile(memberNo);
-		System.out.println("teacher: " + teacher);
+		//System.out.println("teacher: " + teacher);
 		List<Career> careerList = service.selectTeacherCareer(memberNo);
 		List<Sns> snsList = service.selectTeacherSns(memberNo);
 		
@@ -1006,7 +1006,7 @@ public class MemberController {
 	@ResponseBody
 	public int searchReview(int regNo, int epNo) {
 		int alert = 0; 
-		System.out.println(epNo);
+		//System.out.println(epNo);
 		int result = service.searchReview(regNo);
 		int result2 = service.overDateReview(epNo);
 		System.out.println(result2);

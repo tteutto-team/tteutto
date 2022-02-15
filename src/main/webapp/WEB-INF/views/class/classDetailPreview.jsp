@@ -19,6 +19,16 @@
     <!-- Load with base style -->
     <link rel="stylesheet" href="${contextPath}/resources/css/billboard.css">
     
+    <style>
+    
+		#summernote ul{
+			margin: inherit;
+			padding: inherit;
+			list-style-type: disc;
+		}
+		
+    </style>
+    
     <!-- 클래스 번호 -->
     <input type="hidden" id="class_detail_no" value="${cdtr.cdt.classNo}">
     
