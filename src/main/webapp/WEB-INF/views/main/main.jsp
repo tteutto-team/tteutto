@@ -23,8 +23,9 @@
         <div class="carousel-inner">
         	<c:forEach items="${themeImage}" var="classList" varStatus="vs">
 	            <div class="carousel-item <c:if test="${vs.first}">active</c:if>" style="background: ${classList.themeColor};">
+	              
 	                <img src="${contextPath}/resources/images/main/${classList.themeImage}" 
-	                onclick="location.href='/tteutto/main/themeList?themeNo=${classList.themeNo}'">
+	                	<c:if test="${!vs.last}"> onclick="location.href='/tteutto/main/themeList?themeNo=${classList.themeNo}'"</c:if> >
 	            </div>
             </c:forEach>
         </div>
@@ -432,6 +433,8 @@
         });
     });     
 	    
+    
+    
 </script>
 <c:if test="${!empty sessionScope.email}">
 	<c:remove var="email" scope="session"/>

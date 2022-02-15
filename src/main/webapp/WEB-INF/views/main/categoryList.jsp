@@ -91,6 +91,8 @@
 						</div>
 					</form>
                 </div>
+                
+                
                 <div class="list-wrap">
             		
             		<c:forEach items="${classList}" var="classList">

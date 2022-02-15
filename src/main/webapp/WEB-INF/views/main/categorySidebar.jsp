@@ -84,7 +84,7 @@
 	 })()
 
 	// 카테고리 화면 왼쪽에 작성된 모든 카테고리
-	const categoryList = document.querySelectorAll(".left .list span");
+	const categoryList = document.querySelectorAll(".left .list div");
 	
 	// 카테고리 하나 씩 반복 접근
 	for(let category of categoryList){
