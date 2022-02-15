@@ -118,10 +118,10 @@ public class ClassListContoller {
 		else {
 			map.put("pageKey", "category");
 			map.put("ctNo", ctNo);
-			
-			if (ctDetailNo != 0)
-				map.put("ctDetailNo", ctDetailNo);
 		}
+		map.put("ctDetailNo", ctDetailNo);
+		
+		System.out.println(map);
 		
 		Pagination pagination = service.getPagination(map, page);
 		pagination.setLimit(12);
@@ -129,6 +129,12 @@ public class ClassListContoller {
 		
 		List<ClassList> searchList = service.selectSearchList(pagination, map);
 		Map<String, Object> result = new HashMap<String, Object>();
+		
+		System.out.println(pagination);
+		
+		for(ClassList list : searchList) {
+			System.out.println(list);
+		}
 		
 		result.put("pagination", pagination);
 		result.put("classList", searchList);
