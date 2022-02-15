@@ -70,10 +70,16 @@
 		                        	</c:otherwise>
 		                        </c:choose>
 		                        
-		                        
 		                        <c:choose>
 									<c:when test="${!empty episode.studyStatus}">
-				                        <div class="column"><button class="modal-open-btn delete">삭제</button></div>
+										<c:choose>
+											<c:when test="${episode.deleteStatus != 0 && episode.deleteStatus != 1 && episode.deleteStatus != 2}">
+						                        <div class="column">승인 거절된 클래스입니다.</div>
+											</c:when>
+											<c:otherwise>
+						                        <div class="column"><button class="modal-open-btn delete">삭제</button></div>
+											</c:otherwise>
+										</c:choose>
 									</c:when>
 									<c:otherwise>
 			                        	<div class="column">종료된 클래스입니다.</div>
@@ -105,6 +111,9 @@
 									<c:when test="${episode.deleteStatus == 2}">
 				                        <div class="column">승인 완료</div>
 				                    </c:when>
+				                    <c:otherwise>
+				                    	<div class="column">거절</div>
+				                    </c:otherwise>
 				                </c:choose>
 								
 								
