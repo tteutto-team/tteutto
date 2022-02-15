@@ -163,10 +163,10 @@
          SELECT SEQ_CHAT_ROOM_NO.NEXTVAL FROM DUAL
       </selectKey>
       <if test="studentNo > 0">
-         INSERT INTO CHAT_ROOM VALUES(#{chatRoomNo}, DEFAULT, DEFAULT, DEFAULT, #{studentNo}, #{memberNo})
+         INSERT INTO CHAT_ROOM VALUES(${chatRoomNo}, 0, DEFAULT, DEFAULT, ${studentNo}, ${memberNo})
       </if>
       <if test="teacherNo > 0">
-         INSERT INTO CHAT_ROOM VALUES(#{chatRoomNo}, DEFAULT, DEFAULT, DEFAULT, #{memberNo}, #{teacherNo})
+         INSERT INTO CHAT_ROOM VALUES(${chatRoomNo}, 0, DEFAULT, DEFAULT, ${memberNo}, ${teacherNo})
       </if>
    </insert>
    
@@ -185,12 +185,22 @@
    
    <!-- 채팅알림 -->
    <select id="sendAlarm" resultType="_int">
-      SELECT COUNT(*) FROM CHAT_MESSAGE WHERE OTHER_MEMBER_NO = #{otherMemberNo} AND MSG_ST = 0
+   		<if test="studentNo > 0">
+	      SELECT COUNT(*) FROM CHAT_MESSAGE WHERE OTHER_MEMBER_NO = #{studentNo} AND MSG_ST = 0
+   		</if>
+   		<if test="teacherNo > 0">
+	      SELECT COUNT(*) FROM CHAT_MESSAGE WHERE OTHER_MEMBER_NO = #{teacherNo} AND MSG_ST = 0
+   		</if>
    </select>
    
    <!-- 채팅 알림2 -->
    <select id="sendAlarm2" resultType="_int">
-      SELECT COUNT(*) FROM NOTE WHERE MEMBER_NO = #{otherMemberNo} AND NOTE_ST = 0
+      	<if test="studentNo > 0">
+	      SELECT COUNT(*) FROM NOTE WHERE MEMBER_NO = #{studentNo} AND NOTE_ST = 0
+   		</if>
+   		<if test="teacherNo > 0">
+	      SELECT COUNT(*) FROM NOTE WHERE MEMBER_NO = #{teacherNo} AND NOTE_ST = 0
+   		</if>
    </select>
    
    <!-- 채팅 알람 삭제 -->
@@ -233,11 +243,11 @@
    </select>
    
    <select id="countChatAlarm" resultType="_int">
-   		SELECT COUNT(*) FROM CHAT_MESSAGE WHERE OTHER_MEMBER_NO = #{memberNo}
+   		SELECT COUNT(*) FROM CHAT_MESSAGE WHERE OTHER_MEMBER_NO = #{memberNo} AND MSG_ST = 0
    </select>
    
    <select id="countNoteAlarm" resultType="_int">
-   		SELECT COUNT(*) FROM NOTE WHERE MEMBER_NO = #{memberNo}
+   		SELECT COUNT(*) FROM NOTE WHERE MEMBER_NO = #{memberNo} AND NOTE_ST = 0
    </select>
    
 </mapper>
