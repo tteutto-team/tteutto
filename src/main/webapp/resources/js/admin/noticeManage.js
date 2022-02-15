@@ -11,6 +11,7 @@ function createTable() {
 			$('#table_id').DataTable({
 				language: lang_kor,
 				data: data,
+				displayStart: (sessionStorage.getItem("page")-1)*10,
 				order: [[2, "desc"]],
 				columns: [
 					{ data: "noticeNo" },

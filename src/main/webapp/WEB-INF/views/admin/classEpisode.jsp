@@ -10,39 +10,84 @@
 
 <div id="right">
 	<div>
-		지역 : ${classOne.classArea} <br>
-		수업 형태 : <c:if test="${classOne.classType == 0}">원데이</c:if>
-					<c:if test="${classOne.classType == 1 }">정규</c:if> <br>
-		수업 참여 인원 : ${classOne.classPerson} <br>
-		수업 최소 인원 : ${classOne.classMinPerson} <br>
-		수업 최대 인원 : ${classOne.classMaxPerson} <br>
-		클래스 이름 : ${classOne.className} - ${episodeOne.episodeCount}회차 <br>
-		수업 소개 : ${classOne.classIntro} <br>
-		난이도 : ${classOne.classLevel} <br>
-		카테고리 : ${classOne.categoryName} - ${classOne.categoryDetailName} <br>
-		
-		<c:if test="${!empty classOne.thumbnailImg}">
-			<c:forEach var="img" items="${classOne.thumbnailImg}">
-				${img} <br>
-			</c:forEach>
-		</c:if>
-		
-		가격 : ${episodeOne.episodePrice} <br>
-		장소 : ${episodeOne.episodePlace} <br>
-		
-		<c:if test="${!empty episodeOne.scheduleList}">
-			<c:forEach var="schedule" items="${episodeOne.scheduleList}">
-				수업 날짜 : ${schedule.scheduleDate} <br>
-				수업 요일 : ${schedule.scheduleWeek}요일 <br>
-				수업 시간 : ${schedule.scheduleStartTime} ~ ${schedule.scheduleEndTime} <br>
-				소요 시간 : ${schedule.scheduleTime}시간 <br>
-			</c:forEach>
-		</c:if>		
+		<div class="wrap">
+			<div>클래스 이름</div>
+			<div>${classOne.className}</div>
+		</div>
+		<div class="wrap">
+			<div>지역</div>
+			<div>${classOne.classArea}</div>
+		</div>
+		<div class="wrap">
+			<div>수업 형태</div>
+			<div>
+				<c:if test="${classOne.classType == 0}">원데이</c:if>
+				<c:if test="${classOne.classType == 1 }">정규</c:if>
+			</div>
+		</div>
+		<div class="wrap">
+			<div>수업 참여 인원</div>
+			<div>${classOne.classPerson}</div>
+		</div>
+		<div class="wrap">
+			<div>수업 최소 인원</div>
+			<div>${classOne.classMinPerson}</div>
+		</div>
+		<div class="wrap">
+			<div>수업 최대 인원</div>
+			<div>${classOne.classMaxPerson}</div>
+		</div>
+		<div class="wrap">
+			<div>수업 소개</div>
+			<div>${classOne.classIntro}</div>
+		</div>
+		<div class="wrap">
+			<div>난이도</div>
+			<div>${classOne.classLevel}</div>
+		</div>
+		<div class="wrap">
+			<div>카테고리</div>
+			<div>${classOne.categoryName} - ${classOne.categoryDetailName}</div>
+		</div>
+		<div class="wrap">
+			<div>썸네일 사진</div>
+			<div>
+				<c:if test="${!empty classOne.thumbnailImg}">
+					<c:forEach var="img" items="${classOne.thumbnailImg}">
+						<img class='img' src="${contextPath}/resources/images/class/${img.thumbnailImgName}"> <br>
+					</c:forEach>
+				</c:if>
+			</div>
+		</div>
+		<div class="wrap">
+			<div>가격</div>
+			<div>${episodeOne.episodePrice}</div>
+		</div>
+		<div class="wrap">
+			<div>장소</div>
+			<div>${episodeOne.episodePlace}</div>
+		</div>
+		<div class="wrap">
+			<div>수업 날짜</div>
+			<div>
+				<c:if test="${!empty episodeOne.scheduleList}">
+					<c:forEach var="schedule" items="${episodeOne.scheduleList}">
+						${schedule.scheduleDate} / ${schedule.scheduleWeek}요일 / ${schedule.scheduleStartTime} ~ ${schedule.scheduleEndTime} / ${schedule.scheduleTime}시간 <br>
+					</c:forEach>
+				</c:if>	
+			</div>
+		</div>
 	</div>
 </div>
    
-
-<script>
- 
+<script type="text/javascript">
+	const img = $("img");
+	
+	for(let i=0; i<img.length; i++){
+		if($(img[i]).outerWidth() > "697"){
+			$(img[i]).css("width", "697px");
+		}
+	}
 </script>
+   
 <script src="${contextPath}/resources/js/admin/classManage.js"></script>

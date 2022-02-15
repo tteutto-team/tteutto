@@ -11,6 +11,7 @@ function createTable() {
 			$('#table_id').DataTable({
 				language: lang_kor,
 				data: data,
+				displayStart: (sessionStorage.getItem("page")-1)*10,
 				order: [[3, "asc"]],
 				columns: [
 					{ data: "reportNo" },
@@ -66,7 +67,6 @@ function agree(reportNo,  reportContent, reportTargetNo, reportCount, reportDiv)
 					"reportDiv" : reportDiv
 				},
 				success: function (result) {
-					console.log(result);
 					if (result > 0) {
 
 						if(reportStatus == 2){

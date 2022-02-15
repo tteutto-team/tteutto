@@ -34,9 +34,10 @@ public class ClassRegisterServiceImpl implements ClassRegisterService{
 	@Override
 	public int classInsert(ClassDetail cdt, List<MultipartFile> images, String webPath, String serverPath, List<IntroImg> introImg) {
 		
-		// XSS , 개행문자
-		cdt.setClassIntro(Util.XSS(cdt.getClassIntro()));
-		cdt.setClassIntro(Util.changeNewLine(cdt.getClassIntro()));
+		/*
+		 * // XSS , 개행문자 cdt.setClassIntro(Util.XSS(cdt.getClassIntro()));
+		 * cdt.setClassIntro(Util.changeNewLine(cdt.getClassIntro()));
+		 */
 		
 		int classNo = dao.classInsert(cdt);
 		
@@ -78,15 +79,15 @@ public class ClassRegisterServiceImpl implements ClassRegisterService{
 			}	
 		}
 		
-		System.out.println("introImg : " + introImg);
+		//System.out.println("introImg : " + introImg);
 		
 		// 썸머노트 이미지 DB등록
 		if(!introImg.isEmpty()) {
 			for(IntroImg it : introImg){
 				it.setClassNo(classNo);
-				System.out.println(it);
+				//System.out.println(it);
 				int result3 = dao.InsertIntroImg(it);
-				System.out.println("result : " + result3);
+				//System.out.println("result : " + result3);
 
 			}
 		}
@@ -105,7 +106,7 @@ public class ClassRegisterServiceImpl implements ClassRegisterService{
 		
 		int epNo = dao.insertEpisode(episode);
 		
-		System.out.println(epNo);
+		//System.out.println(epNo);
 		
 		if(epNo > 0) {
 			

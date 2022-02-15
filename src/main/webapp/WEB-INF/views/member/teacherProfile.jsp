@@ -71,22 +71,22 @@
                         <button type="button" class="record_add">+ 이력 추가</button>
 
                         <div id="input_sns">
-                            <p>소셜 미디어<em>(권장사항, 링크는 https:// 로 시작해야 합니다)</em></p>
+                            <p>소셜 미디어<em>(권장사항, 주소나 아이디를 입력해주세요.)</em></p>
 
 							<c:forEach items="${snsList}" var="sns">
-								<c:if test="${sns.snsDiv == 1}">
+								<c:if test="${sns.snsDiv == 0}">
 		                            <div class="instagram_area sns_area">
 		                                <input type="url" name="instagram" id ="instagram"class="sns_link" placeholder="인스타그램" value="${sns.snsLink}">
 		                            </div>
 	                            </c:if>	
 							
-								<c:if test="${sns.snsDiv == 2}">
+								<c:if test="${sns.snsDiv == 1}">
 		                            <div class="blog_area sns_area">
 		                                <input type="url" name="blog" id ="blog"class="sns_link" placeholder="블로그(네이버, 브런치, 티스토리 등) 주소를 입력해 주세요." value="${sns.snsLink}">
 		                            </div>
 	                            </c:if>	
 							
-								<c:if test="${sns.snsDiv == 3}">
+								<c:if test="${sns.snsDiv == 2}">
 		                            <div class="youtube_area sns_area">
 										<input type="url" name="youtube" id ="youtube"class="sns_link" placeholder="유튜브 주소를 입력해 주세요." value="${sns.snsLink}">
 		                            </div>
@@ -107,19 +107,19 @@
 	                        
 	                        <!-- 1개 || 2개만 sns가 등록되어 있을 경우; 입력안된 sns 보여주기 -->
 	                        <c:forEach items="${snsDivList}" var="snsDiv">
-	                        	<c:if test="${snsDiv == 1}">
+	                        	<c:if test="${snsDiv == 0}">
 	                        		<div class="instagram_area sns_area">
                                 		<input type="url" name="instagram" id ="instagram"class="sns_link" placeholder="인스타그램">
 	                            	</div>
 	                        	</c:if>
 	                        	
-	                        	<c:if test="${snsDiv == 2}">
+	                        	<c:if test="${snsDiv == 1}">
 	                        		<div class="blog_area sns_area">
 	                                	<input type="url" name="blog" id ="blog"class="sns_link" placeholder="블로그(네이버, 브런치, 티스토리 등) 주소를 입력해 주세요.">
 	                            	</div>
 	                        	</c:if>
 	                        	
-	                        	<c:if test="${snsDiv == 3}">
+	                        	<c:if test="${snsDiv == 2}">
 		                            <div class="youtube_area sns_area">
 		                                <input type="url" name="youtube" id ="youtube"class="sns_link" placeholder="유튜브 주소를 입력해 주세요.">
 		                            </div>

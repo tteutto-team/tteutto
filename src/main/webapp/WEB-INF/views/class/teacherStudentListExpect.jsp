@@ -38,14 +38,14 @@
 
                 <div class="list">
                     <div onclick="location.href='${contextPath}/member/teacherProfile'">강사 프로필</div>
-                    <div class="selected" onclick="location.href='${contextPath}/teacher/classList'">클래스 목록</div>
+                    <div class="selected" onclick="location.href='${contextPath}/teacher/classList/${loginMember.memberNo}'">클래스 목록</div>
                 </div>
                 <button onclick="location.href='${contextPath}/teacher/classList/${loginMember.memberNo}'">목록으로</button>
             </div>
 
             <div class="right">
             	<div class="right-top">
-	                <p><span id="class-episode-name">${episodeInfo.classNm} - ${episodeInfo.epCount}</span> 학생 목록 <span id="class-status">(교육 예정)</span></p>
+	                <p><span id="class-episode-name">${episodeInfo.classNm} - ${episodeInfo.epCount}</span> 학생 목록 <span id="class-status">(진행 예정)</span></p>
             	</div>
 
                 <div class="table">

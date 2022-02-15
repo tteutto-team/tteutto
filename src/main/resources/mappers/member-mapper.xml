@@ -255,7 +255,7 @@
 	
 	<!-- 강사 sns 삽입 -->
 	<insert id="teacherSnsInsert" parameterType="Sns">
-		INSERT INTO SNS VALUES(SEQ_SNS_NO.NEXTVAL, #{snsLink}, #{memberNo}, #{snsDiv}, '?')
+		INSERT INTO SNS VALUES(SEQ_SNS_NO.NEXTVAL, #{snsLink}, #{memberNo}, #{snsDiv})
 	</insert>
 
 	<!-- 강사 이력 이미지 조회 -->

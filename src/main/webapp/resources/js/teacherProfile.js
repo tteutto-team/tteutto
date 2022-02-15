@@ -55,19 +55,17 @@ $("#save").on("click", function(){
         buttons: true,
         dangerMode: true,
       })
-      .then((willDelete) => {
-        if (willDelete) {
+        .then((willDelete) => {
+            if (willDelete) {
 
-          if(teacherProfileValidate()){
-            $("#signUp").submit()
-                swal("수정되었습니다.", {
-                    icon: "success",
-            });
-          } 
-        } else {
-          swal("취소되었습니다.");
-        }
-      });
+                if(teacherProfileValidate()){
+                    $("#signUp").submit()
+
+                } else {
+                swal("수정이 취소되었습니다.");
+                }
+            }
+        });    
 });
 
 // 강사 정보 수정 유효성 검사 
@@ -78,9 +76,9 @@ function teacherProfileValidate() {
     
     const offset = $('#check').offset();
 
-    if ($("#phone").val().trim().length == 0) {
-        alert("전화번호를 입력해 주세요.");
-        $("#phone").focus();
+    let phonResult = phoneValidate();
+
+    if (!phonResult) {
         return false;
     }
 
@@ -113,6 +111,29 @@ function teacherProfileValidate() {
             }
         }
         return true;    
+    }
+}
+
+
+// 전화번호 글자수 제한 + 유효성 검사
+function phoneValidate(){
+
+    const phone = $("#phone");
+
+    if( phone.val().trim().length == 0 ){
+        alert("전화번호를 입력해 주세요.");
+        phone.focus();
+        return false;
+    }
+    
+    if (/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/.test(phone.val())) {
+        return true;
+    }
+
+    else{ 
+        alert("형식에 맞는 전화번호를 입력해 주세요.");
+        phone.focus();
+        return false;
     }
 }
 

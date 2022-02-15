@@ -11,6 +11,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 import edu.kh.tteutto.classRoom.model.vo.ReviewPagination;
 import edu.kh.tteutto.member.model.vo.Member;
+import edu.kh.tteutto.member.model.vo.Sns;
 import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
 import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
 import edu.kh.tteutto.main.model.vo.ClassList;
@@ -127,6 +128,11 @@ public interface ClassDetailService {
 	 * @return cdt
 	 */
 	ClassDetail selectClassIntro(int classNo);
+	/** 강사 sns 조회
+	 * @param classNo
+	 * @return snsList
+	 */
+	List<Sns> selectTeacherSns(int classNo);
 
 	
 	

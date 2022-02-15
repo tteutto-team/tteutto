@@ -40,7 +40,6 @@ public class NoteWebsocketHandler extends TextWebSocketHandler {
 			// 웹소켓 서버와 통신하는 클라이언트의 정보를 한곳에 모아둠
 			// (웹소켓 통신을 요청한 클라이언트들의 만남의 광장)
 			
-			System.out.println(session.getId() + "연결됨");
 		}
 		
 		
@@ -48,17 +47,8 @@ public class NoteWebsocketHandler extends TextWebSocketHandler {
 		@Override
 		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 			
-			// Payload : 전송된 데이터
-			System.out.println("전달 받은 내용 : " + message.getPayload());
-			
-			// Jackson-databind 의 ObjectMapper 객체
-			// - JSON 문자열의 모든 key 값이 특정 클래스의 필드와 모두 일치하면
-			//   클래스를 이용해 새 객체를 만들고, 
-			//   JSON 문자열을 읽어 같은 필드에 값을 대입함
 			ObjectMapper objectMapper = new ObjectMapper();
 			ChatNote cm = objectMapper.readValue(message.getPayload(), ChatNote.class);
-			
-			System.out.println("변경된 cm : " + cm);
 			
 			int result = 0;
 			

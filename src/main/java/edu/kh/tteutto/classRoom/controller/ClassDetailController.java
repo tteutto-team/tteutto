@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 import edu.kh.tteutto.common.Util;
 import edu.kh.tteutto.main.model.vo.ClassList;
 import edu.kh.tteutto.member.model.vo.Member;
+import edu.kh.tteutto.member.model.vo.Sns;
 import edu.kh.tteutto.classRoom.model.service.ClassDetailService;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetail;
 import edu.kh.tteutto.classRoom.model.vo.ClassDetailRight;
@@ -76,6 +77,10 @@ public class ClassDetailController {
 		// 클래스 강사 조회
 		TeacherIntro tIntro = service.selectTeacher(classNo);
 		
+		// 클래스 강사 sns 조회
+		List<Sns> snsList = service.selectTeacherSns(classNo);
+		
+		model.addAttribute("snsList", snsList);
 		
 		// 클래스 썸네일 이미지 조회
 		List<ThumnailImg> thumImgList = service.selectThumImg(classNo);

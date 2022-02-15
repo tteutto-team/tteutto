@@ -51,8 +51,6 @@ public class chatNoteController {
 		
 		int result = 0;
 		
-		System.out.println(member.getMemberNo());
-		
 		if(member != null) {
 			int memberNo = member.getMemberNo();
 			

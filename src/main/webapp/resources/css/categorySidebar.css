@@ -1,3 +1,7 @@
+main{
+	min-height : 1263px;
+}
+
 /* 왼쪽 */
 .left{
     border-radius: 10px;
@@ -52,6 +56,13 @@
     font-size: 16px;
     padding-left: 20px;
 }
+
+
+.left li span:hover{
+	background-color: rgb(255, 223, 62);
+}
+
+
 
 .selected{
     border-radius: 4px;

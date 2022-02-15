@@ -187,6 +187,8 @@ public class adminController {
 			int result = service.classStatusUpdate(classNo);
 		}
 		
+		System.out.println(classOne);
+		
 		model.addAttribute("classOne", classOne);
 		
 		return "admin/class";
@@ -548,8 +550,6 @@ public class adminController {
 	public List<AdminCalcRefund> refundList(){
 		
 		List<AdminCalcRefund> data = service.refundList();
-		
-		System.out.println(data);
 		
 		return data;
 	} 
