@@ -54,7 +54,7 @@
 			<div>
 				<c:if test="${!empty classOne.thumbnailImg}">
 					<c:forEach var="img" items="${classOne.thumbnailImg}">
-						<img class='img' src="${contextPath}/resources/images/class/${img.thumbnailImgName}"> <br>
+						<img class='img' src="${contextPath}/resources/images/class-detail/${img.thumbnailImgName}"> <br>
 					</c:forEach>
 				</c:if>
 			</div>
