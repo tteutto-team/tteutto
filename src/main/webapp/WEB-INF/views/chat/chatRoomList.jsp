@@ -62,7 +62,7 @@
 				            <li>
 				                <a class="aaa" href="${contextPath}/chat/chatRoom?chatRoomNo=${chatRoom.chatRoomNo}&mode=">
 				                    
-				                    <img src="${contextPath}/resources/images/teacher/${chatRoom.memberImg }" class="profile-img" alt="k페이프로필사진">
+				                    <img src="${contextPath}/resources/images/teacher/profile/${chatRoom.memberImg }" class="profile-img" alt="k페이프로필사진">
 				                    <div class="talk">
 				                    <c:choose>
 				                    	<c:when test="${param.mode ==1}">
