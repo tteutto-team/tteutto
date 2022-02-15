@@ -34,7 +34,8 @@
 		    JOIN TEACHER USING(MEMBER_NO) 
 		    JOIN MEMBER USING(MEMBER_NO) 
 		    LEFT JOIN CT_DETAIL USING(CT_DETAIL_NO) 
-		    WHERE TH_IMG_LEVEL = 0 AND MEMBER_ST = 0 
+		    JOIN EPISODE EP ON(C.CLASS_NO = EP.CLASS_NO) 
+		    WHERE TH_IMG_LEVEL = 0 AND MEMBER_ST = 0 AND EP_ST = 2 
 		    <choose>
 		    	<!-- 클래스 검색 목록 -->
 		    	<when test="pageKey == 'search'">
@@ -120,19 +121,19 @@
 		    JOIN TEACHER USING(MEMBER_NO) 
 		    JOIN MEMBER USING(MEMBER_NO) 
 		    LEFT JOIN CT_DETAIL USING(CT_DETAIL_NO) 
+		    JOIN EPISODE EP ON(C.CLASS_NO = EP.CLASS_NO) 
 		    LEFT JOIN CLASS_THEME CTH ON(C.CLASS_NO = CTH.CLASS_NO) 
     		LEFT JOIN THEME USING(THEME_NO) 
-		    WHERE TH_IMG_LEVEL = 0 AND MEMBER_ST = 0 
+		    WHERE TH_IMG_LEVEL = 0 AND MEMBER_ST = 0 AND EP_ST = 2 
 		    <!-- 클래스 카테고리 목록 -->
 	    	<if test="pageKey == 'category'">
 			    <if test="ctNo != 0">
 		    	    AND CATG_NO = #{ctNo}
-			    	<if test="ctDetailNo != null and ctDetailNo != 0">
+			    	<if test="ctDetailNo != 0">
 	    				AND CT_DETAIL_NO = #{ctDetailNo}
 			    	</if>
 			    </if>
 		    </if>
-		    
 		    <!-- 클래스 목록 옵션 -->
    		    <if test="optionFlag == 1">
    		    	<!-- 가격대 -->
