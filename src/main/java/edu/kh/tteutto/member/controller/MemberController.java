@@ -287,7 +287,7 @@ public class MemberController {
 
 		
 		int result =service.updateMailTest(map);
-		String url = "http://localhost:8080/tteutto/member/changePw?memberEmail=" +inputEmail+"&certCd="+ temp;
+		String url = "http://kh-aclass.xyz:8443/tteutto/member/changePw?memberEmail=" +inputEmail+"&certCd="+ temp;
 		if (result == 1) {
 			String subject = "뜨또 비밀번호 찾기 입니다.";
 			String content = 

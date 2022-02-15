@@ -190,13 +190,17 @@
 	</select>
 	
 	<!-- 클래스 신청 여부 조회  -->
-	<select id="selectRegisterDt" resultType="string" >
-		SELECT TO_CHAR(SCHDL_DT, 'YYYY-MM-DD ' ) ||  SCHDL_START_TIME SCHDL_DT FROM CLASS 
-		JOIN EPISODE USING(CLASS_NO)
-		JOIN EP_SCHEDULE USING(EP_NO)
-		JOIN REGISTER R USING(EP_NO)
-		WHERE CLASS_NO = ${classNo}
-		AND R.MEMBER_NO = ${memberNo}
+	<select id="selectRegisterDt" resultType="string" >		
+		SELECT (TO_CHAR( SCHDL_DT, 'YYYY-MM-DD ' ) ||  SCHDL_START_TIME) SCHDL_DT 
+		FROM (
+			SELECT CLASS_NO, MIN(SCHDL_DT) SCHDL_DT, SCHDL_START_TIME
+			FROM CLASS 
+			LEFT JOIN EPISODE USING(CLASS_NO)
+			LEFT JOIN EP_SCHEDULE USING(EP_NO)
+			LEFT JOIN REGISTER R USING(EP_NO)
+			WHERE CLASS_NO = ${classNo}
+			AND R.MEMBER_NO = ${memberNo}
+	        GROUP BY CLASS_NO, SCHDL_START_TIME)
 	</select>
 	
 	<!-- 클래스 후기 평점 조회 -->
