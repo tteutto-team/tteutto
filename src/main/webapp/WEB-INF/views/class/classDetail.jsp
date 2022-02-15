@@ -471,12 +471,28 @@
                         클래스 강사 <br> '
                         <span id="teacherNickname">${tIntro.memberNm}</span>
                         ' 입니다. <br>
-                        <c:if test="${!empty tIntro.snsLink}">
-	                        <img src="${contextPath}/resources/images/class-detail/instaIcon.png">
-	                        <span id="instaId" data-aos="fade-up">
-	                            <a href="#">${tIntro.snsLink}</a>
-	                        </span>
-                        </c:if>
+                        <c:forEach items="${snsList}" var="sns">
+	                        <c:if test="${sns.snsDiv == 0}">
+		                        <img src="${contextPath}/resources/images/class-detail/instaIcon.png">
+		                        <span id="instaId" data-aos="fade-up">
+		                            <a href="#">${sns.snsLink}</a>
+		                        </span>
+	                        </c:if>
+	                        
+	                        <c:if test="${sns.snsDiv == 1}">
+		                        <img src="${contextPath}/resources/images/class-detail/blogIcon.png">
+		                        <span id="instaId" data-aos="fade-up">
+		                            <a href="#">${sns.snsLink}</a>
+		                        </span>
+	                        </c:if>
+	                        
+	                        <c:if test="${sns.snsDiv == 2}">
+		                        <img src="${contextPath}/resources/images/class-detail/youtubeIcon.png">
+		                        <span id="instaId" data-aos="fade-up">
+		                            <a href="#">${sns.snsLink}</a>
+		                        </span>
+	                        </c:if>
+                        </c:forEach>
                     </p>
                 </div>
                 <div class="profileText" data-aos="flip-up" >

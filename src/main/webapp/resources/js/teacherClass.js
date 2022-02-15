@@ -123,10 +123,10 @@ $("#existing").on("click", function(){
 /* 기존 강좌 열기 클릭시 */
 $(".existing-class-select").on("click", function(){
     const liList = $(".class-no-open");
-    const select = $(".btn-select").text().trim();
-
+    const select = $(".btn-select").attr("id");
+    
     for(let name of liList){
-        if($(name).text().trim() == select){
+        if($(name).attr("id") == select){
             let id = $(name).attr("id");
             location.href = contextPath + "/register/schedule?no="+id;
         }
@@ -145,6 +145,8 @@ btn.addEventListener('click', () => {
 list.addEventListener('click', (event) => {
     if (event.target.nodeName === "BUTTON") {
         btn.innerText = event.target.innerText;
+        $('.btn-select').removeAttr("id");
+        $('.btn-select').attr("id", event.target.id);
         btn.classList.remove('on');
     }
 });

@@ -12,6 +12,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassRegister;
 import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 import edu.kh.tteutto.classRoom.model.vo.ReviewPagination;
 import edu.kh.tteutto.member.model.vo.Member;
+import edu.kh.tteutto.member.model.vo.Sns;
 import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
 import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
 import edu.kh.tteutto.common.Util;
@@ -102,10 +103,15 @@ public class ClassDetailServiceImpl implements ClassDetailService{
 	// 강사 소개 조회
 	@Override
 	public TeacherIntro selectTeacher(int classNo) {
-		
 		return dao.selectTeacher(classNo);
 	}
 
+	// 강사 sns 조회
+	@Override
+	public List<Sns> selectTeacherSns(int classNo) {
+		return dao.selectTeacherSns(classNo);
+	}
+	
 	//클래스 썸네일 이미지 조회
 	@Override
 	public List<ThumnailImg> selectThumImg(int classNo) {

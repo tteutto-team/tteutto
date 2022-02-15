@@ -16,6 +16,7 @@ import edu.kh.tteutto.classRoom.model.vo.ClassReview;
 import edu.kh.tteutto.classRoom.model.vo.EpisodeSchedule;
 import edu.kh.tteutto.classRoom.model.vo.ReviewPagination;
 import edu.kh.tteutto.member.model.vo.Member;
+import edu.kh.tteutto.member.model.vo.Sns;
 import edu.kh.tteutto.classRoom.model.vo.TeacherIntro;
 import edu.kh.tteutto.classRoom.model.vo.ThumnailImg;
 import edu.kh.tteutto.main.model.vo.ClassList;
@@ -136,6 +137,14 @@ public class ClassDetailDAO {
 	 */
 	public int report(Map<String, Object> map) {
 		return sqlSession.insert("classDetailMapper.report", map);
+	}
+
+	/** 강사 sns 조회
+	 * @param classNo
+	 * @return snsList
+	 */
+	public List<Sns> selectTeacherSns(int classNo) {
+		return sqlSession.selectList("classDetailMapper.selectTeacherSns", classNo);
 	}
 
 	
