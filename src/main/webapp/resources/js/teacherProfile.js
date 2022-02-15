@@ -181,15 +181,21 @@ function goEventPage(){
     
     //url 유효성 검사
     let regex = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-    
+
     for(let sns of snsList){
         //올바른 url이 맞다면 해당 url로 이동
-        if(regex.test($(sns).val())){
-            flag = true;
+
+        if($(sns).val().trim().length != 0){
+            if(regex.test($(sns).val())){
+                flag = true;
+            } else{
+                flag = false;
+                return flag;
+            }
         } else{
-            flag = false;
-            return flag;
+            flag = true;
         }
+
     }
     return flag;
   }

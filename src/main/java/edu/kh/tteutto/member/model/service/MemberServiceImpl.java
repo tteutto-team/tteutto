@@ -245,6 +245,8 @@ public class MemberServiceImpl implements MemberService{
 						result = dao.teacherSnsInsert(sns);
 					}
 				} else {
+					// sns 삭제
+					dao.teacherSnsDelete(teacher.getMemberNo());
 					result = 1;
 				}
 			}
