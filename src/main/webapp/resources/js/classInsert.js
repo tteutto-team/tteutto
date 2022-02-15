@@ -193,7 +193,7 @@ $("#ct1").on("change", function(){
         $("select#ct2").append("<option value='24'>작곡,디제잉</option>");      
         $("select#ct2").append("<option value='25'>댄스</option>");      
     }else{
-        $("select#ct2").append("<option>기타</option>");      
+        $("select#ct2").append("<option value='26'>기타</option>");      
     }
 
 })
