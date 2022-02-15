@@ -34,9 +34,10 @@ public class ClassRegisterServiceImpl implements ClassRegisterService{
 	@Override
 	public int classInsert(ClassDetail cdt, List<MultipartFile> images, String webPath, String serverPath, List<IntroImg> introImg) {
 		
-		// XSS , 개행문자
-		cdt.setClassIntro(Util.XSS(cdt.getClassIntro()));
-		cdt.setClassIntro(Util.changeNewLine(cdt.getClassIntro()));
+		/*
+		 * // XSS , 개행문자 cdt.setClassIntro(Util.XSS(cdt.getClassIntro()));
+		 * cdt.setClassIntro(Util.changeNewLine(cdt.getClassIntro()));
+		 */
 		
 		int classNo = dao.classInsert(cdt);
 		

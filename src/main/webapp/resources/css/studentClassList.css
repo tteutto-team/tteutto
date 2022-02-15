@@ -91,6 +91,11 @@ main{
     border-bottom: 1px solid #ddd;
 }
 
+
+.table a:hover{
+	color: #FFDF3E;
+}
+
 /* 테이블 한 칸 */
 .column{
     flex: 1 1 0;

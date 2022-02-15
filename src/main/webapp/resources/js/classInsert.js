@@ -203,13 +203,14 @@ let leng = 0;
 // 썸머노트
 $(document).ready(function() {
     $('#summernote').summernote({ // summernote를 사용하기 위한 선언
-        height: 400,
+        height: 525,
         width: 750,
-        minHeight: 400,    
-        //placeholder: '작성 예시 <br><br>간단한 클래스 소개'        
+        minHeight: 525,    
+        placeholder: '<p style="font-size:18px; font-weight: 500; color: #bbb;">수업소개 EX)</p><p style="font-size:25px; font-weight: 600;">간단한 클래스 소개</p><p>UX 디자인 입문자분들을 위한 꿀조합 클래스입니다 :)</p ><br><br><p style="font-size:18px; font-weight: 500; color: #bbb;">[Image]</p><br><p>오일파스텔을 쓰기위해서는 어떻게 명암이 들어가는지 아는 것이 중요해요. 기본적인 명암법을 배우고, 오일파스텔을 쓰기 전 특성을 알아볼 거예요. 또 기초를 바탕으로 어떻게 얼굴을 채워넣으면 좋은지 이야기 해볼게요. 그렇게 채색을 시작하면서 서서히 각자의 색으로 완성할 수 있도록 도와드리겠습니다.</p><br><br><p style="font-size:25px; font-weight: 600;">이런분들께 추천합니다</p><p></p><ul style="font-size:14px; font-weight:normal; color:gray;"><li>⦁ UX디자이너가 되기위해 취업준비중인 취준생</li><li>⦁ 타 전공자분들을 위한 UX입문과정</li><li>⦁ UX팀으로 이직을 위한 이직 준비 과정(경력 기술서 만들기!!)</li><li>⦁ UX 디자인 포트폴리오 준비 및 취업 컨설팅이 필요한 대학생</li><li>⦁ 프로토파이/인비전/XD 등 다양한 프로토 타이핑 툴 학습이 필요하신분</li><li>⦁ UX디자인 분석/휴리스틱 분석에 대한 학습이 필요하신분</li><li>⦁ 스타트업을 시작하기 위해 반응형 APP Design이 필요한 분</li></ul>',     
         //focus: true,
         lang: "ko-KR",
-		
+        
+
 		
 		callbacks: {
 			onImageUpload : function(files, editor){
@@ -350,8 +351,12 @@ $("#img-plus-btn").on("click", function(){
 	//document.getElementById("why").setAttribute("src", "hhhhh");
 	//console.log($("#img-file-box > input:last-child"));
 	//console.log(index);
-	$("#img-file-box > input:last-child").val("");
-	$("#img-file-box > input:last-child").click();
+	if(index < 5){
+		$("#img-file-box > input:last-child").val("");
+		$("#img-file-box > input:last-child").click();		
+	}else{
+		alert("이미지는 최대 4장까지 등록이 가능합니다.");
+	}
 })
 
 // 썸네일 이미지 바꾸기
@@ -611,12 +616,19 @@ $("#solo-class").on("click", function(){
 	
 	
 	// 임시저장 카테고리
-	$("#ct1").val(ctNo);
-	$("#ct1").change();
-	setTimeout(function(){
-		$("#ct2").val(ctdNo);
-		$("#ct2").change();
-	}, 200);
+	if($("#ct1").val() != 'base'){
+		$("#ct1").val(ctNo);
+		$("#ct1").change();	
+		
+		if($("#ct2").val() != 'base'){
+			setTimeout(function(){
+				$("#ct2").val(ctdNo);
+				$("#ct2").change();
+			}, 200);
+		}
+	
+	}
+	
   
 }
 

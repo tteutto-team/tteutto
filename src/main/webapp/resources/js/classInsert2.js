@@ -1,4 +1,4 @@
-const date = new Date();
+		const date = new Date();
 
         const arr = ["2022-01-16", "2022-02-02", "2022-02-26", "2022-03-01", "2022-03-23"];
         const dateArr = [];
@@ -11,15 +11,20 @@ const date = new Date();
 
         for(d of arr){
             dateArr.push(new Date(d).getTime());
+            
         }
-
         
+        dateArr.push(date);
+
         $('#mdp-demo').multiDatesPicker({
             adjustRangeToDisabled: true,
             addDisabledDates: dateArr,
+            minDate: 0,
+			maxDate: 730
           
         })
 		
+		/*
 		$(".ui-icon-circle-triangle-e").text(">");
 		$(".ui-icon-circle-triangle-w").text("<");
 
@@ -37,7 +42,7 @@ const date = new Date();
 			$(".ui-icon-circle-triangle-w").text("<");
 			$(".ui-icon-circle-triangle-e").text(">");
 		}	
-		
+		*/
 	
 
         // const startDate = Math.abs(Math.floor((new Date().getTime() - new Date("2022-01-26").getTime())/1000/60/60/24));
@@ -77,6 +82,10 @@ const date = new Date();
                 */
 
                 dateOrder = dateVal[i].substring(6, 10) + "/" + dateVal[i].substring(0, 5);
+                saveDate = dateVal[i].substring(3, 5);
+                
+                $("#multidate").append('<input type="hidden" name="saveDate" value="'+saveDate+'"/>');
+                
 
 				if(checkOne == '(원데이)'){
 	                $('#schedule-table > tbody:last').append('<tr><td class="time-td2">'+num+'회차</td><td class="time-td"><input type="text" class="tdInput" name="schdlDt" value="'+dateOrder+'" readonly></td class="time-td4" ><td><input type="text" class="tdInput" name="schdlWeek" value="'+week2[i]+'" readonly></td><td class="time-td"><select name="schdlStartTime" id="startTime'+num+'" class="time-box"></select></td><td> ~ </td><td class="time-td"><input type="text" id="endTime'+num+'" name="schdlEndTime" class="time-box" value="10:00" readonly/></td></tr>');					
@@ -100,6 +109,10 @@ const date = new Date();
                 $("select#startTime" + num).append("<option value='21'>21:00</option>");
                 $("select#startTime" + num).append("<option value='22'>22:00</option>");
                 $("select#startTime" + num).append("<option value='23'>23:00</option>");
+                
+                // 수업시간이 있으면 불러올때 시간 맞추기
+                const numTime = Number(9) + Number($("#num-time").val()) + ":00"; 
+                $("input[name=schdlEndTime]").val(numTime);
                 
                 // 옵션 endTime 알아서 맞추기
                 $("select#startTime" + num).on("change focus", function(){
@@ -263,10 +276,18 @@ function dlc(){
 
 
 // 날짜 임시저장용
-$("#mdp-demo td > a").each(function(){
-	// text에 배열로 저장된 값을 가져와서 for문으로 넣어주면 된다
-    if($(this).text() == 4){
-        $(this).click();
-        
-    }
-});
+window.onload = function(){
+	let array = loadDate.split(",");	
+
+	for(i=0; i<array.length; i++){
+		$("#mdp-demo td > a").each(function(){
+			// text에 배열로 저장된 값을 가져와서 for문으로 넣어주면 된다
+		    if($(this).text() == array[i]){
+		        $(this).click();
+		    }
+		});
+	}
+	
+    $("#schedule-btn").click();
+}
+

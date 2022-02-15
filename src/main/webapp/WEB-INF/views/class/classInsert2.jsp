@@ -126,6 +126,7 @@
                 <button type="submit" class="btn-click" style="background-color: #3a3424; color: white;" onclick="javascript: form.action='${contextPath}/register/save2';">임시저장</button>
                 <button type="submit" class="btn-click" style="background-color: #FFDF3E;">승인 요청</button>
             </div>
+            <div id="multidate"></div>
         </div>
         </form>
     </section>
@@ -136,6 +137,10 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script src="${contextPath}/resources/js/jquery-ui.multidatespicker.js"></script>
     <script src="${contextPath}/resources/js/classInsert2.js"></script>
+    
+    <script>
+    	const loadDate = "${sessionScope.saveDate}";
+    </script>
     
 </body>
 </html>
