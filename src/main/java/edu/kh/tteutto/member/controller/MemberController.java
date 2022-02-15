@@ -604,6 +604,7 @@ public class MemberController {
 		if(result > 0 ) {	// 성공
 			loginMember.setMemberNm(name);
 			loginMember.setMemberPno(phone);
+			Util.swalSetMessage("수정되었습니다!", "", "success", ra);
 			return "redirect:studentProfile";
 		} else { // 실패
 			Util.swalSetMessage("error", "관리자에게 문의해주세요.", "error", ra);
@@ -783,20 +784,17 @@ public class MemberController {
 		// 이력을 수정했을 경우
 		else {
 			
-//			for(int i=0; i<images.size(); i++) {
-//				System.out.println("images: " + images.get(i).getOriginalFilename());
-//				System.out.println("profileInput: " + profileInput.get(i));
-//			}
-			
 			result = service.teacherProfileUpdate(teacher, phone, snsList, profileInput, images, webPath, serverPath);
 			//System.out.println("수정 result: " + result);
 		}
 		
 		if(result > 0) {
+			loginMember.setMemberPno(phone);
+			Util.swalSetMessage("수정되었습니다!", "", "success", ra);
 			return "redirect:teacherProfile";
 		} else {	// 에러일 경우
 			Util.swalSetMessage("error", "관리자에게 문의해주세요.", "error", ra);		
-			return "error";
+			return "redirect:/";
 		}
 	}
 	

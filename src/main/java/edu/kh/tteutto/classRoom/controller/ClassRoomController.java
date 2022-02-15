@@ -178,10 +178,14 @@ public class ClassRoomController {
 	
 	// 클래스 삭제 ajax
 	@ResponseBody
-	@RequestMapping(value = "deletClass", method = RequestMethod.POST)
+	@RequestMapping(value = "deleteClass", method = RequestMethod.POST)
 	public int deletClass(String epNo) {
 		
+		System.out.println("epNo ? " + epNo);
+		
 		int result = service.deletClass(epNo);
+		
+		System.out.println("result ? " + result );
 		
 		return result;
 	}

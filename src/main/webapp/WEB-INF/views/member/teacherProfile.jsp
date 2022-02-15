@@ -71,7 +71,7 @@
                         <button type="button" class="record_add">+ 이력 추가</button>
 
                         <div id="input_sns">
-                            <p>소셜 미디어<em>(권장사항, 링크는 https:// 로 시작해야 합니다)</em></p>
+                            <p>소셜 미디어<em>(권장사항, 주소나 아이디를 입력해주세요.)</em></p>
 
 							<c:forEach items="${snsList}" var="sns">
 								<c:if test="${sns.snsDiv == 1}">
