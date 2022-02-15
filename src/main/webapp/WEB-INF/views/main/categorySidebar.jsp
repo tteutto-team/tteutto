@@ -70,6 +70,19 @@
 </div>
 
 <script>
+	(function(){
+	    const bigCtList = document.querySelectorAll(".left > .list > ul > li > div");
+	    
+	    
+	    for(let i=0 ; i < bigCtList.length-1 ; i++){
+	       const arr = bigCtList[i].getAttribute("id").split("-");
+	       
+	       if(arr[1] != "${param.ctNo}"){
+	          bigCtList[i].nextElementSibling.style.display = "none";
+	       }
+	    }
+	 })()
+
 	// 카테고리 화면 왼쪽에 작성된 모든 카테고리
 	const categoryList = document.querySelectorAll(".left .list span");
 	
