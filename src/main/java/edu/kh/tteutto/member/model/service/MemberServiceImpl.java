@@ -234,13 +234,18 @@ public class MemberServiceImpl implements MemberService{
 			int result2 = dao.teacherIntroduceUpdate(teacher);
 			
 			if(result2 > 0) {
-				// sns 삭제
-				dao.teacherSnsDelete(teacher.getMemberNo());
 				
-				// sns 삽입
-				for(Sns sns : snsList) {
-					sns.setMemberNo(teacher.getMemberNo());
-					result = dao.teacherSnsInsert(sns);
+				if(snsList.size() != 0) {
+					// sns 삭제
+					dao.teacherSnsDelete(teacher.getMemberNo());
+					
+					// sns 삽입
+					for(Sns sns : snsList) {
+						sns.setMemberNo(teacher.getMemberNo());
+						result = dao.teacherSnsInsert(sns);
+					}
+				} else {
+					result = 1;
 				}
 			}
 		}
