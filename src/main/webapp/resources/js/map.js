@@ -47,7 +47,7 @@ function locationLoadSuccess(pos) {
 };
 
 function locationLoadError(pos) {
-    alert('위치 정보를 가져오는데 실패했습니다.');
+    // alert('위치 정보를 가져오는데 실패했습니다.');
 };
 function getCurrentPosBtn() {
     navigator.geolocation.getCurrentPosition(locationLoadSuccess, locationLoadError);
@@ -76,7 +76,7 @@ geocoder.addressSearch(detail_addr, function (result, status) {
 	
 		 markerArr.setMap(map);
     } else if (status == "ZERO_RESULT") {
-        alert("검색결과가 없습니다.");
+        // alert("검색결과가 없습니다.");
     }
 
 });

@@ -192,18 +192,7 @@
 			    	</otherwise>
 			    </choose>
 		    </if>
-		    <!-- 클래스 목록 옵션 -->
-   		    <if test="optionFlag == 1">
-			    <!-- 정렬 -->
-			    <if test="classSort != ''">
-			    	<choose>
-			    		<when test="classSort == '인기순'">ORDER BY REG_COUNT(C.CLASS_NO) DESC</when>
-			    		<when test="classSort == '별점 높은 순'">ORDER BY STAR_AVG DESC</when>
-			    		<when test="classSort == '찜 많은 순'">ORDER BY HEART_COUNT DESC</when>
-			    		<when test="classSort == '후기 많은 순'">ORDER BY REVIEW_COUNT(C.CLASS_NO) DESC</when>
-			    	</choose>
-			    </if>
-			</if>
+
 			<choose>
 			    <!-- 메인 페이지 주변 -->
 			    <when test="pageKey == 'location'">
@@ -239,6 +228,18 @@
 			    	AND C.CLASS_NO IN (SELECT CLASS_NO FROM CLASS_WISH WHERE MEMBER_NO = ${memberNo})
 			    </when>
 		    </choose>
+		    		    <!-- 클래스 목록 옵션 -->
+   		    <if test="optionFlag == 1">
+			    <!-- 정렬 -->
+			    <if test="classSort != ''">
+			    	<choose>
+			    		<when test="classSort == '인기순'">ORDER BY REG_COUNT(C.CLASS_NO) DESC</when>
+			    		<when test="classSort == '별점 높은 순'">ORDER BY STAR_AVG DESC</when>
+			    		<when test="classSort == '찜 많은 순'">ORDER BY HEART_COUNT DESC</when>
+			    		<when test="classSort == '후기 많은 순'">ORDER BY REVIEW_COUNT(C.CLASS_NO) DESC</when>
+			    	</choose>
+			    </if>
+			</if>
 		) A 
 		WHERE EP_PRICE IS NOT NULL 
 		AND (

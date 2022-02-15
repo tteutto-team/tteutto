@@ -14,7 +14,7 @@
             
         }
         
-        //dateArr.push(date);
+        dateArr.push(date);
 
         $('#mdp-demo').multiDatesPicker({
             adjustRangeToDisabled: true,
