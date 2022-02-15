@@ -103,8 +103,8 @@ public class TeacherDAO {
 	}
 
 	// 클래스 목록 개수 조회
-	public int selectClassListCount(int memberNo) {
-		return sqlSession.selectOne("classMapper.selectClassListCount", memberNo);
+	public List<ClassDetail> selectClassListCount(int memberNo) {
+		return sqlSession.selectList("classMapper.selectClassListCount", memberNo);
 	}
 
 	// 학생 수 조회(수강 예정)

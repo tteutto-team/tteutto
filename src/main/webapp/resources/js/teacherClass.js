@@ -203,9 +203,6 @@ function possibleDeleteClass(epNo){
         success : function(result){
 
             if(result > 0){
-                // $(".delete-request").fadeIn(100);
-                // $(".delete-request").css("display", "flex");
-                
                 swal({
                     title: "정말로 삭제하시겠습니까?",
                     text: "모든 클래스의 정보가 사라집니다. 정말 삭제하시겠습니까? ",
@@ -216,21 +213,27 @@ function possibleDeleteClass(epNo){
                   .then((willDelete) => {
                     if (willDelete) {
 
-                      let deleteResult = deleteClass(epNo);
+                        let deleteResult = deleteClass(epNo);
+                        
+                        if(deleteResult){
 
-                      if(deleteResult > 0){
-                          swal("강의가 삭제되었습니다.", {
-                            icon: "success",
-                          });
-                      } else{
-                          swal({
-                            title: "강의를 삭제하는데 실패하였습니다..",
-                            text: "관리자에게 문의해주세요!",
-                            icon: "error"
-                        });
-                      }
+                            $("#epsode_"+epNo).remove();
 
-                    } else {
+                            swal({
+                                title: "강의가 삭제되었습니다.",
+                                icon: "success"
+                            });
+                        } 
+                        else{
+                            swal({
+                                title: "강의를 삭제하는데 실패하였습니다..",
+                                text: "관리자에게 문의해주세요!",
+                                icon: "error"
+                            });
+                        }
+
+                    } 
+                    else {
                       swal("취소되었습니다.");
                     }
                   });
@@ -253,15 +256,19 @@ function possibleDeleteClass(epNo){
 
 // 클래스 삭제
 function deleteClass(epNo){
+
+    let deleteResult;
+
     $.ajax({
         url: contextPath + "/teacher/deleteClass",
         data : {"epNo" : epNo},
+        async: false,
         type : "POST",
         success : function(result){
             if(result > 0){
-                return 1;
+                deleteResult = true;
             } else{
-                return 0;
+                deleteResult = false;
             }
         },
         error : function(req, status, error){
@@ -269,6 +276,8 @@ function deleteClass(epNo){
             console.log(req.responseText);
         }
     })
+
+    return deleteResult;
 }
 
 

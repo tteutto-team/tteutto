@@ -24,7 +24,8 @@ public class TeacherServiceImpl implements TeacherService{
 	// 클래스 목록 개수 조회
 	@Override
 	public Pagination selectClassListCount(int memberNo, int page) {
-		int count = dao.selectClassListCount(memberNo);
+		List<ClassDetail> list = dao.selectClassListCount(memberNo);
+		int count = list.size();
 		return new Pagination(count, page);
 	}
 	

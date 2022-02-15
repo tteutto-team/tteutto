@@ -150,11 +150,12 @@
 	</insert>
 	
 	<!-- 강사 페이지 - 1회차 클래스 개수  -->
-	<select id="selectClassListCount" resultType="_int">
-		SELECT distinct count(*)
+	<select id="selectClassListCount" resultMap="class_rm">
+		SELECT distinct CLASS_NO, CLASS_NM 
 		FROM CLASS
 		JOIN EPISODE A USING (CLASS_NO)
 		WHERE MEMBER_NO = #{memberNo} AND EP_COUNT = 1
+		order by class_no
 	</select>
 	
 	<!-- 강사 페이지 - 1회차 클래스 조회  -->
@@ -163,6 +164,7 @@
 		FROM CLASS
 		JOIN EPISODE A USING (CLASS_NO)
 		WHERE MEMBER_NO = #{memberNo} AND EP_COUNT = 1
+		order by class_no
 	</select>
 	
 	
