@@ -78,6 +78,10 @@ public class RegisterController {
 							
 							int epCount = service.checkEpCount(cdt.getClassNo());
 							
+							if(epCount > 0) {
+								epCount++;
+							}
+							
 							if(session.getAttribute("openClass") != null) {
 								session.removeAttribute("openClass");
 //								System.out.println("지우");
@@ -161,7 +165,7 @@ public class RegisterController {
 			cdt.setClassArea(area);
 			cdt.setMemberNo(loginMember.getMemberNo());
 			
-			String webPath = "/resources/images/class/"; // (DB에 저장되는 경로)
+			String webPath = "/resources/images/class-detail/"; // (DB에 저장되는 경로)
 			String serverPath = session.getServletContext().getRealPath(webPath);
 
 			int result = service.classInsert(cdt, images, webPath, serverPath, introImg);
@@ -241,7 +245,8 @@ public class RegisterController {
 								 String roadAddrPart1, String addrDetail, 
 								@RequestParam(value="schdlTime", required=false, defaultValue="0") int schdlTime,
 								@RequestParam(value="schdlTime2", required=false, defaultValue="0") int schdlTime2,
-								@RequestParam(value="susuryo", required=false, defaultValue="0") int susuryo
+								@RequestParam(value="susuryo", required=false, defaultValue="0") int susuryo,
+								@RequestParam(value="saveDate", required=false, defaultValue="0") String saveDate 
 								) {
 			
 			session.setAttribute("timePrice", timePrice);
@@ -253,6 +258,7 @@ public class RegisterController {
 			session.setAttribute("schdlTime", schdlTime);
 			session.setAttribute("schdlTime2", schdlTime2);
 			session.setAttribute("susuryo", susuryo);
+			session.setAttribute("saveDate", saveDate);
 			
 			
 			ra.addFlashAttribute("message", "임시저장이 완료되었습니다.");

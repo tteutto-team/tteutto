@@ -390,7 +390,7 @@
 		        order by ep_no) t
 	</select>
 	
-	
+	<!-- 클래스가 존재하는지 -->
 	<select id="classUse" resultType="_int">
 		SELECT COUNT(*) FROM CLASS
 		WHERE CLASS_NO = #{no} AND CLASS_ST = 2

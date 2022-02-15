@@ -118,7 +118,7 @@
             	        		<p id="alertPerson" style="color: red;"></p>
                     		</c:if>
 		                    <c:if test="${sessionScope.tempClass.classPerson != '0'}">
-		                    	<div id="group-input" style="display: none;"><input id="minPerson" type="number" name="classMinPerson" class="input-style" value="0"> &nbsp명~&nbsp <input id="maxPerson" type="number" name="classMaxPerson" class="input-style" value="0">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
+		                    	<div id="group-input" style="display: none;"><input id="minPerson" type="number" name="classMinPerson" class="input-style" value="0"> &nbsp명~&nbsp <input id="maxPerson" type="number" name="classMaxPerson" class="input-style" value="1">&nbsp&nbsp명</div>                    <p class="explan" style="color: rgb(124, 124, 124);">* 그룹수업인데 일대일 수업도 가능한 경우, 수업소개 페이지에 별도로 기재부탁드립니다.<br>
        		             		ex) 일대일 수업을 원하는 경우, 채팅으로 문의 주세요.
             	        		</p>
             	        		<p id="alertPerson" style="color: red;"></p>
@@ -147,8 +147,8 @@
                 <div class="line1">
                     <div class="div-height"><h4>커버이미지 <span class="redText">*</span></h4></div>
                     <div class="explan" style="color: rgb(124, 124, 124);">
-                        최소 1장 이상 등록,<br>
-                        3~10장 등록하시는 것이<br> 좋습니다.
+                        최소 1장 등록,<br>
+                        최대 5장 등록이 가능합니다.<br>
                     </div>
                 </div>
                 <div>
@@ -213,17 +213,19 @@
                             * 강조를 해야 할 내용이 있는 경우 되도록이면 일반 특수문자를 사용해주세요.
                         </div>
                     </div>
-                    <textarea id="summernote" name="classIntro" required>
-                    	
-                    	<p style="font-size:20px; font-weight: 500; color: #bbb;">📝소개 EX)</p>
+                    <textarea id="summernote" name="classIntro" required><c:if test="${!empty sessionScope.tempClass.classIntro}">${sessionScope.tempClass.classIntro}</c:if></textarea>
+                                        	<%-- <c:if test="${empty sessionScope.tempClass.classIntro}">
+                    	<p style="font-size:20px; font-weight: 500; color: #bbb;">소개 EX)</p>
                     	
                     	<p style="font-size:25px; font-weight: 600;">간단한 클래스 소개</p>
                     	<p>입문자분들을 위한 꿀조합 클래스입니다 :)</p>
+                    	
                     	<br>
                     	<img style="width: 500px;" src="${contextPath}/resources/images/class-detail/temp3.jpg">
                     	<br><br>
                     	<p>오일파스텔을 쓰기위해서는 어떻게 명암이 들어가는지 아는 것이 중요해요. 기본적인 명암법을 배우고, 오일파스텔을 쓰기 전 특성을 알아볼 거예요. 또 기초를 바탕으로 어떻게 얼굴을 채워넣으면 좋은지 이야기 해볼게요. 그렇게 채색을 시작하면서 서서히 각자의 색으로 완성할 수 있도록 도와드리겠습니다.</p>
 						<br><br>
+						
 						
                     	<p style="font-size:25px; font-weight: 600;">이런분들께 추천합니다</p>
                     	<ul>
@@ -235,9 +237,7 @@
                     		<li>UX디자인 분석/휴리스틱 분석에 대한 학습이 필요하신분</li>
                     		<li>스타트업을 시작하기 위해 반응형 APP Design이 필요한 분</li>
                     	</ul>
-                    
-                    	<%--  ${sessionScope.tempClass.classIntro} --%>
-                    </textarea>
+                    	</c:if> --%>
                 </div>
             </div>
 <!--             <div id="c-target" class="bottomLine">
@@ -267,10 +267,10 @@
                 <button id="submit_btn" class="btn-click" style="background-color: #FFDF3E;">승인요청</button>
             </div>
             <div id="summerImg"></div>
-            <c:if test="${!empty sidoVal}"><input type="hidden" id="sidoVal" name="sidoVal" value="${sidoVal}"/>;</c:if> 
-            <c:if test="${!empty sigoonVal}"><input type="hidden" id="sigoonVal" name="sigoonVal" value="${sigoonVal}"/>;</c:if> 
-            <c:if test="${empty sidoVal}"><input type="hidden" id="sidoVal" name="sidoVal"/>;</c:if> 
-            <c:if test="${empty sigoonVal}"><input type="hidden" id="sigoonVal" name="sigoonVal"/>;</c:if> 
+            <c:if test="${!empty sidoVal}"><input type="hidden" id="sidoVal" name="sidoVal" value="${sidoVal}"/></c:if> 
+            <c:if test="${!empty sigoonVal}"><input type="hidden" id="sigoonVal" name="sigoonVal" value="${sigoonVal}"/></c:if> 
+            <c:if test="${empty sidoVal}"><input type="hidden" id="sidoVal" name="sidoVal"/></c:if> 
+            <c:if test="${empty sigoonVal}"><input type="hidden" id="sigoonVal" name="sigoonVal"/></c:if> 
             
         </div>
         </form>
