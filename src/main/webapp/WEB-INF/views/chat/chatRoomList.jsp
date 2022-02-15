@@ -61,8 +61,12 @@
 	        				<input type="hidden" value="${chatRoom.chatRoomNo}">
 				            <li>
 				                <a class="aaa" href="${contextPath}/chat/chatRoom?chatRoomNo=${chatRoom.chatRoomNo}&mode=">
-				                    
-				                    <img src="${contextPath}/resources/images/teacher/profile/${chatRoom.memberImg }" class="profile-img" alt="k페이프로필사진">
+				                    <c:if test="${param.mode == 0 }">
+				                    	<img src="${contextPath}/resources/images/teacher/profile/${chatRoom.memberImg }" class="profile-img" alt="k페이프로필사진">
+				                    </c:if>
+				                    <c:if test="${param.mode == 1 }">
+				                    	<img src="${contextPath}/resources/images/profile/${chatRoom.memberImg }" class="profile-img" alt="k페이프로필사진">
+				                    </c:if>
 				                    <div class="talk">
 				                    <c:choose>
 				                    	<c:when test="${param.mode ==1}">
