@@ -286,7 +286,7 @@ public class RegisterController {
 		// 클래스 스케쥴 등록
 		@RequestMapping(value="schedule", method=RequestMethod.POST)
 		public String insertClassSchedule(RedirectAttributes ra,
-										  HttpSession session, int classNo,
+										  int classNo,
 										  Episode episode, EpisodeSchedule episodeSd, String roadAddrPart1, 
 										  String addrDetail ) {
 			
