@@ -129,11 +129,10 @@ $(".location").on("click", function(){
 									
 									// 클래스명 
 									const className = $('<div class="class-name">')
-									
 									if (classList.classType == 0)
 										className.text("[원데이] " + classList.className);
 									else
-										className.text("["+ classList.episodeNo + "회차] " + classList.className)
+										className.text("["+ classList.episodeCount + "회차] " + classList.className)
 										
 									detailInfo.append(className);
 									
