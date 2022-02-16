@@ -68,7 +68,8 @@
    		</ul>
     </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
 	(function(){
 	    const bigCtList = document.querySelectorAll(".left > .list > ul > li > div");
@@ -118,10 +119,18 @@
 		
 		if("${param.ctDetailNo}" != ""){ // 소분류 값이 있는 경우
 			if(arr[0] == "d" && arr[1] == "${param.ctDetailNo}"){
+				
+				const mark = $("<mark>")
+				mark.append($(category).text())
+				$(category).html(mark);
+				
 				category.classList.add("selected")
 			}
 		}else{
 			if(arr[0] == "c" && arr[1] == "${param.ctNo}"){
+				const mark = $("<mark>")
+				mark.append($(category).text())
+				$(category).html(mark);
 				category.classList.add("selected")
 			}
 		}
