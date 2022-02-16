@@ -315,7 +315,8 @@ function calculate(epNo, el){
             if(result > 0){
 
                 let div = $(el).parent();
-                div.append("<div class='column'>요청 완료</div>");
+                $(el).remove();
+                div.append("요청 완료");
 
                 swal("정산 신청이 되었습니다.", {
                     icon: "success",

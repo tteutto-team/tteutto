@@ -132,7 +132,7 @@ function phoneValidate(){
         return false;
     }
     
-    if (/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/.test(phone.val())) {
+    if (/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/.test(phone.val())) {
         return true;
     }
 
