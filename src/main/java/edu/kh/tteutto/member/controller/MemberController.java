@@ -83,7 +83,7 @@ public class MemberController {
 	// 이메일 인증 번호
 	@RequestMapping("sendMail")
 	@ResponseBody
-	public void sendMailTest(String inputEmail) {
+	public Map<String, String> sendMailTest(String inputEmail) {
 
 		String temp = "";
 
@@ -154,8 +154,9 @@ public class MemberController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 		}
-
+		return map;
 	}
 	
 	// 이메일 인증번호 확인

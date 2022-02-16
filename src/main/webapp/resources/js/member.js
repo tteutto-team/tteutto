@@ -240,7 +240,8 @@ $("#check_btn").on("click", function(){
 			url : "sendMail",
 			type : "GET",
 			data : {"inputEmail": inputEmail},
-			success : function(){
+			success : function(result){
+				$("#certify").val(result.temp);
 				var x = setInterval(function(){
 					min = parseInt(time/60);
 					sec = time%60;
