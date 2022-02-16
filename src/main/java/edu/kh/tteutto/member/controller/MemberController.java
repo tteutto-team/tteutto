@@ -83,7 +83,7 @@ public class MemberController {
 	// 이메일 인증 번호
 	@RequestMapping("sendMail")
 	@ResponseBody
-	public Map<String, String> sendMailTest(String inputEmail) {
+	public void sendMailTest(String inputEmail) {
 
 		String temp = "";
 
@@ -154,9 +154,8 @@ public class MemberController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
 		}
-		return map;
+
 	}
 	
 	// 이메일 인증번호 확인
@@ -288,7 +287,7 @@ public class MemberController {
 
 		
 		int result =service.updateMailTest(map);
-		String url = "http://kh-aclass.xyz:8443/tteutto/member/changePw?memberEmail=" +inputEmail+"&certCd="+ temp;
+		String url = "http://kh-aclass.xyz:8080/tteutto/member/changePw?memberEmail=" +inputEmail+"&certCd="+ temp;
 		if (result == 1) {
 			String subject = "뜨또 비밀번호 찾기 입니다.";
 			String content = 
