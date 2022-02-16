@@ -192,7 +192,6 @@
 			    	</otherwise>
 			    </choose>
 		    </if>
-
 			<choose>
 			    <!-- 메인 페이지 주변 -->
 			    <when test="pageKey == 'location'">
@@ -228,7 +227,7 @@
 			    	AND C.CLASS_NO IN (SELECT CLASS_NO FROM CLASS_WISH WHERE MEMBER_NO = ${memberNo})
 			    </when>
 		    </choose>
-		    		    <!-- 클래스 목록 옵션 -->
+		    <!-- 클래스 목록 옵션 -->
    		    <if test="optionFlag == 1">
 			    <!-- 정렬 -->
 			    <if test="classSort != ''">
